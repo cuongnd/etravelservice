@@ -1,0 +1,8 @@
+*.zip
+*.gz
+*.bz2
+deploy/*.xml
+logs/*.log
+results/*.xml
+projects/*.xml
+sync/*.txt
