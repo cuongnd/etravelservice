@@ -44,14 +44,84 @@ class vmproduct
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_html_tour_information()
+    public static function get_html_tour_information(&$view,$virtuemart_product_id=0)
     {
-        $view = JControllerLegacy::getInstance('VirtuemartControllerProduct');
+        $product_model=VmModel::getModel('product');
+        $product = $product_model->getProductSingle($virtuemart_product_id, false);
+        $db=JFactory::getDbo();
 
-        echo "<pre>";
-        print_r($view);
-        echo "</pre>";
-        die;
+
+        $query=$db->getQuery(true);
+        $query->select('tour_service_class.service_class_name')
+            ->from('#__virtuemart_tour_service_class AS tour_service_class')
+            ->leftJoin('#__virtuemart_tour_id_service_class_id  AS tour_id_service_class_id USING(virtuemart_service_class_id)')
+            ->where('tour_id_service_class_id.virtuemart_product_id='.(int)$product->virtuemart_product_id)
+            ;
+        $product->list_tour_service_class=$db->setQuery($query)->loadColumn();
+
+
+
+        $query=$db->getQuery(true);
+        $query->select('countries.country_name')
+            ->from('#__virtuemart_countries AS countries')
+            ->leftJoin('#__virtuemart_tour_id_country_id  AS tour_id_country_id USING(virtuemart_country_id)')
+            ->where('tour_id_country_id.virtuemart_product_id='.(int)$product->virtuemart_product_id)
+            ;
+        $product->list_country=implode(',',$db->setQuery($query)->loadColumn());
+
+
+        $query=$db->getQuery(true);
+        $query->select('cityarea.title')
+            ->from('#__virtuemart_cityarea AS cityarea')
+            ->where('cityarea.virtuemart_cityarea_id='.(int)$product->start_city)
+            ;
+        $product->start_city=$db->setQuery($query)->loadResult();
+
+
+        $query=$db->getQuery(true);
+        $query->select('tour_section.title')
+            ->from('#__virtuemart_tour_section AS tour_section')
+            ->where('tour_section.virtuemart_tour_section_id='.(int)$product->virtuemart_tour_section_id)
+            ;
+        $product->tour_section=$db->setQuery($query)->loadResult();
+
+        $query=$db->getQuery(true);
+        $query->select('cityarea.title')
+            ->from('#__virtuemart_cityarea AS cityarea')
+            ->where('cityarea.virtuemart_cityarea_id='.(int)$product->end_city)
+            ;
+        $product->end_city=$db->setQuery($query)->loadResult();
+
+        $query=$db->getQuery(true);
+        $query->select('tour_type.title')
+            ->from('#__virtuemart_tour_type AS tour_type')
+            ->where('tour_type.virtuemart_tour_type_id='.(int)$product->virtuemart_tour_type_id)
+            ;
+        $product->tour_type=$db->setQuery($query)->loadResult();
+
+
+        $query=$db->getQuery(true);
+        $query->select('tour_style.title')
+            ->from('#__virtuemart_tour_style AS tour_style')
+            ->where('tour_style.virtuemart_tour_style_id='.(int)$product->virtuemart_tour_style_id)
+            ;
+        $product->tour_style=$db->setQuery($query)->loadResult();
+
+
+        $query=$db->getQuery(true);
+        $query->select('physicalgrade.title')
+            ->from('#__virtuemart_physicalgrade AS physicalgrade')
+            ->where('physicalgrade.virtuemart_physicalgrade_id='.(int)$product->virtuemart_physicalgrade_id)
+            ;
+        $product->physicalgrade=$db->setQuery($query)->loadResult();
+
+
+
+        $view->product=  $product;
+        ob_start();
+        include_once JPATH_ROOT.'/administrator/components/com_virtuemart/views/product/tmpl/productinformation.php';
+        $content=ob_get_clean();
+        return $content;
 
 
     }

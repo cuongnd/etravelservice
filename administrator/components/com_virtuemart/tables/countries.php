@@ -41,6 +41,10 @@ class TableCountries extends VmTable {
 	var $country_3_code         = '';
     /** @var char 2 character country code */
 	var $country_2_code         = '';
+	var $code         = '';
+	var $phone_code         = '';
+	var $state_number         = '';
+	var $flag         = '';
 	var $ordering				= '';
     /** @var int published or unpublished */
 	var $published 		        = 1;
@@ -54,9 +58,6 @@ class TableCountries extends VmTable {
 	{
 		parent::__construct('#__virtuemart_countries', 'virtuemart_country_id', $db);
 
-		$this->setUniqueName('country_name');
-		$this->setObligatoryKeys('country_2_code');
-		$this->setObligatoryKeys('country_3_code');
 
 		$this->setLoggable();
 		$this->setOrderable('ordering',false);

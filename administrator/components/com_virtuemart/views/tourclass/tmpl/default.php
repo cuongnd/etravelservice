@@ -73,6 +73,9 @@ if ($saveOrder) {
 		</tr>
 		</table>-->
         <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
             <table class="adminlist table table-bordered table-striped" id="tour_class_list" cellspacing="0"
                    cellpadding="0">
                 <thead>

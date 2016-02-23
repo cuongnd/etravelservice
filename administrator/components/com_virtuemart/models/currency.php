@@ -46,8 +46,8 @@ class VirtueMartModelCurrency extends VmModel {
 	 *
 	 * @author Max Milbers
 	 */
-	function getCurrency($currency_id=0) {
-		return $this->getData($currency_id);
+	function getItem($id=0) {
+		return $this->getData($id);
 	}
 
 
@@ -57,81 +57,49 @@ class VirtueMartModelCurrency extends VmModel {
 	 * @author Max Milbers
 	 * @return object List of currency objects
 	 */
-	function getCurrenciesList($search,$vendorId=1) {
-
-		$where = array();
-
-		$user = JFactory::getUser();
-		$shared = '';
-		if(vmAccess::manager() ){
-			$shared = 'OR `shared`="1"';
-		}
-		$vendorId = vmAccess::isSuperVendor();
-		if($vendorId){
-			$where[]  = '(`virtuemart_vendor_id` = "'.(int)$vendorId.'" '.$shared.')';
-		}
-
-		if(empty($search)){
-			$search = vRequest::getString('search', false);
-		}
-		// add filters
-		if($search){
-			$db = JFactory::getDBO();
-			$search = '"%' . $db->escape( $search, true ) . '%"' ;
-			$where[] = '`currency_name` LIKE '.$search.' OR `currency_code_2` LIKE '.$search.' OR `currency_code_3` LIKE '.$search;
-		}
-
-		$whereString='';
-		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
-
-		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_currencies`',$whereString,'',$this->_getOrdering());
-
+	function getItemList($search='') {
+		echo $this->getListQuery()->dump();
+		$data=parent::getItems();
 		return $data;
 	}
 
-	function getVendorAcceptedCurrrenciesList($vendorId = 0){
+	function getListQuery()
+	{
+		$db = JFactory::getDbo();
+		$query=$db->getQuery(true);
 
-		static $currencies = array();
-		if($vendorId===0){
-			$multix = Vmconfig::get('multix','none');
-			if(strpos($multix,'payment')!==FALSE){
-				if (!class_exists('VirtueMartModelVendor'))
-					require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-				$vendorId = VirtueMartModelVendor::getLoggedVendor();
-
-			} else {
-				$vendorId = 1;
-			}
+		$query->select('currencies.*,countries.country_name,countries.iso2,countries.iso3,countries.virtuemart_country_id AS virtuemart_country_id,countries.flag')
+			->from('#__virtuemart_countries AS countries')
+			->leftJoin('#__virtuemart_currencies AS currencies using (virtuemart_country_id)')
+		;
+		$user = JFactory::getUser();
+		$shared = '';
+		if (vmAccess::manager()) {
+			//$query->where('transferaddon.shared=1','OR');
 		}
-		if(!isset($currencies[$vendorId])){
-			$db = JFactory::getDbo();
-			$q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
-			$db->setQuery($q);
-			$vendor_currency = $db->loadAssoc();
-			if (!$vendor_currency['vendor_accepted_currencies']) {
-				$vendor_currency['vendor_accepted_currencies'] = $vendor_currency['vendor_currency'];
-				vmWarn('No accepted currencies defined');
-				if(empty($vendor_currency['vendor_accepted_currencies'])) {
-					$uri = JFactory::getURI();
-					$link = $uri->root().'administrator/index.php?option=com_virtuemart&view=user&task=editshop';
-					vmWarn(vmText::sprintf('COM_VIRTUEMART_CONF_WARN_NO_CURRENCY_DEFINED','<a href="'.$link.'">'.$link.'</a>'));
-					$currencies[$vendorId] = false;
-					return $currencies[$vendorId];
-				}
-			}
-			$q = 'SELECT `virtuemart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
-					FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id` IN ('.$vendor_currency['vendor_accepted_currencies'].')';
-			if($vendorId!=1){
-				$q .= ' AND (`virtuemart_vendor_id` = "'.$vendorId.'" OR `shared`="1")';
-			}
-			$q .= '	AND published = "1"
-					ORDER BY `ordering`,`currency_name`';
-
-			$db->setQuery($q);
-			$currencies[$vendorId] = $db->loadObjectList();
+		$search=vRequest::getCmd('search', false);
+		if (empty($search)) {
+			$search = vRequest::getString('search', false);
+		}
+		// add filters
+		if ($search) {
+			$db = JFactory::getDBO();
+			$search = '"%' . $db->escape($search, true) . '%"';
+			$query->where('currencies.currency_name LIKE '.$search);
 		}
 
-		return $currencies[$vendorId];
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'countries.country_name');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'currencies.ordering')
+		{
+			$orderCol = $db->quoteName('currencies.currency_name') . ' ' . $orderDirn . ', ' . $db->quoteName('currencies.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
+		return $query;
 	}
 
 	/**
@@ -141,12 +109,6 @@ class VirtueMartModelCurrency extends VmModel {
 	 * @author Max Milbers
 	 * @return object List of currency objects
 	 */
-	function getCurrencies($vendorId=1) {
-		$db = JFactory::getDBO();
-		$q = 'SELECT * FROM `#__virtuemart_currencies` WHERE (`virtuemart_vendor_id` = "'.(int)$vendorId.'" OR `shared`="1") AND published = "1" ORDER BY `ordering`,`#__virtuemart_currencies`.`currency_name`';
-		$db->setQuery($q);
-		return $db->loadObjectList();
-	}
 
 	function store(&$data){
 		if(!vmAccess::manager('currency')){

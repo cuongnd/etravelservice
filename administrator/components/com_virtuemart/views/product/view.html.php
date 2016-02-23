@@ -303,6 +303,14 @@ class VirtuemartViewProduct extends VmViewAdmin
                 $this->assignRef('list_group_size', $list_group_size);
                 //end get list group size
 
+                //get list country
+                require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcountries.php';
+                $product->list_virtuemart_country_id = vmcountries::get_list_virtuemart_country_id_by_tour_id($product->virtuemart_product_id);
+                //end get list group size
+                require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
+                $this->list_price_type=vmprice::get_list_price_type();
+
+
                 $this->assignRef('product', $product);
 
                 $this->assignRef('product_parent', $product_parent);

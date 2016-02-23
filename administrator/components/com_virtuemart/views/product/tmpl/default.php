@@ -83,6 +83,9 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                 }
 
                 ?>
+                <div class="vm-page-nav">
+
+                </div>
                 <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr>
@@ -90,6 +93,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                                           onclick="Joomla.checkAll(this)"/></th>
 
                         <th width="20%"><?php echo $this->sort('product_name', $col_product_name) ?> </th>
+                        <th style="min-width:40px;"><?php echo vmText::_('tour code'); ?></th>
                         <th style="min-width:40px;"><?php echo vmText::_('tour type'); ?></th>
                         <th style="min-width:40px;"><?php echo vmText::_('tour style'); ?></th>
                         <th style="min-width:40px;"><?php echo vmText::_('Start end city'); ?></th>
@@ -97,33 +101,12 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                         <th style="min-width:40px;"><?php echo vmText::_('hotel'); ?></th>
                         <th style="min-width:40px;"><?php echo vmText::_('add ons'); ?></th>
                         <th style="min-width:40px;"><?php echo vmText::_('Payment'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('allocation'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('promotion'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('discount'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('asigns'); ?></th>
-                        <?php if (!$product_parent_id) { ?>
-                            <th width="10%"><?php echo $this->sort('product_parent_id', 'COM_VIRTUEMART_PRODUCT_CHILDREN_OF'); ?></th>
-                        <?php } ?>
-                        <th width="80px"><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_PARENT_LIST_CHILDREN'); ?></th>
-                        <th style="width:5%;"><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_MEDIA'); ?></th>
-                        <th><?php echo $this->sort('product_sku') ?></th>
-                        <th width="90px"><?php echo $this->sort('product_price', 'COM_VIRTUEMART_PRODUCT_PRICE_TITLE'); ?></th>
-                        <?php /*		<th><?php echo JHtml::_('grid.sort', 'COM_VIRTUEMART_CATEGORY', 'c.category_name', $this->lists['filter_order_Dir'], $this->lists['filter_order'] ); ?></th> */ ?>
-                        <th width="15%"><?php echo vmText::_('COM_VIRTUEMART_CATEGORY'); ?></th>
-                        <!-- Only show reordering fields when a category ID is selected! -->
-                        <?php
-                        $num_rows = 0;
-                        if ($this->virtuemart_category_id) { ?>
-                            <th style="min-width:100px;width:5%;">
-                                <?php echo $this->sort('pc.ordering', 'COM_VIRTUEMART_FIELDMANAGER_REORDER'); ?>
-                                <?php echo JHtml::_('grid.order', $this->productlist); //vmCommonHTML::getSaveOrderButton( $num_rows, 'changeordering' ); ?>
-                            </th>
-                        <?php } ?>
-
-                        <th width="40px"><?php echo vmText::_('COM_VIRTUEMART_REVIEW_S'); ?></th>
+                        <th style="min-width:40px;"><?php echo vmText::_('Added'); ?></th>
+                        <th style="min-width:40px;"><?php echo vmText::_('assigns'); ?></th>
                         <th width="40px"><?php echo $this->sort('product_special', 'COM_VIRTUEMART_PRODUCT_FORM_SPECIAL'); ?> </th>
                         <th width="40px"><?php echo $this->sort('published'); ?></th>
                         <th><?php echo $this->sort('p.virtuemart_product_id', 'COM_VIRTUEMART_ID') ?></th>
+                        <th align="right"><?php echo JText::_('Action') ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -156,14 +139,14 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <!-- </span>  -->
                                 </td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=tourtype&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    <?php echo $product->product_sku ?>
+                                </td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=product&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    <?php echo $product->tour_type ?></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=product&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    <?php echo $product->tour_style ?></td>
+                                <td>
+                                    <?php echo $product->start_end_cicty ?></td>
                                 <td>
                                     <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=price&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
@@ -189,77 +172,11 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=asign&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
 
-                                <?php if (!$product_parent_id) { ?>
-                                    <td><?php
-                                        if ($product->product_parent_id) {
-                                            VirtuemartViewProduct::displayLinkToParent($product->product_parent_id);
-                                        }
-                                        ?></td>
-                                    <!-- Vendor name -->
-                                <?php } ?>
-                                <td><?php
-                                    VirtuemartViewProduct::displayLinkToChildList($product->virtuemart_product_id, $product->product_name);
-                                    ?>
-                                </td>
-                                <!-- Media -->
-                                <?php
-                                // Create URL
-                                $link = JRoute::_('index.php?view=media&virtuemart_product_id=' . $product->virtuemart_product_id . '&option=com_virtuemart');
-                                ?>
-                                <td align="center">
-                                    <?php
-                                    // We show the images only when less than 21 products are displayeed -->
 
-                                    if ($this->pagination->limit <= $mediaLimit or $totalList <= $mediaLimit) {
-                                        // Product list should be ordered
-                                        $this->model->addImages($product, 1);
-                                        $img = '<span >(' . $product->mediaitems . ')</span>' . $product->images[0]->displayMediaThumb('class="vm_mini_image"', false);
-                                        //echo JHtml::_('link', $link, $img,  array('title' => vmText::_('COM_VIRTUEMART_MEDIA_MANAGER').' '.$product->product_name));
-                                    } else {
-                                        //echo JHtml::_('link', $link, '<span class="icon-nofloat vmicon vmicon-16-media"></span> ('.$product->mediaitems.')', array('title' => vmText::_('COM_VIRTUEMART_MEDIA_MANAGER').' '.$product->product_name) );
-                                        $img = '<span class="icon-nofloat vmicon vmicon-16-media"></span> (' . $product->mediaitems . ')';
-                                    }
-                                    echo JHtml::_('link', $link, $img, array('title' => vmText::_('COM_VIRTUEMART_MEDIA_MANAGER') . ' ' . htmlentities($product->product_name)));
-                                    ?>
-                                </td>
-                                <!-- Product SKU -->
-                                <td><?php echo $product->product_sku; ?></td>
-                                <!-- Product price -->
-                                <td align="right"><?php
-                                    if (isset($product->product_price_display)) {
-                                        echo $product->product_price_display;
-                                    }
-                                    ?></td>
-                                <!-- Category name -->
-                                <td><?php
-                                    echo $product->categoriesList;
-                                    ?></td>
-                                <!-- Reorder only when category ID is present -->
-                                <?php if ($this->virtuemart_category_id) { ?>
-                                    <td class="order">
-                                        <span class="vmicon vmicon-16-move"></span>
-                                        <span><?php echo $this->pagination->vmOrderUpIcon($i, $product->ordering, 'orderup', vmText::_('COM_VIRTUEMART_MOVE_UP')); ?></span>
-                                        <span><?php echo $this->pagination->vmOrderDownIcon($i, $product->ordering, $total, true, 'orderdown', vmText::_('COM_VIRTUEMART_MOVE_DOWN')); ?></span>
-                                        <input class="ordering" type="text" name="order[<?php echo $product->id ?>]"
-                                               id="order[<?php echo $i ?>]" size="5"
-                                               value="<?php echo $product->ordering; ?>" style="text-align: center"/>
-
-                                        <?php // echo vmCommonHTML::getOrderingField( $product->ordering ); ?>
-                                    </td>
-                                <?php } ?>
-
-                                <!-- Reviews -->
-                                <?php $link = vRequest::vmSpecialChars('index.php?option=com_virtuemart&view=ratings&task=listreviews&virtuemart_product_id=' . $product->virtuemart_product_id); ?>
-                                <td align="center"><?php echo JHtml::_('link', $link, $product->reviews); ?></td>
-                                <td align="center">
-                                    <?php
-                                    echo $is_featured;
-                                    ?>
-                                </td>
                                 <!-- published -->
                                 <td align="center"><?php echo $published; ?></td>
                                 <!-- Vendor name -->
-                                <td align="right"><?php echo $product->virtuemart_product_id; // echo $product->vendor_name; ?></td>
+                                <td align="right"><?php echo JText::_('Action') ?></td>
                             </tr>
                             <?php
                             $k = 1 - $k;

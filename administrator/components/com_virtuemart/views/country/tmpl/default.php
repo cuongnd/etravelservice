@@ -15,7 +15,8 @@
  * other free or open source software licenses.
  * @version $Id: default.php 8534 2014-10-28 10:23:03Z Milbo $
  */
-
+$doc=JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_country_default.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $app = JFactory::getApplication();
@@ -55,39 +56,41 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
             <div id="resultscounter"><?php echo $this->pagination->getResultsCounter(); ?></div>
         </div>
         <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
             <table class="adminlist table table-striped" id="country_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/>ID</label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_country_id','Id') ; ?></label>
+
+
 
                     </th>
                     <th>
-                        <?php echo $this->sort('country_name') ?>
-                    </th>
-                    <?php /* TODO not implemented				    <th>
-				<?php echo vmText::_('COM_VIRTUEMART_ZONE_ASSIGN_CURRENT_LBL'); ?>
-				</th> */ ?>
-                    <th>
-                        <?php echo $this->sort('image') ?>
+                        <?php echo $this->sort('country_name','Country name') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_2_code') ?>
+                        <?php echo $this->sort('code','code') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_3_code') ?>
+                        <?php echo $this->sort('phone_code','Phone code') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('state_number','State number') ?>
                     </th>
                     <th width="20">
                         <?php echo vmText::_('Action'); ?>
                     </th>
-                    <th width="1%" class="nowrap center hidden-phone">
-                        <?php echo $this->sort('ordering', 'ordering'); ?>
-                        <?php if ($saveOrder) : ?>
-                            <?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); ?>
-                        <?php endif; ?>
+<!--                    <th width="1%" class="nowrap center hidden-phone">
+                        <?php /*echo $this->sort('ordering', 'ordering'); */?>
+                        <?php /*if ($saveOrder) : */?>
+                            <?php /*echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); */?>
+                        <?php /*endif; */?>
                     </th>
-
+-->
                 </tr>
                 </thead>
                 <?php
@@ -126,56 +129,29 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('flag', $row->flag, 'class="required"'); ?>
                                 <?php echo VmHTML::input('country_name', $row->country_name, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php
-                                $prefix = "COM_VIRTUEMART_COUNTRY_";
-                                $country_string = vmText::_($prefix . $row->country_3_code); ?>
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->country_name ?> </a>&nbsp;
-                                <?php
-                                $lang = JFactory::getLanguage();
-                                if ($lang->hasKey($prefix . $row->country_3_code)) {
-                                    echo "(" . $country_string . ") ";
-                                }
-                                ?>
-
-                                <a title="<?php echo vmText::sprintf('COM_VIRTUEMART_STATES_VIEW_LINK', $country_string); ?>"
-                                   href="<?php echo $statelink; ?>">[<?php echo $states ?>]</a>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?><a href="<?php echo $editlink; ?>"><?php echo $row->country_name ?> </a>
                             <?php } ?>
-
-
-
-
-                        </td>
-                        <?php /* TODO not implemented				<td align="left">
-			<?php echo $row->virtuemart_worldzone_id; ?>
-		</td> */ ?>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::image('', 'image', $row->image, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->image, 'class="required"',40,40); ?>
-                            <?php } ?>
-
-
-
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('country_2_code', $row->country_2_code, 'class="required"'); ?>
+                                <?php echo VmHTML::input('code', $row->code, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo $row->country_2_code ?>
+                                <?php echo $row->code ?>
                             <?php } ?>
-
-
-
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('country_3_code', $row->country_2_code, 'class="required"'); ?>
+                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo $row->country_3_code ?>
+                                <?php echo $row->phone_code ?>
                             <?php } ?>
+
+                        </td>
+                        <td>
+                            <?php echo $row->total_state ?>
 
                         </td>
                         <td align="center" width="70">
@@ -192,17 +168,17 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
                             <?php } ?>
 
                         </td>
-                        <td>
+<!--                        <td>
                             <span class="sortable-handler">
 								<span class="icon-menu"></span>
 							</span>
-                            <?php if ($saveOrder) : ?>
-                                <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="width-20 text-area-order " />
-                            <?php endif; ?>
-                            <?php //echo $row->ordering ?>
+                            <?php /*if ($saveOrder) : */?>
+                                <input type="text" style="display:none" name="order[]" size="5" value="<?php /*echo $row->ordering; */?>" class="width-20 text-area-order " />
+                            <?php /*endif; */?>
+                            <?php /*//echo $row->ordering */?>
 
                         </td>
-                    </tr>
+-->                    </tr>
                     <?php
                     $k = 1 - $k;
                 }

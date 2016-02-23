@@ -1798,7 +1798,7 @@ class VirtueMartModelProduct extends VmModel {
 		if(!empty($product_data->product_parent_id) and $product_data->product_parent_id == $data['virtuemart_product_id']){
 			$product_data->product_parent_id = 0;
 		}
-
+		$data['product_sku']=$data['virtuemart_product_id']?null:JUserHelper::genRandomPassword(5);
 		$stored = $product_data->bindChecknStore ($data, false);
 
 		if(!$stored ){
@@ -2036,6 +2036,32 @@ class VirtueMartModelProduct extends VmModel {
 			}
 		}
 		//end inser tour type
+
+		//inser to countries
+		$query=$db->getQuery(true);
+		$query->delete('#__virtuemart_tour_id_country_id')
+			->where('virtuemart_product_id='.(int)$product_data->virtuemart_product_id)
+		;
+		$db->setQuery($query)->execute();
+		$err = $db->getErrorMsg();
+		if(!empty($err)){
+			vmError('can not delete country in this tour',$err);
+		}
+		$list_virtuemart_country_id=$data['list_virtuemart_country_id'];
+		foreach($list_virtuemart_country_id as $virtuemart_country_id)
+		{
+			$query->clear()
+				->insert('#__virtuemart_tour_id_country_id')
+				->set('virtuemart_product_id='.(int)$product_data->virtuemart_product_id)
+				->set('virtuemart_country_id='.(int)$virtuemart_country_id)
+			;
+			$db->setQuery($query)->execute();
+			$err = $db->getErrorMsg();
+			if(!empty($err)){
+				vmError('can not insert country in this tour',$err);
+			}
+		}
+		//end inser countries
 
 
 		$cache = JFactory::getCache('com_virtuemart_cat_manus','callback');

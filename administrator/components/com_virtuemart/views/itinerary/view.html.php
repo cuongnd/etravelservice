@@ -34,16 +34,16 @@ class virtuemartViewitinerary extends VmViewAdmin {
 	function display($tpl = null) {
 
 		// Load the helper(s)
-
-
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$model = VmModel::getModel();
-
+		$app=JFactory::getApplication();
 
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
+		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+
 		if ($layoutName == 'edit') {
 			$cid	= vRequest::getInt( 'cid' );
 
@@ -73,7 +73,7 @@ class virtuemartViewitinerary extends VmViewAdmin {
 
 
 			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommands();
+			$this->addStandardEditViewCommandsPopup();
 
 		} else {
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';

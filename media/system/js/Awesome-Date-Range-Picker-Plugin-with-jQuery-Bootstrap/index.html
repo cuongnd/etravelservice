@@ -1,0 +1,252 @@
+<!doctype html>
+<html ng-app="google">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<title>Google API</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="./css/datepicker.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+					<form id="form1" role="form" action="#">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<span class="form-control" id="fromDisplay" name="from">Check in</span>
+									<input type="hidden" name="from" value="" id="fromInput">
+									<div class="vf-datepicker" id="startDP"></div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<span class="form-control" id="toDisplay">Check out</span>
+									<input type="hidden" name="to" value="" id="toInput">
+									<div class="vf-datepicker" id="endDP"></div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<button type="submit" class="btn btn-default btn-block">Search</button>
+							</div>
+						</div>
+					</form>
+					<form id="form2" role="form" action="#">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<span class="form-control" id="fromDisplay2" name="from">Check in</span>
+									<input type="hidden" name="from" value="" id="fromInput2">
+									<div class="vf-datepicker" id="startDP2"></div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<span class="form-control" id="toDisplay2">Check out</span>
+									<input type="hidden" name="to" value="" id="toInput2">
+									<div class="vf-datepicker" id="endDP2"></div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<button type="submit" class="btn btn-default btn-block">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="./js/datepicker.js"></script>
+		<script>
+		var _unavailable = [];
+		 var _onrequest = [];
+		  _unavailable.push('2014-10-23');
+		  _unavailable.push('2014-10-24');
+		  _unavailable.push('2014-10-25');
+		  _unavailable.push('2014-10-26');
+		  _unavailable.push('2014-10-27');
+		  _unavailable.push('2014-10-28');
+		  _unavailable.push('2014-10-29');
+		  _unavailable.push('2014-10-30');
+		  _unavailable.push('2014-10-31');
+		  _unavailable.push('2015-03-03');
+		  _unavailable.push('2015-03-04');
+		  _unavailable.push('2015-03-05');
+		  _unavailable.push('2015-03-06');
+		  _unavailable.push('2014-09-04');
+		  _unavailable.push('2014-09-05');
+		  _unavailable.push('2014-09-06');
+		  _unavailable.push('2014-09-07');
+		  _unavailable.push('2014-09-08');
+		  _unavailable.push('2014-09-09');
+		  _unavailable.push('2014-09-10');
+		  _unavailable.push('2014-09-11');
+		  _unavailable.push('2014-09-12');
+		  _unavailable.push('2014-09-13');
+		  _unavailable.push('2014-09-16');
+		  _unavailable.push('2014-09-17');
+		  _unavailable.push('2014-09-18');
+		  _unavailable.push('2014-09-19');
+		  _unavailable.push('2014-09-20');
+		  _unavailable.push('2014-09-21');
+		  _unavailable.push('2014-08-22');
+		  _unavailable.push('2014-08-23');
+		  _unavailable.push('2014-08-24');
+		  _unavailable.push('2014-07-01');
+		  _unavailable.push('2014-07-02');
+		  _unavailable.push('2014-07-03');
+		  _unavailable.push('2014-07-04');
+		  _unavailable.push('2014-07-05');
+		  _unavailable.push('2014-07-06');
+		  _unavailable.push('2014-07-07');
+		  _unavailable.push('2014-07-08');
+		  _unavailable.push('2014-07-09');
+		  _unavailable.push('2014-07-10');
+		  _unavailable.push('2014-07-11');
+		  _unavailable.push('2014-07-12');
+		  _unavailable.push('2014-07-13');
+		  _unavailable.push('2014-07-14');
+		  _unavailable.push('2014-07-15');
+		  _unavailable.push('2014-07-16');
+		  _unavailable.push('2014-07-17');
+		  _unavailable.push('2014-07-18');
+		  _unavailable.push('2014-07-19');
+		  _unavailable.push('2014-07-20');
+		  _unavailable.push('2014-07-21');
+		  _unavailable.push('2014-07-22');
+		  _unavailable.push('2014-07-23');
+		  _unavailable.push('2014-07-24');
+		  _unavailable.push('2014-07-25');
+		  _unavailable.push('2014-07-26');
+		  _unavailable.push('2014-07-27');
+		  _unavailable.push('2014-07-28');
+		  _unavailable.push('2014-07-29');
+		  _unavailable.push('2014-07-30');
+		  _unavailable.push('2014-07-31');
+		  _unavailable.push('2014-08-01');
+		  _unavailable.push('2014-08-02');
+		  _unavailable.push('2014-08-03');
+		  _unavailable.push('2014-08-04');
+		  _unavailable.push('2014-08-05');
+		  _unavailable.push('2014-08-06');
+		  _unavailable.push('2014-08-07');
+		  _unavailable.push('2014-08-08');
+		  _unavailable.push('2014-08-09');
+		  _unavailable.push('2014-08-10');
+		  _unavailable.push('2014-08-11');
+		  _unavailable.push('2014-08-12');
+		  _unavailable.push('2014-08-13');
+		  _unavailable.push('2014-08-14');
+		  _unavailable.push('2014-08-15');
+		  _unavailable.push('2014-08-16');
+		  _unavailable.push('2014-08-17');
+		  _unavailable.push('2014-08-18');
+		  _unavailable.push('2014-08-19');
+		  _unavailable.push('2014-08-20');
+		  _unavailable.push('2014-08-21');
+		  _unavailable.push('2014-12-30');
+		  _unavailable.push('2014-12-31');
+		  _unavailable.push('2015-01-01');
+		  _unavailable.push('2015-01-02');
+		  _unavailable.push('2015-01-03');
+		  _unavailable.push('2015-01-25');
+		  _unavailable.push('2015-01-26');
+		  _unavailable.push('2015-01-27');
+		  _unavailable.push('2015-01-28');
+		  _unavailable.push('2015-01-29');
+		  _unavailable.push('2015-01-30');
+		  _unavailable.push('2015-01-31');
+		  _unavailable.push('2015-02-01');
+		  _unavailable.push('2015-02-02');
+		  _unavailable.push('2015-02-03');
+		  _unavailable.push('2014-08-25');
+		  _unavailable.push('2014-08-26');
+		  _unavailable.push('2014-08-27');
+		
+		
+		var dp = new VF_datepicker();
+		dp.datepicker({
+			'name': 'form1',
+			'start': null,
+			'end': null,
+			'monthNames': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			'dayNames': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+			'startCtrl': $('#fromDisplay'),
+			'endCtrl': $('#toDisplay'),
+			'startDisplay': $('#fromDisplay'),
+			'endDisplay': $('#toDisplay'),
+			'startInput': $('#fromInput'),
+			'endInput': $('#toInput'),
+			'startDP': $('#startDP'),
+			'endDP': $('#endDP'),
+			'clearTxt': 'Clear dates',
+			'unavailable': _unavailable,
+			'onrequest': _onrequest,
+			'displayFrom': function(from, to){
+				console.log(['from display', from, to]);
+			},
+			'displayTo': function(from, to){
+				console.log(['to display', from, to]);
+			},
+			'fromChosen': function(from, to){
+				console.log(['from chosen', from, to]);
+			},
+			'toChosen': function(from, to){
+				console.log(['to chosen', from, to]);
+			},
+			'hideFrom': function(from, to){
+				console.log(['from hide', from, to]);
+			},
+			'hideTo': function(from, to){
+				console.log(['to hide', from, to]);
+			},
+			'positions': ['left', 'right']
+		});
+		
+		var dp2 = new VF_datepicker();
+		dp2.datepicker({
+			'name': 'form2',
+			'start': null,
+			'end': null,
+			'monthNames': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			'dayNames': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+			'startCtrl': $('#fromDisplay2'),
+			'endCtrl': $('#toDisplay2'),
+			'startDisplay': $('#fromDisplay2'),
+			'endDisplay': $('#toDisplay2'),
+			'startInput': $('#fromInput2'),
+			'endInput': $('#toInput2'),
+			'startDP': $('#startDP2'),
+			'endDP': $('#endDP2'),
+			'clearTxt': 'Clear dates',
+			'unavailable': _unavailable,
+			'onrequest': _onrequest,
+			'displayFrom': function(from, to){
+				console.log(['from display2', from, to]);
+			},
+			'displayTo': function(from, to){
+				console.log(['to display2', from, to]);
+			},
+			'fromChosen': function(from, to){
+				console.log(['from chosen2', from, to]);
+			},
+			'toChosen': function(from, to){
+				console.log(['to chosen2', from, to]);
+			},
+			'hideFrom': function(from, to){
+				console.log(['from hide2', from, to]);
+			},
+			'hideTo': function(from, to){
+				console.log(['to hide2', from, to]);
+			},
+			'positions': ['left', 'right']
+		});
+		</script>
+	</body>
+</html>

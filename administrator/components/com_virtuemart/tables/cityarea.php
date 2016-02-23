@@ -33,7 +33,7 @@ class Tablecityarea extends VmTableData {
 	/** @var int Primary key */
 	var $virtuemart_cityarea_id				= 0;
 	var $virtuemart_state_id				= 0;
-	var $title				= "";
+	var $city_area_name				= "";
 	var $airport_code				= "";
 	var $phone_code				= "";
 	var $shared					= 0;

@@ -88,8 +88,23 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
     $app = JFactory::getApplication();
     $input = $app->input;
     $cid = $input->get('cid', array(), 'array');
-    $virtuemart_product_id=$app->input->get('virtuemart_product_id',array(),'array');
-    $virtuemart_product_id=$virtuemart_product_id[0];
+    $key = $input->get('key', array(), 'array');
+    $list_key = array();
+    foreach ($key as $a_key => $item) {
+        $list_key = "$a_key=$item";
+    }
+    $str_key = '';
+    if ($list_key != '') {
+        $str_key = '&' . $list_key;
+    }
+    $key_string = '';
+    $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
+    if($show_edit_in_line)
+    {
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/asianventure-edit-inline.less');
+    }
+    $virtuemart_product_id = $app->input->get('virtuemart_product_id', array(), 'array');
+    $virtuemart_product_id = $virtuemart_product_id[0];
     $uri = JUri::getInstance();
     $url = $uri->toString(array('query'));
     $js_content = '';
@@ -100,6 +115,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
             $('.admin.com_virtuemart').asianventure({
                 add_new_popup:<?php echo $vmView->add_new_popup==1?1:0 ?>,
                 cid:<?php echo json_encode($cid) ?>,
+                key_string: "<?php echo $str_key ?>",
                 url: '<?php echo 'index.php'.$url ?>',
                 view: '<?php echo $vmView->getName() ?>',
             });
@@ -164,11 +180,11 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
     <div class="toolbar-box" style="height: 84px;position: relative;"><?php echo $bar->render() ?></div>
 <?php } ?>
     <?php $hideMenu = JFactory::getApplication()->input->cookie->getString('vmmenu', 'show') === 'hide' ? ' menu-collapsed' : ''; ?>
-    <div class="virtuemart-admin-area<?php echo $hideMenu ?>">
+    <div class="virtuemart-admin-area<?php echo $hideMenu ?> <?php echo $show_edit_in_line?'edit-in-line':''; ?>">
         <div class="div-loading"></div>
         <?php if ($vmView->add_new_popup == 1) { ?>
-            <div id="vm-edit-form">
-                <iframe id="vm-iframe" scrolling="no" src=""></iframe>
+            <div id="vm-edit-form-<?php echo $vmView->getName() ?>" class="vm-edit-form">
+                <iframe id="vm-iframe-<?php echo $vmView->getName() ?>" scrolling="no" src=""></iframe>
             </div>
         <?php } ?>
         <style type="text/css">
@@ -625,8 +641,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system3</a>
-                                        </li>
+                                        <li><a href="index.php?option=com_virtuemart&view=language"><span
+                                                    class="icon-palette" title=""></span>Language</a></li>
                                         <li><a href="#"><span class="icon-palette" title=""></span>setup_system4</a>
                                         </li>
                                     </ul>
@@ -661,6 +677,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                     class="icon-palette" title=""></span>state/province</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=cityarea"><span
                                                     class="icon-palette" title=""></span>city/area</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=airport"><span
+                                                    class="icon-palette" title=""></span>airport</a></li>
                                     </ul>
                                 </div>
                                 <div class="span2">
@@ -669,7 +687,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                     class="icon-palette" title=""></span>Tour class</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=activity"><span
                                                     class="icon-palette" title=""></span>Activities</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=toursection"><span class="icon-palette" title=""></span>tour section</a>
+                                        <li><a href="index.php?option=com_virtuemart&view=toursection"><span
+                                                    class="icon-palette" title=""></span>tour section</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -679,6 +698,24 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                     class="icon-palette" title=""></span>Tour type</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=tourstyle"><span
                                                     class="icon-palette" title=""></span>Tour style</a></li>
+
+                                        <li class="btn-group">
+                                            <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false"><span class="icon-palette" title=""></span>
+                                                Service supplier </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="index.php?option=com_virtuemart&view=supplier"></span>supplier manager</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="index.php?option=com_virtuemart&view=servicetype">service field list</a>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+                                        <!-- Single button -->
+
                                     </ul>
                                 </div>
                                 <div class="span2">
@@ -699,35 +736,49 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                             <div class="row-fluid">
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_virtuemart&view=product&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=product&task=edit&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Tour infomation</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=highlight&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>Highlight</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=itinerary&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>itinerary</a></li>
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=itinerary&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>build itinerary</a></li>
+
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=price&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>Build tour price</a></li>
+
                                     </ul>
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_virtuemart&view=media&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>Photo</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=document&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>Document</a></li>
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=accommodation&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>Accommodation</a></li>
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=document&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>Add document</a></li>
+
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=media&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>Add photo</a></li>
                                     </ul>
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="#"><span class="icon-palette" title=""></span>Tour price</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=relation&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>Relation</a></li>
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=faq&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>add faqs</a></li>
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=relation&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
+                                                    class="icon-palette" title=""></span>build relation</a></li>
                                     </ul>
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_virtuemart&view=hoteladdon&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
+                                        <li>
+                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=hoteladdon&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Hotel</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=fqa&virtuemart_product_id=<?php echo $virtuemart_product_id ?>"><span
-                                                    class="icon-palette" title=""></span>FAQs</a></li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -828,8 +879,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
 
                 </div>
                 <div class="vm-title row-fluid">
-                    <div class="span2 offset10">
-                        <h2><?php echo JText::_($vmView->getName()) ?></h2>
+                    <div class="span2 offset8">
+                        <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
                     </div>
                 </div>
                 <div class="vm_toolbar"></div>

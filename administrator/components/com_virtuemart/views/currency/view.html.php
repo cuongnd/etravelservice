@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class VirtuemartViewCurrency extends VmViewAdmin {
+class virtuemartViewcurrency extends VmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -56,17 +56,36 @@ class VirtuemartViewCurrency extends VmViewAdmin {
 			}
 
 			$model->setId($cid);
-			$this->currency = $model->getCurrency();
-			$this->SetViewTitle('',$this->currency->currency_name);
+			$this->item = $model->getItem();
+			$this->SetViewTitle('',$this->item->title);
 			$this->addStandardEditViewCommands();
+			//get state
+			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmstates.php';
+			$states = vmstates::get_states();
+			$this->assignRef('states', $states);
+			//end get state
+
 
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			$this->addStandardDefaultViewCommandsEditInline(false,false,true);
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
-			$this->currencies = $model->getCurrenciesList(vRequest::getCmd('search', false));
+			//get state
+			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmstates.php';
+			$list_state = vmstates::get_states();
+			$this->assignRef('list_state', $list_state);
+			//end get state
+
+			//get country
+			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcountries.php';
+			$list_country = vmcountries::get_countries();
+			$this->assignRef('list_country', $list_country);
+			//end get country
+
+
+			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();
 
 		}

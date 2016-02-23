@@ -42,8 +42,8 @@ class VirtuemartViewPrice extends VmViewAdmin {
 		$model = VmModel::getModel();
 		$app=JFactory::getApplication();
 		$input=$app->input;
-
-
+		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {

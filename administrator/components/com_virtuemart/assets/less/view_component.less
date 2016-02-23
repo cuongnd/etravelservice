@@ -4,10 +4,40 @@
 }
 .container-main
 {
-  width: 890px!important;
+
   textarea
   {
-    width: 450px;
+    width: 595px;
+    resize: none;
+  }
+}
+.admin.com_virtuemart.layout-edit.small_form
+{
+
+  .container-main {
+    width: 520px !important;
+    .virtuemart-admin-area
+    {
+      min-height:inherit;
+    }
+    #admin-content
+    {
+
+      input
+      {
+        width: auto;
+      }
+      .control-group
+      {
+        width: 100%;
+        .controls
+        {
+          float: left;
+          margin-left:0px;
+          width: auto;
+        }
+      }
+    }
   }
 }
 .admin.com_virtuemart
@@ -19,7 +49,15 @@
   }
   .virtuemart-admin-area input, .virtuemart-admin-area textarea, .virtuemart-admin-area .uneditable-input
   {
-    max-width: 450px;
+    width: 595px;
+  }
+  .virtuemart-admin-area .chzn-container
+  {
+    width: 608px;
+  }
+  .virtuemart-admin-area input[type="checkbox"],.virtuemart-admin-area input[type="radio"]
+  {
+    width: auto;
   }
 
 }
@@ -33,5 +71,56 @@
   {
     margin: 0;
     width: 100px;
+  }
+}
+.admin.com_virtuemart.layout-edit
+{
+  background: #e9edf1 !important;
+  .container-main
+  {
+    width: 816px!important;
+    padding: 15px !important;
+    margin: 25px auto;
+    color: #6c85ab;
+    border: 2px #4a6c9c solid;
+    background: #eaf3ff;
+    #admin-content
+    {
+      background: none;
+      padding: 0px;
+      #admin-ui-tabs ul#tabs
+      {
+        background: none;
+        display: none;
+      }
+      #admin-ui-tabs
+      {
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #cccccc;
+        padding: 10px;
+
+        .tabs
+        {
+          padding: 0;
+        }
+      }
+
+      .control-group .control-label
+      {
+        text-transform: uppercase;
+        width: 160px;
+        font-weight: bold;
+      }
+      .control-group
+      {
+        width: 100%;
+        .controls
+        {
+          float: left;
+          margin-left:0px;
+          width: 628px;
+        }
+      }
+    }
   }
 }

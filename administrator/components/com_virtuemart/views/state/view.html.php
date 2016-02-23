@@ -39,7 +39,7 @@ class VirtuemartViewState extends VmViewAdmin {
 		$this->SetViewTitle();
 		$model = VmModel::getModel();
 
-		$this->state = $model->getSingleState();
+		$this->state = $model->getItem();
 
 		$this->virtuemart_country_id = vRequest::getInt('virtuemart_country_id', $this->state->virtuemart_country_id);
 
@@ -72,7 +72,7 @@ class VirtuemartViewState extends VmViewAdmin {
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model);
 
-			$this->items = $model->getStates($this->virtuemart_country_id);
+			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
 		}

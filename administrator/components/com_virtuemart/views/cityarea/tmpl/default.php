@@ -46,6 +46,9 @@ AdminUIHelper::startAdminArea($this);
             </tr>
         </table>
         <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
             <table class="adminlist table table-striped" id="city_area_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
@@ -54,27 +57,37 @@ AdminUIHelper::startAdminArea($this);
                                                        onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_transferaddon_id','Id') ; ?></label>
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'title'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('airport_code', 'Airport code'); ?>
+                        <?php echo $this->sort('city_area_name', 'City area name'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('phone_code', 'Phone code'); ?>
                     </th>
+                    <th>
+                        <?php echo $this->sort('total_airport', 'Airports'); ?>
+                    </th>
+                    <?php if(!$show_edit_in_line){ ?>
                     <th>
                         <?php echo $this->sort('state_name', 'State'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('country_name', 'Country'); ?>
                     </th>
-                    <th width="1%" class="nowrap center hidden-phone">
-                        <?php echo $this->sort('ordering', 'ordering'); ?>
-                        <?php if ($saveOrder) : ?>
-                            <?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); ?>
-                        <?php endif; ?>
-                    </th>
+                    <?php }else{ ?>
+                        <th>
+                            <?php echo $this->sort('country_name', 'Country'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->sort('state_name', 'State'); ?>
+                        </th>
 
+                    <?php } ?>
+<!--                    <th width="1%" class="nowrap center hidden-phone">
+                        <?php /*echo $this->sort('ordering', 'ordering'); */?>
+                        <?php /*if ($saveOrder) : */?>
+                            <?php /*echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); */?>
+                        <?php /*endif; */?>
+                    </th>
+-->
                     <th width="70">
                         <?php echo vmText::_('Action'); ?>
                     </th>
@@ -119,18 +132,10 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('title', $row->title, 'class="required"'); ?>
+                                <?php echo VmHTML::input('city_area_name', $row->city_area_name, 'class="required"'); ?>
                             <?php } else { ?>
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->city_area_name; ?></a>
                             <?php } ?>
-                        </td>
-                        <td align="left">
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('airport_code', $row->airport_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->airport_code ?>
-                            <?php } ?>
-
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
@@ -140,37 +145,49 @@ AdminUIHelper::startAdminArea($this);
                             <?php } ?>
 
                         </td>
-                        <td align="left">
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::select('virtuemart_state_id', $this->list_state, $row->virtuemart_state_id, '', 'virtuemart_state_id', 'state_name'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->state_name ?>
-                            <?php } ?>
-
+                        <td>
+                            <?php echo $row->total_airport ?>
                         </td>
+                        <?php if(!$show_edit_in_line){ ?>
+                        <td>
+                            <?php echo $row->state_name ?>
+                        </td>
+                        <td>
+                            <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
+                            <?php echo $row->country_name ?>
+                        </td>
+                        <?php }else{ ?>
                         <td align="left">
                             <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo VmHTML::select('virtuemart_country_id', $this->list_country, $row->virtuemart_country_id, '', 'virtuemart_country_id', 'country_name'); ?>
                             <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo $row->country_name ?>
                             <?php } ?>
                         </td>
                         <td align="left">
-
-
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::select_state_province('virtuemart_state_id', $this->list_state, $row->virtuemart_state_id, '', 'virtuemart_state_id', 'state_name','select[name="virtuemart_country_id"]'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->state_name ?>
+                            <?php } ?>
+                        </td>
+                        <?php } ?>
+<!--                        <td align="left">
                             <span class="sortable-handler">
 								<span class="icon-menu"></span>
 							</span>
-                            <?php if ($saveOrder) : ?>
+                            <?php /*if ($saveOrder) : */?>
                                 <input type="text" style="display:none" name="order[]" size="5"
-                                       value="<?php echo $row->ordering; ?>" class="width-20 text-area-order "/>
-                            <?php endif; ?>
+                                       value="<?php /*echo $row->ordering; */?>" class="width-20 text-area-order "/>
+                            <?php /*endif; */?>
 
 
 
-                            <?php //echo $row->ordering; ?>
+                            <?php /*//echo $row->ordering; */?>
                         </td>
-
+-->
                         <td align="center">
                             <?php if ($show_edit) { ?>
                                 <?php echo $add_new ? '' : $published; ?>

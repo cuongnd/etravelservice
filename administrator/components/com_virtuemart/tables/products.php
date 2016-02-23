@@ -37,7 +37,6 @@ class TableProducts extends VmTable
 
     /** @var string Name of the product */
     var $product_name = '';
-    var $tour_methor = '';
     var $slug = '';
     /** @var string File description */
     var $product_s_desc = null;
@@ -57,6 +56,11 @@ class TableProducts extends VmTable
     var $product_lwh_uom = null;
     /** @var int File thumbnail image width */
     var $product_url = '';
+    var $image_map = '';
+    var $latitude = '';
+    var $longitude = '';
+    var $location = '';
+    var $radius = '';
     /** @var int File thumbnail image width */
     var $product_in_stock = 0;
     var $product_ordered = 0;
@@ -77,7 +81,10 @@ class TableProducts extends VmTable
     var $end_city = 0;
     var $tour_style_id = 0;
     var $virtuemart_physicalgrade_id = 0;
+    var $virtuemart_tour_type_id = 0;
+    var $virtuemart_tour_style_id = 0;
     var $virtuemart_tour_section_id = 0;
+    var $price_type = '';
     var $highlights = null;
     var $inclusions = null;
     var $exclusions = null;

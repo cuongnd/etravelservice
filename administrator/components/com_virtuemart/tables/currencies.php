@@ -47,8 +47,11 @@ class TableCurrencies extends VmTableData {
 	var $currency_thousands		= '';
 	var $currency_positive_style	= '';
 	var $currency_negative_style	= '';
+	var $currency_code	= '';
+	var $sign	= '';
+	var $virtuemart_country_id	= 0;
 	var $shared					= 0;
-	var $published				= 0;
+	var $published				= 1;
 
 	/**
 	 * @author Max Milbers

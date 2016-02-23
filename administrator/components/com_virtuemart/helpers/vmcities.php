@@ -44,5 +44,17 @@ class vmcities
         return $db->setQuery($query)->loadObjectList();
     }
 
+    public static function get_list_city_by_state_id($virtuemart_state_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__virtuemart_cityarea')
+            ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
+            ->where('states.virtuemart_state_id='.(int)$virtuemart_state_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+
 
 }

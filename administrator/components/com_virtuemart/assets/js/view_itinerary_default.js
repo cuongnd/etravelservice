@@ -26,8 +26,8 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
-
             plugin.settings = $.extend({}, defaults, options);
+
 
         }
 

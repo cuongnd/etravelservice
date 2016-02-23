@@ -53,5 +53,16 @@ class VirtuemartControllercityarea extends VmController {
 		$data = vRequest::getRequest();
 		parent::save($data);
 	}
+	function ajax_get_list_city_by_state_id()
+	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+		$virtuemart_state_id=$input->get('virtuemart_state_id',0,'int');
+		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
+		$list_state=vmcities::get_list_city_by_state_id($virtuemart_state_id);
+		echo json_encode($list_state);
+		jexit();
+	}
+
 }
 // pure php no closing tag

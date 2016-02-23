@@ -1,34 +1,35 @@
 <?php
 /**
-*
-* Data module for shop countries
-*
-* @package	VirtueMart
-* @subpackage Country
-* @author Max Milbers
-* @author RickG
-* @link http://www.virtuemart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* @version $Id: country.php 8953 2015-08-19 10:30:52Z Milbo $
-*/
+ *
+ * Data module for shop country
+ *
+ * @package	VirtueMart
+ * @subpackage country
+ * @author RickG
+ * @author Max Milbers
+ * @link http://www.virtuemart.net
+ * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * VirtueMart is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ * @version $Id: country.php 8970 2015-09-06 23:19:17Z Milbo $
+ */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
 
 /**
- * Model class for shop countries
+ * Model class for shop country
  *
  * @package	VirtueMart
- * @subpackage Country
+ * @subpackage country
  */
-class VirtueMartModelCountry extends VmModel {
+class VirtueMartModelcountry extends VmModel {
+
 
 	/**
 	 * constructs a VmModel
@@ -38,91 +39,39 @@ class VirtueMartModelCountry extends VmModel {
 	function __construct() {
 		parent::__construct();
 		$this->setMainTable('countries');
-		array_unshift($this->_validOrderingFieldName,'country_name');
-		$this->_selectedOrdering = 'country_name';
-		$this->_selectedOrderingDir = 'ASC';
-
 	}
 
-    /**
-     * Retreive a country record given a country code.
-     *
-     * @author RickG, Max Milbers
-     * @param string $code Country code to lookup
-     * @return object Country object from database
-     */
-    function getCountryByCode($code) {
+	/**
+	 * Retrieve the detail record for the current $id if the data has not already been loaded.
+	 *
+	 * @author Max Milbers
+	 */
+	function getItem($id=0) {
+		return $this->getData($id);
+	}
 
-		if(empty($code)) return false;
-		$db = JFactory::getDBO();
 
-		$countryCodeLength = strlen($code);
-		switch ($countryCodeLength) {
-			case 2:
-			$countryCodeFieldname = 'country_2_code';
-			break;
-			case 3:
-			$countryCodeFieldname = 'country_3_code';
-			break;
-			default:
-			return false;
-		}
-
-		static $countries = array();
-
-		if(!isset($countries[$code])){
-			$query = 'SELECT *';
-			$query .= ' FROM `#__virtuemart_countries`';
-			$query .= ' WHERE `' . $countryCodeFieldname . '` = "' . $code . '"';
-			$db->setQuery($query);
-			$countries[$code] = $db->loadObject();
-		}
-
-		return $countries[$code];
-    }
-
-    /**
-     * Retrieve a list of countries from the database.
-     *
-     * @author RickG
-     * @author Max Milbers
-     * @param string $onlyPublished True to only retrieve the publish countries, false otherwise
-     * @param string $noLimit True if no record count limit is used, false otherwise
-     * @return object List of country objects
-     */
-    function getCountries($onlyPublished=true, $noLimit=false, $filterCountry = false) {
+	/**
+	 * Retireve a list of country from the database.
+	 * This function is used in the backend for the country listing, therefore no asking if enabled or not
+	 * @author Max Milbers
+	 * @return object List of country objects
+	 */
+	function getItemList($search='') {
 		//echo $this->getListQuery()->dump();
 		$data=parent::getItems();
 		return $data;
+	}
 
-		static $countries = array();
-		$where = array();
-		$this->_noLimit = $noLimit;
-
-		if ($onlyPublished) $where[] = '`published` = 1';
-
-		if($filterCountry){
-			$db = JFactory::getDBO();
-			$filterCountryS = '"%' . $db->escape( $filterCountry, true ) . '%"' ;
-			$where[] = '`country_name` LIKE '.$filterCountryS.' OR `country_2_code` LIKE '.$filterCountryS.' OR `country_3_code` LIKE '.$filterCountryS;
-		}
-
-		$whereString = '';
-		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
-
-		$ordering = $this->_getOrdering();
-		$hash = $filterCountry.$this->_selectedOrderingDir.(int)$onlyPublished.$this->_selectedOrdering.(int)$noLimit;
-		if(!isset($countries[$hash])){
-			$countries[$hash] = $this->_data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_countries`',$whereString,'',$ordering);
-		}
-		return $countries[$hash];
-    }
 	function getListQuery()
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('countries.*')
-			->from('#__virtuemart_countries AS countries')
+
+		$query->select('country.*,COUNT(states.virtuemart_state_id) AS total_state')
+			->from('#__virtuemart_countries AS country')
+			->leftJoin('#__virtuemart_states AS states using (virtuemart_country_id)')
+			->group('country.virtuemart_country_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -137,13 +86,30 @@ class VirtueMartModelCountry extends VmModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('countries.country_name LIKE '.$search);
+			$query->where('country.country_name LIKE '.$search);
 		}
-		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
-		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
-		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'country.virtuemart_country_id');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'country.ordering')
+		{
+			$orderCol = $db->quoteName('country.virtuemart_country_id') . ' ' . $orderDirn . ', ' . $db->quoteName('country.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
 		return $query;
 	}
+
+	/**
+	 * Retireve a list of country from the database.
+	 *
+	 * This is written to get a list for selecting country. Therefore it asks for enabled
+	 * @author Max Milbers
+	 * @return object List of country objects
+	 */
 
 	function store(&$data){
 		if(!vmAccess::manager('country')){
@@ -162,5 +128,4 @@ class VirtueMartModelCountry extends VmModel {
 	}
 
 }
-
-//no closing tag pure php
+// pure php no closing tag

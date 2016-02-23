@@ -50,14 +50,13 @@ $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart
 AdminUIHelper::startAdminArea($this);
 
 ?>
-
+<div class="view-price-default">
+    <?php echo vmproduct::get_html_tour_information($this,$this->virtuemart_product_id); ?>
     <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate ">
-        <div class="row-fluid">
+        <div class="row-fluid" style="padding-top: 0px">
             <div class="span12">
-                <div class="pagination">
-                    <ul id="ul_pagination" class="pagination-sm">
+                <div class="vm-page-nav">
 
-                    </ul>
                 </div>
 
                 <table class="table-bordered  table table-striped list-prices">
@@ -624,6 +623,7 @@ AdminUIHelper::startAdminArea($this);
         <input type="hidden" name="cid[]" value="0"/>
         <?php echo JHtml::_('form.token'); ?>
     </form>
+</div>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('#adminForm').view_price_default({

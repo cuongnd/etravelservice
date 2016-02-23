@@ -45,6 +45,9 @@ $productfileslist = $this->files;
 //$roles = $this->productfilesroles;
 ?>
 <div style="text-align: left;">
+ <div class="vm-page-nav">
+
+            </div>
 	<table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
 	<thead>
 	<tr>

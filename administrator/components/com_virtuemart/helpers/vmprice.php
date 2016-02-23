@@ -94,4 +94,31 @@ class vmprice
 			return $db->setQuery($query)->loadObjectList();
 		}
 
+	public static function get_list_price_type()
+	{
+		$list_price_type=array();
+
+
+		$item=new stdClass();
+		$item->value="multi_price";
+		$item->text="Multi price";
+		$list_price_type[]=$item;
+
+
+
+
+		$item=new stdClass();
+		$item->value="flat_price";
+		$item->text="Flat price";
+		$list_price_type[]=$item;
+
+
+		$item=new stdClass();
+		$item->value="both_options";
+		$item->text="Both options";
+		$list_price_type[]=$item;
+
+		return $list_price_type;
+	}
+
 }

@@ -33,8 +33,8 @@ class Tableitinerary extends VmTableData {
 	/** @var int Primary key */
 	var $virtuemart_itinerary_id				= 0;
 	var $title				= "";
-	var $brief_itinerary				= "";
-	var $full_itinerary				= "";
+	var $short_description				= "";
+	var $full_description				= "";
 	var $overnight				= 0;
 	var $trip_note1				= "";
 	var $trip_note2				= "";

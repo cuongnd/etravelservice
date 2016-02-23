@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+/**
+ * @package    EasyCreator
+ * @subpackage CSS
+ * @author     Nikolai Plath
+ * @author     Created on 15-Aug-2011
+ * @license    GNU/GPL
+ */
+
+span.status {
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    padding-bottom: 0.5em;
+}
+
+span.status.found {
+    background-image: url("../images/ico/icon-16-ok.png");
+}
+
+span.status.notfound {
+    background-image: url("../images/ico/icon-16-notok.png");
+}

@@ -40,6 +40,9 @@ if ($saveOrder) {
             </tr>
         </table>
 -->        <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
             <table id="activity_list" class="adminlist table table-bordered table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>

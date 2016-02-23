@@ -28,9 +28,11 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
+
             var totalItem=plugin.settings.totalItem;
             var tour_id=plugin.settings.tour_id;
             var tour_methor=plugin.settings.tour_methor;
+            $('.vm_toolbar').insertAfter($('.buid-information'));
 /*
             $element.find('#ul_pagination').twbsPagination({
                 totalPages: plugin.settings.totalPages,

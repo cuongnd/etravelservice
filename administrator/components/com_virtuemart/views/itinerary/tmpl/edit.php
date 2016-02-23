@@ -24,43 +24,39 @@ AdminUIHelper::startAdminArea($this);
 AdminUIHelper::imitateTabs('start', "itinerary");
 ?>
 <div class="view-itinerary-edit">
-    <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
+    <form action="index.php" method="post" class="form-horizontal" name="adminForm" id="adminForm">
 
 
         <div class="col50">
-            <fieldset>
-                <legend><?php echo vmText::_('Current itinerary'); ?></legend>
-                <div class="admintable row-fluid">
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('input', 'Day title', 'title', $this->item->title, 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Brief itinerary', 'brief_itinerary', $this->item->brief_itinerary,'',28,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Full itinerary', 'full_itinerary', $this->item->meta_title,'',28,4); ?>
-                    </div>
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('select','overnight', 'overnight', $this->cities ,$this->item->overnight,'','virtuemart_cityarea_id', 'title',false) ; ?>
+            <div class="admintable row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('input', 'Day title', 'title', $this->item->title, 'class="required"'); ?>
+                    <?php echo VmHTML::row_control('select','overnight', 'overnight', $this->cities ,$this->item->overnight,'','virtuemart_cityarea_id', 'title',false) ; ?>
+                    <?php echo VmHTML::row_control('editor', 'Short description', 'short_description', $this->item->brief_itinerary,'',90,4); ?>
+                    <?php echo VmHTML::row_control('editor', 'Full description', 'full_description', $this->item->meta_title,'',90,4); ?>
 
-                        <?php echo VmHTML::row_control('textarea', 'Trip note 1', 'trip_note1', $this->item->trip_note1,'',28,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Trip note 2', 'trip_note2', $this->item->trip_note2,'',28,4); ?>
 
-                    </div>
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('list_checkbox', 'Meal', 'list_meal_id', $this->list_meal, $this->item->list_meal_id, '', 'virtuemart_meal_id', 'title', false); ?>
-                        <?php echo VmHTML::image('Photo 1', 'photo1', $this->item->photo1, 'class="required"'); ?>
-                        <?php echo VmHTML::image('Photo 2', 'photo2', $this->item->photo2, 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('booleanlist', 'COM_VIRTUEMART_PUBLISHED', 'published', $this->item->published); ?>
-
-                    </div>
-
+                    <?php echo VmHTML::row_control('textarea', 'Trip note 1', 'trip_note1', $this->item->trip_note1,'',90,4); ?>
+                    <?php echo VmHTML::row_control('textarea', 'Trip note 2', 'trip_note2', $this->item->trip_note2,'',90,4); ?>
+                    <?php echo VmHTML::row_control_v_1('list_checkbox', 'Meal','list_meal_id', 'list_meal_id', $this->list_meal, $this->item->list_meal_id, '', 'virtuemart_meal_id', 'title', false); ?>
+                    <?php echo VmHTML::image('Photo 1', 'photo1', $this->item->photo1, 'class="required"'); ?>
+                    <?php echo VmHTML::image('Photo 2', 'photo2', $this->item->photo2, 'class="required"'); ?>
+                    <?php echo VmHTML::row_control('booleanlist', 'COM_VIRTUEMART_PUBLISHED', 'published', $this->item->published); ?>
 
                 </div>
 
 
-            </fieldset>
+            </div>
+
 
         </div>
         <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
         <input type="hidden" name="virtuemart_itinerary_id"
                value="<?php echo $this->item->virtuemart_itinerary_id; ?>"/>
+        <?php echo VmHTML::inputHidden(array(
+            'key[virtuemart_product_id]'=>$this->virtuemart_product_id
+        )); ?>
+
         <?php echo $this->addStandardHiddenToForm(); ?>
     </form>
 </div>

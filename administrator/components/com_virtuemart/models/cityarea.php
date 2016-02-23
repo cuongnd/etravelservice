@@ -1,10 +1,10 @@
 <?php
 /**
  *
- * Data module for shop currencies
+ * Data module for shop cityarea
  *
  * @package	VirtueMart
- * @subpackage Currency
+ * @subpackage cityarea
  * @author RickG
  * @author Max Milbers
  * @link http://www.virtuemart.net
@@ -14,7 +14,7 @@
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * @version $Id: currency.php 8970 2015-09-06 23:19:17Z Milbo $
+ * @version $Id: cityarea.php 8970 2015-09-06 23:19:17Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -23,10 +23,10 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
 
 /**
- * Model class for shop Currencies
+ * Model class for shop cityarea
  *
  * @package	VirtueMart
- * @subpackage Currency
+ * @subpackage cityarea
  */
 class VirtueMartModelcityarea extends VmModel {
 
@@ -52,57 +52,67 @@ class VirtueMartModelcityarea extends VmModel {
 
 
 	/**
-	 * Retireve a list of currencies from the database.
-	 * This function is used in the backend for the currency listing, therefore no asking if enabled or not
+	 * Retireve a list of cityarea from the database.
+	 * This function is used in the backend for the cityarea listing, therefore no asking if enabled or not
 	 * @author Max Milbers
-	 * @return object List of currency objects
+	 * @return object List of cityarea objects
 	 */
 	function getItemList($search='') {
-
-
-
-		$select = ' cityarea.*,states.state_name,countries.country_name AS country_name';
-		$joinedTables = ' FROM #__virtuemart_cityarea AS cityarea
-				  LEFT JOIN #__virtuemart_states AS states using (virtuemart_state_id)
-				  LEFT JOIN #__virtuemart_countries AS countries using (virtuemart_country_id)
-				  ';
-
-
-
-
-		$where = array();
-
-		$user = JFactory::getUser();
-		$shared = '';
-		if(vmAccess::manager() ){
-			$shared = 'OR `shared`="1"';
-		}
-
-		if(empty($search)){
-			$search = vRequest::getString('search', false);
-		}
-		// add filters
-		if($search){
-			$db = JFactory::getDBO();
-			$search = '"%' . $db->escape( $search, true ) . '%"' ;
-			$where[] = '`title` LIKE '.$search;
-		}
-
-		$whereString='';
-		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
-
-		$data = $this->exeSortSearchListQuery(0,$select,$joinedTables,$whereString,'',$this->_getOrdering());
-		//echo $this->_query;
+		//echo $this->getListQuery()->dump();
+		$data=parent::getItems();
 		return $data;
 	}
 
+	function getListQuery()
+	{
+		$db = JFactory::getDbo();
+		$query=$db->getQuery(true);
+
+		$query->select('cityarea.*,state.state_name,countries.flag AS country_flag,countries.country_name,COUNT(airport.virtuemart_airport_id) AS total_airport')
+			->from('#__virtuemart_cityarea AS cityarea')
+			->leftJoin('#__virtuemart_states AS state   using (virtuemart_state_id)')
+			->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=state.virtuemart_country_id')
+			->leftJoin('#__virtuemart_airport AS airport   using (virtuemart_cityarea_id)')
+			->group('cityarea.virtuemart_cityarea_id')
+			//->leftJoin('#__virtuemart_cityareas AS cityareas ON cityareas.virtuemart_cityarea_id=cityarea.virtuemart_cityarea_id')
+
+		;
+		$user = JFactory::getUser();
+		$shared = '';
+		if (vmAccess::manager()) {
+			//$query->where('transferaddon.shared=1','OR');
+		}
+		$search=vRequest::getCmd('search', false);
+		if (empty($search)) {
+			$search = vRequest::getString('search', false);
+		}
+		// add filters
+		if ($search) {
+			$db = JFactory::getDBO();
+			$search = '"%' . $db->escape($search, true) . '%"';
+			$query->where('cityarea.city_area_name LIKE '.$search);
+		}
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'cityarea.virtuemart_cityarea_id');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'cityarea.ordering')
+		{
+			$orderCol = $db->quoteName('cityarea.virtuemart_cityarea_id') . ' ' . $orderDirn . ', ' . $db->quoteName('cityarea.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
+		return $query;
+	}
 
 	/**
-	 * Retireve a list of currencies from the database.
+	 * Retireve a list of cityarea from the database.
 	 *
-	 * This is written to get a list for selecting currencies. Therefore it asks for enabled
+	 * This is written to get a list for selecting cityarea. Therefore it asks for enabled
 	 * @author Max Milbers
-	 * @return object List of currency objects
+	 * @return object List of cityarea objects
 	 */
 
 	function store(&$data){

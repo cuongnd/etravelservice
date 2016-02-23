@@ -52,5 +52,15 @@ class VirtuemartControllerState extends VmController {
 		$view = $this->getView('state', 'json');
 		$view->display(null);
 	}
+	function ajax_get_list_state_by_country_id()
+	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+		$virtuemart_country_id=$input->get('virtuemart_country_id',0,'int');
+		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmstates.php';
+		$list_state=vmstates::get_list_state_by_country_id($virtuemart_country_id);
+		echo json_encode($list_state);
+		jexit();
+	}
 }
 

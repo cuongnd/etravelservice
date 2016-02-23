@@ -227,8 +227,6 @@ class VirtuemartControllerPromotion extends VmController {
     }
     public function save_price()
     {
-        echo "sdfsdfsd";
-        die;
     }
 }
 // pure php no closing tag

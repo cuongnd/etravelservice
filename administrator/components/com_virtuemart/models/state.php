@@ -1,20 +1,21 @@
 <?php
 /**
-*
-* Data module for shop countries
-*
-* @package	VirtueMart
-* @subpackage Country
-* @author RickG, Max Milbers, jseros
-* @link http://www.virtuemart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* @version $Id: state.php 8953 2015-08-19 10:30:52Z Milbo $
-*/
+ *
+ * Data module for shop state
+ *
+ * @package	VirtueMart
+ * @subpackage state
+ * @author RickG
+ * @author Max Milbers
+ * @link http://www.virtuemart.net
+ * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * VirtueMart is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ * @version $Id: state.php 8970 2015-09-06 23:19:17Z Milbo $
+ */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -22,13 +23,12 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
 
 /**
- * Model class for shop countries
+ * Model class for shop state
  *
  * @package	VirtueMart
- * @subpackage State
- * @author RickG, Max Milbers
+ * @subpackage state
  */
-class VirtueMartModelState extends VmModel {
+class VirtueMartModelstate extends VmModel {
 
 
 	/**
@@ -37,64 +37,44 @@ class VirtueMartModelState extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_state_id');
+		parent::__construct();
 		$this->setMainTable('states');
-		$this->_selectedOrderingDir = 'ASC';
 	}
 
-    /**
-     * Retrieve the detail record for the current $id if the data has not already been loaded.
-     *
-     * Renamed to getSingleState to avoid overwriting by jseros
-     *
-     * @author Max Milbers
-     */
-	function getSingleState($id = 0){
-
+	/**
+	 * Retrieve the detail record for the current $id if the data has not already been loaded.
+	 *
+	 * @author Max Milbers
+	 */
+	function getItem($id=0) {
 		return $this->getData($id);
 	}
 
 
 	/**
-	 * Retireve a list of countries from the database.
-	 *
-     * @author RickG, Max Milbers
+	 * Retireve a list of state from the database.
+	 * This function is used in the backend for the state listing, therefore no asking if enabled or not
+	 * @author Max Milbers
 	 * @return object List of state objects
 	 */
-	public function getStates($countryId, $noLimit=false, $published = false)
-	{
+	function getItemList($search='') {
 		echo $this->getListQuery()->dump();
 		$data=parent::getItems();
 		return $data;
-
-		$quer= 'SELECT * FROM `#__virtuemart_states`  WHERE `virtuemart_country_id`= "'.(int)$countryId.'" ';
-		if($published){
-			$quer .= 'AND `published`="1" ';
-		}
-
-		$quer .= 'ORDER BY `#__virtuemart_states`.`state_name`';
-
-		if ($noLimit) {
-		    $this->_data = $this->_getList($quer);
-		}
-		else {
-		    $this->_data = $this->_getList($quer, $this->getState('limitstart'), $this->getState('limit'));
-		}
-
-		if(count($this->_data) >0){
-			$this->_total = $this->_getListCount($quer);
-		}
-
-		return $this->_data;
 	}
+
 	function getListQuery()
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('states.*')
-			->from('#__virtuemart_states AS states')
-			->leftJoin('#__virtuemart_countries AS countries USING(virtuemart_country_id)')
-			->select('countries.country_name AS country_name')
+
+		$query->select('state.*,countries.flag AS country_flag,countries.country_name,COUNT(cityarea.virtuemart_cityarea_id) AS total_city')
+			->from('#__virtuemart_states AS state')
+			->leftJoin('#__virtuemart_countries AS countries   using (virtuemart_country_id)')
+			->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_state_id)')
+			->group('state.virtuemart_state_id')
+			//->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
+
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -109,53 +89,30 @@ class VirtueMartModelState extends VmModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('states.state_name LIKE '.$search);
+			$query->where('state.state_name LIKE '.$search);
 		}
-		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
-		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
-		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'state.virtuemart_state_id');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'state.ordering')
+		{
+			$orderCol = $db->quoteName('state.virtuemart_state_id') . ' ' . $orderDirn . ', ' . $db->quoteName('state.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
 		return $query;
 	}
 
 	/**
-	 * Tests if a state and country fits together and if they are published
+	 * Retireve a list of state from the database.
 	 *
+	 * This is written to get a list for selecting state. Therefore it asks for enabled
 	 * @author Max Milbers
-	 * @return String Attention, this function gives a 0=false back in case of success
+	 * @return object List of state objects
 	 */
-	public static function testStateCountry($countryId,$stateId)
-	{
-
-		$countryId = (int)$countryId;
-		$stateId = (int)$stateId;
-
-		$db = JFactory::getDBO();
-		$q = 'SELECT * FROM `#__virtuemart_countries` WHERE `virtuemart_country_id`= "'.$countryId.'" AND `published`="1"';
-		$db->setQuery($q);
-		if($db->loadResult()){
-			//Test if country has states
-			$q = 'SELECT * FROM `#__virtuemart_states`  WHERE `virtuemart_country_id`= "'.$countryId.'" AND `published`="1"';
-			$db->setQuery($q);
-			if($db->loadResult()){
-				//Test if virtuemart_state_id fits to virtuemart_country_id
-				$q = 'SELECT * FROM `#__virtuemart_states` WHERE `virtuemart_country_id`= "'.$countryId.'" AND `virtuemart_state_id`="'.$stateId.'" and `published`="1"';
-				$db->setQuery($q);
-				if($db->loadResult()){
-					return true;
-				} else {
-					//There is a country, but the state does not exist or is unlisted
-					return false;
-				}
-			} else {
-				//This country has no states listed
-				return true;
-			}
-
-		} else {
-			//The given country does not exist, this can happen, when no country was chosen, which maybe valid.
-			return true;
-		}
-	}
 
 	function store(&$data){
 		if(!vmAccess::manager('state')){
@@ -172,5 +129,6 @@ class VirtueMartModelState extends VmModel {
 		}
 		return parent::remove($ids);
 	}
+
 }
 // pure php no closing tag

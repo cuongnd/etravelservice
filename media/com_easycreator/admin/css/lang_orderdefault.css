@@ -1,0 +1,20 @@
+/**
+ * @package    EasyCreator
+ * @subpackage CSS
+ * @author     Nikolai Plath (elkuku)
+ * @author     Created on 20-Dec-2007
+ */
+@CHARSET "UTF-8";
+
+li.handle {
+    cursor: move;
+}
+
+li.handle:hover {
+    background-color: yellow;
+}
+
+.ecr_code {
+    border: 1px dotted grey;
+    background-color: #F2F2FF;
+}

@@ -16,15 +16,52 @@
  * other free or open source software licenses.
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
-
+$doc=JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_productonfomation.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="buid-information">
-sdfsds
+<div class="buid-information form-horizontal">
+    <div class="row-fluid ">
+        <div class="span4">
+            <fieldset>
+                <legend>General</legend>
+                <?php echo VmHTML::row_control('text_view', 'Tour name', $view->product->product_name.'('.$view->product->product_sku.')', 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'Tour length', $view->product->tour_length, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'Tour countries', $view->product->list_country, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'start city', $view->product->start_city, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'end city', $view->product->end_city, 'class="required"'); ?>
+            </fieldset>
+
+        </div>
+        <div class="span4">
+            <fieldset>
+                <legend>Particularity</legend>
+
+                <?php echo VmHTML::row_control('text_view', 'Tour type', $view->product->tour_type, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'Tour stype', $view->product->tour_style, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'Difficulty grade', $view->product->physicalgrade, 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max pers', $view->product->min_person,$view->product->max_person,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
+                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max age', $view->product->min_age,$view->product->max_age,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
+
+
+            </fieldset>
+        </div>
+        <div class="span4">
+            <fieldset >
+                <legend>Tour Section</legend>
+                <?php echo VmHTML::view_list(array($view->product->tour_section)); ?>
+            </fieldset>
+            <fieldset class="list_tour_service_class">
+                <legend>Service class</legend>
+                <?php echo VmHTML::view_list($view->product->list_tour_service_class); ?>
+            </fieldset>
+        </div>
+    </div>
+
 </div>
 <!-- Product pricing -->
 

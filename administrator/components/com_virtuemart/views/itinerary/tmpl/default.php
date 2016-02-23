@@ -20,6 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 $doc=JFactory::getDocument();
 $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/view_itinerary_default.js');
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_default.less');
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -31,6 +32,7 @@ if ($saveOrder)
 }
 $user=JFactory::getUser();
 $userId    = $user->get('id');
+
 AdminUIHelper::startAdminArea($this);
 
 $js_content = '';
@@ -45,24 +47,16 @@ ob_start();
 $js_content = ob_get_clean();
 $js_content = JUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-
-
-
-
-
 ?>
-<div class="view-itinerary-default">
-   <?php  echo vmproduct::get_html_tour_information();?>
+
+<div class="view-itinerary-default form-tour-build">
+    <?php echo vmproduct::get_html_tour_information($this,$this->virtuemart_product_id); ?>
+
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('itinerary', 'search'); ?>
-                </td>
-            </tr>
-        </table>
-        <div id="resultscounter" ><?php echo $this->pagination->getResultsCounter();?></div>
         <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
             <table class="adminlist table table-striped" id="itineraryList" cellspacing="0" cellpadding="0">
                 <thead>
 
@@ -83,10 +77,10 @@ $doc->addScriptDeclaration($js_content);
                     </th>
 
                     <th>
-                        <?php echo $this->sort('brief_itinerary', 'Brief itinerary'); ?>
+                        <?php echo $this->sort('short_description', 'Short description'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('full_itinerary', 'Full itinerary'); ?>
+                        <?php echo $this->sort('full_description', 'Full description'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('trip_note1', 'Trip note 1'); ?>
@@ -119,10 +113,8 @@ $doc->addScriptDeclaration($js_content);
 
                     $checked = JHtml::_('grid.id', $i, $row->virtuemart_itinerary_id);
                     $published = $this->gridPublished($row, $i);
-                    $canCheckin = $user->authorise('core.manage',     'com_checkin') || $row->locked_by == $userId || $row->locked_by == 0;
-                    $canChange  = $user->authorise('core.edit.state', 'com_virtuemart.itinerary.' . $row->id) && $canCheckin;
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_cityarea_id');
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=itinerary&task=show_parent_popup&cid[]=' . $row->virtuemart_itinerary_id);
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=itinerary&task=show_parent_popup&key[virtuemart_product_id]='.$this->virtuemart_product_id.'&cid[]=' . $row->virtuemart_itinerary_id);
                     $edit = $this->gridEdit($row, $i, 'virtuemart_itinerary_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">
@@ -187,6 +179,9 @@ $doc->addScriptDeclaration($js_content);
                 </tfoot>
             </table>
         </div>
+        <?php echo VmHTML::inputHidden(array(
+            'key[virtuemart_product_id]'=>$this->virtuemart_product_id
+        )); ?>
 
         <?php echo $this->addStandardHiddenToForm(); ?>
         <?php echo JHtml::_('form.token'); ?>

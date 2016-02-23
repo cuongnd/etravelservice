@@ -44,5 +44,17 @@ class vmcountries
         return $db->setQuery($query)->loadObjectList();
     }
 
+    public static function get_list_virtuemart_country_id_by_tour_id($virtuemart_product_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__virtuemart_countries')
+            ->leftJoin('#__virtuemart_tour_id_country_id AS  tour_id_country_id USING(virtuemart_country_id)')
+            ->where('tour_id_country_id.virtuemart_product_id='.(int)$virtuemart_product_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+
 
 }

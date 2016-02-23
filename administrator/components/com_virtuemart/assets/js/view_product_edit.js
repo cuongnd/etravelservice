@@ -28,23 +28,41 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
-            var $tour_methor=$element.find('select[name="price_type"]');
-            $tour_methor.change(function(){
-                var value=$(this).val();
-                if(value==0)
-                {
-                    $('input[name="list_group_size_id[]"]').attr("disabled", false);
-                }else{
-                    $('input[name="list_group_size_id[]"]').attr("disabled", true);
-                }
-            });
+            $('.vm_toolbar').insertAfter($('.view-product-edit'));
 
-            if($tour_methor.val()==0)
+            var $price_type=$element.find('input[name="price_type"]:checked');
+
+            if($price_type.val()=='multi_price'||$price_type.val()=='both_options')
             {
+                $('.group-size').css({
+                    display:"block"
+                });
                 $('input[name="list_group_size_id[]"]').attr("disabled", false);
             }else{
+                $('.group-size').css({
+                    display:"none"
+                });
                 $('input[name="list_group_size_id[]"]').attr("disabled", true);
             }
+            var $price_type=$element.find('input[name="price_type"]');
+            $price_type.change(function(){
+
+                if($(this).val()=='multi_price'||$(this).val()=='both_options')
+                {
+                    $('.group-size').css({
+                        display:"block"
+                    });
+                    $('input[name="list_group_size_id[]"]').attr("disabled", false);
+                }else{
+                    $('.group-size').css({
+                        display:"none"
+                    });
+                    $('input[name="list_group_size_id[]"]').attr("disabled", true);
+                }
+
+            });
+
+
 
         }
 

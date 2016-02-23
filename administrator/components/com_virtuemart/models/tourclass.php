@@ -86,7 +86,7 @@ class VirtueMartModeltourclass extends VmModel {
 	 */
 	function getItemList($search='') {
 
-		echo $this->getListQuery()->dump();
+		//echo $this->getListQuery()->dump();
 		$data=parent::getItems();
 		return $data;
 

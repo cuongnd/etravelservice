@@ -38,7 +38,9 @@ AdminUIHelper::startAdminArea($this);
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <div id="editcell">
-            <div><?php echo JHtml::_('link', 'index.php?option=com_virtuemart&view=state&virtuemart_state_id=' . $this->virtuemart_state_id, vmText::sprintf('COM_VIRTUEMART_STATES_state', $this->state_name)); ?></div>
+            <div class="vm-page-nav">
+
+            </div>
             <table class="adminlist table table-striped" id="state_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
@@ -48,20 +50,21 @@ AdminUIHelper::startAdminArea($this);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('states.sate_name', 'COM_VIRTUEMART_STATE_NAME'); ?>
+                        <?php echo $this->sort('states.sate_name', 'Sate name'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_name', 'Country'); ?>
+                        <?php echo $this->sort('phone_code', 'Phone code'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('virtuemart_worldzone_id', 'COM_VIRTUEMART_ZONE_ASSIGN_CURRENT_LBL'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('state_2_code', 'COM_VIRTUEMART_STATE_2_CODE'); ?>
+                        <?php echo $this->sort('country.country_name', 'Country'); ?>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('state_3_code', 'COM_VIRTUEMART_STATE_3_CODE'); ?>
+                        <?php echo $this->sort('total_city', 'City number'); ?>
+
+                    </th>
+                    <th>
+                        <?php echo $this->sort('total_airport', 'airport number'); ?>
 
                     </th>
                     <th width="70px">
@@ -110,34 +113,26 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::select('virtuemart_country_id', $this->list_country, $row->virtuemart_country_id, '', 'virtuemart_country_id', 'country_name'); ?>
+                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
                             <?php } else { ?>
+                                <?php echo $row->phone_code; ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?><?php echo VmHTML::select('virtuemart_country_id', $this->list_country, $row->virtuemart_country_id, '', 'virtuemart_country_id', 'country_name'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo $row->country_name; ?>
                             <?php } ?>
 
                         </td>
-                        <td align="left">
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('virtuemart_worldzone_id', $row->virtuemart_worldzone_id, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->virtuemart_worldzone_id; ?>
-                            <?php } ?>
+                        <td>
+                            <?php echo $row->total_city; ?>
 
                         </td>
                         <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('state_2_code', $row->state_2_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->state_2_code; ?>
-                            <?php } ?>
-
-                        </td>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('state_3_code', $row->state_3_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->state_3_code; ?>
-                            <?php } ?>
+                            <?php echo $row->total_airport; ?>
 
                         </td>
                         <td>

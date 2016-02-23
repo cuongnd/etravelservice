@@ -56,7 +56,7 @@ class VirtuemartViewCountry extends VmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 			$filter_country = vRequest::getCmd('filter_country', false);
-			$this->items = $model->getCountries(false, false, $filter_country);
+			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
 		}

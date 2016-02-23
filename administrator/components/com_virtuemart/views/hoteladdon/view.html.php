@@ -38,8 +38,10 @@ class virtuemartViewhoteladdon extends VmViewAdmin {
 
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-
+		$app=JFactory::getApplication();
 		$model = VmModel::getModel();
+		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 
 
 		$config = JFactory::getConfig();
