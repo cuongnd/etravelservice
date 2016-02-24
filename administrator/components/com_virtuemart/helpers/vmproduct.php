@@ -71,7 +71,7 @@ class vmproduct
 
 
         $query=$db->getQuery(true);
-        $query->select('cityarea.title')
+        $query->select('cityarea.city_area_name')
             ->from('#__virtuemart_cityarea AS cityarea')
             ->where('cityarea.virtuemart_cityarea_id='.(int)$product->start_city)
             ;
@@ -86,7 +86,7 @@ class vmproduct
         $product->tour_section=$db->setQuery($query)->loadResult();
 
         $query=$db->getQuery(true);
-        $query->select('cityarea.title')
+        $query->select('cityarea.city_area_name')
             ->from('#__virtuemart_cityarea AS cityarea')
             ->where('cityarea.virtuemart_cityarea_id='.(int)$product->end_city)
             ;

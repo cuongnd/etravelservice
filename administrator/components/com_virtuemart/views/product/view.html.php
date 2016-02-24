@@ -57,7 +57,7 @@ class VirtuemartViewProduct extends VmViewAdmin
                 VmConfig::loadJLang('com_virtuemart_orders', TRUE);
                 VmConfig::loadJLang('com_virtuemart_shoppers', TRUE);
                 $model_country = VmModel::getModel('country');
-                $this->countries = $model_country->getCountries(true, true);
+                $this->countries = $model_country->getItemList();
                 $virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
 
                 if (is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0) {
@@ -156,7 +156,7 @@ class VirtuemartViewProduct extends VmViewAdmin
                 $vendor_model->setId(vmAccess::isSuperVendor());
                 $this->vendor = $vendor_model->getVendor();
 
-                $currency = $currency_model->getCurrency($this->vendor->vendor_currency);
+                $currency = $currency_model->getItemList();
                 $this->vendor_currency_symb = $currency->currency_symbol;
 
 

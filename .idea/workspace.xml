@@ -22,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="product_edit_information.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="product_edit_information.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit_information.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46015036">
-              <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
+            <state vertical-scroll-proportion="-54.26923">
+              <caret line="165" column="64" selection-start-line="165" selection-start-column="64" selection-end-line="165" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -47,11 +47,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="86" column="24" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="24" />
-              <folding>
-                <marker date="1453048092948" expanded="true" signature="3783:3896" placeholder="SELECT `vend..." />
-                <marker date="1453048092948" expanded="true" signature="4569:4789" placeholder="SELECT `virt..." />
-                <marker date="1453048092948" expanded="true" signature="5385:5578" placeholder="SELECT * FRO..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,27 +72,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="html.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
+      <file leaf-file-name="currency.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/currency.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="362" column="38" selection-start-line="362" selection-start-column="27" selection-end-line="362" selection-end-column="38" />
-              <folding>
-                <marker date="1453864389009" expanded="true" signature="3307:3359" placeholder="..." />
-                <marker date="1453864389009" expanded="true" signature="3327:3351" placeholder="..." />
-                <marker date="1453864389009" expanded="true" signature="4595:4677" placeholder="..." />
-                <marker date="1453864389009" expanded="true" signature="26983:26992" placeholder="..." />
-              </folding>
+            <state vertical-scroll-proportion="-10.461538">
+              <caret line="59" column="24" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/excusionaddon/tmpl/edit.php">
+      <file leaf-file-name="adminui.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="37" column="83" selection-start-line="37" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.29460582">
+              <caret line="668" column="0" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="0" />
+              <folding>
+                <marker date="1456279425404" expanded="true" signature="6754:7042" placeholder="..." />
+                <marker date="1456279425404" expanded="true" signature="6787:6826" placeholder="{...}" />
+                <marker date="1456279425404" expanded="true" signature="6873:6909" placeholder="{...}" />
+                <marker date="1456279425404" expanded="true" signature="6957:7000" placeholder="{...}" />
+                <marker date="1456279425404" expanded="true" signature="54260:54323" placeholder="..." />
+                <marker date="1456279425404" expanded="true" signature="57630:57873" placeholder="..." />
+                <marker date="1456279425404" expanded="true" signature="57677:57861" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,50 +103,32 @@
       <file leaf-file-name="view.html.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="280" column="48" selection-start-line="280" selection-start-column="34" selection-end-line="280" selection-end-column="48" />
+            <state vertical-scroll-proportion="-6.4615383">
+              <caret line="158" column="54" selection-start-line="158" selection-start-column="54" selection-end-line="158" selection-end-column="54" />
               <folding>
-                <marker date="1453865360201" expanded="true" signature="29948:30023" placeholder="SELECT COUNT..." />
-                <marker date="1453865360201" expanded="true" signature="30555:30719" placeholder="SELECT * FRO..." />
+                <marker date="1456223474306" expanded="true" signature="30415:30490" placeholder="SELECT COUNT..." />
+                <marker date="1456223474306" expanded="true" signature="31022:31186" placeholder="SELECT * FRO..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vmtourtype.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtourtype.php">
+      <file leaf-file-name="itinerary.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.5">
+              <caret line="63" column="55" selection-start-line="63" selection-start-column="55" selection-end-line="63" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="product.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/product.php">
+      <file leaf-file-name="vmproduct.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2012" column="0" selection-start-line="2012" selection-start-column="0" selection-end-line="2012" selection-end-column="0" />
-              <folding>
-                <marker date="1453865315247" expanded="true" signature="37589:37682" placeholder="SELECT * FRO..." />
-                <marker date="1453865315247" expanded="true" signature="52164:52246" placeholder="SELECT * FRO..." />
-                <marker date="1453865315247" expanded="true" signature="61155:61313" placeholder="SELECT `id`,..." />
-                <marker date="1453865315247" expanded="true" signature="69451:69573" placeholder="DELETE FROM ..." />
-                <marker date="1453865315247" expanded="true" signature="74734:74939" placeholder="SELECT `prod..." />
-                <marker date="1453865315247" expanded="true" signature="75184:75389" placeholder="SELECT `prod..." />
-                <marker date="1453865315247" expanded="true" signature="77973:78017" placeholder="SELECT * FRO..." />
-                <marker date="1453865315247" expanded="true" signature="78680:78730" placeholder="SELECT * FRO..." />
-                <marker date="1453865315247" expanded="true" signature="80332:80414" placeholder="SELECT `virt..." />
-                <marker date="1453865315247" expanded="true" signature="80713:80820" placeholder="DELETE FROM ..." />
-                <marker date="1453865315247" expanded="true" signature="92554:92797" placeholder="SELECT l.pro..." />
-                <marker date="1453865315247" expanded="true" signature="94195:94351" placeholder="SELECT `virt..." />
-                <marker date="1453865315247" expanded="true" signature="95935:96042" placeholder="SELECT COUNT..." />
-                <marker date="1453865315247" expanded="true" signature="96312:96511" placeholder="SELECT virtu..." />
-                <marker date="1453865315247" expanded="true" signature="96717:96860" placeholder="SELECT virtu..." />
-                <marker date="1453865315247" expanded="true" signature="97852:97940" placeholder="SELECT `prod..." />
-                <marker date="1453865315247" expanded="true" signature="100203:100605" placeholder="SELECT ou.* ..." />
-              </folding>
+            <state vertical-scroll-proportion="-10.076923">
+              <caret line="88" column="49" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/tour_style.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/tourstyle.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/tourtype/tmpl/edit.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/tourstyle/tmpl/edit.php" />
@@ -194,7 +174,6 @@
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/productinformation.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/tmpl/default.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/toursection.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/tour_section.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/view.html.php" />
@@ -207,14 +186,16 @@
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtoursection.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/products.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtourtype.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/product.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/asianventure.less" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_product_edit.js" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/departure/view.html.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit_information.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php" />
       </list>
     </option>
   </component>
@@ -301,8 +282,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -916,76 +895,48 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="less" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="administrator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com_virtuemart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="administrator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com_virtuemart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="SearchEverywhereHistoryKey" value="jhtml&#9;null&#9;null&#10;datepicker&#9;null&#9;null&#10;Jhtml&#9;null&#9;null&#10;controller/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/controllers/price.php&#10;table/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/tables/price.php&#10;jbeha&#9;null&#9;null&#10;behavior&#9;null&#9;null&#10;head.php&#9;FILE&#9;file://H:/project/joom336/libraries/joomla/document/html/renderer/head.php" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/departure/view.html.php" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
@@ -1060,28 +1011,28 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22392212" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25452018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25416037" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15938303" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25416037" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33290488" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33290488" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.225" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25553662" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15295629" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1102,10 +1053,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33290488" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15295629" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15295629" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1126,20 +1077,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/price/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="99" column="71" selection-start-line="99" selection-start-column="71" selection-end-line="99" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmprice.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.6037736">
-          <caret line="65" column="59" selection-start-line="55" selection-start-column="0" selection-end-line="65" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/promotion/tmpl/default.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="41.884617">
@@ -1325,13 +1262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8846154">
-          <caret line="48" column="42" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libraries/legacy/controller/legacy.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4526749">
@@ -1410,13 +1340,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.23077">
-          <caret line="672" column="45" selection-start-line="672" selection-start-column="45" selection-end-line="672" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtourtype.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1429,36 +1352,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2012" column="0" selection-start-line="2012" selection-start-column="0" selection-end-line="2012" selection-end-column="0" />
-          <folding>
-            <marker date="1453865315247" expanded="true" signature="37589:37682" placeholder="SELECT * FRO..." />
-            <marker date="1453865315247" expanded="true" signature="52164:52246" placeholder="SELECT * FRO..." />
-            <marker date="1453865315247" expanded="true" signature="61155:61313" placeholder="SELECT `id`,..." />
-            <marker date="1453865315247" expanded="true" signature="69451:69573" placeholder="DELETE FROM ..." />
-            <marker date="1453865315247" expanded="true" signature="74734:74939" placeholder="SELECT `prod..." />
-            <marker date="1453865315247" expanded="true" signature="75184:75389" placeholder="SELECT `prod..." />
-            <marker date="1453865315247" expanded="true" signature="77973:78017" placeholder="SELECT * FRO..." />
-            <marker date="1453865315247" expanded="true" signature="78680:78730" placeholder="SELECT * FRO..." />
-            <marker date="1453865315247" expanded="true" signature="80332:80414" placeholder="SELECT `virt..." />
-            <marker date="1453865315247" expanded="true" signature="80713:80820" placeholder="DELETE FROM ..." />
-            <marker date="1453865315247" expanded="true" signature="92554:92797" placeholder="SELECT l.pro..." />
-            <marker date="1453865315247" expanded="true" signature="94195:94351" placeholder="SELECT `virt..." />
-            <marker date="1453865315247" expanded="true" signature="95935:96042" placeholder="SELECT COUNT..." />
-            <marker date="1453865315247" expanded="true" signature="96312:96511" placeholder="SELECT virtu..." />
-            <marker date="1453865315247" expanded="true" signature="96717:96860" placeholder="SELECT virtu..." />
-            <marker date="1453865315247" expanded="true" signature="97852:97940" placeholder="SELECT `prod..." />
-            <marker date="1453865315247" expanded="true" signature="100203:100605" placeholder="SELECT ou.* ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="280" column="48" selection-start-line="280" selection-start-column="34" selection-end-line="280" selection-end-column="48" />
-          <folding>
-            <marker date="1453865360201" expanded="true" signature="29948:30023" placeholder="SELECT COUNT..." />
-            <marker date="1453865360201" expanded="true" signature="30555:30719" placeholder="SELECT * FRO..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1474,12 +1368,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="362" column="38" selection-start-line="362" selection-start-column="27" selection-end-line="362" selection-end-column="38" />
-          <folding>
-            <marker date="1453864389009" expanded="true" signature="3307:3359" placeholder="..." />
-            <marker date="1453864389009" expanded="true" signature="3327:3351" placeholder="..." />
-            <marker date="1453864389009" expanded="true" signature="4595:4677" placeholder="..." />
-            <marker date="1453864389009" expanded="true" signature="26983:26992" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1503,11 +1392,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="24" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="24" />
-          <folding>
-            <marker date="1453048092948" expanded="true" signature="3783:3896" placeholder="SELECT `vend..." />
-            <marker date="1453048092948" expanded="true" signature="4569:4789" placeholder="SELECT `virt..." />
-            <marker date="1453048092948" expanded="true" signature="5385:5578" placeholder="SELECT * FRO..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1521,9 +1406,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit_information.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46015036">
-          <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
+        <state vertical-scroll-proportion="-54.26923">
+          <caret line="165" column="64" selection-start-line="165" selection-start-column="64" selection-end-line="165" selection-end-column="64" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/currency.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.461538">
+          <caret line="59" column="24" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.4615383">
+          <caret line="158" column="54" selection-start-line="158" selection-start-column="54" selection-end-line="158" selection-end-column="54" />
+          <folding>
+            <marker date="1456223474306" expanded="true" signature="30415:30490" placeholder="SELECT COUNT..." />
+            <marker date="1456223474306" expanded="true" signature="31022:31186" placeholder="SELECT * FRO..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5">
+          <caret line="63" column="55" selection-start-line="63" selection-start-column="55" selection-end-line="63" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.076923">
+          <caret line="88" column="49" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29460582">
+          <caret line="668" column="0" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="0" />
+          <folding>
+            <marker date="1456279425404" expanded="true" signature="6754:7042" placeholder="..." />
+            <marker date="1456279425404" expanded="true" signature="6787:6826" placeholder="{...}" />
+            <marker date="1456279425404" expanded="true" signature="6873:6909" placeholder="{...}" />
+            <marker date="1456279425404" expanded="true" signature="6957:7000" placeholder="{...}" />
+            <marker date="1456279425404" expanded="true" signature="54260:54323" placeholder="..." />
+            <marker date="1456279425404" expanded="true" signature="57630:57873" placeholder="..." />
+            <marker date="1456279425404" expanded="true" signature="57677:57861" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

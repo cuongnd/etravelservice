@@ -632,10 +632,21 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                             <div class="row-fluid">
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href='index.php?option=com_virtuemart&view=currency'><i
-                                                    class="im-screen"></i>currency</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=paymentmethod"><span
-                                                    class="icon-palette" title=""></span>Payment method</a></li>
+                                        <li><a href='index.php?option=com_virtuemart&view=generalsetup'><i
+                                                    class="im-screen"></i>Genarral setup</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=template"><span
+                                                    class="icon-palette" title=""></span>Template</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="span2">
+                                    <ul class="ul_sub_menu">
+                                        <li><a href='index.php?option=com_virtuemart&view=apisetting'><i
+                                                    class="im-screen"></i>Api setting</a></li>
+                                        <li><a href='index.php?option=com_virtuemart&view=seosetting'><i
+                                                    class="im-screen"></i>Seo setting</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=currency"><span
+                                                    class="icon-palette" title=""></span>Curency</a></li>
 
                                     </ul>
                                 </div>
@@ -643,23 +654,15 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                     <ul class="ul_sub_menu">
                                         <li><a href="index.php?option=com_virtuemart&view=language"><span
                                                     class="icon-palette" title=""></span>Language</a></li>
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system4</a>
+                                        <li><a href="index.php?option=com_virtuemart&view=module"><span class="icon-palette" title=""></span>Module</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system5</a>
+                                        <li><a href="index.php?option=com_virtuemart&view=paymentsetting"><span class="icon-palette" title=""></span>Payment</a>
                                         </li>
                                         <li><a href="#"><span class="icon-palette" title=""></span>setup_system6</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system7</a>
-                                        </li>
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system8</a>
                                         </li>
                                     </ul>
                                 </div>
