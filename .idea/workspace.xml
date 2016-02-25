@@ -22,112 +22,121 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="product_edit_information.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit_information.php">
+      <file leaf-file-name="view.html.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/view.html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-54.26923">
-              <caret line="165" column="64" selection-start-line="165" selection-start-column="64" selection-end-line="165" selection-end-column="64" />
+            <state vertical-scroll-proportion="-4.207547">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/tmpl/default.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.115385">
+              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+              <folding>
+                <marker date="1456397266608" expanded="true" signature="3608:3664" placeholder="..." />
+                <marker date="1456397266608" expanded="true" signature="4423:4612" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="html.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.576923">
+              <caret line="563" column="19" selection-start-line="563" selection-start-column="19" selection-end-line="563" selection-end-column="19" />
+              <folding>
+                <marker date="1456391987694" expanded="true" signature="3789:3845" placeholder="..." />
+                <marker date="1456391987694" expanded="true" signature="3809:3837" placeholder="..." />
+                <marker date="1456391987694" expanded="true" signature="5366:5452" placeholder="..." />
+                <marker date="1456391987694" expanded="true" signature="6912:6998" placeholder="..." />
+                <marker date="1456391987694" expanded="true" signature="46782:46791" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="view.html.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/departure/view.html.php">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/supplier/view.html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="69" column="67" selection-start-line="69" selection-start-column="67" selection-end-line="69" selection-end-column="67" />
+            <state vertical-scroll-proportion="-4.576923">
+              <caret line="61" column="63" selection-start-line="61" selection-start-column="63" selection-end-line="61" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tourclass.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/tourclass.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="86" column="24" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="asianventure.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/asianventure.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="119" column="13" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view_product_edit.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_product_edit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="currency.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/currency.php">
+      <file leaf-file-name="vmsupplier.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmsupplier.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-10.461538">
-              <caret line="59" column="24" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="24" />
+              <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminui.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/payment/tmpl/edit.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.6153846">
+              <caret line="43" column="63" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vmpaymentsetting.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmpaymentsetting.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.923077">
+              <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminui.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29460582">
-              <caret line="668" column="0" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.307693">
+              <caret line="667" column="149" selection-start-line="667" selection-start-column="149" selection-end-line="667" selection-end-column="149" />
               <folding>
-                <marker date="1456279425404" expanded="true" signature="6754:7042" placeholder="..." />
-                <marker date="1456279425404" expanded="true" signature="6787:6826" placeholder="{...}" />
-                <marker date="1456279425404" expanded="true" signature="6873:6909" placeholder="{...}" />
-                <marker date="1456279425404" expanded="true" signature="6957:7000" placeholder="{...}" />
-                <marker date="1456279425404" expanded="true" signature="54260:54323" placeholder="..." />
-                <marker date="1456279425404" expanded="true" signature="57630:57873" placeholder="..." />
-                <marker date="1456279425404" expanded="true" signature="57677:57861" placeholder="..." />
+                <marker date="1456398068114" expanded="true" signature="6891:7179" placeholder="..." />
+                <marker date="1456398068114" expanded="true" signature="6924:6963" placeholder="{...}" />
+                <marker date="1456398068114" expanded="true" signature="7010:7046" placeholder="{...}" />
+                <marker date="1456398068114" expanded="true" signature="7094:7137" placeholder="{...}" />
+                <marker date="1456398068114" expanded="true" signature="54997:55060" placeholder="..." />
+                <marker date="1456398068114" expanded="true" signature="58367:58610" placeholder="..." />
+                <marker date="1456398068114" expanded="true" signature="58414:58598" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view.html.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php">
+      <file leaf-file-name="view.html.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentmethod/view.html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4615383">
-              <caret line="158" column="54" selection-start-line="158" selection-start-column="54" selection-end-line="158" selection-end-column="54" />
+            <state vertical-scroll-proportion="-1.2128603">
+              <caret line="61" column="52" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="52" />
               <folding>
-                <marker date="1456223474306" expanded="true" signature="30415:30490" placeholder="SELECT COUNT..." />
-                <marker date="1456223474306" expanded="true" signature="31022:31186" placeholder="SELECT * FRO..." />
+                <marker date="1456398128274" expanded="true" signature="4059:4165" placeholder="SELECT * FRO..." />
+                <marker date="1456398128274" expanded="true" signature="4466:4479" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="itinerary.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php">
+      <file leaf-file-name="configuration.php" pinned="true" current-in-tab="false">
+        <entry file="REMOTE_DEPLOYMENT_FS://&lt;867f4679-fd81-41c6-b342-18c7ad61cdb7&gt;/configuration.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5">
-              <caret line="63" column="55" selection-start-line="63" selection-start-column="55" selection-end-line="63" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vmproduct.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.076923">
-              <caret line="88" column="49" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
+            <state vertical-scroll-proportion="-1.8888888">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -145,47 +154,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/tourstyle.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/tourtype/tmpl/edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/tourstyle/tmpl/edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/hotel.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_component.less" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/group_size.php" />
-        <option value="$PROJECT_DIR$/libraries/legacy/model/list.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/groupsize.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/groupsize/tmpl/default.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/price/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmprice.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/promotion/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/hoteladdon.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/default.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/hoteladdon.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/hoteladdon.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/tmpl/default.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/tmpl/edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/asianventure.js" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmviewadmin.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_product_edit.less" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_information.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/productinformation.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/tmpl/default.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/toursection.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/tour_section.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/view.html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_tour_section_edit.js" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/tmpl/edit.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/toursection.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/tour_section.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/toursection.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/tmpl/default.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtoursection.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/products.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtourtype.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/product.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/asianventure.less" />
@@ -195,7 +168,43 @@
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmroom.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/room.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/config.php" />
+        <option value="$PROJECT_DIR$/configuration.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/hathor/ajax_json.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/hathor/ajaxjson.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/hathor/component.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/isis/component.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/hathor/index.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/isis/ajaxjson.php" />
+        <option value="$PROJECT_DIR$/administrator/index.php" />
+        <option value="&lt;867f4679-fd81-41c6-b342-18c7ad61cdb7&gt;/configuration.php" />
+        <option value="$PROJECT_DIR$/administrator/templates/isis/ajax_json.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/virtuemart.php" />
+        <option value="$PROJECT_DIR$/media/system/js/jquery.utility.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/asianventure.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_room_default.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/room.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/tmpl/default.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/room.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_room_edit.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/tmpl/edit.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/asianventure_edit_from.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/view.html.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/default.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/tables/paymentsetting.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/models/paymentsetting.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/paymentsetting.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_paymentsetting_default.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_paymentsetting_default.less" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/view.html.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/tmpl/default.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmpaymentsetting.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentmethod/view.html.php" />
       </list>
     </option>
   </component>
@@ -282,6 +291,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -353,180 +363,6 @@
               <option name="myItemId" value="system" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="URI.js-gh-pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="URI.js-gh-pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="purl-master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="purl-master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="purl-master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="purl-master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="legacy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="etravelservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="legacy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -634,7 +470,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="toursection" />
+              <option name="myItemId" value="tourclass" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -664,7 +500,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="toursection" />
+              <option name="myItemId" value="tourclass" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -698,7 +534,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="product" />
+              <option name="myItemId" value="supplier" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -728,7 +564,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="product" />
+              <option name="myItemId" value="supplier" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -762,7 +598,263 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="departure" />
+              <option name="myItemId" value="room" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="room" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tmpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paymentsetting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paymentsetting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tmpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paymentmethod" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="payment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="payment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tmpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cityarea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cityarea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tmpl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -926,17 +1018,118 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etravelservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="administrator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com_virtuemart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="select_percent_amount" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="jhtml&#9;null&#9;null&#10;datepicker&#9;null&#9;null&#10;Jhtml&#9;null&#9;null&#10;controller/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/controllers/price.php&#10;table/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/tables/price.php&#10;jbeha&#9;null&#9;null&#10;behavior&#9;null&#9;null&#10;head.php&#9;FILE&#9;file://H:/project/joom336/libraries/joomla/document/html/renderer/head.php" />
+    <property name="SearchEverywhereHistoryKey" value="ui&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/helpers/adminui.php&#10;jhtml&#9;null&#9;null&#10;datepicker&#9;null&#9;null&#10;Jhtml&#9;null&#9;null&#10;controller/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/controllers/price.php&#10;table/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/tables/price.php&#10;jbeha&#9;null&#9;null&#10;behavior&#9;null&#9;null&#10;head.php&#9;FILE&#9;file://H:/project/joom336/libraries/joomla/document/html/renderer/head.php" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/configuration.php" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
@@ -948,9 +1141,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\helpers" />
+      <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\assets\js\controller" />
       <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\assets\js" />
-      <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\models" />
-      <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\tables" />
+      <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\assets\less" />
       <recent name="H:\project\etravelservice\administrator\components\com_virtuemart\controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -998,7 +1191,7 @@
     </task>
     <servers />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -1011,52 +1204,52 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22392212" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25452018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22392212" sideWeight="0.49485862" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2573018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25416037" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25385603" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22392212" sideWeight="0.5051414" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3374036" sideWeight="0.2204301" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15938303" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.4974293" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25192803" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33290488" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3374036" sideWeight="0.77956986" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.49170125" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15295629" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.225" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22392212" sideWeight="0.4974293" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25553662" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25452018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25416037" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25385603" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5025707" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3374036" sideWeight="0.21835883" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.4974293" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15938303" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33290488" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3374036" sideWeight="0.7816412" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.49170125" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15295629" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1077,388 +1270,443 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/promotion/tmpl/default.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="41.884617">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-8.576923">
+          <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/promotion/tmpl/default_price.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537">
-          <caret line="33" column="85" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/promotion/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/view.html.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_departure_default.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+          <caret line="265" column="0" selection-start-line="230" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/hoteladdon.php">
+    <entry file="file://$PROJECT_DIR$/configuration.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.37103173">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/default.php">
+    <entry file="file://$PROJECT_DIR$/administrator/templates/hathor/ajax_json.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="123" selection-start-line="46" selection-start-column="104" selection-end-line="46" selection-end-column="123" />
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/tables/hoteladdon.php">
+    <entry file="file://$PROJECT_DIR$/administrator/templates/hathor/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+        <state vertical-scroll-proportion="-1.3076923">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/hoteladdon.php">
+    <entry file="file://$PROJECT_DIR$/administrator/templates/hathor/component.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
+        <state vertical-scroll-proportion="-0.6415094">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#253#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/tmpl/default.php">
+    <entry file="file://$PROJECT_DIR$/administrator/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="82" selection-start-line="91" selection-start-column="82" selection-end-line="91" selection-end-column="82" />
+        <state vertical-scroll-proportion="-14.153846">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/edit.php">
+    <entry file="file://$PROJECT_DIR$/administrator/templates/isis/component.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="78" column="71" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="71" />
+        <state vertical-scroll-proportion="-0.6415094">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#252#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/edit.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/virtuemart.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="67" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
+        <state vertical-scroll-proportion="-4.811321">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hoteladdon/tmpl/edit.php">
+    <entry file="file://$PROJECT_DIR$/media/system/js/jquery.utility.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+        <state vertical-scroll-proportion="-16.555555">
+          <caret line="55" column="11" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/media/system/js/purl-master/purl-master/test/buster.js">
+    <entry file="file://$PROJECT_DIR$/administrator/templates/isis/ajax_json.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-2.6153846">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/media/system/js/URI.js-gh-pages/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1724138">
-          <caret line="2" column="44" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/asianventure.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="56" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="94" />
+          <caret line="132" column="57" selection-start-line="132" selection-start-column="57" selection-end-line="132" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_component.less">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_room_default.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.692307">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_product_edit.less">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/activity/tmpl/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.769231">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        <state vertical-scroll-proportion="-3.1463416">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/supplier/tmpl/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.769231">
-          <caret line="65" column="48" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="48" />
+        <state vertical-scroll-proportion="-16.346153">
+          <caret line="49" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/productinformation.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_room_default.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/room.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.153847">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/tables/room.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.576923">
+          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_room_edit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/tmpl/edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.884615">
+          <caret line="51" column="81" selection-start-line="51" selection-start-column="81" selection-end-line="51" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/asianventure_edit_from.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="81" column="104" selection-start-line="81" selection-start-column="104" selection-end-line="81" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/tmpl/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.0">
+          <caret line="153" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="152" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/room/view.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.115385">
+          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/hotel/tmpl/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.307693">
+          <caret line="131" column="88" selection-start-line="131" selection-start-column="85" selection-end-line="131" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/tables/paymentsetting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.576923">
+          <caret line="48" column="86" selection-start-line="48" selection-start-column="86" selection-end-line="48" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/paymentsetting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.846154">
+          <caret line="110" column="7" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
+          <folding>
+            <element signature="e#6#680#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/paymentsetting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.6538463">
+          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/tmpl/edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.807693">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmviewadmin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.8846154">
-          <caret line="29" column="34" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="37" />
+        <state vertical-scroll-proportion="-12.769231">
+          <caret line="535" column="35" selection-start-line="535" selection-start-column="35" selection-end-line="535" selection-end-column="35" />
+          <folding>
+            <marker date="1455871533237" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/legacy/view/legacy.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/cityarea/view.html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6363637">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/activity.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.461538">
-          <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmcontroller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1454546">
-          <caret line="93" column="26" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/tmpl/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="54" column="8" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/itinerary/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9245284">
-          <caret line="78" column="101" selection-start-line="78" selection-start-column="101" selection-end-line="78" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="30" column="33" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/legacy/controller/legacy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4526749">
-          <caret line="229" column="27" selection-start-line="229" selection-start-column="27" selection-end-line="229" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/tables/tour_section.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31428573">
-          <caret line="44" column="55" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3076925">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_tour_section_edit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/tmpl/edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.576923">
-          <caret line="31" column="70" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/toursection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48872182">
-          <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/controllers/toursection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26645768">
-          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/toursection/tmpl/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23308271">
-          <caret line="76" column="76" selection-start-line="76" selection-start-column="76" selection-end-line="76" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtoursection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/block.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6309696">
-          <caret line="238" column="16" selection-start-line="238" selection-start-column="16" selection-end-line="238" selection-end-column="16" />
+        <state vertical-scroll-proportion="-7.8461537">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/tables/products.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.346153">
-          <caret line="79" column="35" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtourtype.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_paymentsetting_default.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <caret line="45" column="57" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/product.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/view_paymentsetting_default.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2012" column="0" selection-start-line="2012" selection-start-column="0" selection-end-line="2012" selection-end-column="0" />
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/excusionaddon/tmpl/edit.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/cityarea/tmpl/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="83" selection-start-line="37" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.115385">
+          <caret line="32" column="50" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="362" column="38" selection-start-line="362" selection-start-column="27" selection-end-line="362" selection-end-column="38" />
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/less/asianventure.less">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmpaymentmethod.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="119" column="13" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
+        <state vertical-scroll-proportion="-11.192307">
+          <caret line="51" column="28" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/view_product_edit.js">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46616542">
+          <caret line="496" column="34" selection-start-line="496" selection-start-column="34" selection-end-line="496" selection-end-column="34" />
+          <folding>
+            <marker date="1456288821904" expanded="true" signature="-1:-1" placeholder="SELECT `elem..." />
+            <marker date="1456288821904" expanded="true" signature="-1:-1" placeholder="SELECT `conf..." />
+            <marker date="1456288821904" expanded="true" signature="-1:-1" placeholder="SELECT `virt..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/currencydisplay.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1447692088403" expanded="true" signature="-1:-1" placeholder="SELECT `curr..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.20150375">
+          <caret line="88" column="49" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/tourclass.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmpromotion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="24" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/departure/view.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="67" selection-start-line="69" selection-start-column="67" selection-end-line="69" selection-end-column="67" />
+        <state vertical-scroll-proportion="-1.6586466">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/tmpl/product_edit_information.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-54.26923">
-          <caret line="165" column="64" selection-start-line="165" selection-start-column="64" selection-end-line="165" selection-end-column="64" />
+        <state vertical-scroll-proportion="-6.5">
+          <caret line="118" column="41" selection-start-line="118" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/currency.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/payment/view.html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.461538">
-          <caret line="59" column="24" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="24" />
+        <state vertical-scroll-proportion="-11.115385">
+          <caret line="71" column="36" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/product/view.html.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/supplier/tmpl/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4615383">
-          <caret line="158" column="54" selection-start-line="158" selection-start-column="54" selection-end-line="158" selection-end-column="54" />
+        <state vertical-scroll-proportion="-6.1538463">
+          <caret line="41" column="63" selection-start-line="41" selection-start-column="63" selection-end-line="41" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/supplier/view.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="61" column="63" selection-start-line="61" selection-start-column="63" selection-end-line="61" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/payment/tmpl/edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6153846">
+          <caret line="43" column="63" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="563" column="19" selection-start-line="563" selection-start-column="19" selection-end-line="563" selection-end-column="19" />
           <folding>
-            <marker date="1456223474306" expanded="true" signature="30415:30490" placeholder="SELECT COUNT..." />
-            <marker date="1456223474306" expanded="true" signature="31022:31186" placeholder="SELECT * FRO..." />
+            <marker date="1456391987694" expanded="true" signature="3789:3845" placeholder="..." />
+            <marker date="1456391987694" expanded="true" signature="3809:3837" placeholder="..." />
+            <marker date="1456391987694" expanded="true" signature="5366:5452" placeholder="..." />
+            <marker date="1456391987694" expanded="true" signature="6912:6998" placeholder="..." />
+            <marker date="1456391987694" expanded="true" signature="46782:46791" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/itinerary.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/view.html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5">
-          <caret line="63" column="55" selection-start-line="63" selection-start-column="55" selection-end-line="63" selection-end-column="55" />
+        <state vertical-scroll-proportion="-4.207547">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmproduct.php">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentsetting/tmpl/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.076923">
-          <caret line="88" column="49" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
+        <state vertical-scroll-proportion="-10.115385">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding>
+            <marker date="1456397266608" expanded="true" signature="3608:3664" placeholder="..." />
+            <marker date="1456397266608" expanded="true" signature="4423:4612" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmsupplier.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.461538">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmpaymentsetting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.923077">
+          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/adminui.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29460582">
-          <caret line="668" column="0" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.307693">
+          <caret line="667" column="149" selection-start-line="667" selection-start-column="149" selection-end-line="667" selection-end-column="149" />
           <folding>
-            <marker date="1456279425404" expanded="true" signature="6754:7042" placeholder="..." />
-            <marker date="1456279425404" expanded="true" signature="6787:6826" placeholder="{...}" />
-            <marker date="1456279425404" expanded="true" signature="6873:6909" placeholder="{...}" />
-            <marker date="1456279425404" expanded="true" signature="6957:7000" placeholder="{...}" />
-            <marker date="1456279425404" expanded="true" signature="54260:54323" placeholder="..." />
-            <marker date="1456279425404" expanded="true" signature="57630:57873" placeholder="..." />
-            <marker date="1456279425404" expanded="true" signature="57677:57861" placeholder="..." />
+            <marker date="1456398068114" expanded="true" signature="6891:7179" placeholder="..." />
+            <marker date="1456398068114" expanded="true" signature="6924:6963" placeholder="{...}" />
+            <marker date="1456398068114" expanded="true" signature="7010:7046" placeholder="{...}" />
+            <marker date="1456398068114" expanded="true" signature="7094:7137" placeholder="{...}" />
+            <marker date="1456398068114" expanded="true" signature="54997:55060" placeholder="..." />
+            <marker date="1456398068114" expanded="true" signature="58367:58610" placeholder="..." />
+            <marker date="1456398068114" expanded="true" signature="58414:58598" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/paymentmethod/view.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2128603">
+          <caret line="61" column="52" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="52" />
+          <folding>
+            <marker date="1456398128274" expanded="true" signature="4059:4165" placeholder="SELECT * FRO..." />
+            <marker date="1456398128274" expanded="true" signature="4466:4479" placeholder="..." />
           </folding>
         </state>
       </provider>

@@ -55,7 +55,6 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
 
     if (self::$vmAdminAreaStarted) return;
     self::$vmAdminAreaStarted = true;
-
     $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/admin_ui.less');
     $doc->addStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/css/icons.css');
     $doc->addScript(JUri::root() . '/media/system/js/purl-master/purl-master/purl.js');
@@ -99,6 +98,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
     }
     $key_string = '';
     $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
+    $hide_toolbar = $input->get('hide_toolbar', 0, 'int');
     if($show_edit_in_line)
     {
         $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/asianventure-edit-inline.less');
@@ -113,6 +113,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.admin.com_virtuemart').asianventure({
+                show_iframe:<?php echo json_encode(VmConfig::$show_iframe) ?>,
                 add_new_popup:<?php echo $vmView->add_new_popup==1?1:0 ?>,
                 cid:<?php echo json_encode($cid) ?>,
                 key_string: "<?php echo $str_key ?>",
@@ -200,6 +201,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
             }
         </style>
         <div id="admin-content" class="admin-content container-fluid">
+            <?php if(!$hide_toolbar){ ?>
             <div class="row-fluid toolbar-top">
 
             </div>
@@ -248,13 +250,14 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                     </a>
                 </div>
             </div>
+
             <div class="toolbar-top5 row-fluid">
                 <div class="span3">
                     <h1><span title="" class="icon-palette"></span><span style="margin-left: 20px;color: #990100">Tour portal</span>
                     </h1>
                 </div>
             </div>
-
+            <?php } ?>
             <?php
             $app = JFactory::getApplication();
             $view = $app->input->get('view', 'virtuemart', 'string');
@@ -587,7 +590,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                 </script>
             <?php } ?>
             <?php if ($view != 'virtuemart') { ?>
-
+                <?php if(!$hide_toolbar){ ?>
                 <div class="header-main-menu">
 
                     <!-- Nav tabs -->
@@ -662,7 +665,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                     <ul class="ul_sub_menu">
                                         <li><a href="index.php?option=com_virtuemart&view=paymentsetting"><span class="icon-palette" title=""></span>Payment</a>
                                         </li>
-                                        <li><a href="#"><span class="icon-palette" title=""></span>setup_system6</a>
+                                        <li><a href="index.php?option=com_virtuemart&view=paymentmethod"><span class="icon-palette" title=""></span>Payment Method</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -724,7 +727,15 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
                                         <li><a href="index.php?option=com_virtuemart&view=hotel"><span
-                                                    class="icon-palette" title=""></span>Hotel</a></li>
+                                                    class="icon-palette" title=""></span>Hotel</a>
+                                            <ul style="display: no" class="dropdown-menu">
+                                                <li>
+                                                    <a href="index.php?option=com_virtuemart&view=room"></span>Room</a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
                                         <li><a href="index.php?option=com_virtuemart&view=groupsize"><span
                                                     class="icon-palette" title=""></span>Tour group size</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=physicalgrade"><span
@@ -887,6 +898,7 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                     </div>
                 </div>
                 <div class="vm_toolbar"></div>
+                    <?php } ?>
             <?php } ?>
 
             <?php

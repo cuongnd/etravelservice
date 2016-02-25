@@ -5,6 +5,7 @@
 
         // plugin's default options
         var defaults = {
+            show_iframe: false,
             totalPages: 0,
             totalItem: 10,
             tour_id: 0,
@@ -33,6 +34,7 @@
 
             plugin.settings = $.extend({}, defaults, options);
             var url = plugin.settings.url;
+
             var link_create_new_tour = 'index.php?option=com_virtuemart&view=product&task=edit';
             if (url.indexOf(link_create_new_tour) > -1 ) {
                 $('.nav-tabs a:eq(3)').tab('show');
@@ -49,7 +51,6 @@
                     }
                 }
             }
-
             $(document).on('shown.bs.tab', '.header-main-menu a[data-toggle="tab"]', function (e) {
                 var $target = $(e.target); // activated tab
                 var href = $target.attr('href');
@@ -81,30 +82,105 @@
             var view = plugin.settings.view;
             var ui_dialog_id='vm-edit-form-'+view;
             var iframe_id='vm-iframe-'+view;
+            var ui_dialog_setting={
+                autoOpen: true,
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                title: view,
+                height: 1600,
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+                //closeOnEscape: false,
+                //open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+
+            };
+            var link_load_data= 'index.php?option=com_virtuemart&view=' + view + '&task=edit&cid[0]=' + cid[0] + '&ui_dialog_id='+ui_dialog_id+'&show_in_parent_window=1'+key_string+'&iframe_id='+iframe_id;
+            var ui_dialog=$element.find("#"+ui_dialog_id);
+            $element.find('.show-edit-popup').click(function(event){
+                var href=$(this).attr('href');
+                var dialog_id='dialog-'+view+"-edit";
+                var $dialog=$('#'+dialog_id);
+                if($dialog.length==0)
+                {
+                    var $dialog=$('<div id="'+dialog_id+'"></div>');
+                    $dialog.appendTo('body');
+                }
+                ui_dialog_setting.open=function (ev, ui) {
+                    $.ajax({
+                        type: "GET",
+                        url: href+'&tmpl=ajax_json',
+                        dataType: "json",
+                        data: (function () {
+
+                            dataPost = {
+                            };
+                            return dataPost;
+                        })(),
+                        beforeSend: function () {
+
+                            $('.div-loading').css({
+                                display: "block"
+                            });
+                        },
+                        success: function (response) {
+
+                            $('.div-loading').css({
+                                display: "none"
+
+
+                            });
+                            $.set_html_for_tag(response);
+                            var html=response.html;
+                            $dialog.empty();
+                            $(html).appendTo($dialog);
+                        }
+
+                    });
+
+
+/*
+                    dialog.load(href+'&tmpl=component', function() {
+
+                    });
+*/
+
+                };
+                $dialog.dialog(ui_dialog_setting);
+                event.preventDefault();
+            });
+
             if (add_new_popup == 1) {
-                $element.find("#"+ui_dialog_id).dialog({
-                    autoOpen: true,
-                    dialogClass:'asian-dialog-form',
-                    modal: true,
-                    width: 900,
-                    title: view,
-                    height: 1600,
-                    open: function (ev, ui) {
-                        $('#'+iframe_id).attr('src', 'index.php?option=com_virtuemart&view=' + view + '&task=edit&cid[0]=' + cid[0] + '&ui_dialog_id='+ui_dialog_id+'&show_in_parent_window=1'+key_string+'&iframe_id='+iframe_id).css({
+
+                var show_iframe = plugin.settings.show_iframe;
+                if(show_iframe)
+                {
+                    ui_dialog_setting.open=function (ev, ui) {
+                        $('#'+iframe_id).attr('src',link_load_data).css({
                             width: '900px',
                             height: '1500px',
 
                         });
-                    },
-                    close: function (ev, ui) {
+                    };
+                    ui_dialog_setting.close=function (ev, ui) {
                         window.location.href = "index.php?option=com_virtuemart&view=" + view+key_string;
-                    },
-                    show: {effect: "blind", duration: 800},
-                    appendTo: 'body',
-                    //closeOnEscape: false,
-                    //open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+                    };
 
-                });
+                }else{
+                    link_load_data=link_load_data+'&tmpl=component';
+                    ui_dialog_setting.open=function (ev, ui) {
+                        $("#"+ui_dialog_id).load(link_load_data, function() {
+
+                        });
+
+                    };
+                }
+                ui_dialog.dialog(ui_dialog_setting);
+
+
+
+
+
                 dialog_close = function (close_ui_dialog_id,reload_iframe_id,link_reload,remove_ui_dialog) {
 
                     var $close_ui_dialog=$("#vm-edit-form");

@@ -73,10 +73,13 @@
                 window.parent.dialog_close(close_ui_dialog_id,reload_iframe_id,link_reload,remove_ui_dialog);
             }
             $('.vm_toolbar').insertAfter('#admin-ui-tabs');
-            var body_height=$('.admin.com_virtuemart>.container-main').height();
-            $('.admin.com_virtuemart').height(body_height+20);
+            if(view_height==0)
+            {
+                var view_height=$('.admin.com_virtuemart>.container-main').height();
+            }
+            $('.admin.com_virtuemart').height(view_height+20);
             if (typeof window.parent.change_height_dialog == "function") {
-                window.parent.change_height_dialog(parent_ui_dialog_id,parent_iframe_id,body_height+20);
+                window.parent.change_height_dialog(parent_ui_dialog_id,parent_iframe_id,view_height+20);
             }
 
 

@@ -479,6 +479,7 @@ class VmConfig {
 	private static $_secret = NULL;
 	public static $_starttime = array();
 	public static $loaded = FALSE;
+	public static $show_iframe = TRUE;
 
 	public static $maxMessageCount = 0;
 	public static $maxMessage = 100;

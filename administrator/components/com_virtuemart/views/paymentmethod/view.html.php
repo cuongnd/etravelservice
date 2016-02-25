@@ -59,7 +59,7 @@ class VirtuemartViewPaymentMethod extends VmViewAdmin {
 		$vendorModel->setId(1);
 		$vendor = $vendorModel->getVendor();
 		$currencyModel = VmModel::getModel('currency');
-		$currencyModel = $currencyModel->getCurrency($vendor->vendor_currency);
+		$currencyModel = $currencyModel->getItemList($vendor->vendor_currency);
 		$this->assignRef('vendor_currency', $currencyModel->currency_symbol);
 
 		if ($layoutName == 'edit') {

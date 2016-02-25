@@ -422,6 +422,46 @@ class VmHtml
         }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
+    public static function select_percent_amount($deposit_type_name,$deposit_amount_name,$deposit_type,$deposit_amount)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.less');
+        $input=JFactory::getApplication()->input;
+        $select_percent_amount_id='select_percent_amount_'.$deposit_type_name.'_'.$deposit_amount_name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $select_percent_amount_id ?>').html_select_percent_amount({
+                    deposit_type_name:'<?php echo $deposit_type_name ?>',
+                    deposit_amount_name:'<?php echo $deposit_amount_name ?>'
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_percent_amount_id ?>">
+            <div class="row-fluid">
+                <div class="span6">
+                    <input type="text" placeholder="write percent">
+                </div>
+                <div class="span6">
+                    <input type="text" placeholder="write amount">
+                </div>
+                <input type="hidden" value="<?php echo $deposit_type ?>" name="<?php echo $deposit_type_name ?>">
+                <input type="hidden" value="<?php echo $deposit_amount ?>" name="<?php echo $deposit_amount_name ?>">
+            </div>
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
 
     /**
      *

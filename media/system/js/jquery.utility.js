@@ -29,5 +29,30 @@
 		$.each(data,function(index,item){
 			$('<option value="'+item[key]+'">'+item[value]+'</option>').appendTo($(select_element));
 		});
+	};
+	$.set_html_for_tag=function(response)
+	{
+		var styleSheets=response._styleSheets;
+		$.each(styleSheets,function(href,item){
+			var $link=$( 'link[href~="'+href+'"]' );
+			if($link.length==0)
+			{
+				$link=$('<link rel="'+item.mime+'" href="'+href+'">');
+				$link.appendTo('head');
+			}
+		});
+		var scripts=response._scripts;
+		$.each(scripts,function(src,item){
+			var $script=$( 'script[src~="'+src+'"]' );
+			if($script.length==0)
+			{
+				$script=$('<script type="'+item.mime+'" src="'+src+'"></script>');
+				$script.appendTo('head');
+			}
+		});
+		$.each(response._script,function(type,content){
+			var $script=$('<script type="'+type+'">'+content+'</script>');
+			$script.appendTo('head');
+		});
 	}
 })(jQuery);

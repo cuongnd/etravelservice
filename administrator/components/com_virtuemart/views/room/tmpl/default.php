@@ -18,61 +18,84 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
+$doc = JFactory::getDocument();
+JHtml::_('jquery.framework');
+JHTML::_('behavior.core');
+JHtml::_('jquery.ui');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/effect.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/draggable.js');
 
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/dialog.js');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/core.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/theme.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/dialog.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
+
+
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_room_default.js');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_room_default.less');
 AdminUIHelper::startAdminArea($this);
+$js_content = '';
+$app = JFactory::getApplication();
+
+ob_start();
+?>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('.view-room-default').view_room_default({});
+    });
+</script>
+<?php
+$js_content = ob_get_clean();
+$js_content = JUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
+
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
 if ($saveOrder) {
 
-    $saveOrderingUrl = 'index.php?option=com_virtuemart&controller=hotel&task=saveOrderAjax&tmpl=component';
-    JHtml::_('sortablelist.sortable', 'hotel_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+    $saveOrderingUrl = 'index.php?option=com_virtuemart&controller=room&task=saveOrderAjax&tmpl=component';
+    JHtml::_('sortablelist.sortable', 'tour_class_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
-?>
 
+
+?>
+<div class="view-room-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('hotel', 'search'); ?>
-                </td>
-            </tr>
-        </table>
+        <!--<table>
+		<tr>
+			<td width="100%">
+				<?php /*echo $this->displayDefaultViewSearch ('COM_VIRTUEMART_CURRENCY','search') ; */ ?>
+			</td>
+		</tr>
+		</table>-->
         <div id="editcell">
             <div class="vm-page-nav">
 
             </div>
-            <table id="hotel_list" class="adminlist table table-striped" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-bordered table-striped" id="tour_class_list" cellspacing="0"
+                   cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_hotel_id', 'Id'); ?>
-
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transferaddon_id', 'Id'); ?>
+                        </label>
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'Hotel name'); ?>
+                        <?php echo $this->sort('room_name', 'room name'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('location', 'location'); ?>
+                        <?php echo $this->sort('icon', 'Image 1'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('address', 'address'); ?>
+                        <?php echo $this->sort('icon', 'Image 2'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('star_rating', 'Star'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('Review', 'review'); ?>
-                    </th>
-                    <th>
-                        <?php echo JText::_('Tel/Fax'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('email', 'Email'); ?>
-                    </th>
-                    <th>
-                        <?php echo JText::_('Room type'); ?>
+                        <?php echo $this->sort('description', 'Description'); ?>
                     </th>
 <!--                    <th>
                         <?php /*echo $this->sort('ordering', 'ordering'); */?>
@@ -81,13 +104,12 @@ if ($saveOrder) {
                         <?php /*endif; */?>
 
                     </th>
--->
-                    <th width="70">
+-->                    <th>
                         <?php echo vmText::_('Action'); ?>
                     </th>
                     <?php /*	<th width="10">
-				<?php echo vmText::_('COM_VIRTUEMART_SHARED'); ?>
-			</th> */ ?>
+					<?php echo vmText::_('COM_VIRTUEMART_SHARED'); ?>
+				</th> */ ?>
                 </tr>
                 </thead>
                 <?php
@@ -95,41 +117,27 @@ if ($saveOrder) {
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_hotel_id);
+                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_room_id);
                     $published = $this->gridPublished($row, $i);
-
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hotel&task=show_parent_popup&cid[]=' . $row->virtuemart_hotel_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_hotel_id', $editlink);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hotel_id');
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=room&task=show_parent_popup&cid[]=' . $row->virtuemart_room_id);
+                    $edit = $this->gridEdit($row, $i, 'virtuemart_room_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_room_id');
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->room_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo $row->location; ?>
+                            <?php echo VmHTML::show_image(JUri::root() . '/' . $row->image1, 'class="required"', 40, 40); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->address; ?>
+                            <?php echo VmHTML::show_image(JUri::root() . '/' . $row->image2, 'class="required"', 40, 40); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->star_rating; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->review; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->tel.'/'.$row->fax; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->email; ?>
-                        </td>
-                        <td align="left">
-                            <a href="index.php?option=com_virtuemart&amp;view=airport"><span title="" class="icon-eye"></span></a>
-                            <a   href="index.php?option=com_virtuemart&amp;view=room&key[virtuemart_hotel_id]=<?php echo $row->virtuemart_hotel_id ?>"><span title="" class="icon-edit"></span></a>
+                            <?php echo $row->description; ?>
                         </td>
 <!--                        <td align="left">
                             <span class="sortable-handler">
@@ -143,12 +151,12 @@ if ($saveOrder) {
 
                         </td>
 -->
-
                         <td align="center">
                             <?php echo $published; ?>
                             <?php echo $edit; ?>
                             <?php echo $delete; ?>
                         </td>
+
                     </tr>
                     <?php
                     $k = 1 - $k;
@@ -169,5 +177,8 @@ if ($saveOrder) {
         <?php echo JHtml::_('form.token'); ?>
     </form>
 
+</div>
+
 
 <?php AdminUIHelper::endAdminArea(); ?>
+

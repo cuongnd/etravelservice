@@ -15,6 +15,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 *
 * http://virtuemart.net
 */
+$doc=JFactory::getDocument();
+JHtml::_('jquery.framework');
+$doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 VmConfig::loadConfig();
@@ -28,6 +31,7 @@ vmSetStartTime('Start');
 $_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
 
 VmConfig::loadJLang('com_virtuemart');
+
 
 // Require specific controller if requested
 if($_controller) {
