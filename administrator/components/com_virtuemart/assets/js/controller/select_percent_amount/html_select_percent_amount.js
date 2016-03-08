@@ -5,7 +5,8 @@
 
         // plugin's default options
         var defaults = {
-            state_element:''
+            type_name:'type',
+            amount_name:'amount'
         }
 
         // current instance of the object
@@ -19,7 +20,31 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-
+            var type_name=plugin.settings.type_name;
+            var amount_name=plugin.settings.amount_name;
+            $element.find('.auto').autoNumeric('init');
+            $element.find('.percent_input').change(function(event){
+                var value_of_this=$(this).autoNumeric('get');
+                if(value_of_this!=0)
+                {
+                    $element.find('.amount_input').prop('disabled', true);
+                }else{
+                    $element.find('.amount_input').prop('disabled', false);
+                }
+                $element.find('input[name="'+amount_name+'"]').val(value_of_this);
+                $element.find('input[name="'+type_name+'"]').val('percent').trigger('change');
+            });
+            $element.find('.amount_input').change(function(event){
+                var value_of_this=$(this).autoNumeric('get');
+                if(value_of_this!=0)
+                {
+                    $element.find('.percent_input').prop('disabled', true);
+                }else{
+                    $element.find('.percent_input').prop('disabled', false);
+                }
+                $element.find('input[name="'+amount_name+'"]').val(value_of_this);
+                $element.find('input[name="'+type_name+'"]').val('amount').trigger('change');
+            });
 
         };
 

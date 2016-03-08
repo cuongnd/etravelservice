@@ -86,7 +86,13 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 		$this->_tbl = $table;
 		$this->_db =& $db;
+
 		$this->_pkey = $key;
+		$fields=$db->getTableColumns($this->_tbl);
+		foreach($fields as $field=>$type)
+		{
+			$this->$field=null;
+		}
 		$this->_pkeyForm = 'cid';
 
 		if(JVM_VERSION<3){
@@ -1121,6 +1127,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 	 */
 	function store($updateNulls = false) {
 
+
 		$this->setLoggableFieldsForStore();
 
 		if($this->_cryptedFields){
@@ -1514,6 +1521,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 		$tblKey = $this->_tbl_key;
 		$ok = true;
+
 		if ($this->_translatable) {
 			if (!class_exists('VmTableData')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtabledata.php');
 			$db = JFactory::getDBO();
@@ -1647,7 +1655,6 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 
 		} else {
-
 			if (!$this->bindChecknStoreNoLang($data, $preload)) {
 				$ok = false;
 			}
@@ -1687,6 +1694,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		}
 
 		$ok = true;
+
 		$msg = '';
 
 		if (!$this->bind($data)) {
@@ -1698,6 +1706,7 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 		if ($ok) {
 			if (!$this->checkDataContainsTableFields($data)) {
+
 				$ok = false;
 				//    			$msg .= ' developer notice:: checkDataContainsTableFields';
 			}
@@ -1705,22 +1714,25 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 
 		if ($ok) {
 			if (!$this->check()) {
+
 				$ok = false;
 				$msg .= ' check';
 				vmdebug('Check returned false ' . get_class($this) . ' ' . $this->_db->getErrorMsg());
 				return false;
 			}
+
 		}
 
 		if ($ok) {
+
 			if (!$this->store($this->_updateNulls)) {
+
 				$ok = false;
 				$msg .= ' store';
 				vmdebug('Problem in store ' . get_class($this) . ' ' . $this->_db->getErrorMsg());
 				return false;
 			}
 		}
-
 
 		if (is_object($data)) {
 			$data->$tblKey = !empty($this->$tblKey) ? $this->$tblKey : 0;

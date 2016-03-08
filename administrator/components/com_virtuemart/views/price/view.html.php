@@ -41,28 +41,21 @@ class VirtuemartViewPrice extends VmViewAdmin {
 
 		$model = VmModel::getModel();
 		$app=JFactory::getApplication();
+		$model_product=VmModel::getModel('product');
 		$input=$app->input;
 		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
-		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+		$virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+		$this->product=$model_product->getItem($virtuemart_product_id);
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$tour_id=$input->get('virtuemart_product_id',0,'int');
-			$this->virtuemart_product_id=$tour_id;
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
-
-
-
-
-			$cid	= vRequest::getInt( 'cid' );
-			$model_product = VmModel::getModel('product');
-			$this->product=$model_product->getProduct($this->virtuemart_product_id,false,false,false);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 			if($this->product->tour_methor=='tour_group')
 			{
-				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($cid[0]);
+				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($virtuemart_product_id);
 			}else{
-				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($cid[0]);
+				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($virtuemart_product_id);
 			}
 
 			$task = vRequest::getCmd('task', 'add');
@@ -86,19 +79,15 @@ class VirtuemartViewPrice extends VmViewAdmin {
             $tour_id=$input->get('virtuemart_product_id',0,'int');
             $this->virtuemart_product_id=$tour_id;
 
-            $model_product = VmModel::getModel('product');
-            $this->product=$model_product->getProduct($this->virtuemart_product_id,false,false,false);
-            $virtuemart_price_id=$input->get('virtuemart_price_id',0,'int');
-            $model->setId($virtuemart_price_id);
+            $this->product=$model_product->getItem($virtuemart_product_id);
             $this->price = $model->getPrice();
 
-            //get markup
+/*            //get markup
             $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
-            //end get markup
+            //end get markup*/
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
-
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommandsPrice();
 			$this->addStandardDefaultViewLists($model,0,'ASC');

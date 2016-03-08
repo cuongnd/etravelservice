@@ -32,12 +32,22 @@ class Tablepaymentsetting extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_paymentsetting_id				= 0;
-	var $virtuemart_hotel_id				= 0;
-	var $paymentsetting_name				= "";
-	var $image1				= "";
-	var $image2				= "";
-	var $facilities				= "";
-	var $shared					= 0;
+	var $virtuemart_currency_id				= 0;
+	var $credit_card_fee				= "";
+	var $deposit_type				= "";
+	var $deposit_amount				= "";
+	var $balance_day_1				= "";
+	var $balance_percent_1					= 0;
+	var $balance_day_2				= "";
+	var $balance_percent_2					= 0;
+	var $balance_day_3				= "";
+	var $balance_percent_3					= 0;
+	var $config_mode					= '';
+	var $deposit_term					= '';
+	var $type					= 'default';
+	var $hold_seat					= '';
+	var $rule_note					= '';
+
 	var $published				= 0;
 
 	/**

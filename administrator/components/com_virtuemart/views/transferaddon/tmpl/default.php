@@ -18,11 +18,39 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
+$doc = JFactory::getDocument();
+JHtml::_('jquery.framework');
+JHTML::_('behavior.core');
+JHtml::_('jquery.ui');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/effect.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/draggable.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_transferaddon_default.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/dialog.js');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/core.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/theme.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/dialog.css');
+$input = JFactory::getApplication()->input;
 AdminUIHelper::startAdminArea($this);
+$js_content = '';
+$task = $input->get('task');
+ob_start();
+?>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('.view-transferaddon-default').view_transferaddon_default({
+            task: "<?php echo $task ?>"
+        });
+    });
+</script>
+<?php
+$js_content = ob_get_clean();
+$js_content = JUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
+
 
 ?>
-
+<div class="view-transferaddon-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <table>
             <tr>
@@ -40,7 +68,8 @@ AdminUIHelper::startAdminArea($this);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_transferaddon_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transferaddon_id', 'Id'); ?>
+                        </label>
 
                     </th>
                     <th>
@@ -133,10 +162,17 @@ AdminUIHelper::startAdminArea($this);
                 </tfoot>
             </table>
         </div>
-
-        <?php echo $this->addStandardHiddenToForm(); ?>
+        <input type="hidden" value="" name="task">
+        <input type="hidden" value="com_virtuemart" name="option">
+        <input type="hidden" value="transferaddon" name="controller">
+        <input type="hidden" value="transferaddon" name="view">
         <?php echo JHtml::_('form.token'); ?>
     </form>
+    <?php
 
+    if ($task == 'add_new_item') {
+        echo $this->loadTemplate('edit');
+    } ?>
+</div>
+    <?php AdminUIHelper::endAdminArea(); ?>
 
-<?php AdminUIHelper::endAdminArea(); ?>

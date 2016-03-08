@@ -70,13 +70,22 @@ class virtuemartViewtransferaddon extends VmViewAdmin {
 			$this->addStandardEditViewCommandsPopup();
 
 		} else {
-
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			JToolBarHelper::publishList();
+			JToolBarHelper::unpublishList();
+			JToolBarHelper::editList();
+			JToolBarHelper::addNew('add_new_item');
+			JToolBarHelper::deleteList();
+
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
+			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
+			$this->list_cityarea=vmcities::get_city_state_country();
+			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
+			$this->list_transfer_type=vmtransferaddon::get_list_transfer_type();
+			$this->list_transfer_payment_type=vmtransferaddon::get_list_transfer_payment_type();
 		}
 
 		parent::display($tpl);

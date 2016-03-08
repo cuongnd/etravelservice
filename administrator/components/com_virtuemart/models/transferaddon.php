@@ -122,8 +122,8 @@ class VirtueMartModeltransferaddon extends VmModel
         if($virtuemart_transferaddon_id) {
             //inser to transferaddon
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_transferaddon_id')
-                ->where('virtuemart_transferaddon_id=' . (int)$virtuemart_transferaddon_id);
+            $query->delete('#__virtuemart_tour_id_transfer_addon_id')
+                ->where('virtuemart_transfer_addon_id=' . (int)$virtuemart_transferaddon_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -132,9 +132,9 @@ class VirtueMartModeltransferaddon extends VmModel
             $list_tour_id = $data['list_tour_id'];
             foreach ($list_tour_id as $virtuemart_product_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_transferaddon_id')
+                    ->insert('#__virtuemart_tour_id_transfer_addon_id')
                     ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_transferaddon_id=' . (int)$virtuemart_transferaddon_id);
+                    ->set('virtuemart_transfer_addon_id=' . (int)$virtuemart_transferaddon_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {

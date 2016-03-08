@@ -47,7 +47,7 @@ class vmproduct
     public static function get_html_tour_information(&$view,$virtuemart_product_id=0)
     {
         $product_model=VmModel::getModel('product');
-        $product = $product_model->getProductSingle($virtuemart_product_id, false);
+        $product = $product_model->getItem($virtuemart_product_id);
         $db=JFactory::getDbo();
 
 

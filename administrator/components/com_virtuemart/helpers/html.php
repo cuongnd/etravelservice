@@ -388,6 +388,39 @@ class VmHtml
         }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
+    public static function location_city($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.less');
+        $input=JFactory::getApplication()->input;
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('select[name="<?php echo $name ?>"]').html_select_location_city({
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+
+        if ($zero == true) {
+            $option = array($key => "0", $text => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+            $options = array_merge(array($option), $options);
+        }
+        if ($chosenDropDowns) {
+            vmJsApi::chosenDropDowns();
+            $attrib .= ' class="vm-chzn-select"';
+
+        }
+        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+    }
     public static function select_city($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text',$state_element='', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc=JFactory::getDocument();
@@ -422,21 +455,23 @@ class VmHtml
         }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
-    public static function select_percent_amount($deposit_type_name,$deposit_amount_name,$deposit_type,$deposit_amount)
+    public static function select_percent_amount($type_name,$amount_name,$type,$amount)
     {
         $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
         $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.js');
         $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_percent_amount/html_select_percent_amount.less');
         $input=JFactory::getApplication()->input;
-        $select_percent_amount_id='select_percent_amount_'.$deposit_type_name.'_'.$deposit_amount_name;
+        $percent_amount_id='percent_amount_'.$type_name.'_'.$amount_name;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function($){
-                $('#<?php echo $select_percent_amount_id ?>').html_select_percent_amount({
-                    deposit_type_name:'<?php echo $deposit_type_name ?>',
-                    deposit_amount_name:'<?php echo $deposit_amount_name ?>'
+                $('#<?php echo $percent_amount_id ?>').html_select_percent_amount({
+                    type_name:'<?php echo $type_name ?>',
+                    amount_name:'<?php echo $amount_name ?>',
+                    'percent_input':'percent_input'
                 });
             });
         </script>
@@ -446,16 +481,156 @@ class VmHtml
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
-        <div id="<?php echo $select_percent_amount_id ?>">
+        <div id="<?php echo $percent_amount_id ?>">
             <div class="row-fluid">
                 <div class="span6">
-                    <input type="text" placeholder="write percent">
+                    <input type="text" class="auto percent_input" <?php echo $type=='amount'?'disabled':'' ?>  value="<?php echo $type=='percent'?$amount:'' ?>" data-a-sign="%"  data-v-min="0" data-v-max="100" placeholder="write percent">
                 </div>
                 <div class="span6">
-                    <input type="text" placeholder="write amount">
+                    <input type="text"   class="auto amount_input" <?php echo $type=='percent'?'disabled':'' ?>  value="<?php echo $type=='amount'?$amount:'' ?>" data-v-min="0" data-v-max="9999" placeholder="write amount">
                 </div>
-                <input type="hidden" value="<?php echo $deposit_type ?>" name="<?php echo $deposit_type_name ?>">
-                <input type="hidden" value="<?php echo $deposit_amount ?>" name="<?php echo $deposit_amount_name ?>">
+                <input type="hidden" value="<?php echo $type ?>" name="<?php echo $type_name ?>">
+                <input type="hidden" value="<?php echo $amount ?>" name="<?php echo $amount_name ?>">
+            </div>
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
+    public static function select_from_to($from_name,$to_name,$from=0,$to=10)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
+        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css");
+        $doc->addScript(JUri::root().'/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
+
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_from_to/html_select_from_to.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_from_to/html_select_from_to.less');
+        $input=JFactory::getApplication()->input;
+        $select_from_to='select_from_to_'.$from_name.'_'.$to_name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $select_from_to ?>').html_select_from_to({
+                    from:<?php echo (int)$from ?>,
+                    to:<?php echo (int)$to ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_from_to ?>">
+            <input type="hidden" value="<?php echo $from ?>" name="<?php echo $from_name ?>">
+            <input type="hidden" value="<?php echo $to ?>" name="<?php echo $to_name ?>">
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
+    public static function edit_price_add_on($from_name,$to_name,$from=0,$to=10)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less');
+        $input=JFactory::getApplication()->input;
+        $edit_price_add_on='edit_price_add_on_';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $edit_price_add_on ?>').html_edit_price_add_on({
+                    from:<?php echo (int)$from ?>,
+                    to:<?php echo (int)$to ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $edit_price_add_on ?>" class="edit-price-add-on">
+            <div><button type="button" class="btn btn-small btn-success more-group"><span class="icon-new icon-white"></span>More group</button><button type="button" class="btn btn-small btn-success delete-group"><span class="icon-delete icon-white"></span>Delete last group</button></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Net Price</th>
+                        <th>Mark up %</th>
+                        <th>Mark up amount</th>
+                        <th>Tax</th>
+                        <th>Sale price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for($i=0;$i<2;$i++){ ?>
+                    <tr class="<?php echo $i<1?'item':'item-flat' ?>">
+                        <td><span class="index"><?php if($i<1){ ?><?php echo ($i+1) ?></span> Person<?php }else{ ?>Flat price<?php } ?></td>
+                        <td><input type="text" class="auto net-price" data-a-sign="US$ " ></td>
+                        <td><input type="text" class="auto mark-up-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto mark-up-amount" data-a-sign="US$ "></td>
+                        <td><input type="text" class="auto tax" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ "></td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                        <td>Children discount</td>
+                        <td><input type="text" class="auto children-discount-amount" data-a-sign="US$ "></td>
+                        <td><input type="text" class="auto children-discount-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
+                        <td>Children age</td>
+                        <td colspan="2"><input type="text" class="auto children-under-year"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
+    public static function select_amount_percent($amount_name,$percent_name,$amount,$percent)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_amount_percent/html_select_amount_percent.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_amount_percent/html_select_amount_percent.less');
+        $input=JFactory::getApplication()->input;
+        $amount_percent_id='amount_percent_'.$amount_name.'_'.$percent_name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $amount_percent_id ?>').html_select_amount_percent({
+                    amount_name:'<?php echo $amount_name ?>',
+                    percent_name:'<?php echo $percent_name ?>'
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $amount_percent_id ?>">
+            <div class="row-fluid">
+                <div class="span6">
+                    <input type="text" value="<?php echo $amount ?>"   class="auto amount_input"  data-v-min="0" data-v-max="9999" placeholder="write of No day">
+                </div>
+                <div class="span6">
+                    <input type="text"  value="<?php echo $percent ?>"  class="auto percent_input" data-a-sign="%" data-v-min="0" data-v-max="100" placeholder="write percent">
+                    <input type="hidden"  name="<?php echo $amount_name ?>" value="<?php echo $amount ?>" >
+                    <input type="hidden"  name="<?php echo $percent_name ?>" value="<?php echo $percent ?>" >
+                </div>
             </div>
         </div>
         <?php
@@ -1009,11 +1184,67 @@ class VmHtml
      * @param string $name
      * @param string $value
      */
-    public static function input($name, $value, $class = 'class="inputbox"', $readonly = '', $size = '30', $maxlength = '255', $more = '')
+    public static function input($name, $value, $class = '', $readonly = false, $size = '30', $maxlength = '255', $more = '')
     {
         return '<input type="text" ' . $readonly . ' ' . $class . ' id="' . $name . '" name="' . $name . '" size="' . $size . '" maxlength="' . $maxlength . '" value="' . ($value) . '" />' . $more;
     }
 
+    public static function input_percent($name, $value, $class = 'inputbox', $readonly = '',$min=0,$max=100, $more = '')
+    {
+
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('.input_percent_<?php echo $name ?>').autoNumeric('init').change(function(){
+                    var value_of_this=$(this).autoNumeric('get');
+                    $('input[name="<?php echo $name ?>"]').val(value_of_this);
+                });
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = JUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        ob_start();
+        ?>
+        <input type="text" value="<?php echo $value ?>" <?php echo $readonly?'readonly':'' ?>  class="inputbox <?php echo $class ?>   input_percent_<?php echo $name ?>"  data-v-min="<?php echo $min ?>" data-v-max="<?php echo $max ?>"  data-a-sign="%">
+        <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        <?php
+        return ob_get_clean();
+    }
+    public static function input_number($name, $value, $class = 'inputbox', $readonly = '',$min=0,$max=100, $more = '')
+    {
+
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('.input_number_<?php echo $name ?>').autoNumeric('init').change(function(){
+                    var value_of_this=$(this).autoNumeric('get');
+                    $('input[name="<?php echo $name ?>"]').val(value_of_this);
+                });
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = JUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        ob_start();
+        ?>
+        <input type="text" value="<?php echo $value ?>" <?php echo $readonly?'readonly':'' ?>  class="inputbox <?php echo $class ?>   input_number_<?php echo $name ?>"  data-v-min="<?php echo $min ?>" data-v-max="<?php echo $max ?>">
+        <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        <?php
+        return ob_get_clean();
+    }
     public static function input_add_on($name, $value, $class = 'class="inputbox"', $readonly = '', $size = '30', $maxlength = '255', $more = '')
     {
         $input= '<input type="text" ' . $readonly . ' '.$class.' id="' . $name . '" name="' . $name . '" size="' . $size . '" maxlength="' . $maxlength . '" value="' . ($value) . '" />' . $more;

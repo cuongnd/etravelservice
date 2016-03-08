@@ -24,7 +24,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 	 * @since  12.1
 	 */
 	public $name = 'mysqli';
-
+	protected $redirectPage = true;
 	/**
 	 * The character(s) used to quote SQL statement names such as table names or field names,
 	 * etc. The child classes should define this as necessary.  If a single character string the
@@ -82,7 +82,10 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 	{
 		$this->disconnect();
 	}
-
+	public function redirectPage($redirectPage=false)
+	{
+		$this->redirectPage=$redirectPage;
+	}
 	/**
 	 * Connects to the database if needed.
 	 *
@@ -512,12 +515,18 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 	 */
 	public function execute()
 	{
+		$redirectPage=$this->redirectPage;
 		$this->connect();
 
 		if (!is_object($this->connection))
 		{
 			JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			if($redirectPage)
+			{
+				throw new RuntimeException($this->errorMsg, $this->errorNum);
+			}else{
+				//return  $this->errorMsg;
+			}
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -596,8 +605,14 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
 				{
-					JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database-error');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
+					if($redirectPage)
+					{
+						throw new RuntimeException($this->errorMsg, $this->errorNum);
+					}else
+					{
+						return   $this->errorMsg;
+					}
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -606,8 +621,15 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 			// The server was not disconnected.
 			else
 			{
-				JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database-error');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
+				jimport('joomla.utilities.utility');
+				if($redirectPage)
+				{
+					throw new RuntimeException($this->errorMsg, $this->errorNum);
+				}else
+				{
+					return $this->cursor;
+				}
 			}
 		}
 

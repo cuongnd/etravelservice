@@ -34,6 +34,23 @@ class vmtransferaddon
      */
     protected static $strings = array();
 
+    public static function get_list_transfer_type()
+    {
+        $list_transfer_type=array(
+            'pre_transfer'=>'Pre transfer',
+            'post_transfer'=>'Post transfer'
+        );
+        $a_list_transfer_type=array();
+        foreach($list_transfer_type as $key=>$text)
+        {
+            $a_item=new stdClass();
+            $a_item->value=$key;
+            $a_item->text=$text;
+            $a_list_transfer_type[]=$a_item;
+        }
+        return $a_list_transfer_type;
+    }
+
     public static function get_activities()
     {
         $db=JFactory::getDbo();
@@ -48,12 +65,29 @@ class vmtransferaddon
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_product_id')
-            ->from('#__virtuemart_tour_id_transferaddon_id')
-            ->where('virtuemart_transferaddon_id='.(int)$virtuemart_transferaddon_id)
+            ->from('#__virtuemart_tour_id_transfer_addon_id')
+            ->where('virtuemart_transfer_addon_id='.(int)$virtuemart_transferaddon_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
 
+    public static function get_list_transfer_payment_type()
+    {
+        $list_transfer_payment_type=array(
+            'instant_payment'=>'Instant payment',
+            'last_payment'=>'Last transfer'
+        );
+        $a_list_transfer_payment_type=array();
+        foreach($list_transfer_payment_type as $key=>$text)
+        {
+            $a_item=new stdClass();
+            $a_item->value=$key;
+            $a_item->text=$text;
+            $a_list_transfer_payment_type[]=$a_item;
+        }
+        return $a_list_transfer_payment_type;
+
+    }
 
 
 }

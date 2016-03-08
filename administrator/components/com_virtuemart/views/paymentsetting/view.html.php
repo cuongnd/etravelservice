@@ -62,21 +62,37 @@ class virtuemartViewpaymentsetting extends VmViewAdmin {
 		} else {
 
 
-
+			$app=JFactory::getApplication();
+			$input=$app->input;
 			$this->SetViewTitle();
-			JToolBarHelper::save();
+			JToolBarHelper::save('save','Save');
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpaymentsetting.php';
 			$this->list_config_mode=vmpaymentsetting::get_config_mode();
 			$this->hold_seat_type=vmpaymentsetting::get_hold_seat_type();
+			$this->currencies=vmpaymentsetting::get_list_currency();
 			//get list payment method
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpaymentmethod.php';
 			$list_payment_method = vmpaymentmethod::get_list_payment_method();
 			$this->assignRef('list_payment_method', $list_payment_method);
+
+
 			//end get list payment method
 
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
+			$virtuemart_paymentsetting_id=$input->get('virtuemart_paymentsetting_id',0,'int');
+			if(!$virtuemart_paymentsetting_id)
+			{
+				$db=JFactory::getDbo();
+				$query=$db->getQuery(true);
+				$query->select('virtuemart_paymentsetting_id')
+					->from('#__virtuemart_paymentsetting')
+					;
+				$virtuemart_paymentsetting_id=$db->setQuery($query)->loadResult();
+			}
+			$this->item = $model->getItem($virtuemart_paymentsetting_id);
+			//
+			$list_payment_method = vmpaymentsetting::get_list_payment_method_by_paymentsetting_id($virtuemart_paymentsetting_id);
+			$this->assignRef('list_payment_method', $list_payment_method);
 
 		}
 

@@ -5,16 +5,9 @@
 
         // plugin's default options
         var defaults = {
-            totalPages:0,
-            totalItem:10,
-            tour_id:0,
-            visiblePages:5,
-            tour_methor:'',
-            dialog_class:'dialog-form-price',
-            date_format:'m/d/y'
 
 
-        }
+        };
 
         // current instance of the object
         var plugin = this;
@@ -28,6 +21,21 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
+            $element.find('#deposit_term,#credit_card_fee').autoNumeric('init');
+            $element.find('input[name="deposit_type"]').change(function(){
+                var type=$(this).val();
+                var amount=$element.find('input[name="deposit_amount"]').val();
+                var $balance_day=$('input[name="balance_day_1"],input[name="balance_day_2"],input[name="balance_day_3"]');
+                var $balance_percent=$('input[name="balance_percent_2"],input[name="balance_percent_1"],input[name="balance_percent_3"]');
+                if(type=='percent'&&amount==100)
+                {
+                    $balance_day.prop('disabled', true);
+                    $balance_percent.prop('disabled', true);
+                }else{
+                    $balance_day.prop('disabled', false);
+                    $balance_percent.prop('disabled', false);
+                }
+            });
 
         };
 

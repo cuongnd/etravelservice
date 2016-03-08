@@ -24,124 +24,17 @@ if (!class_exists('VmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmta
 class TableProducts extends VmTable
 {
 
-    /** @var int Primary key */
     var $virtuemart_product_id = 0;
-    /** @var integer Product id */
-    var $virtuemart_vendor_id = 0;
-    /** @var string File name */
-    var $product_parent_id = 0;
-    /** @var string File title */
-    var $product_sku = null;
-    var $product_gtin = null;
-    var $product_mpn = null;
-
-    /** @var string Name of the product */
-    var $product_name = '';
-    var $slug = '';
-    /** @var string File description */
-    var $product_s_desc = null;
-    /** @var string File extension */
-    var $product_desc = null;
-    /** @var int File is an image or other */
-    var $product_weight = null;
-    /** @var int File image height */
-    var $product_weight_uom = null;
-    /** @var int File image width */
-    var $product_length = null;
-    /** @var int File thumbnail image height */
-    var $product_width = null;
-    /** @var int File thumbnail image width */
-    var $product_height = null;
-    /** @var int File thumbnail image width */
-    var $product_lwh_uom = null;
-    /** @var int File thumbnail image width */
-    var $product_url = '';
-    var $image_map = '';
-    var $latitude = '';
-    var $longitude = '';
-    var $location = '';
-    var $radius = '';
-    /** @var int File thumbnail image width */
-    var $product_in_stock = 0;
-    var $product_ordered = 0;
-    /** @var int File thumbnail image width */
-    var $low_stock_notification = 0;
-    /** @var int File thumbnail image width */
-    var $product_available_date = null;
-    /** @var int File thumbnail image width */
-    var $product_availability = null;
-    /** @var int File thumbnail image width */
-    var $tour_length = 0;
-    var $min_person = 0;
-    var $max_person = 0;
-    var $min_age = 0;
-    var $max_age = 0;
-    var $country_id = 0;
-    var $start_city = 0;
-    var $end_city = 0;
-    var $tour_style_id = 0;
-    var $virtuemart_physicalgrade_id = 0;
-    var $virtuemart_tour_type_id = 0;
-    var $virtuemart_tour_style_id = 0;
-    var $virtuemart_tour_section_id = 0;
-    var $price_type = '';
-    var $highlights = null;
-    var $inclusions = null;
-    var $exclusions = null;
-    var $meta_name = null;
-
-    /** @var int product internal ordering, it is for the ordering for child products under a parent null */
-    var $pordering = null;
-    /** @var int File thumbnail image width */
-    var $product_sales = 0;
-
-    /** @var int File thumbnail image width */
-    var $product_unit = null;
-    /** @var int File thumbnail image width */
-    var $product_packaging = null;
-    /** @var int File thumbnail image width */
-    var $product_params = null;
-    /** @var string Internal note for product */
-    var $intnotes = '';
-    /** @var string custom title */
-    var $customtitle = '';
-    /** @var string Meta description */
-    var $metadesc = '';
-    /** @var string Meta keys */
-    var $metakey = '';
-    /** @var string Meta robot */
-    var $metarobot = '';
-    /** @var string Meta author */
-    var $metaauthor = '';
-    /** @var string Name of the details page to use for showing product details in the front end */
-    var $layout = '';
-    /** @var int published or unpublished */
-    var $published = 1;
-
-
+    var $shared					= 0;
+    var $published				= 0;
     function __construct($db)
     {
         parent::__construct('#__virtuemart_products', 'virtuemart_product_id', $db);
 
-        //In a VmTable the primary key is the same as the _tbl_key and therefore not needed
-// 		$this->setPrimaryKey('virtuemart_product_id');
-        $this->setObligatoryKeys('product_name');
         $this->setLoggable();
-        $this->setTranslatable(array('product_name', 'product_s_desc', 'product_desc', 'metadesc', 'metakey', 'customtitle','meta_name'));
-        $this->setSlug('product_name');
-        $this->setTableShortCut('p');
 
-        //We could put into the params also the product_availability and the low_stock_notification
-        $varsToPushParam = array(
-            'min_order_level' => array(null, 'float'),
-            'max_order_level' => array(null, 'float'),
-            'step_order_level' => array(null, 'float'),
-            //'product_packaging'=>array(null,'float'),
-            'product_box' => array(null, 'float')
-        );
+        $this->setOrderable();
 
-        $this->setParameterable('product_params', $varsToPushParam);
-        $this->_updateNulls = true;
     }
 
 }

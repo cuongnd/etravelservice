@@ -57,50 +57,7 @@ class VirtueMartModelpaymentsetting extends VmModel {
 	 * @author Max Milbers
 	 * @return object List of paymentsetting objects
 	 */
-	function getItemList($search='') {
-		//echo $this->getListQuery()->dump();
-		$data=parent::getItems();
-		return $data;
-	}
 
-	function getListQuery()
-	{
-		$db = JFactory::getDbo();
-		$query=$db->getQuery(true);
-
-		$query->select('paymentsetting.*,hotel.virtuemart_hotel_id,hotel.title AS hotel_name')
-			->from('#__virtuemart_paymentsetting AS paymentsetting')
-			->leftJoin('#__virtuemart_hotel AS hotel using (virtuemart_hotel_id)')
-		;
-		$user = JFactory::getUser();
-		$shared = '';
-		if (vmAccess::manager()) {
-			//$query->where('transferaddon.shared=1','OR');
-		}
-		$search=vRequest::getCmd('search', false);
-		if (empty($search)) {
-			$search = vRequest::getString('search', false);
-		}
-		// add filters
-		if ($search) {
-			$db = JFactory::getDBO();
-			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('paymentsetting.paymentsetting_name LIKE '.$search);
-		}
-
-		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'paymentsetting.virtuemart_paymentsetting_id');
-		$orderDirn = $this->state->get('list.direction', 'asc');
-
-		if ($orderCol == 'paymentsetting.ordering')
-		{
-			$orderCol = $db->quoteName('paymentsetting.virtuemart_paymentsetting_id') . ' ' . $orderDirn . ', ' . $db->quoteName('paymentsetting.ordering');
-		}
-
-		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
-		return $query;
-	}
 
 	/**
 	 * Retireve a list of paymentsetting from the database.

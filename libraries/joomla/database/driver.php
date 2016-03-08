@@ -1005,7 +1005,6 @@ abstract class JDatabaseDriver extends JDatabase implements JDatabaseInterface
 	{
 		$fields = array();
 		$values = array();
-
 		// Iterate over the object variables to build the query fields and values.
 		foreach (get_object_vars($object) as $k => $v)
 		{

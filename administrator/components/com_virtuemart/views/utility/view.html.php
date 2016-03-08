@@ -29,48 +29,9 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class VirtuemartViewCurrency extends VmViewAdmin {
+class VirtuemartViewUtility extends VmViewAdmin {
 
 	function display($tpl = null) {
-
-		// Load the helper(s)
-
-
-		if (!class_exists('VmHTML'))
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-
-		$model = VmModel::getModel();
-
-
-		$config = JFactory::getConfig();
-		$layoutName = vRequest::getCmd('layout', 'default');
-		if ($layoutName == 'edit') {
-			$cid	= vRequest::getInt( 'cid' );
-
-			$task = vRequest::getCmd('task', 'add');
-
-			if($task!='add' && !empty($cid) && !empty($cid[0])){
-				$cid = (int)$cid[0];
-			} else {
-				$cid = 0;
-			}
-
-			$model->setId($cid);
-			$this->currency = $model->getCurrency();
-			$this->SetViewTitle('',$this->currency->currency_name);
-			$this->addStandardEditViewCommands();
-
-		} else {
-
-			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
-			$this->addStandardDefaultViewLists($model,0,'ASC');
-
-			$this->currencies = $model->getCurrenciesList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
-
-		}
-
 		parent::display($tpl);
 	}
 

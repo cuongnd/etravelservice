@@ -28,37 +28,39 @@ AdminUIHelper::imitateTabs('start', "hotel");
 
 
             <div class="col50">
-                <fieldset>
-                    <legend><?php echo vmText::_('Current hotel'); ?></legend>
-                    <div class="admintable row-fluid">
-                        <div class="span4">
-                            <?php echo VmHTML::row_control('input', 'hotel name', 'title', $this->item->title, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'hotel address', 'address', $this->item->address, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'City/area', 'city_id', $this->item->city_id, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'Phone no', 'phone', $this->item->phone, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'Website', 'website', $this->item->website, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'Star rating', 'star_rating', $this->item->star_rating, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', 'Good map', 'google_map', $this->item->google_map, 'class="required"'); ?>
+                <div class="main-info">
+                    <h3>Hotel detail</h3>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <?php echo VmHTML::input( 'title', $this->item->title, 'class="required" placeholder="hotel name" '); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->star_rating, 'class="required" placeholder="Star  rating"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->location, 'class="required" placeholder="location"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->address, 'class="required" placeholder="Address"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->google_map, 'class="required" placeholder="Google map"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->add_photo, 'class="required" placeholder="Add photo"'); ?>
+                        </div>
+                        <div class="span6">
+                            <?php echo VmHTML::input( 'title', $this->item->tel_number, 'class="required" placeholder="Tell number"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->fax_number, 'class="required" placeholder="fax number"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->email, 'class="required" placeholder="E-mail add"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->website, 'class="required" placeholder="Website"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->reviews_api, 'class="required" placeholder="reviews API"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->hotel_code, 'class="required" placeholder="Hotel code"'); ?>
 
                         </div>
-                        <div class="span4">
-                            <?php echo VmHTML::row_control('textarea', 'Overview', 'overview', $this->item->overview, 'class="required"', 28, 4); ?>
-                            <?php echo VmHTML::row_control('textarea', 'Room info', 'room_info', $this->item->room_info, 'class="required"', 28, 4); ?>
-                            <?php echo VmHTML::row_control('textarea', 'Facility info', 'facility_info', $this->item->facility_info, 'class="required"', 28, 4); ?>
-
-                        </div>
-                        <div class="span4">
-                            <?php echo VmHTML::image('hotel photo 1', 'hotel_photo1', $this->item->hotel_photo1, 'class="required"'); ?>
-                            <?php echo VmHTML::image('hotel photo 2', 'hotel_photo2', $this->item->hotel_photo2, 'class="required"'); ?>
-                            <?php echo VmHTML::image('facility photo 1', 'facility_photo1', $this->item->facility_photo1, 'class="required"'); ?>
-                            <?php echo VmHTML::image('facility photo 1', 'facility_photo2', $this->item->facility_photo2, 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('booleanlist', 'COM_VIRTUEMART_PUBLISHED', 'published', $this->item->published); ?>
-
-
-                        </div>
-
                     </div>
-                </fieldset>
+                </div>
+
+                <div class="addition-info">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview); ?>
+                            <?php echo VmHTML::row_control('editor', 'Hotel info', 'facility_info', $this->item->description); ?>
+                            <?php echo VmHTML::row_control('editor', 'Room info', 'room_info', $this->item->description); ?>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
             <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>

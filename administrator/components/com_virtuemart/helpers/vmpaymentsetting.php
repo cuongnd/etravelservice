@@ -37,10 +37,8 @@ class vmpaymentsetting
     public static function get_config_mode()
     {
         $list_config_mode = array(
-            'mode1',
-            'mode2',
-            'mode3',
-            'mode4',
+            'Istant',
+            'Request',
         );
         foreach ($list_config_mode as $key => $mode) {
             $list_config_mode[$mode] = $mode;
@@ -63,6 +61,26 @@ class vmpaymentsetting
             $a_list_hold_seat_type[]=$a_item;
         }
         return $a_list_hold_seat_type;
+    }
+
+    public static function get_list_currency()
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__virtuemart_currencies')
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+
+    public static function get_list_payment_method_by_paymentsetting_id($virtuemart_paymentsetting_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__virtuemart_paymentmethods_en_gb')
+        ;
+        return $db->setQuery($query)->loadObjectList();
     }
 
 

@@ -31,7 +31,7 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
 class Tabletransferaddon extends VmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_transferaddon_id				= 0;
+	var $virtuemart_transfer_addon_id				= 0;
 	var $title				= "";
 	var $description				= "";
 	var $price_type				= "";
@@ -51,7 +51,7 @@ class Tabletransferaddon extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_transferaddon', 'virtuemart_transferaddon_id', $db);
+		parent::__construct('#__virtuemart_transfer_addon', 'virtuemart_transfer_addon_id', $db);
 
 
 		$this->setLoggable();

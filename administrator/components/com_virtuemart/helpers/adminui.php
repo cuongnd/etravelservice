@@ -787,14 +787,6 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                     class="icon-palette" title=""></span>build relation</a></li>
                                     </ul>
                                 </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li>
-                                            <a href="<?php echo $virtuemart_product_id ? 'index.php?option=com_virtuemart&view=hoteladdon&virtuemart_product_id=' . $virtuemart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Hotel</a></li>
-
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tour_manager">
@@ -813,8 +805,6 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_virtuemart&view=promotion"><span
-                                                    class="icon-palette" title=""></span>Promotion</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=transferaddon"><span
                                                     class="icon-palette" title=""></span>Transfer addon</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=excusionaddon"><span
@@ -824,6 +814,10 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
                                         <li><a href="#"><span class="icon-palette" title=""></span>Asign</a></li>
+                                        <li>
+                                            <a href="index.php?option=com_virtuemart&view=hoteladdon"><span
+                                                    class="icon-palette" title=""></span>Hotel addon</a></li>
+
                                     </ul>
                                 </div>
                             </div>

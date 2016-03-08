@@ -66,7 +66,7 @@ class VirtuemartViewProduct extends VmViewAdmin
                     $virtuemart_product_id = (int)$virtuemart_product_id;
                 }
 
-                $product = $model->getProductSingle($virtuemart_product_id, false);
+                $product = $model->getItem($virtuemart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
                 $product->virtuemart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
@@ -116,18 +116,6 @@ class VirtuemartViewProduct extends VmViewAdmin
                         $isCustomVariant = true;
                         break;
                     }
-                }
-                if (!$isCustomVariant) {
-                    $product_childIds = $model->getProductChildIds($virtuemart_product_id);
-
-                    $product_childs = array();
-                    $childs = 0;
-                    $maxChilds = VmConfig::get('maxChilds', 80);
-                    foreach ($product_childIds as $id) {
-                        if ($childs++ > $maxChilds) break;
-                        $product_childs[] = $model->getProductSingle($id, false);
-                    }
-                    $this->product_childs = $product_childs;
                 }
 
 
@@ -201,8 +189,6 @@ class VirtuemartViewProduct extends VmViewAdmin
                     $waitinglist = $waitinglistmodel->getWaitingusers($product->virtuemart_product_id);
                     $this->assignRef('waitinglist', $waitinglist);
                 }
-                $productShoppers = $model->getProductShoppersByStatus($product->virtuemart_product_id, array('S'));
-                $this->assignRef('productShoppers', $productShoppers);
                 $orderstatusModel = VmModel::getModel('orderstatus');
                 $lists['OrderStatus'] = $orderstatusModel->renderOSList(array(), 'order_status', TRUE);
 
@@ -428,7 +414,7 @@ class VirtuemartViewProduct extends VmViewAdmin
                 }
 
                 //Get the list of products
-                $productlist = $model->getProductListing(false, false, false, false, true);
+                $productlist = $model->getItemList();
 
                 //The pagination must now always set AFTER the model load the listing
                 $this->pagination = $model->getPagination();

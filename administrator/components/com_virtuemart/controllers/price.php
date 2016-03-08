@@ -56,6 +56,7 @@ class VirtuemartControllerPrice extends VmController {
 	}
     public function ajax_remove()
     {
+
         $app=JFactory::getApplication();
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
@@ -141,10 +142,10 @@ class VirtuemartControllerPrice extends VmController {
             $return_item->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($price_id);
         }
 
-        //get markup
+        /*//get markup
         $return_item->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($price_id);
         $return_item->list_mark_up=JArrayHelper::pivot($return_item->list_mark_up,'type');
-        //end get markup
+        //end get markup*/
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
         $return_item->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
 
