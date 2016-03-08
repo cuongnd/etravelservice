@@ -22,18 +22,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="default_edit.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default_edit.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/default_edit.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1538463">
-              <caret line="73" column="43" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.59097743">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
-                <marker date="1457404041944" expanded="true" signature="3432:3501" placeholder="..." />
-                <marker date="1457404041944" expanded="true" signature="3455:3501" placeholder="..." />
-                <marker date="1457404041944" expanded="true" signature="3578:3674" placeholder="..." />
-                <marker date="1457404041944" expanded="true" signature="3618:3674" placeholder="..." />
-                <marker date="1457404041944" expanded="true" signature="6373:6427" placeholder="..." />
-                <marker date="1457404041944" expanded="true" signature="6987:7206" placeholder="..." />
+                <marker date="1457436830783" expanded="true" signature="3724:3943" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -42,14 +37,14 @@
       <file leaf-file-name="html.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.269231">
-              <caret line="587" column="84" selection-start-line="587" selection-start-column="59" selection-end-line="587" selection-end-column="84" />
+            <state vertical-scroll-proportion="-10.461538">
+              <caret line="594" column="13" selection-start-line="594" selection-start-column="13" selection-end-line="594" selection-end-column="13" />
               <folding>
-                <marker date="1457412593056" expanded="true" signature="3789:3845" placeholder="..." />
-                <marker date="1457412593056" expanded="true" signature="3809:3837" placeholder="..." />
-                <marker date="1457412593056" expanded="true" signature="5366:5452" placeholder="..." />
-                <marker date="1457412593056" expanded="true" signature="6912:6998" placeholder="..." />
-                <marker date="1457412593056" expanded="true" signature="59001:59010" placeholder="..." />
+                <marker date="1457436741296" expanded="true" signature="3789:3845" placeholder="..." />
+                <marker date="1457436741296" expanded="true" signature="3809:3837" placeholder="..." />
+                <marker date="1457436741296" expanded="true" signature="5366:5452" placeholder="..." />
+                <marker date="1457436741296" expanded="true" signature="6912:6998" placeholder="..." />
+                <marker date="1457436741296" expanded="true" signature="59104:59113" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -65,10 +60,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="html_edit_price_add_on.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="html_edit_price_add_on.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7293777">
+            <state vertical-scroll-proportion="0.0">
               <caret line="207" column="60" selection-start-line="207" selection-start-column="60" selection-end-line="207" selection-end-column="60" />
               <folding />
             </state>
@@ -78,8 +73,8 @@
       <file leaf-file-name="html_edit_price_add_on.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.961538">
-              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            <state vertical-scroll-proportion="-16.346153">
+              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -108,8 +103,8 @@
       <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/readme.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3448277">
-              <caret line="46" column="109" selection-start-line="46" selection-start-column="109" selection-end-line="46" selection-end-column="109" />
+            <state vertical-scroll-proportion="-10.551724">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -187,10 +182,10 @@
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/vmtransferaddon.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/view.html.php" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/select_from_to/html_select_from_to.js" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/default_edit.php" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less" />
         <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php" />
-        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js" />
+        <option value="$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/default_edit.php" />
       </list>
     </option>
   </component>
@@ -1752,46 +1747,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/default_edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1538463">
-          <caret line="73" column="43" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding>
-            <marker date="1457404041944" expanded="true" signature="3432:3501" placeholder="..." />
-            <marker date="1457404041944" expanded="true" signature="3455:3501" placeholder="..." />
-            <marker date="1457404041944" expanded="true" signature="3578:3674" placeholder="..." />
-            <marker date="1457404041944" expanded="true" signature="3618:3674" placeholder="..." />
-            <marker date="1457404041944" expanded="true" signature="6373:6427" placeholder="..." />
-            <marker date="1457404041944" expanded="true" signature="6987:7206" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.961538">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/select_amount_percent/html_select_amount_percent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/readme.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3448277">
-          <caret line="46" column="109" selection-start-line="46" selection-start-column="109" selection-end-line="46" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/index.html">
@@ -1818,25 +1779,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="207" column="60" selection-start-line="207" selection-start-column="60" selection-end-line="207" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/readme.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.551724">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.346153">
+          <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/helpers/html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.269231">
-          <caret line="587" column="84" selection-start-line="587" selection-start-column="59" selection-end-line="587" selection-end-column="84" />
+        <state vertical-scroll-proportion="-10.461538">
+          <caret line="594" column="13" selection-start-line="594" selection-start-column="13" selection-end-line="594" selection-end-column="13" />
           <folding>
-            <marker date="1457412593056" expanded="true" signature="3789:3845" placeholder="..." />
-            <marker date="1457412593056" expanded="true" signature="3809:3837" placeholder="..." />
-            <marker date="1457412593056" expanded="true" signature="5366:5452" placeholder="..." />
-            <marker date="1457412593056" expanded="true" signature="6912:6998" placeholder="..." />
-            <marker date="1457412593056" expanded="true" signature="59001:59010" placeholder="..." />
+            <marker date="1457436741296" expanded="true" signature="3789:3845" placeholder="..." />
+            <marker date="1457436741296" expanded="true" signature="3809:3837" placeholder="..." />
+            <marker date="1457436741296" expanded="true" signature="5366:5452" placeholder="..." />
+            <marker date="1457436741296" expanded="true" signature="6912:6998" placeholder="..." />
+            <marker date="1457436741296" expanded="true" signature="59104:59113" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js">
+    <entry file="file://$PROJECT_DIR$/administrator/components/com_virtuemart/views/transferaddon/tmpl/default_edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7293777">
-          <caret line="207" column="60" selection-start-line="207" selection-start-column="60" selection-end-line="207" selection-end-column="60" />
-          <folding />
+        <state vertical-scroll-proportion="0.59097743">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <marker date="1457436830783" expanded="true" signature="3724:3943" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

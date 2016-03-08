@@ -575,19 +575,19 @@ class VmHtml
                     <?php for($i=0;$i<2;$i++){ ?>
                     <tr class="<?php echo $i<1?'item':'item-flat' ?>">
                         <td><span class="index"><?php if($i<1){ ?><?php echo ($i+1) ?></span> Person<?php }else{ ?>Flat price<?php } ?></td>
-                        <td><input type="text" class="auto net-price" data-a-sign="US$ " ></td>
+                        <td><input type="text" class="auto net-price" data-a-sign="US$ " data-v-min="0" data-v-max="999999" ></td>
                         <td><input type="text" class="auto mark-up-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
                         <td><input type="text" class="auto mark-up-amount" data-a-sign="US$ "></td>
                         <td><input type="text" class="auto tax" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
-                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ "></td>
+                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ " ></td>
                     </tr>
                     <?php } ?>
                     <tr>
                         <td>Children discount</td>
-                        <td><input type="text" class="auto children-discount-amount" data-a-sign="US$ "></td>
+                        <td><input type="text" class="auto children-discount-amount" data-a-sign="US$ " data-v-min="0" data-v-max="999999"></td>
                         <td><input type="text" class="auto children-discount-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
                         <td>Children age</td>
-                        <td colspan="2"><input type="text" class="auto children-under-year"></td>
+                        <td colspan="2"><input type="text" class="auto children-under-year" data-v-min="0" data-v-max="120"></td>
                     </tr>
                 </tbody>
             </table>
