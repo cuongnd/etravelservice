@@ -60,13 +60,13 @@ class vmtransferaddon
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_tour_id_by_transfer_addon_id($virtuemart_transferaddon_id=0)
+    public static function get_list_tour_id_by_transfer_addon_id($virtuemart_transfer_addon_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_product_id')
             ->from('#__virtuemart_tour_id_transfer_addon_id')
-            ->where('virtuemart_transfer_addon_id='.(int)$virtuemart_transferaddon_id)
+            ->where('virtuemart_transfer_addon_id='.(int)$virtuemart_transfer_addon_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }

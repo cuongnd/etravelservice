@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmexcusionaddon
+class vmHotelAddon
 {
     /**
      * javascript strings
@@ -34,17 +34,34 @@ class vmexcusionaddon
      */
     protected static $strings = array();
 
-    public static function get_list_tour_id_by_excusion_addon_id($virtuemart_excusionaddon_id=0)
+    public static function get_list_tour_id_by_hotel_addon_id($virtuemart_hotel_addon_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_product_id')
-            ->from('#__virtuemart_tour_id_excusionaddon_id')
-            ->where('virtuemart_excusionaddon_id='.(int)$virtuemart_excusionaddon_id)
+            ->from('#__virtuemart_tour_id_hotel_addon_id')
+            ->where('virtuemart_hotel_addon_id='.(int)$virtuemart_hotel_addon_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
 
+    public static function get_list_hotel_payment_type()
+    {
+        $list_hotel_payment_type=array(
+            'instant_payment'=>'Instant payment',
+            'last_payment'=>'Last transfer'
+        );
+        $a_list_hotel_payment_type=array();
+        foreach($list_hotel_payment_type as $key=>$text)
+        {
+            $a_item=new stdClass();
+            $a_item->value=$key;
+            $a_item->text=$text;
+            $a_list_hotel_payment_type[]=$a_item;
+        }
+        return $a_list_hotel_payment_type;
+
+    }
 
 
 }

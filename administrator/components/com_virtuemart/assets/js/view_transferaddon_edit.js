@@ -21,11 +21,10 @@
 
             plugin.settings = $.extend({}, defaults, options);
             var task=plugin.settings.task;
-            console.log(task);
             if(task=='add_new_item')
             {
 
-                $element.find( ".view-transferaddon-edit" ).dialog({
+                $element.dialog({
                     dialogClass:'asian-dialog-form',
                     modal: true,
                     width: 900,
@@ -34,6 +33,10 @@
                     appendTo: 'body'
                 });
             }
+            $element.find("#adminForm").validate();
+            $element.find('.toolbar .cancel').click(function(){
+                Joomla.submitform('cancel');
+            });
 
 
         }

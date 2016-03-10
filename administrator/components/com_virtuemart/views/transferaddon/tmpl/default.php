@@ -68,7 +68,7 @@ $doc->addScriptDeclaration($js_content);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transferaddon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transfer_addon_id', 'Id'); ?>
                         </label>
 
                     </th>
@@ -109,18 +109,18 @@ $doc->addScriptDeclaration($js_content);
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_transferaddon_id);
+                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_transfer_addon_id);
                     $published = $this->gridPublished($row, $i);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_transferaddon_id');
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=transferaddon&task=show_parent_popup&cid[]=' . $row->virtuemart_transferaddon_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_transferaddon_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_transfer_addon_id');
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=transferaddon&task=edit_item&cid[]=' . $row->virtuemart_transfer_addon_id);
+                    $edit = $this->gridEdit($row, $i, 'virtuemart_transfer_addon_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->transfer_addon_name; ?></a>
                         </td>
                         <td align="left">
                             <?php echo $row->created_on; ?>
@@ -170,7 +170,7 @@ $doc->addScriptDeclaration($js_content);
     </form>
     <?php
 
-    if ($task == 'add_new_item') {
+    if ($task == 'add_new_item'||$task == 'edit_item') {
         echo $this->loadTemplate('edit');
     } ?>
 </div>

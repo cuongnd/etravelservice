@@ -22,7 +22,7 @@
             plugin.settings = $.extend({}, defaults, options);
             var task=plugin.settings.task;
             console.log(task);
-            if(task=='add_new_item')
+            if(task=='add_new_item'||task=='edit_item')
             {
 
                 $element.find( ".view-transferaddon-edit" ).dialog({

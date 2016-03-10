@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class virtuemartViewexcusionaddon extends VmViewAdmin {
+class VirtuemartViewCurrency extends VmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -56,24 +56,17 @@ class virtuemartViewexcusionaddon extends VmViewAdmin {
 			}
 
 			$model->setId($cid);
-			$this->item = $model->getItem();
-			//get list tour
-			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmexcusionaddon.php';
-			$this->item->list_tour_id = vmexcusionaddon::get_list_tour_id_by_excusion_addon_id($this->item->virtuemart_excusionaddon_id);
-			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
-			$list_tour = vmproduct::get_list_product();
-			$this->assignRef('list_tour', $list_tour);
-			//end get list tour
-
-			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
+			$this->currency = $model->getCurrency();
+			$this->SetViewTitle('',$this->currency->currency_name);
+			$this->addStandardEditViewCommands();
 
 		} else {
 
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
+
+			$this->currencies = $model->getCurrenciesList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();
 
 		}

@@ -40,7 +40,8 @@ class vmproduct
         $query=$db->getQuery(true);
         $query->select('products_en_gb.*')
             ->from('#__virtuemart_products AS products')
-            ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
+            ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
+            ->group('products.virtuemart_product_id')
             ;
         return $db->setQuery($query)->loadObjectList();
     }

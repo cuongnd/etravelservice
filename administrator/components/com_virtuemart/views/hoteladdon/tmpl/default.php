@@ -18,158 +18,161 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-AdminUIHelper::startAdminArea($this);
 $doc = JFactory::getDocument();
-echo vmproduct::get_html_tour_information($this, $this->virtuemart_product_id);
+JHtml::_('jquery.framework');
+JHTML::_('behavior.core');
+JHtml::_('jquery.ui');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/effect.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/draggable.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_hoteladdon_default.js');
+$doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/dialog.js');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/core.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/theme.css');
+$doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/dialog.css');
+$input = JFactory::getApplication()->input;
+AdminUIHelper::startAdminArea($this);
 $js_content = '';
+$task = $input->get('task');
 ob_start();
 ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $('.view-hoteladdon-default').view_hoteladdon_default({});
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('.view-hoteladdon-default').view_hoteladdon_default({
+            task: "<?php echo $task ?>"
         });
-    </script>
+    });
+</script>
 <?php
 $js_content = ob_get_clean();
 $js_content = JUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_hoteladdon_default.js');
 
 
-$listOrder = $this->escape($this->lists['filter_order']);
-$listDirn = $this->escape($this->lists['filter_order_Dir']);
-$saveOrder = $listOrder == 'ordering';
-if ($saveOrder) {
-
-    $saveOrderingUrl = 'index.php?option=com_virtuemart&controller=hoteladdon&task=saveOrderAjax&tmpl=component';
-    JHtml::_('sortablelist.sortable', 'hotel_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
-}
 ?>
-    <div class="view-hoteladdon-default">
-        <form action="index.php" method="post" name="adminForm" id="adminForm">
-            <table>
+<div class="view-hoteladdon-default">
+    <form action="index.php" method="post" name="adminForm" id="adminForm">
+        <table>
+            <tr>
+                <td width="100%">
+                    <?php echo $this->displayDefaultViewSearch('hoteladdon', 'search'); ?>
+                </td>
+            </tr>
+        </table>
+        <div id="editcell">
+            <div class="vm-page-nav">
+
+            </div>
+            <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
                 <tr>
-                    <td width="100%">
-                        <?php echo $this->displayDefaultViewSearch('hotel', 'search'); ?>
-                    </td>
-                </tr>
-            </table>
-            <div id="editcell">
-                <table id="hotel_list" class="adminlist table table-striped" cellspacing="0" cellpadding="0">
-                    <thead>
-                    <tr>
-                        <th class="admin-checkbox">
-                            <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                           onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transferaddon_id', 'Id'); ?>
+                    <th class="admin-checkbox">
+                        <label class="checkbox"><input type="checkbox" name="toggle" value=""
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_hotel_addon_id', 'Id'); ?>
+                        </label>
 
-                        </th>
-                        <th>
-                            <?php echo $this->sort('title', 'Hotel name'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('address', 'address'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('Star rating', 'star_rating'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('Review', 'review'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('photo', 'Photo'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('description', 'Description'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('ordering', 'ordering'); ?>
-                            <?php if ($saveOrder) : ?>
-                                <?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); ?>
-                            <?php endif; ?>
-
-                        </th>
-
-                        <th width="70">
-                            <?php echo vmText::_('Action'); ?>
-                        </th>
-                        <?php /*	<th width="10">
+                    </th>
+                    <th>
+                        <?php echo $this->sort('title', 'Transfer name'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('created_on', 'Create date'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('location', 'Location'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('price', 'Price'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('start_date', 'Start date'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('end_date', 'End date'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('description', 'Description'); ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Application') ?>
+                    </th>
+                    <th width="70">
+                        <?php echo vmText::_('Action'); ?>
+                    </th>
+                    <?php /*	<th width="10">
 				<?php echo vmText::_('COM_VIRTUEMART_SHARED'); ?>
 			</th> */ ?>
-                    </tr>
-                    </thead>
-                    <?php
-                    $k = 0;
-                    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
-                        $row = $this->items[$i];
+                </tr>
+                </thead>
+                <?php
+                $k = 0;
+                for ($i = 0, $n = count($this->items); $i < $n; $i++) {
+                    $row = $this->items[$i];
 
-                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_hoteladdon_id);
-                        $published = $this->gridPublished($row, $i);
-
-                        $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hoteladdon&task=show_parent_popup&cid[]=' . $row->virtuemart_hoteladdon_id);
-                        $edit = $this->gridEdit($row, $i, 'virtuemart_hoteladdon_id', $editlink);
-                        $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hoteladdon_id');
-                        ?>
-                        <tr class="row<?php echo $k; ?>">
-                            <td class="admin-checkbox">
-                                <?php echo $checked; ?>
-                            </td>
-                            <td align="left">
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->address; ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->star_rating; ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->review; ?>
-                            </td>
-                            <td align="left">
-                                <?php echo VmHTML::show_image(JUri::root() . '/' . $row->hotel_photo1, 'class="required"', 40, 40); ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->overview; ?>
-                            </td>
-                            <td align="left">
-                            <span class="sortable-handler">
-								<span class="icon-menu"></span>
-							</span>
-                                <?php if ($saveOrder) : ?>
-                                    <input type="text" style="display:none" name="order[]" size="5"
-                                           value="<?php echo $row->ordering; ?>" class="width-20 text-area-order "/>
-                                <?php endif; ?>
-
-
-                            </td>
-
-
-                            <td align="center">
-                                <?php echo $published; ?>
-                                <?php echo $edit; ?>
-                                <?php echo $delete; ?>
-                            </td>
-                        </tr>
-                        <?php
-                        $k = 1 - $k;
-                    }
+                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_hotel_addon_id);
+                    $published = $this->gridPublished($row, $i);
+                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hotel_addon_id');
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hoteladdon&task=edit_item&cid[]=' . $row->virtuemart_hotel_addon_id);
+                    $edit = $this->gridEdit($row, $i, 'virtuemart_hotel_addon_id', $editlink);
                     ?>
-                    <tfoot>
-                    <tr>
-                        <td colspan="10">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                            <?php echo $this->pagination->getLimitBox(); ?>
+                    <tr class="row<?php echo $k; ?>">
+                        <td class="admin-checkbox">
+                            <?php echo $checked; ?>
+                        </td>
+                        <td align="left">
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_addon_name; ?></a>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->created_on; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->location; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->price; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->start_date; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->end_date; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->description; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->list_tour; ?>
+                        </td>
+                        <td align="center">
+                            <?php echo $published; ?>
+                            <?php echo $edit; ?>
+                            <?php echo $delete; ?>
                         </td>
                     </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    <?php
+                    $k = 1 - $k;
+                }
+                ?>
+                <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <?php echo $this->pagination->getListFooter(); ?>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <input type="hidden" value="" name="task">
+        <input type="hidden" value="com_virtuemart" name="option">
+        <input type="hidden" value="hoteladdon" name="controller">
+        <input type="hidden" value="hoteladdon" name="view">
+        <?php echo JHtml::_('form.token'); ?>
+    </form>
+    <?php
 
-            <?php echo $this->addStandardHiddenToForm(); ?>
-            <?php echo JHtml::_('form.token'); ?>
-        </form>
+    if ($task == 'add_new_item'||$task == 'edit_item') {
+        echo $this->loadTemplate('edit');
+    } ?>
+</div>
+    <?php AdminUIHelper::endAdminArea(); ?>
 
-    </div>
-
-<?php AdminUIHelper::endAdminArea(); ?>

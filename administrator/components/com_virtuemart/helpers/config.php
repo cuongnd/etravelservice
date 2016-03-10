@@ -832,7 +832,7 @@ class VmConfig {
 			}
 
 			self::$installed = VirtueMartModelConfig::checkVirtuemartInstalled();
-			if(!self::$installed){
+			/*if(!self::$installed){
 				if(!$redirected and !$install){
 					$link = 'index.php?option=com_virtuemart&view=updatesmigration&redirected=1';
 
@@ -842,7 +842,7 @@ class VmConfig {
 						if(empty($msg)) $msg = 'Install Virtuemart first, click on the menu component and select VirtueMart';
 					}
 				}
-			}
+			}*/
 		} else {
 			$query = ' SELECT `config` FROM `#__virtuemart_configs` WHERE `virtuemart_config_id` = "1";';
 			$db->setQuery($query);

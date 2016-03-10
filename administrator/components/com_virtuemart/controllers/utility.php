@@ -75,6 +75,7 @@ class VirtuemartControllerUtility extends VmController {
 				$sql=$row->sql;
 				switch($sql){
 					case 'INTEGER':
+					case 'FLOAT':
 						$sql='int';
 						$size=$size?$size:11;
 						$rows[$key]->size=$size;

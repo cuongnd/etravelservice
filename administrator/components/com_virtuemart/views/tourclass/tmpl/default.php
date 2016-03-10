@@ -82,7 +82,7 @@ if ($saveOrder) {
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transferaddon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transfer_addon_id', 'Id'); ?>
                         </label>
                     </th>
                     <th>

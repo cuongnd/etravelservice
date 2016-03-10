@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class virtuemartViewhoteladdon extends VmViewAdmin {
+class virtuemartViewHotelAddon extends VmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -38,12 +38,11 @@ class virtuemartViewhoteladdon extends VmViewAdmin {
 
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-		$app=JFactory::getApplication();
+
 		$model = VmModel::getModel();
-		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
-		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 
-
+		$input = JFactory::getApplication()->input;
+		$task = $input->get('task');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -59,16 +58,60 @@ class virtuemartViewhoteladdon extends VmViewAdmin {
 
 			$model->setId($cid);
 			$this->item = $model->getItem();
+			//get list tour
+			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
+			$this->item->list_tour_id = vmhoteladdon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+			$list_tour = vmproduct::get_list_product();
+			$this->assignRef('list_tour', $list_tour);
+			//end get list tour
+
+
 			$this->SetViewTitle('',$this->item->title);
 			$this->addStandardEditViewCommandsPopup();
 
 		} else {
-
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			JToolBarHelper::publishList();
+			JToolBarHelper::unpublishList();
+			JToolBarHelper::editList();
+			JToolBarHelper::addNew('add_new_item');
+			JToolBarHelper::deleteList();
+
 			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
+			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
+
+			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
+			$this->list_cityarea=vmcities::get_city_state_country();
+			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
+			$this->list_hotel_payment_type=vmhoteladdon::get_list_hotel_payment_type();
+			if($task=='edit_item')
+			{
+				$cid	= vRequest::getInt( 'cid' );
+
+				$task = vRequest::getCmd('task', 'add');
+
+				if($task!='add' && !empty($cid) && !empty($cid[0])){
+					$cid = (int)$cid[0];
+				} else {
+					$cid = 0;
+				}
+
+				$model->setId($cid);
+				$this->item = $model->getItem();
+
+				//get list tour
+				require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
+				$this->item->list_tour_id = vmhoteladdon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+				$list_tour = vmproduct::get_list_product();
+				$this->assignRef('list_tour', $list_tour);
+				//end get list tour
+
+
+			}
+
 
 		}
 

@@ -40,7 +40,7 @@ class VirtueMartModeltransferaddon extends VmModel
     function __construct()
     {
         parent::__construct();
-        $this->setMainTable('transferaddon');
+        $this->setMainTable('transfer_addon');
     }
 
     /**
@@ -50,7 +50,6 @@ class VirtueMartModeltransferaddon extends VmModel
      */
     function getItem($id = 0)
     {
-
         return $this->getData($id);
     }
 
@@ -70,18 +69,11 @@ class VirtueMartModeltransferaddon extends VmModel
     {
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('transferaddon.*')
-            ->from('#__virtuemart_transferaddon AS transferaddon')
+        $query->select('transfer_addon.*')
+            ->from('#__virtuemart_transfer_addon AS transfer_addon')
             ->leftJoin('me1u8_virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
-            ->select('cityarea.title AS cityarea_name')
+            ->select('cityarea.city_area_name AS city_area_name')
         ;
-        $query1=$db->getQuery(true);
-        $query1->select('GROUP_CONCAT(products_en_gb.product_name)')
-            ->from('#__virtuemart_tour_id_transferaddon_id AS tour_id_transferaddon_id')
-            ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
-            ->where('tour_id_transferaddon_id.virtuemart_transferaddon_id=transferaddon.virtuemart_transferaddon_id')
-        ;
-        $query->select("($query1) AS list_tour");
         $user = JFactory::getUser();
         $shared = '';
         if (vmAccess::manager()) {
@@ -95,7 +87,7 @@ class VirtueMartModeltransferaddon extends VmModel
         if ($search) {
             $db = JFactory::getDBO();
             $search = '"%' . $db->escape($search, true) . '%"';
-            $query->where('transferaddon.title LIKE '.$search);
+            $query->where('transfer_addon.transfer_addon_name LIKE '.$search);
         }
         if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
         if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
@@ -118,33 +110,33 @@ class VirtueMartModeltransferaddon extends VmModel
             vmWarn('Insufficient permissions to store transferaddon');
             return false;
         }
-        $virtuemart_transferaddon_id= parent::store($data);
-        if($virtuemart_transferaddon_id) {
-            //inser to transferaddon
+        $virtuemart_transfer_addon_id= parent::store($data);
+        if($virtuemart_transfer_addon_id) {
+            //inser to excusionaddon
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_transfer_addon_id')
-                ->where('virtuemart_transfer_addon_id=' . (int)$virtuemart_transferaddon_id);
+                ->where('virtuemart_transfer_addon_id=' . (int)$virtuemart_transfer_addon_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
-                vmError('can not delete tour in transferaddon', $err);
+                vmError('can not delete tour in transfer_addon', $err);
             }
             $list_tour_id = $data['list_tour_id'];
             foreach ($list_tour_id as $virtuemart_product_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_transfer_addon_id')
                     ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_transfer_addon_id=' . (int)$virtuemart_transferaddon_id);
+                    ->set('virtuemart_transfer_addon_id=' . (int)$virtuemart_transfer_addon_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
-                    vmError('can not insert tour in this transferaddon', $err);
+                    vmError('can not insert tour in this transfer_addon', $err);
                 }
             }
             //end insert group size
         }
 
-        return $virtuemart_transferaddon_id;
+        return $virtuemart_transfer_addon_id;
     }
 
     function remove($ids)

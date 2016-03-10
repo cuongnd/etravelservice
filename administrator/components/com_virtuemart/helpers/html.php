@@ -497,7 +497,7 @@ class VmHtml
         $htm=ob_get_clean();
         return $htm;
     }
-    public static function select_from_to($from_name,$to_name,$from=0,$to=10)
+    public static function select_from_to($from_name,$to_name,$from=0,$to=10,$min=0,$max=100)
     {
         $doc=JFactory::getDocument();
         $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
@@ -513,8 +513,12 @@ class VmHtml
         <script type="text/javascript">
             jQuery(document).ready(function($){
                 $('#<?php echo $select_from_to ?>').html_select_from_to({
+                    from_name:"<?php echo $from_name ?>",
+                    to_name:"<?php echo $to_name ?>",
                     from:<?php echo (int)$from ?>,
-                    to:<?php echo (int)$to ?>
+                    to:<?php echo (int)$to ?>,
+                    min:<?php echo (int)$min ?>,
+                    max:<?php echo (int)$max ?>
                 });
             });
         </script>
@@ -525,6 +529,7 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $select_from_to ?>">
+            <div class="integer-range"></div>
             <input type="hidden" value="<?php echo $from ?>" name="<?php echo $from_name ?>">
             <input type="hidden" value="<?php echo $to ?>" name="<?php echo $to_name ?>">
         </div>
@@ -532,23 +537,87 @@ class VmHtml
         $htm=ob_get_clean();
         return $htm;
     }
-    public static function edit_price_add_on($from_name,$to_name,$from=0,$to=10)
+    public static function range_of_date($from_name,$to_name,$from_date='',$to_date='',$format='YYYY-MM-DD',$min_date='',$max_date='')
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_range_of_date/html_select_range_of_date.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/select_range_of_date/html_select_range_of_date.less');
+        $input=JFactory::getApplication()->input;
+        $select_from_date_to_date='select_from_date_to_date_'.$from_name.'_'.$to_name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $select_from_date_to_date ?>').html_select_range_of_date({
+                    format:"<?php echo $format ?>",
+                    from_name:"<?php echo $from_name ?>",
+                    to_name:"<?php echo $to_name ?>",
+                    from_date:"<?php echo $from_date ?>",
+                    to_date:"<?php echo $to_date ?>",
+                    min_date:"<?php echo $min_date ?>",
+                    max_date:"<?php echo $max_date ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_from_date_to_date ?>" class="select_range_of_date">
+            <div class="input-append ">
+                <input type="text" value="<?php echo $from_date ?>-<?php echo $to_date ?>" class="range_of_date"/>
+                <span class="icon-calendar add-on"></span>
+            </div>
+
+
+            <input type="hidden" value="<?php echo $from_date ?>" name="<?php echo $from_name ?>">
+            <input type="hidden" value="<?php echo $to_date ?>" name="<?php echo $to_name ?>">
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
+    public static function edit_price_add_on($name,$data='')
     {
         $doc=JFactory::getDocument();
         $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
         $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root().'/media/system/js/base64.js');
+        $doc->addScript(JUri::root() . "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
 
         $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js');
         $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less');
         $input=JFactory::getApplication()->input;
-        $edit_price_add_on='edit_price_add_on_';
+        $edit_price_add_on='edit_price_add_on_'.$name;
+        $data1=base64_decode($data);
+
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $data1 = up_json_decode($data1, false, 512, JSON_PARSE_JAVASCRIPT);
+        $items=$data1->items;
+        for($i=0;$i<count($items);$i++)
+        {
+            if($i>19)
+            {
+                unset($data1->items[$i]);
+            }
+        }
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function($){
                 $('#<?php echo $edit_price_add_on ?>').html_edit_price_add_on({
-                    from:<?php echo (int)$from ?>,
-                    to:<?php echo (int)$to ?>
+                    output_name:"<?php echo $name ?>",
+                    <?php if($data1){ ?>
+                        data:<?php echo json_encode($data1) ?>
+                    <?php } ?>
+
+
                 });
             });
         </script>
@@ -559,7 +628,11 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $edit_price_add_on ?>" class="edit-price-add-on">
-            <div><button type="button" class="btn btn-small btn-success more-group"><span class="icon-new icon-white"></span>More group</button><button type="button" class="btn btn-small btn-success delete-group"><span class="icon-delete icon-white"></span>Delete last group</button></div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-small btn-success more-group"><span class="icon-new icon-white"></span>More group</button>
+                <button type="button" class="btn btn-small btn-success delete-group"><span class="icon-delete icon-white"></span>Delete last group</button>
+                <button type="button" class="btn btn-small btn-success reset-all"><span class="icon-reset icon-white"></span>Reset all</button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -575,22 +648,104 @@ class VmHtml
                     <?php for($i=0;$i<2;$i++){ ?>
                     <tr class="<?php echo $i<1?'item':'item-flat' ?>">
                         <td><span class="index"><?php if($i<1){ ?><?php echo ($i+1) ?></span> Person<?php }else{ ?>Flat price<?php } ?></td>
-                        <td><input type="text" class="auto net-price" data-a-sign="US$ " data-v-min="0" data-v-max="999999" ></td>
-                        <td><input type="text" class="auto mark-up-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
-                        <td><input type="text" class="auto mark-up-amount" data-a-sign="US$ "></td>
-                        <td><input type="text" class="auto tax" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
-                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ " ></td>
+                        <td><input type="text" class="auto net-price" data-a-sign="US$ " placeholder="US$" data-v-min="0" data-v-max="999999" ></td>
+                        <td><input type="text" class="auto mark-up-percent" data-a-sign="%" placeholder="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto mark-up-amount" data-a-sign="US$ " placeholder="US$"></td>
+                        <td><input type="text" class="auto tax" data-a-sign="%" placeholder="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ " placeholder="US$" ></td>
                     </tr>
                     <?php } ?>
                     <tr>
                         <td>Children discount</td>
-                        <td><input type="text" class="auto children-discount-amount" data-a-sign="US$ " data-v-min="0" data-v-max="999999"></td>
-                        <td><input type="text" class="auto children-discount-percent" data-a-sign="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto children-discount-amount" data-a-sign="US$ " placeholder="US$" data-v-min="0" data-v-max="999999"></td>
+                        <td><input type="text" class="auto children-discount-percent" data-a-sign="%" placeholder="%" data-v-min="0" data-v-max="100"></td>
                         <td>Children age</td>
                         <td colspan="2"><input type="text" class="auto children-under-year" data-v-min="0" data-v-max="120"></td>
                     </tr>
                 </tbody>
             </table>
+            <input type="hidden" name="<?php echo $name ?>" value="<?php echo $data ?>">
+        </div>
+        <?php
+        $htm=ob_get_clean();
+        return $htm;
+    }
+    public static function edit_price_hotel_add_on($name,$data='')
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root().'/media/system/js/base64.js');
+        $doc->addScript(JUri::root() . "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
+
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.less');
+        $input=JFactory::getApplication()->input;
+        $edit_price_add_on='edit_price_hotel_add_on_'.$name;
+        $data1=base64_decode($data);
+
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $data1 = up_json_decode($data1, false, 512, JSON_PARSE_JAVASCRIPT);
+        $items=$data1->items;
+        for($i=0;$i<count($items);$i++)
+        {
+            if($i>19)
+            {
+                unset($data1->items[$i]);
+            }
+        }
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('#<?php echo $edit_price_add_on ?>').html_edit_price_hotel_add_on({
+                    output_name:"<?php echo $name ?>",
+                    <?php if($data1){ ?>
+                        data:<?php echo json_encode($data1) ?>
+                    <?php } ?>
+
+
+                });
+            });
+        </script>
+        <?php
+        $script_content=ob_get_clean();
+        $script_content=JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        $list_room=array(
+            'single_room'=>'Single room',
+            'double_twin_room'=>'Double/twin room',
+            'triple_room'=>'Triple room'
+
+        );
+        ob_start();
+        ?>
+        <div id="<?php echo $edit_price_add_on ?>" class="edit-price-hotel-add-on">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Net Price</th>
+                        <th>Mark up %</th>
+                        <th>Mark up amount</th>
+                        <th>Tax</th>
+                        <th>Sale price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($list_room as $key=>$room){ ?>
+                    <tr class="<?php echo $i<1?'item':'item-flat' ?>">
+                        <td><span class="index"><?php echo $room ?></td>
+                        <td><input type="text" class="auto net-price" data-a-sign="US$ " placeholder="US$" data-v-min="0" data-v-max="999999" ></td>
+                        <td><input type="text" class="auto mark-up-percent" data-a-sign="%" placeholder="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto mark-up-amount" data-a-sign="US$ " placeholder="US$"></td>
+                        <td><input type="text" class="auto tax" data-a-sign="%" placeholder="%" data-v-min="0" data-v-max="100"></td>
+                        <td><input type="text" class="auto sale-price" readonly data-a-sign="US$ " placeholder="US$" ></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <input type="hidden" name="<?php echo $name ?>" value="<?php echo $data ?>">
         </div>
         <?php
         $htm=ob_get_clean();
@@ -736,20 +891,43 @@ class VmHtml
 
     public static function list_radio($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
+        $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
+        $id="list-radio-box-$name";
+        $total_option=count($options);
+        $column=$total_option<$column?$total_option:$column;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $("<?php echo "#$id" ?>").find('input[name="<?php echo $name ?>"]').checkator({
+
+                });
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = JUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+
+
         $html = '';
         $list_options = array_chunk($options, $column);
         ob_start();
         ?>
         <?php foreach ($list_options as $options) { ?>
-        <div class="row-fluid">
-            <?php foreach ($options as $option) { ?>
-                <div class="span<?php echo round(12 / $column) ?>">
-                    <label class="checkbox">
-                        <input name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
-                               value="<?php echo $option->$key ?>" type="radio"> <?php echo $option->$text ?>
-                    </label>
-                </div>
-            <?php } ?>
+        <div id="<?php echo $id ?>" class="list-radio-box">
+            <div class="row-fluid">
+                <?php foreach ($options as $option) { ?>
+                    <div class="span<?php echo round(12 / $column) ?>">
+                        <label class="checkbox">
+                            <input name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
+                                   value="<?php echo $option->$key ?>" type="radio"> <?php echo $option->$text ?>
+                        </label>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     <?php } ?>
 
@@ -1329,26 +1507,6 @@ class VmHtml
         return $value . $more;
     }
 
-    public static function range_of_date($name, $value, $from, $to, $class = 'class="inputbox"', $readonly = '', $size = '30', $more = '')
-    {
-        $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
-        $js_content = '';
-        ob_start();
-        ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $('input[name="<?php echo $name ?>"]').daterangepicker({});
-            });
-        </script>
-        <?php
-        $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
-        $doc->addScriptDeclaration($js_content);
-        return '<input type="text" ' . $readonly . ' ' . $class . ' id="' . $name . '" name="' . $name . '" size="' . $size . '"  value="' . ($value) . '" />' . $more;
-    }
 
     public static function show_image($value, $class = 'class="inputbox"', $width = 40, $height = 40)
     {
@@ -1399,10 +1557,10 @@ XML;
      * @param string $name
      * @param string $value
      */
-    public static function editor($name, $value, $size = '100%', $height = '10', $hide = array('pagebreak', 'readmore'))
+    public static function editor($name, $value, $size = '100%', $height = '10',$col=10,$row=10, $hide = array('pagebreak', 'readmore'))
     {
         $editor = JFactory::getEditor();
-        return $editor->display($name, $value, $size, $height, 10, 10, $hide);
+        return $editor->display($name, $value, $size, $height, $col, $row, $hide);
     }
 
 

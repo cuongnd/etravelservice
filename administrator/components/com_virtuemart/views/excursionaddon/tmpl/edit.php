@@ -19,17 +19,17 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $doc = JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_excusionaddon_edit.less');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_excursionaddon_edit.less');
 AdminUIHelper::startAdminArea($this);
-AdminUIHelper::imitateTabs('start', "excusionaddon");
+AdminUIHelper::imitateTabs('start', "excursionaddon");
 ?>
-	<div class="view-excusionaddon-edit">
+	<div class="view-excursionaddon-edit">
 		<form action="index.php" method="post" class="form-horizontal" name="adminForm" id="adminForm">
 
 
 			<div class="col50">
 				<fieldset>
-					<legend><?php echo vmText::_('Current excusionaddon'); ?></legend>
+					<legend><?php echo vmText::_('Current excursionaddon'); ?></legend>
 					<div class="row-fluid">
 						<div class="span7">
 							<?php echo VmHTML::row_control('input', 'service name', 'title', $this->item->title, 'class="required"'); ?>
@@ -91,8 +91,8 @@ AdminUIHelper::imitateTabs('start', "excusionaddon");
 			<?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
 
 			<input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-			<input type="hidden" name="virtuemart_excusionaddon_id"
-				   value="<?php echo $this->item->virtuemart_excusionaddon_id; ?>"/>
+			<input type="hidden" name="virtuemart_excursionaddon_id"
+				   value="<?php echo $this->item->virtuemart_excursionaddon_id; ?>"/>
 			<?php echo $this->addStandardHiddenToForm(); ?>
 		</form>
 

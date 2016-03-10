@@ -404,8 +404,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                         class="im-screen"></i>Tranfer addon</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_virtuemart&view=excustion'><i
-                                                        class="im-screen"></i>Excusion addon</a>
+                                                <a href='index.php?option=com_virtuemart&view=excursion'><i
+                                                        class="im-screen"></i>excursion addon</a>
                                             </li>
                                             <li>
                                                 <a href='index.php?option=com_virtuemart&view=asign'><i
@@ -807,8 +807,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                     <ul class="ul_sub_menu">
                                         <li><a href="index.php?option=com_virtuemart&view=transferaddon"><span
                                                     class="icon-palette" title=""></span>Transfer addon</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=excusionaddon"><span
-                                                    class="icon-palette" title=""></span>Excusion addon</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=excursionaddon"><span
+                                                    class="icon-palette" title=""></span>excursion addon</a></li>
                                     </ul>
                                 </div>
                                 <div class="span2">

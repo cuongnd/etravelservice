@@ -41,7 +41,8 @@ class virtuemartViewtransferaddon extends VmViewAdmin {
 
 		$model = VmModel::getModel();
 
-
+		$input = JFactory::getApplication()->input;
+		$task = $input->get('task');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -59,7 +60,7 @@ class virtuemartViewtransferaddon extends VmViewAdmin {
 			$this->item = $model->getItem();
 			//get list tour
 			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
-			$this->item->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transferaddon_id);
+			$this->item->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 			$list_tour = vmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
@@ -86,6 +87,33 @@ class virtuemartViewtransferaddon extends VmViewAdmin {
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
 			$this->list_transfer_type=vmtransferaddon::get_list_transfer_type();
 			$this->list_transfer_payment_type=vmtransferaddon::get_list_transfer_payment_type();
+			if($task=='edit_item')
+			{
+				$cid	= vRequest::getInt( 'cid' );
+
+				$task = vRequest::getCmd('task', 'add');
+
+				if($task!='add' && !empty($cid) && !empty($cid[0])){
+					$cid = (int)$cid[0];
+				} else {
+					$cid = 0;
+				}
+
+				$model->setId($cid);
+				$this->item = $model->getItem();
+
+				//get list tour
+				require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
+				$this->item->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
+				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+				$list_tour = vmproduct::get_list_product();
+				$this->assignRef('list_tour', $list_tour);
+				//end get list tour
+
+
+			}
+
+
 		}
 
 		parent::display($tpl);

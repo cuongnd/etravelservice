@@ -5,15 +5,7 @@
 
         // plugin's default options
         var defaults = {
-            totalPages:0,
-            totalItem:10,
-            tour_id:0,
-            visiblePages:5,
-            tour_methor:'',
-            dialog_class:'dialog-form-price',
-            date_format:'m/d/y'
-
-
+            task:''
         }
 
         // current instance of the object
@@ -28,7 +20,20 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
-            $('.buid-information').insertBefore($('.vm_toolbar'));
+            var task=plugin.settings.task;
+            if(task=='add_new_item'||task=='edit_item')
+            {
+
+                $element.find( ".view-hoteladdon-edit" ).dialog({
+                    dialogClass:'asian-dialog-form',
+                    modal: true,
+                    width: 900,
+                    title: 'hotel add on',
+                    show: {effect: "blind", duration: 800},
+                    appendTo: 'body'
+                });
+            }
+
 
         }
 

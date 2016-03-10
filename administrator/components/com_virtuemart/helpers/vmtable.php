@@ -88,11 +88,11 @@ class VmTable extends vObject implements JObservableInterface, JTableInterface {
 		$this->_db =& $db;
 
 		$this->_pkey = $key;
-		$fields=$db->getTableColumns($this->_tbl);
+		/*$fields=$db->getTableColumns($this->_tbl);
 		foreach($fields as $field=>$type)
 		{
 			$this->$field=null;
-		}
+		}*/
 		$this->_pkeyForm = 'cid';
 
 		if(JVM_VERSION<3){

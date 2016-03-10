@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class VirtuemartControllerexcusionaddon extends VmController {
+class VirtuemartControllerExcursionAddon extends VmController {
 
 	/**
 	 * Method to display the view

@@ -60,12 +60,16 @@ class vmcities
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name,",",countries.country_name) AS full_city')
+        $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name) AS full_city')
             ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
             ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
             ->from('#__virtuemart_cityarea AS cityarea')
         ;
-        return $db->setQuery($query)->loadObjectList();
+        $list = $db->setQuery($query)->loadAssocList();
+        if (!$list) {
+            throw new Exception($db->getErrorMsg(), 505);
+        }
+        return $list;
     }
 
 

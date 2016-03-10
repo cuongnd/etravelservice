@@ -213,7 +213,7 @@ class PlgEditorTinymce extends JPlugin
 		$valid_elements    = $this->params->get('valid_elements', '');
 
 		// Advanced Options
-		$html_height = $this->params->get('html_height', '550');
+		$html_height = 200;
 		$html_width  = $this->params->get('html_width', '');
 
 		if ($html_width == 750)
@@ -681,8 +681,8 @@ class PlgEditorTinymce extends JPlugin
 
 			case 1:
 			default: /* Advanced mode*/
-				$toolbar1 = "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | formatselect | bullist numlist";
-				$toolbar2 = "outdent indent | undo redo | link unlink anchor image code | hr table | subscript superscript | charmap";
+				$toolbar1 = "fontselect  formatselect bold italic underline strikethrough | alignleft aligncenter alignright alignjustify  | bullist numlist|outdent indent | undo redo | link unlink anchor image code | hr table | subscript superscript | charmap";
+				//$toolbar2 = "outdent indent | undo redo | link unlink anchor image code | hr table | subscript superscript | charmap";
 				$return = $load .
 					"\t<script type=\"text/javascript\">
 				tinyMCE.init({
@@ -690,6 +690,7 @@ class PlgEditorTinymce extends JPlugin
 					directionality: \"$text_direction\",
 					language : \"$langPrefix\",
 					mode : \"specific_textareas\",
+					menubar: false,
 					autosave_restore_when_empty: false,
 					$skin
 					theme : \"$theme\",
@@ -708,7 +709,7 @@ class PlgEditorTinymce extends JPlugin
 					plugins : \"table link image code hr charmap autolink lists importcss\",
 					// Toolbar
 					toolbar1: \"$toolbar1\",
-					toolbar2: \"$toolbar2\",
+
 					removed_menuitems: \"newdocument\",
 					// URL
 					relative_urls : $relative_urls,

@@ -28,20 +28,16 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class Tabletransferaddon extends VmTableData {
+class TableTourtype extends VmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_transfer_addon_id				= 0;
+	var $virtuemart_tour_type_id				= 0;
 	var $title				= "";
+	var $icon				= "";
+	var $meta_title				= "";
+	var $key_word				= "";
 	var $description				= "";
-	var $price_type				= "";
-	var $flat_price				= "";
-	var $senior_price				= 0;
-	var $adult_price				= 0;
-	var $teen_price				= 0;
-	var $infant_price				= 0;
-	var $children1_price				= 0;
-	var $children2_price				= 0;
+
 	var $shared					= 0;
 	var $published				= 0;
 
@@ -51,7 +47,7 @@ class Tabletransferaddon extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_transfer_addon', 'virtuemart_transfer_addon_id', $db);
+		parent::__construct('#__virtuemart_tour_type', 'virtuemart_tour_type_id', $db);
 
 
 		$this->setLoggable();

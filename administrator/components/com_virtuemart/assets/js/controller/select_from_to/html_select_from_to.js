@@ -5,10 +5,12 @@
 
         // plugin's default options
         var defaults = {
+            from_name:'',
+            to_name:'',
             min:0,
             max:100,
-            from:0,
-            to:100
+            from:12,
+            to:70
         }
 
         // current instance of the object
@@ -22,11 +24,13 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            min=plugin.settings.min;
-            max=plugin.settings.max;
-            from=plugin.settings.from;
-            to=plugin.settings.to;
-            $element.ionRangeSlider({
+            var min=plugin.settings.min;
+            var max=plugin.settings.max;
+            var from=plugin.settings.from;
+            var to=plugin.settings.to;
+            var from_name=plugin.settings.from_name;
+            var to_name=plugin.settings.to_name;
+            $element.find('.integer-range').ionRangeSlider({
                 type: "double",
                 min: min,
                 max: max,
@@ -34,13 +38,10 @@
                 to: to,
                 keyboard: true,
                 onFinish: function (data) {
-                    self=data.input;
-/*
-                    input_from=self.find('input.block-item-rangeofintegers-from');
-                    input_to=self.find('input.block-item-rangeofintegers-to');
-                    input_from.val(data.fromNumber);
-                    input_to.val(data.toNumber);
-*/
+                    var input_from=$element.find('input[name="'+from_name+'"]');
+                    var input_to=$element.find('input[name="'+to_name+'"]');
+                    input_from.val(data.from);
+                    input_to.val(data.to);
                 }
             });
 
