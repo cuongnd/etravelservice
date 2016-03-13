@@ -63,5 +63,43 @@ class vmHotelAddon
 
     }
 
+    public static function get_list_hotel_addon_type()
+    {
+        $list_hotel_type=array(
+            'pre_transfer'=>'Pre transfer',
+            'post_transfer'=>'Post transfer'
+        );
+        $a_list_hotel_type=array();
+        foreach($list_hotel_type as $key=>$text)
+        {
+            $a_item=new stdClass();
+            $a_item->value=$key;
+            $a_item->text=$text;
+            $a_list_hotel_type[]=$a_item;
+        }
+        return $a_list_hotel_type;
+
+    }
+
+    public static function get_list_hotel_addon_service_class()
+    {
+        $list_hotel_type=array(
+            'budget'=>'budget',
+            'standard'=>'standard',
+            'superior'=>'superior',
+            'deluxe'=>'deluxe',
+            'Luxury'=>'Luxury'
+        );
+        $a_list_hotel_type=array();
+        foreach($list_hotel_type as $key=>$text)
+        {
+            $a_item=new stdClass();
+            $a_item->value=$key;
+            $a_item->text=$text;
+            $a_list_hotel_type[]=$a_item;
+        }
+        return $a_list_hotel_type;
+    }
+
 
 }

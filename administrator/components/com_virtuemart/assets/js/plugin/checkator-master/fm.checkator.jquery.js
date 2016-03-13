@@ -111,6 +111,4 @@
 
 }(jQuery));
 
-$(function () {
-	$('.checkator').checkator();
-});
+

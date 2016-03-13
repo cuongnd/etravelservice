@@ -96,31 +96,6 @@
                     $element.find('.item .mark-up-percent').prop('disabled', false);
                 }
             }
-            var current_value=self.autoNumeric('get');
-            current_value=parseFloat(current_value.length>0?current_value:0);
-            if(current_value>0)
-            {
-                $element.find('.item-flat input').prop('disabled', true);
-                data.price_type="item";
-            }else{
-                var disable_flat_price=false;
-                $element.find('.item input').each(function(){
-                    var check_value=$(this).autoNumeric('get');
-                    check_value=parseFloat(check_value.length>0?check_value:0);
-                    if(check_value>0)
-                    {
-                        disable_flat_price=true;
-                    }
-                });
-                if(disable_flat_price)
-                {
-                    $element.find('.item-flat input').prop('disabled', true);
-                    data.price_type="item";
-                }else{
-                    $element.find('.item-flat input').prop('disabled', false);
-                    data.price_type="";
-                }
-            }
             plugin.update_data();
         };
         plugin.update_data = function () {
@@ -128,59 +103,28 @@
             var data=plugin.settings.data;
             var $output=$('input[name="'+output_name+'"]');
             var output_data={};
-            output_data.children_discount_type=data.children_discount_type;
-            output_data.price_type=data.price_type;
             output_data.item_mark_up_type=data.item_mark_up_type;
-            output_data.item_flat_mark_up_type=data.item_flat_mark_up_type;
-            output_data.children_discount_amount=$element.find('.children-discount-amount').autoNumeric('get');
-            output_data.children_discount_percent=$element.find('.children-discount-percent').autoNumeric('get');
-            output_data.children_under_year=$element.find('.children-under-year').autoNumeric('get');
-            output_data.items=[];
+            output_data.items={};
             $element.find('.item').each(function(){
                 var $item=$(this);
-                var item={};
-                item.net_price=$item.find('.net-price').autoNumeric('get');
-                item.mark_up_percent=$item.find('.mark-up-percent').autoNumeric('get');
-                item.mark_up_amount=$item.find('.mark-up-amount').autoNumeric('get');
-                item.tax=$item.find('.tax').autoNumeric('get');
-                item.sale_price=$item.find('.sale-price').autoNumeric('get');
-                output_data.items.push(item);
+                var key=$item.attr('data-key-room');
+                output_data.items[key]={};
+                output_data.items[key].net_price=$item.find('.net-price').autoNumeric('get');
+                output_data.items[key].mark_up_percent=$item.find('.mark-up-percent').autoNumeric('get');
+                output_data.items[key].mark_up_amount=$item.find('.mark-up-amount').autoNumeric('get');
+                output_data.items[key].tax=$item.find('.tax').autoNumeric('get');
+                output_data.items[key].sale_price=$item.find('.sale-price').autoNumeric('get');
             });
-            output_data.item_flat={};
-            output_data.item_flat.net_price=$element.find('.item-flat .net-price').autoNumeric('get');
-            output_data.item_flat.mark_up_percent=$element.find('.item-flat .mark-up-percent').autoNumeric('get');
-            output_data.item_flat.mark_up_amount=$element.find('.item-flat .mark-up-amount').autoNumeric('get');
-            output_data.item_flat.tax=$element.find('.item-flat .tax').autoNumeric('get');
-            output_data.item_flat.sale_price=$element.find('.item-flat .sale-price').autoNumeric('get');
-
             output_data = base64.encode(cassandraMAP.stringify(output_data));
-
             $output.val(output_data);
         };
         plugin.reset_all = function () {
             var $items=$element.find('.item');
-            if($items.length==1)
-            {
-                return false;
-            }
-            for(var i=0;i<$items.length;i++)
-            {
-                if(i>0)
-                {
-                    $element.find('.item:last').remove();
-                }
-            }
             plugin.update_data();
         };
         plugin.init = function () {
-            return;
             plugin.settings = $.extend({}, defaults, options);
             debug=plugin.settings.debug;
-
-
-            $element.find('.item').each(function(){
-
-            });
             $element.find('.item input').change(function(){
                 plugin.change_price($(this));
             });
@@ -192,87 +136,30 @@
                 plugin.change_price($(this));
                 plugin.update_data();
             });
-
             plugin.fill_data();
         };
         plugin.fill_data=function(){
             var data=plugin.settings.data;
             var items=data.items;
-            var item_flat=data.item_flat;
-            var children_discount_amount=data.children_discount_amount;
-            var children_discount_percent=data.children_discount_percent;
             var total_item=items.length;
-            total_item=total_item>20?20:total_item;
-            var children_under_year=data.children_under_year;
-            if(typeof children_under_year!=="undefined")
-            {
-                children_under_year=parseInt(children_under_year.length>0?children_under_year:0);
-            }else
-            {
-                children_under_year=0;
-            }
-            $element.find('.children-under-year').autoNumeric('set', children_under_year);
-            for(var i=0;i<total_item;i++)
-            {
-                var item=items[i];
-                if(i>0)
-                {
-                    plugin.add_more_item();
-                }
-                var $item= $element.find('.item:eq('+i+')');
+            $.each(items,function(key,item){
+                var $item= $element.find('.item[data-key-room="'+key+'"]');
                 $item.find('.net-price').autoNumeric('set',item.net_price);
                 $item.find('.mark-up-percent').autoNumeric('set',item.mark_up_percent);
                 $item.find('.mark-up-amount').autoNumeric('set',item.mark_up_amount);
                 $item.find('.tax').autoNumeric('set',item.tax);
                 $item.find('.sale-price').autoNumeric('set',item.sale_price);
+
+            });
+
+            var item_mark_up_type=data.item_mark_up_type;
+            if(item_mark_up_type=='percent')
+            {
+                $element.find('.item mark-up-amount').prop('disabled', true);
+            }else if(price_type=='amount')
+            {
+                $element.find('.item mark-up-percent').prop('disabled', true);
             }
-
-            $element.find('.item-flat .net-price').autoNumeric('set',item_flat.net_price);
-            $element.find('.item-flat .mark-up-percent').autoNumeric('set',item_flat.mark_up_percent);
-            $element.find('.item-flat .mark-up-amount').autoNumeric('set',item_flat.mark_up_amount);
-            $element.find('.item-flat .tax').autoNumeric('set',item_flat.tax);
-            $element.find('.item-flat .sale-price').autoNumeric('set',item_flat.sale_price);
-            var children_discount_type=data.children_discount_type;
-            if(children_discount_type=='amount')
-            {
-                $element.find('.children-discount-amount').autoNumeric('set', children_discount_amount);
-                $element.find('.children-discount-percent').prop('disabled', true);
-            }else if(children_discount_type=='percent')
-            {
-                $element.find('.children-discount-percent').autoNumeric('set', children_discount_percent);
-                $element.find('.children-discount-amount').prop('disabled', true);
-            }
-
-            var price_type=data.price_type;
-            if(price_type=='item')
-            {
-                $element.find('.item-flat input').prop('disabled', true);
-
-                var item_mark_up_type=data.item_mark_up_type;
-                if(item_mark_up_type=='percent')
-                {
-                    $element.find('.item mark-up-amount').prop('disabled', true);
-                }else if(price_type=='amount')
-                {
-                    $element.find('.item mark-up-percent').prop('disabled', true);
-                }
-
-
-
-            }else if(price_type=='item_flat')
-            {
-                $element.find('.item input').prop('disabled', true);
-                var item_flat_mark_up_type=data.item_flat_mark_up_type;
-                if(item_flat_mark_up_type=='percent')
-                {
-                    $element.find('.item-flat mark-up-amount').prop('disabled', true);
-                }else if(item_flat_mark_up_type=='amount')
-                {
-                    $element.find('.item-flat mark-up-percent').prop('disabled', true);
-                }
-
-            }
-
 
         };
         plugin.init();

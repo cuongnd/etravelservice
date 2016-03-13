@@ -1145,7 +1145,22 @@ class VmConfig {
 		return vmAccess::isSuperVendor($uid);
 	}
 }
+class vmRequest{
 
+	static function uword($field, $default, $custom=''){
+
+		$source = JRequest::getVar($field,$default);
+
+		if(function_exists('mb_ereg_replace')){
+			//$source is string that will be filtered, $custom is string that contains custom characters
+			return mb_ereg_replace('[^\w'.preg_quote($custom).']', '', $source);
+		} else {
+			return preg_replace('/[^\w'.preg_quote($custom).']/', '', $source);
+		}
+	}
+
+
+}
 class vmAccess {
 
 	static protected $_virtuemart_vendor_id = array();

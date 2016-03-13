@@ -35,7 +35,9 @@
             }
             $element.find("#adminForm").validate();
             $element.find('.toolbar .cancel').click(function(){
-                Joomla.submitform('cancel');
+                $('input[name="task"]').val('cancel');
+                $('#adminForm').submit();
+
             });
 
 

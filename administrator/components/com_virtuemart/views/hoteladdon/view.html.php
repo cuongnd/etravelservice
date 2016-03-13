@@ -85,7 +85,9 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
 			$this->list_cityarea=vmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
+			$this->list_hotel_addon_type=vmhoteladdon::get_list_hotel_addon_type();
 			$this->list_hotel_payment_type=vmhoteladdon::get_list_hotel_payment_type();
+			$this->list_hotel_addon_service_class=vmhoteladdon::get_list_hotel_addon_service_class();
 			if($task=='edit_item')
 			{
 				$cid	= vRequest::getInt( 'cid' );

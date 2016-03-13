@@ -47,9 +47,21 @@ $doc->addScriptDeclaration($js_content);
                 <?php echo VmHTML::input( 'hotel_addon_name', $this->item->hotel_addon_name, 'class="required" placeholder="hotel name" '); ?>
                 <br/>
                 <?php echo VmHTML::location_city('virtuemart_cityarea_id', $this->list_cityarea, $this->item->virtuemart_cityarea_id, '', 'virtuemart_cityarea_id', 'full_city'); ?>
-                <h3>Edit term</h3>
                 <div class="row-fluid">
                     <div class="span12">
+                        <?php echo VmHTML::list_radio('hotel_addon_service_class', $this->list_hotel_addon_service_class, $this->item->hotel_addon_service_class,'','value','text',true,true,true,5); ?>
+
+                    </div>
+                </div>
+
+
+                <h3>Edit term</h3>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <?php echo VmHTML::list_radio('hotel_addon_type', $this->list_hotel_addon_type, $this->item->hotel_addon_type); ?>
+
+                    </div>
+                    <div class="span6">
                         <?php echo VmHTML::list_radio('hotel_payment_type', $this->list_hotel_payment_type, $this->item->hotel_payment_type); ?>
 
                     </div>

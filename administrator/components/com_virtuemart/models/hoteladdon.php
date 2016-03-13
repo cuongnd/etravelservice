@@ -38,7 +38,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->setMainTable('hoteladdon');
+		$this->setMainTable('hotel_addon');
 	}
 
 	/**
@@ -68,8 +68,8 @@ class VirtueMartModelhoteladdon extends VmModel {
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('hoteladdon.*')
-			->from('#__virtuemart_hoteladdon AS hoteladdon')
+		$query->select('hotel_addon.*')
+			->from('#__virtuemart_hotel_addon AS hotel_addon')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -84,7 +84,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('hoteladdon.title LIKE '.$search);
+			$query->where('hotel_addon.hotel_addon_name LIKE '.$search);
 		}
 		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
@@ -105,7 +105,35 @@ class VirtueMartModelhoteladdon extends VmModel {
 			vmWarn('Insufficient permissions to store hotel');
 			return false;
 		}
-		return parent::store($data);
+		$db=JFactory::getDbo();
+		$virtuemart_hotel_addon_id= parent::store($data);
+		if($virtuemart_hotel_addon_id) {
+			//inser to excusionaddon
+			$query = $db->getQuery(true);
+			$query->delete('#__virtuemart_tour_id_hotel_addon_id')
+				->where('virtuemart_hotel_addon_id=' . (int)$virtuemart_hotel_addon_id);
+			$db->setQuery($query)->execute();
+			$err = $db->getErrorMsg();
+			if (!empty($err)) {
+				vmError('can not delete tour in hotel_addon', $err);
+			}
+			$list_tour_id = $data['list_tour_id'];
+			foreach ($list_tour_id as $virtuemart_product_id) {
+				$query->clear()
+					->insert('#__virtuemart_tour_id_hotel_addon_id')
+					->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
+					->set('virtuemart_hotel_addon_id=' . (int)$virtuemart_hotel_addon_id);
+				$db->setQuery($query)->execute();
+				$err = $db->getErrorMsg();
+				if (!empty($err)) {
+					vmError('can not insert tour in this hotel_addon', $err);
+				}
+			}
+			//end insert group size
+		}
+
+		return $virtuemart_hotel_addon_id;
+
 	}
 
 	function remove($ids){
