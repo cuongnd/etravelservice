@@ -54,7 +54,7 @@ class vmproduct
 
         $query=$db->getQuery(true);
         $query->select('tour_service_class.service_class_name')
-            ->from('#__virtuemart_tour_service_class AS tour_service_class')
+            ->from('#__virtuemart_service_class AS tour_service_class')
             ->leftJoin('#__virtuemart_tour_id_service_class_id  AS tour_id_service_class_id USING(virtuemart_service_class_id)')
             ->where('tour_id_service_class_id.virtuemart_product_id='.(int)$product->virtuemart_product_id)
             ;

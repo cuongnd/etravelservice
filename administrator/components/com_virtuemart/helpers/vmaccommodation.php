@@ -44,5 +44,20 @@ class vmaccommodation
         return $db->setQuery($query)->loadObjectList();
     }
 
+    public static function get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class, $virtuemart_itinerary_id,$virtuemart_accommodation_id)
+    {
+        $db=JFactory::getDbo();
+        foreach($list_service_class as &$service_class) {
+            $query = $db->getQuery(true);
+            $query->select('hotel_id_service_class_id_accommodation_id.*')
+                ->from('#__virtuemart_hotel_id_service_class_id_accommodation_id AS hotel_id_service_class_id_accommodation_id')
+                ->where('hotel_id_service_class_id_accommodation_id.virtuemart_accommodation_id='.(int)$virtuemart_accommodation_id)
+                ->where('hotel_id_service_class_id_accommodation_id.virtuemart_service_class_id='.(int)$service_class->virtuemart_service_class_id)
+            ;
+            $service_class->list_hotel=$db->setQuery($query)->loadObjectList();
+        }
+        return $list_service_class;
+    }
+
 
 }

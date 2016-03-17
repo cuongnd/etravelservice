@@ -5,6 +5,7 @@
 
         // plugin's default options
         var defaults = {
+            task:'',
             totalPages:0,
             totalItem:10,
             tour_id:0,
@@ -29,6 +30,23 @@
 
             plugin.settings = $.extend({}, defaults, options);
             $('.buid-information').insertBefore($('.vm_toolbar'));
+
+            var task=plugin.settings.task;
+            console.log(task);
+            if(task=='add_new_item'||task=='edit_item')
+            {
+
+                $element.find( ".view-accommodation-edit" ).dialog({
+                    dialogClass:'asian-dialog-form',
+                    modal: true,
+                    width: 900,
+                    title: 'accommodation',
+                    show: {effect: "blind", duration: 800},
+                    appendTo: 'body'
+                });
+            }
+
+
 
         }
 

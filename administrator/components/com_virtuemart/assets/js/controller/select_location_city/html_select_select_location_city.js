@@ -5,6 +5,7 @@
 
         // plugin's default options
         var defaults = {
+            cities:[]
         }
 
         // current instance of the object
@@ -16,9 +17,22 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        plugin.set_select2_template_result = function (result) {
+            return result.text;
+        };
+        plugin.set_lect2_template_selection = function (selection) {
+            return selection.text;
+        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-
+            var cities=plugin.settings.cities;
+            var vituemart_cityarea_id=plugin.settings.vituemart_cityarea_id;
+            plugin.select2=$element.select2({
+                data:cities,
+                templateResult:plugin.set_select2_template_result,
+                templateSelection:plugin.set_lect2_template_selection
+            });
+            plugin.select2.val(vituemart_cityarea_id).trigger("change")
         }
 
         plugin.init();

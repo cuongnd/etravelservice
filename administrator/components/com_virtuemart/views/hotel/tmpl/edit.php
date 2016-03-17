@@ -22,6 +22,8 @@ $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_hotel_edit.less');
 AdminUIHelper::startAdminArea($this);
 AdminUIHelper::imitateTabs('start', "hotel");
+
+
 ?>
     <div class="view-hotel-edit">
         <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
@@ -32,20 +34,20 @@ AdminUIHelper::imitateTabs('start', "hotel");
                     <h3>Hotel detail</h3>
                     <div class="row-fluid">
                         <div class="span6">
-                            <?php echo VmHTML::input( 'title', $this->item->title, 'class="required" placeholder="hotel name" '); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->star_rating, 'class="required" placeholder="Star  rating"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->location, 'class="required" placeholder="location"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->address, 'class="required" placeholder="Address"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->google_map, 'class="required" placeholder="Google map"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->add_photo, 'class="required" placeholder="Add photo"'); ?>
+                            <?php echo VmHTML::input( 'hotel_name', $this->item->hotel_name, ' placeholder="hotel name" '); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->star_rating, ' placeholder="Star  rating"'); ?>
+                            <?php echo VmHTML::location_city('virtuemart_cityarea_id',$this->item->virtuemart_cityarea_id,'') ; ?>
+                            <?php echo VmHTML::input( 'title', $this->item->address, ' placeholder="Address"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->google_map, ' placeholder="Google map"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->add_photo, ' placeholder="Add photo"'); ?>
                         </div>
                         <div class="span6">
-                            <?php echo VmHTML::input( 'title', $this->item->tel_number, 'class="required" placeholder="Tell number"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->fax_number, 'class="required" placeholder="fax number"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->email, 'class="required" placeholder="E-mail add"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->website, 'class="required" placeholder="Website"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->reviews_api, 'class="required" placeholder="reviews API"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->hotel_code, 'class="required" placeholder="Hotel code"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->tel_number, ' placeholder="Tell number"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->fax_number, ' placeholder="fax number"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->email, ' placeholder="E-mail add"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->website, ' placeholder="Website"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->reviews_api, ' placeholder="reviews API"'); ?>
+                            <?php echo VmHTML::input( 'title', $this->item->hotel_code, ' placeholder="Hotel code"'); ?>
 
                         </div>
                     </div>

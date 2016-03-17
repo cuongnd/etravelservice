@@ -32,12 +32,12 @@ class Tablehotel extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_hotel_id				= 0;
-	var $title				= "";
+	var $hotel_name				= "";
 	var $address				= "";
 	var $star_rating				= 0;
 	var $review					= "";
 	var $photo				= "";
-	var $city_id				=0;
+	var $virtuemart_cityarea_id				=0;
 	var $phone				= "";
 	var $description				= "";
 	var $website				= "";

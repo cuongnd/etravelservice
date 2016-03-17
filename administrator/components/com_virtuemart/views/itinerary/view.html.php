@@ -45,6 +45,7 @@ class virtuemartViewitinerary extends VmViewAdmin {
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 
 		if ($layoutName == 'edit') {
+			$this->view_height=1600;
 			$cid	= vRequest::getInt( 'cid' );
 
 			$task = vRequest::getCmd('task', 'add');
@@ -76,6 +77,7 @@ class virtuemartViewitinerary extends VmViewAdmin {
 			$this->addStandardEditViewCommandsPopup();
 
 		} else {
+
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommandsPopup();

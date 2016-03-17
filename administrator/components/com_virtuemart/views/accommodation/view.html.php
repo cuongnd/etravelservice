@@ -38,7 +38,8 @@ class virtuemartViewaccommodation extends VmViewAdmin {
 		$app=JFactory::getApplication();
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-
+		$task=$app->input->getString('task','');
+		$virtuemart_product_id=$app->input->getInt('virtuemart_product_id',0);
 		$model = VmModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
@@ -61,12 +62,30 @@ class virtuemartViewaccommodation extends VmViewAdmin {
 			$this->addStandardEditViewCommandsPopup();
 
 		} else {
-
+			$this->item = $model->getItem();
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();
+
+			if ($task == 'edit_item'||$task=='add_new_item') {
+				$app=JFactory::getApplication();
+				$input=$app->input;
+				$virtuemart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
+				$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+
+				$cid	= vRequest::getInt( 'cid' );
+
+				$virtuemart_accommodation_id=$cid[0];
+				require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
+				$this->list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+				require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
+				$this->list_hotel=vmHotel::get_list_hotel();
+
+				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmaccommodation.php';
+				$this->list_hotel_selected_by_service_class_id_and_itinerary_id=vmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($this->list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
+			}
 
 		}
 

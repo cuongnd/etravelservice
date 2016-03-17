@@ -39,6 +39,42 @@
                 $('#adminForm').submit();
 
             });
+            $element.find('select[name="virtuemart_hotel_id"]').change(function(){
+                var virutemart_hotel_id=$(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: 'index.php?option=com_virtuemart&controller=hoteladdon&task=get_tour_avail_by_hotel_id_first_itinerary&virutemart_hotel_id='+virutemart_hotel_id,
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+                        $element.find('input[name="list_tour_id[]"]').prop('disabled', true);
+                        $element.find('input[name="list_tour_id[]"]').prop('checked', false);
+                        $.each(response,function(index,virtuemart_product_id){
+                            $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false);
+                        });
+                        console.log(response);
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+
+                    }
+
+                });
+
+            });
 
 
         }

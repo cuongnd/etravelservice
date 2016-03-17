@@ -57,7 +57,7 @@ class vm_service_class
 			$query=$db->getQuery(true);
 			$query->select('tour_service_class.virtuemart_service_class_id,tour_service_class.service_class_name')
 				->from('#__virtuemart_tour_id_service_class_id AS tour_id_service_class_id')
-				->leftJoin('#__virtuemart_tour_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_id_service_class_id.virtuemart_service_class_id')
+				->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_id_service_class_id.virtuemart_service_class_id')
 				->where('tour_id_service_class_id.virtuemart_product_id='.(int)$tour_id);
 			return $db->setQuery($query)->loadObjectList();
 		}

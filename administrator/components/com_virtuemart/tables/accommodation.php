@@ -32,9 +32,9 @@ class TableAccommodation extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_accommodation_id				= 0;
-	var $title				= "";
 	var $icon				= "";
 	var $meta_title				= "";
+	var $virtuemart_itinerary_id				= 0;
 	var $key_word				= "";
 	var $description				= "";
 

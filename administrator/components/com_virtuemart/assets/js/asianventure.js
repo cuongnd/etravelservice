@@ -5,6 +5,7 @@
 
         // plugin's default options
         var defaults = {
+            option:'com_virtuemart',
             show_iframe: false,
             totalPages: 0,
             totalItem: 10,
@@ -30,6 +31,20 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        plugin.set_event_task = function (self) {
+            var option= plugin.settings.option;
+            var $form = self.closest('form');
+            var task = self.data('jtask');
+            task=task.split('.');
+            var controller=task[0];
+            var task=task[1];
+            $('<input type="hidden" name="option" value="'+option+'">').appendTo($form);
+            $('<input type="hidden" name="controller" value="'+controller+'">').appendTo($form);
+            $('<input type="hidden" name="task" value="'+task+'">').appendTo($form);
+            $form.submit();
+
+        };
+
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -51,6 +66,9 @@
                     }
                 }
             }
+            $element.find('[data-jtask]').click(function () {
+                plugin.set_event_task($(this));
+            });
             $(document).on('shown.bs.tab', '.header-main-menu a[data-toggle="tab"]', function (e) {
                 var $target = $(e.target); // activated tab
                 var href = $target.attr('href');

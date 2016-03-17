@@ -18,6 +18,10 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
+$app=JFactory::getApplication();
+$input=$app->input;
+
+$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
 $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_edit.less');
 AdminUIHelper::startAdminArea($this);
@@ -25,13 +29,11 @@ AdminUIHelper::imitateTabs('start', "itinerary");
 ?>
 <div class="view-itinerary-edit">
     <form action="index.php" method="post" class="form-horizontal" name="adminForm" id="adminForm">
-
-
         <div class="col50">
             <div class="admintable row-fluid">
                 <div class="span12">
                     <?php echo VmHTML::row_control('input', 'Day title', 'title', $this->item->title, 'class="required"'); ?>
-                    <?php echo VmHTML::row_control('select','overnight', 'overnight', $this->cities ,$this->item->overnight,'','virtuemart_cityarea_id', 'title',false) ; ?>
+                    <?php echo VmHTML::row_control('location_city','overnight', 'virtuemart_cityarea_id',$this->item->virtuemart_cityarea_id,'') ; ?>
                     <?php echo VmHTML::row_control('editor', 'Short description', 'short_description', $this->item->brief_itinerary,'',90,4); ?>
                     <?php echo VmHTML::row_control('editor', 'Full description', 'full_description', $this->item->meta_title,'',90,4); ?>
 
@@ -54,7 +56,10 @@ AdminUIHelper::imitateTabs('start', "itinerary");
         <input type="hidden" name="virtuemart_itinerary_id"
                value="<?php echo $this->item->virtuemart_itinerary_id; ?>"/>
         <?php echo VmHTML::inputHidden(array(
-            'key[virtuemart_product_id]'=>$this->virtuemart_product_id
+            'key[virtuemart_product_id]'=>$virtuemart_product_id
+        )); ?>
+        <?php echo VmHTML::inputHidden(array(
+            'virtuemart_product_id'=>$virtuemart_product_id
         )); ?>
 
         <?php echo $this->addStandardHiddenToForm(); ?>

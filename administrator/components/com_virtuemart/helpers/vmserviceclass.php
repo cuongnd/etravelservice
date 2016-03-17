@@ -39,7 +39,7 @@ class vmServiceclass
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
-            ->from('#__virtuemart_tour_service_class')
+            ->from('#__virtuemart_service_class')
         ;
         return $db->setQuery($query)->loadObjectList();
     }
@@ -54,6 +54,17 @@ class vmServiceclass
             ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
             ;
         return $db->setQuery($query)->loadColumn();
+    }
+    public static function get_list_service_class_by_tour_id($virtuemart_product_id=0)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('service_class.*')
+            ->from('#__virtuemart_tour_id_service_class_id')
+            ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
+            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ;
+        return $db->setQuery($query)->loadObjectList();
     }
 
     /**

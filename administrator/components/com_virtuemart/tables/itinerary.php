@@ -35,7 +35,8 @@ class Tableitinerary extends VmTableData {
 	var $title				= "";
 	var $short_description				= "";
 	var $full_description				= "";
-	var $overnight				= 0;
+	var $virtuemart_cityarea_id				= 0;
+	var $virtuemart_product_id				= 0;
 	var $trip_note1				= "";
 	var $trip_note2				= "";
 	var $photo1				= "";

@@ -389,19 +389,30 @@ class VmHtml
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
-    public static function location_city($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function location_city($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.less');
         $input = JFactory::getApplication()->input;
-
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
+        $cities=vmcities::get_cities();
+        foreach($cities as &$city)
+        {
+            $city->id=$city->virtuemart_cityarea_id;
+            $city->text=$city->city_area_name;
+        }
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('select[name="<?php echo $name ?>"]').html_select_location_city({});
+                $('select[name="<?php echo $name ?>"]').html_select_location_city({
+                    cities:<?php echo json_encode($cities) ?>,
+                    vituemart_cityarea_id:<?php echo $default ?>
+                });
             });
         </script>
         <?php
@@ -411,15 +422,23 @@ class VmHtml
 
 
         if ($zero == true) {
-            $option = array($key => "0", $text => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
-            $options = array_merge(array($option), $options);
+            $option = array('vituemart_cityarea_id' => "0", 'city_area_name' => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+            $options = array_merge(array($option), $cities);
         }
         if ($chosenDropDowns) {
             vmJsApi::chosenDropDowns();
-            $attrib .= ' class="vm-chzn-select"';
+            $attrib .= '  disable_chosen="true"';
 
         }
-        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+        $html= VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
+        ob_start();
+        ?>
+        <div class="html_select_select_location_city">
+            <?php echo $html ?>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
     }
 
     public static function select_city($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $state_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)

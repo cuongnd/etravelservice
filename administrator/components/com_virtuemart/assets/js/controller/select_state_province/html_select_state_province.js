@@ -49,7 +49,9 @@
                     item.virtuemart_state_id=0;
                     item.state_name='Select state';
                     response.unshift(item);
-                    $.set_date_selected(response,'virtuemart_state_id','state_name',$element);
+                    var virtuemart_state_id=plugin.settings.virtuemart_state_id;
+                    $.set_date_selected(response,'virtuemart_state_id','state_name',$element,virtuemart_state_id);
+
                     $element.trigger("liszt:updated");
                 }
             });
@@ -58,6 +60,7 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
+            plugin.settings.virtuemart_state_id=$element.val();
             var country_element=plugin.settings.country_element;
             $(country_element).change(function(){
                 var virtuemart_country_id=$(this).val();

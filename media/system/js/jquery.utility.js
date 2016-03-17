@@ -24,10 +24,10 @@
 		}
 		return object_list;
 	};
-	$.set_date_selected=function(data,key,value,select_element){
+	$.set_date_selected=function(data,key,value,select_element,selected){
 		$(select_element).empty();
 		$.each(data,function(index,item){
-			$('<option value="'+item[key]+'">'+item[value]+'</option>').appendTo($(select_element));
+			$('<option '+(item[key]==selected?'selected':'')+' value="'+item[key]+'">'+item[value]+'</option>').appendTo($(select_element));
 		});
 	};
 	$.set_html_for_tag=function(response)

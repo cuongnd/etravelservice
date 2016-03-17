@@ -69,7 +69,7 @@ class VirtuemartViewState extends VmViewAdmin {
 			//end get list country
 
 
-			$this->addStandardDefaultViewCommands();
+			$this->addStandardDefaultViewCommandsEditInline();
 			$this->addStandardDefaultViewLists($model);
 
 			$this->items = $model->getItemList();

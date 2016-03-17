@@ -68,7 +68,7 @@ class VirtueMartModelcityarea extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('cityarea.*,state.state_name,countries.flag AS country_flag,countries.country_name,COUNT(airport.virtuemart_airport_id) AS total_airport')
+		$query->select('cityarea.*,state.state_name,countries.flag AS country_flag,countries.country_name,countries.virtuemart_country_id,state.virtuemart_state_id,COUNT(airport.virtuemart_airport_id) AS total_airport')
 			->from('#__virtuemart_cityarea AS cityarea')
 			->leftJoin('#__virtuemart_states AS state   using (virtuemart_state_id)')
 			->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=state.virtuemart_country_id')

@@ -66,10 +66,17 @@ class VirtueMartModelAccommodation extends VmModel {
 	}
 	function getListQuery()
 	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+		$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('accommodation.*')
-			->from('#__virtuemart_accommodation AS accommodation')
+		$query->select('itinerary.*,cityarea.city_area_name,accommodation.virtuemart_accommodation_id')
+			->from('#__virtuemart_itinerary AS itinerary')
+			->where('itinerary.virtuemart_product_id='.(int)$virtuemart_product_id)
+			->leftJoin('#__virtuemart_accommodation AS accommodation USING(virtuemart_itinerary_id)')
+			->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
+			->group('itinerary.virtuemart_itinerary_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -84,11 +91,18 @@ class VirtueMartModelAccommodation extends VmModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('accommodation.title LIKE '.$search);
+			$query->where('itinerary.title LIKE '.$search);
 		}
-		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
-		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
-		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
+		$orderCol = $this->state->get('list.ordering', 'itinerary.ordering');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol == 'itinerary.ordering')
+		{
+			$orderCol = $db->quoteName('itinerary.title') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
 		return $query;
 	}
 
@@ -102,11 +116,41 @@ class VirtueMartModelAccommodation extends VmModel {
 	 */
 
 	function store(&$data){
+
 		if(!vmAccess::manager('accommodation')){
 			vmWarn('Insufficient permissions to store accommodation');
 			return false;
 		}
-		return parent::store($data);
+		$virtuemart_accommodation_id= parent::store($data);
+		if($virtuemart_accommodation_id)
+		{
+
+			$list_hotel_service_class=$data['list_hotel_service_class'];
+			foreach($list_hotel_service_class as $virtuemart_service_class_id=>$list_hotel){
+				foreach($list_hotel as $key=> $virtuemart_hotel_id){
+					if(!is_numeric($key))
+					{
+						$key=explode(':',$key);
+						$key=$key[1];
+					}else{
+						$key=0;
+					}
+					$table_hotel_id_service_class_id_accommodation_id=$this->getTable('hotel_id_service_class_id_accommodation_id');
+					$table_hotel_id_service_class_id_accommodation_id->id=$key;
+					$table_hotel_id_service_class_id_accommodation_id->virtuemart_service_class_id=$virtuemart_service_class_id?$virtuemart_service_class_id:null;
+					$table_hotel_id_service_class_id_accommodation_id->virtuemart_hotel_id=$virtuemart_hotel_id?$virtuemart_hotel_id:null;
+					$table_hotel_id_service_class_id_accommodation_id->virtuemart_accommodation_id=$virtuemart_accommodation_id;
+					$table_hotel_id_service_class_id_accommodation_id->store();
+					$errors=$table_hotel_id_service_class_id_accommodation_id->getErrors();
+					if(count($errors))
+					{
+						throw new Exception($table_hotel_id_service_class_id_accommodation_id->getError());
+					}
+
+				}
+
+			}
+		}
 	}
 
 	function remove($ids){

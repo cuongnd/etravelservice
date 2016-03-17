@@ -44,15 +44,10 @@ $doc->addScriptDeclaration($js_content);
                 <h3> Service name</h3>
             </div>
             <div class="span8">
-                <?php echo VmHTML::input( 'hotel_addon_name', $this->item->hotel_addon_name, 'class="required" placeholder="hotel name" '); ?>
+                <?php echo VmHTML::select('virtuemart_hotel_id', $this->list_hotel,$hotel_service_class->virtuemart_hotel_id,'', 'virtuemart_hotel_id','hotel_name'); ?>
                 <br/>
-                <?php echo VmHTML::location_city('virtuemart_cityarea_id', $this->list_cityarea, $this->item->virtuemart_cityarea_id, '', 'virtuemart_cityarea_id', 'full_city'); ?>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <?php echo VmHTML::list_radio('hotel_addon_service_class', $this->list_hotel_addon_service_class, $this->item->hotel_addon_service_class,'','value','text',true,true,true,5); ?>
+                <?php echo VmHTML::input( 'location', $this->item->localtion, ' placeholder="location" readonly '); ?>
 
-                    </div>
-                </div>
 
 
                 <h3>Edit term</h3>

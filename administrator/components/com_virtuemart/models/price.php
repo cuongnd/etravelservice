@@ -54,7 +54,7 @@ class VirtueMartModelPrice extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('tour_class.*')
-            ->from('#__virtuemart_tour_service_class AS tour_class')
+            ->from('#__virtuemart_service_class AS tour_class')
             ->where('tour_class.virtuemart_service_class_id='.(int)$item->service_class_id)
             ;
         $item->service_class=$db->setQuery($query)->loadObject();
@@ -100,7 +100,7 @@ class VirtueMartModelPrice extends VmModel
         $query=$db->getQuery(true)
             ->select('tour_price.*')
             ->from('#__virtuemart_tour_price AS tour_price')
-            //->leftJoin('#__virtuemart_tour_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_price.service_class_id')
+            //->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_price.service_class_id')
             //->select('tour_service_class.service_class_name')
            // ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
             //->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')

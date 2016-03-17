@@ -51,7 +51,7 @@ if ($saveOrder) {
 
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'Hotel name'); ?>
+                        <?php echo $this->sort('hotel_name', 'Hotel name'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('location', 'location'); ?>
@@ -107,7 +107,7 @@ if ($saveOrder) {
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_name; ?></a>
                         </td>
                         <td align="left">
                             <?php echo $row->location; ?>

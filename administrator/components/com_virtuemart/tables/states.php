@@ -35,7 +35,6 @@ class TableStates extends VmTable {
 	/** @var integer Country id */
 	var $virtuemart_country_id           	= 0;
 	/** @var integer Zone id */
-	var $virtuemart_worldzone_id           	= 0;
 	/** @var string State name */
 	var $state_name           	= '';
 	/** @var char 3 character state code */
@@ -56,8 +55,6 @@ class TableStates extends VmTable {
 		parent::__construct('#__virtuemart_states', 'virtuemart_state_id', $db);
 
 		$this->setUniqueName('state_name');
-		$this->setObligatoryKeys('state_2_code');
-		$this->setObligatoryKeys('state_3_code');
 
 		$this->setLoggable();
 	}

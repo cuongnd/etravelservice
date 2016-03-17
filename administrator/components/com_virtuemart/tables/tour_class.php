@@ -47,7 +47,7 @@ class TableTour_class extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_tour_service_class', 'virtuemart_service_class_id', $db);
+		parent::__construct('#__virtuemart_service_class', 'virtuemart_service_class_id', $db);
 
 
 		$this->setLoggable();

@@ -156,7 +156,7 @@
             if(item_mark_up_type=='percent')
             {
                 $element.find('.item mark-up-amount').prop('disabled', true);
-            }else if(price_type=='amount')
+            }else if(item_mark_up_type=='amount')
             {
                 $element.find('.item mark-up-percent').prop('disabled', true);
             }

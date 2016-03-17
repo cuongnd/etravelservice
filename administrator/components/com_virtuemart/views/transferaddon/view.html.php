@@ -104,7 +104,7 @@ class virtuemartViewtransferaddon extends VmViewAdmin {
 
 				//get list tour
 				require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
-				$this->item->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
+				$this->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
 				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 				$list_tour = vmproduct::get_list_product();
 				$this->assignRef('list_tour', $list_tour);

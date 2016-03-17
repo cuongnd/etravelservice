@@ -40,7 +40,7 @@ class virtuemartViewhotel extends VmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$model = VmModel::getModel();
-
+		$this->view_height=1500;
 
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');

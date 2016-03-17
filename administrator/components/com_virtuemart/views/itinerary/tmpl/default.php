@@ -110,11 +110,11 @@ $doc->addScriptDeclaration($js_content);
                 $k = 0;
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
-
+                    $row->virtuemart_product_id=$row->virtuemart_product_id?$row->virtuemart_product_id:$this->virtuemart_product_id;
                     $checked = JHtml::_('grid.id', $i, $row->virtuemart_itinerary_id);
                     $published = $this->gridPublished($row, $i);
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_cityarea_id');
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=itinerary&task=show_parent_popup&key[virtuemart_product_id]='.$this->virtuemart_product_id.'&cid[]=' . $row->virtuemart_itinerary_id);
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=itinerary&task=show_parent_popup&key[virtuemart_product_id]='.$row->virtuemart_product_id.'&cid[]=' . $row->virtuemart_itinerary_id);
                     $edit = $this->gridEdit($row, $i, 'virtuemart_itinerary_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">

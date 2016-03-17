@@ -32,17 +32,11 @@ class Tablehotel_addon extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_hotel_addon_id				= 0;
-	var $hotel_addon_name					= null;
-	var $virtuemart_cityarea_id					= 0;
-	var $passenger_age_from					= 0;
-	var $passenger_age_to					= 0;
+	var $virtuemart_hotel_id					= 0;
 	var $data_price					= null;
 	var $hotel_type					= null;
 	var $hotel_payment_type				= null;
-	var $hotel_addon_service_class				= null;
-	var $vail_from				= null;
 	var $vail_to				= null;
-	var $itinerary				= null;
 	var $inclusion				= null;
 	var $shared					= 0;
 

@@ -63,7 +63,7 @@ class VirtueMartModelitinerary extends VmModel {
 
 		$select = ' itinerary.*,cityarea.city_area_name AS city_name';
 		$joinedTables = ' FROM #__virtuemart_itinerary AS itinerary
-				  LEFT JOIN #__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id= itinerary.overnight ';
+				  LEFT JOIN #__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id= itinerary.virtuemart_cityarea_id ';
 
 
 

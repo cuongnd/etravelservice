@@ -38,10 +38,16 @@ class vmcities
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('*')
-            ->from('#__virtuemart_cityarea')
-            ;
-        return $db->setQuery($query)->loadObjectList();
+        $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name) AS full_city,states.state_name,countries.country_name')
+            ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
+            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+            ->from('#__virtuemart_cityarea AS cityarea')
+        ;
+        $list = $db->setQuery($query)->loadObjectList();
+        if (!$list) {
+            throw new Exception($db->getErrorMsg(), 505);
+        }
+        return $list;
     }
 
     public static function get_list_city_by_state_id($virtuemart_state_id)
