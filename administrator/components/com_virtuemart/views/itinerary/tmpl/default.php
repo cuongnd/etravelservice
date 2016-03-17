@@ -21,6 +21,9 @@ defined('_JEXEC') or die('Restricted access');
 $doc=JFactory::getDocument();
 $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/view_itinerary_default.js');
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_default.less');
+$input = JFactory::getApplication()->input;
+$task = $input->getString('task', '');
+
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -40,7 +43,9 @@ ob_start();
 ?>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('.view-itinerary-default').view_itinerary_default({});
+            $('.view-itinerary-default').view_itinerary_default({
+                task: "<?php echo $task ?>"
+            });
         });
     </script>
 <?php
@@ -186,6 +191,11 @@ $doc->addScriptDeclaration($js_content);
         <?php echo $this->addStandardHiddenToForm(); ?>
         <?php echo JHtml::_('form.token'); ?>
     </form>
+    <?php
+    if ($task == 'edit_item'||$task=='add_new_item') {
+        echo $this->loadTemplate('edit');
+    }
+    ?>
 </div>
 
 <?php AdminUIHelper::endAdminArea(); ?>

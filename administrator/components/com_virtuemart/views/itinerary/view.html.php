@@ -39,7 +39,7 @@ class virtuemartViewitinerary extends VmViewAdmin {
 
 		$model = VmModel::getModel();
 		$app=JFactory::getApplication();
-
+		$task=$app->input->getString('task','');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
@@ -78,9 +78,15 @@ class virtuemartViewitinerary extends VmViewAdmin {
 
 		} else {
 
+
+
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsPopup();
+			JToolBarHelper::publishList();
+			JToolBarHelper::unpublishList();
+			JToolBarHelper::editList();
+			JToolBarHelper::addNew('add_new_item');
+			JToolBarHelper::deleteList();
 			$model->setDefaultValidOrderingFields('itinerary');
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->state         = $model->getState();
@@ -88,8 +94,15 @@ class virtuemartViewitinerary extends VmViewAdmin {
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();
 
-		}
 
+		}
+		if ($task == 'edit_item'||$task=='add_new_item') {
+			//get cities
+			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
+			$cities = vmcities::get_cities();
+			$this->assignRef('cities', $cities);
+			//end get cities
+		}
 		parent::display($tpl);
 	}
 	/**

@@ -11,7 +11,7 @@
             visiblePages:5,
             tour_methor:'',
             dialog_class:'dialog-form-price',
-            date_format:'m/d/y'
+            task:''
 
 
         }
@@ -27,7 +27,19 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            var task=plugin.settings.task;
+            if(task=='add_new_item'||task=='edit_item')
+            {
 
+                $element.find( ".view-itinerary-edit" ).dialog({
+                    dialogClass:'asian-dialog-form',
+                    modal: true,
+                    width: 900,
+                    title: 'itinerary',
+                    show: {effect: "blind", duration: 800},
+                    appendTo: 'body'
+                });
+            }
 
         }
 

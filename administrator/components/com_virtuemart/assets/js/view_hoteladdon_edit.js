@@ -39,11 +39,20 @@
                 $('#adminForm').submit();
 
             });
+            $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
             $element.find('select[name="virtuemart_hotel_id"]').change(function(){
-                var virutemart_hotel_id=$(this).val();
+                $element.find('input[name="hotel_addon_type"]').prop('checked', false);
+                $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
+                var virtuemart_hotel_id=$(this).val();
+                if(virtuemart_hotel_id==0||virtuemart_hotel_id==""||typeof virtuemart_hotel_id=="undefined")
+                {
+                    $element.find('input[name="location"]').val();
+                    return;
+                }
+
                 $.ajax({
                     type: "GET",
-                    url: 'index.php?option=com_virtuemart&controller=hoteladdon&task=get_tour_avail_by_hotel_id_first_itinerary&virutemart_hotel_id='+virutemart_hotel_id,
+                    url: 'index.php?option=com_virtuemart&controller=hoteladdon&task=get_detail_hotel&virtuemart_hotel_id='+virtuemart_hotel_id,
                     dataType: "json",
                     data: (function () {
 
@@ -58,10 +67,51 @@
                         });
                     },
                     success: function (response) {
-                        $element.find('input[name="list_tour_id[]"]').prop('disabled', true);
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        $element.find('input[name="location"]').val(response.city_area_name);
+                    }
+
+                });
+
+
+
+
+            });
+            $element.find('input[name="hotel_addon_type"]').change(function(){
+                var virtuemart_hotel_id=$element.find('select[name="virtuemart_hotel_id"]').val();
+                if(virtuemart_hotel_id==0||virtuemart_hotel_id==""||typeof virtuemart_hotel_id=="undefined")
+                {
+                    alert('please select hotel');
+                    $(this).prop('checked', false);
+                    return;
+                }
+                var hotel_addon_type=$(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: 'index.php?option=com_virtuemart&controller=hoteladdon&task=get_tour_avail_by_hotel_id_first_itinerary&virtuemart_hotel_id='+virtuemart_hotel_id,
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            hotel_addon_type:hotel_addon_type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+                        $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
                         $element.find('input[name="list_tour_id[]"]').prop('checked', false);
                         $.each(response,function(index,virtuemart_product_id){
-                            $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false);
+                            $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false).show().closest('.checkbox').show();
                         });
                         console.log(response);
                         $('.div-loading').css({

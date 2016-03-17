@@ -400,6 +400,7 @@ class VmHtml
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
         $cities=vmcities::get_cities();
+
         foreach($cities as &$city)
         {
             $city->id=$city->virtuemart_cityarea_id;
@@ -411,7 +412,7 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_location_city({
                     cities:<?php echo json_encode($cities) ?>,
-                    vituemart_cityarea_id:<?php echo $default ?>
+                    vituemart_cityarea_id:<?php echo $default?$default:0 ?>
                 });
             });
         </script>

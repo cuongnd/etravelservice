@@ -44,6 +44,17 @@ class vmHotelAddon
         ;
         return $db->setQuery($query)->loadColumn();
     }
+    public static function get_detail_hotel_by_hotel_id($vituemart_hotel_id=0){
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('hotel.*,cityarea.city_area_name')
+            ->from('#__virtuemart_hotel AS hotel')
+            ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
+            ->where('hotel.virtuemart_hotel_id='.(int)$vituemart_hotel_id)
+        ;
+
+        return $db->setQuery($query)->loadObject();
+    }
 
     public static function get_list_hotel_payment_type()
     {
@@ -66,8 +77,8 @@ class vmHotelAddon
     public static function get_list_hotel_addon_type()
     {
         $list_hotel_type=array(
-            'pre_transfer'=>'Pre transfer',
-            'post_transfer'=>'Post transfer'
+            'pre_transfer'=>'Pre night',
+            'post_transfer'=>'Post night'
         );
         $a_list_hotel_type=array();
         foreach($list_hotel_type as $key=>$text)
