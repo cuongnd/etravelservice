@@ -77,17 +77,12 @@ $doc->addScriptDeclaration($js_content);
             <div class="span2"></div>
             <div class="span10">
                 <?php echo VmHTML::edit_price_hotel_add_on('data_price',$this->item->data_price); ?>
-
+                <?php echo VmHTML::row_control('textarea', 'term & policy','term_policy',$this->item->term_policy); ?>
             </div>
         </div>
         <div class="row-fluid">
             <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'Itinerary', 'itinerary', $this->item->itinerary, '100%', 10); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'inclusion', 'inclusion', $this->item->inclusion, '100%', 10); ?>
+                <?php echo VmHTML::row_control('textarea_view', 'Hotel overview','hotel_overview','',array('style'=>'width:98%')); ?>
             </div>
         </div>
         <div class="row-fluid">

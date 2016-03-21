@@ -31,8 +31,8 @@ $i = 0;
                 <?php echo VmHTML::row_control('input', 'write name', 'product_name', $this->product->product_name, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('input', 'Select length', 'tour_length', $this->product->tour_length, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('select', 'Add country', 'list_virtuemart_country_id[]', $this->countries, $this->product->list_virtuemart_country_id, 'multiple', 'virtuemart_country_id', 'country_name', false); ?>
-                <?php echo VmHTML::row_control('select', 'Add start city', 'start_city', $this->cities, $this->product->start_city, '', 'virtuemart_cityarea_id', 'title', false); ?>
-                <?php echo VmHTML::row_control('select', 'Add end city', 'end_city', $this->cities, $this->product->end_city, '', 'virtuemart_cityarea_id', 'title', false); ?>
+                <?php echo VmHTML::row_control('location_city', 'Add start city', 'start_city', $this->product->start_city, ''); ?>
+                <?php echo VmHTML::row_control('location_city', 'Add end city', 'end_city', $this->product->start_city, ''); ?>
             </fieldset>
 
         </div>

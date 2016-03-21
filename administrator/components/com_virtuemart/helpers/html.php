@@ -1551,10 +1551,24 @@ class VmHtml
     {
         return '<input type="text" disabled class="text-view"    value="' . ($value) . '" />' . $more;
     }
+    public static function textarea_view($name,$value, $attr=array(), $more = '')
+    {
+        $attr = implode(' , ', array_map(
+            function ($v, $k) { return  $k . '="' . $v.'"'; },
+            $attr,
+            array_keys($attr)
+        ));
+        ob_start();
+        ?>
+        <textarea name="<?php echo $name ?>" readonly <?php echo $attr ?> ><?php echo $value ?></textarea>
+        <?php
+        $html=ob_get_clean();
+        return $html. $more;
+    }
 
     public static function text_view_from_to($from, $to, $text, $attr1, $attr1, $more = '')
     {
-        return '<input type="text" ' . $attr1 . ' disabled class="text-view"    value="' . ($from) . '" /><span>' . $text . '</span><input type="text" ' . $attr1 . ' disabled class="text-view"    value="' . ($to) . '" />' . $more;
+        return '<input type="text" ' . $attr1 . '  disabled class="text-view"    value="' . ($from) . '" /><span>' . $text . '</span><input type="text" ' . $attr1 . ' disabled class="text-view"    value="' . ($to) . '" />' . $more;
     }
 
     public static function text_view2($value, $class, $more = '')

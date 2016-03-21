@@ -32,7 +32,7 @@ AdminUIHelper::imitateTabs('start', "Tour section");
                     <legend><?php echo vmText::_('Current tour section'); ?></legend>
                     <div class="admintable row-fluid">
                         <div class="span12">
-                            <?php echo VmHTML::row_control('input', 'Tour section name', 'title', $this->item->title, 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', 'Tour section name', 'tour_section_name', $this->item->tour_section_name, 'class="required"'); ?>
                             <?php echo VmHTML::row_control('booleanlist', 'COM_VIRTUEMART_PUBLISHED', 'published', $this->item->published); ?>
 
                         </div>
