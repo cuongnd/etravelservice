@@ -711,7 +711,6 @@ abstract class JTable extends JObject implements JObservableInterface, JTableInt
 			->select('*')
 			->from($this->_tbl);
 		$fields = array_keys($this->getProperties());
-
 		foreach ($keys as $field => $value)
 		{
 			// Check that $field is in the table.

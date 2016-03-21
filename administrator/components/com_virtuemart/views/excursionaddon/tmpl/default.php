@@ -162,6 +162,9 @@ $doc->addScriptDeclaration($js_content);
                 </tfoot>
             </table>
         </div>
+        <input type="hidden" name="boxchecked" value="0" />
+        <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>" />
+        <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>" />
         <input type="hidden" value="" name="task">
         <input type="hidden" value="com_virtuemart" name="option">
         <input type="hidden" value="excursionaddon" name="controller">

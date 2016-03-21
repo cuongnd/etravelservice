@@ -5,7 +5,8 @@
 
         // plugin's default options
         var defaults = {
-            task:''
+            task:'',
+            hotel:[]
         }
 
         // current instance of the object
@@ -39,7 +40,7 @@
                 $('#adminForm').submit();
 
             });
-            $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
+            $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
             $element.find('select[name="virtuemart_hotel_id"]').change(function(){
                 $element.find('input[name="hotel_addon_type"]').prop('checked', false);
                 $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
@@ -72,6 +73,7 @@
 
 
                         });
+                        plugin.settings.hotel=response;
                         $element.find('input[name="location"]').val(response.city_area_name);
                     }
 
@@ -113,7 +115,9 @@
                         $.each(response,function(index,virtuemart_product_id){
                             $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false).show().closest('.checkbox').show();
                         });
-                        console.log(response);
+                        $('textarea[name="hotel_overview"]').html( plugin.settings.hotel.description);
+
+
                         $('.div-loading').css({
                             display: "none"
 

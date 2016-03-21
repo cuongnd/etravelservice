@@ -27,6 +27,7 @@ ob_start();
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('.view-hoteladdon-edit').view_hoteladdon_edit({
+            hotel:<?php echo json_encode($this->hotel) ?>
 
         });
     });
@@ -44,9 +45,9 @@ $doc->addScriptDeclaration($js_content);
                 <h3> Service name</h3>
             </div>
             <div class="span8">
-                <?php echo VmHTML::select('virtuemart_hotel_id', $this->list_hotel,$hotel_service_class->virtuemart_hotel_id,'', 'virtuemart_hotel_id','hotel_name'); ?>
+                <?php echo VmHTML::select('virtuemart_hotel_id', $this->list_hotel,$this->item->virtuemart_hotel_id,'', 'virtuemart_hotel_id','hotel_name'); ?>
                 <br/>
-                <?php echo VmHTML::input( 'location', $this->item->localtion, ' placeholder="location" readonly '); ?>
+                <?php echo VmHTML::input( 'location', $this->hotel->city_area_name, ' placeholder="location" readonly '); ?>
 
 
 
@@ -82,12 +83,12 @@ $doc->addScriptDeclaration($js_content);
         </div>
         <div class="row-fluid">
             <div class="span12">
-                <?php echo VmHTML::row_control('textarea_view', 'Hotel overview','hotel_overview','',array('style'=>'width:98%')); ?>
+                <?php echo VmHTML::row_control('textarea_view', 'Hotel overview','hotel_overview',$this->hotel->description,array('style'=>'width:98%')); ?>
             </div>
         </div>
         <div class="row-fluid">
             <div class="span12">
-                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'virtuemart_product_id', 'product_name', false); ?>
+                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->tour_id_seletecd, '', 'virtuemart_product_id', 'product_name', false); ?>
             </div>
         </div>
 

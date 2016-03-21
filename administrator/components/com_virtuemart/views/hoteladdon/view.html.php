@@ -90,7 +90,7 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 			$this->list_hotel_addon_service_class=vmhoteladdon::get_list_hotel_addon_service_class();
 			require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
 			$this->list_hotel=vmHotel::get_list_hotel();
-			if($task=='edit_item')
+			if($task=='edit_item'||$task=='add_new_item')
 			{
 				$cid	= vRequest::getInt( 'cid' );
 
@@ -104,9 +104,11 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 
 				$model->setId($cid);
 				$this->item = $model->getItem();
-
-				//get list tour
 				require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
+				$this->hotel=vmHotelAddon::get_detail_hotel_by_hotel_id($this->item->virtuemart_hotel_id);
+				$this->tour_id_seletecd=vmHotelAddon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				//get list tour
+
 				$this->item->list_tour_id = vmhoteladdon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
 				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 				$list_tour = vmproduct::get_list_product();
