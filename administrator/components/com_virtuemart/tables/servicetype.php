@@ -47,7 +47,7 @@ class Tableservicetype extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_servicetype', 'virtuemart_service_type_id', $db);
+		parent::__construct('#__virtuemart_service_type', 'virtuemart_service_type_id', $db);
 
 
 		$this->setLoggable();

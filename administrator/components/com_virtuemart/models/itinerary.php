@@ -38,7 +38,7 @@ class VirtueMartModelItinerary extends VmModel {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->setMainTable('airport');
+		$this->setMainTable('itinerary');
 	}
 
 	/**

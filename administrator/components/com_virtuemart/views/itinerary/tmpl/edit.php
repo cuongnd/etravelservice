@@ -20,7 +20,8 @@
 defined('_JEXEC') or die('Restricted access');
 $app=JFactory::getApplication();
 $input=$app->input;
-
+$task = $input->getString('task', '');
+echo $task;
 $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
 $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_edit.less');

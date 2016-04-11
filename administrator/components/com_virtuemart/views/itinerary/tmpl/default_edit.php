@@ -26,10 +26,9 @@ $key=$input->get('key',array(),'array');
 $virtuemart_product_id=$key['virtuemart_product_id'];
 $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_edit.less');
-
 ?>
 <div class="view-itinerary-edit">
-    <form action="index.php" method="post" class="form-horizontal" name="adminForm" id="adminForm">
+    <form action="index.php" method="post" class="form-horizontal" name="edit_admin_form" id="edit_admin_form">
         <div class="col50">
             <div class="admintable row-fluid">
                 <div class="span12">
@@ -53,23 +52,27 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/a
 
 
         </div>
+        <input type="hidden" value="com_virtuemart" name="option">
+        <input type="hidden" value="itinerary" name="controller">
+        <input type="hidden" value="itinerary" name="view">
+        <input type="hidden" value="" name="task">
+        <input type="hidden" value="<?php echo $this->item->virtuemart_product_id?$this->item->virtuemart_product_id:$virtuemart_product_id ?>" name="virtuemart_product_id">
+        <input type="hidden" value="<?php echo $this->item->virtuemart_itinerary_id ?>" name="virtuemart_itinerary_id">
         <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-        <input type="hidden" name="virtuemart_itinerary_id"
-               value="<?php echo $this->item->virtuemart_itinerary_id; ?>"/>
-        <?php echo VmHTML::inputHidden(array(
-            'key[virtuemart_product_id]'=>$virtuemart_product_id
-        )); ?>
-        <?php echo VmHTML::inputHidden(array(
-            'virtuemart_product_id'=>$virtuemart_product_id
-        )); ?>
+        <?php
+        JHtml::_('form.token');
+        ?>
 
-        <?php echo $this->addStandardHiddenToForm(); ?>
-        <div class="toolbar pull-right">
-            <button class="btn btn-small btn-success save" type="submit"><span class="icon-save icon-white"></span>Save</button>
-            <button class="btn btn-small btn-success reset" ><span class="icon-new icon-white"></span>Reset</button>
-            <button class="btn btn-small btn-success cancel" ><span class="icon-new icon-white"></span>cancel</button>
-        </div>
 
     </form>
+    <div class="pull-right">
+        <?php
+        $bar =  clone JToolbar::getInstance('toolbar');
+        $bar->reset();
+        $bar->appendButton('Standard', 'save', 'save', 'save', false,'edit_admin_form');
+        $bar->appendButton('Standard', 'cancel', 'cancel', 'cancel', false);
+        echo $bar->render();
+        ?>
+    </div>
 </div>
 

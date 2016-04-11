@@ -50,7 +50,7 @@ class Tablehotel extends VmTableData {
 	var $facility_photo1				= "";
 	var $facility_photo2				= "";
 	var $shared					= 0;
-	var $published				= 0;
+	var $published				= 1;
 
 	/**
 	 * @author Max Milbers

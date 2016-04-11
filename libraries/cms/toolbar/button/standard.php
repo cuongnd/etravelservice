@@ -36,13 +36,13 @@ class JToolbarButtonStandard extends JToolbarButton
 	 *
 	 * @since   3.0
 	 */
-	public function fetchButton($type = 'Standard', $name = '', $text = '', $task = '', $list = true)
+	public function fetchButton($type = 'Standard', $name = '', $text = '', $task = '', $list = true,$form='adminForm',$validate=false)
 	{
 		// Store all data to the options array for use with JLayout
 		$options = array();
 		$options['text'] = JText::_($text);
 		$options['class'] = $this->fetchIconClass($name);
-		$options['doTask'] = $this->_getCommand($options['text'], $task, $list);
+		$options['doTask'] = $this->_getCommand($options['text'], $task, $list,$form,$validate);
 
 		if ($name == 'apply' || $name == 'new')
 		{
@@ -90,7 +90,7 @@ class JToolbarButtonStandard extends JToolbarButton
 	 *
 	 * @since   3.0
 	 */
-	protected function _getCommand($name, $task, $list)
+	protected function _getCommand($name, $task, $list,$from='adminForm',$validate=false)
 	{
 		$message = JText::_('JLIB_HTML_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST');
 		$message = addslashes($message);
@@ -101,7 +101,8 @@ class JToolbarButtonStandard extends JToolbarButton
 		}
 		else
 		{
-			$cmd = "Joomla.submitbutton('$task')";
+            $validate=json_encode($validate);
+			$cmd = "Joomla.submitbutton('$task','$from','$validate')";
 		}
 
 		return $cmd;

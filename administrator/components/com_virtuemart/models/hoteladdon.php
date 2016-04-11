@@ -60,16 +60,61 @@ class VirtueMartModelhoteladdon extends VmModel {
 	function getItemList($search='') {
 
 		//echo $this->getListQuery()->dump();
-		$data=parent::getItems();
-		return $data;
+		$items=parent::getItems();
+        $list_virtuemart_product_id=array();
+        $db=$this->_db;
+        foreach($items as &$item)
+        {
+            $list_virtuemart_product_id=$item->list_virtuemart_product_id;
+            $list_virtuemart_product_id=explode(',',$list_virtuemart_product_id);
+            $virtuemart_hotel_id=$item->virtuemart_hotel_id;
+            $virtuemart_hotel_addon_id=$item->virtuemart_hotel_addon_id;
+
+            $list_tour_tour_class=array();
+            foreach($list_virtuemart_product_id AS $virtuemart_product_id) {
+                $query = $db->getQuery(true);
+                $query->select('CONCAT(products_en_gb.product_name,"(",GROUP_CONCAT(DISTINCT(service_class.service_class_name) SEPARATOR ","),"."," ",")") AS tour_tour_class')
+                    ->from('#__virtuemart_hotel_id_service_class_id_accommodation_id  AS hotel_id_service_class_id_accommodation_id')
+                    ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
+                    ->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$virtuemart_hotel_id)
+                    ->leftJoin('#__virtuemart_hotel_addon AS hotel_addon ON hotel_addon.virtuemart_hotel_id=hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id')
+                    ->where('hotel_addon.virtuemart_hotel_addon_id='.(int)$virtuemart_hotel_addon_id)
+                    ->leftJoin('#__virtuemart_tour_id_hotel_addon_id AS tour_id_hotel_addon_id ON tour_id_hotel_addon_id.virtuemart_hotel_addon_id=hotel_addon.virtuemart_hotel_addon_id')
+                    ->where('tour_id_hotel_addon_id.virtuemart_product_id='.(int)$virtuemart_product_id)
+                    ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_id_hotel_addon_id.virtuemart_product_id')
+                    ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
+                ;
+                $db->setQuery($query);
+                $list_tour_tour_class[]=$db->loadResult();
+
+            }
+            $item->tour_tour_class=implode(' ',$list_tour_tour_class);
+        }
+
+        if ($virtuemart_product_id = $this->getState('filter.virtuemart_product_id'))
+        {
+            foreach($items as $key=>&$item)
+            {
+                $list_virtuemart_product_id=$item->list_virtuemart_product_id;
+                $list_virtuemart_product_id=explode(',',$list_virtuemart_product_id);
+                if(!in_array($virtuemart_product_id,$list_virtuemart_product_id))
+                {
+                    unset($items[$key]);
+                }
+            }
+
+        }
+
+        return $items;
 	}
 
 	function getListQuery()
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
+
 		$query1=$db->getQuery(true);
-		$query1->select('GROUP_CONCAT(products_en_gb.product_name)')
+		$query1->select('GROUP_CONCAT(products_en_gb.virtuemart_product_id)')
 			->from('#__virtuemart_products_en_gb AS products_en_gb')
 			->leftJoin('#__virtuemart_products AS products  USING(virtuemart_product_id)')
 			->leftJoin('#__virtuemart_tour_id_hotel_addon_id AS tour_id_hotel_addon_id1 USING(virtuemart_product_id)')
@@ -80,28 +125,73 @@ class VirtueMartModelhoteladdon extends VmModel {
 			->from('#__virtuemart_hotel_addon AS hotel_addon')
 			->leftJoin('#__virtuemart_hotel AS hotel USING(virtuemart_hotel_id)')
 			->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=hotel.virtuemart_cityarea_id')
-			->select('('.$query1.') AS tours')
+			->select('('.$query1.') AS list_virtuemart_product_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
-		if (vmAccess::manager()) {
-			//$query->where('transferaddon.shared=1','OR');
-		}
-		$search=vRequest::getCmd('search', false);
-		if (empty($search)) {
-			$search = vRequest::getString('search', false);
-		}
-		// add filters
-		if ($search) {
-			$db = JFactory::getDBO();
-			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('hotel_addon.hotel_addon_name LIKE '.$search);
-		}
-		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
+        if ($search = $this->getState('filter.search'))
+        {
+            $search = '"%' . $db->escape($search, true) . '%"';
+            $query->where('(hotel_addon.virtuemart_hotel_addon_id LIKE '.$search.' OR  hotel.hotel_name LIKE '.$search.')');
+        }
+        if ($location_city = $this->getState('filter.location_city'))
+        {
+            $query->where('cityarea.virtuemart_cityarea_id='.(int)$location_city);
+        }
+        if ($vail_from = $this->getState('filter.vail_from'))
+        {
+            $vail_from=JFactory::getDate($vail_from);
+            $query->where('hotel_addon.vail_from >='.$query->q($vail_from->toSql()));
+        }
+        if ($vail_to = $this->getState('filter.vail_to'))
+        {
+            $vail_to=JFactory::getDate($vail_to);
+            $query->where('hotel_addon.vail_to<='.$query->q($vail_to->toSql()));
+        }
+        // Filter by published state
+        $state = $this->getState('filter.state');
+
+        if (is_numeric($state))
+        {
+            $query->where('hotel_addon.published = ' . (int) $state);
+        }
+        elseif ($state === '')
+        {
+            $query->where('(hotel_addon.published IN (0, 1))');
+        }
+
+
+
+        if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
 		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
 		return $query;
 	}
+    protected function populateState($ordering = null, $direction = null)
+    {
+        $app = JFactory::getApplication('administrator');
+
+        // Load the filter state.
+        $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+        $this->setState('filter.search', $search);
+
+        $location_city = $this->getUserStateFromRequest($this->context . '.filter.location_city', 'filter_location_city', '', 'int');
+        $this->setState('filter.location_city', $location_city);
+
+
+        $virtuemart_product_id = $this->getUserStateFromRequest($this->context . '.filter.virtuemart_product_id', 'filter_virtuemart_product_id', '', 'int');
+        $this->setState('filter.virtuemart_product_id', $virtuemart_product_id);
+
+        $vail_from = $this->getUserStateFromRequest($this->context . '.filter.vail_from', 'filter_vail_from', '', 'String');
+        $this->setState('filter.vail_from', $vail_from);
+
+        $vail_to = $this->getUserStateFromRequest($this->context . '.filter.vail_to', 'filter_vail_to', '', 'String');
+        $this->setState('filter.vail_to', $vail_to);
+
+        $state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', '', 'string');
+        $this->setState('filter.state', $state);
+
+    }
 
 	/**
 	 * Retireve a list of currencies from the database.
@@ -143,10 +233,6 @@ class VirtueMartModelhoteladdon extends VmModel {
 			$hotel_addon_type=$data['hotel_addon_type'];
 			$hotel_addon_date_price_table=$this->getTable('hotel_addon_date_price');
 			//end insert group size
-			$vail_from=$data['vail_from'];
-			$vail_from=JFactory::getDate($vail_from);
-			$vail_to=$data['vail_to'];
-			$vail_to=JFactory::getDate($vail_to);
 			$data_price=$data['data_price'];
 			$data_price=base64_decode($data_price);
 			require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
@@ -154,7 +240,8 @@ class VirtueMartModelhoteladdon extends VmModel {
 			$item_mark_up_type=$data_price->item_mark_up_type;
 			foreach($list_tour_id as $tour_id)
 			{
-
+                $vail_from=JFactory::getDate($data['vail_from']);
+                $vail_to=JFactory::getDate($data['vail_to']);
 				$single_room=$data_price->items->single_room;
 				$double_twin_room=$data_price->items->double_twin_room;
 				$triple_room=$data_price->items->triple_room;
@@ -165,6 +252,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 					$hotel_addon_date_price_table->id=0;
 					$hotel_addon_date_price_table->jload(array('date'=>$date,'virtuemart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
 					$hotel_addon_date_price_table->date=$date;
+					$hotel_addon_date_price_table->virtuemart_hotel_addon_id=$virtuemart_hotel_addon_id;
 					$hotel_addon_date_price_table->virtuemart_product_id=$tour_id;
 					$hotel_addon_date_price_table->hotel_addon_type=$hotel_addon_type;
 					$hotel_addon_date_price_table->single_room_net_price=$single_room->net_price;

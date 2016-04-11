@@ -36,6 +36,8 @@ class virtuemartViewitinerary extends VmViewAdmin {
 		// Load the helper(s)
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
+        $this->setLayout('default');
+
 
 		$model = VmModel::getModel();
 		$app=JFactory::getApplication();
@@ -43,66 +45,28 @@ class virtuemartViewitinerary extends VmViewAdmin {
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
-
-		if ($layoutName == 'edit') {
-			$this->view_height=1600;
-			$cid	= vRequest::getInt( 'cid' );
-
-			$task = vRequest::getCmd('task', 'add');
-
-			if($task!='add' && !empty($cid) && !empty($cid[0])){
-				$cid = (int)$cid[0];
-			} else {
-				$cid = 0;
-			}
-
-			$model->setId($cid);
-			$this->item = $model->getItem();
-
-			//get meal
-			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmmeal.php';
-			$list_meal=vmmeal::get_list_meal();
-			$this->item->list_meal_id=vmmeal::get_list_meal_id_by_itinerary_id($this->item->virtuemart_itinerary_id);
-			$this->assignRef('list_meal', $list_meal);
-			//end get meal
-
-			//get cities
-			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
-			$cities = vmcities::get_cities();
-			$this->assignRef('cities', $cities);
-			//end get cities
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+        $this->SetViewTitle();
+        JToolBarHelper::publishList();
+        JToolBarHelper::unpublishList();
+        JToolBarHelper::editList();
+        JToolBarHelper::addNew();
+        JToolBarHelper::deleteList();
+        $model->setDefaultValidOrderingFields('itinerary');
+        $this->addStandardDefaultViewLists($model,0,'ASC');
+        $this->state         = $model->getState();
+        $this->filterForm    = $this->getFilterForm();
+        $this->items = $model->getItemList(vRequest::getCmd('search', false));
+        $this->pagination = $model->getPagination();
+        if($task=='edit'||$task=='add')
+        {
+            require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
+            $this->item=$model->getItem();
+            $cities = vmcities::get_cities();
+            $this->assignRef('cities', $cities);
+        }
 
 
-			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
-
-		} else {
-
-
-
-			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
-			$this->SetViewTitle();
-			JToolBarHelper::publishList();
-			JToolBarHelper::unpublishList();
-			JToolBarHelper::editList();
-			JToolBarHelper::addNew('add_new_item');
-			JToolBarHelper::deleteList();
-			$model->setDefaultValidOrderingFields('itinerary');
-			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->state         = $model->getState();
-			$this->filterForm    = $this->getFilterForm();
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
-
-
-		}
-		if ($task == 'edit_item'||$task=='add_new_item') {
-			//get cities
-			require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
-			$cities = vmcities::get_cities();
-			$this->assignRef('cities', $cities);
-			//end get cities
-		}
 		parent::display($tpl);
 	}
 	/**

@@ -56,7 +56,7 @@ class vmsupplier
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
-            ->from('#__virtuemart_servicetype')
+            ->from('#__virtuemart_service_type')
             ;
         $db->setQuery($query);
         $list= $db->loadObjectList();

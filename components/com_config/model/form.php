@@ -168,6 +168,7 @@ abstract class ConfigModelForm extends ConfigModelCms
 
 		try
 		{
+
 			$form = JForm::getInstance($name, $source, $options, false, $xpath);
 
 			if (isset($options['load_data']) && $options['load_data'])

@@ -81,7 +81,7 @@ $i = 0;
         <div class="span4">
             <fieldset >
                 <legend>Tour Section</legend>
-                <?php echo VmHTML::list_radio('virtuemart_tour_section_id', $this->list_tour_section, $this->product->virtuemart_tour_section_id, '', 'virtuemart_tour_section_id', 'title', false,true,true,2); ?>
+                <?php echo VmHTML::list_radio('virtuemart_tour_section_id', $this->list_tour_section, $this->product->virtuemart_tour_section_id, '', 'virtuemart_tour_section_id', 'tour_section_name', false,true,true,2); ?>
             </fieldset>
             <fieldset class="list_tour_service_class">
                 <legend>Service class</legend>

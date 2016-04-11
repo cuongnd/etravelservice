@@ -55,7 +55,7 @@ class VirtueMartModelservicetype extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->select('servicetype.*')
-			->from('#__virtuemart_servicetype AS servicetype')
+			->from('#__virtuemart_service_type AS servicetype')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -108,7 +108,7 @@ class VirtueMartModelservicetype extends VmModel {
 		$whereString='';
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
 
-		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_servicetype`',$whereString,'',$this->_getOrdering());
+		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_service_type`',$whereString,'',$this->_getOrdering());
 
 		return $data;
 	}

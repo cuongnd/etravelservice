@@ -81,7 +81,7 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
-
+            $this->state=$model->getState();
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
 			$this->list_cityarea=vmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhoteladdon.php';
@@ -89,6 +89,12 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 			$this->list_hotel_payment_type=vmhoteladdon::get_list_hotel_payment_type();
 			$this->list_hotel_addon_service_class=vmhoteladdon::get_list_hotel_addon_service_class();
 			require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
+
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
+            $list_tour = vmproduct::get_list_product();
+            $this->assignRef('list_tour', $list_tour);
+
+
 			$this->list_hotel=vmHotel::get_list_hotel();
 			if($task=='edit_item'||$task=='add_new_item')
 			{
@@ -110,9 +116,7 @@ class virtuemartViewHotelAddon extends VmViewAdmin {
 				//get list tour
 
 				$this->item->list_tour_id = vmhoteladdon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
-				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
-				$list_tour = vmproduct::get_list_product();
-				$this->assignRef('list_tour', $list_tour);
+
 				//end get list tour
 
 

@@ -36,6 +36,7 @@ class TableHotel_addon_date_price extends VmTableData {
 	var $virtuemart_product_id			= 0;
 	var $date				= null;
 	var $single_room_net_price				= 0;
+	var $virtuemart_hotel_addon_id				= 0;
 	var $single_room_mark_up_percent				= 0;
 	var $single_room_mark_up_amout				= 0;
 	var $single_room_tax				= 0;

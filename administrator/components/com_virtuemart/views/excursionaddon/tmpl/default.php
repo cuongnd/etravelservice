@@ -73,7 +73,7 @@ $doc->addScriptDeclaration($js_content);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'Transfer name'); ?>
+                        <?php echo $this->sort('hotel_name', 'Transfer name'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('created_on', 'Create date'); ?>
@@ -85,13 +85,7 @@ $doc->addScriptDeclaration($js_content);
                         <?php echo $this->sort('price', 'Price'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('start_date', 'Start date'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('end_date', 'End date'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('description', 'Description'); ?>
+                        <?php echo JText::_('Valid period') ?>
                     </th>
                     <th>
                         <?php echo JText::_('Application') ?>
@@ -123,25 +117,21 @@ $doc->addScriptDeclaration($js_content);
                             <a href="<?php echo $editlink; ?>"><?php echo $row->excursion_addon_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo $row->created_on; ?>
+                            <?php echo JHtml::_('date', $row->created_on,'d M. Y'); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->location; ?>
+                            <?php echo $row->city_area_name; ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->price; ?>
+                            <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>
                         </td>
                         <td align="left">
-                            <?php echo $row->start_date; ?>
+                            <?php echo JHtml::_('date', $row->vail_from,'d M. Y'); ?>
+                            <br>
+                            <?php echo JHtml::_('date', $row->vail_to,'d M. Y'); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->end_date; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->description; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->list_tour; ?>
+                            <?php echo $row->tours; ?>
                         </td>
                         <td align="center">
                             <?php echo $published; ?>

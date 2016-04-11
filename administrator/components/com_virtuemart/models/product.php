@@ -47,7 +47,8 @@ class VirtueMartModelproduct extends VmModel {
 	 * @author Max Milbers
 	 */
 	function getItem($id=0) {
-		return $this->getData($id);
+		$item= $this->getData($id);
+        return $item;
 	}
 
 
@@ -58,7 +59,7 @@ class VirtueMartModelproduct extends VmModel {
 	 * @return object List of product objects
 	 */
 	function getItemList($search='') {
-		//echo $this->getListQuery()->dump();
+		echo $this->getListQuery()->dump();
 		$data=parent::getItems();
 		return $data;
 	}
@@ -68,9 +69,10 @@ class VirtueMartModelproduct extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('product.*')
+		$query->select('product.*,products_en_gb.product_name')
 			->from('#__virtuemart_products AS product')
-			//->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_cityarea_id)')
+            ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
+			//->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_city_area_id)')
 			//->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
 			//->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
 		;
@@ -168,6 +170,10 @@ class VirtueMartModelproduct extends VmModel {
 				vmError('can not insert country in this tour',$err);
 			}
 		}
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+        die;
 		return $virtuemart_country_id;
 	}
 

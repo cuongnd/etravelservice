@@ -293,8 +293,8 @@ class VirtuemartViewProduct extends VmViewAdmin
                 require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcountries.php';
                 $product->list_virtuemart_country_id = vmcountries::get_list_virtuemart_country_id_by_tour_id($product->virtuemart_product_id);
                 //end get list group size
-                require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-                $this->list_price_type=vmprice::get_list_price_type();
+                require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmprice.php';
+                $this->list_price_type = vmprice::get_list_price_type();
 
 
                 $this->assignRef('product', $product);
@@ -501,15 +501,15 @@ class VirtuemartViewProduct extends VmViewAdmin
                     JToolBarHelper::custom('createchild', 'new', 'new', vmText::_('COM_VIRTUEMART_PRODUCT_CHILD'), true);
                     JToolBarHelper::custom('cloneproduct', 'copy', 'copy', vmText::_('COM_VIRTUEMART_PRODUCT_CLONE'), true);
                 }*/
-               // JToolBarHelper::custom('addrating', 'default', '', vmText::_('COM_VIRTUEMART_ADD_RATING'), true);
-                $view = vRequest::getCmd('view', vRequest::getCmd('controller','virtuemart'));
+                // JToolBarHelper::custom('addrating', 'default', '', vmText::_('COM_VIRTUEMART_ADD_RATING'), true);
+                $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
                 JToolBarHelper::divider();
-                if(vmAccess::manager($view.'.edit.state')){
+                if (vmAccess::manager($view . '.edit.state')) {
                     JToolBarHelper::publishList();
                     JToolBarHelper::unpublishList();
                 }
 
-                if(vmAccess::manager($view.'.delete')){
+                if (vmAccess::manager($view . '.delete')) {
                     JToolBarHelper::spacer('10');
                     JToolBarHelper::deleteList();
                 }

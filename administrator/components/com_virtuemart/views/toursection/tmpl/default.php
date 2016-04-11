@@ -64,22 +64,25 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_toursection_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_tour_section_id','Id') ; ?></label>
 
 
 
                     </th>
                     <th>
-                        <?php echo $this->sort('toursection_name','toursection name') ?>
+                        <?php echo $this->sort('tour_section_name','toursection name') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('code','code') ?>
+                        <?php echo $this->sort('Icon','Icon') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('phone_code','Phone code') ?>
+                        <?php echo $this->sort('meta_title','Meta title') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('state_number','State number') ?>
+                        <?php echo $this->sort('keyword','Keyword') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('description','Description') ?>
                     </th>
                     <th width="20">
                         <?php echo vmText::_('Action'); ?>
@@ -105,22 +108,22 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_toursection_id);
+                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_tour_section_id);
                     $published = $this->gridPublished($row, $i);
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=toursection&task=edit_in_line&cid[]=' . $row->virtuemart_toursection_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_toursection_id', $editlink);
-                    $save_link = JROUTE::_('index.php?option=com_virtuemart&view=toursection&task=save_in_line&cid[]=' . $row->virtuemart_toursection_id);
-                    $save = $this->grid_save_in_line($row, $i, 'virtuemart_toursection_id', $save_link);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_toursection_id');
-                    $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_toursection_id');
-                    $show_edit = ($show_edit_in_line == 1 && in_array($row->virtuemart_toursection_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=toursection&task=edit_in_line&cid[]=' . $row->virtuemart_tour_section_id);
+                    $edit = $this->gridEdit($row, $i, 'virtuemart_tour_section_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_virtuemart&view=toursection&task=save_in_line&cid[]=' . $row->virtuemart_tour_section_id);
+                    $save = $this->grid_save_in_line($row, $i, 'virtuemart_tour_section_id', $save_link);
+                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_tour_section_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_tour_section_id');
+                    $show_edit = ($show_edit_in_line == 1 && in_array($row->virtuemart_tour_section_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
 
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_toursection_id => $row->virtuemart_toursection_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(virtuemart_tour_section_id => $row->virtuemart_tour_section_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>
@@ -131,7 +134,14 @@ $states = vmText::_('COM_VIRTUEMART_STATE_S');
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::input('tour_section_name', $row->tour_section_name, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?><a href="<?php echo $editlink; ?>"><?php echo $row->toursection_name ?> </a>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->tour_section_name ?> </a>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('code', $row->code, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->code ?>
                             <?php } ?>
                         </td>
                         <td>

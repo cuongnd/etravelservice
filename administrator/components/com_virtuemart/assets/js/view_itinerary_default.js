@@ -28,7 +28,7 @@
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var task=plugin.settings.task;
-            if(task=='add_new_item'||task=='edit_item')
+            if(task=='edit'||task=='add')
             {
 
                 $element.find( ".view-itinerary-edit" ).dialog({

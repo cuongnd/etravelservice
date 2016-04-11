@@ -28,7 +28,7 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class TableTour_class extends VmTableData {
+class Tableservice_class extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_service_class_id				= 0;

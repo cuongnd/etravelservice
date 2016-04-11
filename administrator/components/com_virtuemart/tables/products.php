@@ -25,12 +25,25 @@ class TableProducts extends VmTable
 {
 
     var $virtuemart_product_id = 0;
+    var $product_name = 0;
+    var $tour_length = 0;
+    var $start_city = 0;
+    var $end_city = 0;
+    var $virtuemart_tour_type_id = 0;
+    var $virtuemart_tour_style_id = 0;
+    var $virtuemart_physicalgrade_id = 0;
+    var $min_person = 0;
+    var $max_person = 0;
+    var $min_age = 0;
+    var $max_age = 0;
+    var $virtuemart_tour_section_id = 0;
     var $shared					= 0;
     var $published				= 0;
     function __construct($db)
     {
         parent::__construct('#__virtuemart_products', 'virtuemart_product_id', $db);
-
+        $this->setUniqueName('product_name');
+        $this->setTranslatable(array('product_name'));
         $this->setLoggable();
 
         $this->setOrderable();

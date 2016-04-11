@@ -70,6 +70,10 @@ class VirtueMartModelhotel extends VmModel {
 		$query=$db->getQuery(true);
 		$query->select('hotel.*')
 			->from('#__virtuemart_hotel AS hotel')
+            ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
+            ->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
+            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+            ->select('CONCAT(cityarea.city_area_name,",",states.state_name,",",countries.country_name) AS location')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -89,6 +93,7 @@ class VirtueMartModelhotel extends VmModel {
 		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
 		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
+        //echo $query->dump();
 		return $query;
 	}
 

@@ -13,7 +13,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen', 'select');
-$this->fieldsets = $this->form->getFieldsets('params');
+
 
 JFactory::getDocument()->addScriptDeclaration("
 	Joomla.submitbutton = function(task)

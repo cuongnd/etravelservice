@@ -130,10 +130,70 @@ class VirtueMartModelExcursionaddon extends VmModel
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
-                    vmError('can not insert tour in this excursion_addon', $err);
+                    throw new Exception($db->getErrorMsg());
                 }
             }
+
             //end insert group size
+            $excursion_payment_type=$data['excursion_payment_type'];
+            $table_excursion_ad_don_date_price=$this->getTable('excursion_ad_don_date_price');
+            //end insert group size
+            $vail_from=$data['vail_from'];
+            $vail_from=JFactory::getDate($vail_from);
+            $vail_to=$data['vail_to'];
+            $vail_to=JFactory::getDate($vail_to);
+            $data_price=$data['data_price'];
+            $data_price=base64_decode($data_price);
+            require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+            $data_price = up_json_decode($data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+            $item_mark_up_type=$data_price->item_mark_up_type;
+            foreach($list_tour_id as $tour_id)
+            {
+
+                $single_room=$data_price->items->single_room;
+                $double_twin_room=$data_price->items->double_twin_room;
+                $triple_room=$data_price->items->triple_room;
+
+                while ($vail_from->getTimestamp() <= $vail_to->getTimestamp()) {
+
+                    $date=$vail_from->format('Y-m-d');
+                    $table_excursion_ad_don_date_price->id=0;
+                    $table_excursion_ad_don_date_price->jload(array('date'=>$date,'virtuemart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
+                    $table_excursion_ad_don_date_price->date=$date;
+                    $table_excursion_ad_don_date_price->virtuemart_hotel_addon_id=$virtuemart_hotel_addon_id;
+                    $table_excursion_ad_don_date_price->virtuemart_product_id=$tour_id;
+                    $table_excursion_ad_don_date_price->hotel_addon_type=$hotel_addon_type;
+                    $table_excursion_ad_don_date_price->single_room_net_price=$single_room->net_price;
+                    $table_excursion_ad_don_date_price->doulble_twin_room_net_price=$double_twin_room->net_price;
+                    $table_excursion_ad_don_date_price->triple_room_net_price=$triple_room->net_price;
+
+                    //tax
+                    $table_excursion_ad_don_date_price->single_room_tax=$single_room->tax;
+                    $table_excursion_ad_don_date_price->doulble_twin_room_tax=$double_twin_room->tax;
+                    $table_excursion_ad_don_date_price->triple_room_tax=$triple_room->tax;
+                    if($item_mark_up_type=='percent')
+                    {
+                        $table_excursion_ad_don_date_price->single_room_mark_up_percent=$single_room->mark_up_percent;
+                        $table_excursion_ad_don_date_price->doulble_twin_room_mark_up_percent=$double_twin_room->mark_up_percent;
+                        $table_excursion_ad_don_date_price->triple_room_mark_up_percent=$triple_room->mark_up_percent;
+                    }else{
+                        $table_excursion_ad_don_date_price->single_room_mark_up_amout=$single_room->mark_up_amount;
+                        $table_excursion_ad_don_date_price->doulble_twin_room_mark_up_amount=$double_twin_room->mark_up_amount;
+                        $table_excursion_ad_don_date_price->triple_room_mark_up_amout=$triple_room->mark_up_amount;
+                    }
+                    $ok=$table_excursion_ad_don_date_price->store();
+                    if(!$ok)
+                    {
+                        throw new  Exception($table_excursion_ad_don_date_price->getError());
+                    }
+                    $vail_from->modify('+1 day');
+
+                }
+
+            }
+
+
+
         }
 
         return $virtuemart_excursion_addon_id;

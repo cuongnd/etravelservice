@@ -40,6 +40,12 @@
                 $('#adminForm').submit();
 
             });
+            $element.find('#select_from_date_to_date_vail_from_vail_to').on('apply.daterangepicker', function(ev, picker) {
+                $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
+                $element.find('input[name="hotel_addon_type"]').prop('checked', false);
+            });
+
+
             $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
             $element.find('select[name="virtuemart_hotel_id"]').change(function(){
                 $element.find('input[name="hotel_addon_type"]').prop('checked', false);
@@ -83,11 +89,66 @@
 
 
             });
+            $element.find('input[name="list_tour_id[]"]').click(function(){
+                var self=$(this);
+                var virtuemart_product_id=$(this).val();
+                var vail_from=$element.find('input[name="vail_from"]').val();
+                var vail_to=$element.find('input[name="vail_to"]').val();
+                var virtuemart_hotel_addon_id=$element.find('input[name="virtuemart_hotel_addon_id"]').val();
+                var hotel_addon_type=$element.find('input[name="hotel_addon_type"]').val();
+                $.ajax({
+                    type: "GET",
+                    url: 'index.php?option=com_virtuemart&controller=hoteladdon&task=check_tour&virtuemart_product_id='+virtuemart_product_id,
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            vail_from:vail_from,
+                            vail_to:vail_to,
+                            virtuemart_hotel_addon_id:virtuemart_hotel_addon_id,
+                            hotel_addon_type:hotel_addon_type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.error==1)
+                        {
+                            alert(response.msg);
+                            self.prop('checked', false);
+                        }
+
+                    }
+
+                });
+
+            });
             $element.find('input[name="hotel_addon_type"]').change(function(){
                 var virtuemart_hotel_id=$element.find('select[name="virtuemart_hotel_id"]').val();
+                var vail_from=$element.find('input[name="vail_from"]').val();
+                var vail_to=$element.find('input[name="vail_to"]').val();
                 if(virtuemart_hotel_id==0||virtuemart_hotel_id==""||typeof virtuemart_hotel_id=="undefined")
                 {
                     alert('please select hotel');
+                    $(this).prop('checked', false);
+                    return;
+                }else if(vail_from==0||vail_from==""||typeof vail_from=="undefined"){
+
+                    alert('please select vail from date');
+                    $(this).prop('checked', false);
+                    return;
+                }else if(vail_to==0||vail_to==""||typeof vail_to=="undefined"){
+                    alert('please select vail to date');
                     $(this).prop('checked', false);
                     return;
                 }
@@ -112,6 +173,7 @@
                     success: function (response) {
                         $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
                         $element.find('input[name="list_tour_id[]"]').prop('checked', false);
+
                         $.each(response,function(index,virtuemart_product_id){
                             $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false).show().closest('.checkbox').show();
                         });

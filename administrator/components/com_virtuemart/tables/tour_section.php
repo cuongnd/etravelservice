@@ -32,7 +32,11 @@ class TableTour_Section extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_tour_section_id				= 0;
-	var $title				= "";
+	var $tour_section_name				= "";
+	var $icon				= "";
+	var $meta_title				= "";
+	var $key_word				= "";
+	var $description				= "";
 	var $shared					= 0;
 	var $published				= 0;
 

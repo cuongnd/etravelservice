@@ -278,7 +278,6 @@ class JPath
 		{
 			settype($paths, 'array');
 		}
-
 		// Start looping through the path set
 		foreach ($paths as $path)
 		{

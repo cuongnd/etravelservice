@@ -38,7 +38,7 @@ class virtuemartViewActivity extends VmViewAdmin {
 
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-
+        $this->view_height=1300;
 		$model = VmModel::getModel();
 
 		$doc=JFactory::getDocument();

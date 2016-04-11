@@ -353,6 +353,22 @@ class VmHtml
         }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
+    public static function select_state($name,  $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $options=array();
+        $options[]= array($key => "1", $text => vmText::_('active'));
+        $options[]= array($key => "0", $text => vmText::_('unactive'));
+        if ($zero == true) {
+            $option = array($key => "", $text => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+            $options = array_merge(array($option), $options);
+        }
+        if ($chosenDropDowns) {
+            vmJsApi::chosenDropDowns();
+            $attrib .= ' class="vm-chzn-select"';
+
+        }
+        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+    }
 
     public static function select_state_province($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $country_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
@@ -400,11 +416,64 @@ class VmHtml
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
         $cities=vmcities::get_cities();
-
+        $option=array('id'=>'','text'=>'Please select location');
         foreach($cities as &$city)
         {
             $city->id=$city->virtuemart_cityarea_id;
             $city->text=$city->city_area_name;
+        }
+        array_unshift($cities,$option);
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('select[name="<?php echo $name ?>"]').html_select_location_city({
+                    cities:<?php echo json_encode($cities) ?>,
+                    vituemart_cityarea_id:<?php echo $default?$default:0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+
+        if ($zero == true) {
+            $option = array('vituemart_cityarea_id' => "0", 'city_area_name' => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+            $options = array_merge(array($option), $cities);
+        }
+        if ($chosenDropDowns) {
+            vmJsApi::chosenDropDowns();
+            $attrib .= '  disable_chosen="true"';
+
+        }
+        $html= VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
+        ob_start();
+        ?>
+        <div class="html_select_select_location_city">
+            <?php echo $html ?>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+    public static function select_tour($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.less');
+        $input = JFactory::getApplication()->input;
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
+        $list_products=vmproduct::get_list_product();
+
+        foreach($list_products as &$tour)
+        {
+            $tour->id=$city->virtuemart_cityarea_id;
+            $tour->text=$city->city_area_name;
         }
         ob_start();
         ?>
@@ -1443,6 +1512,28 @@ class VmHtml
                class="inputbox <?php echo $class ?>   input_percent_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
                data-v-max="<?php echo $max ?>" data-a-sign="%">
         <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        <?php
+        return ob_get_clean();
+    }
+    public static function input_button($name, $value,$type="submit",$size_class="btn-large",$class_type="btn-primary",$attr=array())
+    {
+
+        $doc = JFactory::getDocument();
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = JUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        ob_start();
+        ?>
+            <button type="<?php echo $type ?>" name="<?php echo $name ?>"  class="btn <?php echo $class_type ?> <?php echo $size_class ?>"><?php echo $value ?></button>
         <?php
         return ob_get_clean();
     }

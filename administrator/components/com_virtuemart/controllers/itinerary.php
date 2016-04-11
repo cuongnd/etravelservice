@@ -50,8 +50,21 @@ class VirtuemartControllerItinerary extends VmController {
 	 */
 	function save($data = 0){
 
-		$data = vRequest::getRequest();
-		parent::save($data);
+        $input=JFactory::getApplication()->input;
+        $data=$input->getArray();
+        $model = VmModel::getModel($this->_cname);
+
+        $id = $model->store($data);
+        $virtuemart_product_id=$data['virtuemart_product_id'];
+        $msg = 'failed';
+        if(!empty($id)) {
+            $msg = vmText::sprintf('COM_VIRTUEMART_STRING_SAVED',$this->mainLangKey);
+            $type = 'message';
+        }
+        else $type = 'error';
+
+        $redir = 'index.php?option=com_virtuemart&view=itinerary&virtuemart_product_id='.$virtuemart_product_id;
+        $this->setRedirect($redir, $msg,$type);
 	}
 }
 // pure php no closing tag

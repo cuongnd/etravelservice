@@ -38,7 +38,7 @@ class VirtueMartModeltourclass extends VmModel {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->setMainTable('tour_class');
+		$this->setMainTable('service_class');
 	}
 
 	/**
@@ -58,7 +58,7 @@ class VirtueMartModeltourclass extends VmModel {
 	 * @return object List of tourclass objects
 	 */
 	function getItemList($search='') {
-		//echo $this->getListQuery()->dump();
+
 		$data=parent::getItems();
 		return $data;
 	}
@@ -98,7 +98,6 @@ class VirtueMartModeltourclass extends VmModel {
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
 		return $query;
 	}
 

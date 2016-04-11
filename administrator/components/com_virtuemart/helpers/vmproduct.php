@@ -80,7 +80,7 @@ class vmproduct
 
 
         $query=$db->getQuery(true);
-        $query->select('tour_section.title')
+        $query->select('tour_section.tour_section_name')
             ->from('#__virtuemart_tour_section AS tour_section')
             ->where('tour_section.virtuemart_tour_section_id='.(int)$product->virtuemart_tour_section_id)
             ;

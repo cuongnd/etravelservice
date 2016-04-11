@@ -76,6 +76,7 @@ class ContentModelArticles extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
+
 		$app = JFactory::getApplication();
 
 		// Adjust the context to support modal layouts.

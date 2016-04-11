@@ -32,7 +32,6 @@ class JTableMenu extends JTableNested
 		// Set the default access level.
 		$this->access = (int) JFactory::getConfig()->get('access');
 	}
-
 	/**
 	 * Overloaded bind function
 	 *

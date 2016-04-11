@@ -19,14 +19,15 @@ Joomla.editors.instances = Joomla.editors.instances || {};
 	 * Generic submit form
 	 */
 	Joomla.submitform = function(task, form, validate) {
-		if (!form) {
-			form = document.getElementById('adminForm');
-		}
+		if (form) {
+			form = document.getElementById(form);
+		}else{
+            form = document.getElementById('adminForm');
+        }
 
 		if (task) {
 			form.task.value = task;
 		}
-
 		// Toggle HTML5 validation
 		form.noValidate = !validate;
 
@@ -46,8 +47,8 @@ Joomla.editors.instances = Joomla.editors.instances || {};
 	/**
 	 * Default function. Usually would be overriden by the component
 	 */
-	Joomla.submitbutton = function( pressbutton ) {
-		Joomla.submitform( pressbutton );
+	Joomla.submitbutton = function( pressbutton,form, validate ) {
+		Joomla.submitform( pressbutton,form, validate );
 	};
 
 	/**
@@ -449,8 +450,8 @@ Joomla.editors.instances = Joomla.editors.instances || {};
 	 *
 	 * @deprecated  12.1 This function will be removed in a future version. Use Joomla.submitbutton() instead.
 	 */
-	window.submitbutton = function ( pressbutton ) {
-		Joomla.submitbutton( pressbutton );
+	window.submitbutton = function ( pressbutton,form, validate ) {
+		Joomla.submitbutton( pressbutton,form, validate );
 	};
 
 	/**
@@ -458,8 +459,8 @@ Joomla.editors.instances = Joomla.editors.instances || {};
 	 *
 	 * @deprecated  12.1 This function will be removed in a future version. Use Joomla.submitform() instead.
 	 */
-	window.submitform = function ( pressbutton ) {
-		Joomla.submitform(pressbutton);
+	window.submitform = function ( pressbutton,form, validate ) {
+		Joomla.submitform(pressbutton,form, validate);
 	};
 
 	// needed for Table Column ordering

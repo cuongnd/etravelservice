@@ -41,7 +41,7 @@ class virtuemartViewphysicalgrade extends VmViewAdmin {
 
 		$model = VmModel::getModel();
 
-
+        $this->view_height=1300;
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {

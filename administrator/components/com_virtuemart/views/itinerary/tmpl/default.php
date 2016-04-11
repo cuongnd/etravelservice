@@ -22,8 +22,7 @@ $doc=JFactory::getDocument();
 $doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/view_itinerary_default.js');
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_itinerary_default.less');
 $input = JFactory::getApplication()->input;
-$task = $input->getString('task', '');
-
+$task=$input->get('task','');
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -119,7 +118,7 @@ $doc->addScriptDeclaration($js_content);
                     $checked = JHtml::_('grid.id', $i, $row->virtuemart_itinerary_id);
                     $published = $this->gridPublished($row, $i);
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_cityarea_id');
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=itinerary&task=show_parent_popup&key[virtuemart_product_id]='.$row->virtuemart_product_id.'&cid[]=' . $row->virtuemart_itinerary_id);
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&controller=itinerary&task=edit&&virtuemart_product_id='.$row->virtuemart_product_id.'&cid[]=' . $row->virtuemart_itinerary_id);
                     $edit = $this->gridEdit($row, $i, 'virtuemart_itinerary_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">
@@ -188,11 +187,17 @@ $doc->addScriptDeclaration($js_content);
             'key[virtuemart_product_id]'=>$this->virtuemart_product_id
         )); ?>
 
-        <?php echo $this->addStandardHiddenToForm(); ?>
+        <input type="hidden" name="option" value="com_virtuemart">
+        <input type="hidden" name="controller" value="itinerary">
+        <input type="hidden" name="virtuemart_vendor_id" value="1">
+        <input type="hidden" name="view" value="itinerary" />
+        <input type="hidden" name="task" value="">
+        <input type="hidden" name="filter_order" value="<?php echo $listOrder ?>" />
+        <input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn ?>" />';
         <?php echo JHtml::_('form.token'); ?>
     </form>
     <?php
-    if ($task == 'edit_item'||$task=='add_new_item') {
+    if ($task == 'edit'||$task=='add') {
         echo $this->loadTemplate('edit');
     }
     ?>

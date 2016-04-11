@@ -28,18 +28,15 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class TableTour_service_class extends VmTableData {
+class TableExcursion_ad_don_date_price extends VmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_service_class_id				= 0;
-	var $service_class_name				= "";
-	var $icon				= "";
-	var $meta_title				= "";
-	var $key_word				= "";
-	var $description				= "";
-
-	var $shared					= 0;
-	var $published				= 0;
+	var $id				= 0;
+	var $virtuemart_excursion_addon_id			= 0;
+	var $virtuemart_product_id			= 0;
+	var $excursion_payment_type			= 0;
+	var $date				= null;
+	var $data_price				= null;
 
 	/**
 	 * @author Max Milbers
@@ -47,12 +44,8 @@ class TableTour_service_class extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_service_class', 'virtuemart_service_class_id', $db);
+		parent::__construct('#__virtuemart_excursion_add_on_date_price', 'id', $db);
 
-
-		$this->setLoggable();
-
-		$this->setOrderable();
 	}
 
 	function check(){

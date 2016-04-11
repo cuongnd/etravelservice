@@ -172,7 +172,9 @@ class JToolbar
 
 		return implode('', $html);
 	}
-
+    public function reset(){
+        $this->_bar=array();
+    }
 	/**
 	 * Render a button.
 	 *

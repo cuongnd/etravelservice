@@ -66,6 +66,7 @@ class ConfigModelComponent extends ConfigModelForm
 		}
 		else
 		{
+
 			// Add the search path for the admin component config.xml file.
 			JForm::addFormPath(JPATH_ADMINISTRATOR . '/components/' . $state->get('component.option'));
 		}

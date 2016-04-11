@@ -37,17 +37,17 @@ AdminUIHelper::imitateTabs('start', "hotel");
                             <?php echo VmHTML::input( 'hotel_name', $this->item->hotel_name, ' placeholder="hotel name" '); ?>
                             <?php echo VmHTML::input( 'title', $this->item->star_rating, ' placeholder="Star  rating"'); ?>
                             <?php echo VmHTML::location_city('virtuemart_cityarea_id',$this->item->virtuemart_cityarea_id,'') ; ?>
-                            <?php echo VmHTML::input( 'title', $this->item->address, ' placeholder="Address"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->google_map, ' placeholder="Google map"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->add_photo, ' placeholder="Add photo"'); ?>
+                            <?php echo VmHTML::input( 'address', $this->item->address, ' placeholder="Address"'); ?>
+                            <?php echo VmHTML::input( 'google_map', $this->item->google_map, ' placeholder="Google map"'); ?>
+                            <?php echo VmHTML::input( 'add_photo', $this->item->add_photo, ' placeholder="Add photo"'); ?>
                         </div>
                         <div class="span6">
-                            <?php echo VmHTML::input( 'title', $this->item->tel_number, ' placeholder="Tell number"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->fax_number, ' placeholder="fax number"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->email, ' placeholder="E-mail add"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->website, ' placeholder="Website"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->reviews_api, ' placeholder="reviews API"'); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->hotel_code, ' placeholder="Hotel code"'); ?>
+                            <?php echo VmHTML::input( 'tel_number', $this->item->tel_number, ' placeholder="Tell number"'); ?>
+                            <?php echo VmHTML::input( 'fax_number', $this->item->fax_number, ' placeholder="fax number"'); ?>
+                            <?php echo VmHTML::input( 'email', $this->item->email, ' placeholder="E-mail add"'); ?>
+                            <?php echo VmHTML::input( 'website', $this->item->website, ' placeholder="Website"'); ?>
+                            <?php echo VmHTML::input( 'reviews_api', $this->item->reviews_api, ' placeholder="reviews API"'); ?>
+                            <?php echo VmHTML::input( 'hotel_code', $this->item->hotel_code, ' placeholder="Hotel code"'); ?>
 
                         </div>
                     </div>

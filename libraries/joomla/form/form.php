@@ -847,6 +847,7 @@ class JForm
 	 */
 	public function loadFile($file, $reset = true, $xpath = false)
 	{
+
 		// Check to see if the path is an absolute path.
 		if (!is_file($file))
 		{
@@ -2106,7 +2107,6 @@ class JForm
 				}
 			}
 		}
-
 		return $forms[$name];
 	}
 

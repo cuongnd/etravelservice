@@ -30,6 +30,7 @@ $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/dialog.js');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/core.css');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/theme.css');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/dialog.css');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_hoteladdon_default.less');
 $input = JFactory::getApplication()->input;
 AdminUIHelper::startAdminArea($this);
 $js_content = '';
@@ -47,18 +48,25 @@ ob_start();
 $js_content = ob_get_clean();
 $js_content = JUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-
-
+$option=array(
+    'virtuemart_product_id'=>'',
+    'product_name'=>'Please select tour'
+);
+array_unshift($this->list_tour,$option);
 ?>
 <div class="view-hoteladdon-default">
-    <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('hoteladdon', 'search'); ?>
-                </td>
-            </tr>
-        </table>
+
+    <form action="index.php" class="form-vertical" method="post" name="adminForm" id="adminForm">
+        <div class="row-fluid filter">
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('','Reset'); ?></div>
+            <?php echo VmHTML::row_control('input', 'Hotel name or rule code','filter_search',$this->escape($this->state->get('filter.search'))); ?>
+            <?php echo VmHTML::row_control('location_city', 'Location', 'filter_location_city', $this->state->get('filter.location_city'), 'virtuemart_cityarea_id', 'full_city'); ?>
+            <?php echo VmHTML::row_control('select', 'Tour name', 'filter_virtuemart_product_id', $this->list_tour, $this->state->get('filter.virtuemart_product_id'),'', 'virtuemart_product_id', 'product_name', false); ?>
+            <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'filter_vail_from', 'filter_vail_to', $this->state->get('filter.vail_from'),$this->state->get('filter.vail_to')); ?>
+            <?php echo VmHTML::row_control('select_state', 'Status', 'filter_state',$this->state->get('filter.state'),''); ?>
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('','Search'); ?></div>
+
+        </div>
         <div id="editcell">
             <div class="vm-page-nav">
 
@@ -99,48 +107,52 @@ $doc->addScriptDeclaration($js_content);
                 </tr>
                 </thead>
                 <?php
-                $k = 0;
-                for ($i = 0, $n = count($this->items); $i < $n; $i++) {
-                    $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_hotel_addon_id);
-                    $published = $this->gridPublished($row, $i);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hotel_addon_id');
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hoteladdon&task=edit_item&cid[]=' . $row->virtuemart_hotel_addon_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_hotel_addon_id', $editlink);
-                    ?>
-                    <tr class="row<?php echo $k; ?>">
-                        <td class="admin-checkbox">
-                            <?php echo $checked; ?>
-                        </td>
-                        <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_name; ?></a>
-                        </td>
-                        <td align="left">
-                            <?php echo JHtml::_('date', $row->created_on,'d M. Y'); ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->city_area_name; ?>
-                        </td>
-                        <td align="left">
-                            <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>
-                        </td>
-                        <td align="left">
-                            <?php echo JHtml::_('date', $row->vail_from,'d M. Y'); ?>
-                            <br>
-                            <?php echo JHtml::_('date', $row->vail_to,'d M. Y'); ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->tours; ?>
-                        </td>
-                        <td align="center">
-                            <?php echo $published; ?>
-                            <?php echo $edit; ?>
-                            <?php echo $delete; ?>
-                        </td>
-                    </tr>
-                    <?php
-                    $k = 1 - $k;
+
+                if(count($this->items)) {
+                    $k = 0;
+                    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
+                        $row = $this->items[$i];
+
+                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_hotel_addon_id);
+                        $published = $this->gridPublished($row, $i);
+                        $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hotel_addon_id');
+                        $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hoteladdon&task=edit_item&cid[]=' . $row->virtuemart_hotel_addon_id);
+                        $edit = $this->gridEdit($row, $i, 'virtuemart_hotel_addon_id', $editlink);
+                        ?>
+                        <tr class="row<?php echo $k; ?>">
+                            <td class="admin-checkbox">
+                                <?php echo $checked; ?>
+                            </td>
+                            <td align="left">
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_name; ?></a>
+                            </td>
+                            <td align="left">
+                                <?php echo JHtml::_('date', $row->created_on, 'd M. Y'); ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->city_area_name; ?>
+                            </td>
+                            <td align="left">
+                                <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>
+                            </td>
+                            <td align="left">
+                                <?php echo JHtml::_('date', $row->vail_from, 'd M. Y'); ?>
+                                <br>
+                                <?php echo JHtml::_('date', $row->vail_to, 'd M. Y'); ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->tour_tour_class; ?>
+                            </td>
+                            <td align="center">
+                                <?php echo $published; ?>
+                                <?php echo $edit; ?>
+                                <?php echo $delete; ?>
+                            </td>
+                        </tr>
+                        <?php
+                        $k = 1 - $k;
+                    }
                 }
                 ?>
                 <tfoot>
