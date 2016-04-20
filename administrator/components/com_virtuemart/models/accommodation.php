@@ -124,9 +124,20 @@ class VirtueMartModelAccommodation extends VmModel {
 		$virtuemart_accommodation_id= parent::store($data);
 		if($virtuemart_accommodation_id)
 		{
-
 			$list_hotel_service_class=$data['list_hotel_service_class'];
+
 			foreach($list_hotel_service_class as $virtuemart_service_class_id=>$list_hotel){
+                $query=$this->_db->getQuery(true);
+                $query->delete('#__virtuemart_hotel_id_service_class_id_accommodation_id')
+                    ->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
+                    ->where('virtuemart_accommodation_id='.(int)$virtuemart_accommodation_id)
+                    ;
+                $this->_db->setQuery($query);
+                $ok=$this->_db->execute();
+                if(!$ok)
+                {
+                    throw new Exception($this->_db->getErrorMsg());
+                }
 				foreach($list_hotel as $key=> $virtuemart_hotel_id){
 					if(!is_numeric($key))
 					{
@@ -135,12 +146,16 @@ class VirtueMartModelAccommodation extends VmModel {
 					}else{
 						$key=0;
 					}
+                    $virtuemart_service_class_id=$virtuemart_service_class_id?$virtuemart_service_class_id:0;
+                    $virtuemart_hotel_id=$virtuemart_hotel_id?$virtuemart_hotel_id:0;
 					$table_hotel_id_service_class_id_accommodation_id=$this->getTable('hotel_id_service_class_id_accommodation_id');
-					$table_hotel_id_service_class_id_accommodation_id->id=$key;
-					$table_hotel_id_service_class_id_accommodation_id->virtuemart_service_class_id=$virtuemart_service_class_id?$virtuemart_service_class_id:null;
-					$table_hotel_id_service_class_id_accommodation_id->virtuemart_hotel_id=$virtuemart_hotel_id?$virtuemart_hotel_id:null;
+					$table_hotel_id_service_class_id_accommodation_id->virtuemart_service_class_id=$virtuemart_service_class_id;
+					$table_hotel_id_service_class_id_accommodation_id->virtuemart_hotel_id=$virtuemart_hotel_id;
 					$table_hotel_id_service_class_id_accommodation_id->virtuemart_accommodation_id=$virtuemart_accommodation_id;
-					$table_hotel_id_service_class_id_accommodation_id->store();
+                    if($virtuemart_hotel_id&&$virtuemart_service_class_id&&$virtuemart_accommodation_id)
+                    {
+                        $table_hotel_id_service_class_id_accommodation_id->store(true);
+                    }
 					$errors=$table_hotel_id_service_class_id_accommodation_id->getErrors();
 					if(count($errors))
 					{

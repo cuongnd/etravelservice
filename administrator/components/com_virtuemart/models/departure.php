@@ -570,7 +570,7 @@ class VirtueMartModelDeparture extends VmModel
             ->select('group_size_id_tour_price_id.*')
             ->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
             ->leftJoin('#__virtuemart_tour_price AS tour_price
-			ON tour_price.virtuemart_price_id=group_size_id_tour_price_id.virtuemart_tour_price_id')
+			ON tour_price.virtuemart_price_id=group_size_id_tour_price_id.virtuemart_price_id')
             ->select('tour_price.*')
             ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
             ->where('tour_price.service_class_id='.(int)$tour_service_class_id)
@@ -624,7 +624,7 @@ class VirtueMartModelDeparture extends VmModel
             $query->clear()
                 ->from('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id')
                 ->select('mark_up_tour_price_id.*')
-                ->where('mark_up_tour_price_id.virtuemart_tour_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
+                ->where('mark_up_tour_price_id.virtuemart_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
             ;
             $list_mark_up_tour_price=$db->setQuery($query)->loadObjectList();
         }
@@ -632,8 +632,8 @@ class VirtueMartModelDeparture extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $virtuemart_tour_price_id=$mark_up_tour_price->virtuemart_tour_price_id;
-            $list_mark_up_tour_price2[$virtuemart_tour_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
+            $virtuemart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $list_mark_up_tour_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.tính giá thực sau khi khi có markup basic (có phần lãi)
 

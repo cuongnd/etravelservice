@@ -251,15 +251,9 @@ AdminUIHelper::imitateTabs('start', 'COM_VIRTUEMART_CURRENCY_DETAILS');
                             </tr>
                             <tr>
                                 <td>Sale periol</td>
-                                <td>From</td>
-                                <td nowrap>
-                                    <?php echo vmJsApi::jDate($this->price->sale_period_from, 'sale_period_from'); ?>
+                                <td colspan="4">
+                                    <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', $this->price->sale_period_from,$this->price->sale_period_to); ?>
                                 </td>
-                                <td>To</td>
-                                <td nowrap>
-                                    <?php echo vmJsApi::jDate($this->price->sale_period_to, 'sale_period_to'); ?>
-                                </td>
-
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -322,6 +316,7 @@ AdminUIHelper::imitateTabs('start', 'COM_VIRTUEMART_CURRENCY_DETAILS');
 
         </div>
         <input type="hidden" name="virtuemart_price_id" value="<?php echo $this->price->virtuemart_price_id; ?>"/>
+
         <input type="hidden" name="tour_methor" value="<?php echo $this->product->tour_methor; ?>"/>
         <input type="hidden" name="key[virtuemart_product_id]"
                value="<?php echo $this->product->virtuemart_product_id; ?>"/>

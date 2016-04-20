@@ -32,8 +32,8 @@
             var to_name = plugin.settings.to_name;
             $element.find('.range_of_date').daterangepicker({
                     format: 'YYYY-MM-DD',
-                    startDate: from_date,
-                    endDate: to_date,
+                    startDate: new Date(),
+                    endDate: new Date(),
                     ranges: {
                         'Today': [moment(), moment()],
                         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -53,7 +53,11 @@
 
 
         };
-
+        plugin.set_date=function(startDate,endDate){
+            daterangepicker=$element.find('.range_of_date').data('daterangepicker');
+            daterangepicker.setStartDate(startDate);
+            daterangepicker.setEndDate(endDate);
+        }
         plugin.init();
 
     };

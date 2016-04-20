@@ -61,6 +61,7 @@ class vmprice
 				->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tour_id)
 				->where('group_size.virtuemart_group_size_id!=0')
 				->order('group_size.from')
+				->order('group_size.type!='.$query->q('flat_price'))
 			;
 
 			return $db->setQuery($query)->loadObjectList();
@@ -71,8 +72,8 @@ class vmprice
 			$query=$db->getQuery(true);
 			$query->select('group_size_id_tour_price_id.*')
 				->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-				->where('group_size_id_tour_price_id.virtuemart_tour_price_id='.(int)$tour_price_id);
-			return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
+				->where('group_size_id_tour_price_id.virtuemart_price_id='.(int)$tour_price_id);
+			return $db->setQuery($query)->loadObjectList();
 		}
 		public static function get_list_tour_price_by_tour_price_id_for_price($tour_price_id)
 		{
@@ -80,7 +81,7 @@ class vmprice
 			$query=$db->getQuery(true);
 			$query->select('group_size_id_tour_price_id.*')
 				->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-				->where('group_size_id_tour_price_id.virtuemart_tour_price_id='.(int)$tour_price_id)
+				->where('group_size_id_tour_price_id.virtuemart_price_id='.(int)$tour_price_id)
 			;
 			return $db->setQuery($query)->loadObject();
 		}
@@ -90,7 +91,7 @@ class vmprice
 			$query=$db->getQuery(true);
 			$query->select('mark_up_tour_price_id.*')
 				->from('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id')
-				->where('mark_up_tour_price_id.virtuemart_tour_price_id='.(int)$tour_price_id);
+				->where('mark_up_tour_price_id.virtuemart_price_id='.(int)$tour_price_id);
 			return $db->setQuery($query)->loadObjectList();
 		}
 

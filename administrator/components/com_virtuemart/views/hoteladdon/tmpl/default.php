@@ -131,7 +131,7 @@ array_unshift($this->list_tour,$option);
                                 <?php echo JHtml::_('date', $row->created_on, 'd M. Y'); ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->city_area_name; ?>
+                                <a href="/administrator/index.php?option=com_virtuemart&view=cityarea&task=edit_item&cid[]=<?php echo $row->virtuemart_cityarea_id; ?>"><?php echo $row->city_area_name; ?></a>
                             </td>
                             <td align="left">
                                 <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>

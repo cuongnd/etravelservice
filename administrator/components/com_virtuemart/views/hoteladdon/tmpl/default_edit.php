@@ -45,7 +45,7 @@ $doc->addScriptDeclaration($js_content);
                 <h3> Service name</h3>
             </div>
             <div class="span8">
-                <?php echo VmHTML::select('virtuemart_hotel_id', $this->list_hotel,$this->item->virtuemart_hotel_id,'', 'virtuemart_hotel_id','hotel_name'); ?>
+                <?php echo VmHTML::select('virtuemart_hotel_id', $this->list_hotel,$this->item->virtuemart_hotel_id,' ', 'virtuemart_hotel_id','hotel_name'); ?>
                 <br/>
                 <?php echo VmHTML::input( 'location', $this->hotel->city_area_name, ' placeholder="location" readonly '); ?>
 

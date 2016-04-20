@@ -22,12 +22,27 @@ $app = JFactory::getApplication();
 $input = $app->input;
 $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
 $cid = $input->get('cid', array(), 'array');
-
+$doc=JFactory::getDocument();
+$doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/view_groupsize_default.js');
+$js_content = '';
+ob_start();
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-groupsize-default').view_groupsize_default({
+                list_group_size:<?php echo json_encode($this->items) ?>
+            });
+        });
+    </script>
+<?php
+$js_content = ob_get_clean();
+$js_content = JUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
 
 AdminUIHelper::startAdminArea($this);
 
 ?>
-
+<div class="view-groupsize-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <div id="editcell">
             <div class="vm-page-nav">
@@ -44,6 +59,9 @@ AdminUIHelper::startAdminArea($this);
                     </th>
                     <th>
                         <?php echo $this->sort('group_name', 'group_name'); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('type', 'type'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('from', 'From'); ?>
@@ -86,48 +104,76 @@ AdminUIHelper::startAdminArea($this);
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_group_size_id => $row->virtuemart_group_size_id)); ?>
-                                <?php echo $checked ?>
-                            <?php } else { ?>
-                                <?php echo $checked ?>
-                            <?php } ?>
+                        <?php if( $row->type!='flat_price'){ ?>
+                                <?php if ($show_edit) { ?>
+                                    <?php echo VmHTML::inputHidden(array(virtuemart_group_size_id => $row->virtuemart_group_size_id)); ?>
+                                    <?php echo $checked ?>
+                                <?php } else { ?>
+                                    <?php echo $checked ?>
+                                <?php } ?>
+                        <?php }else{ ?>
+
+                        <?php } ?>
                         </td>
                         <td align="left">
+                            <?php if( $row->type!='flat_price'){ ?>
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::input('group_name', $row->group_name, 'class="required"'); ?>
                             <?php } else { ?>
+
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->group_name; ?>
-                                    (<?php echo $row->from ?>,<?php echo $row->to ?>)</a>            <?php } ?>
+                                    (<?php echo $row->from ?>,<?php echo $row->to ?>)</a>
+                            <?php } ?>
+                            <?php }else{ ?>
+                                <?php echo JText::_('flat price') ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
+                            <?php if( $row->type!='flat_price'){ ?>
+                            <?php if ($show_edit) { ?>
+
+                            <?php } else { ?>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->type; ?></a>
+                            <?php } ?>
+                            <?php }else{ ?>
+                                <?php echo JText::_('flat price') ?>
+                            <?php } ?>
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('from', $row->from, 'class="required"'); ?>
+                                <?php
+                                $option=array(
+
+                                )
+                                ?>
+                                <?php echo VmHTML::input_number('from', $row->from, 'required','',0,100,'',$option); ?>
                             <?php } else { ?>
-                                <?php echo $row->from ?>
+                                <?php echo $row->type=='flat_price'?'none':$row->from ?>
                             <?php } ?>
 
 
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('to', $row->to, 'class="required"'); ?>
+                                <?php echo VmHTML::input_number('to', $row->to, 'required'); ?>
                             <?php } else { ?>
-                                <?php echo $row->to ?>
+                                <?php echo $row->type=='flat_price'?'none':$row->to ?>
                             <?php } ?>
                         </td>
 
                         <td width="10%" align="center">
-                            <?php if ($show_edit) { ?>
+                            <?php if ($show_edit && $row->type!='flat_price') { ?>
                                 <?php echo $add_new ? '' : $published; ?>
                                 <?php echo $save; ?>
                                 <?php echo $cancel; ?>
                                 <?php echo VmHTML::inputHidden(array(published => $row->published)); ?>
 
                             <?php } else { ?>
-                                <?php echo $published; ?>
-                                <?php echo $edit; ?>
-                                <?php echo $delete; ?>
+                                <?php if($row->type!='flat_price'){ ?>
+                                    <?php echo $published; ?>
+                                    <?php echo $edit; ?>
+                                    <?php echo $delete; ?>
+                                <?php } ?>
                             <?php } ?>
                         </td>
                     </tr>
@@ -150,5 +196,5 @@ AdminUIHelper::startAdminArea($this);
         <?php echo JHtml::_('form.token'); ?>
     </form>
 
-
+</div>
 <?php AdminUIHelper::endAdminArea(); ?>

@@ -48,10 +48,27 @@ class VirtuemartControllerHotel extends VmController {
 	 *
 	 * @author Max Milbers
 	 */
-	function save($data = 0){
+    function save($data = 0){
 
-		$data = vRequest::getRequest();
-		parent::save($data);
-	}
+        $input=JFactory::getApplication()->input;
+        $data=$input->getArray();
+        $model = VmModel::getModel($this->_cname);
+
+        $id = $model->store($data);
+        $msg = 'failed';
+        if(!empty($id)) {
+            $msg = vmText::sprintf('COM_VIRTUEMART_STRING_SAVED',$this->mainLangKey);
+            $type = 'message';
+        }
+        else $type = 'error';
+
+        $redir = 'index.php?option=com_virtuemart&view=hotel';
+        $this->setRedirect($redir, $msg,$type);
+    }
+    public function cancel()
+    {
+        $redir = 'index.php?option=com_virtuemart&view=hotel';
+        $this->setRedirect($redir);
+    }
 }
 // pure php no closing tag

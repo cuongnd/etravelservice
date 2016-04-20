@@ -126,6 +126,26 @@ class vmproduct
 
 
     }
+    public static function get_list_tour_method()
+    {
+        $list_tour_method=array();
+
+
+        $item=new stdClass();
+        $item->value="tour_group";
+        $item->text="Tour group";
+        $list_tour_method[]=$item;
+
+
+
+
+        $item=new stdClass();
+        $item->value="tour_private";
+        $item->text="Tour private";
+        $list_tour_method[]=$item;
+
+        return $list_tour_method;
+    }
 
 
 }

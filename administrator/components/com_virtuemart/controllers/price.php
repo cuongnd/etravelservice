@@ -117,10 +117,11 @@ class VirtuemartControllerPrice extends VmController {
 
     public function get_list_price()
     {
+
         $app=JFactory::getApplication();
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
-        $tour_methor=$input->get('tour_methor','','string');
+        $tour_method=$input->get('tour_method','','string');
         $model_price = VmModel::getModel('price');
         $model_price->setId($price_id);
         $price = $model_price->getPrice();
@@ -133,9 +134,9 @@ class VirtuemartControllerPrice extends VmController {
         $this->virtuemart_product_id=$tour_id;
 
         $model_product = VmModel::getModel('product');
-        $product=$model_product->getProduct($this->virtuemart_product_id,false,false,false);
+        $product=$model_product->getItem($this->virtuemart_product_id);
 
-        if($tour_methor=='tour_group')
+        if($tour_method=='tour_group')
         {
             $return_item->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($price_id);
         }else{

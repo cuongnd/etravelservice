@@ -33,6 +33,7 @@ $i = 0;
                 <?php echo VmHTML::row_control('select', 'Add country', 'list_virtuemart_country_id[]', $this->countries, $this->product->list_virtuemart_country_id, 'multiple', 'virtuemart_country_id', 'country_name', false); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add start city', 'start_city', $this->product->start_city, ''); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add end city', 'end_city', $this->product->start_city, ''); ?>
+                <?php echo VmHTML::row_control('select', 'Tour method', 'tour_method', $this->list_tour_method, $this->product->tour_method, '', 'value', 'text', false); ?>
             </fieldset>
 
         </div>
@@ -41,7 +42,7 @@ $i = 0;
                 <legend>Particularity</legend>
 
                 <?php echo VmHTML::row_control('select', 'Tour type', 'virtuemart_tour_type_id', $this->list_tour_type, $this->product->virtuemart_tour_type_id, '', 'virtuemart_tour_type_id', 'title', false); ?>
-                <?php echo VmHTML::row_control('select', 'tour style', 'virtuemart_tour_style_id', $this->list_tour_style, $this->product->tour_style_id, '', 'virtuemart_tour_style_id', 'title', false); ?>
+                <?php echo VmHTML::row_control('select', 'tour style', 'virtuemart_tour_style_id', $this->list_tour_style, $this->product->virtuemart_tour_style_id, '', 'virtuemart_tour_style_id', 'title', false); ?>
                 <?php echo VmHTML::row_control('select', 'physical grade', 'virtuemart_physicalgrade_id', $this->list_physical_grade, $this->product->virtuemart_physicalgrade_id, '', 'virtuemart_physicalgrade_id', 'title', false); ?>
 
                 <div class="control-group min-max-pers"><label class="control-label">Min Max pers</label>
@@ -120,7 +121,7 @@ $i = 0;
                     <div class="group-size" style="display: none">
                         <hr/>
                         <h4 style="text-align: center">select group size for multiply group price</h4>
-                        <?php echo VmHTML::list_checkbox('list_group_size_id', $this->list_group_size, $this->product->list_group_size_id, '', 'virtuemart_group_size_id', 'group_name', false); ?>
+                        <?php echo VmHTML::list_checkbox_group_size('list_group_size_id',  $this->product->list_group_size_id, '', false); ?>
                     </div>
                 </div>
             </div>

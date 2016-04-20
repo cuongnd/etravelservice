@@ -935,22 +935,6 @@ class VmModel extends JModelList{
 	 * @author Max Milbers
 	 * @return int Total number of entries in the database
 	 */
-	public function getTotal() {
-
-		if (empty($this->_total)) {
-			$db = JFactory::getDbo();
-			$query = 'SELECT `'.$this->_db->escape($this->_idName).'` FROM `'.$this->_db->escape($this->_maintable).'`';;
-			$db->setQuery( $query );
-			if(!$db->execute()){
-				if(empty($this->_maintable)) vmError('Model '.get_class( $this ).' has no maintable set');
-				$this->_total = 0;
-			} else {
-				$this->_total = $db->getNumRows();
-			}
-		}
-
-		return $this->_total;
-	}
 
 
 	public function setGetCount($withCount){

@@ -43,6 +43,9 @@ class virtuemartViewaccommodation extends VmViewAdmin {
 		$model = VmModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmproduct.php';
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+        require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
+        $this->list_hotel=vmHotel::get_list_hotel();
+        $this->list_hotel=JArrayHelper::pivot($this->list_hotel,'virtuemart_hotel_id');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -80,8 +83,7 @@ class virtuemartViewaccommodation extends VmViewAdmin {
 				$virtuemart_accommodation_id=$cid[0];
 				require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
 				$this->list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
-				require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
-				$this->list_hotel=vmHotel::get_list_hotel();
+
 
 				require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmaccommodation.php';
 				$this->list_hotel_selected_by_service_class_id_and_itinerary_id=vmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($this->list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);

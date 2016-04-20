@@ -1005,6 +1005,55 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
+    public static function list_checkbox_group_size($name,  $list_selected = array(), $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
+    {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.less');
+
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+
+        $tour_group_size = vmGroupSize::get_list_group_size();
+
+        $id_list_checkbox_group_size = 'list_checkbox_group_size_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_list_checkbox_group_size ?>').html_list_checkbox_group_size({
+                    list_selected:<?php echo json_encode($list_selected) ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+
+        $html = '';
+        $list_list_group_size = array_chunk($tour_group_size, $column);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_list_checkbox_group_size ?>" class="html_list_checkbox_group_size">
+            <?php foreach ($list_list_group_size as $list_group_size) { ?>
+                <div class="row-fluid">
+                    <?php foreach ($list_group_size as $group_size) { ?>
+                        <div class="span<?php echo round(12 / $column) ?>">
+                            <label class="checkbox">
+                                <input
+                                    name="<?php echo $name ?>[]" data-from="<?php echo $group_size->from ?>"  data-to="<?php echo $group_size->to ?>" <?php echo in_array($group_size->virtuemart_group_size_id, $list_selected) ? 'checked' : '' ?>
+                                    value="<?php echo $group_size->virtuemart_group_size_id ?>" type="checkbox"> <?php echo $group_size->group_name ?>
+                            </label>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
 
     public static function list_radio($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
@@ -1538,7 +1587,7 @@ class VmHtml
         return ob_get_clean();
     }
 
-    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 100, $more = '')
+    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 100, $more = '',$option=array())
     {
 
         $doc = JFactory::getDocument();
@@ -1548,9 +1597,9 @@ class VmHtml
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('.input_number_<?php echo $name ?>').autoNumeric('init').change(function () {
+                $('.input_number_<?php echo $name ?>').autoNumeric('init',<?php echo json_encode($option) ?>).change(function () {
                     var value_of_this = $(this).autoNumeric('get');
-                    $('input[name="<?php echo $name ?>"]').val(value_of_this);
+                    $('input[name="<?php echo $name ?>"]').val(value_of_this).trigger("change");;
                 });
 
             });

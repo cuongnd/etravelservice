@@ -40,35 +40,24 @@ class virtuemartViewhotel extends VmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$model = VmModel::getModel();
-		$this->view_height=1500;
-
+        $this->setLayout('default');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
-		if ($layoutName == 'edit') {
-			$cid	= vRequest::getInt( 'cid' );
+        JToolBarHelper::publishList();
+        JToolBarHelper::unpublishList();
+        JToolBarHelper::editList();
+        JToolBarHelper::addNew();
+        JToolBarHelper::deleteList();
+        $this->SetViewTitle();
+        $this->addStandardDefaultViewLists($model,0,'ASC');
+        $this->items = $model->getItemList(vRequest::getCmd('search', false));
+        $this->pagination = $model->getPagination();
+        $cid	= vRequest::getInt( 'cid' );
+        $model->setId($cid);
+        $this->item = $model->getItem();
+        $this->SetViewTitle('',$this->item->title);
 
-			$task = vRequest::getCmd('task', 'add');
 
-			if($task!='add' && !empty($cid) && !empty($cid[0])){
-				$cid = (int)$cid[0];
-			} else {
-				$cid = 0;
-			}
-
-			$model->setId($cid);
-			$this->item = $model->getItem();
-			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
-
-		} else {
-
-			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
-			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
-
-		}
 
 		parent::display($tpl);
 	}

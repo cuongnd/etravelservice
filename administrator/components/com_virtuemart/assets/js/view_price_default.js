@@ -5,11 +5,12 @@
 
         // plugin's default options
         var defaults = {
+            list_price:[],
             totalPages:0,
             totalItem:10,
             tour_id:0,
             visiblePages:5,
-            tour_methor:'',
+            tour_method:'',
             dialog_class:'dialog-form-price',
             date_format:'m/d/y'
 
@@ -31,7 +32,7 @@
 
             var totalItem=plugin.settings.totalItem;
             var tour_id=plugin.settings.tour_id;
-            var tour_methor=plugin.settings.tour_methor;
+            var tour_method=plugin.settings.tour_method;
             $('.vm_toolbar').insertAfter($('.buid-information'));
 /*
             $element.find('#ul_pagination').twbsPagination({
@@ -72,7 +73,7 @@
                             task: 'get_list_price',
                             price_id:price_id,
                             tour_id:tour_id,
-                            tour_methor:tour_methor,
+                            tour_method:tour_method,
                         };
                         return dataPost;
                     })(),
@@ -99,6 +100,11 @@
 
 
             });
+            $('.dialog-form-price table.base-price').find('input[column-type="private_room"]').change(function(){
+                var private_room=$(this).val();
+                $('.dialog-form-price table.base-price').find('input[column-type="private_room"]').val(private_room);
+            });
+
             $element.find('.delete-price').click(function(){
 
                 if (confirm('Are you sure you want delete this item ?')) {
@@ -116,7 +122,7 @@
                                 task: 'ajax_remove',
                                 price_id:price_id,
                                 tour_id:tour_id,
-                                tour_methor:tour_methor,
+                                tour_method:tour_method,
                             };
                             return dataPost;
                         })(),
@@ -172,7 +178,7 @@
                                 task: 'ajax_publish',
                                 price_id:price_id,
                                 tour_id:tour_id,
-                                tour_methor:tour_methor,
+                                tour_method:tour_method,
                             };
                             return dataPost;
                         })(),
@@ -268,7 +274,14 @@
             });
 
             $('.dialog-form-price').find('.save-close-price').click(function(){
+                if(!plugin.validate())
+                {
+                    return false;
+                }
+
                 var dataPost=$('.dialog-form-price').find(':input').serializeObject();
+
+                console.log(dataPost.tour_price_by_tour_price_id);
                 var price_id=dataPost.virtuemart_price_id;
                 var $row=$('.list-prices tr[data-price_id="'+price_id+'"]');
                 if (confirm('Are you sure you want save this item ?')) {
@@ -307,7 +320,10 @@
                                 $row.data('price_id',result.virtuemart_price_id);
                                 $row.find('span.item-id').html(result.virtuemart_price_id);
                                 $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
-                                $row.find('td.service_class_name').html(result.service_class.service_class_name);
+                                if( result.service_class !=null && typeof result.service_class !="undefined")
+                                {
+                                    $row.find('td.service_class_name').html(result.service_class.service_class_name);
+                                }
                                 $row.find('td.sale_period').html(result.sale_period);
                                 $row.find('td.modified_on').html(result.modified_on);
                                 $row.find('td.modified_on').html(result.modified_on);
@@ -347,7 +363,44 @@
                     return;
                 }
             });
+            plugin.validate=function(){
+                var list_price=plugin.settings.list_price;
+                var virtuemart_price_id=$('input[name="virtuemart_price_id"]').val();
+                var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
+                if(virtuemart_service_class_id==0)
+                {
+                    alert('please select service class');
+                    return false;
+                }
+                var sale_period_from=$('input[name="sale_period_from"]').val();
+                sale_period_from=new Date(sale_period_from);
+                var sale_period_to=$('input[name="sale_period_to"]').val();
+                sale_period_to=new Date(sale_period_to);
+                if(list_price.length>0)
+                {
+                    for(var i=0;i<list_price.length;i++){
+                        var item=list_price[i];
+                        if(item.virtuemart_price_id!=virtuemart_price_id && virtuemart_service_class_id==item.virtuemart_service_class_id)
+                        {
+                            var item_sale_period_from=new Date(item.sale_period_from);
+                            var item_sale_period_to=new Date(item.sale_period_to);
+                            if (sale_period_from > item_sale_period_from && sale_period_from < item_sale_period_to){
+                                alert('sale_period_from > item_sale_period_from && sale_period_from < item_sale_period_to');
+                                return false;
+                            }
+
+
+                        }
+                    }
+                }
+                return true;
+
+            };
             $('.dialog-form-price').find('.apply-price').click(function(){
+                if(!plugin.validate())
+                {
+                    return false;
+                }
                 var dataPost=$('.dialog-form-price').find(':input').serializeObject();
                 if (confirm('Are you sure you want save this item ?')) {
                     var price_id=dataPost.virtuemart_price_id;
@@ -384,7 +437,10 @@
                                 $row.data('price_id',result.virtuemart_price_id);
                                 $row.find('span.item-id').html(result.virtuemart_price_id);
                                 $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
-                                $row.find('td.service_class_name').html(result.service_class.service_class_name);
+                                if( result.service_class !=null && typeof result.service_class !="undefined")
+                                {
+                                    $row.find('td.service_class_name').html(result.service_class.service_class.service_class_name);
+                                }
                                 $row.find('td.sale_period').html(result.sale_period);
                                 $row.find('td.modified_on').html(result.modified_on);
                                 $row.find('td.modified_on').html(result.modified_on);
@@ -420,7 +476,8 @@
 
                             dataPost = {
                                 option: 'com_virtuemart',
-                                task: 'price.get_list_price'
+                                controller: 'price',
+                                task: 'get_list_price'
                             };
                             return dataPost;
                         })(),
@@ -496,7 +553,7 @@
         plugin.fill_data=function(result)
         {
             var date_format=plugin.settings.date_format;
-            var tour_methor=plugin.settings.tour_methor;
+            var tour_method=plugin.settings.tour_method;
             var list_tour_price_by_tour_price_id=result.list_tour_price_by_tour_price_id;
             if(typeof list_tour_price_by_tour_price_id=="undefined")
             {
@@ -505,18 +562,16 @@
             }
             $('input[name="tax"]').val(result.price.tax);
             $('textarea[name="price_note"]').val(result.price.price_note.trim());
-            $('#sale_period_from').val(result.price.sale_period_from);
-            var sale_period_from=$.datepicker.formatDate(date_format, new Date(result.price.sale_period_from))
-            $('#sale_period_from_text').val(sale_period_from);
+            $('input[name="sale_period_from"]').val(result.price.sale_period_from);
 
-            $('#sale_period_to').val(result.price.sale_period_to);
-            var sale_period_to=$.datepicker.formatDate(date_format, new Date(result.price.sale_period_to))
-            $('#sale_period_to_text').val(sale_period_to);
-
-
-            $('select[name="service_class_id"]').val(result.price.service_class_id);
-            $('select[name="service_class_id"]').trigger("liszt:updated.chosen");
-            if(tour_methor=='tour_group')
+            $('input[name="sale_period_to"]').val(result.price.sale_period_to);
+            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            if(typeof range_of_date!="undefined") {
+                range_of_date.set_date(result.price.sale_period_from,result.price.sale_period_to);
+            }
+            $('select[name="virtuemart_service_class_id"]').val(result.price.virtuemart_service_class_id);
+            $('select[name="virtuemart_service_class_id"]').trigger("liszt:updated.chosen");
+            if(tour_method=='tour_group'&& list_tour_price_by_tour_price_id!=null && (typeof list_tour_price_by_tour_price_id!="undefined") && list_tour_price_by_tour_price_id.length)
             {
                 $.each(list_tour_price_by_tour_price_id,function(index,item){
                     var $row=$('table.base-price tr[data-group_size_id="'+item.virtuemart_group_size_id+'"]');
@@ -530,7 +585,7 @@
 
                 });
 
-            }else{
+            }else if(list_tour_price_by_tour_price_id !=null){
                 console.log(list_tour_price_by_tour_price_id);
                 var $row=$('table.base-price  tbody tr');
                 $row.find('td input[column-type="senior"]').val(list_tour_price_by_tour_price_id.price_senior);
@@ -545,22 +600,25 @@
 
 
             var list_mark_up=result.list_mark_up;
-            $.each(list_mark_up,function(type,item){
-                var $row=$('table.mark-up-price tr.'+type);
-                $row.find('td input[column-type="senior"]').val(item.senior);
-                $row.find('td input[column-type="adult"]').val(item.adult);
-                $row.find('td input[column-type="teen"]').val(item.teen);
-                $row.find('td input[column-type="children1"]').val(item.children1);
-                $row.find('td input[column-type="children2"]').val(item.children2);
-                $row.find('td input[column-type="infant"]').val(item.infant);
-                $row.find('td input[column-type="private_room"]').val(item.private_room);
+            if(typeof list_mark_up!="undefined" && list_mark_up.length)
+            {
+                $.each(list_mark_up,function(type,item){
+                    var $row=$('table.mark-up-price tr.'+type);
+                    $row.find('td input[column-type="senior"]').val(item.senior);
+                    $row.find('td input[column-type="adult"]').val(item.adult);
+                    $row.find('td input[column-type="teen"]').val(item.teen);
+                    $row.find('td input[column-type="children1"]').val(item.children1);
+                    $row.find('td input[column-type="children2"]').val(item.children2);
+                    $row.find('td input[column-type="infant"]').val(item.infant);
+                    $row.find('td input[column-type="private_room"]').val(item.private_room);
 
-            });
+                });
+            }
 
 
         }
         plugin.updata_price=function updata_price(){
-            var tour_methor=plugin.settings.tour_methor;
+            var tour_method=plugin.settings.tour_method;
             var $base_price_tr_first= $('.'+plugin.settings.dialog_class).find('table.base-price tbody tr');
             var tax=$('input[name="tax"]').val();
             tax=parseFloat(tax);
@@ -584,7 +642,7 @@
                     percent=0;
                 }
                 percent=parseFloat(percent);
-                if(tour_methor=='tour_group')
+                if(tour_method=='tour_group')
                 {
                     var $span_profit=$('table.profit-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
                 }else{
@@ -601,7 +659,7 @@
                 profit_price=Math.round(profit_price);
                 //profit_price=Math.round(profit_price, 2);
                 $span_profit.html(profit_price);
-                if(tour_methor=='tour_group')
+                if(tour_method=='tour_group')
                 {
                     var $span_sale=$('table.sale-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
                 }else{

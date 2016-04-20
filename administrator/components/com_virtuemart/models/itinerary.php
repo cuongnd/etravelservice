@@ -71,9 +71,10 @@ class VirtueMartModelItinerary extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('itinerary.*')
+		$query->select('itinerary.*,cityarea.city_area_name')
 			->from('#__virtuemart_itinerary AS itinerary')
 			->where('itinerary.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';

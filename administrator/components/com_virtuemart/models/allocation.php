@@ -109,7 +109,7 @@ class VirtueMartModelAllocation extends VmModel
         while ($date->getTimestamp() <= $end_date->getTimestamp()) {
             $list_date[]= $date->format('Y-m-d');
             $date->modify('+1 day');
-        }//l?y ra các promotion theo ?i?u kiên tour_id, tour class và group size
+        }//l?y ra cï¿½c promotion theo ?i?u kiï¿½n tour_id, tour class vï¿½ group size
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
 
@@ -126,7 +126,7 @@ class VirtueMartModelAllocation extends VmModel
 
         ;
         $list_promotion_price=$db->setQuery($query)->loadObjectList();
-        // l?y giá có promotion l?c theo ?i?u ki?n th?a mãn danh sách ngày
+        // l?y giï¿½ cï¿½ promotion l?c theo ?i?u ki?n th?a mï¿½n danh sï¿½ch ngï¿½y
         $list_promotion_available=array();
         foreach($list_date as $item_date)
         {
@@ -145,7 +145,7 @@ class VirtueMartModelAllocation extends VmModel
                 }
             }
         }
-        //l?y ra các giá markup (giá tr? promotion) theo tour có net promotion price
+        //l?y ra cï¿½c giï¿½ markup (giï¿½ tr? promotion) theo tour cï¿½ net promotion price
         $list_mark_up_tour_promotion_net_price=array();
         $list_virtuemart_promotion_price_id=array();
         foreach($list_promotion_price as $item_promotion_price)
@@ -170,8 +170,8 @@ class VirtueMartModelAllocation extends VmModel
             $virtuemart_tour_promotion_price_id=$mark_up_tour_promotion_net_price->virtuemart_tour_promotion_price_id;
             $list_mark_up_tour_promotion_net_price2[$virtuemart_tour_promotion_price_id][$mark_up_tour_promotion_net_price->type]=$mark_up_tour_promotion_net_price;
         }
-        //tính giá l?i c?a promotion
-        //1.tính giá th?c sau khi promotion
+        //tï¿½nh giï¿½ l?i c?a promotion
+        //1.tï¿½nh giï¿½ th?c sau khi promotion
         foreach($list_promotion_available as $key=> $promotion_available)
         {
             $virtuemart_promotion_price_id=$promotion_available->virtuemart_promotion_price_id;
@@ -186,7 +186,7 @@ class VirtueMartModelAllocation extends VmModel
                 || $percent_price->children2!=0
                 || $percent_price->private_room!=0)
             {
-                //giá ???c tính theo percent thì không tính theo amount n?a
+                //giï¿½ ???c tï¿½nh theo percent thï¿½ khï¿½ng tï¿½nh theo amount n?a
                 $price_senior=$list_promotion_available[$key]->price_senior;
                 $price_senior=$price_senior-($price_senior*$percent_price->senior)/100;
                 $list_promotion_available[$key]->price_senior=$price_senior;
@@ -254,7 +254,7 @@ class VirtueMartModelAllocation extends VmModel
         }
 
 
-        //l?y ra các giá markup (giá tr? có lãi) theo tour có net promotion price
+        //l?y ra cï¿½c giï¿½ markup (giï¿½ tr? cï¿½ lï¿½i) theo tour cï¿½ net promotion price
         $list_mark_up_tour_promotion_price=array();
         if(count($list_virtuemart_promotion_price_id)>=1) {
             $query->clear()
@@ -271,7 +271,7 @@ class VirtueMartModelAllocation extends VmModel
             $virtuemart_tour_promotion_price_id=$mark_up_tour_promotion_price->virtuemart_tour_promotion_price_id;
             $list_mark_up_tour_promotion_price2[$virtuemart_tour_promotion_price_id][$mark_up_tour_promotion_price->type]=$mark_up_tour_promotion_price;
         }
-        //2.tính giá th?c sau khi khi có markup (có ph?n lãi)
+        //2.tï¿½nh giï¿½ th?c sau khi khi cï¿½ markup (cï¿½ ph?n lï¿½i)
 
         foreach($list_promotion_available as $key=> $promotion_available)
         {
@@ -287,7 +287,7 @@ class VirtueMartModelAllocation extends VmModel
                 || $percent_price->children2!=0
                 || $percent_price->private_room!=0)
             {
-                //giá ???c tính theo percent thì không tính theo amount n?a
+                //giï¿½ ???c tï¿½nh theo percent thï¿½ khï¿½ng tï¿½nh theo amount n?a
                 $price_senior=$list_promotion_available[$key]->price_senior;
                 $price_senior=$price_senior-($price_senior*$percent_price->senior)/100;
                 $list_promotion_available[$key]->price_senior=$price_senior;
@@ -359,20 +359,20 @@ class VirtueMartModelAllocation extends VmModel
             $list_promotion_available2[$promotion_available->virtuemart_product_id.'-'.$promotion_available->service_class_id.'-'.$promotion_available->virtuemart_group_size_id.'-'.$promotion_available->date_select]=$promotion_available;
         }
 
-        //s? lý v?i giá basic
+        //s? lï¿½ v?i giï¿½ basic
         $query->select('tour_price.*')
             ->from('#__virtuemart_tour_price AS tour_price')
             ->where('virtuemart_product_id='.(int)$tour_id)
             ->where('service_class_id='.(int)$tour_service_class_id)
             ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id
-			ON group_size_id_tour_price_id.virtuemart_tour_price_id=tour_price.virtuemart_price_id')
+			ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
             ->select('group_size_id_tour_price_id.*')
             ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
             ->where('group_size.from>='.(int)$min_space)
 
         ;
         $list_price=$db->setQuery($query)->loadObjectList();
-        // l?y giá có promotion l?c theo ?i?u ki?n th?a mãn danh sách ngày
+        // l?y giï¿½ cï¿½ promotion l?c theo ?i?u ki?n th?a mï¿½n danh sï¿½ch ngï¿½y
         $list_price_available=array();
         foreach($list_date as $item_date)
         {
@@ -393,7 +393,7 @@ class VirtueMartModelAllocation extends VmModel
         }
 
 
-        //l?y ra các giá markup (giá tr? có lãi) theo tour có net  price
+        //l?y ra cï¿½c giï¿½ markup (giï¿½ tr? cï¿½ lï¿½i) theo tour cï¿½ net  price
 
 
         $list_virtuemart_price_id=array();
@@ -419,10 +419,10 @@ class VirtueMartModelAllocation extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $virtuemart_tour_price_id=$mark_up_tour_price->virtuemart_tour_price_id;
-            $list_mark_up_tour_promotion_price2[$virtuemart_tour_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
+            $virtuemart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $list_mark_up_tour_promotion_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
-        //2.tính giá th?c sau khi khi có markup basic (có ph?n lãi)
+        //2.tï¿½nh giï¿½ th?c sau khi khi cï¿½ markup basic (cï¿½ ph?n lï¿½i)
 
         foreach($list_price_available as $key=> $price_available)
         {
@@ -438,7 +438,7 @@ class VirtueMartModelAllocation extends VmModel
                 || $percent_price->children2!=0
                 || $percent_price->private_room!=0)
             {
-                //giá ???c tính theo percent thì không tính theo amount n?a
+                //giï¿½ ???c tï¿½nh theo percent thï¿½ khï¿½ng tï¿½nh theo amount n?a
                 $price_senior=$list_price_available[$key]->price_senior;
                 $price_senior=$price_senior-($price_senior*$percent_price->senior)/100;
                 $list_price_available[$key]->price_senior=$price_senior;

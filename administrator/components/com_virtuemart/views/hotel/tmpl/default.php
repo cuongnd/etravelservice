@@ -28,8 +28,30 @@ if ($saveOrder) {
     $saveOrderingUrl = 'index.php?option=com_virtuemart&controller=hotel&task=saveOrderAjax&tmpl=component';
     JHtml::_('sortablelist.sortable', 'hotel_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
-?>
+$doc=JFactory::getDocument();
+$doc->addScript(JUri::root().'/administrator/components/com_virtuemart/assets/js/view_hotel_default.js');
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_virtuemart/assets/less/view_hotel_default.less');
+$input = JFactory::getApplication()->input;
 
+$task=$input->get('task','');
+$js_content = '';
+ob_start();
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-hotel-default').view_hotel_default({
+                task: "<?php echo $task ?>"
+            });
+        });
+    </script>
+<?php
+$js_content = ob_get_clean();
+$js_content = JUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
+
+
+?>
+<div class="view-hotel-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <table>
             <tr>
@@ -98,7 +120,7 @@ if ($saveOrder) {
                     $checked = JHtml::_('grid.id', $i, $row->virtuemart_hotel_id);
                     $published = $this->gridPublished($row, $i);
 
-                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hotel&task=show_parent_popup&cid[]=' . $row->virtuemart_hotel_id);
+                    $editlink = JROUTE::_('index.php?option=com_virtuemart&view=hotel&task=edit&layout=default&cid[]=' . $row->virtuemart_hotel_id);
                     $edit = $this->gridEdit($row, $i, 'virtuemart_hotel_id', $editlink);
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_hotel_id');
                     ?>
@@ -167,7 +189,12 @@ if ($saveOrder) {
 
         <?php echo $this->addStandardHiddenToForm(); ?>
         <?php echo JHtml::_('form.token'); ?>
+
     </form>
-
-
+    <?php
+    if ($task == 'edit'||$task=='add') {
+        echo $this->loadTemplate('edit');
+    }
+    ?>
+</div>
 <?php AdminUIHelper::endAdminArea(); ?>

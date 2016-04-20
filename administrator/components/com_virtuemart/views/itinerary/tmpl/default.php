@@ -139,7 +139,7 @@ $doc->addScriptDeclaration($js_content);
                             <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo $row->city_name; ?>
+                            <?php echo $row->city_area_name; ?>
                         </td>
                         <td align="left">
                             <?php echo $row->brief_itinerary; ?>

@@ -31,7 +31,6 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
 class Tablehotel_id_service_class_id_accommodation_id extends VmTableData {
 
 	/** @var int Primary key */
-	var $id				= 0;
 	var $virtuemart_accommodation_id			= 0;
 	var $virtuemart_hotel_id				= 0;
 	var $virtuemart_service_class_id				= 0;
@@ -42,7 +41,10 @@ class Tablehotel_id_service_class_id_accommodation_id extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_hotel_id_service_class_id_accommodation_id', 'id', $db);
+        $keys=(object)array(
+           'virtuemart_accommodation_id','virtuemart_hotel_id','virtuemart_service_class_id'
+        );
+		parent::__construct('#__virtuemart_hotel_id_service_class_id_accommodation_id', $keys, $db);
 
 	}
 

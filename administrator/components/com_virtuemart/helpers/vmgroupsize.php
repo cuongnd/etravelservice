@@ -118,6 +118,7 @@ class vmGroupSize
 
             ->from('#__virtuemart_group_size AS group_size')
             ->order('group_size.from')
+            ->where('group_size.type!='.$query->q('flat_price'))
             ;
         return $db->setQuery($query)->loadObjectList();
 

@@ -82,9 +82,7 @@ class VirtuemartViewProduct extends VmViewAdmin
                 }
                 require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
                 $this->tour_service_class = vmServiceclass::get_list_tour_service_class();
-                require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 
-                $this->tour_group_size = vmGroupSize::get_list_group_size();
                 $customfields = VmModel::getModel('Customfields');
 
                 $product->allIds[] = $product->virtuemart_product_id;
@@ -296,9 +294,11 @@ class VirtuemartViewProduct extends VmViewAdmin
                 require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmprice.php';
                 $this->list_price_type = vmprice::get_list_price_type();
 
+                require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmproduct.php';
+                $this->list_tour_method = vmproduct::get_list_tour_method();
+
 
                 $this->assignRef('product', $product);
-
                 $this->assignRef('product_parent', $product_parent);
                 /* Assign label values */
                 $this->assignRef('action', $action);

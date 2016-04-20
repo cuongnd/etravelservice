@@ -118,63 +118,119 @@ class VirtueMartModelproduct extends VmModel {
 			vmWarn('Insufficient permissions to store product');
 			return false;
 		}
-		$virtuemart_product_id= parent::store($data);
-		$db=JFactory::getDbo();
-		//inser to activity
-		$query=$db->getQuery(true);
-		$query->delete('#__virtuemart_tour_id_activity_id')
-			->where('virtuemart_product_id='.(int)$virtuemart_product_id)
-		;
-		$db->setQuery($query)->execute();
-		$err = $db->getErrorMsg();
-		if(!empty($err)){
-			vmError('can not delete activity in this tour',$err);
-		}
-		$list_activity_id=$data['list_activity_id'];
-		foreach($list_activity_id as $virtuemart_activity_id)
-		{
-			$query->clear()
-				->insert('#__virtuemart_tour_id_activity_id')
-				->set('virtuemart_product_id='.(int)$virtuemart_product_id)
-				->set('virtuemart_activity_id='.(int)$virtuemart_activity_id)
-			;
-			$db->setQuery($query)->execute();
-			$err = $db->getErrorMsg();
-			if(!empty($err)){
-				vmError('can not insert activity in this tour',$err);
-			}
-		}
-		//end inser tour type
+        $table_product = $this->getTable ('products');
+        if(!empty($data['virtuemart_product_id'])){
+            $table_product -> load($data['virtuemart_product_id']);
+        }
+        $stored = $table_product->bindChecknStore ($data, false);
+        $errors = $table_product->getErrors ();
+        if(!$stored or count($errors)>0){
+            foreach ($errors as $error) {
+                vmError ('Product store '.$error);
+            }
+            if(!$stored){
+                vmError('You are not an administrator or the correct vendor, storing of product cancelled');
+            }
+            return FALSE;
+        }
+        $virtuemart_product_id=$this->virtuemart_product_id = $data['virtuemart_product_id'] = (int)$table_product->virtuemart_product_id;
+        if (empty($this->virtuemart_product_id)) {
+            vmError('Product not stored, no id');
+            return FALSE;
+        }
 
-		//inser to countries
-		$query=$db->getQuery(true);
-		$query->delete('#__virtuemart_tour_id_country_id')
-			->where('virtuemart_product_id='.(int)$virtuemart_product_id)
-		;
-		$db->setQuery($query)->execute();
-		$err = $db->getErrorMsg();
-		if(!empty($err)){
-			vmError('can not delete country in this tour',$err);
-		}
-		$list_virtuemart_country_id=$data['list_virtuemart_country_id'];
-		foreach($list_virtuemart_country_id as $virtuemart_country_id)
-		{
-			$query->clear()
-				->insert('#__virtuemart_tour_id_country_id')
-				->set('virtuemart_product_id='.(int)$virtuemart_product_id)
-				->set('virtuemart_country_id='.(int)$virtuemart_country_id)
-			;
-			$db->setQuery($query)->execute();
-			$err = $db->getErrorMsg();
-			if(!empty($err)){
-				vmError('can not insert country in this tour',$err);
-			}
-		}
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-        die;
-		return $virtuemart_country_id;
+        if($virtuemart_product_id) {
+            $db = JFactory::getDbo();
+            //inser to activity
+            $query = $db->getQuery(true);
+            $query->delete('#__virtuemart_tour_id_activity_id')
+                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+            $db->setQuery($query)->execute();
+            $err = $db->getErrorMsg();
+            if (!empty($err)) {
+                vmError('can not delete activity in this tour', $err);
+            }
+            $list_activity_id = $data['list_activity_id'];
+            foreach ($list_activity_id as $virtuemart_activity_id) {
+                $query->clear()
+                    ->insert('#__virtuemart_tour_id_activity_id')
+                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
+                    ->set('virtuemart_activity_id=' . (int)$virtuemart_activity_id);
+                $db->setQuery($query)->execute();
+                $err = $db->getErrorMsg();
+                if (!empty($err)) {
+                    vmError('can not insert activity in this tour', $err);
+                }
+            }
+            //end inser tour type
+
+            //inser to countries
+            $query = $db->getQuery(true);
+            $query->delete('#__virtuemart_tour_id_country_id')
+                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+            $db->setQuery($query)->execute();
+            $err = $db->getErrorMsg();
+            if (!empty($err)) {
+                vmError('can not delete country in this tour', $err);
+            }
+            $list_virtuemart_country_id = $data['list_virtuemart_country_id'];
+            foreach ($list_virtuemart_country_id as $virtuemart_country_id) {
+                $query->clear()
+                    ->insert('#__virtuemart_tour_id_country_id')
+                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
+                    ->set('virtuemart_country_id=' . (int)$virtuemart_country_id);
+                $db->setQuery($query)->execute();
+                $err = $db->getErrorMsg();
+                if (!empty($err)) {
+                    vmError('can not insert country in this tour', $err);
+                }
+            }
+            //inser to tour class
+            $query = $db->getQuery(true);
+            $query->delete('#__virtuemart_tour_id_service_class_id')
+                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+            $db->setQuery($query)->execute();
+            $err = $db->getErrorMsg();
+            if (!empty($err)) {
+                vmError('can not delete tour in tour class', $err);
+            }
+            $list_tour_service_class_id = $data['list_tour_service_class_id'];
+            foreach ($list_tour_service_class_id as $virtuemart_service_class_id) {
+                $query->clear()
+                    ->insert('#__virtuemart_tour_id_service_class_id')
+                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
+                    ->set('virtuemart_service_class_id=' . (int)$virtuemart_service_class_id);
+                $db->setQuery($query)->execute();
+                $err = $db->getErrorMsg();
+                if (!empty($err)) {
+                    vmError('can not insert tour in this tour class', $err);
+                }
+            }
+            //inser to tour group size
+            $query = $db->getQuery(true);
+            $query->delete('#__virtuemart_tour_id_group_size_id')
+                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+            $db->setQuery($query)->execute();
+            $err = $db->getErrorMsg();
+            if (!empty($err)) {
+                vmError('can not delete tour in tour group size', $err);
+            }
+            $list_group_size_id = $data['list_group_size_id'];
+            foreach ($list_group_size_id as $virtuemart_group_size_id) {
+                $query->clear()
+                    ->insert('#__virtuemart_tour_id_group_size_id')
+                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
+                    ->set('virtuemart_group_size_id=' . (int)$virtuemart_group_size_id);
+                $db->setQuery($query)->execute();
+                $err = $db->getErrorMsg();
+                if (!empty($err)) {
+                    vmError('can not insert tour in this tour group size', $err);
+                }
+            }
+
+
+        }
+        return $virtuemart_product_id;
 	}
 
 	function remove($ids){

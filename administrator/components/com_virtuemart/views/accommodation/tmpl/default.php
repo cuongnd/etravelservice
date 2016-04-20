@@ -127,16 +127,30 @@ if ($saveOrder) {
                     $edit = $this->gridEdit($row, $i, 'virtuemart_tour_type_id', $editlink);
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_tour_type_id');
 
+                    $virtuemart_accommodation_id=$row->virtuemart_accommodation_id;
+                    $virtuemart_itinerary_id=$row->virtuemart_itinerary_id;
+                    require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
+                    $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($this->virtuemart_product_id);
+                    require_once  JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmhotel.php';
+
+                    require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmaccommodation.php';
+                    $list_hotel_selected_by_service_class_id_and_itinerary_id=vmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
+                    $rowspan=0;
+                    foreach($list_hotel_selected_by_service_class_id_and_itinerary_id AS $service_class )
+                    {
+                        $rowspan+=count($service_class->list_hotel)+1;
+                    }
+                    $rowspan=$rowspan+1;
                     ?>
+
                     <tr class="row<?php echo $k; ?>">
-                        <td class="admin-checkbox">
+                        <td class="admin-checkbox" rowspan="<?php echo $rowspan ?>">
                             <?php echo $checked; ?>
                         </td>
-                        <td align="left">
+                        <td align="left" rowspan="<?php echo $rowspan ?>">
                             <a href="<?php echo $editlink; ?>"><?php echo $row->city_area_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo VmHTML::show_image(JUri::root() . '/' . $row->icon, 'class="required"', 40, 40); ?>
                         </td>
                         <td align="left">
                             <?php echo $row->meta_title; ?>
@@ -161,13 +175,76 @@ if ($saveOrder) {
                             <?php echo $delete; ?>
                         </td>
                     </tr>
+
+
+                    <?php foreach($list_hotel_selected_by_service_class_id_and_itinerary_id AS $service_class){ ?>
+                        <tr class="row<?php echo $k; ?>">
+
+
+                            <td align="left">
+                                <?php echo $service_class->service_class_name ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->meta_title; ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->meta_title; ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->meta_title; ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->meta_title; ?>
+                            </td>
+                            <td align="left">
+                                <?php echo $row->key_word; ?>
+                            </td>
+
+
+                            <td align="center">
+
+                            </td>
+                        </tr>
+                        <?php foreach($service_class->list_hotel AS $hotel){ ?>
+                            <?php
+                            $hotel_item=$this->list_hotel[$hotel->virtuemart_hotel_id];
+                            ?>
+                            <tr class="row<?php echo $k; ?>">
+                                <td align="left">
+
+                                </td>
+                                <td align="left">
+                                    <?php echo $hotel_item->hotel_name ?>
+                                </td>
+                                <td align="left">
+                                    <?php echo $row->meta_title; ?>
+                                </td>
+                                <td align="left">
+                                    <?php echo $row->meta_title; ?>
+                                </td>
+                                <td align="left">
+                                    <?php echo $row->meta_title; ?>
+                                </td>
+                                <td align="left">
+                                    <?php echo $row->key_word; ?>
+                                </td>
+
+
+                                <td align="center">
+
+                                </td>
+                            </tr>
+                        <?php } ?>
+
+                    <?php } ?>
+
                     <?php
                     $k = 1 - $k;
                 }
                 ?>
                 <tfoot>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="12">
                         <?php echo $this->pagination->getListFooter(); ?>
                         <?php echo $this->pagination->getLimitBox(); ?>
                     </td>

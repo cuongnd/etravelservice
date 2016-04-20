@@ -73,9 +73,10 @@ class VirtueMartModelhoteladdon extends VmModel {
             $list_tour_tour_class=array();
             foreach($list_virtuemart_product_id AS $virtuemart_product_id) {
                 $query = $db->getQuery(true);
-                $query->select('CONCAT(products_en_gb.product_name,"(",GROUP_CONCAT(DISTINCT(service_class.service_class_name) SEPARATOR ","),"."," ",")") AS tour_tour_class')
+                $query->select('CONCAT("<a href=index.php?option=com_virtuemart&view=product&task=edit&virtuemart_product_id=",products_en_gb.virtuemart_product_id,">",products_en_gb.product_name," </a>","(",GROUP_CONCAT(DISTINCT(service_class.service_class_name) SEPARATOR ","),"."," ",")") AS tour_tour_class')
                     ->from('#__virtuemart_hotel_id_service_class_id_accommodation_id  AS hotel_id_service_class_id_accommodation_id')
-                    ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
+                    ->leftJoin('#__virtuemart_tour_id_service_class_id AS tour_id_service_class_id USING(virtuemart_service_class_id)')
+                    ->leftJoin('#__virtuemart_service_class AS service_class ON service_class.virtuemart_service_class_id=tour_id_service_class_id.virtuemart_service_class_id')
                     ->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$virtuemart_hotel_id)
                     ->leftJoin('#__virtuemart_hotel_addon AS hotel_addon ON hotel_addon.virtuemart_hotel_id=hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id')
                     ->where('hotel_addon.virtuemart_hotel_addon_id='.(int)$virtuemart_hotel_addon_id)
@@ -121,7 +122,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 			->where('tour_id_hotel_addon_id1.virtuemart_hotel_addon_id=hotel_addon.virtuemart_hotel_addon_id')
 		;
 
-		$query->select('hotel_addon.*,hotel.hotel_name,cityarea.city_area_name')
+		$query->select('hotel_addon.*,hotel.hotel_name,cityarea.city_area_name,cityarea.virtuemart_cityarea_id')
 			->from('#__virtuemart_hotel_addon AS hotel_addon')
 			->leftJoin('#__virtuemart_hotel AS hotel USING(virtuemart_hotel_id)')
 			->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=hotel.virtuemart_cityarea_id')

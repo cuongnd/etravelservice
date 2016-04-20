@@ -57,19 +57,41 @@ class VmTableData extends VmTable {
 				$returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
 			}
 		} else {
-			if(!empty($this->$pKey)){
+
+			if(!is_object($pKey ) && !empty($this->$pKey)){
 				$_qry = 'SELECT `'.$this->_tbl_key.'` '
 				. 'FROM `'.$this->_tbl.'` '
 				. 'WHERE `'.$this->_pkey.'` = "' . $this->$pKey.'" ';
 				$this->_db->setQuery($_qry);
 				//Yes, overwriting $this->$tblKey is correct !
 				$this->$tblKey = $this->_db->loadResult();
-			}
-			if ( !empty($this->$tblKey) ) {
-				$returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
-			} else {
-				$returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
-			}
+			}else if(is_object($pKey )){
+                $db=JFactory::getDbo();
+                $query=JFactory::getDbo()->getQuery(true);
+                $query->select('*')
+                    ->from($this->_tbl)
+                    ;
+                foreach($pKey as $key)
+                {
+                    $value=(int)$this->$key;
+                    $query->where("$key=$value");
+                }
+                $db->setQuery($query);
+                $list_row=$db->loadObjectList();
+                if(count($list_row))
+                {
+                    //$returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+                }else{
+                    $returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+                }
+            }
+            if(!is_object($pKey ) && !empty($this->$pKey)) {
+                if (!empty($this->$tblKey)) {
+                    $returnCode = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+                } else {
+                    $returnCode = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+                }
+            }
 		}
 
 

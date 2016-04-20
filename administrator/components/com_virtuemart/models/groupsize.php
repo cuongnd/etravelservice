@@ -105,6 +105,7 @@ class VirtueMartModelgroupsize extends VmModel {
 			vmWarn('Insufficient permissions to store groupsize');
 			return false;
 		}
+
 		return parent::store($data);
 	}
 
