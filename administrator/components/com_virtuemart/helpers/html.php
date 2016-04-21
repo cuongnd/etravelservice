@@ -458,6 +458,60 @@ class VmHtml
         $html=ob_get_clean();
         return $html;
     }
+
+    public static function select_number_passenger($name,$text_header='', $min=0,$max=100, $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        if(!$text_header)
+        {
+            $text_header="Passenger from 12 years old";
+        }
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.less');
+        $input = JFactory::getApplication()->input;
+        $list_number=array();
+        $option=array('id'=>'','text'=>$text_header);
+        for($i=$min;$i<$max;$i++)
+        {
+            $item=new stdClass();
+            $item->id=$i;
+            $item->text=$i;
+            $list_number[]=$item;
+        }
+        array_unshift($list_number,$option);
+        $element_id="select_number_passenger_$name";
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('select[name="<?php echo $name ?>"]').html_select_number_passenger({
+                    list_number:<?php echo json_encode($list_number) ?>,
+                    number_selected:<?php echo $default?$default:0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        if ($chosenDropDowns) {
+            vmJsApi::chosenDropDowns();
+            $attrib .= '  disable_chosen="true"';
+
+        }
+        $html= VmHtml::genericlist(array(), $name, $attrib, 'id', 'text', $default, false, $tranlsate);
+        ob_start();
+        ?>
+        <div id="<?php echo $element_id ?>" class="select_number_passenger">
+            <?php echo $html ?>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
     public static function select_tour($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
@@ -675,6 +729,47 @@ class VmHtml
 
             <input type="hidden" value="<?php echo $from_date ?>" name="<?php echo $from_name ?>">
             <input type="hidden" value="<?php echo $to_date ?>" name="<?php echo $to_name ?>">
+        </div>
+        <?php
+        $htm = ob_get_clean();
+        return $htm;
+    }
+    public static function select_date($name, $value_selected= '', $format = 'YYYY-MM-DD', $min_date = '', $max_date = '')
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_date/html_select_date.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_date/html_select_date.less');
+        $input = JFactory::getApplication()->input;
+        $select_date = 'select_date_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $select_date ?>').html_select_date({
+                    format: "<?php echo $format ?>",
+                    name: "<?php echo $name ?>",
+                    value_selected: "<?php echo $value_selected ?>",
+                    min_date: "<?php echo $min_date ?>",
+                    max_date: "<?php echo $max_date ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_date ?>" class="select_date">
+            <div class="input-append ">
+                <input type="text" value="<?php echo $value_selected ?>" class="select_date"/>
+                <span class="icon-calendar add-on"></span>
+            </div>
+            <input type="hidden" value="<?php echo $value_selected ?>" name="<?php echo $name ?>">
         </div>
         <?php
         $htm = ob_get_clean();

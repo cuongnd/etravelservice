@@ -381,15 +381,15 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                             </li>
                                             <li>
                                                 <a href='index.php?option=com_virtuemart&view=departure'><i
-                                                        class="im-screen"></i>Allocation</a>
+                                                        class="im-screen"></i>departure</a>
                                             </li>
                                             <li>
                                                 <a href='index.php?option=com_virtuemart&view=payment'><i
                                                         class="im-screen"></i>Payment</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_virtuemart&view=promotion'><i
-                                                        class="im-screen"></i>Promotion</a>
+                                                <a href='index.php?option=com_virtuemart&view=departure'><i
+                                                        class="im-screen"></i>departure</a>
                                             </li>
                                             <li>
                                                 <a href='index.php?option=com_virtuemart&view=discount'><i
@@ -417,8 +417,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                         <a href='index.php?option=com_virtuemart'><i class="im-screen"></i>Sales manager</a>
                                         <ul>
                                             <li>
-                                                <a href='index.php?option=com_virtuemart&view=promotion'><i
-                                                        class="im-screen"></i>Promotion</a>
+                                                <a href='index.php?option=com_virtuemart&view=departure'><i
+                                                        class="im-screen"></i>departure</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -797,8 +797,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                                                     class="icon-palette"
                                                     title=""></span>Tour
                                                 listing</a></li>
-                                        <li><a href="index.php?option=com_virtuemart&view=depature"><span
-                                                    class="icon-palette" title=""></span>Allocation</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=departure"><span
+                                                    class="icon-palette" title=""></span>departure</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=payment"><span
                                                     class="icon-palette" title=""></span>Payment</a></li>
                                     </ul>
@@ -827,8 +827,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                             <div class="row-fluid">
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_virtuemart&view=promotion"><span
-                                                    class="icon-palette" title=""></span>Promotion</a></li>
+                                        <li><a href="index.php?option=com_virtuemart&view=departure"><span
+                                                    class="icon-palette" title=""></span>departure</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=coupon"><span
                                                     class="icon-palette" title=""></span>coupon</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=affiliate"><span

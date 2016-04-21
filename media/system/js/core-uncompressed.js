@@ -19,9 +19,13 @@ Joomla.editors.instances = Joomla.editors.instances || {};
 	 * Generic submit form
 	 */
 	Joomla.submitform = function(task, form, validate) {
-		if (form) {
-			form = document.getElementById(form);
+		if (typeof form !='undefined' && form !=null) {
+            if(typeof form!='object')
+            {
+                form = document.getElementById(form);
+            }
 		}else{
+            console.log('ddddddd');
             form = document.getElementById('adminForm');
         }
 

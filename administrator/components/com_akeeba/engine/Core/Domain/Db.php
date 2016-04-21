@@ -193,8 +193,8 @@ class Db extends Part
 			Factory::getLog()->log(LogLevel::DEBUG, __CLASS__ . " :: Writing databases.ini contents");
 
 			$archiver = Factory::getArchiverEngine();
-			$virtualLocation = (Factory::getEngineParamsProvider()->getScriptingParameter('db.saveasname', 'normal') == 'short') ? '' : $this->installerSettings->sqlroot;
-			$archiver->addVirtualFile('databases.ini', $virtualLocation, $databasesINI);
+			$virtudeparture = (Factory::getEngineParamsProvider()->getScriptingParameter('db.saveasname', 'normal') == 'short') ? '' : $this->installerSettings->sqlroot;
+			$archiver->addVirtualFile('databases.ini', $virtudeparture, $databasesINI);
 
 			// Error propagation
 			$this->propagateFromObject($archiver);

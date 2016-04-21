@@ -163,7 +163,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=departure&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=promotion&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=departure&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
                                     <a href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=discount&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span

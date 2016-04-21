@@ -157,16 +157,16 @@ class F0FTemplateUtils
 		if (isset($altFiles['alternate']))
 		{
 			$currentLocation = realpath(dirname($localFile));
-			$normalLocation = realpath(dirname($altFiles['normal']));
+			$normdeparture = realpath(dirname($altFiles['normal']));
 			$alternateLocation = realpath(dirname($altFiles['alternate']));
 
-			if ($currentLocation == $normalLocation)
+			if ($currentLocation == $normdeparture)
 			{
 				$lessCompiler->importDir = array($alternateLocation, $currentLocation);
 			}
 			else
 			{
-				$lessCompiler->importDir = array($currentLocation, $normalLocation);
+				$lessCompiler->importDir = array($currentLocation, $normdeparture);
 			}
 		}
 

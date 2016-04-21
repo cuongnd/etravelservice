@@ -117,54 +117,11 @@ class VirtuemartViewCategory extends VmView {
 			if($this->showproducts){
 			//if(empty($category->category_layout) or $category->category_layout != 'categories') {
 				// Load the products in the given category
-				$ids = $productModel->sortSearchListQuery (TRUE, $this->categoryId);
-
-				$this->perRow = empty($category->products_per_row)? VmConfig::get('products_per_row',3):$category->products_per_row;
-
-				$this->vmPagination = $productModel->getPagination($this->perRow);
-
-				$ratingModel = VmModel::getModel('ratings');
-				$this->showRating = $ratingModel->showRating();
-				$productModel->withRating = $this->showRating;
-
-				$this->orderByList = $productModel->getOrderByList($this->categoryId);
-
-				$this->products = $productModel->getProducts ($ids);
+				$this->products = $productModel->getItemList ();
 				//$products = $productModel->getProductsInCategory($this->categoryId);
 				$productModel->addImages($this->products, VmConfig::get('prodimg_browse',1) );
 
-				if ($this->products) {
-					$currency = CurrencyDisplay::getInstance( );
-					$this->assignRef('currency', $currency);
 
-					$display_stock = VmConfig::get('display_stock',1);
-					$showCustoms = VmConfig::get('show_pcustoms',1);
-					if($display_stock or $showCustoms){
-
-						if(!$showCustoms){
-							foreach($this->products as $i => $productItem){
-								$productItem->stock = $productModel->getStockIndicator($productItem);
-							}
-						} else {
-							shopFunctionsF::sortLoadProductCustomsStockInd($this->products,$productModel);
-						}
-					}
-
-					// add javascript for price and cart, need even for quantity buttons, so we need it almost anywhere
-					vmJsApi::jPrice();
-				}
-
-				// Add feed links
-				if ($this->showproducts and $this->products  && VmConfig::get('feed_cat_published', 0)==1) {
-					$link = '&format=feed&limitstart=';
-					$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-					$document->addHeadLink(JRoute::_($link . '&type=rss', FALSE), 'alternate', 'rel', $attribs);
-					$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-					$document->addHeadLink(JRoute::_($link . '&type=atom', FALSE), 'alternate', 'rel', $attribs);
-				}
-
-				$user = JFactory::getUser();
-				$this->showBasePrice = (vmAccess::manager() or vmAccess::isSuperVendor());
 
 			}
 

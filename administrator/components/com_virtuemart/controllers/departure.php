@@ -71,15 +71,15 @@ class VirtuemartControllerDeparture extends VmController {
 	}
 
 
-	function ajax_get_allocation_item()
+	function ajax_get_departure_item()
 	{
 		$app=JFactory::getApplication();
 		$model=$this->getModel('departure');
 		$input=$app->input;
-		$list_promotion_available2=$model->get_allocation_item();
-		$object_price_by_first_date=reset($list_promotion_available2);
+		$list_departure_available2=$model->get_departure_item();
+		$object_price_by_first_date=reset($list_departure_available2);
 		$time_stemp_time_object_price_first_date=JFactory::getDate($object_price_by_first_date->date_select)->getTimestamp();
-		foreach($list_promotion_available2 as $key=>$value)
+		foreach($list_departure_available2 as $key=>$value)
 		{
 			$time_stamp_date_select_by_value=$value->date_select;
 			if($time_stamp_date_select_by_value<$time_stemp_time_object_price_first_date)
@@ -91,7 +91,7 @@ class VirtuemartControllerDeparture extends VmController {
 		echo json_encode($object_price_by_first_date);
 		die;
 	}
-	function ajax_save_allocation_item()
+	function ajax_save_departure_item()
 	{
 		$app=JFactory::getApplication();
 		$model=$this->getModel('departure');
@@ -107,10 +107,10 @@ class VirtuemartControllerDeparture extends VmController {
 		$data['vail_period_to']=$daterange_vail_period_from_to[1];
 
 
-		$list_promotion_available2=$model->save_allocation_item($data);
+		$list_departure_available2=$model->save_departure_item($data);
 		$response=new stdClass();
 		$response->e=0;
-		if(!$list_promotion_available2)
+		if(!$list_departure_available2)
 		{
 			$app = JFactory::getApplication();
 			$response->e=1;
@@ -118,7 +118,7 @@ class VirtuemartControllerDeparture extends VmController {
 			echo json_encode($response);
 			die;
 		}
-		echo json_encode($list_promotion_available2);
+		echo json_encode($list_departure_available2);
 		die;
 	}
 	public function ajax_remove_item()

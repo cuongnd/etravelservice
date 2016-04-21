@@ -28,10 +28,10 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class TablePromotion extends VmTableData {
+class Tabledeparture extends VmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_promotion_price_id				= 0;
+	var $virtuemart_departure_price_id				= 0;
 	var $discount_for_elder				= 0;
 	var $discount_for_teen				= 0;
 	var $price_note				= 0;
@@ -51,7 +51,7 @@ class TablePromotion extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_tour_promotion_price', 'virtuemart_promotion_price_id', $db);
+		parent::__construct('#__virtuemart_tour_departure_price', 'virtuemart_departure_price_id', $db);
 
 
 
@@ -68,7 +68,7 @@ class TablePromotion extends VmTableData {
 
 	/**
 	 * ATM Unused !
-	 * Checks a allocation symbol wether it is a HTML entity.
+	 * Checks a departure symbol wether it is a HTML entity.
 	 * When not and $convertToEntity is true, it converts the symbol
 	 * Seems not be used      ATTENTION   seems BROKEN, working only for euro, ...
 	 *

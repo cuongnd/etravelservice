@@ -55,24 +55,24 @@ class VirtuemartViewDeparture extends VmViewAdmin {
 			}
 
 			$model->setId($cid);
-			$this->allocation = $model->getAllocation();
+			$this->departure = $model->getdeparture();
 
 
 
-			$this->SetViewTitle('',$this->allocation->departure_name);
+			$this->SetViewTitle('',$this->departure->departure_name);
 			$this->addStandardEditViewCommands();
 
 		} else {
 			$model_product = VmModel::getModel('product');
 			$model_tour_class = VmModel::getModel('tourclass');
-			$this->list_tour = $model_product->getProductListing(false,false,false,false);
+			$this->list_tour = $model_product->getItems();
 
 			$this->list_tour_class = $model_tour_class->getItemList();
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommandsDeparture();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
-			$this->list_departure = $model->getDepartureList(vRequest::getCmd('search'));
+			$this->list_departure = $model->getItemList(vRequest::getCmd('search'));
 			$this->pagination = $model->getPagination();
 
 		}

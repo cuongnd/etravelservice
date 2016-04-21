@@ -179,7 +179,7 @@
 
 		exit = function (result) {
 			if (serverMode) {
-				//Calling page.close(), may stop the increasing heap allocation
+				//Calling page.close(), may stop the increasing heap departure
 				page.close();
 			}
 			exitCallback(result);

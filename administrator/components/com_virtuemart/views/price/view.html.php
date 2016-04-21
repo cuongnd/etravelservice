@@ -70,7 +70,7 @@ class VirtuemartViewPrice extends VmViewAdmin {
 			$this->price = $model->getPrice();
 			$model_product = VmModel::getModel('product');
 			$this->list_tour = $model_product->getProductListing();
-			$this->SetViewTitle('',$this->allocation->departure_name);
+			$this->SetViewTitle('',$this->departure->departure_name);
 			$this->addStandardEditViewCommands();
 
 		} else {

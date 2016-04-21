@@ -58,16 +58,16 @@ class VirtuemartControllerServiceclass extends VmController {
 
 		parent::save($data);
 	}
-	function ajax_save_allocation_item()
+	function ajax_save_departure_item()
 	{
 		$app=JFactory::getApplication();
-		$model=$this->getModel('allocation');
+		$model=$this->getModel('departure');
 		$input=$app->input;
 /*		echo "<pre>";
 		print_r($input->getArray());
 		echo "</pre>";*/
-		$list_promotion_available2=$model->save_allocation_item();
-		echo json_encode($list_promotion_available2);
+		$list_departure_available2=$model->save_departure_item();
+		echo json_encode($list_departure_available2);
 		die;
 	}
 }

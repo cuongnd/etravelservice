@@ -19,13 +19,13 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
-        plugin.add_new_allocation = function () {
+        plugin.add_new_departure = function () {
             var self = $(this);
-            var allocation_id = 0;
+            var departure_id = 0;
             var tour_id = 0;
-            $(".allocation-edit-form").dialog("open");
+            $(".departure-edit-form").dialog("open");
             $('.' + plugin.settings.dialog_class).find('input.number').val(0);
-            $('#virtuemart_allocation_id').val(allocation_id);
+            $('#virtuemart_departure_id').val(departure_id);
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
@@ -144,7 +144,7 @@
 
             });
 
-            var multi_calendar_allocation = $('#multi-calendar-allocation').multi_calendar_date_picker({
+            var multi_calendar_departure = $('#multi-calendar-departure').multi_calendar_date_picker({
                 mode: 'multiple',
                 inline: true,
                 calendars: 2,
@@ -164,12 +164,12 @@
             });
 
 
-            $element.find(".allocation-edit-form").dialog({
+            $element.find(".departure-edit-form").dialog({
                 autoOpen: false,
                 modal: true,
                 width: 800,
                 appendTo: 'body',
-                dialogClass: "dialog-allocation-edit-form"
+                dialogClass: "dialog-departure-edit-form"
                 //closeOnEscape: false,
                 //open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
 
@@ -237,7 +237,7 @@
                         dataPost = {
                             option: 'com_virtuemart',
                             controller: 'departure',
-                            task: 'ajax_get_allocation_item',
+                            task: 'ajax_get_departure_item',
                             virtuemart_departure_id: virtuemart_departure_id,
                             tour_id: tour_id
                         };
@@ -256,9 +256,9 @@
 
 
                         });
-                        $(".allocation-edit-form").dialog("open");
+                        $(".departure-edit-form").dialog("open");
                         $('.' + plugin.settings.dialog_class).find('input.number').val(0);
-                        $('#virtuemart_allocation_id').val(allocation_id);
+                        $('#virtuemart_departure_id').val(virtuemart_departure_id);
                         //plugin.fill_data(response);
                         //plugin.updata_price();
                     }
@@ -266,7 +266,7 @@
 
 
             });
-            $('.dialog-allocation-edit-form').find('#tour_id').change(function () {
+            $('.dialog-departure-edit-form').find('#tour_id').change(function () {
                 var tour_id = $(this).val();
                 $.ajax({
                     type: "GET",
@@ -296,12 +296,12 @@
 
 
                         });
-                        $('.dialog-allocation-edit-form').find('#tour_service_class_id option').css({
+                        $('.dialog-departure-edit-form').find('#tour_service_class_id option').css({
                             display: "none"
                         });
                         response.push(0);
                         $.each(response, function (index, value) {
-                            $('.dialog-allocation-edit-form').find('#tour_service_class_id option[value="' + value + '"]').css({
+                            $('.dialog-departure-edit-form').find('#tour_service_class_id option[value="' + value + '"]').css({
                                 display: "block"
                             });
                         });
@@ -313,7 +313,7 @@
                 });
 
             });
-            $('.dialog-allocation-edit-form').find('.calculator-price').click(function (e) {
+            $('.dialog-departure-edit-form').find('.calculator-price').click(function (e) {
 
                 if (!$('#adminFormEdit').valid()) {
                     return false;
@@ -323,7 +323,7 @@
                 var sale_period_open_before = $('#sale_period_open_before').val();
                 var daterange_vail_period_from_to = $('#daterange_vail_period_from_to').val();
                 var tour_id = $('#tour_id').val();
-                var allocation_id = $('#virtuemart_allocation_id').val();
+                var virtuemart_departure_id = $('#virtuemart_departure_id').val();
                 var $row = self.closest('tr[role="row"]');
                 var tour_class_ids = [];
                 var tour_service_class_id = $('#tour_service_class_id').val();
@@ -342,8 +342,8 @@
                         dataPost = {
                             option: 'com_virtuemart',
                             controller: 'departure',
-                            task: 'ajax_get_allocation_item',
-                            allocation_id: allocation_id,
+                            task: 'ajax_get_departure_item',
+                            departure_id: virtuemart_departure_id,
                             min_max_space: min_max_space,
                             sale_period_open_before: sale_period_open_before,
                             daterange_vail_period_from_to: daterange_vail_period_from_to,
@@ -375,7 +375,7 @@
 
 
             });
-            $('.dialog-allocation-edit-form').find('.save-close-price').click(function (e) {
+            $('.dialog-departure-edit-form').find('.save-close-price').click(function (e) {
                 if (!$('#adminFormEdit').valid()) {
                     return false;
                 }
@@ -413,7 +413,7 @@
 
                         } else {
                             plugin.fill_data(response);
-                            $(".allocation-edit-form").dialog("close");
+                            $(".departure-edit-form").dialog("close");
                         }
 
 
@@ -427,7 +427,7 @@
                 switch (task) {
                     case "add":
                         //code block
-                        plugin.add_new_allocation();
+                        plugin.add_new_departure();
                         break;
                     case n:
                         //code block
@@ -558,7 +558,7 @@
             $('#sale_period_to_text').val(sale_period_to);
 
 
-            $('select[name="service_class_id"]').val(result.price.service_class_id);
+            $('select[name="service_class_id"]').val(result.price.virtuemart_service_class_id);
             $('select[name="service_class_id"]').trigger("liszt:updated.chosen");
             tour_methor = result.tour.tour_methor;
             if (tour_methor == 'tour_group') {

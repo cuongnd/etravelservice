@@ -61,7 +61,7 @@ class Tableairport extends VmTableData {
 
 	/**
 	 * ATM Unused !
-	 * Checks a allocation symbol wether it is a HTML entity.
+	 * Checks a departure symbol wether it is a HTML entity.
 	 * When not and $convertToEntity is true, it converts the symbol
 	 * Seems not be used      ATTENTION   seems BROKEN, working only for euro, ...
 	 *

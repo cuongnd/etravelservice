@@ -43,17 +43,17 @@ $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepick
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
 
 
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_allocation_default.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_departure_default.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/base.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/clean.css');
-$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_allocation_default.less');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_departure_default.less');
 
 $js_content = '';
 ob_start();
 ?>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('.view-allocation-default').view_allocation_default({});
+            $('.view-departure-default').view_departure_default({});
         });
     </script>
 <?php
@@ -63,7 +63,7 @@ $doc->addScriptDeclaration($js_content);
 AdminUIHelper::startAdminArea($this);
 
 ?>
-    <div class="view-allocation-default">
+    <div class="view-departure-default">
         <form action="index.php" method="post" name="adminForm" id="adminForm">
             <table>
                 <tr>
@@ -101,7 +101,7 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Tour price'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('currency_name', 'Promotion'); ?>
+                            <?php echo $this->sort('currency_name', 'departure'); ?>
                         </th>
                         <th>
                             <?php echo $this->sort('currency_name', 'Discount'); ?>
@@ -123,15 +123,15 @@ AdminUIHelper::startAdminArea($this);
                     </thead>
                     <?php
                     $k = 0;
-                    for ($i = 0, $n = count($this->allocations); $i < $n; $i++) {
-                        $row = $this->allocations[$i];
-                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_allocation_id);
+                    for ($i = 0, $n = count($this->departures); $i < $n; $i++) {
+                        $row = $this->departures[$i];
+                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_departure_id);
                         $published = $this->gridPublished($row, $i);
 
-                        $editlink = JROUTE::_('index.php?option=com_virtuemart&view=allocation&task=edit&cid[]=' . $row->virtuemart_allocation_id);
+                        $editlink = JROUTE::_('index.php?option=com_virtuemart&view=departure&task=edit&cid[]=' . $row->virtuemart_departure_id);
                         ?>
                         <tr role="row" class="row<?php echo $k; ?>"
-                            data-virtuemart_allocation_id="<?php echo $row->virtuemart_allocation_id ?>"
+                            data-virtuemart_departure_id="<?php echo $row->virtuemart_departure_id ?>"
                             data-tour_id="<?php echo $item->tour_id ?>">
                             <td class="admin-checkbox">
                                 <?php echo $checked; ?>
@@ -158,7 +158,7 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $this->sort('currency_name', 'Tour price'); ?>
                             </td>
                             <td>
-                                <?php echo $this->sort('currency_name', 'Promotion'); ?>
+                                <?php echo $this->sort('currency_name', 'departure'); ?>
                             </td>
                             <td>
                                 <?php echo $this->sort('currency_name', 'Discount'); ?>
@@ -172,14 +172,14 @@ AdminUIHelper::startAdminArea($this);
                             <td align="center">
                                 <?php echo $published; ?>
                             </td>
-                            <td><a href="javascript:void(0)" class="edit-allocation">
+                            <td><a href="javascript:void(0)" class="edit-departure">
                                     <span class="icon-edit icon-white"></span>
                                 </a>
-                                <a href="javascript:void(0)" class=" publish-allocation">
+                                <a href="javascript:void(0)" class=" publish-departure">
                                     <span
-                                        class="icon-<?php echo $promotion_price->published ? 'publish' : 'unpublish' ?> icon-white"></span>
+                                        class="icon-<?php echo $departure_price->published ? 'publish' : 'unpublish' ?> icon-white"></span>
                                 </a>
-                                <a href="javascript:void(0)" class=" delete-allocation">
+                                <a href="javascript:void(0)" class=" delete-departure">
                                     <span class="icon-delete icon-white"></span>
                                 </a>
                             </td>
@@ -204,15 +204,15 @@ AdminUIHelper::startAdminArea($this);
             </div>
 
             <input type="hidden" name="option" value="com_virtuemart"/>
-            <input type="hidden" name="controller" value="allocation"/>
-            <input type="hidden" name="view" value="allocation"/>
+            <input type="hidden" name="controller" value="departure"/>
+            <input type="hidden" name="view" value="departure"/>
             <input type="hidden" name="task" value=""/>
             <input type="hidden" name="boxchecked" value="0"/>
             <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>"/>
             <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>"/>
             <?php echo JHtml::_('form.token'); ?>
         </form>
-        <form action="index.php" method="post" class="allocation-edit-form" name="adminFormEdit" id="adminFormEdit">
+        <form action="index.php" method="post" class="departure-edit-form" name="adminFormEdit" id="adminFormEdit">
 
 
             <div class="col50">
@@ -236,20 +236,20 @@ AdminUIHelper::startAdminArea($this);
                         </select>
                         <label>Departure name</label>
                         <input type="text" size="16"
-                               value="<?php echo $this->allocation->departure_name ?>"
+                               value="<?php echo $this->departure->departure_name ?>"
                                id="departure_name" style="width: 100px"
                                name="departure_name"
                                class="inputbox">
 
                         <label>G-Guarantee</label>
                         <input type="number" size="16"
-                               value="<?php echo $this->allocation->g_guarantee ?>"
+                               value="<?php echo $this->departure->g_guarantee ?>"
                                id="g_guarantee" name="g_guarantee"
                                class="inputbox number" equired="true">
                         <label>L-limit space</label>
 
                         <input type="number" size="16"
-                               value="<?php echo $this->allocation->limited_space ?>"
+                               value="<?php echo $this->departure->limited_space ?>"
                                id="limited_space" name="limited_space"
                                class="inputbox number" equired="true">
 
@@ -258,22 +258,22 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                     <div class="span6">
                         <label>Setup space</label>
-                        <input type="number" size="7" value="<?php echo $this->allocation->min_space ?>"
+                        <input type="number" size="7" value="<?php echo $this->departure->min_space ?>"
                                id="min_space" name="min_space" class="inputbox number">
                         To
-                        <input type="number" size="7" value="<?php echo $this->allocation->max_space ?>"
+                        <input type="number" size="7" value="<?php echo $this->departure->max_space ?>"
                                id="max_space" name="max_space" class="inputbox number">
                         <label>Sale periol</label>
-                        <?php echo vmJsApi::jDate($this->allocation->sale_period_open, 'sale_period_open'); ?>
+                        <?php echo vmJsApi::jDate($this->departure->sale_period_open, 'sale_period_open'); ?>
                         To
-                        <?php echo vmJsApi::jDate($this->allocation->sale_period_close, 'sale_period_close'); ?>
+                        <?php echo vmJsApi::jDate($this->departure->sale_period_close, 'sale_period_close'); ?>
                         <label>Vaild period</label>
-                        <?php echo vmJsApi::jDate($this->allocation->vail_period_from, 'vail_period_from'); ?>
+                        <?php echo vmJsApi::jDate($this->departure->vail_period_from, 'vail_period_from'); ?>
                         To
-                        <?php echo vmJsApi::jDate($this->allocation->vail_period_to, 'vail_period_to'); ?>
+                        <?php echo vmJsApi::jDate($this->departure->vail_period_to, 'vail_period_to'); ?>
                         <label>Departure Note</label>
                         <textarea>
-                            <?php echo $this->allocation->departure_note ?>
+                            <?php echo $this->departure->departure_note ?>
                         </textarea>
                         <br/>
                         <a href="javascript:void(0)" class="btn btn-small btn-success pull-right calculator-price">
@@ -310,8 +310,8 @@ AdminUIHelper::startAdminArea($this);
                                     <td><span column-type="private_room">0</span></td>
 
                                 </tr>
-                                <tr class="promotion-price" role="row">
-                                    <td style="text-align: center">promotion price</td>
+                                <tr class="departure-price" role="row">
+                                    <td style="text-align: center">departure price</td>
                                     <td><span column-type="senior">0</span></td>
                                     <td><span column-type="adult">0</span></td>
                                     <td><span column-type="teen">0</span></td>
@@ -332,35 +332,35 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1">
                                 Senior
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->mon == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->mon == 1 ? 'checked' : '' ?>
                                        value="1"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Teen
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->tue == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->tue == 1 ? 'checked' : '' ?>
                                        value="2"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 1
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->wen == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->wen == 1 ? 'checked' : '' ?>
                                        value="3"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 2
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->thu == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->thu == 1 ? 'checked' : '' ?>
                                        value="4"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Infant
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->fri == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->fri == 1 ? 'checked' : '' ?>
                                        value="5"
                                        type="checkbox">
                             </div>
@@ -377,49 +377,49 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1">
                                 MON
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->mon == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->mon == 1 ? 'checked' : '' ?>
                                        value="1"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Tue
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->tue == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->tue == 1 ? 'checked' : '' ?>
                                        value="2"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Wen
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->wen == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->wen == 1 ? 'checked' : '' ?>
                                        value="3"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Thu
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->thu == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->thu == 1 ? 'checked' : '' ?>
                                        value="4"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Fri
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->fri == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->fri == 1 ? 'checked' : '' ?>
                                        value="5"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Sat
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->allocation->sat == 1 ? 'checked' : '' ?>
+                                <input name="weekly[]" <?php echo $this->departure->sat == 1 ? 'checked' : '' ?>
                                        value="6"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Sun
                                 <br/>
-                                <input <?php echo $this->allocation->sun == 1 ? 'checked' : '' ?> value="1"
+                                <input <?php echo $this->departure->sun == 1 ? 'checked' : '' ?> value="1"
                                                                                                   type="checkbox">
                             </div>
                             <div class="span2">
@@ -431,9 +431,9 @@ AdminUIHelper::startAdminArea($this);
                         <h4>Customer setting</h4>
                         <div class="row-fluid">
                             <div class="span12">
-                                <div id="multi-calendar-allocation">
+                                <div id="multi-calendar-departure">
                                     <input type="hidden" id="days_seleted" name="days_seleted"
-                                           value="<?php echo $this->allocation->days_seleted ?>">
+                                           value="<?php echo $this->departure->days_seleted ?>">
 
                                 </div>
                             </div>
@@ -461,7 +461,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="virtuemart_allocation_id" name="virtuemart_allocation_id"
+            <input type="hidden" id="virtuemart_departure_id" name="virtuemart_departure_id"
                    value="0"/>
             <?php echo $this->addStandardHiddenToForm(); ?>
         </form>

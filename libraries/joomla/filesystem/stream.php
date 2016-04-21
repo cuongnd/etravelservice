@@ -736,7 +736,7 @@ class JStream extends JObject
 	 * File write
 	 *
 	 * Whilst this function accepts a reference, the underlying fwrite
-	 * will do a copy! This will roughly double the memory allocation for
+	 * will do a copy! This will roughly double the memory departure for
 	 * any write you do. Specifying chunked will get around this by only
 	 * writing in specific chunk sizes. This defaults to 8192 which is a
 	 * sane number to use most of the time (change the default with

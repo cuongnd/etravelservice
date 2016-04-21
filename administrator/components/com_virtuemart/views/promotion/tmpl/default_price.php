@@ -19,7 +19,7 @@
             <tbody>
             <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
                 <?php
-                $tour_price_by_tour_price_id = $this->list_tour_promotion_price_by_tour_promotion_price_id[$group_size->virtuemart_group_size_id];
+                $tour_price_by_tour_price_id = $this->list_tour_departure_price_by_tour_departure_price_id[$group_size->virtuemart_group_size_id];
                 $price_senior = $tour_price_by_tour_price_id->price_senior;
                 $price_adult = $tour_price_by_tour_price_id->price_adult;
                 $price_teen = $tour_price_by_tour_price_id->price_teen;
@@ -36,45 +36,45 @@
                                group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="senior" type="text" size="7"
                                value="<?php echo $price_senior ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_senior]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_senior]"
                                required="true" class="inputbox number price_senior"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="adult" type="text" size="7"
                                value="<?php echo $price_adult ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
                                required="true" class="inputbox number price_adult"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="teen" type="text" size="7"
                                value="<?php echo $price_teen ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_teen]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_teen]"
                                required="true" class="inputbox number price_teen"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="children1" type="text" size="7"
                                value="<?php echo $price_children1 ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children1]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children1]"
                                required="true" class="inputbox number price_children1"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="children2" type="text" size="7"
                                value="<?php echo $price_children2 ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children2]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children2]"
                                required="true" class="inputbox number price_children2"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="infant" type="text" size="7"
                                value="<?php echo $price_infant ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
                                required="true" class="inputbox number price_infant"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="private_room" type="text" size="7"
                                value="<?php echo $price_private_room ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_private_room]"
+                               name="tour_departure_price_by_tour_departure_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_private_room]"
                                required="true" class="inputbox number price_private_room"></td>
 
                 </tr>
             <?php } ?>
             </tbody>
         </table>
-        <h3>Promotion </h3>
-        <table class="table-bordered  table table-striped promotion-price">
+        <h3>departure </h3>
+        <table class="table-bordered  table table-striped departure-price">
             <tr>
                 <td>MARK UP VALUE</td>
                 <td style="text-align: center">Senior</td>
@@ -87,64 +87,64 @@
             </tr>
             <tr class="amount">
                 <td>Amout</td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][senior]"
-                                                      value="<?php echo $this->list_promotion['amount']->senior ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][senior]"
+                                                      value="<?php echo $this->list_departure['amount']->senior ?>"
                                                       class="inputbox number" column-type="senior"
 
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][adult]"
-                                                      value="<?php echo $this->list_promotion['amount']->adult ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][adult]"
+                                                      value="<?php echo $this->list_departure['amount']->adult ?>"
                                                       class="inputbox number" column-type="adult"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][teen]"
-                                                      value="<?php echo $this->list_promotion['amount']->teen ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][teen]"
+                                                      value="<?php echo $this->list_departure['amount']->teen ?>"
                                                       class="inputbox number" column-type="teen"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][children1]"
-                                                      value="<?php echo $this->list_promotion['amount']->children1 ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][children1]"
+                                                      value="<?php echo $this->list_departure['amount']->children1 ?>"
                                                       class="inputbox number"
                                                       column-type="children1" type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][children2]"
-                                                      value="<?php echo $this->list_promotion['amount']->children2 ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][children2]"
+                                                      value="<?php echo $this->list_departure['amount']->children2 ?>"
                                                       class="inputbox number"
                                                       column-type="children2" type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][infant]"
-                                                      value="<?php echo $this->list_promotion['amount']->infant ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][infant]"
+                                                      value="<?php echo $this->list_departure['amount']->infant ?>"
                                                       class="inputbox number" column-type="infant"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[net_markup_promotion_price][private_room]"
-                                                      value="<?php echo $this->list_promotion['amount']->private_room ?>"
+                <td style="text-align: center"><input name="amount[net_markup_departure_price][private_room]"
+                                                      value="<?php echo $this->list_departure['amount']->private_room ?>"
                                                       class="inputbox number"
                                                       column-type="private_room" type="text"></td>
             </tr>
             <tr class="percent">
                 <td>percent</td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][senior]"
-                                                      value="<?php echo $this->list_promotion['percent']->senior ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][senior]"
+                                                      value="<?php echo $this->list_departure['percent']->senior ?>"
                                                       class="inputbox number" column-type="senior"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][adult]"
-                                                      value="<?php echo $this->list_promotion['percent']->adult ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][adult]"
+                                                      value="<?php echo $this->list_departure['percent']->adult ?>"
                                                       class="inputbox number" column-type="adult"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][teen]"
-                                                      value="<?php echo $this->list_promotion['percent']->teen ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][teen]"
+                                                      value="<?php echo $this->list_departure['percent']->teen ?>"
                                                       class="inputbox number" column-type="teen"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][children1]"
-                                                      value="<?php echo $this->list_promotion['percent']->children1 ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][children1]"
+                                                      value="<?php echo $this->list_departure['percent']->children1 ?>"
                                                       class="inputbox number"
                                                       column-type="children1" type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][children2]"
-                                                      value="<?php echo $this->list_promotion['percent']->children2 ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][children2]"
+                                                      value="<?php echo $this->list_departure['percent']->children2 ?>"
                                                       class="inputbox number"
                                                       column-type="children2" type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][infant]"
-                                                      value="<?php echo $this->list_promotion['percent']->infant ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][infant]"
+                                                      value="<?php echo $this->list_departure['percent']->infant ?>"
                                                       class="inputbox number" column-type="infant"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[net_markup_promotion_price][private_room]"
-                                                      value="<?php echo $this->list_promotion['percent']->private_room ?>"
+                <td style="text-align: center"><input name="percent[net_markup_departure_price][private_room]"
+                                                      value="<?php echo $this->list_departure['percent']->private_room ?>"
                                                       class="inputbox number"
                                                       column-type="private_room" type="text"></td>
             </tr>
@@ -163,62 +163,62 @@
             </tr>
             <tr class="amount">
                 <td>Amout</td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][senior]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->senior ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][senior]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->senior ?>"
                                                       class="inputbox number" column-type="senior"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][adult]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->adult ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][adult]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->adult ?>"
                                                       class="inputbox number" column-type="adult"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][teen]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->teen ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][teen]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->teen ?>"
                                                       class="inputbox number" column-type="teen"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][children1]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->children1 ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][children1]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->children1 ?>"
                                                       class="inputbox number"
                                                       column-type="children1" type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][children2]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->children2 ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][children2]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->children2 ?>"
                                                       class="inputbox number"
                                                       column-type="children2" type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][infant]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->infant ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][infant]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->infant ?>"
                                                       class="inputbox number" column-type="infant"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="amount[markup_promotion_price][private_room]"
-                                                      value="<?php echo $this->list_promotion_mark_up['amount']->private_room ?>"
+                <td style="text-align: center"><input name="amount[markup_departure_price][private_room]"
+                                                      value="<?php echo $this->list_departure_mark_up['amount']->private_room ?>"
                                                       class="inputbox number"
                                                       column-type="private_room" type="text"></td>
             </tr>
             <tr class="percent">
                 <td>percent</td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][senior]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][senior]"
                                                       value="<?php echo $this->list_mark_up['percent']->senior ?>"
                                                       class="inputbox number" column-type="senior"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][adult]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][adult]"
                                                       value="<?php echo $this->list_mark_up['percent']->adult ?>"
                                                       class="inputbox number" column-type="adult"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][teen]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][teen]"
                                                       value="<?php echo $this->list_mark_up['percent']->teen ?>"
                                                       class="inputbox number" column-type="teen"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][children1]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][children1]"
                                                       value="<?php echo $this->list_mark_up['percent']->children1 ?>"
                                                       class="inputbox number"
                                                       column-type="children1" type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][children2]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][children2]"
                                                       value="<?php echo $this->list_mark_up['percent']->children2 ?>"
                                                       class="inputbox number"
                                                       column-type="children2" type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][infant]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][infant]"
                                                       value="<?php echo $this->list_mark_up['percent']->infant ?>"
                                                       class="inputbox number" column-type="infant"
                                                       type="text"></td>
-                <td style="text-align: center"><input name="percent[markup_promotion_price][private_room]"
+                <td style="text-align: center"><input name="percent[markup_departure_price][private_room]"
                                                       value="<?php echo $this->list_mark_up['percent']->private_room ?>"
                                                       class="inputbox number"
                                                       column-type="private_room" type="text"></td>
@@ -264,7 +264,7 @@
             <tr>
                 <td>Value</td>
                 <td style="text-align: center"><input type="text" class="inputbox number" name="tax"
-                                                      value="<?php echo $this->promotion_price->tax ?>"
+                                                      value="<?php echo $this->departure_price->tax ?>"
                                                       style="width: 80%"></td>
             </tr>
         </table>
@@ -329,37 +329,37 @@
             <td style="text-align: center">Price</td>
             <td><input required="true"
                        column-type="senior" type="text" size="7" value="<?php echo $price_senior ?>"
-                       name="tour_promotion_price_by_tour_promotion_price_id[price_senior]"
+                       name="tour_departure_price_by_tour_departure_price_id[price_senior]"
                        required="true" class="inputbox number price_senior"></td>
             <td><input
                     column-type="adult" type="text" size="7" value="<?php echo $price_adult ?>"
-                    name="tour_promotion_price_by_tour_promotion_price_id[price_adult]"
+                    name="tour_departure_price_by_tour_departure_price_id[price_adult]"
                     required="true" class="inputbox number price_adult"></td>
             <td><input column-type="teen"
                        type="text" size="7" value="<?php echo $price_teen ?>"
-                       name="tour_promotion_price_by_tour_promotion_price_id[price_teen]"
+                       name="tour_departure_price_by_tour_departure_price_id[price_teen]"
                        required="true" class="inputbox number price_teen"></td>
             <td><input
                     column-type="children1" type="text" size="7"
-                    name="tour_promotion_price_by_tour_promotion_price_id[price_children1]"
+                    name="tour_departure_price_by_tour_departure_price_id[price_children1]"
                     required="true" class="inputbox number price_children1"></td>
             <td><input
                     column-type="children2" type="text" size="7"
-                    name="tour_promotion_price_by_tour_promotion_price_id[price_children2]"
+                    name="tour_departure_price_by_tour_departure_price_id[price_children2]"
                     required="true" class="inputbox number price_children2"></td>
             <td><input
                     column-type="infant" type="text" size="7" value="<?php echo $price_infant ?>"
-                    name="tour_promotion_price_by_tour_promotion_price_id[price_infant]"
+                    name="tour_departure_price_by_tour_departure_price_id[price_infant]"
                     required="true" class="inputbox number price_infant"></td>
             <td><input
                     column-type="private_room" type="text" size="7"
-                    name="tour_promotion_price_by_tour_promotion_price_id[price_private_room]"
+                    name="tour_departure_price_by_tour_departure_price_id[price_private_room]"
                     required="true" class="inputbox number price_private_room"></td>
 
         </tr>
         </tbody>
     </table>
-    <h3>Promotion</h3>
+    <h3>departure</h3>
     <table class="table-bordered  table table-striped mark-up-price">
         <tr>
             <td>Passenger</td>
@@ -373,63 +373,63 @@
         </tr>
         <tr class="amount">
             <td>Amout</td>
-            <td style="text-align: center"><input name="amount[promotion][senior]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->senior ?>"
+            <td style="text-align: center"><input name="amount[departure][senior]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][adult]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->adult ?>"
+            <td style="text-align: center"><input name="amount[departure][adult]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][teen]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->teen ?>"
+            <td style="text-align: center"><input name="amount[departure][teen]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][children1]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->children1 ?>"
+            <td style="text-align: center"><input name="amount[departure][children1]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][children2]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->children2 ?>"
+            <td style="text-align: center"><input name="amount[departure][children2]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][infant]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->infant ?>"
+            <td style="text-align: center"><input name="amount[departure][infant]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[promotion][private_room]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->private_room ?>"
+            <td style="text-align: center"><input name="amount[departure][private_room]"
+                                                  value="<?php echo $this->list_departure_price_markup['amount']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
         </tr>
         <tr class="percent">
             <td>percent</td>
-            <td style="text-align: center"><input name="percent[promotion][senior]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->senior ?>"
+            <td style="text-align: center"><input name="percent[departure][senior]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][adult]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->adult ?>"
+            <td style="text-align: center"><input name="percent[departure][adult]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][teen]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->teen ?>"
+            <td style="text-align: center"><input name="percent[departure][teen]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][children1]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->children1 ?>"
+            <td style="text-align: center"><input name="percent[departure][children1]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][children2]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->children2 ?>"
+            <td style="text-align: center"><input name="percent[departure][children2]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][infant]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->infant ?>"
+            <td style="text-align: center"><input name="percent[departure][infant]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[promotion][private_room]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->private_room ?>"
+            <td style="text-align: center"><input name="percent[departure][private_room]"
+                                                  value="<?php echo $this->list_departure_price_markup['percent']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
         </tr>
@@ -542,7 +542,7 @@
         <tr>
             <td>Value</td>
             <td style="text-align: center"><input type="text" class="inputbox number" name="tax"
-                                                  value="<?php echo $this->promotion_price->tax ?>"
+                                                  value="<?php echo $this->departure_price->tax ?>"
                                                   style="width: 80%"></td>
         </tr>
     </table>

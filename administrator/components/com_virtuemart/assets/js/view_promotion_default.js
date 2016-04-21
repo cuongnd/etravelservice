@@ -653,7 +653,7 @@
             $('#sale_period_to_text').val(sale_period_to);
 
 
-            $('select[name="service_class_id"]').val(result.promotion_price.service_class_id);
+            $('select[name="service_class_id"]').val(result.promotion_price.virtuemart_service_class_id);
             $('select[name="service_class_id"]').trigger("liszt:updated.chosen");
             tour_methor=result.tour.tour_methor;
             if(tour_methor=='tour_group')

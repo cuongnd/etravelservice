@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class VirtuemartViewAllocation extends VmViewAdmin {
+class VirtuemartViewdeparture extends VmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -56,11 +56,11 @@ class VirtuemartViewAllocation extends VmViewAdmin {
 			}
 
 			$model->setId($cid);
-			$this->allocation = $model->getAllocation();
+			$this->departure = $model->getdeparture();
 
 
 
-			$this->SetViewTitle('',$this->allocation->departure_name);
+			$this->SetViewTitle('',$this->departure->departure_name);
 			$this->addStandardEditViewCommands();
 
 		} else {
@@ -73,7 +73,7 @@ class VirtuemartViewAllocation extends VmViewAdmin {
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
-			$this->allocations = $model->getAllocationList(vRequest::getCmd('search'));
+			$this->departures = $model->getdepartureList(vRequest::getCmd('search'));
 			$this->pagination = $model->getPagination();
 
 		}

@@ -95,42 +95,42 @@ class vmServiceclass
         return $db->setQuery($query)->loadObjectList();
     }
 
-    public static function get_list_tour_promotion_price_by_tour_promotion_price_id($tour_price_id)
+    public static function get_list_tour_departure_price_by_tour_departure_price_id($tour_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('group_size_id_tour_promotion_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+        $query->select('group_size_id_tour_departure_price_id.*')
+            ->from('#__virtuemart_group_size_id_tour_departure_price_id AS group_size_id_tour_departure_price_id')
+            ->where('group_size_id_tour_departure_price_id.virtuemart_tour_departure_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
-    public static function get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tour_price_id)
+    public static function get_list_tour_departure_price_by_tour_price_id_for_departure_price($tour_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('group_size_id_tour_promotion_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+        $query->select('group_size_id_tour_departure_price_id.*')
+            ->from('#__virtuemart_group_size_id_tour_departure_price_id AS group_size_id_tour_departure_price_id')
+            ->where('group_size_id_tour_departure_price_id.virtuemart_tour_departure_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
 
-    public static function get_list_mark_up_by_tour_promotion_price_id($tour_price_id)
+    public static function get_list_mark_up_by_tour_departure_price_id($tour_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('mark_up_tour_promotion_price_id.*')
-            ->from('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id')
-            ->where('mark_up_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+        $query->select('mark_up_tour_departure_price_id.*')
+            ->from('#__virtuemart_mark_up_tour_departure_price_id AS mark_up_tour_departure_price_id')
+            ->where('mark_up_tour_departure_price_id.virtuemart_tour_departure_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList();
     }
 
-    public static function get_list_promotion_by_tour_promotion_price_id($tour_price_id)
+    public static function get_list_departure_by_tour_departure_price_id($tour_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('group_size_id_tour_promotion_price_id.*')
-            ->from('#__virtuemart_mark_up_tour_promotion_net_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+        $query->select('group_size_id_tour_departure_price_id.*')
+            ->from('#__virtuemart_mark_up_tour_departure_net_price_id AS group_size_id_tour_departure_price_id')
+            ->where('group_size_id_tour_departure_price_id.virtuemart_tour_departure_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObject();
     }
 

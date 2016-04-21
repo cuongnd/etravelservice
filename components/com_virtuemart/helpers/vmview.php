@@ -34,6 +34,10 @@ class VmView extends JViewLegacy{
 		if($this->isMail or $this->isPdf){
 			$this->writeJs = false;
 		}
+        if (!class_exists('VmHTML'))
+        {
+            require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
+        }
 		$result = $this->loadTemplate($tpl);
 		if ($result instanceof Exception) {
 			return $result;

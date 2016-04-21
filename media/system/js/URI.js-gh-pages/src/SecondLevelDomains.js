@@ -180,7 +180,7 @@
     // in both performance and memory footprint. No initialization required.
     // http://jsperf.com/uri-js-sld-regex-vs-binary-search/4
     // Following methods use lastIndexOf() rather than array.split() in order
-    // to avoid any memory allocations.
+    // to avoid any memory departures.
     has: function(domain) {
       var tldOffset = domain.lastIndexOf('.');
       if (tldOffset <= 0 || tldOffset >= (domain.length-1)) {

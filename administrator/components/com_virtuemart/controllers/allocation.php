@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class VirtuemartControllerAllocation extends VmController {
+class VirtuemartControllerdeparture extends VmController {
 
 	/**
 	 * Method to display the view
@@ -58,18 +58,18 @@ class VirtuemartControllerAllocation extends VmController {
 
 		parent::save($data);
 	}
-	function ajax_get_allocation_item()
+	function ajax_get_departure_item()
 	{
 		$app=JFactory::getApplication();
-		$model=$this->getModel('allocation');
+		$model=$this->getModel('departure');
 		$input=$app->input;
 /*		echo "<pre>";
 		print_r($input->getArray());
 		echo "</pre>";*/
-		$list_promotion_available2=$model->get_allocation_item();
-		$object_price_by_first_date=reset($list_promotion_available2);
+		$list_departure_available2=$model->get_departure_item();
+		$object_price_by_first_date=reset($list_departure_available2);
 		$time_stemp_time_object_price_first_date=JFactory::getDate($object_price_by_first_date->date_select)->getTimestamp();
-		foreach($list_promotion_available2 as $key=>$value)
+		foreach($list_departure_available2 as $key=>$value)
 		{
 			$time_stamp_date_select_by_value=$value->date_select;
 			if($time_stamp_date_select_by_value<$time_stemp_time_object_price_first_date)
@@ -81,16 +81,16 @@ class VirtuemartControllerAllocation extends VmController {
 		echo json_encode($object_price_by_first_date);
 		die;
 	}
-	function ajax_save_allocation_item()
+	function ajax_save_departure_item()
 	{
 		$app=JFactory::getApplication();
-		$model=$this->getModel('allocation');
+		$model=$this->getModel('departure');
 		$input=$app->input;
 /*		echo "<pre>";
 		print_r($input->getArray());
 		echo "</pre>";*/
-		$list_promotion_available2=$model->save_allocation_item();
-		echo json_encode($list_promotion_available2);
+		$list_departure_available2=$model->save_departure_item();
+		echo json_encode($list_departure_available2);
 		die;
 	}
 }

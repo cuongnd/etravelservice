@@ -203,8 +203,8 @@ class VmViewAdmin extends JViewLegacy
         // javascript for cookies setting in case of press "APPLY"
     }
 
-    //only view promotion
-    function addStandardDefaultViewCommandsPromotion($showNew = true, $showDelete = true, $showHelp = true)
+    //only view departure
+    function addStandardDefaultViewCommandsdeparture($showNew = true, $showDelete = true, $showHelp = true)
     {
 
 
@@ -239,39 +239,6 @@ class VmViewAdmin extends JViewLegacy
     }
 
     //only view Departure
-    function addStandardDefaultViewCommandsDeparture($showNew = true, $showDelete = true, $showHelp = true)
-    {
-
-
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
-
-        JToolBarHelper::divider();
-        if (vmAccess::manager($view . '.edit.state')) {
-            JToolBarHelper::publishList();
-            JToolBarHelper::unpublishList();
-        }
-        if (vmAccess::manager($view . '.edit')) {
-            JToolBarHelper::editList();
-        }
-        if (vmAccess::manager($view . '.create')) {
-            JToolBarHelper::addNew();
-        }
-        if (vmAccess::manager($view . '.delete')) {
-            JToolBarHelper::spacer('10');
-            JToolBarHelper::deleteList();
-        }
-        JToolBarHelper::divider();
-        JToolBarHelper::spacer('2');
-        //self::showACLPref($view);
-        //self::showHelp ( $showHelp);
-        if (JFactory::getApplication()->isSite()) {
-            $bar = JToolBar::getInstance('toolbar');
-            $bar->appendButton('Link', 'back', 'COM_VIRTUEMART_LEAVE', 'index.php?option=com_virtuemart&manage=0');
-        }
-
-        $this->addJsJoomlaSubmitButton();
-        // javascript for cookies setting in case of press "APPLY"
-    }
 
     function addStandardDefaultViewCommandsEditInline($showNew = true,$show_edit=true, $showDelete = true, $showHelp = true)
     {

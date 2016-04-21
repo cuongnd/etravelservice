@@ -28,7 +28,7 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmo
  * @package    VirtueMart
  * @subpackage Currency
  */
-class VirtueMartModelAllocation extends VmModel
+class VirtueMartModeldeparture extends VmModel
 {
 
 
@@ -40,7 +40,7 @@ class VirtueMartModelAllocation extends VmModel
     function __construct()
     {
         parent::__construct();
-        $this->setMainTable('allocation');
+        $this->setMainTable('departure');
     }
 
     /**
@@ -48,9 +48,9 @@ class VirtueMartModelAllocation extends VmModel
      *
      * @author Max Milbers
      */
-    function getAllocation($allocation_id = 0)
+    function getdeparture($departure_id = 0)
     {
-        return $this->getData($allocation_id);
+        return $this->getData($departure_id);
     }
 
 
@@ -60,7 +60,7 @@ class VirtueMartModelAllocation extends VmModel
      * @author Max Milbers
      * @return object List of currency objects
      */
-    function getAllocationList($search)
+    function getdepartureList($search)
     {
 
         $where = array();
@@ -80,20 +80,20 @@ class VirtueMartModelAllocation extends VmModel
         $whereString = '';
         if (count($where) > 0) $whereString = ' WHERE ' . implode(' AND ', $where);
 
-        $data = $this->exeSortSearchListQuery(0, '*', ' FROM `#__virtuemart_allocation`', $whereString, '', $this->_getOrdering());
+        $data = $this->exeSortSearchListQuery(0, '*', ' FROM `#__virtuemart_departure`', $whereString, '', $this->_getOrdering());
 
         return $data;
     }
-    public function save_allocation_item()
+    public function save_departure_item()
     {
-        $list_promotion_available2=$this->save_allocation_item();
+        $list_departure_available2=$this->save_departure_item();
 
     }
-    public function get_allocation_item()
+    public function get_departure_item()
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $allocation_id=$input->get('allocation_id',0,'int');
+        $departure_id=$input->get('departure_id',0,'int');
         $min_space=$input->get('min_space',0,'int');
         $tour_id=$input->get('tour_id',0,'int');
         $tour_service_class_id=$input->get('tour_service_class_id',0,'int');
@@ -109,74 +109,74 @@ class VirtueMartModelAllocation extends VmModel
         while ($date->getTimestamp() <= $end_date->getTimestamp()) {
             $list_date[]= $date->format('Y-m-d');
             $date->modify('+1 day');
-        }//l?y ra c�c promotion theo ?i?u ki�n tour_id, tour class v� group size
+        }//l?y ra c�c departure theo ?i?u ki�n tour_id, tour class v� group size
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
 
 
-        $query->select('promotion_price.*')
-            ->from('#__virtuemart_tour_promotion_price AS promotion_price')
+        $query->select('departure_price.*')
+            ->from('#__virtuemart_tour_departure_price AS departure_price')
             ->where('virtuemart_product_id='.(int)$tour_id)
             ->where('service_class_id='.(int)$tour_service_class_id)
-            ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id
-			ON group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=promotion_price.virtuemart_promotion_price_id')
-            ->select('group_size_id_tour_promotion_price_id.*')
-            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_promotion_price_id.virtuemart_group_size_id')
+            ->leftJoin('#__virtuemart_group_size_id_tour_departure_price_id AS group_size_id_tour_departure_price_id
+			ON group_size_id_tour_departure_price_id.virtuemart_tour_departure_price_id=departure_price.virtuemart_departure_price_id')
+            ->select('group_size_id_tour_departure_price_id.*')
+            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_departure_price_id.virtuemart_group_size_id')
             ->where('group_size.from>='.(int)$min_space)
 
         ;
-        $list_promotion_price=$db->setQuery($query)->loadObjectList();
-        // l?y gi� c� promotion l?c theo ?i?u ki?n th?a m�n danh s�ch ng�y
-        $list_promotion_available=array();
+        $list_departure_price=$db->setQuery($query)->loadObjectList();
+        // l?y gi� c� departure l?c theo ?i?u ki?n th?a m�n danh s�ch ng�y
+        $list_departure_available=array();
         foreach($list_date as $item_date)
         {
             $time_stamp_item_date=JFactory::getDate($item_date)->getTimestamp();
-            foreach($list_promotion_price as $item_promotion_price_date)
+            foreach($list_departure_price as $item_departure_price_date)
             {
-                $start_date=$item_promotion_price_date->sale_period_from;
-                $end_date=$item_promotion_price_date->sale_period_to;
+                $start_date=$item_departure_price_date->sale_period_from;
+                $end_date=$item_departure_price_date->sale_period_to;
                 $time_stamp_start_date=JFactory::getDate($start_date)->getTimestamp();
                 $time_stamp_end_date=JFactory::getDate($end_date)->getTimestamp();
                 if($time_stamp_item_date>=$time_stamp_start_date || $time_stamp_item_date<=$time_stamp_end_date)
                 {
-                    $item_promotion_price_date1=clone $item_promotion_price_date;
-                    $item_promotion_price_date1->date_select=$item_date;
-                    $list_promotion_available[]=$item_promotion_price_date1;
+                    $item_departure_price_date1=clone $item_departure_price_date;
+                    $item_departure_price_date1->date_select=$item_date;
+                    $list_departure_available[]=$item_departure_price_date1;
                 }
             }
         }
-        //l?y ra c�c gi� markup (gi� tr? promotion) theo tour c� net promotion price
-        $list_mark_up_tour_promotion_net_price=array();
-        $list_virtuemart_promotion_price_id=array();
-        foreach($list_promotion_price as $item_promotion_price)
+        //l?y ra c�c gi� markup (gi� tr? departure) theo tour c� net departure price
+        $list_mark_up_tour_departure_net_price=array();
+        $list_virtuemart_departure_price_id=array();
+        foreach($list_departure_price as $item_departure_price)
         {
-            if(!in_array($item_promotion_price->virtuemart_promotion_price_id,$list_virtuemart_promotion_price_id))
+            if(!in_array($item_departure_price->virtuemart_departure_price_id,$list_virtuemart_departure_price_id))
             {
-                $list_virtuemart_promotion_price_id[]=$item_promotion_price->virtuemart_promotion_price_id;
+                $list_virtuemart_departure_price_id[]=$item_departure_price->virtuemart_departure_price_id;
             }
         }
-        if(count($list_virtuemart_promotion_price_id)>=1) {
+        if(count($list_virtuemart_departure_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id')
-                ->select('mark_up_tour_promotion_net_price_id.*')
-                ->where('mark_up_tour_promotion_net_price_id.virtuemart_tour_promotion_price_id IN ('.implode(',', $list_virtuemart_promotion_price_id).')')
+                ->from('#__virtuemart_mark_up_tour_departure_net_price_id AS mark_up_tour_departure_net_price_id')
+                ->select('mark_up_tour_departure_net_price_id.*')
+                ->where('mark_up_tour_departure_net_price_id.virtuemart_tour_departure_price_id IN ('.implode(',', $list_virtuemart_departure_price_id).')')
             ;
 
-            $list_mark_up_tour_promotion_net_price=$db->setQuery($query)->loadObjectList();
+            $list_mark_up_tour_departure_net_price=$db->setQuery($query)->loadObjectList();
         }
-        $list_mark_up_tour_promotion_net_price2=array();
-        foreach($list_mark_up_tour_promotion_net_price as $mark_up_tour_promotion_net_price)
+        $list_mark_up_tour_departure_net_price2=array();
+        foreach($list_mark_up_tour_departure_net_price as $mark_up_tour_departure_net_price)
         {
-            $virtuemart_tour_promotion_price_id=$mark_up_tour_promotion_net_price->virtuemart_tour_promotion_price_id;
-            $list_mark_up_tour_promotion_net_price2[$virtuemart_tour_promotion_price_id][$mark_up_tour_promotion_net_price->type]=$mark_up_tour_promotion_net_price;
+            $virtuemart_tour_departure_price_id=$mark_up_tour_departure_net_price->virtuemart_tour_departure_price_id;
+            $list_mark_up_tour_departure_net_price2[$virtuemart_tour_departure_price_id][$mark_up_tour_departure_net_price->type]=$mark_up_tour_departure_net_price;
         }
-        //t�nh gi� l?i c?a promotion
-        //1.t�nh gi� th?c sau khi promotion
-        foreach($list_promotion_available as $key=> $promotion_available)
+        //t�nh gi� l?i c?a departure
+        //1.t�nh gi� th?c sau khi departure
+        foreach($list_departure_available as $key=> $departure_available)
         {
-            $virtuemart_promotion_price_id=$promotion_available->virtuemart_promotion_price_id;
+            $virtuemart_departure_price_id=$departure_available->virtuemart_departure_price_id;
 
-            $percent_price=$list_mark_up_tour_promotion_net_price2[$virtuemart_promotion_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_departure_net_price2[$virtuemart_departure_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -187,66 +187,66 @@ class VirtueMartModelAllocation extends VmModel
                 || $percent_price->private_room!=0)
             {
                 //gi� ???c t�nh theo percent th� kh�ng t�nh theo amount n?a
-                $price_senior=$list_promotion_available[$key]->price_senior;
+                $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-($price_senior*$percent_price->senior)/100;
-                $list_promotion_available[$key]->price_senior=$price_senior;
+                $list_departure_available[$key]->price_senior=$price_senior;
 
-                $price_adult=$list_promotion_available[$key]->price_adult;
+                $price_adult=$list_departure_available[$key]->price_adult;
                 $price_adult=$price_adult-($price_adult*$percent_price->adult)/100;
-                $list_promotion_available[$key]->price_adult=$price_adult;
+                $list_departure_available[$key]->price_adult=$price_adult;
 
-                $price_teen=$list_promotion_available[$key]->price_teen;
+                $price_teen=$list_departure_available[$key]->price_teen;
                 $price_teen=$price_teen-($price_teen*$percent_price->teen)/100;
-                $list_promotion_available[$key]->price_teen=$price_teen;
+                $list_departure_available[$key]->price_teen=$price_teen;
 
-                $price_infant=$list_promotion_available[$key]->price_infant;
+                $price_infant=$list_departure_available[$key]->price_infant;
                 $price_infant=$price_infant-($price_infant*$percent_price->infant)/100;
-                $list_promotion_available[$key]->price_infant=$price_infant;
+                $list_departure_available[$key]->price_infant=$price_infant;
 
-                $price_children1=$list_promotion_available[$key]->price_children1;
+                $price_children1=$list_departure_available[$key]->price_children1;
                 $price_children1=$price_children1-($price_children1*$percent_price->children1)/100;
-                $list_promotion_available[$key]->price_children1=$price_children1;
+                $list_departure_available[$key]->price_children1=$price_children1;
 
-                $price_children2=$list_promotion_available[$key]->price_children2;
+                $price_children2=$list_departure_available[$key]->price_children2;
                 $price_children2=$price_children2-($price_children2*$percent_price->children2)/100;
-                $list_promotion_available[$key]->price_children2=$price_children2;
+                $list_departure_available[$key]->price_children2=$price_children2;
 
-                $price_private_room=$list_promotion_available[$key]->price_private_room;
+                $price_private_room=$list_departure_available[$key]->price_private_room;
                 $price_private_room=$price_private_room-($price_private_room*$percent_price->private_room)/100;
-                $list_promotion_available[$key]->price_private_room=$price_private_room;
+                $list_departure_available[$key]->price_private_room=$price_private_room;
 
 
             }else{
 
-                $amount_price=$list_mark_up_tour_promotion_net_price2[$virtuemart_promotion_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_departure_net_price2[$virtuemart_departure_price_id]['amount'];
 
-                $price_senior=$list_promotion_available[$key]->price_senior;
+                $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;
-                $list_promotion_available[$key]->price_senior=$price_senior;
+                $list_departure_available[$key]->price_senior=$price_senior;
 
-                $price_adult=$list_promotion_available[$key]->price_adult;
+                $price_adult=$list_departure_available[$key]->price_adult;
                 $price_adult=$price_adult-$amount_price->adult;
-                $list_promotion_available[$key]->price_adult=$price_adult;
+                $list_departure_available[$key]->price_adult=$price_adult;
 
-                $price_teen=$list_promotion_available[$key]->price_teen;
+                $price_teen=$list_departure_available[$key]->price_teen;
                 $price_teen=$price_teen-$amount_price->teen;
-                $list_promotion_available[$key]->price_teen=$price_teen;
+                $list_departure_available[$key]->price_teen=$price_teen;
 
-                $price_infant=$list_promotion_available[$key]->price_infant;
+                $price_infant=$list_departure_available[$key]->price_infant;
                 $price_infant=$price_infant-$amount_price->infant;
-                $list_promotion_available[$key]->price_infant=$price_infant;
+                $list_departure_available[$key]->price_infant=$price_infant;
 
-                $price_children1=$list_promotion_available[$key]->price_children1;
+                $price_children1=$list_departure_available[$key]->price_children1;
                 $price_children1=$price_children1-$amount_price->children1;
-                $list_promotion_available[$key]->price_children1=$price_children1;
+                $list_departure_available[$key]->price_children1=$price_children1;
 
-                $price_children2=$list_promotion_available[$key]->price_children2;
+                $price_children2=$list_departure_available[$key]->price_children2;
                 $price_children2=$price_children2-$amount_price->children2;
-                $list_promotion_available[$key]->price_children2=$price_children2;
+                $list_departure_available[$key]->price_children2=$price_children2;
 
-                $price_private_room=$list_promotion_available[$key]->price_private_room;
+                $price_private_room=$list_departure_available[$key]->price_private_room;
                 $price_private_room=$price_private_room-$amount_price->private_room;
-                $list_promotion_available[$key]->price_private_room=$price_private_room;
+                $list_departure_available[$key]->price_private_room=$price_private_room;
             }
 
 
@@ -254,30 +254,30 @@ class VirtueMartModelAllocation extends VmModel
         }
 
 
-        //l?y ra c�c gi� markup (gi� tr? c� l�i) theo tour c� net promotion price
-        $list_mark_up_tour_promotion_price=array();
-        if(count($list_virtuemart_promotion_price_id)>=1) {
+        //l?y ra c�c gi� markup (gi� tr? c� l�i) theo tour c� net departure price
+        $list_mark_up_tour_departure_price=array();
+        if(count($list_virtuemart_departure_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id')
-                ->select('mark_up_tour_promotion_price_id.*')
-                ->where('mark_up_tour_promotion_price_id.virtuemart_tour_promotion_price_id IN ('.implode(',', $list_virtuemart_promotion_price_id).')')
+                ->from('#__virtuemart_mark_up_tour_departure_price_id AS mark_up_tour_departure_price_id')
+                ->select('mark_up_tour_departure_price_id.*')
+                ->where('mark_up_tour_departure_price_id.virtuemart_tour_departure_price_id IN ('.implode(',', $list_virtuemart_departure_price_id).')')
             ;
-            $list_mark_up_tour_promotion_price=$db->setQuery($query)->loadObjectList();
+            $list_mark_up_tour_departure_price=$db->setQuery($query)->loadObjectList();
         }
 
-        $list_mark_up_tour_promotion_price2=array();
-        foreach($list_mark_up_tour_promotion_price as $mark_up_tour_promotion_price)
+        $list_mark_up_tour_departure_price2=array();
+        foreach($list_mark_up_tour_departure_price as $mark_up_tour_departure_price)
         {
-            $virtuemart_tour_promotion_price_id=$mark_up_tour_promotion_price->virtuemart_tour_promotion_price_id;
-            $list_mark_up_tour_promotion_price2[$virtuemart_tour_promotion_price_id][$mark_up_tour_promotion_price->type]=$mark_up_tour_promotion_price;
+            $virtuemart_tour_departure_price_id=$mark_up_tour_departure_price->virtuemart_tour_departure_price_id;
+            $list_mark_up_tour_departure_price2[$virtuemart_tour_departure_price_id][$mark_up_tour_departure_price->type]=$mark_up_tour_departure_price;
         }
         //2.t�nh gi� th?c sau khi khi c� markup (c� ph?n l�i)
 
-        foreach($list_promotion_available as $key=> $promotion_available)
+        foreach($list_departure_available as $key=> $departure_available)
         {
-            $virtuemart_promotion_price_id=$promotion_available->virtuemart_promotion_price_id;
+            $virtuemart_departure_price_id=$departure_available->virtuemart_departure_price_id;
 
-            $percent_price=$list_mark_up_tour_promotion_price2[$virtuemart_promotion_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_departure_price2[$virtuemart_departure_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -288,75 +288,75 @@ class VirtueMartModelAllocation extends VmModel
                 || $percent_price->private_room!=0)
             {
                 //gi� ???c t�nh theo percent th� kh�ng t�nh theo amount n?a
-                $price_senior=$list_promotion_available[$key]->price_senior;
+                $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-($price_senior*$percent_price->senior)/100;
-                $list_promotion_available[$key]->price_senior=$price_senior;
+                $list_departure_available[$key]->price_senior=$price_senior;
 
-                $price_adult=$list_promotion_available[$key]->price_adult;
+                $price_adult=$list_departure_available[$key]->price_adult;
                 $price_adult=$price_adult-($price_adult*$percent_price->adult)/100;
-                $list_promotion_available[$key]->price_adult=$price_adult;
+                $list_departure_available[$key]->price_adult=$price_adult;
 
-                $price_teen=$list_promotion_available[$key]->price_teen;
+                $price_teen=$list_departure_available[$key]->price_teen;
                 $price_teen=$price_teen-($price_teen*$percent_price->teen)/100;
-                $list_promotion_available[$key]->price_teen=$price_teen;
+                $list_departure_available[$key]->price_teen=$price_teen;
 
-                $price_infant=$list_promotion_available[$key]->price_infant;
+                $price_infant=$list_departure_available[$key]->price_infant;
                 $price_infant=$price_infant-($price_infant*$percent_price->infant)/100;
-                $list_promotion_available[$key]->price_infant=$price_infant;
+                $list_departure_available[$key]->price_infant=$price_infant;
 
-                $price_children1=$list_promotion_available[$key]->price_children1;
+                $price_children1=$list_departure_available[$key]->price_children1;
                 $price_children1=$price_children1-($price_children1*$percent_price->children1)/100;
-                $list_promotion_available[$key]->price_children1=$price_children1;
+                $list_departure_available[$key]->price_children1=$price_children1;
 
-                $price_children2=$list_promotion_available[$key]->price_children2;
+                $price_children2=$list_departure_available[$key]->price_children2;
                 $price_children2=$price_children2-($price_children2*$percent_price->children2)/100;
-                $list_promotion_available[$key]->price_children2=$price_children2;
+                $list_departure_available[$key]->price_children2=$price_children2;
 
-                $price_private_room=$list_promotion_available[$key]->price_private_room;
+                $price_private_room=$list_departure_available[$key]->price_private_room;
                 $price_private_room=$price_private_room-($price_private_room*$percent_price->private_room)/100;
-                $list_promotion_available[$key]->price_private_room=$price_private_room;
+                $list_departure_available[$key]->price_private_room=$price_private_room;
 
 
             }else{
 
-                $amount_price=$list_mark_up_tour_promotion_price2[$virtuemart_promotion_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_departure_price2[$virtuemart_departure_price_id]['amount'];
 
-                $price_senior=$list_promotion_available[$key]->price_senior;
+                $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;
-                $list_promotion_available[$key]->price_senior=$price_senior;
+                $list_departure_available[$key]->price_senior=$price_senior;
 
-                $price_adult=$list_promotion_available[$key]->price_adult;
+                $price_adult=$list_departure_available[$key]->price_adult;
                 $price_adult=$price_adult-$amount_price->adult;
-                $list_promotion_available[$key]->price_adult=$price_adult;
+                $list_departure_available[$key]->price_adult=$price_adult;
 
-                $price_teen=$list_promotion_available[$key]->price_teen;
+                $price_teen=$list_departure_available[$key]->price_teen;
                 $price_teen=$price_teen-$amount_price->teen;
-                $list_promotion_available[$key]->price_teen=$price_teen;
+                $list_departure_available[$key]->price_teen=$price_teen;
 
-                $price_infant=$list_promotion_available[$key]->price_infant;
+                $price_infant=$list_departure_available[$key]->price_infant;
                 $price_infant=$price_infant-$amount_price->infant;
-                $list_promotion_available[$key]->price_infant=$price_infant;
+                $list_departure_available[$key]->price_infant=$price_infant;
 
-                $price_children1=$list_promotion_available[$key]->price_children1;
+                $price_children1=$list_departure_available[$key]->price_children1;
                 $price_children1=$price_children1-$amount_price->children1;
-                $list_promotion_available[$key]->price_children1=$price_children1;
+                $list_departure_available[$key]->price_children1=$price_children1;
 
-                $price_children2=$list_promotion_available[$key]->price_children2;
+                $price_children2=$list_departure_available[$key]->price_children2;
                 $price_children2=$price_children2-$amount_price->children2;
-                $list_promotion_available[$key]->price_children2=$price_children2;
+                $list_departure_available[$key]->price_children2=$price_children2;
 
-                $price_private_room=$list_promotion_available[$key]->price_private_room;
+                $price_private_room=$list_departure_available[$key]->price_private_room;
                 $price_private_room=$price_private_room-$amount_price->private_room;
-                $list_promotion_available[$key]->price_private_room=$price_private_room;
+                $list_departure_available[$key]->price_private_room=$price_private_room;
             }
 
 
 
         }
-        $list_promotion_available2=array();
-        foreach($list_promotion_available as $promotion_available)
+        $list_departure_available2=array();
+        foreach($list_departure_available as $departure_available)
         {
-            $list_promotion_available2[$promotion_available->virtuemart_product_id.'-'.$promotion_available->service_class_id.'-'.$promotion_available->virtuemart_group_size_id.'-'.$promotion_available->date_select]=$promotion_available;
+            $list_departure_available2[$departure_available->virtuemart_product_id.'-'.$departure_available->service_class_id.'-'.$departure_available->virtuemart_group_size_id.'-'.$departure_available->date_select]=$departure_available;
         }
 
         //s? l� v?i gi� basic
@@ -372,7 +372,7 @@ class VirtueMartModelAllocation extends VmModel
 
         ;
         $list_price=$db->setQuery($query)->loadObjectList();
-        // l?y gi� c� promotion l?c theo ?i?u ki?n th?a m�n danh s�ch ng�y
+        // l?y gi� c� departure l?c theo ?i?u ki?n th?a m�n danh s�ch ng�y
         $list_price_available=array();
         foreach($list_date as $item_date)
         {
@@ -409,9 +409,9 @@ class VirtueMartModelAllocation extends VmModel
         $list_mark_up_tour_price=array();
         if(count($list_virtuemart_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id')
-                ->select('mark_up_tour_promotion_price_id.*')
-                ->where('mark_up_tour_promotion_price_id.virtuemart_tour_promotion_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
+                ->from('#__virtuemart_mark_up_tour_departure_price_id AS mark_up_tour_departure_price_id')
+                ->select('mark_up_tour_departure_price_id.*')
+                ->where('mark_up_tour_departure_price_id.virtuemart_tour_departure_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
             ;
             $list_mark_up_tour_price=$db->setQuery($query)->loadObjectList();
         }
@@ -420,13 +420,13 @@ class VirtueMartModelAllocation extends VmModel
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
             $virtuemart_price_id=$mark_up_tour_price->virtuemart_price_id;
-            $list_mark_up_tour_promotion_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
+            $list_mark_up_tour_departure_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.t�nh gi� th?c sau khi khi c� markup basic (c� ph?n l�i)
 
         foreach($list_price_available as $key=> $price_available)
         {
-            $virtuemart_price_id=$price_available->virtuemart_promotion_price_id;
+            $virtuemart_price_id=$price_available->virtuemart_departure_price_id;
 
             $percent_price=$list_mark_up_tour_price2[$virtuemart_price_id]['percent'];
             if(
@@ -512,17 +512,17 @@ class VirtueMartModelAllocation extends VmModel
 
         foreach($list_price_available2 as $key=>$value)
         {
-            if(!is_object($list_promotion_available2[$key]))
+            if(!is_object($list_departure_available2[$key]))
             {
-                $list_promotion_available2[$key]=new stdClass();
-                $list_promotion_available2[$key]->base_price=$value;
-                $list_promotion_available2[$key]->date_select=$value->date_select;
+                $list_departure_available2[$key]=new stdClass();
+                $list_departure_available2[$key]->base_price=$value;
+                $list_departure_available2[$key]->date_select=$value->date_select;
             }else{
-                $list_promotion_available2[$key]->base_price=$value;
+                $list_departure_available2[$key]->base_price=$value;
             }
         }
 
-        return $list_promotion_available2;
+        return $list_departure_available2;
     }
     function getVendorAcceptedCurrrenciesList($vendorId = 0)
     {
