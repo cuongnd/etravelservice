@@ -45,8 +45,8 @@ class VirtueMartViewProductdetails extends VmView {
             }
             $product_model = VmModel::getModel('product');
             $trip_model = VmModel::getModel('trip');
-            $product = $product_model->getItem($virtuemart_product_id);
-            $list_trip=$trip_model->getItem();
+            $this->product = $product_model->getItem($virtuemart_product_id);
+            $this->list_trip=$trip_model->getItems();
             parent::display($tpl);
         }
 	function renderMailLayout ($doVendor, $recipient) {
