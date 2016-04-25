@@ -51,19 +51,25 @@ class vmprice
 	 *
 	 * @since   11.1
 	 */
-		public static function get_list_group_size_by_tour_id($tour_id)
+		public static function get_list_group_size_by_tour_id($virtuemart_product_id)
 		{
 			$db=JFactory::getDbo();
 			$query=$db->getQuery(true);
-			$query->select('group_size.virtuemart_group_size_id,CONCAT(group_size.group_name,"(",group_size.from,"-",group_size.to,")") AS group_name')
+			$query->select('group_size.virtuemart_group_size_id,CONCAT(group_size.group_name,"(",group_size.from,"-",group_size.to,")") AS group_name,group_size.type AS group_type')
 				->from('#__virtuemart_tour_id_group_size_id AS tour_id_group_size_id')
 				->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=tour_id_group_size_id.virtuemart_group_size_id')
-				->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tour_id)
+				->where('tour_id_group_size_id.virtuemart_product_id='.(int)$virtuemart_product_id)
 				->where('group_size.virtuemart_group_size_id!=0')
 				->order('group_size.from')
-				->order('group_size.type!='.$query->q('flat_price'))
-			;
 
+			;
+            $model_product = VmModel::getModel('product');
+            $product=$model_product->getItem($virtuemart_product_id);
+
+            if($product->price_type=='multi_price')
+            {
+                $query->where('group_size.type!='.$query->q('flat_price'));
+            }
 			return $db->setQuery($query)->loadObjectList();
 		}
 		public static function get_list_tour_price_by_tour_price_id($tour_price_id)

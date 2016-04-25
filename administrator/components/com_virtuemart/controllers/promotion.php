@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class VirtuemartControllerdeparture extends VmController {
+class VirtuemartControllerpromotion extends VmController {
 
 	/**
 	 * Method to display the view
@@ -60,7 +60,7 @@ class VirtuemartControllerdeparture extends VmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('departure');
+        $model_price = VmModel::getModel('promotion');
         if(!$model_price->remove(array($price_id)))
         {
             echo 'cannot delete item';
@@ -76,8 +76,8 @@ class VirtuemartControllerdeparture extends VmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('departure');
-        if(!$model_price->toggle('published',null,'price_id','departure'))
+        $model_price = VmModel::getModel('promotion');
+        if(!$model_price->toggle('published',null,'price_id','promotion'))
         {
             echo 'cannot published item';
             die;
@@ -86,30 +86,30 @@ class VirtuemartControllerdeparture extends VmController {
         die;
 
     }
-    public function ajax_save_departure_price()
+    public function ajax_save_promotion_price()
     {
         $app=JFactory::getApplication();
         $post = file_get_contents('php://input');
         $post = json_decode($post);
         $input=$app->input;
-        $virtuemart_departure_price_id=$input->get('virtuemart_departure_price_id',0,'int');
-        $model_departure_price = VmModel::getModel('departure');
+        $virtuemart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
+        $model_promotion_price = VmModel::getModel('promotion');
         $post->virtuemart_product_id=$post->select_virtuemart_product_id;
         $post=(array)$post;
         $return_ajax=new stdClass();
         $return_ajax->e=0;
-        $virtuemart_departure_price_id=$model_departure_price->store($post);
-        if(!$virtuemart_departure_price_id)
+        $virtuemart_promotion_price_id=$model_promotion_price->store($post);
+        if(!$virtuemart_promotion_price_id)
         {
             $return_ajax->e=1;
             $return_ajax->m='cannot save item';
             echo json_encode($return_ajax);
             die;
         }
-        $departure_item=$model_departure_price->get_departure_price($virtuemart_departure_price_id);
-        $departure_item->sale_period=JHtml::_('date', $departure_item->sale_period_from, 'd M. Y').'-'.JHtml::_('date', $departure_item->sale_period_to, 'd M. Y');
-        $departure_item->modified_on=JHtml::_('date', $departure_item->modified_on, 'd M. Y');
-        $return_ajax->r=$departure_item;
+        $promotion_item=$model_promotion_price->get_promotion_price($virtuemart_promotion_price_id);
+        $promotion_item->sale_period=JHtml::_('date', $promotion_item->sale_period_from, 'd M. Y').'-'.JHtml::_('date', $promotion_item->sale_period_to, 'd M. Y');
+        $promotion_item->modified_on=JHtml::_('date', $promotion_item->modified_on, 'd M. Y');
+        $return_ajax->r=$promotion_item;
         echo json_encode($return_ajax);
         die;
 
@@ -124,20 +124,20 @@ class VirtuemartControllerdeparture extends VmController {
         $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tour_id);
         $return_item=new stdClass();
         $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
-        $view = &$this->getView('departure', 'html', 'VirtuemartView');
-        $modal_departure=$this->getModel('departure');
-        $view->setModel($modal_departure,true);
+        $view = &$this->getView('promotion', 'html', 'VirtuemartView');
+        $modal_promotion=$this->getModel('promotion');
+        $view->setModel($modal_promotion,true);
         $model_product=$this->getModel('product');
-        $product=$model_product->getProduct($tour_id,false,false,false);
-        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-        if($product->tour_methor=='tour_group')
+        $product=$model_product->getItem($tour_id);
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
+        if($product->price_type!='flat_price')
         {
-            $list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($tour_id);
+            $list_tour_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($tour_id);
             $view->assignRef('list_tour_price_by_tour_price_id',$list_tour_price_by_tour_price_id);
-            $list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tour_id);
             $view->assignRef('list_group_size_by_tour_id',$list_group_size_by_tour_id);
         }else{
-            $tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($tour_id);
+            $tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tour_id);
             $view->assignRef('tour_private_price_by_tour_price_id',$tour_private_price_by_tour_price_id);
         }
 
@@ -158,11 +158,11 @@ class VirtuemartControllerdeparture extends VmController {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $view = &$this->getView('departure', 'html', 'VirtuemartView');
+        $view = &$this->getView('promotion', 'html', 'VirtuemartView');
         $price_id=$input->get('price_id',0,'int');
-        $model_departure_price = VmModel::getModel('departure');
-        $model_departure_price->setId($price_id);
-        $departure_price = $model_departure_price->get_departure_price();
+        $model_promotion_price = VmModel::getModel('promotion');
+        $model_promotion_price->setId($price_id);
+        $promotion_price = $model_promotion_price->get_promotion_price();
 
         $tour_id=$app->input->get('tour_id',0,'int');
 
@@ -173,41 +173,41 @@ class VirtuemartControllerdeparture extends VmController {
         $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tour_id);
         $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
 
-        $return_item->departure_price=$departure_price;
-        $view->assignRef('departure_price',$return_item->departure_price);
-        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmdeparture.php';
+        $return_item->promotion_price=$promotion_price;
+        $view->assignRef('promotion_price',$return_item->promotion_price);
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
 
         $tour_id=$input->get('tour_id',0,'int');
         $this->virtuemart_product_id=$tour_id;
 
         $model_product = VmModel::getModel('product');
-        $product=$model_product->getProduct($tour_id,false,false,false);
+        $product=$model_product->getItem($tour_id);
         $return_item->tour=$product;
         if($product->tour_methor=='tour_group')
         {
-            $return_item->list_tour_departure_price_by_tour_departure_price_id=vmdeparture::get_list_tour_departure_price_by_tour_departure_price_id($price_id);
-            $view->assignRef('list_tour_departure_price_by_tour_departure_price_id',$return_item->list_tour_departure_price_by_tour_departure_price_id);
+            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($price_id);
+            $view->assignRef('list_tour_promotion_price_by_tour_promotion_price_id',$return_item->list_tour_promotion_price_by_tour_promotion_price_id);
         }else{
-            $return_item->tour_private_price_by_tour_price_id=vmdeparture::get_list_tour_departure_price_by_tour_price_id_for_departure_price($price_id);
+            $return_item->tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($price_id);
             $view->assignRef('tour_private_price_by_tour_price_id',$return_item->tour_private_price_by_tour_price_id);
         }
 
         //get markup
-        $return_item->list_departure_mark_up=vmdeparture::get_list_mark_up_by_tour_departure_price_id($price_id);
-        $return_item->list_departure_mark_up=is_array($return_item->list_departure_mark_up)?$return_item->list_departure_mark_up:array($return_item->list_departure_mark_up);
-        $return_item->list_departure_mark_up=JArrayHelper::pivot($return_item->list_departure_mark_up,'type');
-        $view->assignRef('list_departure_mark_up',$return_item->list_departure_mark_up);
+        $return_item->list_promotion_mark_up=vmpromotion::get_list_mark_up_by_tour_promotion_price_id($price_id);
+        $return_item->list_promotion_mark_up=is_array($return_item->list_promotion_mark_up)?$return_item->list_promotion_mark_up:array($return_item->list_promotion_mark_up);
+        $return_item->list_promotion_mark_up=JArrayHelper::pivot($return_item->list_promotion_mark_up,'type');
+        $view->assignRef('list_promotion_mark_up',$return_item->list_promotion_mark_up);
         //end get markup
         //get markup
-        $return_item->list_departure=vmdeparture::get_list_departure_by_tour_departure_price_id($price_id);
+        $return_item->list_promotion=vmpromotion::get_list_promotion_by_tour_promotion_price_id($price_id);
 
 
-        $return_item->list_departure=is_array($return_item->list_departure)?$return_item->list_departure:array($return_item->list_departure);
-        $return_item->list_departure=JArrayHelper::pivot($return_item->list_departure,'type');
-        $view->assignRef('list_departure',$return_item->list_departure);
+        $return_item->list_promotion=is_array($return_item->list_promotion)?$return_item->list_promotion:array($return_item->list_promotion);
+        $return_item->list_promotion=JArrayHelper::pivot($return_item->list_promotion,'type');
+        $view->assignRef('list_promotion',$return_item->list_promotion);
         //end get markup
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-        $return_item->list_group_size_by_tour_id=vmdeparture::get_list_group_size_by_tour_id($tour_id);
+        $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tour_id);
         $view->assignRef('list_group_size_by_tour_id',$return_item->list_group_size_by_tour_id);
         ob_start();
         $input->set('tpl','price');

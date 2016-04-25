@@ -69,12 +69,14 @@ class VirtueMartModelproduct extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('product.*,products_en_gb.product_name')
+		$query->select('product.*,products_en_gb.product_name,tour_type.title AS tour_type,tour_style.title AS tour_style_name')
 			->from('#__virtuemart_products AS product')
             ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
 			//->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_city_area_id)')
 			//->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
 			//->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+            ->leftJoin('#__virtuemart_tour_type AS tour_type USING(virtuemart_tour_type_id)')
+            ->leftJoin('#__virtuemart_tour_style AS tour_style USING(virtuemart_tour_style_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -122,6 +124,11 @@ class VirtueMartModelproduct extends VmModel {
         if(!empty($data['virtuemart_product_id'])){
             $table_product -> load($data['virtuemart_product_id']);
         }
+        if(!$table_product->virtuemart_product_id || $table_product->product_code=='' ||$table_product->product_code==0)
+        {
+            $data['product_code']= strtolower(JUtility::random_code(6));
+        }
+
         $stored = $table_product->bindChecknStore ($data, false);
         $errors = $table_product->getErrors ();
         if(!$stored or count($errors)>0){
@@ -216,6 +223,13 @@ class VirtueMartModelproduct extends VmModel {
                 vmError('can not delete tour in tour group size', $err);
             }
             $list_group_size_id = $data['list_group_size_id'];
+            if($data['price_type']=='both_options')
+            {
+                $list_group_size_id[]=2;
+            }elseif($data['price_type']=='flat_price')
+            {
+                $list_group_size_id=array();
+            }
             foreach ($list_group_size_id as $virtuemart_group_size_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_group_size_id')

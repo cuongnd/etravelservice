@@ -43,6 +43,8 @@ class virtuemartViewTourtype extends VmViewAdmin {
 
         $this->view_height=1300;
 		$config = JFactory::getConfig();
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmprice.php';
+        $this->list_price_type = vmprice::get_list_price_type();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
 			$cid	= vRequest::getInt( 'cid' );

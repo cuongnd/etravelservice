@@ -59,9 +59,53 @@
                     });
                     $('input[name="list_group_size_id[]"]').attr("disabled", true);
                 }
+                var price_type=$(this).val();
+                var $virtuemart_tour_type_id=$element.find('select[name="virtuemart_tour_type_id"]');
+                if(price_type=='flat_price')
+                {
+                    $virtuemart_tour_type_id.find('option[data-price_type="flat_price"]').prop("selected", true);
+                }else if(price_type=='multi_price')
+                {
+                    $virtuemart_tour_type_id.find('option[data-price_type="multi_price"]').prop("selected", true);
+                }else if(price_type=='both_options')
+                {
+                    $virtuemart_tour_type_id.find('option[data-price_type="both_options"]').prop("selected", true);
+                }
+                $virtuemart_tour_type_id.trigger("change");
 
             });
+            $element.find('select[name="virtuemart_tour_type_id"]').change(function(){
+                var price_type=$(this).find('option:selected').data('price_type');
+                var checkator=$('input[name="price_type"]').data('checkator');
 
+                if(price_type=='flat_price')
+                {
+                    $('input[name="price_type"][value="flat_price"]').prop( "checked", true );
+                }else if(price_type=='multi_price')
+                {
+                    $('input[name="price_type"][value="multi_price"]').prop( "checked", true );
+                }else if(price_type=='both_options')
+                {
+                    $('input[name="price_type"][value="both_options"]').prop( "checked", true );
+                }else{
+                    $('input[name="price_type"]').prop( "checked", false );
+                }
+
+                if(price_type=='multi_price'||price_type=='both_options')
+                {
+                    $('.group-size').css({
+                        display:"block"
+                    });
+                    $('input[name="list_group_size_id[]"]').attr("disabled", false);
+                }else{
+                    $('.group-size').css({
+                        display:"none"
+                    });
+                    $('input[name="list_group_size_id[]"]').attr("disabled", true);
+                }
+
+
+            });
 
 
 

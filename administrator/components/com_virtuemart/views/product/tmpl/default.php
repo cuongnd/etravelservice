@@ -139,12 +139,12 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <!-- </span>  -->
                                 </td>
                                 <td>
-                                    <?php echo $product->product_sku ?>
+                                    <?php echo $product->product_code ?>
                                 </td>
                                 <td>
                                     <?php echo $product->tour_type ?></td>
                                 <td>
-                                    <?php echo $product->tour_style ?></td>
+                                    <?php echo $product->tour_style_name ?></td>
                                 <td>
                                     <?php echo $product->start_end_cicty ?></td>
                                 <td>

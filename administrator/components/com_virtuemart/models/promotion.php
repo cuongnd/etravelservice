@@ -28,7 +28,7 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmo
  * @package    VirtueMart
  * @subpackage Currency
  */
-class VirtueMartModeldeparture extends VmModel
+class VirtueMartModelpromotion extends VmModel
 {
 
 
@@ -40,7 +40,7 @@ class VirtueMartModeldeparture extends VmModel
     function __construct()
     {
         parent::__construct();
-        $this->setMainTable('departure');
+        $this->setMainTable('promotion');
     }
 
     /**
@@ -48,7 +48,7 @@ class VirtueMartModeldeparture extends VmModel
      *
      * @author Max Milbers
      */
-    function get_departure_price($price_id = 0)
+    function get_promotion_price($price_id = 0)
     {
         $item= $this->getData($price_id);
         $db=JFactory::getDbo();
@@ -99,29 +99,27 @@ class VirtueMartModeldeparture extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true)
             ->select('tour_price.*')
-            ->from('#__virtuemart_tour_departure_price AS tour_departure_price')
-            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_departure_price.virtuemart_service_class_id')
+            ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
+            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_promotion_price.virtuemart_service_class_id')
             ->select('tour_service_class.service_class_name')
-            ->where('tour_departure_price.virtuemart_product_id='.(int)$tour_id)
+            ->where('tour_promotion_price.virtuemart_product_id='.(int)$tour_id)
             ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')
-            ->select('products.tour_methor')
             ;
         return $db->setQuery($query)->loadObjectList();
 
     }
-    function getdeparturePricesList($tour_id=0)
+    function getpromotionPricesList($tour_id=0)
     {
         $app=JFactory::getApplication();
         $input=$app->input;
         $db=JFactory::getDbo();
         $query=$db->getQuery(true)
-            ->select('tour_departure_price.*,language_products.product_name AS tour_name')
-            ->from('#__virtuemart_tour_departure_price AS tour_departure_price')
-            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_departure_price.virtuemart_service_class_id')
+            ->select('tour_promotion_price.*,language_products.product_name AS tour_name')
+            ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
+            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_promotion_price.virtuemart_service_class_id')
             ->select('tour_service_class.service_class_name')
-            ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_departure_price.virtuemart_product_id')
+            ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_promotion_price.virtuemart_product_id')
             ->leftJoin('#__virtuemart_products_'.VmConfig::$vmlang.' AS language_products ON language_products.virtuemart_product_id=products.virtuemart_product_id')
-            ->select('products.tour_methor')
             ->where('products.virtuemart_product_id='.(int)$tour_id)
             ;
         return $db->setQuery($query)->loadObjectList();
@@ -184,45 +182,45 @@ class VirtueMartModeldeparture extends VmModel
 
     function store(&$data)
     {
-        $virtuemart_departure_price_id = parent::store($data);
-        if ($virtuemart_departure_price_id && $data['tour_methor'] == 'tour_group') {
-            $tour_departure_price_by_tour_departure_price_id = $data['tour_departure_price_by_tour_departure_price_id'];
-            $this->save_departure_price_group_size_by_departure_price_id($tour_departure_price_by_tour_departure_price_id, $virtuemart_departure_price_id);
+        $virtuemart_promotion_price_id = parent::store($data);
+        if ($virtuemart_promotion_price_id && $data['tour_methor'] == 'tour_group') {
+            $tour_promotion_price_by_tour_promotion_price_id = $data['tour_promotion_price_by_tour_promotion_price_id'];
+            $this->save_promotion_price_group_size_by_promotion_price_id($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);
         } else {
-            $tour_departure_price_by_tour_departure_price_id = $data['tour_price_by_tour_departure_price_id'];
-            $this->save_departure_price_group_size_by_departure_price_id_tour_private($tour_departure_price_by_tour_departure_price_id, $virtuemart_departure_price_id);
+            $tour_promotion_price_by_tour_promotion_price_id = $data['tour_price_by_tour_promotion_price_id'];
+            $this->save_promotion_price_group_size_by_promotion_price_id_tour_private($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);
         }
-        $amount = $data['amount']->markup_departure_price;
-        $percent = $data['percent']->markup_departure_price;
-        $this->save_markup_departure_price($amount,$percent, $virtuemart_departure_price_id);
+        $amount = $data['amount']->markup_promotion_price;
+        $percent = $data['percent']->markup_promotion_price;
+        $this->save_markup_promotion_price($amount,$percent, $virtuemart_promotion_price_id);
 
-        $amount = $data['amount']->net_markup_departure_price;
-        $percent = $data['percent']->net_markup_departure_price;
-        $this->save_net_markup_departure_price($amount,$percent, $virtuemart_departure_price_id);
-        return $virtuemart_departure_price_id;
+        $amount = $data['amount']->net_markup_promotion_price;
+        $percent = $data['percent']->net_markup_promotion_price;
+        $this->save_net_markup_promotion_price($amount,$percent, $virtuemart_promotion_price_id);
+        return $virtuemart_promotion_price_id;
     }
 
-    public function save_departure_price_group_size_by_departure_price_id($tour_departure_price_by_tour_departure_price_id, $virtuemart_price_id)
+    public function save_promotion_price_group_size_by_promotion_price_id($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_group_size_id_tour_departure_price_id')
-            ->where('virtuemart_tour_departure_price_id=' . (int)$virtuemart_price_id);
+        $query->delete('#__virtuemart_group_size_id_tour_promotion_price_id')
+            ->where('virtuemart_tour_promotion_price_id=' . (int)$virtuemart_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
         }
 
-        if (count($tour_departure_price_by_tour_departure_price_id)) {
-            foreach ($tour_departure_price_by_tour_departure_price_id as $group_size_id => $items) {
+        if (count($tour_promotion_price_by_tour_promotion_price_id)) {
+            foreach ($tour_promotion_price_by_tour_promotion_price_id as $group_size_id => $items) {
                 if(!is_object($items))
                     continue;
                 $query = $db->getQuery(true);
-                $query->insert('#__virtuemart_group_size_id_tour_departure_price_id');
+                $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id');
                 foreach ($items as $key => $value) {
                     $query->set("$key=".(int)$value);
                 }
-                $query->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+                $query->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                     ->set("virtuemart_group_size_id=$group_size_id");
                 if(!$db->setQuery($query)->execute())
                 {
@@ -231,13 +229,13 @@ class VirtueMartModeldeparture extends VmModel
             }
         }
     }
-    public function save_markup_departure_price($amount,$percent, $virtuemart_price_id)
+    public function save_markup_promotion_price($amount,$percent, $virtuemart_price_id)
     {
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_mark_up_tour_departure_price_id')
-            ->where('virtuemart_tour_departure_price_id=' . (int)$virtuemart_price_id);
+        $query->delete('#__virtuemart_mark_up_tour_promotion_price_id')
+            ->where('virtuemart_tour_promotion_price_id=' . (int)$virtuemart_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
@@ -246,11 +244,11 @@ class VirtueMartModeldeparture extends VmModel
         if (count($amount)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_departure_price_id');
+                ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
             foreach ($amount as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                 ->set('type='.$query->q('amount'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -261,11 +259,11 @@ class VirtueMartModeldeparture extends VmModel
         if (count($percent)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_departure_price_id');
+                ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
             foreach ($percent as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                 ->set('type='.$query->q('percent'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -274,13 +272,13 @@ class VirtueMartModeldeparture extends VmModel
             }
         }
     }
-    public function save_net_markup_departure_price($amount,$percent, $virtuemart_price_id)
+    public function save_net_markup_promotion_price($amount,$percent, $virtuemart_price_id)
     {
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_mark_up_tour_departure_net_price_id')
-            ->where('virtuemart_tour_departure_price_id=' . (int)$virtuemart_price_id);
+        $query->delete('#__virtuemart_mark_up_tour_promotion_net_price_id')
+            ->where('virtuemart_tour_promotion_price_id=' . (int)$virtuemart_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
@@ -289,11 +287,11 @@ class VirtueMartModeldeparture extends VmModel
         if (count($amount)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_departure_net_price_id');
+                ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
             foreach ($amount as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                 ->set('type='.$query->q('amount'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -305,11 +303,11 @@ class VirtueMartModeldeparture extends VmModel
         if (count($percent)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_departure_net_price_id');
+                ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
             foreach ($percent as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                 ->set('type='.$query->q('percent'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -319,12 +317,12 @@ class VirtueMartModeldeparture extends VmModel
         }
     }
 
-    public function save_departure_price_group_size_by_departure_price_id_tour_private($data, $virtuemart_price_id)
+    public function save_promotion_price_group_size_by_promotion_price_id_tour_private($data, $virtuemart_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_group_size_id_tour_departure_price_id')
-            ->where('virtuemart_tour_departure_price_id=' . (int)$virtuemart_price_id);
+        $query->delete('#__virtuemart_group_size_id_tour_promotion_price_id')
+            ->where('virtuemart_tour_promotion_price_id=' . (int)$virtuemart_price_id);
 
         $db->setQuery($query)->execute();
         $price_senior=(float)$data->price_senior;
@@ -334,8 +332,8 @@ class VirtueMartModeldeparture extends VmModel
         $price_children1=(float)$data->price_children1;
         $price_children2=(float)$data->price_children2;
         $price_private_room=(float)$data->price_private_room;
-        $query->insert('#__virtuemart_group_size_id_tour_departure_price_id')
-            ->set("virtuemart_tour_departure_price_id=$virtuemart_price_id")
+        $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id')
+            ->set("virtuemart_tour_promotion_price_id=$virtuemart_price_id")
                 ->set("price_senior=$price_senior")
                 ->set("price_adult=$price_adult")
                 ->set("price_teen=$price_teen")

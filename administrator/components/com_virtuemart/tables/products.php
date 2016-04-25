@@ -28,6 +28,7 @@ class TableProducts extends VmTable
     var $product_name = 0;
     var $tour_length = 0;
     var $start_city = 0;
+    var $product_code = 0;
     var $end_city = 0;
     var $virtuemart_tour_type_id = 0;
     var $virtuemart_tour_style_id = 0;

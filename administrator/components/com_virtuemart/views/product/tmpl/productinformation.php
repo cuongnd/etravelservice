@@ -29,7 +29,7 @@ $i = 0;
         <div class="span4">
             <fieldset>
                 <legend>General</legend>
-                <?php echo VmHTML::row_control('text_view', 'Tour name', $view->product->product_name.'('.$view->product->product_sku.')', 'class="required"'); ?>
+                <?php echo VmHTML::row_control('text_view', 'Tour name', $view->product->product_name.'('.$view->product->product_code.')', 'class="required"'); ?>
                 <?php echo VmHTML::row_control('text_view', 'Tour length', $view->product->tour_length, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('text_view', 'Tour countries', $view->product->list_country, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('text_view', 'start city', $view->product->start_city, 'class="required"'); ?>

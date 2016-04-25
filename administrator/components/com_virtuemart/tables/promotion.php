@@ -28,10 +28,10 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class Tabledeparture extends VmTableData {
+class Tablepromotion extends VmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_departure_price_id				= 0;
+	var $virtuemart_promotion_price_id				= 0;
 	var $discount_for_elder				= 0;
 	var $discount_for_teen				= 0;
 	var $price_note				= 0;
@@ -40,7 +40,7 @@ class Tabledeparture extends VmTableData {
 	var $sale_period_to				= null;
 	var $title				= '';
 	var $tax				= 0;
-	var $service_class_id				= 0;
+	var $virtuemart_service_class_id				= 0;
 	var $private_room_supplement				= 0;
 	var $shared					= 0;
 	var $published				= 0;
@@ -51,7 +51,7 @@ class Tabledeparture extends VmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_tour_departure_price', 'virtuemart_departure_price_id', $db);
+		parent::__construct('#__virtuemart_tour_promotion_price', 'virtuemart_promotion_price_id', $db);
 
 
 
@@ -68,7 +68,7 @@ class Tabledeparture extends VmTableData {
 
 	/**
 	 * ATM Unused !
-	 * Checks a departure symbol wether it is a HTML entity.
+	 * Checks a promotion symbol wether it is a HTML entity.
 	 * When not and $convertToEntity is true, it converts the symbol
 	 * Seems not be used      ATTENTION   seems BROKEN, working only for euro, ...
 	 *

@@ -37,6 +37,7 @@ class TableTour_type extends VmTableData {
 	var $meta_title				= "";
 	var $key_word				= "";
 	var $description				= "";
+	var $price_type				= "";
 
 	var $shared					= 0;
 	var $published				= 0;

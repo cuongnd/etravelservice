@@ -26,6 +26,7 @@
  */
 class vmGroupSize
 {
+    const FLAT_PRICE = 'flat_price';
     /**
      * javascript strings
      *

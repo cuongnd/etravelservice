@@ -39,7 +39,7 @@ class VirtueMartModelTrip extends VmModel {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->setMainTable('products');
+		$this->setMainTable('price');
 	}
 
 	/**

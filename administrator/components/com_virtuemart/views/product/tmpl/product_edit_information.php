@@ -41,7 +41,7 @@ $i = 0;
             <fieldset>
                 <legend>Particularity</legend>
 
-                <?php echo VmHTML::row_control('select', 'Tour type', 'virtuemart_tour_type_id', $this->list_tour_type, $this->product->virtuemart_tour_type_id, '', 'virtuemart_tour_type_id', 'title', false); ?>
+                <?php echo VmHTML::row_control('select_tour_type', 'Tour type', 'virtuemart_tour_type_id', $this->product->virtuemart_tour_type_id, '', false); ?>
                 <?php echo VmHTML::row_control('select', 'tour style', 'virtuemart_tour_style_id', $this->list_tour_style, $this->product->virtuemart_tour_style_id, '', 'virtuemart_tour_style_id', 'title', false); ?>
                 <?php echo VmHTML::row_control('select', 'physical grade', 'virtuemart_physicalgrade_id', $this->list_physical_grade, $this->product->virtuemart_physicalgrade_id, '', 'virtuemart_physicalgrade_id', 'title', false); ?>
 
@@ -117,7 +117,7 @@ $i = 0;
                 <div class="panel-heading">Select price type</div>
                 <div class="panel-body">
                     <div class=""></div>
-                    <?php echo VmHTML::list_radio('price_type',$this->list_price_type , $this->product->price_type, 'class="required"'); ?>
+                    <?php echo VmHTML::list_radio_price_type('price_type', $this->product->price_type, 'class="required"'); ?>
                     <div class="group-size" style="display: none">
                         <hr/>
                         <h4 style="text-align: center">select group size for multiply group price</h4>

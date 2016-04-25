@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class VirtuemartViewdeparture extends VmViewAdmin {
+class VirtuemartViewpromotion extends VmViewAdmin {
 
 	function display_price()
 	{
@@ -43,7 +43,7 @@ class VirtuemartViewdeparture extends VmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model_departure_price = VmModel::getModel();
+		$model_promotion_price = VmModel::getModel();
 		$app=JFactory::getApplication();
 		$input=$app->input;
 
@@ -77,11 +77,11 @@ class VirtuemartViewdeparture extends VmViewAdmin {
 				$cid = 0;
 			}
 
-			$model_departure_price->setId($cid);
-			$this->price = $model_departure_price->get_departure_price();
+			$model_promotion_price->setId($cid);
+			$this->price = $model_promotion_price->get_promotion_price();
 			$model_product = VmModel::getModel('product');
 			$this->list_tour = $model_product->getProductListing();
-			$this->SetViewTitle('',$this->departure->departure_name);
+			$this->SetViewTitle('',$this->promotion->promotion_name);
 			$this->addStandardEditViewCommands();
 
 		} else {
@@ -91,12 +91,12 @@ class VirtuemartViewdeparture extends VmViewAdmin {
             $this->virtuemart_product_id=$tour_id;
 
             $model_product = VmModel::getModel('product');
-			$this->list_tour = $model_product->getProductListing();
+			$this->list_tour = $model_product->getItems();
 
-            $this->product=$model_product->getProduct($this->virtuemart_product_id,false,false,false);
+            $this->product=$model_product->getItem($this->virtuemart_product_id);
             $virtuemart_price_id=$input->get('virtuemart_price_id',0,'int');
-			$model_departure_price->setId($virtuemart_price_id);
-            $this->price = $model_departure_price->get_departure_price();
+			$model_promotion_price->setId($virtuemart_price_id);
+            $this->price = $model_promotion_price->get_promotion_price();
 
             //get markup
             $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
@@ -105,14 +105,12 @@ class VirtuemartViewdeparture extends VmViewAdmin {
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsdeparture();
-			$this->addStandardDefaultViewLists($model_departure_price,0,'ASC');
+			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');
+            $this->addStandardDefaultViewCommandspromotion();
+            $model_tourclass = VmModel::getModel('tourclass');
+            $this->list_service_class_by_tour_id=$model_tourclass->getItems();
 
-
-            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vm_service_class.php';
-            $this->list_service_class_by_tour_id=vm_service_class::get_list_service_class_by_tour_id($tour_id);
-
-			$this->departure_prices = $model_departure_price->getdeparturePricesList($tour_id);
+			$this->promotion_prices = $model_promotion_price->getpromotionPricesList($tour_id);
             //$this->prices=JArrayHelper::pivot($this->prices,'service_class_name');
 
 		}

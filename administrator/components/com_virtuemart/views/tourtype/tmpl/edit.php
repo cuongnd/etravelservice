@@ -31,6 +31,7 @@ AdminUIHelper::imitateTabs('start', "tourtype");
                 <legend><?php echo vmText::_('Current tourtype'); ?></legend>
                 <div class="admintable row-fluid">
                     <?php echo VmHTML::row_control('input', 'tourtype name', 'title', $this->item->title, 'class="required"'); ?>
+                    <?php echo VmHTML::row_control('list_radio','Price type','price_type', $this->list_price_type , $this->item->price_type, 'class="required"'); ?>
                     <?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>
                     <?php echo VmHTML::row_control('textarea', 'Meta title', 'meta_title', $this->item->meta_title); ?>
                     <?php echo VmHTML::row_control('textarea', 'Key Word', 'key_word', $this->item->key_word); ?>

@@ -65,7 +65,8 @@ class VirtuemartViewDeparture extends VmViewAdmin {
 		} else {
 			$model_product = VmModel::getModel('product');
 			$model_tour_class = VmModel::getModel('tourclass');
-			$this->list_tour = $model_product->getItems();
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmdeparture.php';
+			$this->list_tour = vmDeparture::get_list_tour_jont_group();
 
 			$this->list_tour_class = $model_tour_class->getItemList();
 			$this->SetViewTitle();

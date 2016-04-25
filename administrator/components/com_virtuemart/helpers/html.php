@@ -458,6 +458,48 @@ class VmHtml
         $html=ob_get_clean();
         return $html;
     }
+    public static function select_tour_type($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_tour_type/html_select_tour_type.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_tour_type/html_select_tour_type.less');
+        $input = JFactory::getApplication()->input;
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtourtype.php';
+        $list_tour_type = vmtourtype::get_list_tour_type();
+        $id_element='html_select_tour_type_'.$name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_tour_type({
+                    list_tour_type:<?php echo json_encode($list_tour_type) ?>,
+                    select_name:"<?php echo $name ?>",
+                    virtuemart_tour_type_id:<?php echo $default?$default:0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select tour type') ?></option>
+                <?php foreach($list_tour_type as $tour_type){ ?>
+                    <option <?php echo $tour_type->virtuemart_tour_type_id==$default?' selected ':'' ?>  value="<?php echo $tour_type->virtuemart_tour_type_id ?>" data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->title ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
 
     public static function select_number_passenger($name,$text_header='', $min=0,$max=100, $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
@@ -1171,6 +1213,57 @@ class VmHtml
         $js_content = JUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
 
+
+        $html = '';
+        $list_options = array_chunk($options, $column);
+        ob_start();
+        ?>
+        <div id="<?php echo $id ?>" class="list-radio-box">
+            <?php foreach ($list_options as $options) { ?>
+                <div class="row-fluid">
+                    <?php foreach ($options as $option) { ?>
+                        <div class="span<?php echo round(12 / $column) ?>">
+                            <label class="checkbox">
+                                <input
+                                    name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
+                                    value="<?php echo $option->$key ?>" type="radio">
+                                <br/>
+                                <?php echo $option->$text ?>
+                            </label>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
+    {
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmprice.php';
+        $options = vmprice::get_list_price_type();
+
+        JHtml::_('jquery.framework');
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
+        $id = "list-radio-box-$name";
+        $total_option = count($options);
+        $column = $total_option < $column ? $total_option : $column;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $("<?php echo "#$id" ?>").find('input[name="<?php echo $name ?>"]').checkator({});
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = JUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        $key = 'value';
+        $text = 'text';
 
         $html = '';
         $list_options = array_chunk($options, $column);

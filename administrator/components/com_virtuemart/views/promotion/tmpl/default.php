@@ -43,10 +43,10 @@ $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepick
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
 
 
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_departure_default.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_promotion_default.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/base.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/clean.css');
-$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_departure_default.less');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/less/view_promotion_default.less');
 
 
 AdminUIHelper::startAdminArea($this);
@@ -78,32 +78,32 @@ AdminUIHelper::startAdminArea($this);
                     </thead>
                     <tbody>
                     <?php
-                    foreach ($this->departure_prices as $departure_price) {
+                    foreach ($this->promotion_prices as $promotion_price) {
                         ?>
-                        <tr role="row" data-price_id="<?php echo $departure_price->virtuemart_departure_price_id ?>">
+                        <tr role="row" data-price_id="<?php echo $promotion_price->virtuemart_promotion_price_id ?>">
                             <td><label class="checkbox"><input type="checkbox" name="row_price_id[]"
-                                                               value="<?php echo $departure_price->virtuemart_departure_price_id ?>"
+                                                               value="<?php echo $promotion_price->virtuemart_promotion_price_id ?>"
                                                                class="check-item"><span
-                                        class="item-id"><?php echo $departure_price->virtuemart_departure_price_id ?></span></label>
+                                        class="item-id"><?php echo $promotion_price->virtuemart_promotion_price_id ?></span></label>
                             </td>
-                            <td><?php echo $departure_price->tour_name ?></td>
-                            <td class="service_class_name"><?php echo $departure_price->service_class_name ?></td>
-                            <td class="sale_period"><?php echo JHtml::_('date', $departure_price->sale_period_from, 'd M. Y'); ?>
-                                -<?php echo JHtml::_('date', $departure_price->sale_period_to, 'd M. Y'); ?></td>
-                            <td><?php echo JHtml::_('date', $departure_price->created_on, 'd M. Y'); ?></td>
-                            <td class="modified_on"><?php echo JHtml::_('date', $departure_price->modified_on, 'd M. Y'); ?></td>
+                            <td><?php echo $promotion_price->tour_name ?></td>
+                            <td class="service_class_name"><?php echo $promotion_price->service_class_name ?></td>
+                            <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, 'd M. Y'); ?>
+                                -<?php echo JHtml::_('date', $promotion_price->sale_period_to, 'd M. Y'); ?></td>
+                            <td><?php echo JHtml::_('date', $promotion_price->created_on, 'd M. Y'); ?></td>
+                            <td class="modified_on"><?php echo JHtml::_('date', $promotion_price->modified_on, 'd M. Y'); ?></td>
                             <td>
                                 <a href="#price-form" class=" edit-price">
                                     <span class="icon-eye icon-white"></span>
                                 </a>
                             </td>
-                            <td class="price_note"><?php echo $departure_price->price_note ?></td>
+                            <td class="price_note"><?php echo $promotion_price->price_note ?></td>
                             <td><a href="#price-form" class=" edit-price">
                                     <span class="icon-edit icon-white"></span>
                                 </a>
                                 <a href="#price-form" class=" publish-price">
                                     <span
-                                        class="icon-<?php echo $departure_price->published ? 'publish' : 'unpublish' ?> icon-white"></span>
+                                        class="icon-<?php echo $promotion_price->published ? 'publish' : 'unpublish' ?> icon-white"></span>
                                 </a>
                                 <a href="#price-form" class=" delete-price">
                                     <span class="icon-delete icon-white"></span>
@@ -136,7 +136,7 @@ AdminUIHelper::startAdminArea($this);
                             <tr>
                                 <td>Service class</td>
                                 <td colspan="4">
-                                    <select name="service_class_id" id="service_class_id">
+                                    <select name="virtuemart_service_class_id" id="virtuemart_service_class_id">
                                         <option value="0">select service class</option>
                                         <?php foreach ($this->list_service_class_by_tour_id as $service_class) { ?>
                                             <option <?php echo $service_class->virtuemart_service_class_id == $this->price->service_class_id ? 'selected' : '' ?>
@@ -193,7 +193,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
                 <input type="hidden" name="virtuemart_product_id" value=""/>
-                <input type="hidden" name="virtuemart_departure_price_id" value="0">
+                <input type="hidden" name="virtuemart_promotion_price_id" value="0">
                 <input type="hidden" id="tour_methor" name="tour_methor" value=""/>
             </div>
 
@@ -201,8 +201,8 @@ AdminUIHelper::startAdminArea($this);
 
 
         <input type="hidden" name="option" value="com_virtuemart"/>
-        <input type="hidden" name="controller" value="departure"/>
-        <input type="hidden" name="view" value="departure"/>
+        <input type="hidden" name="controller" value="promotion"/>
+        <input type="hidden" name="view" value="promotion"/>
         <input type="hidden" name="task" value=""/>
 
         <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $this->virtuemart_product_id; ?>"/>
@@ -213,7 +213,7 @@ AdminUIHelper::startAdminArea($this);
     </form>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('#adminForm').view_departure_default({
+            $('#adminForm').view_promotion_default({
                 tour_id:<?php echo $this->virtuemart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,

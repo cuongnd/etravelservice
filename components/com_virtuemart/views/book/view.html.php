@@ -40,7 +40,10 @@ class virtuemartViewbook extends VmView {
             $app=JFactory::getApplication();
             $input=$app->input;
             $virtuemart_price_id=$input->getInt('virtuemart_price_id',0);
-
+            $trip_model=VmModel::getModel('trip');
+            $this->trip=$trip_model->getItem($virtuemart_price_id);
+            $product_model=VmModel::getModel('product');
+            $this->product=$product_model->getItem( $this->trip->virtuemart_product_id);
             parent::display($tpl);
         }
 

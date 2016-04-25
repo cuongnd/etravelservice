@@ -173,11 +173,14 @@ AdminUIHelper::startAdminArea($this);
                                     <td style="text-align: center">Child 2</td>
                                     <td style="text-align: center">Infant</td>
                                     <td style="text-align: center">Pr. Room</td>
+                                    <td style="text-align: center">Extra bed</td>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                <?php for ($i=0;$i<count($this->list_group_size_by_tour_id);$i++) { ?>
+                                <?php
+                                $total_group=count($this->list_group_size_by_tour_id);
+                                ?>
+                                <?php for ($i=0;$i<$total_group;$i++) { ?>
                                     <?php
                                     $group_size=$this->list_group_size_by_tour_id[$i];
                                     $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
@@ -188,10 +191,11 @@ AdminUIHelper::startAdminArea($this);
                                     $price_children2 = $tour_price_by_tour_price_id->price_children2;
                                     $price_infant = $tour_price_by_tour_price_id->price_infant;
                                     $price_private_room = $tour_price_by_tour_price_id->price_private_room;
+                                    $extra_bed = $tour_price_by_tour_price_id->extra_bed;
                                     ?>
                                     <tr role="row"
                                         data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
-                                        <td style="text-align: center"><?php echo $group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td>
                                             <input type="hidden" name="tour_price_by_tour_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
                                             <input required="true"
@@ -225,14 +229,28 @@ AdminUIHelper::startAdminArea($this);
                                                    value="<?php echo $price_infant ?>"
                                                    name="tour_price_by_tour_price_id[<?php echo $i ?>][price_infant]"
                                                    required="true" class="inputbox number price_infant"></td>
-                                        <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                        <?php if($i==0){ ?>
+                                        <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle" ><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                    column-type="private_room" type="text" size="7"
                                                    value="<?php echo $price_private_room ?>"
                                                    name="tour_price_by_tour_price_id[<?php echo $i ?>][price_private_room]"
                                                    required="true" class="inputbox number price_private_room"></td>
+                                        <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                                   column-type="extra_bed" type="text" size="7"
+                                                   value="<?php echo $extra_bed ?>"
+                                                   name="tour_price_by_tour_price_id[<?php echo $i ?>][extra_bed]"
+                                                   required="true" class="inputbox number extra_bed"></td>
+                                        <?php } ?>
 
                                     </tr>
                                 <?php } ?>
+                                    <tr>
+                                        <td colspan="10">
+                                            <label>Full charge children 1 <input type="checkbox" name="full_charge_children1" value="<?php echo $this->price->full_charge_children1 ?>"></label>
+                                            <label>Full charge children 2 <input type="checkbox" name="full_charge_children2" value="<?php echo $this->price->full_charge_children2 ?>"></label>
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                             <h3>mark up</h3>
@@ -246,6 +264,7 @@ AdminUIHelper::startAdminArea($this);
                                     <td style="text-align: center">Child 2</td>
                                     <td style="text-align: center">Infant</td>
                                     <td style="text-align: center">Pr. Room</td>
+                                    <td style="text-align: center">Extra bed</td>
                                 </tr>
                                 <tr class="amount">
                                     <td>Amout</td>
@@ -277,6 +296,10 @@ AdminUIHelper::startAdminArea($this);
                                                                           value="<?php echo $this->list_mark_up['amount']->private_room ?>"
                                                                           class="inputbox number"
                                                                           column-type="private_room" type="text"></td>
+                                    <td style="text-align: center"><input name="amount[extra_bed]"
+                                                                          value="<?php echo $this->list_mark_up['amount']->extra_bed ?>"
+                                                                          class="inputbox number"
+                                                                          column-type="extra_bed" type="text"></td>
                                 </tr>
                                 <tr class="percent">
                                     <td>percent</td>
@@ -308,6 +331,10 @@ AdminUIHelper::startAdminArea($this);
                                                                           value="<?php echo $this->list_mark_up['percent']->private_room ?>"
                                                                           class="inputbox number"
                                                                           column-type="private_room" type="text"></td>
+                                    <td style="text-align: center"><input name="percent[extra_bed]"
+                                                                          value="<?php echo $this->list_mark_up['percent']->extra_bed ?>"
+                                                                          class="inputbox number"
+                                                                          column-type="extra_bed" type="text"></td>
                                 </tr>
                             </table>
                             <h3>PROFIT</h3>
@@ -321,11 +348,15 @@ AdminUIHelper::startAdminArea($this);
                                     <td style="text-align: center">Child 2</td>
                                     <td style="text-align: center">Infant</td>
                                     <td style="text-align: center">Pr. Room</td>
+                                    <td style="text-align: center">Extra bed</td>
                                 </tr>
-                                <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
 
+                                <?php for ($i=0;$i<$total_group;$i++ ) { ?>
+                                <?php
+                                    $group_size=$this->list_group_size_by_tour_id[$i];
+                                    ?>
                                     <tr>
-                                        <td style="text-align: center"><?php echo $group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="senior"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -338,8 +369,12 @@ AdminUIHelper::startAdminArea($this);
                                                   column-type="children2"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="infant"></span></td>
-                                        <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                        <?php if($i==0){ ?>
+                                        <td  rowspan="<?php echo $total_group ?>" style="vertical-align: middle"> <span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="private_room"></span></td>
+                                        <td  rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                                  column-type="extra_bed"></span></td>
+                                        <?php } ?>
 
 
                                     </tr>
@@ -365,11 +400,15 @@ AdminUIHelper::startAdminArea($this);
                                     <td style="text-align: center">Child 2</td>
                                     <td style="text-align: center">Infant</td>
                                     <td style="text-align: center">Pr. Room</td>
+                                    <td style="text-align: center">Extra bed</td>
                                 </tr>
-                                <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
+                                <?php for ($i=0;$i<$total_group;$i++ ) {
+
+                                $group_size=$this->list_group_size_by_tour_id[$i];
+                                ?>
 
                                     <tr>
-                                        <td style="text-align: center"><?php echo $group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="senior"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -382,8 +421,12 @@ AdminUIHelper::startAdminArea($this);
                                                   column-type="children2"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="infant"></span></td>
-                                        <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                        <?php if($i==0){ ?>
+                                        <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="private_room"></span></td>
+                                        <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"> <span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                                  column-type="extra_bed"></span></td>
+                                        <?php } ?>
 
                                     </tr>
                                 <?php } ?>

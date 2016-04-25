@@ -237,6 +237,39 @@ class VmViewAdmin extends JViewLegacy
         $this->addJsJoomlaSubmitButton();
         // javascript for cookies setting in case of press "APPLY"
     }
+    function addStandardDefaultViewCommandspromotion($showNew = true, $showDelete = true, $showHelp = true)
+    {
+
+
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+
+        JToolBarHelper::divider();
+        if (vmAccess::manager($view . '.edit.state')) {
+            JToolBarHelper::publishList();
+            JToolBarHelper::unpublishList();
+        }
+        if (vmAccess::manager($view . '.edit')) {
+            JToolBarHelper::editList();
+        }
+        if (vmAccess::manager($view . '.create')) {
+            JToolBarHelper::addNew();
+        }
+        if (vmAccess::manager($view . '.delete')) {
+            JToolBarHelper::spacer('10');
+            JToolBarHelper::deleteList();
+        }
+        JToolBarHelper::divider();
+        JToolBarHelper::spacer('2');
+        //self::showACLPref($view);
+        //self::showHelp ( $showHelp);
+        if (JFactory::getApplication()->isSite()) {
+            $bar = JToolBar::getInstance('toolbar');
+            $bar->appendButton('Link', 'back', 'COM_VIRTUEMART_LEAVE', 'index.php?option=com_virtuemart&manage=0');
+        }
+
+        $this->addJsJoomlaSubmitButton();
+        // javascript for cookies setting in case of press "APPLY"
+    }
 
     //only view Departure
 
