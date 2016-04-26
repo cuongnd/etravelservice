@@ -121,7 +121,7 @@ class VirtuemartControllerPrice extends VmController {
         $app=JFactory::getApplication();
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
-        $tour_method=$input->get('tour_method','','string');
+        $price_type=$input->get('price_type','','string');
         $model_price = VmModel::getModel('price');
         $model_price->setId($price_id);
         $price = $model_price->getPrice();
@@ -135,18 +135,18 @@ class VirtuemartControllerPrice extends VmController {
 
         $model_product = VmModel::getModel('product');
         $product=$model_product->getItem($this->virtuemart_product_id);
-
-        if($tour_method=='tour_group')
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+        if($price_type!=vmGroupSize::FLAT_PRICE)
         {
             $return_item->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($price_id);
         }else{
             $return_item->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($price_id);
         }
 
-        /*//get markup
+        //get markup
         $return_item->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($price_id);
         $return_item->list_mark_up=JArrayHelper::pivot($return_item->list_mark_up,'type');
-        //end get markup*/
+        //end get markup
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
         $return_item->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
 

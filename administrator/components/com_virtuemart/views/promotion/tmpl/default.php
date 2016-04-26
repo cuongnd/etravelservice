@@ -52,7 +52,7 @@ $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart
 AdminUIHelper::startAdminArea($this);
 
 ?>
-
+<div class="view-promotion-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate ">
         <div class="row-fluid">
             <div class="span12">
@@ -194,7 +194,7 @@ AdminUIHelper::startAdminArea($this);
                 </div>
                 <input type="hidden" name="virtuemart_product_id" value=""/>
                 <input type="hidden" name="virtuemart_promotion_price_id" value="0">
-                <input type="hidden" id="tour_methor" name="tour_methor" value=""/>
+                <input type="hidden" id="price_type" name="price_type" value=""/>
             </div>
 
         </div>
@@ -213,7 +213,7 @@ AdminUIHelper::startAdminArea($this);
     </form>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('#adminForm').view_promotion_default({
+            $('.view-promotion-default').view_promotion_default({
                 tour_id:<?php echo $this->virtuemart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,
@@ -221,4 +221,5 @@ AdminUIHelper::startAdminArea($this);
             });
         });
     </script>
+</div>
 <?php AdminUIHelper::endAdminArea(); ?>

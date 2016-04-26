@@ -62,7 +62,6 @@ class VirtueMartModelTrip extends VmModel {
         $app = JFactory::getApplication('site');
 
         // Load the filter state.
-
         $total_passenger_from_12_years_old = $this->getUserStateFromRequest($this->context . '.filter.total_passenger_from_12_years_old', 'filter_total_passenger_from_12_years_old', 0, 'int');
         $this->setState('filter.total_passenger_from_12_years_old', $total_passenger_from_12_years_old);
 
@@ -73,8 +72,6 @@ class VirtueMartModelTrip extends VmModel {
         $start_date = $this->getUserStateFromRequest($this->context . '.filter.start_date', 'filter_start_date', '', 'string');
         $this->setState('filter.start_date', $start_date);
 
-        $end_date = $this->getUserStateFromRequest($this->context . '.filter.end_date', 'filter_end_date', '', 'string');
-        $this->setState('filter.end_date', $end_date);
     }
 
     function getListQuery()
@@ -98,16 +95,12 @@ class VirtueMartModelTrip extends VmModel {
         if ($start_date = $this->getState('filter.start_date'))
         {
             $start_date=JFactory::getDate($start_date);
-            $query->where('tour_price.sale_period_from<='.$start_date->toSql());
-        }
-        if ($end_date = $this->getState('filter.end_date'))
-        {
-            $end_date=JFactory::getDate($end_date);
-            $query->where('tour_price.sale_period_to<='.$end_date->toSql());
+            $query->where('tour_price.sale_period_from>='.$start_date->toSql());
         }
 
 		$query->order('tour_price.virtuemart_price_id');
         $query->group('tour_price.virtuemart_service_class_id');
+        echo $query->dump();
 		return $query;
 	}
 

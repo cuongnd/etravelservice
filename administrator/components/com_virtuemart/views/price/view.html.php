@@ -52,9 +52,11 @@ class VirtuemartViewPrice extends VmViewAdmin {
 		if ($layoutName == 'edit') {
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
+
 			if($this->product->tour_methor=='tour_group')
 			{
 				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($virtuemart_product_id);
+
 			}else{
 				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($virtuemart_product_id);
 			}
@@ -89,6 +91,11 @@ class VirtuemartViewPrice extends VmViewAdmin {
             //end get markup*/
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+            if(!count($this->list_group_size_by_tour_id))
+            {
+                throw new Exception('there are no group size setup');
+                return false;
+            }
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommandsPrice();
 			$this->addStandardDefaultViewLists($model,0,'ASC');

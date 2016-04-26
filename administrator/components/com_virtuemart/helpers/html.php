@@ -776,13 +776,16 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
-    public static function select_date($name, $value_selected= '', $format = 'YYYY-MM-DD', $min_date = '', $max_date = '')
+    public static function select_date($name, $value_selected= '', $format = 'dd mm yy',$view_format = 'd MM yy', $min_date = '', $max_date = '')
     {
+        JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
-
+        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.maskedinput-master/dist/jquery.maskedinput.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_date/html_select_date.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_date/html_select_date.less');
         $input = JFactory::getApplication()->input;
@@ -793,7 +796,8 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('#<?php echo $select_date ?>').html_select_date({
                     format: "<?php echo $format ?>",
-                    name: "<?php echo $name ?>",
+                    view_format: "<?php echo $format ?>",
+                    input_name: "<?php echo $name ?>",
                     value_selected: "<?php echo $value_selected ?>",
                     min_date: "<?php echo $min_date ?>",
                     max_date: "<?php echo $max_date ?>"
@@ -808,7 +812,7 @@ class VmHtml
         ?>
         <div id="<?php echo $select_date ?>" class="select_date">
             <div class="input-append ">
-                <input type="text" value="<?php echo $value_selected ?>" class="select_date"/>
+                <input type="text" value="<?php echo $value_selected ?>" id="select_date_picker_<?php echo $name ?>" class="select_date"/>
                 <span class="icon-calendar add-on"></span>
             </div>
             <input type="hidden" value="<?php echo $value_selected ?>" name="<?php echo $name ?>">

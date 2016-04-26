@@ -508,6 +508,7 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
             <td style="text-align: center">Child 2</td>
             <td style="text-align: center">Infant</td>
             <td style="text-align: center">Pr. Room</td>
+            <td style="text-align: center">Extra bed</td>
         </tr>
         <tr class="amount">
             <td>Amout</td>

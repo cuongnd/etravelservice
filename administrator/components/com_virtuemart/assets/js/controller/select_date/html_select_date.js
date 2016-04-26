@@ -5,8 +5,9 @@
 
         // plugin's default options
         var defaults = {
-            from_name: '',
-            to_name: '',
+            input_name: '',
+            format: 'dd mm yy',
+            view_format: 'd MM yy',
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
@@ -28,29 +29,26 @@
             var max_date = plugin.settings.max_date;
             var from_date = plugin.settings.from_date;
             var to_date = plugin.settings.to_date;
-            var from_name = plugin.settings.from_name;
-            var to_name = plugin.settings.to_name;
-            $element.find('.select_date').daterangepicker({
-                    format: 'YYYY-MM-DD',
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    }
-                },
-                function (start, end, label) {
-                    var input_from = $element.find('input[name="' + from_name + '"]');
-                    var input_to = $element.find('input[name="' + to_name + '"]');
-                    input_from.val(start.format('YYYY-MM-DD'));
-                    input_to.val(end.format('YYYY-MM-DD'));
+            var format = plugin.settings.format;
+            var view_format = plugin.settings.view_format;
+            var input_name = plugin.settings.input_name;
+            $element.find('.select_date').datepicker({
+                showButtonPanel: true,
+                showWeek: true,
+                minDate: "+0",
+                dateFormat: view_format,
+                changeMonth: true,
+                changeYear: true,
+                onSelect:function(dateText, inst ){
+                    dateText=$.format.date(dateText, format);
+                    $element.find('input[name="'+input_name+'"]').val(dateText);
                 }
-            );
-
+            });
+            $element.find('input.select_date').change(function(){
+                var date=$(this).val();
+                var date=$.format.date(date, format);
+                $element.find('input[name="'+input_name+'"]').val(date);
+            });
 
         };
         plugin.set_date=function(startDate,endDate){

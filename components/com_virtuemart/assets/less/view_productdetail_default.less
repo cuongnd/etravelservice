@@ -2,6 +2,10 @@
 {
 
 }
+#ui-datepicker-div
+{
+  z-index: 999 !important;
+}
 .view-productdetails-default {
   .content-overview
   {
@@ -17,6 +21,7 @@
       }
     }
   }
+
   .product-name{
     text-align: center;
   }
@@ -49,6 +54,7 @@
       color: #fff;
       background: #006599;
       margin-bottom: 0;
+      border: 1px solid #ceced0;
       text-transform: uppercase;
       [class^="icon-"], [class*=" icon-"] {
         color: #fff;
@@ -77,12 +83,55 @@
       {
         .body-item
         {
-          padding: 10px 0;
+          padding-top: 10px;
+          background-color:#fff;
+          filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#fff, endColorstr=#f3f2ee);
+          background-image:-moz-linear-gradient(right, #fff 50%, #f3f2ee 0%);
+          background-image:-webkit-linear-gradient(right, #fff 50%, #f3f2ee 0%);
+          background-image:-ms-linear-gradient(right, #fff 50%, #f3f2ee 0%);
+          background-image:linear-gradient(right, #fff 50%, #f3f2ee 0%);
+          background-image:-o-linear-gradient(right, #fff 50%, #f3f2ee 0%);
+          background-image:-webkit-gradient(linear, right bottom, left bottom, color-stop(50%,#fff), color-stop(0%,#f3f2ee));
+          .area-booking
+          {
+            text-transform: uppercase;
+            color: #026666;
+            font-weight: bold;
+            .text-right{
+              background-color:#000;
+              filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#000, endColorstr=#fff);
+              background-image:-moz-linear-gradient(left, #000 1px, #fff 0%);
+              background-image:-webkit-linear-gradient(left, #000 1px, #fff 0%);
+              background-image:-ms-linear-gradient(left, #000 1px, #fff 0%);
+              background-image:linear-gradient(left, #000 1px, #fff 0%);
+              background-image:-o-linear-gradient(left, #000 1px, #fff 0%);
+              background-image:-webkit-gradient(linear, left bottom, right bottom, color-stop(1px,#000), color-stop(0%,#fff));
+              min-height: 60px;
+            }
+            .area-text
+            {
+              padding: 0 0 10px;
+            }
+          }
+          .start,.finish
+          {
+
+          }
+          .start{
+            text-align: right;
+          }
+          .text-start,.text-finish
+          {
+            text-transform: uppercase;
+            font-weight: bold;
+          }
         }
       }
       .item
       {
-        padding: 10px 0;
+        padding: 10px 0 0;
+        border: 1px solid #cdc9ca;
+        border-top: none;
         .header-item
         {
         }
@@ -104,5 +153,14 @@
         text-transform: uppercase;
       }
     }
+  }
+  .travel-icon
+  {
+    font-size: 35px;
+    color: #006e66;
+  }
+  .person
+  {
+    text-align: center;
   }
 }

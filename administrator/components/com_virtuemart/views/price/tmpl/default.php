@@ -24,7 +24,7 @@ JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
-
+require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 $doc->addScript(JUri::root() . '/media/system/js/datepicker/js/datepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/dateFormat.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/jquery.dateFormat.js');
@@ -156,12 +156,11 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
 
-
-                <?php if ($this->product->tour_method == 'tour_group') { ?>
+                <?php if ($this->product->price_type != vmGroupSize::FLAT_PRICE) { ?>
                     <div class="row-fluid">
                         <div class="span12">
 
-                            <h3>NET PRICE</h3>
+                            <h3>NET PRICE <button class="btn btn-primary random-price">random price</button></h3>
                             <table class="table-bordered  table table-striped base-price">
                                 <thead>
                                 <tr>
@@ -253,7 +252,7 @@ AdminUIHelper::startAdminArea($this);
 
                                 </tbody>
                             </table>
-                            <h3>mark up</h3>
+                            <h3>mark up <button class="btn btn-primary random-markup">random markup</button></h3>
                             <table class="table-bordered  table table-striped mark-up-price">
                                 <tr>
                                     <td>MARK UP VALUE</td>
@@ -671,10 +670,12 @@ AdminUIHelper::startAdminArea($this);
         jQuery(document).ready(function ($) {
             $('#adminForm').view_price_default({
                 list_price:<?php echo json_encode($this->prices) ?>,
+                flat_price:"<?php echo vmGroupSize::FLAT_PRICE ?>",
                 tour_id:<?php echo $this->virtuemart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,
-                tour_method: "<?php echo $this->product->tour_method ?>",
+
+                price_type: "<?php echo $this->product->price_type ?>",
                 date_format: "<?php echo JText::_('COM_VIRTUEMART_DATE_FORMAT_INPUT_J16')  ?>"
             });
         });

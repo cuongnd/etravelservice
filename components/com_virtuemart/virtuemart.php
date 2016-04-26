@@ -28,7 +28,8 @@ vmSetStartTime('Start');
 
 VmConfig::loadJLang('com_virtuemart', true);
 
-
+$doc=JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root().'/components/com_virtuemart/assets/less/etravelservice.less');
 if(VmConfig::get('shop_is_offline',0)){
 	//$cache->setCaching (1);
 	$_controller = 'virtuemart';

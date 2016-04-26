@@ -260,7 +260,7 @@
                         $('.' + plugin.settings.dialog_class).find('input.number').val(0);
                         $('#virtuemart_departure_id').val(virtuemart_departure_id);
                         //plugin.fill_data(response);
-                        //plugin.updata_price();
+                        //plugin.update_price();
                     }
                 });
 

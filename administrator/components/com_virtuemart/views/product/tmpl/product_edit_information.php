@@ -33,7 +33,7 @@ $i = 0;
                 <?php echo VmHTML::row_control('select', 'Add country', 'list_virtuemart_country_id[]', $this->countries, $this->product->list_virtuemart_country_id, 'multiple', 'virtuemart_country_id', 'country_name', false); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add start city', 'start_city', $this->product->start_city, ''); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add end city', 'end_city', $this->product->start_city, ''); ?>
-                <?php echo VmHTML::row_control('select', 'Tour method', 'tour_method', $this->list_tour_method, $this->product->tour_method, '', 'value', 'text', false); ?>
+                <?php echo VmHTML::row_control('select', 'Tour method', 'price_type', $this->list_tour_method, $this->product->tour_method, '', 'value', 'text', false); ?>
             </fieldset>
 
         </div>

@@ -46,6 +46,7 @@ class VirtueMartViewProductdetails extends VmView {
             $product_model = VmModel::getModel('product');
             $trip_model = VmModel::getModel('trip');
             $this->product = $product_model->getItem($virtuemart_product_id);
+            $this->state=$trip_model->getState();
             $this->list_trip=$trip_model->getItems();
             parent::display($tpl);
         }

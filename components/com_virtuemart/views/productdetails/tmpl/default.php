@@ -3,9 +3,10 @@ $doc = JFactory::getDocument();
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
-$doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_productdetails_default.js');
 $doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_productdetail_default.less');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+
+$doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_productdetails_default.js');
 $app = JFactory::getApplication();
 $input = $app->input;
 $virtuemart_product_id = $input->getInt('virtuemart_product_id', 0);
@@ -66,7 +67,7 @@ $doc->addScriptDeclaration($js_content);
                                     class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
                                 <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, 1, ''); ?>
                                 <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20, 1, ''); ?>
-                                <?php echo VmHTML::range_of_date('filter_start_date', 'filter_end_date'); ?>
+                                <?php echo VmHTML::select_date('filter_start_date',$this->state->get('filter.start_date')); ?>
                                 <div class="btn-go">
                                     <?php echo VmHTML::input_button('submit', 'Go'); ?>
                                 </div>
@@ -74,6 +75,16 @@ $doc->addScriptDeclaration($js_content);
 
                         </div>
                     </div>
+                    <input name="option" value="com_virtuemart" type="hidden">
+                    <input name="controller" value="productdetails" type="hidden">
+                    <input type="hidden" value="productdetails" name="view">
+                    <input name="virtuemart_product_id" value="<?php echo $virtuemart_product_id ?>" type="hidden">
+                    <input name="task" value="" type="hidden">
+                </form>
+                <form
+                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
+                    id="tour_price" name="tour_price">
+
                     <div class="table table-trip">
                         <div class="row-fluid header">
                             <div class="span12">
@@ -117,8 +128,8 @@ $doc->addScriptDeclaration($js_content);
 
                                         <div class="span12">
                                             <div class="row-fluid header-item">
-                                                <div class="span1">
-                                                    <span title="" class="icon-location "></span>
+                                                <div class="span1 person" >
+                                                    <span title="" class="travel-icon">n</span>
                                                 </div>
                                                 <div class="span3">
                                                     <?php echo JText::_('Date not selected') ?>
@@ -131,7 +142,7 @@ $doc->addScriptDeclaration($js_content);
                                                           data-a-sign="US$"><?php echo $trip->price_adult ?></span>
                                                 </div>
                                                 <div class="span4 service-class-price hide">
-                                                    <?php echo JText::_('Deluxe class price') ?>
+                                                    <?php echo $trip->service_class_name ?> <?php echo JText::_('class price') ?>
                                                 </div>
                                                 <div class="span2">
 
@@ -145,14 +156,14 @@ $doc->addScriptDeclaration($js_content);
                                                 </div>
                                             </div>
                                             <div id="trip-<?php echo $i ?>" class="row-fluid body-item collapse">
-                                                <div class="span2">
-                                                    <div><?php echo JText::_('Start') ?></div>
+                                                <div class="span2 start">
+                                                    <div><span class="text-start"><?php echo JText::_('Start') ?></span></div>
+                                                </div>
+                                                <div class="span2 finish">
+                                                    <div><span class="text-finish"><?php echo JText::_('Finish') ?></span></div>
                                                 </div>
                                                 <div class="span2">
-                                                    <div><?php echo JText::_('Finish') ?></div>
-                                                </div>
-                                                <div class="span2">
-                                                    <ul class="dl-ve">
+                                                    <ul class="list">
                                                         <li><?php echo JText::_('Senior') ?>:<span class="price"
                                                                                                    data-a-sign="US$"><?php echo $trip->price_senior ?></span>
                                                         </li>
@@ -174,18 +185,18 @@ $doc->addScriptDeclaration($js_content);
                                                     </ul>
 
                                                 </div>
-                                                <div class="span6">
-                                                    <div class="row-fluid">
-                                                        <div class="span6" style="text-align: center">
-                                                            <?php echo JText::_('text1') ?>
+                                                <div class="span6 area-booking">
+                                                    <div class="row-fluid area-text">
+                                                        <div class="span6 text-left" style="text-align: center">
+                                                            <?php echo JText::_('total price per person based on passenger age and tour date') ?>
                                                         </div>
-                                                        <div class="span6" style="text-align: center">
-                                                            <?php echo JText::_('text2') ?>
+                                                        <div class="span6 text-right" style="text-align: center">
+                                                            <?php echo JText::_('Select private room+US$ 300/person') ?>
                                                         </div>
                                                     </div>
-                                                    <div class="row-fluid">
+                                                    <div class="row-fluid area-button">
                                                         <div class="span12" style="text-align: center">
-                                                            <button class="btn btn-primary book-now" type="submit"  ><?php echo JText::_('20 seats left || Book now') ?></button>
+                                                            <button class="btn btn-primary book-now" type="submit"  ><?php echo JText::_('Available || Book now') ?></button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -172,7 +172,8 @@ class VirtueMartModelPrice extends VmModel
             $virtuemart_product_id = $data['virtuemart_product_id'];
             $model_product = $this->getModel('product');
             $product = $model_product->getItem($virtuemart_product_id);
-            if ($virtuemart_price_id && $product->tour_method == 'tour_group') {
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+            if ($virtuemart_price_id && $product->price_type != vmGroupSize::FLAT_PRICE) {
                 $tour_price_by_tour_price_id = $data['tour_price_by_tour_price_id'];
                 $this->save_price_group_size_by_price_id($tour_price_by_tour_price_id, $virtuemart_price_id);
             } else {
@@ -199,8 +200,6 @@ class VirtueMartModelPrice extends VmModel
 
         if (count($tour_price_by_tour_price_id)) {
             foreach ($tour_price_by_tour_price_id as  $item) {
-                if(!is_object($item))
-                    continue;
                 $group_size_id=$item->virtuemart_group_size_id;
                 unset($item->virtuemart_group_size_id);
                 $query = $db->getQuery(true);
@@ -228,8 +227,8 @@ class VirtueMartModelPrice extends VmModel
         {
             throw new Exception(500, $db->getErrorMsg());
         }
-
-        if (count($amount)) {
+        $amount1=(array)$amount;
+        if ($amount1['adult']||$amount1['children1']||$amount1['children2']||$amount1['extra_bed']||$amount1['infant']||$amount1['private_room']||$amount1['senior']||$amount1['teen']) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_price_id');
@@ -243,8 +242,7 @@ class VirtueMartModelPrice extends VmModel
             {
                 throw new Exception(500, $db->getErrorMsg());
             }
-        }
-        if (count($percent)) {
+        }else{
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_price_id');
