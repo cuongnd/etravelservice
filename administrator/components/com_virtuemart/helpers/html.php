@@ -514,16 +514,8 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.less');
         $input = JFactory::getApplication()->input;
-        $list_number=array();
-        $option=array('id'=>'','text'=>$text_header);
-        for($i=$min;$i<$max;$i++)
-        {
-            $item=new stdClass();
-            $item->id=$i;
-            $item->text=$i;
-            $list_number[]=$item;
-        }
-        array_unshift($list_number,$option);
+        $list_number=range($min,$max,1);
+
         $element_id="select_number_passenger_$name";
         ob_start();
         ?>
@@ -539,16 +531,15 @@ class VmHtml
         $script_content = ob_get_clean();
         $script_content = JUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
-        if ($chosenDropDowns) {
-            vmJsApi::chosenDropDowns();
-            $attrib .= '  disable_chosen="true"';
-
-        }
-        $html= VmHtml::genericlist(array(), $name, $attrib, 'id', 'text', $default, false, $tranlsate);
         ob_start();
         ?>
         <div id="<?php echo $element_id ?>" class="select_number_passenger">
-            <?php echo $html ?>
+            <select  disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo $text_header ?></option>
+                <?php for($i=$min;$i<$max;$i++){ ?>
+                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                <?php } ?>
+            </select>
         </div>
         <?php
         $html=ob_get_clean();
@@ -776,7 +767,7 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
-    public static function select_date($name, $value_selected= '', $format = 'dd mm yy',$view_format = 'd MM yy', $min_date = '', $max_date = '')
+    public static function select_date($name, $value_selected= '', $format = 'mm/dd/yy',$view_format = 'mm/dd/yy', $min_date = '', $max_date = '')
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();

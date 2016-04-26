@@ -65,8 +65,8 @@ $doc->addScriptDeclaration($js_content);
                             <fieldset class="tour-border">
                                 <legend
                                     class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, 1, ''); ?>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20, 1, ''); ?>
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, $this->state->get('filter.total_passenger_from_12_years_old'), ''); ?>
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20,$this->state->get('filter.total_passenger_under_12_years_old'), ''); ?>
                                 <?php echo VmHTML::select_date('filter_start_date',$this->state->get('filter.start_date')); ?>
                                 <div class="btn-go">
                                     <?php echo VmHTML::input_button('submit', 'Go'); ?>
@@ -123,6 +123,13 @@ $doc->addScriptDeclaration($js_content);
                                 <?php for ($i = 0; $i < count($this->list_trip); $i++) { ?>
                                     <?php
                                     $trip = $this->list_trip[$i];
+                                    $list_destination=$trip->list_destination;
+                                    $filter_start_date=$this->state->get('filter.start_date');
+                                    $start_date=JFactory::getDate($filter_start_date);
+                                    $total_day=$trip->total_day;
+
+                                    $total_day=$total_day?$total_day:0;
+
                                     ?>
                                     <div data-virtuemart_price_id="<?php echo $trip->virtuemart_price_id ?>" class="row-fluid item">
 
@@ -132,7 +139,7 @@ $doc->addScriptDeclaration($js_content);
                                                     <span title="" class="travel-icon">n</span>
                                                 </div>
                                                 <div class="span3">
-                                                    <?php echo JText::_('Date not selected') ?>
+                                                    <?php echo $filter_start_date?JHtml::_('date',$filter_start_date):JText::_('Date not selected') ?>
                                                 </div>
                                                 <div class="span2 service-class ">
                                                     <?php echo $trip->service_class_name ?>
@@ -145,22 +152,37 @@ $doc->addScriptDeclaration($js_content);
                                                     <?php echo $trip->service_class_name ?> <?php echo JText::_('class price') ?>
                                                 </div>
                                                 <div class="span2">
-
+                                                    <?php echo JText::_('Available/Request') ?>
                                                 </div>
                                                 <div class="span2">
-                                                    <a href="javascript:void(0)" class="btn-collapse"
-                                                       data-toggle="collapse" data-target="#trip-<?php echo $i ?>"><span
+                                                    <a href="javascript:void(0)" class="btn-collapse <?php echo $this->state->get('filter.start_date')?'':' required-select-date ' ?>" <?php echo $this->state->get('filter.start_date')?' data-toggle="collapse" ':'' ?>
+                                                        data-target="#trip-<?php echo $i ?>"><span
                                                             title=""
                                                             class="icon-chevron-down  hasTooltip"
                                                             data-original-title="Detail"></span></a>
                                                 </div>
                                             </div>
                                             <div id="trip-<?php echo $i ?>" class="row-fluid body-item collapse">
+                                                <?php
+
+                                                $list_destination=explode(';',$list_destination);
+                                                $des_start=reset($list_destination);
+                                                $des_finish=end($list_destination);
+                                                ?>
                                                 <div class="span2 start">
                                                     <div><span class="text-start"><?php echo JText::_('Start') ?></span></div>
+                                                    <div><?php echo JHtml::_('date',$this->state->get('filter.start_date')) ?></div>
+                                                    <div><?php echo $des_start ?></div>
                                                 </div>
                                                 <div class="span2 finish">
                                                     <div><span class="text-finish"><?php echo JText::_('Finish') ?></span></div>
+                                                    <?php
+
+                                                    $start_date->modify("+$total_day day");
+
+                                                    ?>
+                                                    <div><?php echo JHtml::_('date',$start_date) ?></div>
+                                                    <div><?php echo $des_finish ?></div>
                                                 </div>
                                                 <div class="span2">
                                                     <ul class="list">

@@ -6,8 +6,8 @@
         // plugin's default options
         var defaults = {
             input_name: '',
-            format: 'dd mm yy',
-            view_format: 'd MM yy',
+            format: 'mm/dd/yy',
+            view_format: 'mm/dd/yy',
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),

@@ -84,18 +84,30 @@ class VirtueMartModelTrip extends VmModel {
 		$query->select('tour_price.*,group_size_id_tour_price_id.*,service_class.service_class_name')
             ->where('tour_price.virtuemart_product_id='.(int)$virtuemart_product_id)
 			->from('#__virtuemart_tour_price AS tour_price')
-            ->leftJoin('
-                #__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id
-                AND group_size_id_tour_price_id.price_adult=(
-                    SELECT MIN(price_adult) FROM #__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id2 WHERE group_size_id_tour_price_id2.virtuemart_price_id= tour_price.virtuemart_price_id
-                )
-            ')
             ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
+            ->leftJoin('#__virtuemart_itinerary AS itinerary USING(virtuemart_product_id)')
+            ->select('count(distinct itinerary.virtuemart_itinerary_id) AS total_day ')
+            ->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=itinerary.virtuemart_cityarea_id')
+            ->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
+            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+            ->select('GROUP_CONCAT(
+                    CONCAT(states.state_name,",",countries.country_name) SEPARATOR ";"
+            ) AS list_destination')
+            ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id USING(virtuemart_price_id)')
+            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
+
+
 		;
         if ($start_date = $this->getState('filter.start_date'))
         {
             $start_date=JFactory::getDate($start_date);
-            $query->where('tour_price.sale_period_from>='.$start_date->toSql());
+            $query->where('tour_price.sale_period_from<='.$query->quote($start_date->toSql()));
+            $query->where('tour_price.sale_period_to>='.$query->quote($start_date->toSql()));
+        }
+        if ($total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old'))
+        {
+            $query->where('group_size.from<='.(int)$total_passenger_from_12_years_old);
+            $query->where('group_size.to>='.(int)$total_passenger_from_12_years_old);
         }
 
 		$query->order('tour_price.virtuemart_price_id');

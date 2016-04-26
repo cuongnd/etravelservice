@@ -64,7 +64,9 @@
                 $item.find('.header-item > .service-class,.header-item > .price').addClass('hide');
                 console.log($item);
             });
-            $element.find('span.price').autoNumeric('init');
+            $element.find('span.price').autoNumeric('init',{
+                mDec:0
+            });
             $element.find('button.book-now').click(function(){
                 var $item=$(this).closest('.item');
                 var virtuemart_price_id=$item.data('virtuemart_price_id');
@@ -74,6 +76,11 @@
                 $form.submit();
                 console.log($form);
             });
+            $element.find('.required-select-date').click(function(){
+                alert('please select date and click go first');
+                $('#select_date_picker_filter_start_date').focus();
+            });
+
         };
 
         plugin.example_function = function() {
