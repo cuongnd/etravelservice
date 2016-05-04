@@ -55,6 +55,15 @@ class vmServiceclass
             ;
         return $db->setQuery($query)->loadColumn();
     }
+    public static function get_list_service_class()
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('service_class.*')
+            ->from('#__virtuemart_service_class AS service_class')
+            ;
+        return $db->setQuery($query)->loadObjectList();
+    }
     public static function get_list_service_class_by_tour_id($virtuemart_product_id=0)
     {
         $db=JFactory::getDbo();

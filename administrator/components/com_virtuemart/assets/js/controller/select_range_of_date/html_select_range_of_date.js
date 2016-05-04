@@ -30,7 +30,7 @@
             var to_date = plugin.settings.to_date;
             var from_name = plugin.settings.from_name;
             var to_name = plugin.settings.to_name;
-            $element.find('.range_of_date').daterangepicker({
+            plugin.daterangepicker=$element.find('.range_of_date').daterangepicker({
                     format: 'YYYY-MM-DD',
                     startDate: new Date(),
                     endDate: new Date(),
@@ -50,8 +50,33 @@
                     input_to.val(end.format('YYYY-MM-DD'));
                 }
             );
+            plugin.instant_daterangepicker=$element.find('.range_of_date').data('daterangepicker');
+            plugin.daterangepicker.on('daterangepicker.selected_start_date', function(ev, startDate) {
+                //do something, like clearing an input
+                plugin.selected_start_date(ev, startDate);
+            });
+            plugin.daterangepicker.on('daterangepicker.selected_end_date', function(ev, endDate) {
+                //do something, like clearing an input
+                plugin.selected_end_date(ev, endDate);
+            });
 
 
+        };
+        plugin.selected_start_date=function(ev, picker){
+
+        };
+        plugin.selected_end_date=function(ev, picker){
+
+        };
+        plugin.clear=function()
+        {
+            var from_name = plugin.settings.from_name;
+            var to_name = plugin.settings.to_name;
+            $element.find('.range_of_date').val('');
+            var input_from = $element.find('input[name="' + from_name + '"]');
+            var input_to = $element.find('input[name="' + to_name + '"]');
+            input_from.val('');
+            input_to.val('');
         };
         plugin.set_date=function(startDate,endDate){
             daterangepicker=$element.find('.range_of_date').data('daterangepicker');

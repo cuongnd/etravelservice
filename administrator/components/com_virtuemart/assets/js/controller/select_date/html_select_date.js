@@ -32,7 +32,7 @@
             var format = plugin.settings.format;
             var view_format = plugin.settings.view_format;
             var input_name = plugin.settings.input_name;
-            $element.find('.select_date').datepicker({
+            plugin.datepicker= $element.find('.select_date').datepicker({
                 showButtonPanel: true,
                 showWeek: true,
                 minDate: "+0",

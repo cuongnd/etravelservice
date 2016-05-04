@@ -65,7 +65,9 @@
                 console.log($item);
             });
             $element.find('span.price').autoNumeric('init',{
-                mDec:0
+                mDec:0,
+                aSep:' ',
+                aSign:'US$'
             });
             $element.find('button.book-now').click(function(){
                 var $item=$(this).closest('.item');
@@ -80,6 +82,14 @@
                 alert('please select date and click go first');
                 $('#select_date_picker_filter_start_date').focus();
             });
+
+            $element.find('.btn-clear button').click(function(){
+               $('select[name="filter_total_passenger_from_12_years_old"]').val('').rules('remove');
+               $('select[name="filter_total_passenger_under_12_years_old"]').val('').rules('remove');
+               $('input[name="filter_start_date"]').val('');
+
+            });
+
 
         };
 

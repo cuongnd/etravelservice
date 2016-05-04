@@ -106,6 +106,7 @@ class VirtueMartModelPrice extends VmModel
            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
             ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')
             ->select('products.price_type')
+            ->order('tour_price.virtuemart_service_class_id,tour_price.sale_period_from,tour_price.sale_period_to')
             ;
         return $db->setQuery($query)->loadObjectList();
 

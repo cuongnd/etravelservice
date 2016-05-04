@@ -24,6 +24,7 @@ JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
+$format_date='d-m-Y';
 require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 $doc->addScript(JUri::root() . '/media/system/js/datepicker/js/datepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/dateFormat.js');
@@ -84,10 +85,10 @@ AdminUIHelper::startAdminArea($this);
                                         class="item-id"><?php echo $price->virtuemart_price_id ?></span></label></td>
                             <td><?php echo $this->product->product_name ?></td>
                             <td class="service_class_name"><?php echo $price->service_class_name ?></td>
-                            <td class="sale_period"><?php echo JHtml::_('date', $price->sale_period_from, 'd M. Y'); ?>
-                                -<?php echo JHtml::_('date', $price->sale_period_to, 'd M. Y'); ?></td>
-                            <td><?php echo JHtml::_('date', $price->created_on, 'd M. Y'); ?></td>
-                            <td class="modified_on"><?php echo JHtml::_('date', $price->modified_on, 'd M. Y'); ?></td>
+                            <td class="sale_period"><?php echo JHtml::_('date', $price->sale_period_from, $format_date); ?>
+                                 <span class="icon-next"></span> <?php echo JHtml::_('date', $price->sale_period_to, $format_date); ?></td>
+                            <td><?php echo JHtml::_('date', $price->created_on, $format_date); ?></td>
+                            <td class="modified_on"><?php echo JHtml::_('date', $price->modified_on, $format_date); ?></td>
                             <td>
                                 <a href="#price-form" class=" edit-price">
                                     <span class="icon-eye icon-white"></span>
@@ -125,13 +126,8 @@ AdminUIHelper::startAdminArea($this);
                             <tr>
                                 <td>Service class</td>
                                 <td colspan="4">
-                                    <select name="virtuemart_service_class_id">
-                                        <option value="0">select service class</option>
-                                        <?php foreach ($this->list_service_class_by_tour_id as $service_class) { ?>
-                                            <option <?php echo $service_class->virtuemart_service_class_id == $this->price->service_class_id ? 'selected' : '' ?>
-                                                value="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
-                                        <?php } ?>
-                                    </select>
+
+                                    <?php echo VmHTML::select_service_class($this->list_service_class_by_tour_id,'virtuemart_service_class_id',$this->price->service_class_id,''); ?>
 
                                 </td>
                             </tr>

@@ -482,6 +482,10 @@
             this.updateCalendars();
             this.updateInputText();
         },
+        setLimitDate: function(option_date_limit) {
+            this.dateLimit = option_date_limit;
+
+        },
 
         setEndDate: function(endDate) {
             if (typeof endDate === 'string')
@@ -752,7 +756,27 @@
                 this.element.trigger('change');
             }
         },
+        set_disable_dates:function(start,end){
+            var cal = this.container.find('.calendar');
+            console.log(cal);
+            while(start < end){
+                var newDate = start.setDate(start.getDate() + 1);
+                start=moment(start, "DD-MM-YYYY");
 
+                var td=cal.find('td[data-date="'+start.format('YYYY-MM-DD')+'"]');
+                console.log(td);
+                td.removeClass('available');
+                td.removeClass('active');
+                td.addClass('off');
+                td.addClass('disabled');
+
+
+
+
+
+                start = new Date(newDate);
+            }
+        },
         clickRange: function (e) {
             var label = e.target.innerHTML;
             this.chosenLabel = label;
@@ -841,6 +865,7 @@
         },
 
         clickDate: function (e) {
+
             var title = $(e.target).attr('data-title');
             var row = title.substr(1, 1);
             var col = title.substr(3, 1);
@@ -849,6 +874,8 @@
             var startDate, endDate;
             if (cal.hasClass('left')) {
                 startDate = this.leftCalendar.calendar[row][col];
+                this.element.trigger('daterangepicker.selected_start_date', startDate);
+                console.log(this.dateLimit);
                 endDate = this.endDate;
                 if (typeof this.dateLimit === 'object') {
                     var maxDate = moment(startDate).add(this.dateLimit).endOf('day');
@@ -859,6 +886,7 @@
             } else {
                 startDate = this.startDate;
                 endDate = this.rightCalendar.calendar[row][col];
+                this.element.trigger('daterangepicker.selected_end_date', endDate);
                 if (typeof this.dateLimit === 'object') {
                     var minDate = moment(endDate).subtract(this.dateLimit).startOf('day');
                     if (startDate.isBefore(minDate)) {
@@ -1183,7 +1211,7 @@
                     }
 
                     var title = 'r' + row + 'c' + col;
-                    html += '<td class="' + cname.replace(/\s+/g, ' ').replace(/^\s?(.*?)\s?$/, '$1') + '" data-title="' + title + '">' + calendar[row][col].date() + '</td>';
+                    html += '<td data-date="'+calendar[row][col].format('YYYY-MM-DD')+'" class="' + cname.replace(/\s+/g, ' ').replace(/^\s?(.*?)\s?$/, '$1') + '" data-title="' + title + '">' + calendar[row][col].date() + '</td>';
                 }
                 html += '</tr>';
             }

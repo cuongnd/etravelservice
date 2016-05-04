@@ -534,7 +534,7 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $element_id ?>" class="select_number_passenger">
-            <select  disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+            <select  disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>" <?php echo $attrib ?> >
                 <option value=""><?php echo $text_header ?></option>
                 <?php for($i=$min;$i<$max;$i++){ ?>
                     <option value="<?php echo $i ?>"><?php echo $i ?></option>
@@ -767,7 +767,7 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
-    public static function select_date($name, $value_selected= '', $format = 'mm/dd/yy',$view_format = 'mm/dd/yy', $min_date = '', $max_date = '')
+    public static function select_date($name, $value_selected= '', $format = 'mm/dd/yy',$view_format = 'mm/dd/yy', $min_date = '', $max_date = '',$class='',$attrib='')
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
@@ -786,8 +786,8 @@ class VmHtml
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php echo $select_date ?>').html_select_date({
-                    format: "<?php echo $format ?>",
-                    view_format: "<?php echo $format ?>",
+                    format: "<?php echo $format?$format:'mm/dd/yy' ?>",
+                    view_format: "<?php echo $view_format?$view_format:'mm/dd/yy' ?>",
                     input_name: "<?php echo $name ?>",
                     value_selected: "<?php echo $value_selected ?>",
                     min_date: "<?php echo $min_date ?>",
@@ -803,10 +803,10 @@ class VmHtml
         ?>
         <div id="<?php echo $select_date ?>" class="select_date">
             <div class="input-append ">
-                <input type="text" value="<?php echo $value_selected ?>" id="select_date_picker_<?php echo $name ?>" class="select_date"/>
+                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?> id="select_date_picker_<?php echo $name ?>" class="select_date <?php echo $class ?>"/>
                 <span class="icon-calendar add-on"></span>
             </div>
-            <input type="hidden" value="<?php echo $value_selected ?>" name="<?php echo $name ?>">
+            <input type="hidden" value="<?php echo $value_selected ?>"  class="" name="<?php echo $name ?>">
         </div>
         <?php
         $htm = ob_get_clean();
@@ -1995,5 +1995,54 @@ XML;
 
         return $html;
     }
+    public static function select_service_class($list_service_class=array(),$name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_virtuemart/assets/js/controller/select_service_class/html_select_service_class.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_service_class/html_select_service_class.less');
+        $input = JFactory::getApplication()->input;
+        if(empty($list_service_class)) {
+            require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
+            $list_service_class = vmServiceclass::get_list_service_class();
+        }
+
+        $id_element='html_select_service_class_'.$name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_service_class({
+                    list_service_class:<?php echo json_encode($list_service_class) ?>,
+                    select_name:"<?php echo $name ?>",
+                    virtuemart_service_class_id:<?php echo $default?$default:0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select Service class') ?></option>
+                <?php foreach($list_service_class as $service_class){ ?>
+                    <option <?php echo $service_class->virtuemart_service_class_id==$default?' selected ':'' ?>  value="<?php echo $service_class->virtuemart_service_class_id ?>" ><?php echo $service_class->service_class_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+
+
+
+
 
 }

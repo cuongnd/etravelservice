@@ -79,6 +79,7 @@
                 var $row=self.closest('tr[role="row"]');
                 $row.toggleClass('focus');
                 var price_id=$row.data('price_id');
+                plugin.settings.virtuemart_price_id_seletect=price_id;
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -110,6 +111,7 @@
                         });
                         $('.'+plugin.settings.dialog_class).find('input.number').val(0);
                         plugin.fill_data(response);
+
                         $('input[name="virtuemart_price_id"]').val(price_id);
                         $( "#price-form" ).dialog( "open" );
                         plugin.updata_price();
@@ -118,6 +120,52 @@
 
 
             });
+            var $html_select_service_class=$('#html_select_service_class_virtuemart_service_class_id').data('html_select_service_class');
+            var $service_class_select2=$html_select_service_class.select2;
+            $service_class_select2.on("change", function(e) {
+                var virtuemart_service_class_id=$(this).val();
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                // mostly used event, fired to the original element when the value changes
+                var list_price=plugin.settings.list_price;
+                var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                $.each(list_price,function(index,item){
+                    if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
+                    {
+/*
+                        console.log(item);
+                        var sale_period_from=new Date(item.sale_period_from);
+                        var sale_period_to=new Date(item.sale_period_to);
+                        range_of_date.instant_daterangepicker.set_disable_dates(sale_period_from,sale_period_to);
+*/
+                    }
+                });
+            });
+            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            range_of_date.selected_start_date=function(ev, startDate){
+                /*var new_date= moment(startDate, "DD-MM-YYYY").add(5, 'days');
+                console.log(startDate.format('MM/DD/YYYY'));
+                console.log(new_date.format('MM/DD/YYYY'));
+                range_of_date.instant_daterangepicker.maxDate=new_date;
+
+                var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
+                console.log(virtuemart_service_class_id);
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                var list_price=plugin.settings.list_price;
+                $.each(list_price,function(index,item){
+                    if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
+                    {
+                        var sale_period_from=new Date(item.sale_period_from);
+                        var sale_period_to=new Date(item.sale_period_to);
+
+                        console.log(item);
+                    }
+                });*/
+
+            };
+            range_of_date.selected_end_date=function(ev, endDate){
+                console.log(endDate.format('MM/DD/YYYY'));
+            };
+
             $('.dialog-form-price table.base-price').find('input[column-type="private_room"]').change(function(){
                 var private_room=$(this).val();
                 $('.dialog-form-price table.base-price').find('input[column-type="private_room"]').val(private_room);
@@ -589,7 +637,7 @@
                 range_of_date.set_date(result.price.sale_period_from,result.price.sale_period_to);
             }
             $('select[name="virtuemart_service_class_id"]').val(result.price.virtuemart_service_class_id);
-            $('select[name="virtuemart_service_class_id"]').trigger("liszt:updated.chosen");
+            $('select[name="virtuemart_service_class_id"]').trigger("change");
             if(price_type!=flat_price&& list_tour_price_by_tour_price_id!=null && (typeof list_tour_price_by_tour_price_id!="undefined") && list_tour_price_by_tour_price_id.length)
             {
                 $.each(list_tour_price_by_tour_price_id,function(index,item){

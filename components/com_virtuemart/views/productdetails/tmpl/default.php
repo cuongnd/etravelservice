@@ -5,7 +5,7 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
 $doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_productdetail_default.less');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-
+JHtml::_('behavior.formvalidation');
 $doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_productdetails_default.js');
 $app = JFactory::getApplication();
 $input = $app->input;
@@ -46,7 +46,7 @@ $doc->addScriptDeclaration($js_content);
             <div class="content content-overview">
                 <form
                     action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
-                    id="tour_price" name="tour_price">
+                    id="tour_price"  name="tour_price">
                     <div class="row-fluid header-content">
                         <div class="span10 product-name">
                             <h2><?php echo $this->product->product_name ?></h2>
@@ -65,9 +65,9 @@ $doc->addScriptDeclaration($js_content);
                             <fieldset class="tour-border">
                                 <legend
                                     class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, $this->state->get('filter.total_passenger_from_12_years_old'), ''); ?>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20,$this->state->get('filter.total_passenger_under_12_years_old'), ''); ?>
-                                <?php echo VmHTML::select_date('filter_start_date',$this->state->get('filter.start_date')); ?>
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50,$this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
+                                <?php echo VmHTML::select_date('filter_start_date',$this->state->get('filter.start_date'),'','','','',' required '); ?>
                                 <div class="btn-go">
                                     <?php echo VmHTML::input_button('submit', 'Go'); ?>
                                 </div>
@@ -126,7 +126,7 @@ $doc->addScriptDeclaration($js_content);
                                     $list_destination=$trip->list_destination;
                                     $filter_start_date=$this->state->get('filter.start_date');
                                     $start_date=JFactory::getDate($filter_start_date);
-                                    $total_day=$trip->total_day;
+                                    $total_day=$trip->total_day-1;
 
                                     $total_day=$total_day?$total_day:0;
 
