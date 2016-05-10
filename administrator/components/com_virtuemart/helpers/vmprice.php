@@ -65,8 +65,8 @@ class vmprice
 			;
             $model_product = VmModel::getModel('product');
             $product=$model_product->getItem($virtuemart_product_id);
-
-            if($product->price_type=='multi_price')
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+            if($product->price_type!=vmGroupSize::FLAT_PRICE)
             {
                 $query->where('group_size.type!='.$query->q('flat_price'));
             }
@@ -127,5 +127,19 @@ class vmprice
 
 		return $list_price_type;
 	}
+
+    public static function get_list_base_price_by_service_class_id_and_tour_id($tour_id, $virtuemart_service_class_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('tour_price.*')
+            ->from('#__virtuemart_tour_price AS tour_price')
+            ->where('tour_price.virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
+            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
+            ;
+        $db->setQuery($query);
+        $list=$db->loadObjectList();
+        return $list;
+    }
 
 }

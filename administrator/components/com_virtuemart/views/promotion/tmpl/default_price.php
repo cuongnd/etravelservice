@@ -5,7 +5,7 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
 <div class="row-fluid" id="tour_group">
     <div class="span12">
 
-        <h3>NET PRICE</h3>
+        <h3>NET PRICE <button class="btn btn-primary random-price">random price</button></h3>
         <table class="table-bordered  table table-striped base-price">
             <thead>
             <tr>
@@ -35,52 +35,58 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
                 $price_children2 = $tour_price_by_tour_price_id->price_children2;
                 $price_infant = $tour_price_by_tour_price_id->price_infant;
                 $price_private_room = $tour_price_by_tour_price_id->price_private_room;
+                $price_extra_bed = $tour_price_by_tour_price_id->extra_bed;
 
                 ?>
                 <tr role="row"
                     data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
-                    <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
-                    <td><input required="true"
+                    <td style="text-align: center">
+                        <input type="hidden" name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
+
+                        <?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+
+                    <td>
+                        <input required="true"
                                group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="senior" type="text" size="7"
                                value="<?php echo $price_senior ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_senior]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_senior]"
                                required="true" class="inputbox number price_senior"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="adult" type="text" size="7"
                                value="<?php echo $price_adult ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_adult]"
                                required="true" class="inputbox number price_adult"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="teen" type="text" size="7"
                                value="<?php echo $price_teen ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_teen]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_teen]"
                                required="true" class="inputbox number price_teen"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="children1" type="text" size="7"
                                value="<?php echo $price_children1 ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children1]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_children1]"
                                required="true" class="inputbox number price_children1"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="children2" type="text" size="7"
                                value="<?php echo $price_children2 ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children2]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_children2]"
                                required="true" class="inputbox number price_children2"></td>
                     <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="infant" type="text" size="7"
                                value="<?php echo $price_infant ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_infant]"
                                required="true" class="inputbox number price_infant"></td>
                     <?php if($i==0){ ?>
                     <td rowspan="<?php echo $total_group_size ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="private_room" type="text" size="7"
                                value="<?php echo $price_private_room ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_private_room]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_private_room]"
                                required="true" class="inputbox number price_private_room"></td>
                     <td rowspan="<?php echo $total_group_size ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                column-type="extra_bed" type="text" size="7"
                                value="<?php echo $price_extra_bed ?>"
-                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][extra_bed]"
+                               name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][extra_bed]"
                                required="true" class="inputbox number price_extra_bed"></td>
                     <?php } ?>
 
@@ -88,7 +94,7 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
             <?php } ?>
             </tbody>
         </table>
-        <h3>promotion </h3>
+        <h3>promotion <button class="btn btn-primary random-promotion">random promotion</button></h3>
         <table class="table-bordered  table table-striped promotion-price">
             <tr>
                 <td>MARK UP VALUE</td>
@@ -173,7 +179,7 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
                                                       column-type="extra_bed" type="text"></td>
             </tr>
         </table>
-        <h3>mark up</h3>
+        <h3>mark up <button class="btn btn-primary random-markup">random markup</button></h3>
         <table class="table-bordered  table table-striped mark-up-price">
             <tr>
                 <td>MARK UP VALUE</td>

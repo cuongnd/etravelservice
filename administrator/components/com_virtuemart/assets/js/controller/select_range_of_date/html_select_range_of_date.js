@@ -32,6 +32,7 @@
             var to_name = plugin.settings.to_name;
             plugin.daterangepicker=$element.find('.range_of_date').daterangepicker({
                     format: 'YYYY-MM-DD',
+                    "showDropdowns": true,
                     startDate: new Date(),
                     endDate: new Date(),
                     ranges: {

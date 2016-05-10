@@ -812,6 +812,49 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
+    public static function select_month($name, $value_selected= '', $format = 'mm/dd/yy', $view_format = 'mm/dd/yy', $min_month = 1, $max_month = 12, $class='', $attrib='')
+    {
+        JHtml::_('jquery.ui');
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-monthrangepicker-master/moment.js');
+        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/monthpicker.js');
+        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.js');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_month/html_select_month.js');
+        $doc->addLessStyleSheet(JUri::root() . '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.css');
+        $input = JFactory::getApplication()->input;
+        $select_month = 'select_month_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $select_month ?>').html_select_month({
+                    format: "<?php echo $format?$format:'mm/dd/yy' ?>",
+                    view_format: "<?php echo $view_format?$view_format:'mm/dd/yy' ?>",
+                    input_name: "<?php echo $name ?>",
+                    value_selected: "<?php echo $value_selected ?>",
+                    min_month: "<?php echo $min_month ?>",
+                    max_month: "<?php echo $max_month ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_month ?>" class="select_month">
+            <div class="input-append ">
+                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?> id="select_month_picker_<?php echo $name ?>" class="select_month <?php echo $class ?>"/>
+                <span class="icon-calendar add-on"></span>
+            </div>
+            <input type="hidden" value="<?php echo $value_selected ?>"  class="" name="<?php echo $name ?>">
+        </div>
+        <?php
+        $htm = ob_get_clean();
+        return $htm;
+    }
 
     public static function edit_price_add_on($name, $data = '')
     {

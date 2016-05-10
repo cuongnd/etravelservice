@@ -49,12 +49,18 @@ class VirtuemartViewpromotion extends VmViewAdmin {
 
 
 		$config = JFactory::getConfig();
-		$layoutName = vRequest::getCmd('layout', 'default');
+
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
+        $this->list_service_class = vmServiceclass::get_list_service_class();
+
+
+
+        $layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$tour_id=$input->get('virtuemart_product_id',0,'int');
-			$this->virtuemart_product_id=$tour_id;
+			$virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
+			$this->virtuemart_product_id=$virtuemart_product_id;
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 
 
 
@@ -87,8 +93,8 @@ class VirtuemartViewpromotion extends VmViewAdmin {
 		} else {
             require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
 
-            $tour_id=$input->get('virtuemart_product_id',0,'int');
-            $this->virtuemart_product_id=$tour_id;
+            $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
+            $this->virtuemart_product_id=$virtuemart_product_id;
 
             $model_product = VmModel::getModel('product');
 			$this->list_tour = $model_product->getItems();
@@ -103,14 +109,14 @@ class VirtuemartViewpromotion extends VmViewAdmin {
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup
 			require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');
             $this->addStandardDefaultViewCommandspromotion();
             $model_tourclass = VmModel::getModel('tourclass');
             $this->list_service_class_by_tour_id=$model_tourclass->getItems();
 
-			$this->promotion_prices = $model_promotion_price->getpromotionPricesList($tour_id);
+			$this->promotion_prices = $model_promotion_price->get_list_promotion_price($virtuemart_product_id);
             //$this->prices=JArrayHelper::pivot($this->prices,'service_class_name');
 
 		}

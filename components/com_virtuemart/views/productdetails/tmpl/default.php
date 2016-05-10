@@ -10,6 +10,7 @@ $doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_produc
 $app = JFactory::getApplication();
 $input = $app->input;
 $virtuemart_product_id = $input->getInt('virtuemart_product_id', 0);
+require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 $js_content = '';
 ob_start();
 ?>
@@ -67,7 +68,13 @@ $doc->addScriptDeclaration($js_content);
                                     class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
                                 <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
                                 <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50,$this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
-                                <?php echo VmHTML::select_date('filter_start_date',$this->state->get('filter.start_date'),'','','','',' required '); ?>
+                                <?php if($this->product->price_type!=vmGroupSize::FLAT_PRICE) {
+                                    echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'), '', '', '', '', ' required ');
+                                }else{
+                                    echo VmHTML::select_month('filter_month', $this->state->get('filter.month'), '', '', '', '', ' required ');
+                                }
+                                ?>
+
                                 <div class="btn-go">
                                     <?php echo VmHTML::input_button('submit', 'Go'); ?>
                                 </div>

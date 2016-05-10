@@ -58,6 +58,7 @@
                       '<input class="input-mini" type="text" name="daterangepicker_end" value="" />' +
                     '</div>' +
                     '<button class="applyBtn" disabled="disabled" type="button"></button>&nbsp;' +
+                    '<button class="resetBtn"  type="button"></button>&nbsp;' +
                     '<button class="cancelBtn" type="button"></button>' +
                   '</div>' +
                 '</div>' +
@@ -73,7 +74,7 @@
         //allow setting options with data attributes
         //data-api options will be overwritten with custom javascript options
         options = $.extend(this.element.data(), options);
-        
+
         this.setOptions(options, cb);
 
         //event listeners
@@ -89,6 +90,7 @@
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
+            .on('click.daterangepicker', 'button.resetBtn', $.proxy(this.clickReset, this))
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
             .on('click.daterangepicker', '.daterangepicker_start_input,.daterangepicker_end_input', $.proxy(this.showCalendars, this))
             .on('change.daterangepicker', '.daterangepicker_start_input,.daterangepicker_end_input', $.proxy(this.inputsChanged, this))
@@ -131,6 +133,7 @@
             this.timePicker12Hour = true;
             this.autoApply = false;
             this.singleDatePicker = false;
+            this.disableDates = [];
             this.ranges = {};
 
             this.opens = 'right';
@@ -150,6 +153,7 @@
 
             this.locale = {
                 applyLabel: 'Apply',
+                resetLabel: 'Reset',
                 cancelLabel: 'Cancel',
                 fromLabel: 'From',
                 toLabel: 'To',
@@ -463,6 +467,7 @@
             if (this.cancelClass.length)
                 this.container.find('.cancelBtn').addClass(this.cancelClass);
             this.container.find('.applyBtn').html(this.locale.applyLabel);
+            this.container.find('.resetBtn').html(this.locale.resetLabel);
             this.container.find('.cancelBtn').html(this.locale.cancelLabel);
         },
 
@@ -552,7 +557,7 @@
 
             this.updateCalendars();
         },
-        
+
         keydown: function (e) {
             //hide on tab or enter
         	if ((e.keyCode === 9) || (e.keyCode === 13)) {
@@ -577,7 +582,7 @@
                 };
                 parentRightEdge = this.parentEl[0].clientWidth + this.parentEl.offset().left;
             }
-            
+
             if (this.drops == 'up')
             	containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
             else
@@ -756,27 +761,6 @@
                 this.element.trigger('change');
             }
         },
-        set_disable_dates:function(start,end){
-            var cal = this.container.find('.calendar');
-            console.log(cal);
-            while(start < end){
-                var newDate = start.setDate(start.getDate() + 1);
-                start=moment(start, "DD-MM-YYYY");
-
-                var td=cal.find('td[data-date="'+start.format('YYYY-MM-DD')+'"]');
-                console.log(td);
-                td.removeClass('available');
-                td.removeClass('active');
-                td.addClass('off');
-                td.addClass('disabled');
-
-
-
-
-
-                start = new Date(newDate);
-            }
-        },
         clickRange: function (e) {
             var label = e.target.innerHTML;
             this.chosenLabel = label;
@@ -875,7 +859,6 @@
             if (cal.hasClass('left')) {
                 startDate = this.leftCalendar.calendar[row][col];
                 this.element.trigger('daterangepicker.selected_start_date', startDate);
-                console.log(this.dateLimit);
                 endDate = this.endDate;
                 if (typeof this.dateLimit === 'object') {
                     var maxDate = moment(startDate).add(this.dateLimit).endOf('day');
@@ -918,6 +901,15 @@
             this.updateInputText();
             this.hide();
             this.element.trigger('apply.daterangepicker', this);
+        },
+
+        clickReset: function (e) {
+            this.startDate = this.oldStartDate;
+            this.endDate = this.oldEndDate;
+            this.chosenLabel = this.oldChosenLabel;
+            this.updateView();
+            this.updateCalendars();
+            this.element.trigger('reset.daterangepicker', this);
         },
 
         clickCancel: function (e) {
@@ -1189,7 +1181,7 @@
                 for (var col = 0; col < 7; col++) {
                     var cname = 'available ';
                     cname += (calendar[row][col].month() == calendar[1][1].month()) ? '' : 'off';
-                    
+
                     if(calendar[row][col].isSame(new Date(), "day") ) {
                         cname += ' today ';
                     }
@@ -1211,6 +1203,13 @@
                     }
 
                     var title = 'r' + row + 'c' + col;
+
+                    var current_date=calendar[row][col];
+                    current_date=current_date.format('YYYY-MM-DD');
+                    if(this.disableDates.indexOf(current_date) > -1)
+                    {
+                        cname = ' off disabled ';
+                    }
                     html += '<td data-date="'+calendar[row][col].format('YYYY-MM-DD')+'" class="' + cname.replace(/\s+/g, ' ').replace(/^\s?(.*?)\s?$/, '$1') + '" data-title="' + title + '">' + calendar[row][col].date() + '</td>';
                 }
                 html += '</tr>';

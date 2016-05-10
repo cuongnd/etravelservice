@@ -124,7 +124,7 @@ AdminUIHelper::startAdminArea($this);
                         <table class="table-bordered  table table-striped">
                             <tr>
                                 <td>Tour</td>
-                                <td colspan="4"><select name="select_virtuemart_product_id" id="select_virtuemart_product_id">
+                                <td ><select name="select_virtuemart_product_id" id="select_virtuemart_product_id">
                                         <option value="0">select tour</option>
                                         <?php foreach ($this->list_tour as $tour) { ?>
                                             <option
@@ -135,29 +135,24 @@ AdminUIHelper::startAdminArea($this);
                             </tr>
                             <tr>
                                 <td>Service class</td>
-                                <td colspan="4">
-                                    <select name="virtuemart_service_class_id" id="virtuemart_service_class_id">
-                                        <option value="0">select service class</option>
-                                        <?php foreach ($this->list_service_class_by_tour_id as $service_class) { ?>
-                                            <option <?php echo $service_class->virtuemart_service_class_id == $this->price->service_class_id ? 'selected' : '' ?>
-                                                value="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
-                                        <?php } ?>
-                                    </select>
+                                <td >
+
+                                    <?php echo VmHTML::select_service_class($this->list_service_class_by_tour_id,'virtuemart_service_class_id',$this->price->service_class_id,''); ?>
 
                                 </td>
                             </tr>
+
+
                             <tr>
                                 <td>Sale periol</td>
-                                <td>From</td>
-                                <td nowrap>
-                                    <?php echo vmJsApi::jDate('', 'sale_period_from'); ?>
-                                </td>
-                                <td>To</td>
-                                <td nowrap>
-                                    <?php echo vmJsApi::jDate('', 'sale_period_to'); ?>
+                                <td >
+                                    <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', $this->price->sale_period_from,$this->price->sale_period_to); ?>
                                 </td>
 
+
                             </tr>
+
+
 
                         </table>
 
@@ -217,7 +212,8 @@ AdminUIHelper::startAdminArea($this);
                 tour_id:<?php echo $this->virtuemart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,
-                date_format: "<?php echo JText::_('COM_VIRTUEMART_DATE_FORMAT_INPUT_J16')  ?>"
+                date_format: "<?php echo JText::_('COM_VIRTUEMART_DATE_FORMAT_INPUT_J16')  ?>",
+                list_service_class:<?php echo json_encode($this->list_service_class) ?>
             });
         });
     </script>

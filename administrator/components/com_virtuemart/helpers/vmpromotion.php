@@ -79,7 +79,7 @@ class vmpromotion
         $query = $db->getQuery(true);
         $query->select('group_size_id_tour_promotion_price_id.*')
             ->from('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+            ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
     public static function get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tour_price_id)
@@ -88,7 +88,7 @@ class vmpromotion
         $query = $db->getQuery(true);
         $query->select('group_size_id_tour_promotion_price_id.*')
             ->from('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+            ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
 
@@ -98,7 +98,7 @@ class vmpromotion
         $query = $db->getQuery(true);
         $query->select('mark_up_tour_promotion_price_id.*')
             ->from('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id')
-            ->where('mark_up_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+            ->where('mark_up_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList();
     }
 
@@ -108,7 +108,7 @@ class vmpromotion
         $query = $db->getQuery(true);
         $query->select('group_size_id_tour_promotion_price_id.*')
             ->from('#__virtuemart_mark_up_tour_promotion_net_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$tour_price_id);
+            ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList();
     }
 
@@ -118,7 +118,7 @@ class vmpromotion
         $query = $db->getQuery(true);
         $query->select('mark_up_tour_promotion_price_id.*')
             ->from('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id')
-            ->where('mark_up_tour_promotion_price_id.virtuemart_tour_promotion_price_id=' . (int)$price_id);
+            ->where('mark_up_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$price_id);
         return $db->setQuery($query)->loadObjectList();
 
     }

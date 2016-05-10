@@ -10,7 +10,9 @@
             tour_id:0,
             visiblePages:5,
             dialog_class:'dialog-form-price',
-            date_format:'m/d/y'
+            list_service_class:[],
+            date_format:'m/d/y',
+            list_base_price_by_service_class_id_and_tour_id:[]
 
 
         }
@@ -20,10 +22,83 @@
 
         // this will hold the merged default, and user-provided options
         plugin.settings = {}
-
+        var $price_form=$('#price-form');
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        plugin.validate = function () {
+            var select_virtuemart_product_id=$('select[name="select_virtuemart_product_id"]').val();
+            if(select_virtuemart_product_id<=0)
+            {
+                alert('please select tour');
+                return false;
+            }
+
+            var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
+            if(virtuemart_service_class_id<=0)
+            {
+                alert('please select tour class');
+                return false;
+            }
+
+            var sale_period_from=$('input[name="sale_period_from"]').val();
+            if(sale_period_from.trim()=='')
+            {
+                alert('please select tour sale period from');
+                return false;
+            }
+
+            var sale_period_to=$('input[name="sale_period_to"]').val();
+            if(sale_period_to.trim()=='')
+            {
+                alert('please select tour sale period to');
+                return false;
+            }
+            return true;
+        }
+        plugin.setup_random_price = function () {
+            //random price
+            $price_form.find('.random-price').click(function(){
+                $price_form.find('.base-price .inputbox.number').each(function(){
+                    $(this).val(Math.floor(Math.random() * 600) + 1).trigger('change');
+                });
+            });
+
+            //end random price
+            //random promotion price
+            $price_form.find('.random-promotion').click(function(){
+                var type=['amount','percent'];
+                var random_type=Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+                $price_form.find('.promotion-price  .inputbox.number').val('');
+                $price_form.find('.promotion-price .'+type[random_type]+' .inputbox.number').each(function(){
+
+                    if(random_type==0)
+                    {
+                        $(this).val(Math.floor(Math.random() * 200) + 1).trigger('change');
+                    }else {
+                        $(this).val(Math.floor(Math.random() * 99) + 1).trigger('change');
+                    }
+
+                });
+            });
+            //end random promotion price
+            //random markup
+            $price_form.find('.random-markup').click(function(){
+                var type=['amount','percent'];
+                var random_type=Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+                $('.mark-up-price  .inputbox.number').val('');
+                $('.mark-up-price .'+type[random_type]+' .inputbox.number').each(function(){
+                    if(random_type==0)
+                    {
+                        $(this).val(Math.floor(Math.random() * 200) + 1).trigger('change');
+                    }else {
+                        $(this).val(Math.floor(Math.random() * 99) + 1).trigger('change');
+                    }
+
+                });
+            });
+            //end ramdom markup
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -52,6 +127,54 @@
             });
 
 
+            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            var now = new Date();
+            range_of_date.instant_daterangepicker.minDate=moment(now);
+            now.setYear(now.getFullYear() + 2);
+            range_of_date.instant_daterangepicker.maxDate=moment(now);
+
+            range_of_date.daterangepicker.on('reset.daterangepicker', function() {
+                var now = new Date();
+                range_of_date.instant_daterangepicker.minDate=moment(now);
+                now.setYear(now.getFullYear() + 2);
+                range_of_date.instant_daterangepicker.maxDate=moment(now);
+                range_of_date.instant_daterangepicker.updateView();
+                range_of_date.instant_daterangepicker.updateCalendars();
+            });
+
+
+
+
+            range_of_date.selected_start_date=function(ev, startDate){
+                var item_start_date=new Date(startDate);
+                var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                var list_price=plugin.settings.list_base_price_by_service_class_id_and_tour_id;
+                var max_date=new Date();
+                for(var i=0;i<list_price.length;i++)
+                {
+                    var item=list_price[i];
+                    var sale_period_from=new Date(item.sale_period_from);
+                    var sale_period_to=new Date(item.sale_period_to);
+                    console.log(moment(sale_period_from).format('DD-MM-YYYY'));
+                    console.log(moment(item_start_date).format('DD-MM-YYYY'));
+                    console.log(moment(sale_period_to).format('DD-MM-YYYY'));
+                    console.log('-------------------');
+                    if(item_start_date>=sale_period_from && item_start_date<=sale_period_to)
+                    {
+                        max_date=new Date(sale_period_to);
+                        break;
+                    }
+
+                }
+                max_date = max_date.setDate(max_date.getDate() + 1);
+                range_of_date.instant_daterangepicker.maxDate=moment(max_date);
+                range_of_date.instant_daterangepicker.updateView();
+                range_of_date.instant_daterangepicker.updateCalendars();
+
+
+            };
+
             $element.find('.edit-price').click(function(){
                 var self=$(this);
                 var $row=self.closest('tr[role="row"]');
@@ -67,8 +190,7 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'get_list_price',
-                            price_id:price_id,
-                            tour_id:tour_id
+                            price_id:price_id
                         };
                         return dataPost;
                     })(),
@@ -237,9 +359,14 @@
 
 
             });
-
+            plugin.setup_random_price();
 
             $('.dialog-form-price').find('.save-close-price').click(function(){
+                if(!plugin.validate())
+                {
+                    return false;
+                }
+
                 var dataPost=$('.dialog-form-price').find(':input').serializeObject();
                 var price_id=dataPost.virtuemart_promotion_price_id;
                 var $row=$element.find('.list-prices tr[data-price_id="'+price_id+'"]');
@@ -425,8 +552,8 @@
                                 });
                             });
                             $element.find("#select_virtuemart_product_id").val(virtuemart_product_id);
-                            $element.find("#select_virtuemart_product_id").trigger("liszt:updated");
-                            $element.find("#virtuemart_service_class_id").trigger("liszt:updated");
+                            $element.find("#select_virtuemart_product_id").trigger("change");
+                            $element.find("#virtuemart_service_class_id").trigger("change");
                             $element.find('#template_price').html(response.price_content);
 
                             $( "#price-form" ).find('input.number').change(function (e) {
@@ -458,7 +585,90 @@
 
 
             };
+            $price_form.find('#virtuemart_service_class_id').change(function(){
+                var virtuemart_service_class_id=$(this).val();
+                if(virtuemart_service_class_id==0)
+                {
+                    return;
+                }
+                var tour_id=$('#select_virtuemart_product_id').val();
+                $.ajax({
+                    type: "GET",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
 
+                        dataPost = {
+                            option: 'com_virtuemart',
+                            controller: 'promotion',
+                            task: 'ajax_get_list_base_price_by_service_class_id_and_tour_id',
+                            tour_id:tour_id,
+                            virtuemart_service_class_id:virtuemart_service_class_id
+
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        plugin.settings.list_base_price_by_service_class_id_and_tour_id=response;
+                        var list_price=plugin.settings.list_base_price_by_service_class_id_and_tour_id;
+                        var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                        var list_enable_dates=[];
+                        $.each(list_price,function(index,item){
+                            var sale_period_from=new Date(item.sale_period_from);
+                            var sale_period_to=new Date(item.sale_period_to);
+
+                            while(sale_period_from < sale_period_to){
+                                var item_date=moment(sale_period_from);
+                                item_date=item_date.format('YYYY-MM-DD');
+                                if(list_enable_dates.indexOf(item_date) == -1)
+                                {
+                                    list_enable_dates.push(item_date);
+                                }
+
+                                var newDate = sale_period_from.setDate(sale_period_from.getDate() + 1);
+                                sale_period_from = new Date(newDate);
+                            }
+                        });
+                        var now = new Date();
+                        var next_two_year = new Date();
+
+                        next_two_year.setYear(next_two_year.getFullYear() + 2);
+                        var list_disable_dates=[];
+                        while(now < next_two_year){
+                            var item_date=moment(now);
+                            item_date=item_date.format('YYYY-MM-DD');
+                            if(list_enable_dates.indexOf(item_date) == -1)
+                            {
+                                list_disable_dates.push(item_date);
+                            }
+
+                            var newDate = now.setDate(now.getDate() + 1);
+                            now = new Date(newDate);
+                        }
+                        range_of_date.instant_daterangepicker.disableDates=list_disable_dates;
+
+                        range_of_date.instant_daterangepicker.updateView();
+                        range_of_date.instant_daterangepicker.updateCalendars();
+
+                    }
+                });
+
+
+
+
+            });
             $( "#price-form" ).find('#select_virtuemart_product_id').change(function(){
                 var tour_id=$(this).val();
                 $.ajax({
@@ -489,20 +699,30 @@
 
 
                         });
-                        $( "#price-form" ).find('#virtuemart_service_class_id option').css({
-                            display:"none"
-                        });
-                        $( "#price-form" ).find('#price_type').val(response.tour.price_type);
+                        $price_form.find('#virtuemart_service_class_id option').remove();
+                        var list_service_class=plugin.settings.list_service_class;
+
+                        $price_form.find('#price_type').val(response.tour.price_type);
                         response.virtuemart_service_class_ids.push(0);
-                        $.each(response.virtuemart_service_class_ids, function( index, value ) {
-                            $( "#price-form" ).find('#virtuemart_service_class_id option[value="'+value+'"]').css({
-                                display:"block"
+                        var virtuemart_service_class_ids=response.virtuemart_service_class_ids;
+                        var $option='<option value="0">Please select tour class</option>';
+                        $price_form.find('#virtuemart_service_class_id').append($option);
+                        $.each(response.virtuemart_service_class_ids, function( index, virtuemart_service_class_id ) {
+                            $.each(list_service_class, function( index, item_service_class ) {
+                                if(item_service_class.virtuemart_service_class_id==virtuemart_service_class_id)
+                                {
+                                    var $option='<option value="'+virtuemart_service_class_id+'">'+item_service_class.service_class_name+'</option>';
+                                    $price_form.find('#virtuemart_service_class_id').append($option);
+                                }
                             });
                         });
-                        $( "#price-form" ).find("#virtuemart_service_class_id").val(0);
-                        $( "#price-form" ).find("#virtuemart_service_class_id").trigger("liszt:updated");
+
+                        $price_form.find("#virtuemart_service_class_id").val(0);
+                        $price_form.find("#virtuemart_service_class_id").trigger("change");
                         $( "#price-form" ).find('#template_price').html(response.price_content);
                         plugin.updata_price(response);
+                        plugin.setup_calculator_promotion_price();
+                        plugin.setup_random_price();
 
 
 
@@ -528,7 +748,8 @@
 
         }
         plugin.setup_calculator_promotion_price=function(){
-            $( "#price-form" ).find('input.number').keypress(function (e) {
+            console.log('setup_calculator_promotion_price');
+            $price_form.find('input.number').keypress(function (e) {
                 if(e.which==13) {
 
                     plugin.updata_price();
@@ -545,7 +766,7 @@
                 }
 
             });
-            $( "#price-form" ).find('input.number').keyup(function (e) {
+            $price_form.find('input.number').keyup(function (e) {
                 if(e.which==13) {
 
                     plugin.updata_price();
@@ -570,7 +791,7 @@
 
 
             });
-            $( "#price-form" ).find('input.number').change(function (e) {
+            $price_form.find('input.number').change(function (e) {
                 //if the letter is not digit then display error and don't type anything
                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                     //display error message
@@ -584,7 +805,7 @@
 
             });
 
-            $element.find('table.mark-up-price tr.percent input').focusin(function(e){
+            $price_form.find('table.mark-up-price tr.percent input').focusin(function(e){
                 total=0;
                 $element.find('table.mark-up-price tr.amount input').each(function(){
                     total+=$(this).val();
@@ -595,7 +816,7 @@
                 }
                 return false;
             });
-            $element.find('table.mark-up-price tr.amount input').focusin(function(e){
+            $price_form.find('table.mark-up-price tr.amount input').focusin(function(e){
                 total=0;
                 $element.find('table.mark-up-price tr.percent input').each(function(){
                     total+=$(this).val();
@@ -608,7 +829,7 @@
             });
 
             //validate promotion
-            $element.find('table.promotion-price tr.percent input').focusin(function(e){
+            $price_form.find('table.promotion-price tr.percent input').focusin(function(e){
                 total=0;
                 $element.find('table.promotion-price tr.amount input').each(function(){
                     total+=$(this).val();
@@ -619,7 +840,7 @@
                 }
                 return false;
             });
-            $element.find('table.promotion-price tr.amount input').focusin(function(e){
+            $price_form.find('table.promotion-price tr.amount input').focusin(function(e){
                 total=0;
                 $element.find('table.promotion-price tr.percent input').each(function(){
                     total+=$(this).val();
@@ -713,8 +934,8 @@
         plugin.updata_price=function updata_price(respone){
             var price_type=$element.find('#price_type').val();
             var virtuemart_product_id=$element.find('input[name="virtuemart_product_id"]').val();
-            var $promotion_price_tr_first= $element.find('table.base-price tbody tr');
-            var tax=$element.find('input[name="tax"]').val();
+            var $promotion_price_tr_first= $price_form.find('table.base-price tbody tr');
+            var tax=$price_form.find('input[name="tax"]').val();
             tax=parseFloat(tax);
             $promotion_price_tr_first.find('input').each(function(){
                 var $self=$(this);
@@ -723,8 +944,8 @@
                 var price=$self.val();
 
                 price=parseFloat(price);
-                //t�nh gi� sau khi promotion
-                var promotion_amount=$element.find('table.promotion-price tr.amount input[column-type="'+column_type+'"]').val();
+                //tính giá sau khi promotion
+                var promotion_amount=$price_form.find('table.promotion-price tr.amount input[column-type="'+column_type+'"]').val();
                 if(typeof promotion_amount=="undefined")
                 {
 
@@ -733,7 +954,7 @@
 
                 promotion_amount=parseFloat(promotion_amount);
 
-                var promotion_percent=$element.find('table.promotion-price tr.percent input[column-type="'+column_type+'"]').val();
+                var promotion_percent=$price_form.find('table.promotion-price tr.percent input[column-type="'+column_type+'"]').val();
                 if(typeof promotion_percent=="undefined")
                 {
                     promotion_percent=0;
@@ -747,14 +968,14 @@
                 }
 
 
-                var amount=$element.find('table.mark-up-price tr.amount input[column-type="'+column_type+'"]').val();
+                var amount=$price_form.find('table.mark-up-price tr.amount input[column-type="'+column_type+'"]').val();
                 if(typeof amount=="undefined")
                 {
 
                     amount=0;
                 }
                 amount=parseFloat(amount);
-                var percent=$element.find('table.mark-up-price tr.percent input[column-type="'+column_type+'"]').val();
+                var percent=$price_form.find('table.mark-up-price tr.percent input[column-type="'+column_type+'"]').val();
                 if(typeof percent=="undefined")
                 {
                     percent=0;
@@ -762,9 +983,9 @@
                 percent=parseFloat(percent);
                 if(price_type=='tour_group')
                 {
-                    var $span_profit=$element.find('table.profit-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
+                    var $span_profit=$price_form.find('table.profit-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
                 }else{
-                    var $span_profit=$element.find('table.profit-price span[column-type="'+column_type+'"]');
+                    var $span_profit=$price_form.find('table.profit-price span[column-type="'+column_type+'"]');
                 }
 
                 var profit_price=0;
@@ -779,11 +1000,11 @@
                 $span_profit.html(profit_price);
                 if(price_type=='tour_group')
                 {
-                    var $span_sale=$element.find('table.sale-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
+                    var $span_sale=$price_form.find('table.sale-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
                 }else{
-                    var $span_sale=$element.find('table.sale-price span[column-type="'+column_type+'"]');
+                    var $span_sale=$price_form.find('table.sale-price span[column-type="'+column_type+'"]');
                 }
-                //t�nh gi� b�n sau thu?
+                //tính giá bán sau thuế
                 //=s? ti?n c� l�i+s? ti?n g?c(?� bao g?m promotion)+(s? ti?n c� l�i+s? ti?n g?c(?� bao g?m promotion))*ph?n tr?m thu?
                 var sale_price=profit_price+profit_promotion_price+((profit_price+profit_promotion_price)*tax)/100;
                 sale_price=Math.round(sale_price);

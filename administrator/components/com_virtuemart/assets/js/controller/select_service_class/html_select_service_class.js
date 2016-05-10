@@ -28,8 +28,7 @@
 
             });
             plugin.select2.val(virtuemart_service_class_id).trigger("change")
-        }
-
+        };
         plugin.init();
 
     }

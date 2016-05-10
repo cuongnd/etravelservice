@@ -120,6 +120,12 @@
 
 
             });
+            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            var now = new Date();
+            range_of_date.instant_daterangepicker.minDate=moment(now);
+            now.setYear(now.getFullYear() + 2);
+            range_of_date.instant_daterangepicker.maxDate=moment(now);
+
             var $html_select_service_class=$('#html_select_service_class_virtuemart_service_class_id').data('html_select_service_class');
             var $service_class_select2=$html_select_service_class.select2;
             $service_class_select2.on("change", function(e) {
@@ -128,42 +134,102 @@
                 // mostly used event, fired to the original element when the value changes
                 var list_price=plugin.settings.list_price;
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                var disable_dates=[];
                 $.each(list_price,function(index,item){
                     if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
                     {
-/*
-                        console.log(item);
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
-                        range_of_date.instant_daterangepicker.set_disable_dates(sale_period_from,sale_period_to);
-*/
+
+                        while(sale_period_from < sale_period_to){
+                            var item_date=moment(sale_period_from);
+                            item_date=item_date.format('YYYY-MM-DD');
+                            if(disable_dates.indexOf(item_date) == -1)
+                            {
+                                disable_dates.push(item_date);
+                            }
+
+                            var newDate = sale_period_from.setDate(sale_period_from.getDate() + 1);
+                            sale_period_from = new Date(newDate);
+                        }
                     }
                 });
+                range_of_date.instant_daterangepicker.disableDates=disable_dates;
             });
             var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
             range_of_date.selected_start_date=function(ev, startDate){
-                /*var new_date= moment(startDate, "DD-MM-YYYY").add(5, 'days');
-                console.log(startDate.format('MM/DD/YYYY'));
-                console.log(new_date.format('MM/DD/YYYY'));
-                range_of_date.instant_daterangepicker.maxDate=new_date;
-
+                var item_start_date=new Date(startDate);
                 var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
-                console.log(virtuemart_service_class_id);
                 var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
                 var list_price=plugin.settings.list_price;
+                var min_sale_period_from=new Date();
+                $.each(list_price,function(index,item){
+                    if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
+                    {
+                        var sale_period_from=new Date(item.sale_period_from);
+                        var sale_period_to=new Date(item.sale_period_to);
+                        if(min_sale_period_from<sale_period_from && item_start_date<=sale_period_from)
+                        {
+                            sale_period_from=moment(sale_period_from);
+                            min_sale_period_from=new Date(sale_period_from.format('YYYY-MM-DD'));
+                        }
+                    }
+                });
+                var max_date=range_of_date.instant_daterangepicker.maxDate;
+                console.log(max_date.format('YYYY-MM-DD'));
+                max_date=new Date(max_date.format('YYYY-MM-DD'));
+                var disable_dates=range_of_date.instant_daterangepicker.disableDates;
+
+                while(min_sale_period_from<max_date  ){
+                    var item_date=moment(min_sale_period_from);
+                    item_date=item_date.format('YYYY-MM-DD');
+                    if(disable_dates.indexOf(item_date) == -1)
+                    {
+                        disable_dates.push(item_date);
+                    }
+
+                    var newDate = min_sale_period_from.setDate(min_sale_period_from.getDate() + 1);
+                    min_sale_period_from = new Date(newDate);
+                }
+
+                range_of_date.instant_daterangepicker.disableDates=disable_dates;
+                range_of_date.instant_daterangepicker.updateView();
+                range_of_date.instant_daterangepicker.updateCalendars();
+
+
+            };
+            range_of_date.daterangepicker.on('reset.daterangepicker', function() {
+                var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                // mostly used event, fired to the original element when the value changes
+                var list_price=plugin.settings.list_price;
+                var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                var disable_dates=[];
                 $.each(list_price,function(index,item){
                     if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
 
-                        console.log(item);
-                    }
-                });*/
+                        while(sale_period_from < sale_period_to){
+                            var item_date=moment(sale_period_from);
+                            item_date=item_date.format('YYYY-MM-DD');
+                            if(disable_dates.indexOf(item_date) == -1)
+                            {
+                                disable_dates.push(item_date);
+                            }
 
-            };
+                            var newDate = sale_period_from.setDate(sale_period_from.getDate() + 1);
+                            sale_period_from = new Date(newDate);
+                        }
+                    }
+                });
+                range_of_date.instant_daterangepicker.disableDates=disable_dates;
+                range_of_date.instant_daterangepicker.updateView();
+                range_of_date.instant_daterangepicker.updateCalendars();
+            });
+
             range_of_date.selected_end_date=function(ev, endDate){
-                console.log(endDate.format('MM/DD/YYYY'));
             };
 
             $('.dialog-form-price table.base-price').find('input[column-type="private_room"]').change(function(){

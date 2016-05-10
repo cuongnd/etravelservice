@@ -229,6 +229,7 @@ class VirtueMartModelproduct extends VmModel {
             }elseif($data['price_type']=='flat_price')
             {
                 $list_group_size_id=array();
+                $list_group_size_id[]=2;
             }
             foreach ($list_group_size_id as $virtuemart_group_size_id) {
                 $query->clear()

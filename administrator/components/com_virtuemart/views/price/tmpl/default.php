@@ -434,7 +434,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
 
                 <?php } else { ?>
-                    <h3>NET PRICE</h3>
+                    <h3>NET PRICE<button class="btn btn-primary random-price">random price</button></h3>
                     <table class="table-bordered  table table-striped base-price">
                         <thead>
                         <tr>
@@ -486,7 +486,7 @@ AdminUIHelper::startAdminArea($this);
                         </tr>
                         </tbody>
                     </table>
-                    <h3>mark up</h3>
+                    <h3>mark up NET PRICE<button class="btn btn-primary random-markup">random markup</button></h3>
                     <table class="table-bordered  table table-striped mark-up-price">
                         <tr>
                             <td>MARK UP VALUE</td>
@@ -657,7 +657,6 @@ AdminUIHelper::startAdminArea($this);
         <input type="hidden" name="task" value=""/>
         <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $this->virtuemart_product_id; ?>"/>
 
-        <input type="hidden" name="virtuemart_price_id" value="<?php echo $this->price->virtuemart_price_id; ?>"/>
         <input type="hidden" name="cid[]" value="0"/>
         <?php echo JHtml::_('form.token'); ?>
     </form>
