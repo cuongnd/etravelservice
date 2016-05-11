@@ -10,7 +10,11 @@
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
-            to_date: new Date()
+            to_date: new Date(),
+            display_format:'YYYY-MM-DD',
+            format:'YYYY-MM-DD',
+            ranges: {}
+
         };
 
         // current instance of the object
@@ -22,6 +26,17 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        plugin.set_date=function(start, end){
+            start=moment(start);
+            end=moment(end);
+            var format=plugin.settings.format;
+            var input_from = $element.find('input[name="' + start + '"]');
+            var input_to = $element.find('input[name="' + end + '"]');
+            input_from.val(start.format(format));
+            input_to.val(end.format(format));
+            var display_format=plugin.settings.display_format;
+            $element.find('.range_of_date').val(start.format(display_format)+'-'+end.format(display_format));
+        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var min_date = plugin.settings.min_date;
@@ -31,26 +46,20 @@
             var from_name = plugin.settings.from_name;
             var to_name = plugin.settings.to_name;
             plugin.daterangepicker=$element.find('.range_of_date').daterangepicker({
-                    format: 'YYYY-MM-DD',
+                    format: plugin.settings.format,
                     "showDropdowns": true,
                     startDate: new Date(),
                     endDate: new Date(),
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    }
+                    ranges:plugin.settings.ranges
                 },
                 function (start, end, label) {
                     var input_from = $element.find('input[name="' + from_name + '"]');
                     var input_to = $element.find('input[name="' + to_name + '"]');
-                    input_from.val(start.format('YYYY-MM-DD'));
-                    input_to.val(end.format('YYYY-MM-DD'));
+                    input_from.val(start.format(plugin.settings.format));
+                    input_to.val(end.format(plugin.settings.format));
                 }
             );
+
             plugin.instant_daterangepicker=$element.find('.range_of_date').data('daterangepicker');
             plugin.daterangepicker.on('daterangepicker.selected_start_date', function(ev, startDate) {
                 //do something, like clearing an input

@@ -124,7 +124,7 @@ AdminUIHelper::startAdminArea($this);
                         <table class="table-bordered  table table-striped">
                             <tr>
                                 <td>Tour</td>
-                                <td ><select name="select_virtuemart_product_id" id="select_virtuemart_product_id">
+                                <td ><select name="virtuemart_product_id" id="virtuemart_product_id">
                                         <option value="0">select tour</option>
                                         <?php foreach ($this->list_tour as $tour) { ?>
                                             <option
@@ -195,7 +195,6 @@ AdminUIHelper::startAdminArea($this);
 
                     </div>
                 </div>
-                <input type="hidden" name="virtuemart_product_id" value=""/>
                 <input type="hidden" name="virtuemart_promotion_price_id" value="0">
                 <input type="hidden" id="price_type" name="price_type" value=""/>
             </div>

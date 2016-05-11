@@ -16,7 +16,9 @@
             display_format: 'DD-MM-YYYY',
             promotion_price:{
                 virtuemart_service_class_id:0,
-                virtuemart_price_id:''
+                virtuemart_price_id:'',
+                sale_period_from:new Date(),
+                sale_period_to:new Date()
             }
 
         }
@@ -31,8 +33,8 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.validate = function () {
-            var select_virtuemart_product_id = $('select[name="select_virtuemart_product_id"]').val();
-            if (select_virtuemart_product_id <= 0) {
+            var virtuemart_product_id = $('select[name="virtuemart_product_id"]').val();
+            if (virtuemart_product_id <= 0) {
                 alert('please select tour');
                 return false;
             }
@@ -125,6 +127,16 @@
             });
             $price_form.find('#virtuemart_service_class_id').trigger('change');
         };
+        plugin.update_value_calendar = function () {
+            var promotion_price=plugin.settings.promotion_price;
+            var display_format = plugin.settings.display_format;
+            var range_of_date = $price_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            range_of_date.set_date(promotion_price.sale_period_from,promotion_price.sale_period_to);
+            range_of_date.instant_daterangepicker.updateView();
+            range_of_date.instant_daterangepicker.updateCalendars();
+
+
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -192,13 +204,15 @@
                         $("#price-form").dialog("open");
 
 
-                        plugin.update_service_class(response.list_service_class);
+
                         plugin.settings.list_service_class=response.list_service_class;
                         plugin.settings.tour= response.tour;
                         plugin.settings.promotion_price= response.promotion_price;
                         var virtuemart_product_id = response.tour.virtuemart_product_id;
-                        $price_form.find("#select_virtuemart_product_id").val(virtuemart_product_id);
-                        $price_form.find("#select_virtuemart_product_id").trigger("liszt:updated");
+                        plugin.update_service_class(response.list_service_class);
+                        plugin.update_value_calendar();
+                        $price_form.find("#virtuemart_product_id").val(virtuemart_product_id);
+                        $price_form.find("#virtuemart_product_id").trigger("liszt:updated");
                         $price_form.find('#template_price').html(response.price_content);
 
 
@@ -505,8 +519,8 @@
                                     display: "block"
                                 });
                             });
-                            $element.find("#select_virtuemart_product_id").val(virtuemart_product_id);
-                            $element.find("#select_virtuemart_product_id").trigger("change");
+                            $element.find("#virtuemart_product_id").val(virtuemart_product_id);
+                            $element.find("#virtuemart_product_id").trigger("change");
                             $element.find("#virtuemart_service_class_id").trigger("change");
                             $element.find('#template_price').html(response.price_content);
 
@@ -542,7 +556,7 @@
                 if (virtuemart_service_class_id == 0) {
                     return;
                 }
-                var tour_id = $('#select_virtuemart_product_id').val();
+                var virtuemart_product_id = $price_form.find('select[name="virtuemart_product_id"]').val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -553,7 +567,7 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'ajax_get_list_base_price_by_service_class_id_and_tour_id',
-                            tour_id: tour_id,
+                            virtuemart_product_id: virtuemart_product_id,
                             virtuemart_service_class_id: virtuemart_service_class_id
 
                         };
@@ -611,7 +625,7 @@
                 }
 
             });
-            $("#price-form").find('#select_virtuemart_product_id').change(function () {
+            $("#price-form").find('#virtuemart_product_id').change(function () {
                 var tour_id = $(this).val();
                 $.ajax({
                     type: "GET",

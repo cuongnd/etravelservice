@@ -156,10 +156,10 @@ class VirtuemartControllerpromotion extends VmController {
     public function ajax_get_list_base_price_by_service_class_id_and_tour_id(){
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tour_id=$input->getInt('tour_id',0);
+        $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
         $virtuemart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-        $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($tour_id,$virtuemart_service_class_id);
+        $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($virtuemart_product_id,$virtuemart_service_class_id);
         echo json_encode($list_base_price_by_service_class_id_and_tour_id);
         die;
 
