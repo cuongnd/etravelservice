@@ -2083,6 +2083,46 @@ XML;
         $html=ob_get_clean();
         return $html;
     }
+    public static function select_range_of_date($list_rang_of_date=array(),$name,  $default = '0', $attrib = "onchange='submit();'",$key = 'value', $text = 'text',  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.less');
+        $input = JFactory::getApplication()->input;
+        $id_element='html_select_range_of_date_'.$name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_list_range_of_date({
+                    list_range_of_date:<?php echo json_encode($list_rang_of_date) ?>,
+                    select_name:"<?php echo $name ?>",
+                    id_selected:<?php echo $default?$default:0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div class="html_select_list_range_of_date" id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select range of date') ?></option>
+                <?php foreach($list_rang_of_date as $range_of_date){ ?>
+                    <option <?php echo $range_of_date->id==$default?' selected ':'' ?>  value="<?php echo $range_of_date->$key ?>" ><?php echo $range_of_date->$text ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
 
 
 

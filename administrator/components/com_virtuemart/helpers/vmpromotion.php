@@ -123,4 +123,15 @@ class vmpromotion
 
     }
 
+    public static function get_product_by_promotion_price_id($virtuemart_promotion_price_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('product.*')
+            ->from('#__virtuemart_products AS product')
+            ->innerJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON tour_promotion_price.virtuemart_product_id=product.virtuemart_product_id')
+            ->where('tour_promotion_price.virtuemart_promotion_price_id=' . (int)$virtuemart_promotion_price_id);
+        return $db->setQuery($query)->loadObject();
+    }
+
 }

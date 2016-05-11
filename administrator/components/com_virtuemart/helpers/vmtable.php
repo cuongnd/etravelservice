@@ -275,20 +275,6 @@ class VmTable extends vObject implements  JObservableInterface, JTableInterface 
 		return $this->_db;
 	}
 
-	/**
-	 * @return string|void
-	 */
-	public function getError(){
-		vmTrace( get_class($this).' asks for error');
-		vmdebug( get_class($this).' asks for error');
-		return ;
-	}
-
-	public function getErrors(){
-		vmTrace( get_class($this).' asks for errors');
-		vmdebug( get_class($this).' asks for errors');
-		return ;
-	}
 
 	public function setPrimaryKey($key, $keyForm = 0) {
 

@@ -69,6 +69,9 @@
         plugin.selected_end_date=function(ev, picker){
 
         };
+        plugin.focus=function(){
+            $element.find('.range_of_date').focus();
+        };
         plugin.clear=function()
         {
             var from_name = plugin.settings.from_name;

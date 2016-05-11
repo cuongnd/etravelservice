@@ -12,8 +12,8 @@
             dialog_class:'dialog-form-price',
             list_service_class:[],
             date_format:'m/d/y',
-            list_base_price_by_service_class_id_and_tour_id:[]
-
+            list_base_price_by_service_class_id_and_tour_id:[],
+            display_format:'DD-MM-YYYY'
 
         }
 
@@ -99,6 +99,22 @@
             });
             //end ramdom markup
         };
+        plugin.update_select_range_of_date = function (list_range_of_date) {
+            display_format=plugin.settings.display_format;
+            $price_form.find('#virtuemart_price_id').empty();
+            var $option='<option value="0">Please select range of date</option>';
+            $price_form.find('#virtuemart_price_id').append($option);
+            $.each(list_range_of_date, function( index, item ) {
+                var sale_period_from=new Date(item.sale_period_from);
+                sale_period_from=moment(sale_period_from).format(display_format);
+                var sale_period_to=new Date(item.sale_period_to);
+                sale_period_to=moment(sale_period_to).format(display_format);
+
+                var $option='<option value="'+item.virtuemart_price_id+'">'+sale_period_from+' -> '+sale_period_to+'</option>';
+                $price_form.find('#virtuemart_price_id').append($option);
+            });
+            $price_form.find('#virtuemart_price_id').trigger('change');
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -127,59 +143,11 @@
             });
 
 
-            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
-            var now = new Date();
-            range_of_date.instant_daterangepicker.minDate=moment(now);
-            now.setYear(now.getFullYear() + 2);
-            range_of_date.instant_daterangepicker.maxDate=moment(now);
-
-            range_of_date.daterangepicker.on('reset.daterangepicker', function() {
-                var now = new Date();
-                range_of_date.instant_daterangepicker.minDate=moment(now);
-                now.setYear(now.getFullYear() + 2);
-                range_of_date.instant_daterangepicker.maxDate=moment(now);
-                range_of_date.instant_daterangepicker.updateView();
-                range_of_date.instant_daterangepicker.updateCalendars();
-            });
-
-
-
-
-            range_of_date.selected_start_date=function(ev, startDate){
-                var item_start_date=new Date(startDate);
-                var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
-                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
-                var list_price=plugin.settings.list_base_price_by_service_class_id_and_tour_id;
-                var max_date=new Date();
-                for(var i=0;i<list_price.length;i++)
-                {
-                    var item=list_price[i];
-                    var sale_period_from=new Date(item.sale_period_from);
-                    var sale_period_to=new Date(item.sale_period_to);
-                    console.log(moment(sale_period_from).format('DD-MM-YYYY'));
-                    console.log(moment(item_start_date).format('DD-MM-YYYY'));
-                    console.log(moment(sale_period_to).format('DD-MM-YYYY'));
-                    console.log('-------------------');
-                    if(item_start_date>=sale_period_from && item_start_date<=sale_period_to)
-                    {
-                        max_date=new Date(sale_period_to);
-                        break;
-                    }
-
-                }
-                max_date = max_date.setDate(max_date.getDate() + 1);
-                range_of_date.instant_daterangepicker.maxDate=moment(max_date);
-                range_of_date.instant_daterangepicker.updateView();
-                range_of_date.instant_daterangepicker.updateCalendars();
-
-
-            };
-
             $element.find('.edit-price').click(function(){
                 var self=$(this);
                 var $row=self.closest('tr[role="row"]');
                 $row.toggleClass('focus');
-                var price_id=$row.data('price_id');
+                var virtuemart_promotion_price_id=$row.data('virtuemart_promotion_price_id');
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -189,8 +157,8 @@
                         dataPost = {
                             option: 'com_virtuemart',
                             controller: 'promotion',
-                            task: 'get_list_price',
-                            price_id:price_id
+                            task: 'get_list_promotion_price',
+                            virtuemart_promotion_price_id:virtuemart_promotion_price_id
                         };
                         return dataPost;
                     })(),
@@ -209,7 +177,7 @@
                         });
                         $element.find('.'+plugin.settings.dialog_class).find('input.number').val(0);
                         plugin.fill_data(response);
-                        $element.find('input[name="virtuemart_price_id"]').val(price_id);
+                        $element.find('input[name="virtuemart_promotion_price_id"]').val(virtuemart_promotion_price_id);
                         $element.find('#price_type').val(response.tour.price_type);
                         $( "#price-form" ).dialog( "open" );
 
@@ -623,50 +591,43 @@
                         });
                         plugin.settings.list_base_price_by_service_class_id_and_tour_id=response;
                         var list_price=plugin.settings.list_base_price_by_service_class_id_and_tour_id;
-                        var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
-                        var list_enable_dates=[];
-                        $.each(list_price,function(index,item){
-                            var sale_period_from=new Date(item.sale_period_from);
-                            var sale_period_to=new Date(item.sale_period_to);
 
-                            while(sale_period_from < sale_period_to){
-                                var item_date=moment(sale_period_from);
-                                item_date=item_date.format('YYYY-MM-DD');
-                                if(list_enable_dates.indexOf(item_date) == -1)
-                                {
-                                    list_enable_dates.push(item_date);
-                                }
-
-                                var newDate = sale_period_from.setDate(sale_period_from.getDate() + 1);
-                                sale_period_from = new Date(newDate);
-                            }
-                        });
-                        var now = new Date();
-                        var next_two_year = new Date();
-
-                        next_two_year.setYear(next_two_year.getFullYear() + 2);
-                        var list_disable_dates=[];
-                        while(now < next_two_year){
-                            var item_date=moment(now);
-                            item_date=item_date.format('YYYY-MM-DD');
-                            if(list_enable_dates.indexOf(item_date) == -1)
-                            {
-                                list_disable_dates.push(item_date);
-                            }
-
-                            var newDate = now.setDate(now.getDate() + 1);
-                            now = new Date(newDate);
-                        }
-                        range_of_date.instant_daterangepicker.disableDates=list_disable_dates;
-
-                        range_of_date.instant_daterangepicker.updateView();
-                        range_of_date.instant_daterangepicker.updateCalendars();
-
+                        console.log(list_price);
+                        plugin.update_select_range_of_date(list_price);
                     }
                 });
 
 
 
+
+            });
+            $price_form.find('#virtuemart_price_id').change(function(){
+                var virtuemart_price_id=$(this).val();
+                if(virtuemart_price_id>0) {
+                    var list_price = plugin.settings.list_base_price_by_service_class_id_and_tour_id;
+                    var range_of_date = $price_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                    range_of_date.clear();
+                    for (var i = 0; i < list_price.length; i++) {
+                        var item = list_price[i];
+                        if (item.virtuemart_price_id == virtuemart_price_id) {
+
+                            var sale_period_from = new Date(item.sale_period_from);
+                            var sale_period_to = new Date(item.sale_period_to);
+                            range_of_date.instant_daterangepicker.minDate = moment(sale_period_from);
+                            range_of_date.instant_daterangepicker.maxDate = moment(sale_period_to);
+
+                            range_of_date.instant_daterangepicker.startDate = moment(sale_period_from);
+                            range_of_date.instant_daterangepicker.endDate = moment(sale_period_to);
+
+                            range_of_date.instant_daterangepicker.updateView();
+                            range_of_date.instant_daterangepicker.updateCalendars();
+                            display_format = plugin.settings.display_format;
+                            console.log(range_of_date.instant_daterangepicker.minDate.format(display_format));
+                            break;
+                        }
+                    }
+                    range_of_date.focus();
+                }
 
             });
             $( "#price-form" ).find('#select_virtuemart_product_id').change(function(){
@@ -719,7 +680,7 @@
 
                         $price_form.find("#virtuemart_service_class_id").val(0);
                         $price_form.find("#virtuemart_service_class_id").trigger("change");
-                        $( "#price-form" ).find('#template_price').html(response.price_content);
+                        $price_form.find('#template_price').html(response.price_content);
                         plugin.updata_price(response);
                         plugin.setup_calculator_promotion_price();
                         plugin.setup_random_price();
@@ -932,8 +893,8 @@
 
         }
         plugin.updata_price=function updata_price(respone){
-            var price_type=$element.find('#price_type').val();
-            var virtuemart_product_id=$element.find('input[name="virtuemart_product_id"]').val();
+            var price_type=$price_form.find('#price_type').val();
+            var virtuemart_product_id=get_list_promotion_price.find('input[name="virtuemart_product_id"]').val();
             var $promotion_price_tr_first= $price_form.find('table.base-price tbody tr');
             var tax=$price_form.find('input[name="tax"]').val();
             tax=parseFloat(tax);

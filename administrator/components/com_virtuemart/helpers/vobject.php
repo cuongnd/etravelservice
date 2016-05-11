@@ -18,6 +18,7 @@
 
 class vObject {
 
+    protected $_errors = array();
 	public function __toString() {
 		return get_class($this);
 	}
@@ -47,4 +48,88 @@ class vObject {
 			return false;
 		}
 	}
+    /**
+     * Get the most recent error message.
+     *
+     * @param   integer  $i         Option error index.
+     * @param   boolean  $toString  Indicates if JError objects should return their error message.
+     *
+     * @return  string   Error message
+     *
+     * @since   11.1
+     * @see     JError
+     * @deprecated 12.3  JError has been deprecated
+     */
+    public function getError($i = null, $toString = true)
+    {
+        // Find the error
+        if ($i === null)
+        {
+            // Default, return the last message
+            $error = end($this->_errors);
+        }
+        elseif (!array_key_exists($i, $this->_errors))
+        {
+            // If $i has been specified but does not exist, return false
+            return false;
+        }
+        else
+        {
+            $error = $this->_errors[$i];
+        }
+
+        // Check if only the string is requested
+        if ($error instanceof Exception && $toString)
+        {
+            return (string) $error;
+        }
+
+        return $error;
+    }
+    /**
+     * Return all errors, if any.
+     *
+     * @return  array  Array of error messages or JErrors.
+     *
+     * @since   11.1
+     * @see     JError
+     * @deprecated 12.3  JError has been deprecated
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
+    /**
+     * Sets a default value if not already assigned
+     *
+     * @param   string  $property  The name of the property.
+     * @param   mixed   $default   The default value.
+     *
+     * @return  mixed
+     *
+     * @since   11.1
+     */
+    public function def($property, $default = null)
+    {
+        $value = $this->get($property, $default);
+
+        return $this->set($property, $value);
+    }
+    /**
+     * Add an error message.
+     *
+     * @param   string  $error  Error message.
+     *
+     * @return  void
+     *
+     * @since   11.1
+     * @see     JError
+     * @deprecated 12.3  JError has been deprecated
+     */
+    public function setError($error)
+    {
+        array_push($this->_errors, $error);
+    }
+
+
 }

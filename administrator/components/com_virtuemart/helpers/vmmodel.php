@@ -1088,6 +1088,7 @@ class VmModel extends JModelList{
 			$this->_cache[$this->_id] = $table;
 			return $this->_id;
 		} else {
+            $this->setError(implode(',',$table->getErrors()));
 			return false;
 		}
 

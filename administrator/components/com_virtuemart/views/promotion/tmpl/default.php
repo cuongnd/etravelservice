@@ -80,7 +80,7 @@ AdminUIHelper::startAdminArea($this);
                     <?php
                     foreach ($this->promotion_prices as $promotion_price) {
                         ?>
-                        <tr role="row" data-price_id="<?php echo $promotion_price->virtuemart_promotion_price_id ?>">
+                        <tr role="row" data-virtuemart_promotion_price_id="<?php echo $promotion_price->virtuemart_promotion_price_id ?>">
                             <td><label class="checkbox"><input type="checkbox" name="row_price_id[]"
                                                                value="<?php echo $promotion_price->virtuemart_promotion_price_id ?>"
                                                                class="check-item"><span
@@ -144,7 +144,15 @@ AdminUIHelper::startAdminArea($this);
 
 
                             <tr>
-                                <td>Sale periol</td>
+                                <td>Range of date</td>
+                                <td >
+                                    <?php echo VmHTML::select_range_of_date(array(),'virtuemart_price_id',$this->price->virtuemart_price_id,'','vituemart_price_id','title'); ?>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>pro.  period</td>
                                 <td >
                                     <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', $this->price->sale_period_from,$this->price->sale_period_to); ?>
                                 </td>

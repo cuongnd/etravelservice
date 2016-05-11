@@ -102,7 +102,7 @@ class VirtuemartControllerpromotion extends VmController {
         if(!$virtuemart_promotion_price_id)
         {
             $return_ajax->e=1;
-            $return_ajax->m='cannot save item';
+            $return_ajax->m=$model_promotion_price->getErrors();
             echo json_encode($return_ajax);
             die;
         }
@@ -164,14 +164,14 @@ class VirtuemartControllerpromotion extends VmController {
         die;
 
     }
-    public function get_list_price()
+    public function get_list_promotion_price()
     {
         $app=JFactory::getApplication();
         $input=$app->input;
         $view = &$this->getView('promotion', 'html', 'VirtuemartView');
-        $price_id=$input->get('price_id',0,'int');
+        $virtuemart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
-        $model_promotion_price->setId($price_id);
+        $model_promotion_price->setId($virtuemart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
 
         $tour_id=$app->input->get('tour_id',0,'int');
@@ -187,29 +187,31 @@ class VirtuemartControllerpromotion extends VmController {
         $view->assignRef('promotion_price',$return_item->promotion_price);
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
 
-        $tour_id=$input->get('tour_id',0,'int');
-        $this->virtuemart_product_id=$tour_id;
 
         $model_product = VmModel::getModel('product');
         $product=$model_product->getItem($tour_id);
         $return_item->tour=$product;
-        if($product->tour_methor=='tour_group')
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
+
+        $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+        if($product->price_type!=vmGroupSize::FLAT_PRICE)
         {
-            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($price_id);
+            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_promotion_price_id);
             $view->assignRef('list_tour_promotion_price_by_tour_promotion_price_id',$return_item->list_tour_promotion_price_by_tour_promotion_price_id);
         }else{
-            $return_item->tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($price_id);
+            $return_item->tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_promotion_price_id);
             $view->assignRef('tour_private_price_by_tour_price_id',$return_item->tour_private_price_by_tour_price_id);
         }
 
         //get markup
-        $return_item->list_promotion_mark_up=vmpromotion::get_list_mark_up_by_tour_promotion_price_id($price_id);
+        $return_item->list_promotion_mark_up=vmpromotion::get_list_mark_up_by_tour_promotion_price_id($virtuemart_promotion_price_id);
         $return_item->list_promotion_mark_up=is_array($return_item->list_promotion_mark_up)?$return_item->list_promotion_mark_up:array($return_item->list_promotion_mark_up);
         $return_item->list_promotion_mark_up=JArrayHelper::pivot($return_item->list_promotion_mark_up,'type');
         $view->assignRef('list_promotion_mark_up',$return_item->list_promotion_mark_up);
         //end get markup
         //get markup
-        $return_item->list_promotion=vmpromotion::get_list_promotion_by_tour_promotion_price_id($price_id);
+        $return_item->list_promotion=vmpromotion::get_list_promotion_by_tour_promotion_price_id($virtuemart_promotion_price_id);
 
 
         $return_item->list_promotion=is_array($return_item->list_promotion)?$return_item->list_promotion:array($return_item->list_promotion);
