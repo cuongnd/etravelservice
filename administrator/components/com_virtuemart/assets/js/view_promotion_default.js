@@ -5,15 +5,19 @@
 
         // plugin's default options
         var defaults = {
-            totalPages:0,
-            totalItem:10,
-            tour_id:0,
-            visiblePages:5,
-            dialog_class:'dialog-form-price',
-            list_service_class:[],
-            date_format:'m/d/y',
-            list_base_price_by_service_class_id_and_tour_id:[],
-            display_format:'DD-MM-YYYY'
+            totalPages: 0,
+            totalItem: 10,
+            tour_id: 0,
+            visiblePages: 5,
+            dialog_class: 'dialog-form-price',
+            list_service_class: [],
+            date_format: 'm/d/y',
+            list_base_price_by_service_class_id_and_tour_id: [],
+            display_format: 'DD-MM-YYYY',
+            promotion_price:{
+                virtuemart_service_class_id:0,
+                virtuemart_price_id:''
+            }
 
         }
 
@@ -22,35 +26,31 @@
 
         // this will hold the merged default, and user-provided options
         plugin.settings = {}
-        var $price_form=$('#price-form');
+        var $price_form = $('#price-form');
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.validate = function () {
-            var select_virtuemart_product_id=$('select[name="select_virtuemart_product_id"]').val();
-            if(select_virtuemart_product_id<=0)
-            {
+            var select_virtuemart_product_id = $('select[name="select_virtuemart_product_id"]').val();
+            if (select_virtuemart_product_id <= 0) {
                 alert('please select tour');
                 return false;
             }
 
-            var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
-            if(virtuemart_service_class_id<=0)
-            {
+            var virtuemart_service_class_id = $('select[name="virtuemart_service_class_id"]').val();
+            if (virtuemart_service_class_id <= 0) {
                 alert('please select tour class');
                 return false;
             }
 
-            var sale_period_from=$('input[name="sale_period_from"]').val();
-            if(sale_period_from.trim()=='')
-            {
+            var sale_period_from = $('input[name="sale_period_from"]').val();
+            if (sale_period_from.trim() == '') {
                 alert('please select tour sale period from');
                 return false;
             }
 
-            var sale_period_to=$('input[name="sale_period_to"]').val();
-            if(sale_period_to.trim()=='')
-            {
+            var sale_period_to = $('input[name="sale_period_to"]').val();
+            if (sale_period_to.trim() == '') {
                 alert('please select tour sale period to');
                 return false;
             }
@@ -58,24 +58,23 @@
         }
         plugin.setup_random_price = function () {
             //random price
-            $price_form.find('.random-price').click(function(){
-                $price_form.find('.base-price .inputbox.number').each(function(){
+            $price_form.find('.random-price').click(function () {
+                $price_form.find('.base-price .inputbox.number').each(function () {
                     $(this).val(Math.floor(Math.random() * 600) + 1).trigger('change');
                 });
             });
 
             //end random price
             //random promotion price
-            $price_form.find('.random-promotion').click(function(){
-                var type=['amount','percent'];
-                var random_type=Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+            $price_form.find('.random-promotion').click(function () {
+                var type = ['amount', 'percent'];
+                var random_type = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
                 $price_form.find('.promotion-price  .inputbox.number').val('');
-                $price_form.find('.promotion-price .'+type[random_type]+' .inputbox.number').each(function(){
+                $price_form.find('.promotion-price .' + type[random_type] + ' .inputbox.number').each(function () {
 
-                    if(random_type==0)
-                    {
+                    if (random_type == 0) {
                         $(this).val(Math.floor(Math.random() * 200) + 1).trigger('change');
-                    }else {
+                    } else {
                         $(this).val(Math.floor(Math.random() * 99) + 1).trigger('change');
                     }
 
@@ -83,15 +82,14 @@
             });
             //end random promotion price
             //random markup
-            $price_form.find('.random-markup').click(function(){
-                var type=['amount','percent'];
-                var random_type=Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+            $price_form.find('.random-markup').click(function () {
+                var type = ['amount', 'percent'];
+                var random_type = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
                 $('.mark-up-price  .inputbox.number').val('');
-                $('.mark-up-price .'+type[random_type]+' .inputbox.number').each(function(){
-                    if(random_type==0)
-                    {
+                $('.mark-up-price .' + type[random_type] + ' .inputbox.number').each(function () {
+                    if (random_type == 0) {
                         $(this).val(Math.floor(Math.random() * 200) + 1).trigger('change');
-                    }else {
+                    } else {
                         $(this).val(Math.floor(Math.random() * 99) + 1).trigger('change');
                     }
 
@@ -100,54 +98,66 @@
             //end ramdom markup
         };
         plugin.update_select_range_of_date = function (list_range_of_date) {
-            display_format=plugin.settings.display_format;
+            var virtuemart_price_id=plugin.settings.promotion_price.virtuemart_price_id;
+            var display_format = plugin.settings.display_format;
             $price_form.find('#virtuemart_price_id').empty();
-            var $option='<option value="0">Please select range of date</option>';
+            var $option = '<option value="0">Please select range of date</option>';
             $price_form.find('#virtuemart_price_id').append($option);
-            $.each(list_range_of_date, function( index, item ) {
-                var sale_period_from=new Date(item.sale_period_from);
-                sale_period_from=moment(sale_period_from).format(display_format);
-                var sale_period_to=new Date(item.sale_period_to);
-                sale_period_to=moment(sale_period_to).format(display_format);
+            $.each(list_range_of_date, function (index, item) {
+                var sale_period_from = new Date(item.sale_period_from);
+                sale_period_from = moment(sale_period_from).format(display_format);
+                var sale_period_to = new Date(item.sale_period_to);
+                sale_period_to = moment(sale_period_to).format(display_format);
 
-                var $option='<option value="'+item.virtuemart_price_id+'">'+sale_period_from+' -> '+sale_period_to+'</option>';
+                var $option = '<option  '+(item.virtuemart_price_id==virtuemart_price_id?' selected ':'')+' value="' + item.virtuemart_price_id + '">' + sale_period_from + ' -> ' + sale_period_to + '</option>';
                 $price_form.find('#virtuemart_price_id').append($option);
             });
             $price_form.find('#virtuemart_price_id').trigger('change');
         };
+        plugin.update_service_class = function (list_service_class) {
+
+            var promotion_price=plugin.settings.promotion_price;
+            var $option = '<option value="0">Please select service class</option>';
+            $price_form.find('#virtuemart_service_class_id').append($option);
+            $.each(list_service_class, function (index, item_service_class) {
+                var $option = '<option  '+(item_service_class.virtuemart_service_class_id==promotion_price.virtuemart_service_class_id?' selected ':'') +' value="' + item_service_class.virtuemart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
+                $price_form.find('#virtuemart_service_class_id').append($option);
+            });
+            $price_form.find('#virtuemart_service_class_id').trigger('change');
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
-            var totalItem=plugin.settings.totalItem;
-            var tour_id=plugin.settings.tour_id;
-            var price_type=plugin.settings.price_type;
-/*
-            $element.find('#ul_pagination').twbsPagination({
-                totalPages: plugin.settings.totalPages,
-                visiblePages: plugin.settings.visiblePages,
-                onPageClick: function (event, page) {
-                    $('#page-content').text('Page ' + page);
-                }
-            });*/
+            var totalItem = plugin.settings.totalItem;
+            var tour_id = plugin.settings.tour_id;
+            var price_type = plugin.settings.price_type;
+            /*
+             $element.find('#ul_pagination').twbsPagination({
+             totalPages: plugin.settings.totalPages,
+             visiblePages: plugin.settings.visiblePages,
+             onPageClick: function (event, page) {
+             $('#page-content').text('Page ' + page);
+             }
+             });*/
 
 
-            $( "#price-form" ).dialog({
+            $("#price-form").dialog({
                 autoOpen: false,
-                modal:true,
-                width:700,
-                appendTo:'body',
-                dialogClass:plugin.settings.dialog_class,
+                modal: true,
+                width: 700,
+                appendTo: 'body',
+                dialogClass: plugin.settings.dialog_class,
                 //closeOnEscape: false,
                 //open: function(event, ui) { $element.find(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
 
             });
 
 
-            $element.find('.edit-price').click(function(){
-                var self=$(this);
-                var $row=self.closest('tr[role="row"]');
+            $element.find('.edit-price').click(function () {
+                var self = $(this);
+                var $row = self.closest('tr[role="row"]');
                 $row.toggleClass('focus');
-                var virtuemart_promotion_price_id=$row.data('virtuemart_promotion_price_id');
+                var virtuemart_promotion_price_id = $row.data('virtuemart_promotion_price_id');
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -158,7 +168,7 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'get_list_promotion_price',
-                            virtuemart_promotion_price_id:virtuemart_promotion_price_id
+                            virtuemart_promotion_price_id: virtuemart_promotion_price_id
                         };
                         return dataPost;
                     })(),
@@ -175,34 +185,26 @@
 
 
                         });
-                        $element.find('.'+plugin.settings.dialog_class).find('input.number').val(0);
+                        $element.find('.' + plugin.settings.dialog_class).find('input.number').val(0);
                         plugin.fill_data(response);
                         $element.find('input[name="virtuemart_promotion_price_id"]').val(virtuemart_promotion_price_id);
                         $element.find('#price_type').val(response.tour.price_type);
-                        $( "#price-form" ).dialog( "open" );
+                        $("#price-form").dialog("open");
 
 
-                        $( "#price-form" ).find('#virtuemart_service_class_id option').css({
-                            display:"none"
-                        });
-                        response.virtuemart_service_class_ids.push(0);
-                        $.each(response.virtuemart_service_class_ids, function( index, value ) {
-                            $( "#price-form" ).find('#virtuemart_service_class_id option[value="'+value+'"]').css({
-                                display:"block"
-                            });
-                        });
-                        var virtuemart_product_id=response.tour.virtuemart_product_id;
-                        $element.find("#select_virtuemart_product_id").val(virtuemart_product_id);
-                        $element.find("#select_virtuemart_product_id").trigger("liszt:updated");
-                        $element.find("#virtuemart_service_class_id").trigger("liszt:updated");
-                        $element.find('#template_price').html(response.price_content);
+                        plugin.update_service_class(response.list_service_class);
+                        plugin.settings.list_service_class=response.list_service_class;
+                        plugin.settings.tour= response.tour;
+                        plugin.settings.promotion_price= response.promotion_price;
+                        var virtuemart_product_id = response.tour.virtuemart_product_id;
+                        $price_form.find("#select_virtuemart_product_id").val(virtuemart_product_id);
+                        $price_form.find("#select_virtuemart_product_id").trigger("liszt:updated");
+                        $price_form.find('#template_price').html(response.price_content);
 
 
-
-                        $( "#price-form" ).find('input.number').change(function (e) {
-                            var value=$(this).val();
-                            if(typeof value=='undefined'||value=='')
-                            {
+                        $price_form.find('input.number').change(function (e) {
+                            var value = $(this).val();
+                            if (typeof value == 'undefined' || value == '') {
                                 $(this).val(0);
                                 console.log(value);
                                 plugin.updata_price();
@@ -216,12 +218,12 @@
 
 
             });
-            $element.find('.delete-price').click(function(){
+            $element.find('.delete-price').click(function () {
 
                 if (confirm('Are you sure you want delete this item ?')) {
-                    var self=$(this);
-                    var $row=self.closest('tr[role="row"]');
-                    var price_id=$row.data('price_id');
+                    var self = $(this);
+                    var $row = self.closest('tr[role="row"]');
+                    var price_id = $row.data('price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -231,9 +233,9 @@
                                 option: 'com_virtuemart',
                                 controller: 'promotion',
                                 task: 'ajax_remove',
-                                price_id:price_id,
-                                tour_id:tour_id,
-                                price_type:price_type,
+                                price_id: price_id,
+                                tour_id: tour_id,
+                                price_type: price_type,
                             };
                             return dataPost;
                         })(),
@@ -250,12 +252,11 @@
 
 
                             });
-                            if(response==1)
-                            {
+                            if (response == 1) {
                                 alert('delete item succesfull');
                                 $row.remove();
                             }
-                            else{
+                            else {
                                 alert(response);
                             }
                         }
@@ -266,18 +267,14 @@
                 }
 
 
-
-
-
-
             });
 
-            $element.find('.publish-price').click(function(){
+            $element.find('.publish-price').click(function () {
 
                 if (confirm('Are you sure you want publish this item ?')) {
-                    var self=$(this);
-                    var $row=self.closest('tr[role="row"]');
-                    var price_id=$row.data('price_id');
+                    var self = $(this);
+                    var $row = self.closest('tr[role="row"]');
+                    var price_id = $row.data('price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -287,9 +284,9 @@
                                 option: 'com_virtuemart',
                                 controller: 'promotion',
                                 task: 'ajax_publish',
-                                price_id:price_id,
-                                tour_id:tour_id,
-                                price_type:price_type,
+                                price_id: price_id,
+                                tour_id: tour_id,
+                                price_type: price_type,
                             };
                             return dataPost;
                         })(),
@@ -306,12 +303,11 @@
 
 
                             });
-                            if(response==1)
-                            {
+                            if (response == 1) {
                                 alert('publish item succesfull');
-                                $row.find('a.publish-price span.icon-white').toggleClass( "icon-publish icon-unpublish");
+                                $row.find('a.publish-price span.icon-white').toggleClass("icon-publish icon-unpublish");
                             }
-                            else{
+                            else {
                                 alert(response);
                             }
                         }
@@ -322,103 +318,18 @@
                 }
 
 
-
-
-
-
             });
             plugin.setup_random_price();
 
-            $('.dialog-form-price').find('.save-close-price').click(function(){
-                if(!plugin.validate())
-                {
+            $('.dialog-form-price').find('.save-close-price').click(function () {
+                if (!plugin.validate()) {
                     return false;
                 }
 
-                var dataPost=$('.dialog-form-price').find(':input').serializeObject();
-                var price_id=dataPost.virtuemart_promotion_price_id;
-                var $row=$element.find('.list-prices tr[data-price_id="'+price_id+'"]');
+                var dataPost = $('.dialog-form-price').find(':input').serializeObject();
+                var price_id = dataPost.virtuemart_promotion_price_id;
+                var $row = $element.find('.list-prices tr[data-price_id="' + price_id + '"]');
                 if (confirm('Are you sure you want save this item ?')) {
-                   //save and close
-                    $.ajax({
-                        type: "POST",
-                        contentType: 'application/json',
-                        dataType: "json",
-                        url: 'index.php?option=com_virtuemart&controller=promotion&task=ajax_save_promotion_price',
-                        data: JSON.stringify(dataPost),
-                        beforeSend: function () {
-
-                            $('.div-loading').css({
-                                display: "block"
-                            });
-                        },
-                        success: function (response) {
-
-                            $('.div-loading').css({
-                                display: "none"
-
-
-                            });
-                            if(response.e==0)
-                            {
-                                var result=response.r;
-
-
-                                alert('save item succesfull');
-                                $element.find( "#price-form").dialog( "close" );
-                                if($row.length==0)
-                                {
-                                    $row=$element.find('.list-prices tbody tr:first').clone(true).prependTo( ".list-prices tbody").fadeIn('slow');
-                                }
-                                $row.attr('data-price_id',result.virtuemart_price_id);
-                                $row.data('price_id',result.virtuemart_price_id);
-                                $row.find('span.item-id').html(result.virtuemart_price_id);
-                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
-                                $row.find('td.service_class_name').html(result.service_class.service_class_name);
-                                $row.find('td.sale_period').html(result.sale_period);
-                                $row.find('td.modified_on').html(result.modified_on);
-                                $row.find('td.modified_on').html(result.modified_on);
-                                $row.find('td.price_note').html(result.price_note.trim());
-                                $row.find('a.publish-price .icon-white').removeClass('icon-unpublish').addClass('icon-publish');
-
-                                $row.delay(500).queue(function(){
-                                    $(this).toggleClass('focus');
-                                    $(this).dequeue();
-                                });
-
-                            }
-                            else{
-                                alert(response.m);
-                            }
-
-
-                        }
-                    });
-
-
-                } else {
-                    return;
-                }
-            });
-            $element.find('.dialog-form-price').find('.cancel-price').click(function(){
-                if (confirm('Are you sure you want cancel this item ?')) {
-                   //save and close
-                    var price_id=$element.find('input[name="virtuemart_price_id"]').val();
-                    $element.find( "#price-form").dialog( "close" );
-                    var $row=$element.find('.list-prices tr[data-price_id="'+price_id+'"]');
-                    $row.delay(500).queue(function(){
-                        $(this).toggleClass('focus');
-                        $(this).dequeue();
-                    });
-                } else {
-                    return;
-                }
-            });
-            $element.find('.dialog-form-price').find('.apply-price').click(function(){
-                var dataPost=$element.find('.dialog-form-price').find(':input').serializeObject();
-                if (confirm('Are you sure you want save this item ?')) {
-                    var promotion_price_id=dataPost.virtuemart_promotion_price_id;
-                    var $row=$element.find('.list-prices tr[data-price_id="'+promotion_price_id+'"]');
                     //save and close
                     $.ajax({
                         type: "POST",
@@ -439,32 +350,33 @@
 
 
                             });
-                            if(response.e==0)
-                            {
-                                var result=response.r;
+                            if (response.e == 0) {
+                                var result = response.r;
+
+
                                 alert('save item succesfull');
-                                if($row.length==0)
-                                {
-                                    $row=$element.find('.list-prices tbody tr:first').clone(true).prependTo( ".list-prices tbody").fadeIn('slow');
+                                $element.find("#price-form").dialog("close");
+                                if ($row.length == 0) {
+                                    $row = $element.find('.list-prices tbody tr:first').clone(true).prependTo(".list-prices tbody").fadeIn('slow');
                                 }
-                                $row.attr('data-price_id',result.virtuemart_price_id);
-                                $row.data('price_id',result.virtuemart_price_id);
+                                $row.attr('data-price_id', result.virtuemart_price_id);
+                                $row.data('price_id', result.virtuemart_price_id);
                                 $row.find('span.item-id').html(result.virtuemart_price_id);
                                 $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
                                 $row.find('td.service_class_name').html(result.service_class.service_class_name);
                                 $row.find('td.sale_period').html(result.sale_period);
                                 $row.find('td.modified_on').html(result.modified_on);
                                 $row.find('td.modified_on').html(result.modified_on);
-                                $row.find('td.price_note').html(result.promotion_price_note.trim());
+                                $row.find('td.price_note').html(result.price_note.trim());
                                 $row.find('a.publish-price .icon-white').removeClass('icon-unpublish').addClass('icon-publish');
 
-                                $row.delay(500).queue(function(){
+                                $row.delay(500).queue(function () {
                                     $(this).toggleClass('focus');
                                     $(this).dequeue();
                                 });
 
                             }
-                            else{
+                            else {
                                 alert(response.m);
                             }
 
@@ -475,12 +387,86 @@
 
                 } else {
                     return;
-                }            });
-            Joomla.submitbutton = function(task)
-            {
-                if (task == "add")
-                {
-                    var virtuemart_product_id=$element.find('input[name="virtuemart_product_id"]').val();
+                }
+            });
+            $element.find('.dialog-form-price').find('.cancel-price').click(function () {
+                if (confirm('Are you sure you want cancel this item ?')) {
+                    //save and close
+                    var price_id = $element.find('input[name="virtuemart_price_id"]').val();
+                    $element.find("#price-form").dialog("close");
+                    var $row = $element.find('.list-prices tr[data-price_id="' + price_id + '"]');
+                    $row.delay(500).queue(function () {
+                        $(this).toggleClass('focus');
+                        $(this).dequeue();
+                    });
+                } else {
+                    return;
+                }
+            });
+            $element.find('.dialog-form-price').find('.apply-price').click(function () {
+                var dataPost = $element.find('.dialog-form-price').find(':input').serializeObject();
+                if (confirm('Are you sure you want save this item ?')) {
+                    var promotion_price_id = dataPost.virtuemart_promotion_price_id;
+                    var $row = $element.find('.list-prices tr[data-price_id="' + promotion_price_id + '"]');
+                    //save and close
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        url: 'index.php?option=com_virtuemart&controller=promotion&task=ajax_save_promotion_price',
+                        data: JSON.stringify(dataPost),
+                        beforeSend: function () {
+
+                            $('.div-loading').css({
+                                display: "block"
+                            });
+                        },
+                        success: function (response) {
+
+                            $('.div-loading').css({
+                                display: "none"
+
+
+                            });
+                            if (response.e == 0) {
+                                var result = response.r;
+                                alert('save item succesfull');
+                                if ($row.length == 0) {
+                                    $row = $element.find('.list-prices tbody tr:first').clone(true).prependTo(".list-prices tbody").fadeIn('slow');
+                                }
+                                $row.attr('data-price_id', result.virtuemart_price_id);
+                                $row.data('price_id', result.virtuemart_price_id);
+                                $row.find('span.item-id').html(result.virtuemart_price_id);
+                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
+                                $row.find('td.service_class_name').html(result.service_class.service_class_name);
+                                $row.find('td.sale_period').html(result.sale_period);
+                                $row.find('td.modified_on').html(result.modified_on);
+                                $row.find('td.modified_on').html(result.modified_on);
+                                $row.find('td.price_note').html(result.promotion_price_note.trim());
+                                $row.find('a.publish-price .icon-white').removeClass('icon-unpublish').addClass('icon-publish');
+
+                                $row.delay(500).queue(function () {
+                                    $(this).toggleClass('focus');
+                                    $(this).dequeue();
+                                });
+
+                            }
+                            else {
+                                alert(response.m);
+                            }
+
+
+                        }
+                    });
+
+
+                } else {
+                    return;
+                }
+            });
+            Joomla.submitbutton = function (task) {
+                if (task == "add") {
+                    var virtuemart_product_id = $element.find('input[name="virtuemart_product_id"]').val();
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -489,9 +475,9 @@
 
                             dataPost = {
                                 option: 'com_virtuemart',
-                                controller:'promotion',
+                                controller: 'promotion',
                                 task: 'get_list_price',
-                                tour_id:virtuemart_product_id
+                                tour_id: virtuemart_product_id
                             };
                             return dataPost;
                         })(),
@@ -508,15 +494,15 @@
 
 
                             });
-                            $( "#price-form" ).dialog( "open" );
+                            $("#price-form").dialog("open");
 
-                            $( "#price-form" ).find('#virtuemart_service_class_id option').css({
-                                display:"none"
+                            $("#price-form").find('#virtuemart_service_class_id option').css({
+                                display: "none"
                             });
                             response.virtuemart_service_class_ids.push(0);
-                            $.each(response.virtuemart_service_class_ids, function( index, value ) {
-                                $( "#price-form" ).find('#virtuemart_service_class_id option[value="'+value+'"]').css({
-                                    display:"block"
+                            $.each(response.virtuemart_service_class_ids, function (index, value) {
+                                $("#price-form").find('#virtuemart_service_class_id option[value="' + value + '"]').css({
+                                    display: "block"
                                 });
                             });
                             $element.find("#select_virtuemart_product_id").val(virtuemart_product_id);
@@ -524,10 +510,9 @@
                             $element.find("#virtuemart_service_class_id").trigger("change");
                             $element.find('#template_price').html(response.price_content);
 
-                            $( "#price-form" ).find('input.number').change(function (e) {
-                                var value=$(this).val();
-                                if(typeof value=='undefined'||value=='')
-                                {
+                            $("#price-form").find('input.number').change(function (e) {
+                                var value = $(this).val();
+                                if (typeof value == 'undefined' || value == '') {
                                     $(this).val(0);
                                     console.log(value);
                                     plugin.updata_price();
@@ -541,8 +526,7 @@
 
                 }
             };
-            Joomla.delete_item = function(task,item_id)
-            {
+            Joomla.delete_item = function (task, item_id) {
                 if (confirm('Are you sure you want delete this item ?')) {
                     form = document.getElementById('adminForm');
                     $element.find('input[name="cid[]"]').val(item_id);
@@ -553,13 +537,12 @@
 
 
             };
-            $price_form.find('#virtuemart_service_class_id').change(function(){
-                var virtuemart_service_class_id=$(this).val();
-                if(virtuemart_service_class_id==0)
-                {
+            $price_form.find('#virtuemart_service_class_id').change(function () {
+                var virtuemart_service_class_id = $(this).val();
+                if (virtuemart_service_class_id == 0) {
                     return;
                 }
-                var tour_id=$('#select_virtuemart_product_id').val();
+                var tour_id = $('#select_virtuemart_product_id').val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -570,8 +553,8 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'ajax_get_list_base_price_by_service_class_id_and_tour_id',
-                            tour_id:tour_id,
-                            virtuemart_service_class_id:virtuemart_service_class_id
+                            tour_id: tour_id,
+                            virtuemart_service_class_id: virtuemart_service_class_id
 
                         };
                         return dataPost;
@@ -589,8 +572,8 @@
 
 
                         });
-                        plugin.settings.list_base_price_by_service_class_id_and_tour_id=response;
-                        var list_price=plugin.settings.list_base_price_by_service_class_id_and_tour_id;
+                        plugin.settings.list_base_price_by_service_class_id_and_tour_id = response;
+                        var list_price = plugin.settings.list_base_price_by_service_class_id_and_tour_id;
 
                         console.log(list_price);
                         plugin.update_select_range_of_date(list_price);
@@ -598,12 +581,10 @@
                 });
 
 
-
-
             });
-            $price_form.find('#virtuemart_price_id').change(function(){
-                var virtuemart_price_id=$(this).val();
-                if(virtuemart_price_id>0) {
+            $price_form.find('#virtuemart_price_id').change(function () {
+                var virtuemart_price_id = $(this).val();
+                if (virtuemart_price_id > 0) {
                     var list_price = plugin.settings.list_base_price_by_service_class_id_and_tour_id;
                     var range_of_date = $price_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                     range_of_date.clear();
@@ -630,8 +611,8 @@
                 }
 
             });
-            $( "#price-form" ).find('#select_virtuemart_product_id').change(function(){
-                var tour_id=$(this).val();
+            $("#price-form").find('#select_virtuemart_product_id').change(function () {
+                var tour_id = $(this).val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -642,7 +623,7 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'ajax_get_change_tour',
-                            tour_id:tour_id
+                            tour_id: tour_id
 
                         };
                         return dataPost;
@@ -661,18 +642,17 @@
 
                         });
                         $price_form.find('#virtuemart_service_class_id option').remove();
-                        var list_service_class=plugin.settings.list_service_class;
+                        var list_service_class = plugin.settings.list_service_class;
 
                         $price_form.find('#price_type').val(response.tour.price_type);
                         response.virtuemart_service_class_ids.push(0);
-                        var virtuemart_service_class_ids=response.virtuemart_service_class_ids;
-                        var $option='<option value="0">Please select tour class</option>';
+                        var virtuemart_service_class_ids = response.virtuemart_service_class_ids;
+                        var $option = '<option value="0">Please select tour class</option>';
                         $price_form.find('#virtuemart_service_class_id').append($option);
-                        $.each(response.virtuemart_service_class_ids, function( index, virtuemart_service_class_id ) {
-                            $.each(list_service_class, function( index, item_service_class ) {
-                                if(item_service_class.virtuemart_service_class_id==virtuemart_service_class_id)
-                                {
-                                    var $option='<option value="'+virtuemart_service_class_id+'">'+item_service_class.service_class_name+'</option>';
+                        $.each(response.virtuemart_service_class_ids, function (index, virtuemart_service_class_id) {
+                            $.each(list_service_class, function (index, item_service_class) {
+                                if (item_service_class.virtuemart_service_class_id == virtuemart_service_class_id) {
+                                    var $option = '<option value="' + virtuemart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
                                     $price_form.find('#virtuemart_service_class_id').append($option);
                                 }
                             });
@@ -686,17 +666,15 @@
                         plugin.setup_random_price();
 
 
-
                     }
                 });
 
             });
 
 
-            $element.find('.'+plugin.settings.dialog_class).find('input.number').change(function (e) {
-                var value=$(this).val();
-                if(typeof value=='undefined'||value=='')
-                {
+            $element.find('.' + plugin.settings.dialog_class).find('input.number').change(function (e) {
+                var value = $(this).val();
+                if (typeof value == 'undefined' || value == '') {
                     $(this).val(0);
                     console.log(value);
                     plugin.updata_price();
@@ -706,12 +684,11 @@
             plugin.setup_calculator_promotion_price();
 
 
-
         }
-        plugin.setup_calculator_promotion_price=function(){
+        plugin.setup_calculator_promotion_price = function () {
             console.log('setup_calculator_promotion_price');
             $price_form.find('input.number').keypress(function (e) {
-                if(e.which==13) {
+                if (e.which == 13) {
 
                     plugin.updata_price();
                 }
@@ -721,14 +698,14 @@
 
                     return false;
                 }
-                else if(e.which==13){
+                else if (e.which == 13) {
                     plugin.updata_price();
 
                 }
 
             });
             $price_form.find('input.number').keyup(function (e) {
-                if(e.which==13) {
+                if (e.which == 13) {
 
                     plugin.updata_price();
                 }
@@ -750,7 +727,6 @@
                  }*/
 
 
-
             });
             $price_form.find('input.number').change(function (e) {
                 //if the letter is not digit then display error and don't type anything
@@ -759,67 +735,61 @@
 
                     return false;
                 }
-                else{
+                else {
                     plugin.updata_price();
 
                 }
 
             });
 
-            $price_form.find('table.mark-up-price tr.percent input').focusin(function(e){
-                total=0;
-                $element.find('table.mark-up-price tr.amount input').each(function(){
-                    total+=$(this).val();
+            $price_form.find('table.mark-up-price tr.percent input').focusin(function (e) {
+                total = 0;
+                $element.find('table.mark-up-price tr.amount input').each(function () {
+                    total += $(this).val();
                 });
-                if(total>0)
-                {
+                if (total > 0) {
                     alert('you cannot input percent when amount is <> 0');
                 }
                 return false;
             });
-            $price_form.find('table.mark-up-price tr.amount input').focusin(function(e){
-                total=0;
-                $element.find('table.mark-up-price tr.percent input').each(function(){
-                    total+=$(this).val();
+            $price_form.find('table.mark-up-price tr.amount input').focusin(function (e) {
+                total = 0;
+                $element.find('table.mark-up-price tr.percent input').each(function () {
+                    total += $(this).val();
                 });
-                if(total>0)
-                {
+                if (total > 0) {
                     alert('you cannot input amount when percent is <> 0');
                 }
                 return false;
             });
 
             //validate promotion
-            $price_form.find('table.promotion-price tr.percent input').focusin(function(e){
-                total=0;
-                $element.find('table.promotion-price tr.amount input').each(function(){
-                    total+=$(this).val();
+            $price_form.find('table.promotion-price tr.percent input').focusin(function (e) {
+                total = 0;
+                $element.find('table.promotion-price tr.amount input').each(function () {
+                    total += $(this).val();
                 });
-                if(total>0)
-                {
+                if (total > 0) {
                     alert('you cannot input percent when amount is <> 0');
                 }
                 return false;
             });
-            $price_form.find('table.promotion-price tr.amount input').focusin(function(e){
-                total=0;
-                $element.find('table.promotion-price tr.percent input').each(function(){
-                    total+=$(this).val();
+            $price_form.find('table.promotion-price tr.amount input').focusin(function (e) {
+                total = 0;
+                $element.find('table.promotion-price tr.percent input').each(function () {
+                    total += $(this).val();
                 });
-                if(total>0)
-                {
+                if (total > 0) {
                     alert('you cannot input amount when percent is <> 0');
                 }
                 return false;
             });
         }
-        plugin.fill_data=function(result)
-        {
-            var date_format=plugin.settings.date_format;
-            var list_tour_promotion_price_by_tour_promotion_price_id=result.list_tour_promotion_price_by_tour_promotion_price_id;
-            if(typeof list_tour_promotion_price_by_tour_promotion_price_id=="undefined")
-            {
-                list_tour_promotion_price_by_tour_promotion_price_id=result.tour_private_price_by_tour_price_id;
+        plugin.fill_data = function (result) {
+            var date_format = plugin.settings.date_format;
+            var list_tour_promotion_price_by_tour_promotion_price_id = result.list_tour_promotion_price_by_tour_promotion_price_id;
+            if (typeof list_tour_promotion_price_by_tour_promotion_price_id == "undefined") {
+                list_tour_promotion_price_by_tour_promotion_price_id = result.tour_private_price_by_tour_price_id;
 
             }
             $element.find('input[name="tax"]').val(result.promotion_price.tax);
@@ -827,27 +797,26 @@
             $element.find('input[name="virtuemart_promotion_price_id"]').val(result.promotion_price.virtuemart_promotion_price_id);
             $element.find('textarea[name="price_note"]').val(result.promotion_price.price_note.trim());
             $element.find('#sale_period_from').val(result.promotion_price.sale_period_from);
-            var sale_period_from=$.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_from))
+            var sale_period_from = $.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_from))
             $element.find('#sale_period_from_text').val(sale_period_from);
 
             $element.find('#sale_period_to').val(result.promotion_price.sale_period_to);
-            var sale_period_to=$.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_to))
+            var sale_period_to = $.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_to))
             $element.find('#sale_period_to_text').val(sale_period_to);
 
 
             $element.find('select[name="service_class_id"]').val(result.promotion_price.virtuemart_service_class_id);
             $element.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
-            price_type=result.tour.price_type;
-            if(price_type=='tour_group')
-            {
+            price_type = result.tour.price_type;
+            if (price_type == 'tour_group') {
                 $element.find('#tour_group').css({
-                    display:"block"
+                    display: "block"
                 });
                 $element.find('#tour_basic').css({
-                    display:"none"
+                    display: "none"
                 });
-                $.each(list_tour_promotion_price_by_tour_promotion_price_id,function(index,item){
-                    var $row=$element.find('table.base-price tr[data-group_size_id="'+item.virtuemart_group_size_id+'"]');
+                $.each(list_tour_promotion_price_by_tour_promotion_price_id, function (index, item) {
+                    var $row = $element.find('table.base-price tr[data-group_size_id="' + item.virtuemart_group_size_id + '"]');
                     $row.find('td input[column-type="senior"]').val(item.price_senior);
                     $row.find('td input[column-type="adult"]').val(item.price_adult);
                     $row.find('td input[column-type="teen"]').val(item.price_teen);
@@ -858,12 +827,12 @@
 
                 });
 
-            }else if(typeof list_tour_promotion_price_by_tour_promotion_price_id!="undefined"){
+            } else if (typeof list_tour_promotion_price_by_tour_promotion_price_id != "undefined") {
                 $element.find('#tour_group').css({
-                    display:"none"
+                    display: "none"
                 });
                 $element.find('#tour_basic').css({
-                    display:"block"
+                    display: "block"
                 });
                 console.log(list_tour_promotion_price_by_tour_promotion_price_id);
                 var $row = $element.find('table.base-price  tbody tr');
@@ -877,9 +846,9 @@
             }
 
 
-            var list_promotion_mark_up=result.list_promotion_mark_up;
-            $.each(list_promotion_mark_up,function(type,item){
-                var $row=$element.find('table.mark-up-price tr.'+type);
+            var list_promotion_mark_up = result.list_promotion_mark_up;
+            $.each(list_promotion_mark_up, function (type, item) {
+                var $row = $element.find('table.mark-up-price tr.' + type);
                 $row.find('td input[column-type="senior"]').val(item.senior);
                 $row.find('td input[column-type="adult"]').val(item.adult);
                 $row.find('td input[column-type="teen"]').val(item.teen);
@@ -892,100 +861,90 @@
 
 
         }
-        plugin.updata_price=function updata_price(respone){
-            var price_type=$price_form.find('#price_type').val();
-            var virtuemart_product_id=get_list_promotion_price.find('input[name="virtuemart_product_id"]').val();
-            var $promotion_price_tr_first= $price_form.find('table.base-price tbody tr');
-            var tax=$price_form.find('input[name="tax"]').val();
-            tax=parseFloat(tax);
-            $promotion_price_tr_first.find('input').each(function(){
-                var $self=$(this);
-                var group_id=$self.attr('group-id');
-                var column_type=$self.attr('column-type');
-                var price=$self.val();
+        plugin.updata_price = function updata_price(respone) {
+            var price_type = $price_form.find('#price_type').val();
+            var virtuemart_product_id = $price_form.find('input[name="virtuemart_product_id"]').val();
+            var $promotion_price_tr_first = $price_form.find('table.base-price tbody tr');
+            var tax = $price_form.find('input[name="tax"]').val();
+            tax = parseFloat(tax);
+            $promotion_price_tr_first.find('input').each(function () {
+                var $self = $(this);
+                var group_id = $self.attr('group-id');
+                var column_type = $self.attr('column-type');
+                var price = $self.val();
 
-                price=parseFloat(price);
+                price = parseFloat(price);
                 //tính giá sau khi promotion
-                var promotion_amount=$price_form.find('table.promotion-price tr.amount input[column-type="'+column_type+'"]').val();
-                if(typeof promotion_amount=="undefined")
-                {
+                var promotion_amount = $price_form.find('table.promotion-price tr.amount input[column-type="' + column_type + '"]').val();
+                if (typeof promotion_amount == "undefined") {
 
-                    promotion_amount=0;
+                    promotion_amount = 0;
                 }
 
-                promotion_amount=parseFloat(promotion_amount);
+                promotion_amount = parseFloat(promotion_amount);
 
-                var promotion_percent=$price_form.find('table.promotion-price tr.percent input[column-type="'+column_type+'"]').val();
-                if(typeof promotion_percent=="undefined")
-                {
-                    promotion_percent=0;
+                var promotion_percent = $price_form.find('table.promotion-price tr.percent input[column-type="' + column_type + '"]').val();
+                if (typeof promotion_percent == "undefined") {
+                    promotion_percent = 0;
                 }
-                var profit_promotion_price=0;
-                if(promotion_percent>0)
-                {
-                    profit_promotion_price=price-(price*promotion_percent)/100;
-                }else{
-                    profit_promotion_price=price-promotion_amount;
+                var profit_promotion_price = 0;
+                if (promotion_percent > 0) {
+                    profit_promotion_price = price - (price * promotion_percent) / 100;
+                } else {
+                    profit_promotion_price = price - promotion_amount;
                 }
 
 
-                var amount=$price_form.find('table.mark-up-price tr.amount input[column-type="'+column_type+'"]').val();
-                if(typeof amount=="undefined")
-                {
+                var amount = $price_form.find('table.mark-up-price tr.amount input[column-type="' + column_type + '"]').val();
+                if (typeof amount == "undefined") {
 
-                    amount=0;
+                    amount = 0;
                 }
-                amount=parseFloat(amount);
-                var percent=$price_form.find('table.mark-up-price tr.percent input[column-type="'+column_type+'"]').val();
-                if(typeof percent=="undefined")
-                {
-                    percent=0;
+                amount = parseFloat(amount);
+                var percent = $price_form.find('table.mark-up-price tr.percent input[column-type="' + column_type + '"]').val();
+                if (typeof percent == "undefined") {
+                    percent = 0;
                 }
-                percent=parseFloat(percent);
-                if(price_type=='tour_group')
-                {
-                    var $span_profit=$price_form.find('table.profit-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
-                }else{
-                    var $span_profit=$price_form.find('table.profit-price span[column-type="'+column_type+'"]');
+                percent = parseFloat(percent);
+                if (price_type == 'tour_group') {
+                    var $span_profit = $price_form.find('table.profit-price span[group-id="' + group_id + '"][column-type="' + column_type + '"]');
+                } else {
+                    var $span_profit = $price_form.find('table.profit-price span[column-type="' + column_type + '"]');
                 }
 
-                var profit_price=0;
-                if(percent>0)
-                {
-                    profit_price=(profit_promotion_price*percent)/100;
-                }else{
-                    profit_price=amount;
+                var profit_price = 0;
+                if (percent > 0) {
+                    profit_price = (profit_promotion_price * percent) / 100;
+                } else {
+                    profit_price = amount;
                 }
-                profit_price=Math.round(profit_price);
+                profit_price = Math.round(profit_price);
                 //profit_price=Math.round(profit_price, 2);
                 $span_profit.html(profit_price);
-                if(price_type=='tour_group')
-                {
-                    var $span_sale=$price_form.find('table.sale-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
-                }else{
-                    var $span_sale=$price_form.find('table.sale-price span[column-type="'+column_type+'"]');
+                if (price_type == 'tour_group') {
+                    var $span_sale = $price_form.find('table.sale-price span[group-id="' + group_id + '"][column-type="' + column_type + '"]');
+                } else {
+                    var $span_sale = $price_form.find('table.sale-price span[column-type="' + column_type + '"]');
                 }
                 //tính giá bán sau thuế
                 //=s? ti?n c� l�i+s? ti?n g?c(?� bao g?m promotion)+(s? ti?n c� l�i+s? ti?n g?c(?� bao g?m promotion))*ph?n tr?m thu?
-                var sale_price=profit_price+profit_promotion_price+((profit_price+profit_promotion_price)*tax)/100;
-                sale_price=Math.round(sale_price);
+                var sale_price = profit_price + profit_promotion_price + ((profit_price + profit_promotion_price) * tax) / 100;
+                sale_price = Math.round(sale_price);
                 //sale_price=Math.round(profit_price, 2);
                 $span_sale.html(sale_price);
 
 
             });
         }
-        plugin.set_disable_amount=function()
-        {
-            var total=0;
-            $element.find('table.mark-up-price tr.percent input').each(function(){
-                total+=$(this).val();
+        plugin.set_disable_amount = function () {
+            var total = 0;
+            $element.find('table.mark-up-price tr.percent input').each(function () {
+                total += $(this).val();
             });
-            if(total>0)
-            {
+            if (total > 0) {
                 alert('you cannot ')
                 $element.find('table.mark-up-price tr.amount input').val(0).prop('disabled', true);
-            }else{
+            } else {
                 $element.find('table.mark-up-price tr.amount input').prop('disabled', false);
             }
         }

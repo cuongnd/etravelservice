@@ -38,6 +38,7 @@ class Tablepromotion extends VmTableData {
 	var $sale_period_from				= null;
 	var $virtuemart_product_id				= null;
 	var $sale_period_to				= null;
+	var $virtuemart_price_id				= 0;
 	var $title				= '';
 	var $tax				= 0;
 	var $virtuemart_service_class_id				= 0;

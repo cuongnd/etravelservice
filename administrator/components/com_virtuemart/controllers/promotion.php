@@ -173,15 +173,16 @@ class VirtuemartControllerpromotion extends VmController {
         $model_promotion_price = VmModel::getModel('promotion');
         $model_promotion_price->setId($virtuemart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
-
-        $tour_id=$app->input->get('tour_id',0,'int');
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
+        $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
+        $virtuemart_product_id=$product->virtuemart_product_id;
 
 
         $return_item=new stdClass();
 
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
-        $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tour_id);
-        $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
+        $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+        $return_item->list_service_class=$list_service_class;
 
         $return_item->promotion_price=$promotion_price;
         $view->assignRef('promotion_price',$return_item->promotion_price);
@@ -189,7 +190,7 @@ class VirtuemartControllerpromotion extends VmController {
 
 
         $model_product = VmModel::getModel('product');
-        $product=$model_product->getItem($tour_id);
+        $product=$model_product->getItem($virtuemart_product_id);
         $return_item->tour=$product;
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
 
@@ -219,7 +220,7 @@ class VirtuemartControllerpromotion extends VmController {
         $view->assignRef('list_promotion',$return_item->list_promotion);
         //end get markup
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
-        $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tour_id);
+        $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
         $view->assignRef('list_group_size_by_tour_id',$return_item->list_group_size_by_tour_id);
         ob_start();
         $input->set('tpl','price');
