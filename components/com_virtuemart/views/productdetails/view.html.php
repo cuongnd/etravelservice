@@ -44,10 +44,20 @@ class VirtueMartViewProductdetails extends VmView {
                 $virtuemart_product_id = (int)$virtuemart_product_idArray;
             }
             $product_model = VmModel::getModel('product');
-            $trip_model = VmModel::getModel('trip');
+
             $this->product = $product_model->getItem($virtuemart_product_id);
-            $this->state=$trip_model->getState();
-            $this->list_trip=$trip_model->getItems();
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+            if($this->product->price_type!=vmGroupSize::FLAT_PRICE)
+            {
+                $trip_model = VmModel::getModel('trip');
+                $this->state=$trip_model->getState();
+                $this->list_trip=$trip_model->getItems();
+            }else{
+                $jontgrouptrip_model = VmModel::getModel('jontgrouptrip');
+                $this->state=$jontgrouptrip_model->getState();
+                $this->list_trip=$jontgrouptrip_model->getItems();
+            }
+
             parent::display($tpl);
         }
 	function renderMailLayout ($doVendor, $recipient) {

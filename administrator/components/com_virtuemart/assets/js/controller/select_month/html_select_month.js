@@ -6,12 +6,13 @@
         // plugin's default options
         var defaults = {
             input_name: '',
-            format: 'mm/dd/yy',
-            view_format: 'mm/dd/yy',
+            format: 'MM/YYYY',
+            view_format: 'MM/YYYY',
             min_month: new Date(),
             max_month: new Date(),
             from_month: new Date(),
-            to_month: new Date()
+            to_month: new Date(),
+            StartYear: (new Date()).getFullYear()
         };
 
         // current instance of the object
@@ -30,18 +31,23 @@
             var from_month = plugin.settings.from_month;
             var to_month = plugin.settings.to_month;
             var format = plugin.settings.format;
+            var StartYear = plugin.settings.StartYear;
             var view_format = plugin.settings.view_format;
             var input_name = plugin.settings.input_name;
-            plugin.datepicker= $element.find('.select_month').MonthPicker({ StartYear: 2020, ShowIcon: false });
-            $element.find('input.select_month').change(function(){
-                var date=$(this).val();
-                var date=$.format.date(date, format);
-                $element.find('input[name="'+input_name+'"]').val(date);
-            });
+            plugin.datepicker = $element.find('.select_month').MonthPicker(
+                {
+                    StartYear: StartYear,
+                    ShowIcon: false,
+                    OnAfterChooseMonth: function( selectedDate ){
+                        selectedDate=moment(selectedDate);
+                        $element.find('input[name="' + input_name + '"]').val(selectedDate.format(view_format));
+                    }
+                }
+            );
 
         };
-        plugin.set_month=function(startDate,endDate){
-            daterangepicker=$element.find('.range_of_month').data('daterangepicker');
+        plugin.set_month = function (startDate, endDate) {
+            daterangepicker = $element.find('.range_of_month').data('daterangepicker');
             daterangepicker.setStartDate(startDate);
             daterangepicker.setEndDate(endDate);
         }

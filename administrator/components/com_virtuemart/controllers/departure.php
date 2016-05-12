@@ -62,9 +62,9 @@ class VirtuemartControllerDeparture extends VmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tour_id=$input->get('tour_id',0,'int');
+        $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
-		$virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tour_id);
+		$virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
 		echo json_encode($virtuemart_service_class_ids);
 		die;
 
@@ -74,21 +74,11 @@ class VirtuemartControllerDeparture extends VmController {
 	function ajax_get_departure_item()
 	{
 		$app=JFactory::getApplication();
-		$model=$this->getModel('departure');
+		$departure_model=$this->getModel('departure');
 		$input=$app->input;
-		$list_departure_available2=$model->get_departure_item();
-		$object_price_by_first_date=reset($list_departure_available2);
-		$time_stemp_time_object_price_first_date=JFactory::getDate($object_price_by_first_date->date_select)->getTimestamp();
-		foreach($list_departure_available2 as $key=>$value)
-		{
-			$time_stamp_date_select_by_value=$value->date_select;
-			if($time_stamp_date_select_by_value<$time_stemp_time_object_price_first_date)
-			{
-				$object_price_by_first_date=$value;
-				$time_stemp_time_object_price_first_date=$time_stamp_date_select_by_value;
-			}
-		}
-		echo json_encode($object_price_by_first_date);
+        $virtuemart_departure_id=$input->getInt('virtuemart_departure_id',0);
+        $item=$departure_model->getdeparture($virtuemart_departure_id);
+        echo json_encode($item);
 		die;
 	}
 	function ajax_save_departure_item()
@@ -102,13 +92,17 @@ class VirtuemartControllerDeparture extends VmController {
 		$data['max_space']=$min_max_space[1];
         $data['allow_passenger']=implode(',',$data['allow_passenger']);
         $data['weekly']=implode(',',$data['weekly']);
+        $days_seleted=$data['days_seleted'];
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
+        $data['days_seleted']=implode(',',$days_seleted);
         $virtuemart_departure_id= $departure_model->store($data);
         if(!$virtuemart_departure_id)
         {
             echo $departure_model->getError();
             die;
         }
-
+        echo "1";
 		die;
 	}
 	public function ajax_remove_item()

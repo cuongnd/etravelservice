@@ -19,6 +19,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        var $dialog_departure_edit_form=$element.find(".departure-edit-form");
         plugin.add_new_departure = function () {
             var self = $(this);
             var departure_id = 0;
@@ -26,6 +27,9 @@
             $(".departure-edit-form").dialog("open");
             $('.' + plugin.settings.dialog_class).find('input.number').val(0);
             $('#virtuemart_departure_id').val(departure_id);
+        };
+        plugin.update_select_service_class = function () {
+
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
@@ -227,7 +231,6 @@
                 var self = $(this);
                 var $row = self.closest('tr[role="row"]');
                 var virtuemart_departure_id = $row.data('virtuemart_departure_id');
-                var tour_id = $row.data('tour_id');
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -238,8 +241,7 @@
                             option: 'com_virtuemart',
                             controller: 'departure',
                             task: 'ajax_get_departure_item',
-                            virtuemart_departure_id: virtuemart_departure_id,
-                            tour_id: tour_id
+                            virtuemart_departure_id: virtuemart_departure_id
                         };
                         return dataPost;
                     })(),
@@ -249,7 +251,7 @@
                             display: "block"
                         });
                     },
-                    success: function (response) {
+                    success: function (departure_item) {
 
                         $('.div-loading').css({
                             display: "none"
@@ -259,15 +261,17 @@
                         $(".departure-edit-form").dialog("open");
                         $('.' + plugin.settings.dialog_class).find('input.number').val(0);
                         $('#virtuemart_departure_id').val(virtuemart_departure_id);
-                        //plugin.fill_data(response);
+                        plugin.settings.departure_item=departure_item;
+                        plugin.fill_data(departure_item);
                         //plugin.update_price();
                     }
                 });
 
 
             });
-            $('.dialog-departure-edit-form').find('#tour_id').change(function () {
-                var tour_id = $(this).val();
+
+            $dialog_departure_edit_form.find('#virtuemart_product_id').change(function () {
+                var virtuemart_product_id = $(this).val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -278,7 +282,7 @@
                             option: 'com_virtuemart',
                             controller: 'departure',
                             task: 'ajax_get_list_service_class_by_tour_id',
-                            tour_id: tour_id
+                            virtuemart_product_id: virtuemart_product_id
 
                         };
                         return dataPost;
@@ -296,17 +300,8 @@
 
 
                         });
-                        $('.dialog-departure-edit-form').find('#tour_service_class_id option').css({
-                            display: "none"
-                        });
-                        response.push(0);
-                        $.each(response, function (index, value) {
-                            $('.dialog-departure-edit-form').find('#tour_service_class_id option[value="' + value + '"]').css({
-                                display: "block"
-                            });
-                        });
-                        $("#tour_service_class_id").val(0);
-                        $("#tour_service_class_id").trigger("liszt:updated");
+                        plugin.settings.list_service_class=response;
+                        plugin.update_select_service_class();
 
 
                     }
@@ -537,80 +532,10 @@
 
 
         }
-        plugin.fill_data = function (result) {
-            return false;
-            var date_format = plugin.settings.date_format;
-            var list_tour_promotion_price_by_tour_promotion_price_id = result.list_tour_promotion_price_by_tour_promotion_price_id;
-            if (typeof list_tour_promotion_price_by_tour_promotion_price_id == "undefined") {
-                list_tour_promotion_price_by_tour_promotion_price_id = result.tour_private_price_by_tour_price_id;
+        plugin.fill_data = function (item_departure) {
+            console.log($dialog_departure_edit_form);
+            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').val(item_departure.virtuemart_product_id);
 
-            }
-            $('input[name="tax"]').val(result.price.tax);
-            $('input[name="tour_methor"]').val(result.tour.tour_methor);
-            $('input[name="virtuemart_promotion_price_id"]').val(result.price.virtuemart_promotion_price_id);
-            $('textarea[name="price_note"]').val(result.price.price_note.trim());
-            $('#sale_period_from').val(result.price.sale_period_from);
-            var sale_period_from = $.datepicker.formatDate(date_format, new Date(result.price.sale_period_from))
-            $('#sale_period_from_text').val(sale_period_from);
-
-            $('#sale_period_to').val(result.price.sale_period_to);
-            var sale_period_to = $.datepicker.formatDate(date_format, new Date(result.price.sale_period_to))
-            $('#sale_period_to_text').val(sale_period_to);
-
-
-            $('select[name="service_class_id"]').val(result.price.virtuemart_service_class_id);
-            $('select[name="service_class_id"]').trigger("liszt:updated.chosen");
-            tour_methor = result.tour.tour_methor;
-            if (tour_methor == 'tour_group') {
-                $('#tour_group').css({
-                    display: "block"
-                });
-                $('#tour_basic').css({
-                    display: "none"
-                });
-                $.each(list_tour_promotion_price_by_tour_promotion_price_id, function (index, item) {
-                    var $row = $('table.base-price tr[data-group_size_id="' + item.virtuemart_group_size_id + '"]');
-                    $row.find('td input[column-type="senior"]').val(item.price_senior);
-                    $row.find('td input[column-type="adult"]').val(item.price_adult);
-                    $row.find('td input[column-type="teen"]').val(item.price_teen);
-                    $row.find('td input[column-type="children1"]').val(item.price_children1);
-                    $row.find('td input[column-type="children2"]').val(item.price_children2);
-                    $row.find('td input[column-type="infant"]').val(item.price_infant);
-                    $row.find('td input[column-type="private_room"]').val(item.price_private_room);
-
-                });
-
-            } else if (typeof list_tour_promotion_price_by_tour_promotion_price_id != "undefined") {
-                $('#tour_group').css({
-                    display: "none"
-                });
-                $('#tour_basic').css({
-                    display: "block"
-                });
-                console.log(list_tour_promotion_price_by_tour_promotion_price_id);
-                var $row = $('table.base-price  tbody tr');
-                $row.find('td input[column-type="senior"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_senior);
-                $row.find('td input[column-type="adult"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_adult);
-                $row.find('td input[column-type="teen"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_teen);
-                $row.find('td input[column-type="children1"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_children1);
-                $row.find('td input[column-type="children2"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_children2);
-                $row.find('td input[column-type="infant"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_infant);
-                $row.find('td input[column-type="private_room"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_private_room);
-            }
-
-
-            var list_promotion_mark_up = result.list_promotion_mark_up;
-            $.each(list_promotion_mark_up, function (type, item) {
-                var $row = $('table.mark-up-price tr.' + type);
-                $row.find('td input[column-type="senior"]').val(item.senior);
-                $row.find('td input[column-type="adult"]').val(item.adult);
-                $row.find('td input[column-type="teen"]').val(item.teen);
-                $row.find('td input[column-type="children1"]').val(item.children1);
-                $row.find('td input[column-type="children2"]').val(item.children2);
-                $row.find('td input[column-type="infant"]').val(item.infant);
-                $row.find('td input[column-type="private_room"]').val(item.private_room);
-
-            });
 
 
         }
