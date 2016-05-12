@@ -41,6 +41,7 @@ class TableDeparture extends VmTableData {
 	var $vail_period_from				= null;
 	var $vail_period_to				= null;
 	var $virtuemart_service_class_id				= 0;
+	var $virtuemart_product_id				= 0;
 	var $start_date				= 0;
 	var $end_date				= 0;
 	var $g_guarantee				= 0;
@@ -61,6 +62,12 @@ class TableDeparture extends VmTableData {
 	var $children2_departure_price				= 0;
 	var $infant_departure_price				= 0;
 	var $private_room_departure_price				= 0;
+	var $days_seleted				= '';
+	var $sale_period_from				= '';
+	var $sale_period_to				= '';
+	var $date_type				= '';
+	var $weekly				= '';
+	var $allow_passenger				= '';
 
 	/**
 	 * @author Max Milbers

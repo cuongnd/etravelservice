@@ -94,31 +94,21 @@ class VirtuemartControllerDeparture extends VmController {
 	function ajax_save_departure_item()
 	{
 		$app=JFactory::getApplication();
-		$model=$this->getModel('departure');
+		$departure_model=$this->getModel('departure');
 		$data=$app->input->getArray();
 		$min_max_space=$data['min_max_space'];
 		$min_max_space=explode(';',$min_max_space);
 		$data['min_space']=$min_max_space[0];
 		$data['max_space']=$min_max_space[1];
-		$daterange_vail_period_from_to=$data['daterange_vail_period_from_to'];
-		$daterange_vail_period_from_to=explode('-',$daterange_vail_period_from_to);
+        $data['allow_passenger']=implode(',',$data['allow_passenger']);
+        $data['weekly']=implode(',',$data['weekly']);
+        $virtuemart_departure_id= $departure_model->store($data);
+        if(!$virtuemart_departure_id)
+        {
+            echo $departure_model->getError();
+            die;
+        }
 
-		$data['vail_period_from']=$daterange_vail_period_from_to[0];
-		$data['vail_period_to']=$daterange_vail_period_from_to[1];
-
-
-		$list_departure_available2=$model->save_departure_item($data);
-		$response=new stdClass();
-		$response->e=0;
-		if(!$list_departure_available2)
-		{
-			$app = JFactory::getApplication();
-			$response->e=1;
-			$response->m=$app->getMessageQueue();
-			echo json_encode($response);
-			die;
-		}
-		echo json_encode($list_departure_available2);
 		die;
 	}
 	public function ajax_remove_item()

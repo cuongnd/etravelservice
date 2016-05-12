@@ -125,9 +125,6 @@ AdminUIHelper::startAdminArea($this);
                         <th>
                             <?php echo $this->sort('currency_name', 'Asign'); ?>
                         </th>
-                        <th width="10">
-                            <?php echo vmText::_('COM_VIRTUEMART_PUBLISHED'); ?>
-                        </th>
                         <th colspan="2">Action</th>
                         <?php /*	<th width="10">
 				<?php echo vmText::_('COM_VIRTUEMART_SHARED'); ?>
@@ -159,13 +156,13 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->service_class_name ?>
                             </td>
                             <td>
-                                <?php echo $row->departure_date ?>
+                                <span class="icon-eye"></span>
                             </td>
                             <td>
                                 <?php echo $row->min_space ?>-<?php echo $row->max_space ?>
                             </td>
                             <td>
-                                <?php echo $this->sort('currency_name', 'Avaibility'); ?>
+                                <span class="icon-eye"></span>
                             </td>
                             <td>
                                 <?php echo $row->adult_price ?>
@@ -174,16 +171,12 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->adult_departure_price ?>
                             </td>
                             <td>
-                                <?php echo $this->sort('currency_name', 'Discount'); ?>
+                                <span class="icon-eye"></span>
                             </td>
+                            <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, 'd M. Y'); ?>
+                                -<?php echo JHtml::_('date', $row->sale_period_to, 'd M. Y'); ?></td>
                             <td>
-                                <?php echo $this->sort('currency_name', 'Sale period'); ?>
-                            </td>
-                            <td>
-                                <?php echo $this->sort('currency_name', 'Asign'); ?>
-                            </td>
-                            <td align="center">
-                                <?php echo $published; ?>
+                                <span class="icon-eye"></span>
                             </td>
                             <td><a href="javascript:void(0)" class="edit-departure">
                                     <span class="icon-edit icon-white"></span>
@@ -233,7 +226,7 @@ AdminUIHelper::startAdminArea($this);
                     <div class="span6 ">
 
                         <label>Select tour name</label>
-                        <select id="tour_id" name="tour_id" disable_chosen="true" required style="width: 300px">
+                        <select id="virtuemart_product_id" name="virtuemart_product_id" disable_chosen="true" required style="width: 300px">
                             <option value="">select tour</option>
                             <?php foreach ($this->list_tour as $tour) { ?>
                                 <option
@@ -242,7 +235,7 @@ AdminUIHelper::startAdminArea($this);
                         </select>
 
                         <label>Select Service Class</label>
-                        <select id="tour_service_class_id" disable_chosen="true" required name="tour_service_class_id" style="width: 300px">
+                        <select id="virtuemart_service_class_id" disable_chosen="true" required name="virtuemart_service_class_id" style="width: 300px">
                             <option value="">select service</option>
                             <?php foreach ($this->list_tour_class as $tour_service_class) { ?>
                                 <option
@@ -343,36 +336,36 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1">
                                 Senior
                                 <br/>
-                                <input name="person_type[]" <?php echo $this->departure->mon == 1 ? 'checked' : '' ?>
-                                       value="1"
+                                <input name="allow_passenger[]" <?php echo in_array('senior',$this->departure->allow_passenger)  ? 'checked' : '' ?>
+                                       value="senior"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Teen
                                 <br/>
-                                <input name="person_type[]" <?php echo $this->departure->tue == 1 ? 'checked' : '' ?>
-                                       value="2"
+                                <input name="allow_passenger[]" <?php echo in_array('teen',$this->departure->allow_passenger)  ? 'checked' : '' ?>
+                                       value="teen"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 1
                                 <br/>
-                                <input name="person_type[]" <?php echo $this->departure->wen == 1 ? 'checked' : '' ?>
-                                       value="3"
+                                <input name="allow_passenger[]" <?php echo in_array('child_1',$this->departure->allow_passenger)  ? 'checked' : '' ?>
+                                       value="child_1"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 2
                                 <br/>
-                                <input name="person_type[]" <?php echo $this->departure->thu == 1 ? 'checked' : '' ?>
-                                       value="4"
+                                <input name="allow_passenger[]" <?php echo in_array('child_2',$this->departure->allow_passenger)  ? 'checked' : '' ?>
+                                       value="child_2"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Infant
                                 <br/>
-                                <input name="person_type[]" <?php echo $this->departure->fri == 1 ? 'checked' : '' ?>
-                                       value="5"
+                                <input name="allow_passenger[]" <?php echo in_array('infant',$this->departure->allow_passenger)  ? 'checked' : '' ?>
+                                       value="infant"
                                        type="checkbox">
                             </div>
 
@@ -398,50 +391,50 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1">
                                 MON
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->mon == 1 ? 'checked' : '' ?>
-                                       value="1"
+                                <input name="weekly[]" <?php echo in_array('mon',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="mon"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Tue
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->tue == 1 ? 'checked' : '' ?>
-                                       value="2"
+                                <input name="weekly[]" <?php echo in_array('tue',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="tue"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Wen
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->wen == 1 ? 'checked' : '' ?>
-                                       value="3"
+                                <input name="weekly[]" <?php echo in_array('wen',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="wen"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Thu
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->thu == 1 ? 'checked' : '' ?>
-                                       value="4"
+                                <input name="weekly[]" <?php echo in_array('thu',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="thu"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Fri
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->fri == 1 ? 'checked' : '' ?>
-                                       value="5"
+                                <input name="weekly[]" <?php echo in_array('fri',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="fri"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Sat
                                 <br/>
-                                <input name="weekly[]" <?php echo $this->departure->sat == 1 ? 'checked' : '' ?>
-                                       value="6"
+                                <input name="weekly[]" <?php echo in_array('sat',$this->departure->weekly)  ? 'checked' : '' ?>
+                                       value="sat"
                                        type="checkbox">
                             </div>
                             <div class="span1">
                                 Sun
                                 <br/>
 
-                                <input  name="weekly[]" <?php echo $this->departure->sun == 1 ? 'checked' : '' ?> value="1"
+                                <input  name="weekly[]" <?php echo in_array('sun',$this->departure->weekly)  ? 'checked' : '' ?>  value="sun"
                                                                                                   type="checkbox">
                             </div>
                             <div class="span2">
