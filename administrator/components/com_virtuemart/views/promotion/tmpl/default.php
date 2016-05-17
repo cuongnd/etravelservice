@@ -68,6 +68,7 @@ AdminUIHelper::startAdminArea($this);
                         <th><label class="checkbox"><input type="checkbox" class="check-all">Id</label></th>
                         <th>tour name</th>
                         <th>service class</th>
+                        <th>tour type</th>
                         <th>vailid</th>
                         <th>add</th>
                         <th>amend</th>
@@ -88,6 +89,7 @@ AdminUIHelper::startAdminArea($this);
                             </td>
                             <td><?php echo $promotion_price->tour_name ?></td>
                             <td class="service_class_name"><?php echo $promotion_price->service_class_name ?></td>
+                            <td class="tour_type_name"><?php echo $promotion_price->tour_type_name ?></td>
                             <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, 'd M. Y'); ?>
                                 -<?php echo JHtml::_('date', $promotion_price->sale_period_to, 'd M. Y'); ?></td>
                             <td><?php echo JHtml::_('date', $promotion_price->created_on, 'd M. Y'); ?></td>

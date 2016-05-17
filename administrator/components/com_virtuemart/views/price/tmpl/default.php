@@ -24,7 +24,7 @@ JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
-$format_date='d-m-Y';
+$format_date=VmConfig::$date_format;// 'd-m-Y';
 require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 $doc->addScript(JUri::root() . '/media/system/js/datepicker/js/datepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/dateFormat.js');
@@ -66,6 +66,7 @@ AdminUIHelper::startAdminArea($this);
                         <th><label class="checkbox"><input type="checkbox" class="check-all">Id</label></th>
                         <th>tour name</th>
                         <th>service class</th>
+                        <th>tour type</th>
                         <th>vailid</th>
                         <th>add</th>
                         <th>amend</th>
@@ -78,13 +79,14 @@ AdminUIHelper::startAdminArea($this);
                     <?php
                     foreach ($this->prices as $price) {
                         ?>
-                        <tr role="row" data-price_id="<?php echo $price->virtuemart_price_id ?>">
-                            <td><label class="checkbox"><input type="checkbox" name="row_price_id[]"
+                        <tr role="row" data-virtuemart_price_id="<?php echo $price->virtuemart_price_id ?>">
+                            <td><label class="checkbox"><input type="checkbox" name="row_virtuemart_price_id[]"
                                                                value="<?php echo $price->virtuemart_price_id ?>"
                                                                class="check-item"><span
                                         class="item-id"><?php echo $price->virtuemart_price_id ?></span></label></td>
                             <td><?php echo $this->product->product_name ?></td>
                             <td class="service_class_name"><?php echo $price->service_class_name ?></td>
+                            <td class="tour_type_name"><?php echo $price->tour_type_name ?></td>
                             <td class="sale_period"><?php echo JHtml::_('date', $price->sale_period_from, $format_date); ?>
                                  <span class="icon-next"></span> <?php echo JHtml::_('date', $price->sale_period_to, $format_date); ?></td>
                             <td><?php echo JHtml::_('date', $price->created_on, $format_date); ?></td>
@@ -186,7 +188,7 @@ AdminUIHelper::startAdminArea($this);
                                     $price_children2 = $tour_price_by_tour_price_id->price_children2;
                                     $price_infant = $tour_price_by_tour_price_id->price_infant;
                                     $price_private_room = $tour_price_by_tour_price_id->price_private_room;
-                                    $extra_bed = $tour_price_by_tour_price_id->extra_bed;
+                                    $price_extra_bed = $tour_price_by_tour_price_id->price_extra_bed;
                                     ?>
                                     <tr role="row"
                                         data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
@@ -231,10 +233,10 @@ AdminUIHelper::startAdminArea($this);
                                                    name="tour_price_by_tour_price_id[<?php echo $i ?>][price_private_room]"
                                                    required="true" class="inputbox number price_private_room"></td>
                                         <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
-                                                   column-type="extra_bed" type="text" size="7"
-                                                   value="<?php echo $extra_bed ?>"
-                                                   name="tour_price_by_tour_price_id[<?php echo $i ?>][extra_bed]"
-                                                   required="true" class="inputbox number extra_bed"></td>
+                                                   column-type="price_extra_bed" type="text" size="7"
+                                                   value="<?php echo $price_extra_bed ?>"
+                                                   name="tour_price_by_tour_price_id[<?php echo $i ?>][price_extra_bed]"
+                                                   required="true" class="inputbox number price_extra_bed"></td>
                                         <?php } ?>
 
                                     </tr>
@@ -449,40 +451,78 @@ AdminUIHelper::startAdminArea($this);
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" >
-                            <td style="text-align: center">Price</td>
-                            <td><input required="true"
-                                       column-type="senior" type="text" size="7" value="<?php echo $price_senior ?>"
-                                       name="tour_price_by_tour_price_id[price_senior]"
-                                       required="true" class="inputbox number price_senior"></td>
-                            <td><input
-                                       column-type="adult" type="text" size="7" value="<?php echo $price_adult ?>"
-                                       name="tour_price_by_tour_price_id[price_adult]"
-                                       required="true" class="inputbox number price_adult"></td>
-                            <td><input  column-type="teen"
-                                       type="text" size="7" value="<?php echo $price_teen ?>"
-                                       name="tour_price_by_tour_price_id[price_teen]"
-                                       required="true" class="inputbox number price_teen"></td>
-                            <td><input
-                                       column-type="children1" type="text" size="7"
-                                       value="<?php echo $price_children1 ?>"
-                                       name="tour_price_by_tour_price_id[price_children1]"
-                                       required="true" class="inputbox number price_children1"></td>
-                            <td><input
-                                       column-type="children2" type="text" size="7"
-                                       value="<?php echo $price_children2 ?>"
-                                       name="tour_price_by_tour_price_id[price_children2]"
-                                       required="true" class="inputbox number price_children2"></td>
-                            <td><input
-                                       column-type="infant" type="text" size="7" value="<?php echo $price_infant ?>"
-                                       name="tour_price_by_tour_price_id[price_infant]"
-                                       required="true" class="inputbox number price_infant"></td>
-                            <td><input
-                                       column-type="private_room" type="text" size="7"
-                                       value="<?php echo $price_private_room ?>"
-                                       name="tour_price_by_tour_price_id[price_private_room]"
-                                       required="true" class="inputbox number price_private_room"></td>
+                        <?php
+                        $total_group=count($this->list_group_size_by_tour_id);
+                        ?>
+                        <?php for ($i=0;$i<$total_group;$i++) { ?>
+                            <?php
+                            $group_size=$this->list_group_size_by_tour_id[$i];
+                            $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
+                            $price_senior = $tour_price_by_tour_price_id->price_senior;
+                            $price_adult = $tour_price_by_tour_price_id->price_adult;
+                            $price_teen = $tour_price_by_tour_price_id->price_teen;
+                            $price_children1 = $tour_price_by_tour_price_id->price_children1;
+                            $price_children2 = $tour_price_by_tour_price_id->price_children2;
+                            $price_infant = $tour_price_by_tour_price_id->price_infant;
+                            $price_private_room = $tour_price_by_tour_price_id->price_private_room;
+                            $price_extra_bed = $tour_price_by_tour_price_id->price_extra_bed;
+                            ?>
+                            <tr role="row"
+                                data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
+                                <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                                <td>
+                                    <input type="hidden" name="tour_price_by_tour_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
+                                    <input required="true"
+                                           group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="senior" type="text" size="7"
+                                           value="<?php echo $price_senior ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_senior]"
+                                           required="true" class="inputbox number price_senior"></td>
+                                <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="adult" type="text" size="7"
+                                           value="<?php echo $price_adult ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_adult]"
+                                           required="true" class="inputbox number price_adult"></td>
+                                <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="teen" type="text" size="7"
+                                           value="<?php echo $price_teen ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_teen]"
+                                           required="true" class="inputbox number price_teen"></td>
+                                <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="children1" type="text" size="7"
+                                           value="<?php echo $price_children1 ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_children1]"
+                                           required="true" class="inputbox number price_children1"></td>
+                                <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="children2" type="text" size="7"
+                                           value="<?php echo $price_children2 ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_children2]"
+                                           required="true" class="inputbox number price_children2"></td>
+                                <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                           column-type="infant" type="text" size="7"
+                                           value="<?php echo $price_infant ?>"
+                                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_infant]"
+                                           required="true" class="inputbox number price_infant"></td>
+                                <?php if($i==0){ ?>
+                                    <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle" ><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                                                                                                    column-type="private_room" type="text" size="7"
+                                                                                                                    value="<?php echo $price_private_room ?>"
+                                                                                                                    name="tour_price_by_tour_price_id[<?php echo $i ?>][price_private_room]"
+                                                                                                                    required="true" class="inputbox number price_private_room"></td>
+                                    <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                                                                                                   column-type="extra_bed" type="text" size="7"
+                                                                                                                   value="<?php echo $extra_bed ?>"
+                                                                                                                   name="tour_price_by_tour_price_id[<?php echo $i ?>][price_extra_bed]"
+                                                                                                                   required="true" class="inputbox number price_extra_bed"></td>
+                                <?php } ?>
 
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td colspan="10">
+                                <label>Full charge children 1 <input type="checkbox" name="full_charge_children1" value="<?php echo $this->price->full_charge_children1 ?>"></label>
+                                <label>Full charge children 2 <input type="checkbox" name="full_charge_children2" value="<?php echo $this->price->full_charge_children2 ?>"></label>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

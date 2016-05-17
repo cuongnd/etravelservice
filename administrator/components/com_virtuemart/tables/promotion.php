@@ -62,7 +62,7 @@ class Tablepromotion extends VmTableData {
 	}
     public function bindChecknStore(&$data, $preload = false)
     {
-        $select_virtuemart_product_id=$data['select_virtuemart_product_id'];
+        $virtuemart_product_id=$data['virtuemart_product_id'];
         $virtuemart_service_class_id=$data['virtuemart_service_class_id'];
         $sale_period_from=JFactory::getDate($data['sale_period_from']);
         $sale_period_to=JFactory::getDate($data['sale_period_to']);
@@ -71,7 +71,7 @@ class Tablepromotion extends VmTableData {
         $query->select('COUNT(*)')
             ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
             ->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
-            ->where('virtuemart_product_id='.(int)$select_virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
             ->where(
                 '((sale_period_from<='.$query->q($sale_period_from->toSql()).' AND sale_period_to>= '.$query->q($sale_period_from->toSql()).') OR (sale_period_from<='.$query->q($sale_period_to->toSql()).' AND sale_period_to>= '.$query->q($sale_period_to->toSql()).'))'
 

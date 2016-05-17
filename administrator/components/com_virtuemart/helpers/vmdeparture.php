@@ -42,4 +42,26 @@ class vmDeparture
         return $db->loadObjectList();
 
     }
+
+    public static function get_format_departure_code($virtuemart_departure_id,$day)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('departure.virtuemart_departure_id')
+            ->from('#__virtuemart_departure AS departure')
+            ->where('departure.virtuemart_departure_id='.(int)$virtuemart_departure_id)
+            ->innerJoin('#__virtuemart_products AS product ON product.virtuemart_product_id=departure.virtuemart_product_id')
+            ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=product.virtuemart_product_id')
+            ->select('products_en_gb.product_name AS product_name')
+            ->innerJoin('#__virtuemart_service_class AS service_class ON service_class.virtuemart_service_class_id=departure.virtuemart_service_class_id')
+            ->select('service_class.service_class_name')
+        ;
+        $db->setQuery($query);
+        $departure_item=$db->loadObject();
+        $departure_code=strtoupper(substr($departure_item->product_name,0,2).substr($departure_item->service_class_name,0,2)."SD".JUserHelper::genRandomPassword(2).$day->format('dm-y'));
+        return $departure_code;
+
+
+
+    }
 }

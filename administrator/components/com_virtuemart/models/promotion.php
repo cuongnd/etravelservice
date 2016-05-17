@@ -116,9 +116,12 @@ class VirtueMartModelpromotion extends VmModel
         $query=$db->getQuery(true)
             ->select('tour_promotion_price.*,language_products.product_name AS tour_name')
             ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
+
             ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_promotion_price.virtuemart_service_class_id')
             ->select('tour_service_class.service_class_name')
             ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_promotion_price.virtuemart_product_id')
+            ->innerJoin('#__virtuemart_tour_type AS tour_type ON tour_type.virtuemart_tour_type_id=products.virtuemart_tour_type_id')
+            ->select('tour_type.title AS tour_type_name')
             ->leftJoin('#__virtuemart_products_'.VmConfig::$vmlang.' AS language_products ON language_products.virtuemart_product_id=products.virtuemart_product_id')
             ;
         if($virtuemart_product_id)

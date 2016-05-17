@@ -93,7 +93,7 @@ class VirtuemartControllerPrice extends VmController {
         $post = file_get_contents('php://input');
         $post = json_decode($post);
         $input=$app->input;
-        $price_id=$input->get('price_id',0,'int');
+        $virtuemart_price_id=$input->get('virtuemart_price_id',0,'int');
         $model_price = VmModel::getModel('price');
         $post=(array)$post;
         $return_ajax=new stdClass();
@@ -101,7 +101,7 @@ class VirtuemartControllerPrice extends VmController {
         if(!$model_price->store($post))
         {
             $return_ajax->e=1;
-            $return_ajax->m='cannot save item';
+            $return_ajax->m=$model_price->getError();
             echo json_encode($return_ajax);
             die;
         }

@@ -12,7 +12,8 @@
             visiblePages:5,
             price_type:'',
             dialog_class:'dialog-form-price',
-            date_format:'m/d/y'
+            date_format:'m/d/y',
+            virtuemart_price_id:0
 
 
         }
@@ -78,8 +79,8 @@
                 var self=$(this);
                 var $row=self.closest('tr[role="row"]');
                 $row.toggleClass('focus');
-                var price_id=$row.data('price_id');
-                plugin.settings.virtuemart_price_id_seletect=price_id;
+                var virtuemart_price_id=$row.data('virtuemart_price_id');
+                plugin.settings.virtuemart_price_id=virtuemart_price_id;
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -90,7 +91,7 @@
                             option: 'com_virtuemart',
                             controller: 'price',
                             task: 'get_list_price',
-                            price_id:price_id,
+                            price_id:virtuemart_price_id,
                             tour_id:tour_id,
                             price_type:price_type,
                         };
@@ -112,7 +113,7 @@
                         $('.'+plugin.settings.dialog_class).find('input.number').val(0);
                         plugin.fill_data(response);
 
-                        $('input[name="virtuemart_price_id"]').val(price_id);
+                        $('input[name="virtuemart_price_id"]').val(virtuemart_price_id);
                         $( "#price-form" ).dialog( "open" );
                         plugin.updata_price();
                     }
@@ -130,7 +131,7 @@
             var $service_class_select2=$html_select_service_class.select2;
             $service_class_select2.on("change", function(e) {
                 var virtuemart_service_class_id=$(this).val();
-                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id;
                 // mostly used event, fired to the original element when the value changes
                 var list_price=plugin.settings.list_price;
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
@@ -160,8 +161,12 @@
             range_of_date.selected_start_date=function(ev, startDate){
                 var item_start_date=new Date(startDate);
                 var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
-                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id;
                 var list_price=plugin.settings.list_price;
+                if(list_price.length==0)
+                {
+                    return;
+                }
                 var min_sale_period_from=new Date();
                 $.each(list_price,function(index,item){
                     if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
@@ -200,7 +205,7 @@
             };
             range_of_date.daterangepicker.on('reset.daterangepicker', function() {
                 var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
-                var virtuemart_price_id=plugin.settings.virtuemart_price_id_seletect;
+                var virtuemart_price_id=plugin.settings.virtuemart_price_id;
                 // mostly used event, fired to the original element when the value changes
                 var list_price=plugin.settings.list_price;
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
@@ -242,7 +247,7 @@
                 if (confirm('Are you sure you want delete this item ?')) {
                     var self=$(this);
                     var $row=self.closest('tr[role="row"]');
-                    var price_id=$row.data('price_id');
+                    var price_id=$row.data('virtuemart_price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -298,7 +303,7 @@
                 if (confirm('Are you sure you want publish this item ?')) {
                     var self=$(this);
                     var $row=self.closest('tr[role="row"]');
-                    var price_id=$row.data('price_id');
+                    var price_id=$row.data('virtuemart_price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -451,7 +456,7 @@
                                 $row.attr('data-price_id',result.virtuemart_price_id);
                                 $row.data('price_id',result.virtuemart_price_id);
                                 $row.find('span.item-id').html(result.virtuemart_price_id);
-                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
+                                $row.find('input[name="row_virtuemart_price_id[]"]').val(result.virtuemart_price_id);
                                 if( result.service_class !=null && typeof result.service_class !="undefined")
                                 {
                                     $row.find('td.service_class_name').html(result.service_class.service_class_name);
@@ -568,7 +573,7 @@
                                 $row.attr('data-price_id',result.virtuemart_price_id);
                                 $row.data('price_id',result.virtuemart_price_id);
                                 $row.find('span.item-id').html(result.virtuemart_price_id);
-                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
+                                $row.find('input[name="row_virtuemart_price_id[]"]').val(result.virtuemart_price_id);
                                 if( result.service_class !=null && typeof result.service_class !="undefined")
                                 {
                                     $row.find('td.service_class_name').html(result.service_class.service_class.service_class_name);
@@ -715,7 +720,7 @@
                     $row.find('td input[column-type="children2"]').val(item.price_children2);
                     $row.find('td input[column-type="infant"]').val(item.price_infant);
                     $row.find('td input[column-type="private_room"]').val(item.price_private_room);
-                    $row.find('td input[column-type="extra_bed"]').val(item.price_extra_bed);
+                    $row.find('td input[column-type="price_extra_bed"]').val(item.price_extra_bed);
 
                 });
 
@@ -729,7 +734,7 @@
                 $row.find('td input[column-type="children2"]').val(list_tour_price_by_tour_price_id.price_children2);
                 $row.find('td input[column-type="infant"]').val(list_tour_price_by_tour_price_id.price_infant);
                 $row.find('td input[column-type="private_room"]').val(list_tour_price_by_tour_price_id.price_private_room);
-                $row.find('td input[column-type="extra_bed"]').val(list_tour_price_by_tour_price_id.price_extra_bed);
+                $row.find('td input[column-type="price_extra_bed"]').val(list_tour_price_by_tour_price_id.price_extra_bed);
 
             }
 

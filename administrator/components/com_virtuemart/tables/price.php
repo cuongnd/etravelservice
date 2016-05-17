@@ -32,8 +32,6 @@ class TablePrice extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_price_id				= 0;
-	var $discount_for_elder				= 0;
-	var $discount_for_teen				= 0;
 	var $price_note				= 0;
 	var $sale_period_from				= null;
 	var $virtuemart_product_id				= null;
@@ -41,7 +39,6 @@ class TablePrice extends VmTableData {
 	var $title				= '';
 	var $tax				= 0;
 	var $virtuemart_service_class_id				= 0;
-	var $private_room_supplement				= 0;
 	var $full_charge_children1				= 0;
 	var $full_charge_children2				= 0;
 	var $shared					= 0;

@@ -50,7 +50,6 @@ ob_end_clean();
 
 // System configuration.
 $config = new JConfig;
-
 // Set the error_reporting
 switch ($config->error_reporting)
 {
@@ -83,7 +82,7 @@ switch ($config->error_reporting)
 		break;
 
 	default:
-		error_reporting($config->error_reporting);
+        error_reporting ( E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR );
 		ini_set('display_errors', 1);
 
 		break;

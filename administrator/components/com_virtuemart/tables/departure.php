@@ -32,9 +32,10 @@ class TableDeparture extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_departure_id				= 0;
+	var $virtuemart_departure_parent_id				= null;
 	var $min_space				= 0;
 	var $departure_name				= 0;
-	var $departure_date				= 0;
+	var $departure_date				= null;
 	var $max_space				= 0;
 	var $sale_period_open				= null;
 	var $sale_period_close				= null;
@@ -68,6 +69,9 @@ class TableDeparture extends VmTableData {
 	var $date_type				= '';
 	var $weekly				= '';
 	var $allow_passenger				= '';
+	var $sale_period_open_before				= 0;
+	var $sale_period_close_before				= 0;
+	var $departure_code				= '';
 
 	/**
 	 * @author Max Milbers

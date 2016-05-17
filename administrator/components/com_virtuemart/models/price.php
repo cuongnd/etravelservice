@@ -106,6 +106,8 @@ class VirtueMartModelPrice extends VmModel
            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
             ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')
             ->select('products.price_type')
+            ->innerJoin('#__virtuemart_tour_type AS tour_type ON tour_type.virtuemart_tour_type_id=products.virtuemart_tour_type_id')
+            ->select('tour_type.title AS tour_type_name')
             ->order('tour_price.virtuemart_service_class_id,tour_price.sale_period_from,tour_price.sale_period_to')
             ;
         return $db->setQuery($query)->loadObjectList();
@@ -200,14 +202,18 @@ class VirtueMartModelPrice extends VmModel
         }
 
         if (count($tour_price_by_tour_price_id)) {
+            $price_extra_bed=reset($tour_price_by_tour_price_id)->price_extra_bed;
             foreach ($tour_price_by_tour_price_id as  $item) {
                 $group_size_id=$item->virtuemart_group_size_id;
                 unset($item->virtuemart_group_size_id);
+                unset($item->price_extra_bed);
                 $query = $db->getQuery(true);
                 $query->insert('#__virtuemart_group_size_id_tour_price_id');
                 foreach ($item as $key => $value) {
                     $query->set("$key=".(int)$value);
                 }
+                $query->set("price_extra_bed=".(int)$price_extra_bed);
+
                 $query->set("virtuemart_price_id=$virtuemart_price_id")
                     ->set("virtuemart_group_size_id=$group_size_id");
                 if(!$db->setQuery($query)->execute())

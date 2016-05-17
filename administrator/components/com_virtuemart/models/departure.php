@@ -80,6 +80,7 @@ class VirtueMartModelDeparture extends VmModel
             ->leftJoin('#__virtuemart_products AS products USING(virtuemart_product_id)')
             ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
             ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
+            ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
         ;
         if($virtuemart_product_id)
         {
@@ -866,7 +867,55 @@ class VirtueMartModelDeparture extends VmModel
         $db->setQuery($q);
         return $db->loadObjectList();
     }
+    public function create_children_departure($virtuemart_departure_id)
+    {
+        $query=$this->_db->getQuery(true);
+        $query->delete('#__virtuemart_departure')
+            ->where('virtuemart_departure_parent_id='.(int)$virtuemart_departure_id);
+        $this->_db->setQuery($query);
+        $ok = $this->_db->execute();
+        if (!$ok) {
+            $this->setError($this->_db->getErrorMsg());
+            return false;
+        }
 
+        $table_departure=$this->getTable();
+        $table_departure->load($virtuemart_departure_id);
+        $date_type=$table_departure->date_type;
+        if($date_type=='day_select')
+        {
+            $days_seleted=explode(',',$table_departure->days_seleted);
+        }else{
+            $sale_period_from=$table_departure->sale_period_from;
+            $sale_period_to=$table_departure->sale_period_to;
+            $days_seleted=JUtility::dateRange($sale_period_from,$sale_period_to);
+            $weekly=$table_departure->weekly;
+            $weekly=explode(',',$weekly);
+            foreach($days_seleted as $key=> $day)
+            {
+                $day_of_week=strtolower(date('D', strtotime( $day)));
+                if(!in_array($day_of_week,$weekly))
+                {
+                    unset($days_seleted[$key]);
+                }
+            }
+        }
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmdeparture.php';
+        foreach($days_seleted as $day) {
+            $table_departure->departure_date = $day;
+            $day=JFactory::getDate($day);
+            $table_departure->virtuemart_departure_id = 0;
+            $table_departure->departure_code =vmDeparture::get_format_departure_code($virtuemart_departure_id,$day);
+            $table_departure->virtuemart_departure_parent_id = $virtuemart_departure_id;
+            $ok = $table_departure->store();
+            if (!$ok) {
+                $this->setError($table_departure->getErrors());
+                return false;
+            }
+        }
+        return true;
+
+    }
     function store(&$data)
     {
         if (!vmAccess::manager('currency')) {

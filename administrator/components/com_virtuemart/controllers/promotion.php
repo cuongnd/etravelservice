@@ -91,10 +91,11 @@ class VirtuemartControllerpromotion extends VmController {
         $app=JFactory::getApplication();
         $post = file_get_contents('php://input');
         $post = json_decode($post);
+
         $input=$app->input;
         $virtuemart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
-        $post->virtuemart_product_id=$post->select_virtuemart_product_id;
+        $post->virtuemart_product_id=$post->virtuemart_product_id;
         $post=(array)$post;
         $return_ajax=new stdClass();
         $return_ajax->e=0;

@@ -64,8 +64,8 @@ class VirtuemartControllerDeparture extends VmController {
 		$input=$app->input;
         $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
-		$virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
-		echo json_encode($virtuemart_service_class_ids);
+		$list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+		echo json_encode($list_service_class);
 		die;
 
 	}
@@ -96,14 +96,22 @@ class VirtuemartControllerDeparture extends VmController {
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
         $data['days_seleted']=implode(',',$days_seleted);
+        if(!$data['virtuemart_departure_id'])
+        {
+            $data['departure_code']=JUserHelper::genRandomPassword();
+        }
         $virtuemart_departure_id= $departure_model->store($data);
         if(!$virtuemart_departure_id)
         {
             echo $departure_model->getError();
             die;
         }
-        echo "1";
-		die;
+
+        $item=$departure_model->getdeparture($virtuemart_departure_id);
+        if(!$item->virtuemart_departure_parent_id) {
+            $departure_model->create_children_departure($virtuemart_departure_id);
+        }
+        echo json_encode($item);
 	}
 	public function ajax_remove_item()
 	{

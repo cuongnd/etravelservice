@@ -88,8 +88,8 @@ class VirtueMartModeljontgrouptrip extends VmModel {
                 $item->price_private_room=round($price_private_room+$price_private_room.$tax);
 
 
-                $extra_bed=$item->extra_bed+$item->mark_up_extra_bed;
-                $item->extra_bed=round($extra_bed+$extra_bed.$tax);
+                $price_extra_bed=$item->price_extra_bed+$item->mark_up_extra_bed;
+                $item->price_extra_bed=round($price_extra_bed+$price_extra_bed.$tax);
 
 
             }else{
@@ -121,8 +121,8 @@ class VirtueMartModeljontgrouptrip extends VmModel {
                 $item->price_private_room=round($price_private_room+$price_private_room.$tax);
 
 
-                $extra_bed=$item->extra_bed+$item->extra_bed*$item->mark_up_extra_bed/100;
-                $item->extra_bed=round($extra_bed+$extra_bed.$tax);
+                $price_extra_bed=$item->price_extra_bed+$item->price_extra_bed*$item->mark_up_extra_bed/100;
+                $item->price_extra_bed=round($price_extra_bed+$price_extra_bed.$tax);
 
             }
         }
@@ -156,11 +156,69 @@ class VirtueMartModeljontgrouptrip extends VmModel {
         $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-        $query->select('departure')
+        $query->select('departure.virtuemart_departure_id,departure.departure_date,departure.departure_code')
             ->from('#__virtuemart_departure AS departure')
+            ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
+            ->where('departure.departure_date>='.$db->quote(JFactory::getDate()->toSql()))
+            ->innerJoin('#__virtuemart_tour_price AS tour_price ON (tour_price.sale_period_from <=departure.departure_date AND departure.departure_date<=tour_price.sale_period_to)')
+            ->select('tour_price.virtuemart_price_id')
+            ->select('tour_price.tax')
             ->where('departure.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('tour_price.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('tour_price.virtuemart_price_id IS NOT NULL')
+            ->innerJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->where('group_size_id_tour_price_id.virtuemart_group_size_id=0')
+            ->select('
+                group_size_id_tour_price_id.price_senior AS price_senior,
+                group_size_id_tour_price_id.price_adult AS price_adult,
+                group_size_id_tour_price_id.price_teen AS price_teen,
+                group_size_id_tour_price_id.price_infant AS price_infant,
+                group_size_id_tour_price_id.price_children1 AS price_children1,
+                group_size_id_tour_price_id.price_children2 AS price_children2,
+                group_size_id_tour_price_id.price_private_room AS price_private_room,
+                group_size_id_tour_price_id.price_extra_bed AS price_extra_bed
+
+            ')
+            ->select('tour_price.sale_period_from AS tour_price_sale_period_from,tour_price.sale_period_to AS tour_price_sale_period_to')
+            ->innerJoin('#__virtuemart_service_class AS service_class ON tour_price.virtuemart_service_class_id=service_class.virtuemart_service_class_id')
+            ->select('service_class.service_class_name')
+
+            ->leftJoin('#__virtuemart_itinerary AS itinerary ON itinerary.virtuemart_product_id=tour_price.virtuemart_product_id')
+            ->select('count(distinct itinerary.virtuemart_itinerary_id) AS total_day ')
+            ->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=itinerary.virtuemart_cityarea_id')
+            ->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
+            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+            ->select('GROUP_CONCAT(
+                    CONCAT(states.state_name,",",countries.country_name) SEPARATOR ";"
+            ) AS list_destination')
 
             ;
+        $query->group('departure.virtuemart_departure_id')
+            ->order('departure.departure_date')
+            ;
+        $query->innerJoin('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id ON mark_up_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->select('
+            mark_up_tour_price_id.price_senior AS mark_up_price_senior,
+            mark_up_tour_price_id.price_adult AS mark_up_price_adult,
+            mark_up_tour_price_id.price_teen AS mark_up_price_teen,
+            mark_up_tour_price_id.price_infant AS mark_up_price_infant,
+            mark_up_tour_price_id.price_children1 AS mark_up_price_children1,
+            mark_up_tour_price_id.price_children2 AS mark_up_price_children2,
+            mark_up_tour_price_id.price_private_room AS mark_up_price_private_room,
+            mark_up_tour_price_id.price_extra_bed AS mark_up_price_extra_bed,
+            mark_up_tour_price_id.senior AS mark_up_senior,
+            mark_up_tour_price_id.adult AS mark_up_adult,
+            mark_up_tour_price_id.teen AS mark_up_teen,
+            mark_up_tour_price_id.children1 AS mark_up_children1,
+            mark_up_tour_price_id.children2 AS mark_up_children2,
+            mark_up_tour_price_id.price_teen AS mark_up_teen,
+            mark_up_tour_price_id.infant AS mark_up_infant,
+            mark_up_tour_price_id.private_room AS mark_up_private_room,
+            mark_up_tour_price_id.extra_bed AS mark_up_extra_bed,
+            mark_up_tour_price_id.type AS mark_up_type
+            ')
+        ;
+
         echo $query->dump();
 		return $query;
 	}

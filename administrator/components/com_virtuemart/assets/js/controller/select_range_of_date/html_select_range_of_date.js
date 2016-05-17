@@ -37,6 +37,9 @@
             var display_format=plugin.settings.display_format;
             $element.find('.range_of_date').val(start.format(display_format)+'-'+end.format(display_format));
         };
+        plugin.on_change = function (start, end) {
+
+        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var min_date = plugin.settings.min_date;
@@ -45,6 +48,7 @@
             var to_date = plugin.settings.to_date;
             var from_name = plugin.settings.from_name;
             var to_name = plugin.settings.to_name;
+            var onchange = plugin.settings.onchange;
             plugin.daterangepicker=$element.find('.range_of_date').daterangepicker({
                     format: plugin.settings.format,
                     "showDropdowns": true,
@@ -57,6 +61,8 @@
                     var input_to = $element.find('input[name="' + to_name + '"]');
                     input_from.val(start.format(plugin.settings.format));
                     input_to.val(end.format(plugin.settings.format));
+                    plugin.on_change(start, end);
+
                 }
             );
 

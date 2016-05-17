@@ -56,6 +56,7 @@ class VirtueMartViewProductdetails extends VmView {
                 $jontgrouptrip_model = VmModel::getModel('jontgrouptrip');
                 $this->state=$jontgrouptrip_model->getState();
                 $this->list_trip=$jontgrouptrip_model->getItems();
+                $this->setLayout('jontgrouptrip');
             }
 
             parent::display($tpl);

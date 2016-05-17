@@ -96,6 +96,9 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Departure name'); ?>
                         </th>
                         <th>
+                            <?php echo $this->sort('departure_code', 'Departure code'); ?>
+                        </th>
+                        <th>
                             <?php echo $this->sort('currency_name', 'Tour name'); ?>
                         </th>
                         <th>
@@ -114,14 +117,18 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Tour price'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('currency_name', 'departure'); ?>
+                            <?php echo $this->sort('departure_date', 'departure date'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('currency_name', 'Discount'); ?>
+                            <?php echo $this->sort('currency_name', 'departure '); ?>
                         </th>
                         <th>
                             <?php echo $this->sort('currency_name', 'Sale period'); ?>
                         </th>
+                        <th>
+                            <?php echo $this->sort('currency_name', 'Discount'); ?>
+                        </th>
+
                         <th>
                             <?php echo $this->sort('currency_name', 'Asign'); ?>
                         </th>
@@ -150,6 +157,9 @@ AdminUIHelper::startAdminArea($this);
                                 <a href="<?php echo $editlink ?>"><?php echo $row->departure_name ?></a>
                             </td>
                             <td>
+                                <?php echo $row->departure_code ?>
+                            </td>
+                            <td>
                                 <?php echo $row->product_name ?>
                             </td>
                             <td>
@@ -171,12 +181,14 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->adult_departure_price ?>
                             </td>
                             <td>
-                                <span class="icon-eye"></span>
+                                <?php echo JHtml::_('date', $row->departure_date, VmConfig::$date_format); ?></span>
                             </td>
-                            <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, 'd M. Y'); ?>
-                                -<?php echo JHtml::_('date', $row->sale_period_to, 'd M. Y'); ?></td>
+                            <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, VmConfig::$date_format); ?>
+                                -<?php echo JHtml::_('date', $row->sale_period_to, VmConfig::$date_format); ?></td>
                             <td>
-                                <span class="icon-eye"></span>
+
+                            <td>
+                                <?php echo JHtml::_('date', $row->departure_date, VmConfig::$date_format); ?></span>
                             </td>
                             <td><a href="javascript:void(0)" class="edit-departure">
                                     <span class="icon-edit icon-white"></span>
@@ -226,7 +238,8 @@ AdminUIHelper::startAdminArea($this);
                     <div class="span6 ">
 
                         <label>Select tour name</label>
-                        <select id="virtuemart_product_id" name="virtuemart_product_id" disable_chosen="true" required style="width: 300px">
+                        <select id="virtuemart_product_id" name="virtuemart_product_id" disable_chosen="true" required
+                                style="width: 300px">
                             <option value="">select tour</option>
                             <?php foreach ($this->list_tour as $tour) { ?>
                                 <option
@@ -235,7 +248,8 @@ AdminUIHelper::startAdminArea($this);
                         </select>
 
                         <label>Select Service Class</label>
-                        <select id="virtuemart_service_class_id" disable_chosen="true" required name="virtuemart_service_class_id" style="width: 300px">
+                        <select id="virtuemart_service_class_id" disable_chosen="true" required
+                                name="virtuemart_service_class_id" style="width: 300px">
                             <option value="">select service</option>
                             <?php foreach ($this->list_tour_class as $tour_service_class) { ?>
                                 <option
@@ -248,22 +262,24 @@ AdminUIHelper::startAdminArea($this);
                                id="departure_name"
                                name="departure_name" required
                                class="inputbox">
-                        <label>Vaild period</label>
-                        <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', '',''); ?>
+                        <div class="range-of-date">
+                            <label>Vaild period</label>
+                            <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', '', ''); ?>
+                        </div>
                         <label>Departure Note</label>
                         <textarea name="note" id="note">
                             <?php echo $this->departure->departure_note ?>
                         </textarea>
 
 
-
-
                     </div>
                     <div class="span6">
                         <label>Setup space</label>
                         <input type="text" id="min_max_space" required name="min_max_space">
-                        <label>Sale periol</label>
-                        <input type="text" id="sale_period_open_before" required name="sale_period_open_before"  />
+                        <label>Sale period open before</label>
+                        <input type="text" id="sale_period_open_before" required name="sale_period_open_before"/>
+                        <label>Sale period close before</label>
+                        <input type="text" id="sale_period_close_before" required name="sale_period_close_before"/>
 
                         <label>G-Guarantee</label>
                         <input type="text" size="16"
@@ -278,9 +294,8 @@ AdminUIHelper::startAdminArea($this);
                                class="inputbox number" required="true">
 
 
-
-                          <br/>
-                        <button  class="btn btn-small btn-success pull-right calculator-price">
+                        <br/>
+                        <button class="btn btn-small btn-success pull-right calculator-price">
                             <span class="icon-refresh icon-white"></span>
                             Calculator price
                         </button>
@@ -336,37 +351,42 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1">
                                 Senior
                                 <br/>
-                                <input name="allow_passenger[]" <?php echo in_array('senior',$this->departure->allow_passenger)  ? 'checked' : '' ?>
-                                       value="senior"
-                                       type="checkbox">
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('senior', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="senior"
+                                    type="checkbox">
                             </div>
                             <div class="span1">
                                 Teen
                                 <br/>
-                                <input name="allow_passenger[]" <?php echo in_array('teen',$this->departure->allow_passenger)  ? 'checked' : '' ?>
-                                       value="teen"
-                                       type="checkbox">
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('teen', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="teen"
+                                    type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 1
                                 <br/>
-                                <input name="allow_passenger[]" <?php echo in_array('child_1',$this->departure->allow_passenger)  ? 'checked' : '' ?>
-                                       value="child_1"
-                                       type="checkbox">
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('child_1', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="child_1"
+                                    type="checkbox">
                             </div>
                             <div class="span1">
                                 Child 2
                                 <br/>
-                                <input name="allow_passenger[]" <?php echo in_array('child_2',$this->departure->allow_passenger)  ? 'checked' : '' ?>
-                                       value="child_2"
-                                       type="checkbox">
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('child_2', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="child_2"
+                                    type="checkbox">
                             </div>
                             <div class="span1">
                                 Infant
                                 <br/>
-                                <input name="allow_passenger[]" <?php echo in_array('infant',$this->departure->allow_passenger)  ? 'checked' : '' ?>
-                                       value="infant"
-                                       type="checkbox">
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('infant', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="infant"
+                                    type="checkbox">
                             </div>
 
                             <div class="span2">
@@ -375,86 +395,94 @@ AdminUIHelper::startAdminArea($this);
                             <div class="span1"></div>
                             <div class="span1"></div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <select disable_chosen="true" name="date_type" id="date_type">
-                                    <option selected value="weekly">weekly</option>
-                                    <option value="day_select">day select</option>
-                                </select>
+                        <div class="area-select-date">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <select disable_chosen="true" name="date_type" id="date_type">
+                                        <option selected value="weekly">weekly</option>
+                                        <option value="day_select">day select</option>
+                                    </select>
 
-
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span2"><h4>Weekly repeat setup</h4></div>
-                            <div class="span1"><i class="icon-rightarrow"></i></div>
-                            <div class="span1">
-                                MON
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('mon',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="mon"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Tue
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('tue',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="tue"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Wen
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('wen',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="wen"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Thu
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('thu',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="thu"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Fri
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('fri',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="fri"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Sat
-                                <br/>
-                                <input name="weekly[]" <?php echo in_array('sat',$this->departure->weekly)  ? 'checked' : '' ?>
-                                       value="sat"
-                                       type="checkbox">
-                            </div>
-                            <div class="span1">
-                                Sun
-                                <br/>
-
-                                <input  name="weekly[]" <?php echo in_array('sun',$this->departure->weekly)  ? 'checked' : '' ?>  value="sun"
-                                                                                                  type="checkbox">
-                            </div>
-                            <div class="span2">
-
-                            </div>
-                            <div class="span1"></div>
-                            <div class="span1"></div>
-                        </div>
-                        <h4>Customer setting</h4>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <div id="multi-calendar-departure">
-                                    <input type="hidden" id="days_seleted" name="days_seleted"
-                                           value="<?php echo $this->departure->days_seleted ?>">
 
                                 </div>
                             </div>
+                            <div class="row-fluid">
+                                <div class="span2"><h4>Weekly repeat setup</h4></div>
+                                <div class="span1"><i class="icon-rightarrow"></i></div>
+                                <div class="span1">
+                                    MON
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('mon', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="mon"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Tue
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('tue', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="tue"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Wen
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('wen', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="wen"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Thu
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('thu', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="thu"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Fri
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('fri', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="fri"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Sat
+                                    <br/>
+                                    <input
+                                        name="weekly[]" <?php echo in_array('sat', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="sat"
+                                        type="checkbox">
+                                </div>
+                                <div class="span1">
+                                    Sun
+                                    <br/>
+
+                                    <input
+                                        name="weekly[]" <?php echo in_array('sun', $this->departure->weekly) ? 'checked' : '' ?>
+                                        value="sun"
+                                        type="checkbox">
+                                </div>
+                                <div class="span2">
+
+                                </div>
+                                <div class="span1"></div>
+                                <div class="span1"></div>
+                            </div>
+                            <h4>Customer setting</h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div id="multi-calendar-departure">
+                                        <input type="hidden" id="days_seleted" name="days_seleted"
+                                               value="<?php echo $this->departure->days_seleted ?>">
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -478,8 +506,10 @@ AdminUIHelper::startAdminArea($this);
             </div>
             <input type="hidden" id="virtuemart_departure_id" name="virtuemart_departure_id"
                    value="0"/>
+            <input type="hidden" id="published" name="published"
+                   value="1"/>
 
-            <?php echo $this->addStandardHiddenToForm('departure','ajax_save_departure_item'); ?>
+            <?php echo $this->addStandardHiddenToForm('departure', 'ajax_save_departure_item'); ?>
         </form>
     </div>
 

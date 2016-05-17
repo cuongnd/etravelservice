@@ -480,6 +480,7 @@ class VmConfig {
 	public static $_starttime = array();
 	public static $loaded = FALSE;
 	public static $show_iframe = TRUE;
+	public static $date_format = 'd-m-Y';
 
 	public static $maxMessageCount = 0;
 	public static $maxMessage = 100;
@@ -593,7 +594,7 @@ class VmConfig {
 				}
 			}
 
-			self::setErrorReporting($dev);
+			//self::setErrorReporting($dev);
 
 		}
 
@@ -601,25 +602,24 @@ class VmConfig {
 	}
 
 	static function setErrorReporting($dev,$force = false){
-
 		$ret = array();
 		if($dev){
 			$ret[0] = ini_set('display_errors', '-1');
 			if(version_compare(phpversion(),'5.4.0','<' )){
 				vmdebug('PHP 5.3');
-				$ret[1] = error_reporting( E_ALL ^ E_STRICT );
+				$ret[1] = error_reporting ( E_ALL & ~ E_NOTICE & ~ E_DEPRECATED & ~ E_STRICT & ~ E_WARNING );
 			} else {
 				vmdebug('PHP 5.4');
-				$ret[1] = error_reporting( E_ALL );
+				$ret[1] = error_reporting ( E_ALL & ~ E_NOTICE & ~ E_DEPRECATED & ~ E_STRICT & ~ E_WARNING );
 			}
-			vmdebug('Show All Errors');
+            error_reporting ( E_ALL & ~ E_NOTICE & ~ E_DEPRECATED & ~ E_STRICT & ~ E_WARNING );
 
 		} else {
 			$jconfig = JFactory::getConfig();
 			$errep = $jconfig->get('error_reporting');
 			if ( $errep == 'default' or $force) {
 				$ret[0] = ini_set('display_errors', 0);
-				$ret[1] = error_reporting(E_ERROR | E_WARNING | E_PARSE);
+				$ret[1] = error_reporting ( E_ALL & ~ E_NOTICE & ~ E_DEPRECATED & ~ E_STRICT & ~ E_WARNING );
 			}
 		}
 		return $ret;

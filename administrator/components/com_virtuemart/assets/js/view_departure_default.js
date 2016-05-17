@@ -6,6 +6,12 @@
         var defaults = {
 
             list_date: [],
+            departure_item:{
+                weekly:"",
+                allow_passenger:"",
+                days_seleted:''
+            },
+            is_load_ajax_get_departure:0
 
 
         }
@@ -29,12 +35,36 @@
             $('#virtuemart_departure_id').val(departure_id);
         };
         plugin.update_select_service_class = function () {
+            var departure_item=plugin.settings.departure_item;
+            var list_service_class=plugin.settings.list_service_class;
+            var promotion_price=plugin.settings.promotion_price;
+            $dialog_departure_edit_form.find('#virtuemart_service_class_id').empty();
+            var $option = '<option value="0">Please select service class</option>';
+            $dialog_departure_edit_form.find('#virtuemart_service_class_id').append($option);
+            $.each(list_service_class, function (index, item_service_class) {
+                var $option = '<option  '+(item_service_class.virtuemart_service_class_id==departure_item.virtuemart_service_class_id?' selected ':'') +' value="' + item_service_class.virtuemart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
+                $dialog_departure_edit_form.find('#virtuemart_service_class_id').append($option);
+            });
+            $dialog_departure_edit_form.find('#virtuemart_service_class_id').trigger('change');
 
+
+
+        };
+        plugin.update_layout_departure = function () {
+            departure_item=plugin.settings.departure_item;
+            if(departure_item.virtuemart_departure_parent_id>0)
+            {
+                $('.range-of-date').hide();
+                $('.area-select-date').hide();
+
+            }else{
+                $('.range-of-date').show();
+                $('.area-select-date').show();
+            }
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var list_date = plugin.settings.list_date;
-
             $.validator.addMethod('selectcheck', function (value) {
                 return (value != '0');
             }, "This field is required");
@@ -110,6 +140,12 @@
                 rules: {
                     'weekly[]': {
                         required: true
+                    },
+                    'sale_period_from': {
+                        required: true
+                    },
+                    'sale_period_to': {
+                        required: true
                     }
 
                 },
@@ -133,6 +169,8 @@
                     $('input[name="weekly[]"]').rules("add", {
                         required: false
                     });
+                    $dialog_departure_edit_form.find('#multi-calendar-departure').show();
+                    $dialog_departure_edit_form.find('input[name="weekly[]"]').prop('checked', false);
                 } else {
                     $("#days_seleted").rules("add", {
                         required: false
@@ -142,12 +180,15 @@
                     $('input[name="weekly[]"]').rules("add", {
                         required: true
                     });
+                    $dialog_departure_edit_form.find('#multi-calendar-departure').DatePickerClear();
+                    $dialog_departure_edit_form.find('#multi-calendar-departure').hide();
                 }
                 admin_form_edit_validate.element('input[name="weekly[]"]');
                 admin_form_edit_validate.element('#days_seleted');
 
             });
-
+            var max_date=new Date();
+            max_date.setYear((new Date()).getYear() + 1);
             var multi_calendar_departure = $('#multi-calendar-departure').multi_calendar_date_picker({
                 mode: 'multiple',
                 inline: true,
@@ -164,7 +205,9 @@
                         $('#days_seleted').val('');
                     }
                     admin_form_edit_validate.element('#days_seleted');
-                }
+                },
+                min_date:new Date(),
+                max_date:max_date
             });
 
 
@@ -173,9 +216,21 @@
                 modal: true,
                 width: 800,
                 appendTo: 'body',
-                dialogClass: "dialog-departure-edit-form"
+                dialogClass: "dialog-departure-edit-form",
                 //closeOnEscape: false,
-                //open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+                open: function(event, ui) {
+                    var is_load_ajax_get_departure=plugin.settings.is_load_ajax_get_departure;
+                    if(is_load_ajax_get_departure==0)
+                    {
+                        plugin.settings.departure_item=defaults.departure_item;
+                        plugin.fill_data();
+                        plugin.update_layout_departure();
+                    }
+                    var range_of_date = $dialog_departure_edit_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+                    range_of_date.on_change=function(start, end) {
+                        plugin.update_calendar_price(start, end);
+                    };
+                }
 
             });
             $("#min_max_space").ionRangeSlider({
@@ -189,11 +244,23 @@
                 keyboard:true,
                 keyboard_step:1
             });
+            var max_date=365;
             $("#sale_period_open_before").ionRangeSlider({
                 min: 1,
-                max: 40,
+                max: max_date,
                 from: 1,
-                to: 40,
+                to: max_date,
+                type: 'single',
+                grid: true,
+                grid_num: 10,
+                keyboard:true,
+                keyboard_step:1
+            });
+            $("#sale_period_close_before").ionRangeSlider({
+                min: 1,
+                max: max_date,
+                from: 1,
+                to: max_date,
                 type: 'single',
                 grid: true,
                 grid_num: 10,
@@ -258,11 +325,14 @@
 
 
                         });
+                        plugin.settings.is_load_ajax_get_departure=1;
                         $(".departure-edit-form").dialog("open");
+                        plugin.settings.is_load_ajax_get_departure=0;
                         $('.' + plugin.settings.dialog_class).find('input.number').val(0);
                         $('#virtuemart_departure_id').val(virtuemart_departure_id);
                         plugin.settings.departure_item=departure_item;
-                        plugin.fill_data(departure_item);
+                        plugin.fill_data();
+                        plugin.update_layout_departure();
                         //plugin.update_price();
                     }
                 });
@@ -407,7 +477,7 @@
                             });
 
                         } else {
-                            plugin.fill_data(response);
+                            plugin.fill_data();
                             $(".departure-edit-form").dialog("close");
                         }
 
@@ -532,9 +602,63 @@
 
 
         }
-        plugin.fill_data = function (item_departure) {
-            console.log($dialog_departure_edit_form);
-            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').val(item_departure.virtuemart_product_id);
+        plugin.update_calendar_price = function (start, end) {
+            console.log(start);
+            console.log(end);
+        };
+        plugin.fill_data = function () {
+            var departure_item=plugin.settings.departure_item;
+            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').val(departure_item.virtuemart_product_id);
+            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').trigger('change');
+            $dialog_departure_edit_form.find('input[name="departure_name"]').val(departure_item.departure_name);
+            $dialog_departure_edit_form.find('textarea[name="note"]').val(departure_item.note);
+            var min_max_space_slider = $dialog_departure_edit_form.find('input[name="min_max_space"]').data("ionRangeSlider");
+            min_max_space_slider.update({
+                from: departure_item.min_space,
+                to: departure_item.max_space
+            });
+            var sale_period_open_before_slider = $dialog_departure_edit_form.find('input[name="sale_period_open_before"]').data("ionRangeSlider");
+            sale_period_open_before_slider.update({
+                from: departure_item.sale_period_open_before
+            });
+
+            var sale_period_close_before_slider = $dialog_departure_edit_form.find('input[name="sale_period_close_before"]').data("ionRangeSlider");
+            sale_period_close_before_slider.update({
+                from: departure_item.sale_period_close_before
+            });
+
+            var g_guarantee_slider = $dialog_departure_edit_form.find('input[name="g_guarantee"]').data("ionRangeSlider");
+            g_guarantee_slider.update({
+                from: departure_item.g_guarantee
+            });
+
+            var limited_space_slider = $dialog_departure_edit_form.find('input[name="limited_space"]').data("ionRangeSlider");
+            limited_space_slider.update({
+                from: departure_item.limited_space
+            });
+            var allow_passenger=departure_item.allow_passenger;
+            allow_passenger=allow_passenger.split(',');
+            $dialog_departure_edit_form.find('input[name="allow_passenger[]"]').prop('checked', false);
+            $.each(allow_passenger,function(index,item){
+                $dialog_departure_edit_form.find('input[name="allow_passenger[]"][value="'+item+'"]').prop('checked', true);
+            });
+            var date_type=departure_item.date_type;
+            $dialog_departure_edit_form.find('select[name="date_type"]').val(date_type);
+            $dialog_departure_edit_form.find('select[name="date_type"]').trigger('change');
+            var weekly=departure_item.weekly;
+            weekly=weekly.split(',');
+            $dialog_departure_edit_form.find('input[name="weekly[]"]').prop('checked', false);
+            $.each(weekly,function(index,item){
+                $dialog_departure_edit_form.find('input[name="weekly[]"][value="'+item+'"]').prop('checked', true);
+            });
+            var days_seleted=departure_item.days_seleted;
+            days_seleted=days_seleted.split(',');
+            $dialog_departure_edit_form.find('#multi-calendar-departure').DatePickerSetDate(days_seleted, true);
+
+            var range_of_date = $dialog_departure_edit_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+            range_of_date.set_date(departure_item.sale_period_from,departure_item.sale_period_to);
+            range_of_date.instant_daterangepicker.updateView();
+            range_of_date.instant_daterangepicker.updateCalendars();
 
 
 
