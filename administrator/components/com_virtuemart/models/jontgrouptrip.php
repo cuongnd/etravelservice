@@ -154,9 +154,7 @@ class VirtueMartModeljontgrouptrip extends VmModel {
             ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
             ->where('departure.departure_date>='.$db->quote(JFactory::getDate()->toSql()))
             ->innerJoin('#__virtuemart_tour_price AS tour_price ON (tour_price.sale_period_from <=departure.departure_date AND departure.departure_date<=tour_price.sale_period_to)')
-            ->where('tour_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
-            ->select('tour_price.virtuemart_price_id')
+             ->select('tour_price.virtuemart_price_id')
             ->select('tour_price.tax')
             ->where('departure.virtuemart_product_id='.(int)$virtuemart_product_id)
             ->where('tour_price.virtuemart_price_id IS NOT NULL')
@@ -216,8 +214,6 @@ class VirtueMartModeljontgrouptrip extends VmModel {
             ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to')
             ->select('tour_promotion_price.tax AS promotion_tax')
             ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
-            ->where('tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('
                     group_size_id_tour_promotion_price_id.price_senior AS promotion_price_senior,
                     group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult,

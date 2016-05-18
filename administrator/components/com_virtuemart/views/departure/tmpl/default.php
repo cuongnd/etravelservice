@@ -168,10 +168,10 @@ AdminUIHelper::startAdminArea($this);
                             </td>
                             <td>
                                 B(<span class="price"
-                                      data-a-sign="US$"><?php echo $row->sale_price_adult ?></span>)
+                                      data-a-sign="US$"><?php echo VmConfig::render_price($row->sale_price_adult) ?></span>)
                                 <?php if($row->promotion_price_adult){ ?>
                                 P(<span class="price"
-                                      data-a-sign="US$"><?php echo $row->sale_promotion_price_adult ?></span>)
+                                      data-a-sign="US$"><?php echo VmConfig::render_price($row->sale_promotion_price_adult) ?></span>)
                                 <?php } ?>
 
                             </td>

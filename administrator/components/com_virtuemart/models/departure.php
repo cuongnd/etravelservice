@@ -96,14 +96,12 @@ class VirtueMartModelDeparture extends VmModel
             ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
             ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
 
-            ->leftJoin('#__virtuemart_tour_price AS tour_price ON departure.departure_date>= tour_price.sale_period_from AND departure.departure_date<=tour_price.sale_period_to')
+            ->leftJoin('#__virtuemart_tour_price AS tour_price ON departure.departure_date>= tour_price.sale_period_from AND departure.departure_date<=tour_price.sale_period_to ')
             ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
             ->select('tour_price.tax')
             ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
             ->where('group_size.type='.$query->q(vmGroupSize::FLAT_PRICE))
 
-            ->where('tour_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('group_size_id_tour_price_id.price_adult')
             ->leftJoin('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id ON  mark_up_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
             ->select('
@@ -111,11 +109,9 @@ class VirtueMartModelDeparture extends VmModel
                     mark_up_tour_price_id.adult AS mark_up_adult,
                     mark_up_tour_price_id.type AS mark_up_type
             ')
-            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to')
+            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to ')
             ->select('tour_promotion_price.tax AS promotion_tax')
             ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
-            ->where('tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult')
             ->leftJoin('#__virtuemart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id ON mark_up_tour_promotion_net_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
             ->select('

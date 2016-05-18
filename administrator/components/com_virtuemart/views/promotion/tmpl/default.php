@@ -199,7 +199,6 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
                 <input type="hidden" name="virtuemart_promotion_price_id" value="0">
-                <input type="hidden" id="price_type" name="price_type" value=""/>
                 <input type="hidden" id="published" name="published" value="1"/>
             </div>
 

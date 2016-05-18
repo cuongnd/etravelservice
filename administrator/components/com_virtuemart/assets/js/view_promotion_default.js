@@ -10,6 +10,7 @@
             tour_id: 0,
             visiblePages: 5,
             dialog_class: 'dialog-form-price',
+            price_type: '',
             list_service_class: [],
             date_format: 'm/d/y',
             list_base_price_by_service_class_id_and_tour_id: [],
@@ -76,8 +77,8 @@
             $promotion_price_form.find('.random-promotion').click(function () {
                 var type = ['amount', 'percent'];
                 var random_type = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
-                $promotion_price_form.find('.promotion-price  .inputbox.number').val('');
-                $promotion_price_form.find('.promotion-price .' + type[random_type] + ' .inputbox.number').each(function () {
+                $promotion_price_form.find('.mark-up-promotion-price  .inputbox.number').val('');
+                $promotion_price_form.find('.mark-up-promotion-price .' + type[random_type] + ' .inputbox.number').each(function () {
 
                     if (random_type == 0) {
                         $(this).val(Math.floor(Math.random() * 200) + 1).trigger('change');
@@ -90,6 +91,7 @@
             //end random promotion price
             //random markup
             $promotion_price_form.find('.random-markup').click(function () {
+
                 var type = ['amount', 'percent'];
                 var random_type = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
                 $('.mark-up-price  .inputbox.number').val('');
@@ -818,7 +820,7 @@
 
             }
             $promotion_price_form.find('input[name="tax"]').val(result.promotion_price.tax);
-            $promotion_price_form.find('input[name="price_type"]').val(result.tour.price_type);
+            plugin.settings.price_type=result.tour.price_type
             $promotion_price_form.find('input[name="virtuemart_promotion_price_id"]').val(result.promotion_price.virtuemart_promotion_price_id);
             $promotion_price_form.find('textarea[name="price_note"]').val(result.promotion_price.price_note.trim());
 
@@ -836,7 +838,7 @@
 
             $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.virtuemart_service_class_id);
             $promotion_price_form.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
-            price_type = result.tour.price_type;
+            var price_type = result.tour.price_type;
             if (price_type == 'tour_group') {
                 $element.find('#tour_group').css({
                     display: "block"
@@ -938,7 +940,7 @@
                     percent = 0;
                 }
                 percent = parseFloat(percent);
-                if (price_type == 'tour_group') {
+                if (price_type == plugin.settings.price_type) {
                     var $span_profit = $promotion_price_form.find('table.profit-price span[group-id="' + group_id + '"][column-type="' + column_type + '"]');
                 } else {
                     var $span_profit = $promotion_price_form.find('table.profit-price span[column-type="' + column_type + '"]');

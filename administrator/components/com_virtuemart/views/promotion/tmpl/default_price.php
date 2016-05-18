@@ -458,7 +458,7 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
         </tbody>
     </table>
     <h3>promotion <button class="btn btn-primary random-promotion">random promotion</button></h3>
-    <table class="table-bordered  table table-striped mark-up-price">
+    <table class="table-bordered  table table-striped mark-up-promotion-price">
         <tr>
             <td>Passenger</td>
             <td style="text-align: center">Senior</td>
