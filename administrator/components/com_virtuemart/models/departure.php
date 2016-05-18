@@ -63,24 +63,78 @@ class VirtueMartModelDeparture extends VmModel
 
     function getItemList($search='') {
         echo $this->getListQuery()->dump();
-        $data=parent::getItems();
-        return $data;
+        $items=parent::getItems();
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
+        foreach($items as &$item)
+        {
+            $item->sale_price_adult=vmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
+            $item->sale_promotion_price_adult=vmpromotion::get_sale_promotion_price_by_mark_up_and_tax(
+                $item->promotion_price_adult,
+                $item->mark_up_promotion_adult,$item->mark_up_promotion_price_adult,$item->mark_up_promotion_type,
+                $item->mark_up_promotion_net_price_adult,$item->mark_up_promotion_net_adult,$item->mark_up_promotion_net_type,
+                $item->promotion_tax);
+
+        }
+        return $items;
     }
 
     function getListQuery()
     {
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
         $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
 
-        $query->select('departure.*,products_en_gb.product_name,service_class.service_class_name')
+        $query->select('departure.virtuemart_departure_id,departure.departure_name,departure.departure_code,departure.departure_date,departure.sale_period_from,departure.sale_period_to,departure.published,products_en_gb.product_name,service_class.service_class_name')
+            ->select('departure.min_space,departure.max_space')
             ->from('#__virtuemart_departure AS departure')
             ->leftJoin('#__virtuemart_products AS products USING(virtuemart_product_id)')
             ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
             ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
             ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
+
+            ->leftJoin('#__virtuemart_tour_price AS tour_price ON departure.departure_date>= tour_price.sale_period_from AND departure.departure_date<=tour_price.sale_period_to')
+            ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->select('tour_price.tax')
+            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
+            ->where('group_size.type='.$query->q(vmGroupSize::FLAT_PRICE))
+
+            ->where('tour_price.virtuemart_product_id=departure.virtuemart_product_id')
+            ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
+            ->select('group_size_id_tour_price_id.price_adult')
+            ->leftJoin('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id ON  mark_up_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->select('
+                    mark_up_tour_price_id.price_adult AS mark_up_price_adult,
+                    mark_up_tour_price_id.adult AS mark_up_adult,
+                    mark_up_tour_price_id.type AS mark_up_type
+            ')
+            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to')
+            ->select('tour_promotion_price.tax AS promotion_tax')
+            ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->where('tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id')
+            ->where('tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
+            ->select('group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult')
+            ->leftJoin('#__virtuemart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id ON mark_up_tour_promotion_net_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->select('
+                    mark_up_tour_promotion_net_price_id.price_adult AS mark_up_promotion_net_price_adult,
+                    mark_up_tour_promotion_net_price_id.adult AS mark_up_promotion_net_adult,
+                    mark_up_tour_promotion_net_price_id.type AS mark_up_promotion_net_type
+            ')
+
+            ->leftJoin('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id ON mark_up_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->select('
+                    mark_up_tour_promotion_price_id.price_adult AS mark_up_promotion_price_adult,
+                    mark_up_tour_promotion_price_id.adult AS mark_up_promotion_adult,
+                    mark_up_tour_promotion_price_id.type AS mark_up_promotion_type
+            ')
+
+
+            ->group('departure.virtuemart_departure_id')
+
+
         ;
         if($virtuemart_product_id)
         {
@@ -112,7 +166,6 @@ class VirtueMartModelDeparture extends VmModel
         }
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
-
         return $query;
     }
 

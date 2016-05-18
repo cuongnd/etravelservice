@@ -66,8 +66,9 @@ AdminUIHelper::startAdminArea($this);
                         <th><label class="checkbox"><input type="checkbox" class="check-all">Id</label></th>
                         <th>tour name</th>
                         <th>service class</th>
-                        <th>tour type</th>
                         <th>vailid</th>
+                        <th>tour type</th>
+
                         <th>add</th>
                         <th>amend</th>
                         <th>price</th>
@@ -86,9 +87,10 @@ AdminUIHelper::startAdminArea($this);
                                         class="item-id"><?php echo $price->virtuemart_price_id ?></span></label></td>
                             <td><?php echo $this->product->product_name ?></td>
                             <td class="service_class_name"><?php echo $price->service_class_name ?></td>
-                            <td class="tour_type_name"><?php echo $price->tour_type_name ?></td>
+
                             <td class="sale_period"><?php echo JHtml::_('date', $price->sale_period_from, $format_date); ?>
                                  <span class="icon-next"></span> <?php echo JHtml::_('date', $price->sale_period_to, $format_date); ?></td>
+                            <td class="tour_type_name"><?php echo $price->tour_type_name ?></td>
                             <td><?php echo JHtml::_('date', $price->created_on, $format_date); ?></td>
                             <td class="modified_on"><?php echo JHtml::_('date', $price->modified_on, $format_date); ?></td>
                             <td>
@@ -520,8 +522,8 @@ AdminUIHelper::startAdminArea($this);
                         <?php } ?>
                         <tr>
                             <td colspan="10">
-                                <label>Full charge children 1 <input type="checkbox" name="full_charge_children1" value="<?php echo $this->price->full_charge_children1 ?>"></label>
-                                <label>Full charge children 2 <input type="checkbox" name="full_charge_children2" value="<?php echo $this->price->full_charge_children2 ?>"></label>
+                                <label>Full charge children 1 <input type="checkbox" name="full_charge_children1" value="1"></label>
+                                <label>Full charge children 2 <input type="checkbox" name="full_charge_children2" value="1"></label>
                             </td>
                         </tr>
                         </tbody>

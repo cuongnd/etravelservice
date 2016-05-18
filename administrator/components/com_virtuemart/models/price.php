@@ -50,14 +50,13 @@ class VirtueMartModelPrice extends VmModel
      */
     function getPrice($price_id = 0)
     {
-        $item= $this->getData($price_id);
-        $db=JFactory::getDbo();
-        $query=$db->getQuery(true);
+        $item = $this->getData($price_id);
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
         $query->select('tour_class.*')
             ->from('#__virtuemart_service_class AS tour_class')
-            ->where('tour_class.virtuemart_service_class_id='.(int)$item->service_class_id)
-            ;
-        $item->service_class=$db->setQuery($query)->loadObject();
+            ->where('tour_class.virtuemart_service_class_id=' . (int)$item->service_class_id);
+        $item->service_class = $db->setQuery($query)->loadObject();
 
         return $item;
     }
@@ -93,23 +92,23 @@ class VirtueMartModelPrice extends VmModel
 
         return $data;
     }
+
     function getPricesListByTourid($tour_id)
     {
-        $app=JFactory::getApplication();
-        $input=$app->input;
-        $db=JFactory::getDbo();
-        $query=$db->getQuery(true)
+        $app = JFactory::getApplication();
+        $input = $app->input;
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true)
             ->select('tour_price.*')
             ->from('#__virtuemart_tour_price AS tour_price')
             ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_price.virtuemart_service_class_id')
             ->select('tour_service_class.service_class_name')
-           ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
+            ->where('tour_price.virtuemart_product_id=' . (int)$tour_id)
             ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')
             ->select('products.price_type')
             ->innerJoin('#__virtuemart_tour_type AS tour_type ON tour_type.virtuemart_tour_type_id=products.virtuemart_tour_type_id')
             ->select('tour_type.title AS tour_type_name')
-            ->order('tour_price.virtuemart_service_class_id,tour_price.sale_period_from,tour_price.sale_period_to')
-            ;
+            ->order('tour_service_class.ordering,tour_price.sale_period_from,tour_price.sale_period_to');
         return $db->setQuery($query)->loadObjectList();
 
     }
@@ -171,16 +170,17 @@ class VirtueMartModelPrice extends VmModel
     function store(&$data)
     {
         $virtuemart_price_id = parent::store($data);
-        if($virtuemart_price_id) {
+        if ($virtuemart_price_id) {
             $virtuemart_product_id = $data['virtuemart_product_id'];
             $model_product = $this->getModel('product');
             $product = $model_product->getItem($virtuemart_product_id);
-            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+            require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
             if ($virtuemart_price_id && $product->price_type != vmGroupSize::FLAT_PRICE) {
                 $tour_price_by_tour_price_id = $data['tour_price_by_tour_price_id'];
                 $this->save_price_group_size_by_price_id($tour_price_by_tour_price_id, $virtuemart_price_id);
             } else {
                 $tour_price_by_tour_price_id = $data['tour_price_by_tour_price_id'];
+
                 $this->save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $virtuemart_price_id);
             }
             $amount = $data['amount'];
@@ -196,106 +196,103 @@ class VirtueMartModelPrice extends VmModel
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_group_size_id_tour_price_id')
             ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
-        if(!$db->setQuery($query)->execute())
-        {
+        if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
 
         if (count($tour_price_by_tour_price_id)) {
-            $price_extra_bed=reset($tour_price_by_tour_price_id)->price_extra_bed;
-            foreach ($tour_price_by_tour_price_id as  $item) {
-                $group_size_id=$item->virtuemart_group_size_id;
+            $price_extra_bed = reset($tour_price_by_tour_price_id)->price_extra_bed;
+            foreach ($tour_price_by_tour_price_id as $item) {
+                $group_size_id = $item->virtuemart_group_size_id;
                 unset($item->virtuemart_group_size_id);
                 unset($item->price_extra_bed);
                 $query = $db->getQuery(true);
                 $query->insert('#__virtuemart_group_size_id_tour_price_id');
                 foreach ($item as $key => $value) {
-                    $query->set("$key=".(int)$value);
+                    $query->set("$key=" . (int)$value);
                 }
-                $query->set("price_extra_bed=".(int)$price_extra_bed);
-
-                $query->set("virtuemart_price_id=$virtuemart_price_id")
+                $query->set("price_extra_bed=" . (int)$price_extra_bed)
+                    ->set("virtuemart_price_id=$virtuemart_price_id")
                     ->set("virtuemart_group_size_id=$group_size_id");
-                if(!$db->setQuery($query)->execute())
-                {
+                if (!$db->setQuery($query)->execute()) {
                     throw new Exception(500, $db->getErrorMsg());
                 }
             }
         }
     }
-    public function save_markup_price($amount,$percent, $virtuemart_price_id)
+
+    public function save_markup_price($amount, $percent, $virtuemart_price_id)
     {
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_mark_up_tour_price_id')
             ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
-        if(!$db->setQuery($query)->execute())
-        {
+        if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
-        $amount1=(array)$amount;
-        if ($amount1['adult']||$amount1['children1']||$amount1['children2']||$amount1['extra_bed']||$amount1['infant']||$amount1['private_room']||$amount1['senior']||$amount1['teen']) {
+        $amount1 = (array)$amount;
+        if ($amount1['adult'] || $amount1['children1'] || $amount1['children2'] || $amount1['extra_bed'] || $amount1['infant'] || $amount1['private_room'] || $amount1['senior'] || $amount1['teen']) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_price_id');
             foreach ($amount as $key => $value) {
-                $query->set("$key=".(int)$value);
+                $query->set("$key=" . (int)$value);
             }
             $query->set("virtuemart_price_id=$virtuemart_price_id")
-                ->set('type='.$query->q('amount'))
-                ;
-            if(!$db->setQuery($query)->execute())
-            {
+                ->set('type=' . $query->q('amount'));
+            if (!$db->setQuery($query)->execute()) {
                 throw new Exception(500, $db->getErrorMsg());
             }
-        }else{
+        } else {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_price_id');
             foreach ($percent as $key => $value) {
-                $query->set("$key=".(int)$value);
+                $query->set("$key=" . (int)$value);
             }
             $query->set("virtuemart_price_id=$virtuemart_price_id")
-                ->set('type='.$query->q('percent'))
-                ;
-            if(!$db->setQuery($query)->execute())
-            {
+                ->set('type=' . $query->q('percent'));
+            if (!$db->setQuery($query)->execute()) {
                 throw new Exception(500, $db->getErrorMsg());
             }
         }
     }
+
     public function populateState($ordering = null, $direction = null)
     {
         parent::populateState($ordering, $direction); // TODO: Change the autogenerated stub
     }
 
-    public function save_price_group_size_by_price_id_tour_private($data, $virtuemart_price_id)
+    public function save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $virtuemart_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_group_size_id_tour_price_id')
             ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
+        if (!$db->setQuery($query)->execute()) {
+            throw new Exception(500, $db->getErrorMsg());
+        }
 
-        $db->setQuery($query)->execute();
-        $price_senior=(float)$data->price_senior;
-        $price_adult=(float)$data->price_adult;
-        $price_infant=(float)$data->price_infant;
-        $price_teen=(float)$data->price_teen;
-        $price_children1=(float)$data->price_children1;
-        $price_children2=(float)$data->price_children2;
-        $price_private_room=(float)$data->price_private_room;
-        $query->insert('#__virtuemart_group_size_id_tour_price_id')
-            ->set("virtuemart_price_id=$virtuemart_price_id")
-                ->set("price_senior=$price_senior")
-                ->set("price_adult=$price_adult")
-                ->set("price_teen=$price_teen")
-                ->set("price_infant=$price_infant")
-                ->set("price_children1=$price_children1")
-                ->set("price_children2=$price_children2")
-                ->set("price_private_room=$price_private_room")
-                ->set("virtuemart_group_size_id=0");
-            $db->setQuery($query)->execute();
+        if (count($tour_price_by_tour_price_id)) {
+            $price_extra_bed = reset($tour_price_by_tour_price_id)->price_extra_bed;
+            foreach ($tour_price_by_tour_price_id as $item) {
+                $group_size_id = $item->virtuemart_group_size_id;
+                unset($item->virtuemart_group_size_id);
+                unset($item->price_extra_bed);
+                $query = $db->getQuery(true);
+                $query->insert('#__virtuemart_group_size_id_tour_price_id');
+                foreach ($item as $key => $value) {
+                    $query->set("$key=" . (int)$value);
+                }
+                $query->set("price_extra_bed=" . (int)$price_extra_bed)
+                    ->set("virtuemart_price_id=$virtuemart_price_id")
+                    ->set("virtuemart_group_size_id=$group_size_id");
+                if (!$db->setQuery($query)->execute()) {
+                    throw new Exception(500, $db->getErrorMsg());
+                }
+            }
+        }
     }
 
 

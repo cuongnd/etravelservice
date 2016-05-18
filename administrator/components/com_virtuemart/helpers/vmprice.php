@@ -142,4 +142,10 @@ class vmprice
         return $list;
     }
 
+    public static function get_sale_price_by_mark_up_and_tax($price, $mark_up_percent, $mark_up_amount, $tax, $mark_up_type)
+    {
+        $price= $price+($mark_up_type=='amount'?$mark_up_amount:($price*$mark_up_percent)/100);
+        return $price+($price*$tax)/100;
+    }
+
 }

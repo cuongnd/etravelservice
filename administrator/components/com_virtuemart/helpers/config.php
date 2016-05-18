@@ -1105,7 +1105,14 @@ class VmConfig {
 		}
 	}
 
-	/**
+    public static function render_price($price)
+    {
+        if($price<0)
+            $price=0;
+        return (int)$price;
+    }
+
+    /**
 	 * Writes the params as string and escape them before
 	 * @author Max Milbers
 	 */

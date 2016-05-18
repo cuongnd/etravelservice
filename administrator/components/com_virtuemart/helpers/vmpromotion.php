@@ -135,4 +135,12 @@ class vmpromotion
         return $db->setQuery($query)->loadObject();
     }
 
+    public static function get_sale_promotion_price_by_mark_up_and_tax($promotion_price, $mark_up_promotion_amount, $mark_up_promotion_percent, $mark_up_promotion_type, $mark_up_promotion_net_amount, $mark_up_promotion_net_percent, $mark_up_promotion_net_type, $tax)
+    {
+        $promotion_price1= $mark_up_promotion_type=='amount'?$promotion_price+$mark_up_promotion_amount:$promotion_price+($promotion_price*$mark_up_promotion_percent)/100;
+        $mark_up_promotion_price= $mark_up_promotion_net_type=='amount'?$promotion_price+$mark_up_promotion_net_amount:$promotion_price+($promotion_price*$mark_up_promotion_net_percent)/100;
+        $promotion_price=$promotion_price-$promotion_price1+$mark_up_promotion_price;
+        return $promotion_price+($promotion_price*$tax)/100;
+    }
+
 }

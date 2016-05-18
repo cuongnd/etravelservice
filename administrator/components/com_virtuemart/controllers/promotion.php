@@ -120,26 +120,37 @@ class VirtuemartControllerpromotion extends VmController {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tour_id=$input->get('tour_id',0,'int');
+        $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
-        $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tour_id);
+        $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
         $return_item=new stdClass();
         $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
         $view = &$this->getView('promotion', 'html', 'VirtuemartView');
         $modal_promotion=$this->getModel('promotion');
         $view->setModel($modal_promotion,true);
         $model_product=$this->getModel('product');
-        $product=$model_product->getItem($tour_id);
+        $product=$model_product->getItem($virtuemart_product_id);
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
-        if($product->price_type!='flat_price')
+        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+        if($product->price_type!=vmGroupSize::FLAT_PRICE)
         {
-            $list_tour_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($tour_id);
-            $view->assignRef('list_tour_price_by_tour_price_id',$list_tour_price_by_tour_price_id);
-            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tour_id);
+            $list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_product_id);
+            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=$list_tour_promotion_price_by_tour_promotion_price_id;
+            $view->assignRef('list_tour_price_by_tour_promotion_price_id',$list_tour_promotion_price_by_tour_promotion_price_id);
+            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
             $view->assignRef('list_group_size_by_tour_id',$list_group_size_by_tour_id);
+            $return_item->list_group_size_by_tour_id=$list_group_size_by_tour_id;
         }else{
-            $tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tour_id);
-            $view->assignRef('tour_private_price_by_tour_price_id',$tour_private_price_by_tour_price_id);
+            $tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_product_id);
+            $return_item->tour_private_price_by_tour_promotion_price_id=$tour_private_price_by_tour_promotion_price_id;
+            $view->assignRef('tour_private_price_by_tour_promotion_price_id',$tour_private_price_by_tour_promotion_price_id);
+
+
+            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
+            $view->assignRef('list_group_size_by_tour_id',$list_group_size_by_tour_id);
+            $return_item->list_group_size_by_tour_id=$list_group_size_by_tour_id;
+
+
         }
 
         ob_start();
@@ -202,8 +213,8 @@ class VirtuemartControllerpromotion extends VmController {
             $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_promotion_price_id);
             $view->assignRef('list_tour_promotion_price_by_tour_promotion_price_id',$return_item->list_tour_promotion_price_by_tour_promotion_price_id);
         }else{
-            $return_item->tour_private_price_by_tour_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_promotion_price_id);
-            $view->assignRef('tour_private_price_by_tour_price_id',$return_item->tour_private_price_by_tour_price_id);
+            $return_item->tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_promotion_price_id);
+            $view->assignRef('tour_private_price_by_tour_promotion_price_id',$return_item->tour_private_price_by_tour_promotion_price_id);
         }
 
         //get markup

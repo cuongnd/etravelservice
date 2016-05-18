@@ -37,7 +37,6 @@ class TableProducts extends VmTable
     var $max_person = 0;
     var $min_age = 0;
     var $max_age = 0;
-    var $tour_method = '';
     var $price_type = '';
     var $virtuemart_tour_section_id = 0;
     var $shared					= 0;

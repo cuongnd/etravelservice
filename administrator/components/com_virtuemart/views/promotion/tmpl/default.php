@@ -68,8 +68,8 @@ AdminUIHelper::startAdminArea($this);
                         <th><label class="checkbox"><input type="checkbox" class="check-all">Id</label></th>
                         <th>tour name</th>
                         <th>service class</th>
-                        <th>tour type</th>
                         <th>vailid</th>
+                        <th>tour type</th>
                         <th>add</th>
                         <th>amend</th>
                         <th>price</th>
@@ -89,11 +89,12 @@ AdminUIHelper::startAdminArea($this);
                             </td>
                             <td><?php echo $promotion_price->tour_name ?></td>
                             <td class="service_class_name"><?php echo $promotion_price->service_class_name ?></td>
+
+                            <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, VmConfig::$date_format); ?>
+                                -<?php echo JHtml::_('date', $promotion_price->sale_period_to, VmConfig::$date_format); ?></td>
+                            <td><?php echo JHtml::_('date', $promotion_price->created_on, VmConfig::$date_format); ?></td>
                             <td class="tour_type_name"><?php echo $promotion_price->tour_type_name ?></td>
-                            <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, 'd M. Y'); ?>
-                                -<?php echo JHtml::_('date', $promotion_price->sale_period_to, 'd M. Y'); ?></td>
-                            <td><?php echo JHtml::_('date', $promotion_price->created_on, 'd M. Y'); ?></td>
-                            <td class="modified_on"><?php echo JHtml::_('date', $promotion_price->modified_on, 'd M. Y'); ?></td>
+                            <td class="modified_on"><?php echo JHtml::_('date', $promotion_price->modified_on, VmConfig::$date_format); ?></td>
                             <td>
                                 <a href="#price-form" class=" edit-price">
                                     <span class="icon-eye icon-white"></span>
@@ -199,6 +200,7 @@ AdminUIHelper::startAdminArea($this);
                 </div>
                 <input type="hidden" name="virtuemart_promotion_price_id" value="0">
                 <input type="hidden" id="price_type" name="price_type" value=""/>
+                <input type="hidden" id="published" name="published" value="1"/>
             </div>
 
         </div>

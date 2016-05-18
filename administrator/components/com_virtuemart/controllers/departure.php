@@ -112,6 +112,7 @@ class VirtuemartControllerDeparture extends VmController {
             $departure_model->create_children_departure($virtuemart_departure_id);
         }
         echo json_encode($item);
+        die;
 	}
 	public function ajax_remove_item()
 	{

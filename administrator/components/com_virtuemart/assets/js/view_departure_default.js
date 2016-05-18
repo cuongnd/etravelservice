@@ -64,6 +64,12 @@
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            $element.find('span.price').autoNumeric('init',{
+                mDec:0,
+                aSep:' ',
+                aSign:'US$'
+            });
+
             var list_date = plugin.settings.list_date;
             $.validator.addMethod('selectcheck', function (value) {
                 return (value != '0');
@@ -342,6 +348,9 @@
 
             $dialog_departure_edit_form.find('#virtuemart_product_id').change(function () {
                 var virtuemart_product_id = $(this).val();
+                if(virtuemart_product_id==0){
+                    return;
+                }
                 $.ajax({
                     type: "GET",
                     url: 'index.php',

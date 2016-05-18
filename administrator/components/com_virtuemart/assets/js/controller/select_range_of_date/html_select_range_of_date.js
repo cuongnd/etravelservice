@@ -29,10 +29,13 @@
         plugin.set_date=function(start, end){
             start=moment(start);
             end=moment(end);
+            var from_name = plugin.settings.from_name;
+            var to_name = plugin.settings.to_name;
             var format=plugin.settings.format;
-            var input_from = $element.find('input[name="' + start + '"]');
-            var input_to = $element.find('input[name="' + end + '"]');
+            var input_from = $element.find('input[name="' + from_name + '"]');
+            var input_to = $element.find('input[name="' + to_name + '"]');
             input_from.val(start.format(format));
+
             input_to.val(end.format(format));
             var display_format=plugin.settings.display_format;
             $element.find('.range_of_date').val(start.format(display_format)+'-'+end.format(display_format));

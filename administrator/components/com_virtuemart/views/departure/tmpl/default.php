@@ -49,6 +49,7 @@ $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/dialog.c
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepicker.css');
 
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
 
 $doc->addScript(JUri::root() . '/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/view_departure_default.js');
@@ -105,9 +106,6 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Service class'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('currency_name', 'Departure date'); ?>
-                        </th>
-                        <th>
                             <?php echo $this->sort('currency_name', 'Min-max'); ?>
                         </th>
                         <th>
@@ -117,10 +115,7 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Tour price'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('departure_date', 'departure date'); ?>
-                        </th>
-                        <th>
-                            <?php echo $this->sort('currency_name', 'departure '); ?>
+                            <?php echo $this->sort('departure_date', 'Departure date'); ?>
                         </th>
                         <th>
                             <?php echo $this->sort('currency_name', 'Sale period'); ?>
@@ -166,29 +161,29 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->service_class_name ?>
                             </td>
                             <td>
-                                <span class="icon-eye"></span>
-                            </td>
-                            <td>
                                 <?php echo $row->min_space ?>-<?php echo $row->max_space ?>
                             </td>
                             <td>
                                 <span class="icon-eye"></span>
                             </td>
                             <td>
-                                <?php echo $row->adult_price ?>
-                            </td>
-                            <td>
-                                <?php echo $row->adult_departure_price ?>
+                                B(<span class="price"
+                                      data-a-sign="US$"><?php echo $row->sale_price_adult ?></span>)
+                                <?php if($row->promotion_price_adult){ ?>
+                                P(<span class="price"
+                                      data-a-sign="US$"><?php echo $row->sale_promotion_price_adult ?></span>)
+                                <?php } ?>
+
                             </td>
                             <td>
                                 <?php echo JHtml::_('date', $row->departure_date, VmConfig::$date_format); ?></span>
                             </td>
                             <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, VmConfig::$date_format); ?>
-                                -<?php echo JHtml::_('date', $row->sale_period_to, VmConfig::$date_format); ?></td>
+                                -<?php echo JHtml::_('date', $row->sale_period_to, VmConfig::$date_format); ?>
                             <td>
 
                             <td>
-                                <?php echo JHtml::_('date', $row->departure_date, VmConfig::$date_format); ?></span>
+                                <?php echo $row->asign_name ?></span>
                             </td>
                             <td><a href="javascript:void(0)" class="edit-departure">
                                     <span class="icon-edit icon-white"></span>

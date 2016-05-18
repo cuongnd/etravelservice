@@ -10,7 +10,7 @@ $doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_produc
 $app = JFactory::getApplication();
 $input = $app->input;
 $virtuemart_product_id = $input->getInt('virtuemart_product_id', 0);
-require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
 $js_content = '';
 ob_start();
 ?>
@@ -46,8 +46,9 @@ $doc->addScriptDeclaration($js_content);
             <!-- Overview -->
             <div class="content content-overview">
                 <form
-                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
-                    id="tour_price"  name="tour_price">
+                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>"
+                    method="post"
+                    id="tour_price" name="tour_price">
                     <div class="row-fluid header-content">
                         <div class="span10 product-name">
                             <h2><?php echo $this->product->product_name ?></h2>
@@ -67,10 +68,10 @@ $doc->addScriptDeclaration($js_content);
                                 <legend
                                     class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
                                 <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50,$this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
-                                <?php if($this->product->price_type!=vmGroupSize::FLAT_PRICE) {
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50, $this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
+                                <?php if ($this->product->price_type != vmGroupSize::FLAT_PRICE) {
                                     echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'), '', '', '', '', ' required ');
-                                }else{
+                                } else {
                                     echo VmHTML::select_month('filter_month', $this->state->get('filter.month'), '', '', '', '', ' required ');
                                 }
                                 ?>
@@ -89,7 +90,8 @@ $doc->addScriptDeclaration($js_content);
                     <input name="task" value="" type="hidden">
                 </form>
                 <form
-                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
+                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>"
+                    method="post"
                     id="tour_price" name="tour_price">
 
                     <div class="table table-trip">
@@ -130,40 +132,45 @@ $doc->addScriptDeclaration($js_content);
                                 <?php for ($i = 0; $i < count($this->list_trip); $i++) { ?>
                                     <?php
                                     $trip = $this->list_trip[$i];
-                                    $list_destination=$trip->list_destination;
-                                    $filter_start_date=$this->state->get('filter.start_date');
-                                    $start_date=JFactory::getDate($filter_start_date);
-                                    $total_day=$trip->total_day-1;
+                                    $list_destination = $trip->list_destination;
+                                    $filter_start_date = $this->state->get('filter.start_date');
+                                    $start_date = JFactory::getDate($filter_start_date);
+                                    $total_day = $trip->total_day - 1;
 
-                                    $total_day=$total_day?$total_day:0;
+                                    $total_day = $total_day ? $total_day : 0;
 
                                     ?>
-                                    <div data-virtuemart_price_id="<?php echo $trip->virtuemart_price_id ?>" class="row-fluid item">
+                                    <div data-virtuemart_price_id="<?php echo $trip->virtuemart_price_id ?>"
+                                         class="row-fluid item">
 
                                         <div class="span12">
                                             <div class="row-fluid header-item">
-                                                <div class="span1 person" >
+                                                <div class="span1 person">
                                                     <span title="" class="travel-icon">n</span>
                                                 </div>
                                                 <div class="span3">
-                                                    <?php echo JHtml::_('date',$trip->departure_date) ?>
+                                                    <?php echo JHtml::_('date', $trip->departure_date) ?>
                                                 </div>
                                                 <div class="span2 service-class ">
                                                     <?php echo $trip->service_class_name ?>
                                                 </div>
                                                 <div class="span2 price ">
                                                     <span class="price"
-                                                          data-a-sign="US$"><?php echo $trip->price_adult ?></span>
+                                                          data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_price_adult) ?></span>
+                                                    <span class="price"
+                                                          data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
                                                 </div>
                                                 <div class="span4 service-class-price hide">
-                                                    <?php echo $trip->service_class_name ?> <?php echo JText::_('class price') ?>
+                                                    <?php echo $trip->service_class_name ?><?php echo JText::_('class price') ?>
                                                 </div>
                                                 <div class="span2">
                                                     <?php echo JText::_('Available/Request') ?>
                                                 </div>
                                                 <div class="span2">
-                                                    <a href="javascript:void(0)" class="btn-collapse <?php echo $this->state->get('filter.start_date')?'':' required-select-date ' ?>" data-toggle="collapse"
-                                                        data-target="#trip-<?php echo $i ?>"><span
+                                                    <a href="javascript:void(0)"
+                                                       class="btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>"
+                                                       data-toggle="collapse"
+                                                       data-target="#trip-<?php echo $i ?>"><span
                                                             title=""
                                                             class="icon-chevron-down  hasTooltip"
                                                             data-original-title="Detail"></span></a>
@@ -172,44 +179,59 @@ $doc->addScriptDeclaration($js_content);
                                             <div id="trip-<?php echo $i ?>" class="row-fluid body-item collapse">
                                                 <?php
 
-                                                $list_destination=explode(';',$list_destination);
-                                                $des_start=reset($list_destination);
-                                                $des_finish=end($list_destination);
+                                                $list_destination = explode(';', $list_destination);
+                                                $des_start = reset($list_destination);
+                                                $des_finish = end($list_destination);
                                                 ?>
                                                 <div class="span2 start">
-                                                    <div><span class="text-start"><?php echo JText::_('Start') ?></span></div>
-                                                    <div><?php echo JHtml::_('date',$this->state->get('filter.start_date')) ?></div>
+                                                    <div><span class="text-start"><?php echo JText::_('Start') ?></span>
+                                                    </div>
+                                                    <div><?php echo JHtml::_('date', $this->state->get('filter.start_date')) ?></div>
                                                     <div><?php echo $des_start ?></div>
                                                 </div>
                                                 <div class="span2 finish">
-                                                    <div><span class="text-finish"><?php echo JText::_('Finish') ?></span></div>
+                                                    <div><span
+                                                            class="text-finish"><?php echo JText::_('Finish') ?></span>
+                                                    </div>
                                                     <?php
 
                                                     $start_date->modify("+$total_day day");
 
                                                     ?>
-                                                    <div><?php echo JHtml::_('date',$start_date) ?></div>
+                                                    <div><?php echo JHtml::_('date', $start_date) ?></div>
                                                     <div><?php echo $des_finish ?></div>
                                                 </div>
                                                 <div class="span2">
                                                     <ul class="list">
                                                         <li><?php echo JText::_('Senior') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo $trip->price_senior ?></span>
+                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_senior); ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_senior) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Adult') ?>:<span class="price"
-                                                                                                  data-a-sign="US$"><?php echo $trip->price_adult ?></span>
+                                                                                                  data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_adult) ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Teener') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo $trip->price_teen ?></span>
+                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_teen) ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_teen) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Child 6-11') ?>:<span class="price"
-                                                                                                       data-a-sign="US$"><?php echo $trip->price_children1 ?></span>
+                                                                                                       data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_children1) ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_children1) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Child 2-5') ?>:<span class="price"
-                                                                                                      data-a-sign="US$"><?php echo $trip->price_children2 ?></span>
+                                                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_children2) ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_children2) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Infant') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo $trip->price_infant ?></span>
+                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_infant) ?></span>
+                                                                <span class="price"
+                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_infant) ?></span>
                                                         </li>
                                                     </ul>
 
@@ -220,12 +242,13 @@ $doc->addScriptDeclaration($js_content);
                                                             <?php echo JText::_('total price per person based on passenger age and tour date') ?>
                                                         </div>
                                                         <div class="span6 text-right" style="text-align: center">
-                                                            <?php echo JText::sprintf('Select private room+US$ %s/person','<span class="price" data-a-sign="US$">'.$trip->price_extra_bed.'</span>') ?>
+                                                            <?php echo JText::sprintf('Select private room+US$ %s/person', '<span class="price" data-a-sign="US$">' . VmConfig::render_price($trip->price_extra_bed) . '</span><span class="price" data-a-sign="US$">' . VmConfig::render_price($trip->sale_promotion_price_extra_bed) . '</span>') ?>
                                                         </div>
                                                     </div>
                                                     <div class="row-fluid area-button">
                                                         <div class="span12" style="text-align: center">
-                                                            <button class="btn btn-primary book-now" type="submit"  ><?php echo JText::_('Available || Book now') ?></button>
+                                                            <button class="btn btn-primary book-now"
+                                                                    type="submit"><?php echo JText::_('Available || Book now') ?></button>
                                                         </div>
                                                     </div>
                                                 </div>

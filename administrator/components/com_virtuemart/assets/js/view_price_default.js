@@ -27,6 +27,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        var $price_form=$('#price-form');
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -56,12 +57,12 @@
 
             });
 
-            $('#price-form').find('.random-price').click(function(){
+            $price_form.find('.random-price').click(function(){
                 $('.base-price .inputbox.number').each(function(){
                     $(this).val(Math.floor(Math.random() * 600) + 1).trigger('change');
                 });
             });
-            $('#price-form').find('.random-markup').click(function(){
+            $price_form.find('.random-markup').click(function(){
                 var type=['amount','percent'];
                 var random_type=Math.floor(Math.random() * (1 - 0 + 1)) + 0;
                 $('.mark-up-price  .inputbox.number').val('');
@@ -159,6 +160,7 @@
             });
             var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
             range_of_date.selected_start_date=function(ev, startDate){
+                return;
                 var item_start_date=new Date(startDate);
                 var virtuemart_service_class_id=$('select[name="virtuemart_service_class_id"]').val();
                 var virtuemart_price_id=plugin.settings.virtuemart_price_id;
@@ -167,6 +169,7 @@
                 {
                     return;
                 }
+                console.log(list_price);
                 var min_sale_period_from=new Date();
                 $.each(list_price,function(index,item){
                     if(item.virtuemart_price_id!=virtuemart_price_id && item.virtuemart_service_class_id==virtuemart_service_class_id)
@@ -734,7 +737,7 @@
                 $row.find('td input[column-type="children2"]').val(list_tour_price_by_tour_price_id.price_children2);
                 $row.find('td input[column-type="infant"]').val(list_tour_price_by_tour_price_id.price_infant);
                 $row.find('td input[column-type="private_room"]').val(list_tour_price_by_tour_price_id.price_private_room);
-                $row.find('td input[column-type="price_extra_bed"]').val(list_tour_price_by_tour_price_id.price_extra_bed);
+                $row.find('td input[column-type="extra_bed"]').val(list_tour_price_by_tour_price_id.price_extra_bed);
 
             }
 
@@ -755,6 +758,18 @@
                     $row.find('td input[column-type="extra_bed"]').val(item.extra_bed);
 
                 });
+            }
+            var price=result.price;
+            var full_charge_children1=price.full_charge_children1;
+            if(full_charge_children1==1)
+            {
+                $price_form.find('input[name="full_charge_children1"]').prop('checked',true);
+            }
+
+            var full_charge_children2=price.full_charge_children2;
+            if(full_charge_children2==1)
+            {
+                $price_form.find('input[name="full_charge_children2"]').prop('checked',true);
             }
 
 

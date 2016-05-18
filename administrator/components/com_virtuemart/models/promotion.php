@@ -55,7 +55,7 @@ class VirtueMartModelpromotion extends VmModel
         $query=$db->getQuery(true);
         $query->select('tour_class.*')
             ->from('#__virtuemart_service_class AS tour_class')
-            ->where('tour_class.virtuemart_service_class_id='.(int)$item->service_class_id)
+            ->where('tour_class.virtuemart_service_class_id='.(int)$item->virtuemart_service_class_id)
             ;
         $item->service_class=$db->setQuery($query)->loadObject();
         return $item;
@@ -196,19 +196,32 @@ class VirtueMartModelpromotion extends VmModel
             $product = $model_product->getItem($virtuemart_product_id);
             require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
             if ($virtuemart_promotion_price_id && $product->price_type != vmGroupSize::FLAT_PRICE) {
+
                 $tour_promotion_price_by_tour_promotion_price_id = $data['tour_promotion_price_by_tour_promotion_price_id'];
                 $this->save_promotion_price_group_size_by_promotion_price_id($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);
-            } else {
-                $tour_promotion_price_by_tour_promotion_price_id = $data['tour_price_by_tour_promotion_price_id'];
-                $this->save_promotion_price_group_size_by_promotion_price_id_tour_private($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);
-            }
-            $amount = $data['amount']->markup_promotion_price;
-            $percent = $data['percent']->markup_promotion_price;
-            $this->save_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
+                $amount = $data['amount']->markup_promotion_price;
+                $percent = $data['percent']->markup_promotion_price;
+                $this->save_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
 
-            $amount = $data['amount']->net_markup_promotion_price;
-            $percent = $data['percent']->net_markup_promotion_price;
-            $this->save_net_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
+                $amount = $data['amount']->net_markup_promotion_price;
+                $percent = $data['percent']->net_markup_promotion_price;
+                $this->save_net_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
+
+            } else {
+                $tour_promotion_price_by_tour_promotion_price_id = $data['tour_promotion_price_by_tour_promotion_price_id'];
+
+                $this->save_promotion_price_group_size_by_promotion_price_id_tour_private($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);
+
+                $amount = $data['amount']->mark_up;
+                $percent = $data['percent']->promotion;
+                $this->save_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
+
+                $amount = $data['amount']->mark_up;
+                $percent = $data['percent']->promotion;
+                $this->save_net_markup_promotion_price($amount, $percent, $virtuemart_promotion_price_id);
+
+            }
+
         }
         return $virtuemart_promotion_price_id;
     }
@@ -253,8 +266,7 @@ class VirtueMartModelpromotion extends VmModel
         {
             throw new Exception(500, $db->getErrorMsg());
         }
-
-        if (count($amount)) {
+        if (count($amount)&&($amount->senior>0||$amount->adult>0||$amount->teen>0||$amount->children1>0||$amount->children2>0||$amount->infant>0||$amount->private_room>0||$amount->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
@@ -269,7 +281,8 @@ class VirtueMartModelpromotion extends VmModel
                 throw new Exception(500, $db->getErrorMsg());
             }
         }
-        if (count($percent)) {
+
+        if (count($percent)&&($percent->senior>0||$percent->adult>0||$percent->teen>0||$percent->children1>0||$percent->children2>0||$percent->infant>0||$percent->private_room>0||$percent->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
@@ -297,7 +310,7 @@ class VirtueMartModelpromotion extends VmModel
             throw new Exception(500, $db->getErrorMsg());
         }
 
-        if (count($amount)) {
+        if (count($amount)&&($amount->senior>0||$amount->adult>0||$amount->teen>0||$amount->children1>0||$amount->children2>0||$amount->infant>0||$amount->private_room>0||$amount->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
@@ -313,7 +326,7 @@ class VirtueMartModelpromotion extends VmModel
             }
 
         }
-        if (count($percent)) {
+        if (count($percent)&&($percent->senior>0||$percent->adult>0||$percent->teen>0||$percent->children1>0||$percent->children2>0||$percent->infant>0||$percent->private_room>0||$percent->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
                 ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
@@ -330,32 +343,35 @@ class VirtueMartModelpromotion extends VmModel
         }
     }
 
-    public function save_promotion_price_group_size_by_promotion_price_id_tour_private($data, $virtuemart_price_id)
+    public function save_promotion_price_group_size_by_promotion_price_id_tour_private($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_group_size_id_tour_promotion_price_id')
-            ->where('virtuemart_promotion_price_id=' . (int)$virtuemart_price_id);
+            ->where('virtuemart_promotion_price_id=' . (int)$virtuemart_promotion_price_id);
+        if(!$db->setQuery($query)->execute())
+        {
+            throw new Exception(500, $db->getErrorMsg());
+        }
 
-        $db->setQuery($query)->execute();
-        $price_senior=(float)$data->price_senior;
-        $price_adult=(float)$data->price_adult;
-        $price_infant=(float)$data->price_infant;
-        $price_teen=(float)$data->price_teen;
-        $price_children1=(float)$data->price_children1;
-        $price_children2=(float)$data->price_children2;
-        $price_private_room=(float)$data->price_private_room;
-        $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id')
-            ->set("virtuemart_promotion_price_id=$virtuemart_price_id")
-                ->set("price_senior=$price_senior")
-                ->set("price_adult=$price_adult")
-                ->set("price_teen=$price_teen")
-                ->set("price_infant=$price_infant")
-                ->set("price_children1=$price_children1")
-                ->set("price_children2=$price_children2")
-                ->set("price_private_room=$price_private_room")
-                ->set("virtuemart_group_size_id=0");
-            $db->setQuery($query)->execute();
+
+        if (count($tour_promotion_price_by_tour_promotion_price_id)) {
+            foreach ($tour_promotion_price_by_tour_promotion_price_id as  $item) {
+                $group_size_id=$item->virtuemart_group_size_id;
+                unset($item->virtuemart_group_size_id);
+                $query = $db->getQuery(true);
+                $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id');
+                foreach ($item as $key => $value) {
+                    $query->set("$key=".(int)$value);
+                }
+                $query->set("virtuemart_promotion_price_id=$virtuemart_promotion_price_id")
+                    ->set("virtuemart_group_size_id=$group_size_id");
+                if(!$db->setQuery($query)->execute())
+                {
+                    throw new Exception(500, $db->getErrorMsg());
+                }
+            }
+        }
     }
 
 

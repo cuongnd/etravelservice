@@ -32,8 +32,6 @@ class Tablepromotion extends VmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_promotion_price_id				= 0;
-	var $discount_for_elder				= 0;
-	var $discount_for_teen				= 0;
 	var $price_note				= 0;
 	var $sale_period_from				= null;
 	var $virtuemart_product_id				= null;
@@ -42,7 +40,6 @@ class Tablepromotion extends VmTableData {
 	var $title				= '';
 	var $tax				= 0;
 	var $virtuemart_service_class_id				= 0;
-	var $private_room_supplement				= 0;
 	var $shared					= 0;
 	var $published				= 0;
 
@@ -64,6 +61,7 @@ class Tablepromotion extends VmTableData {
     {
         $virtuemart_product_id=$data['virtuemart_product_id'];
         $virtuemart_service_class_id=$data['virtuemart_service_class_id'];
+        $virtuemart_promotion_price_id=$data['virtuemart_promotion_price_id'];
         $sale_period_from=JFactory::getDate($data['sale_period_from']);
         $sale_period_to=JFactory::getDate($data['sale_period_to']);
         $db=JFactory::getDbo();
@@ -72,6 +70,7 @@ class Tablepromotion extends VmTableData {
             ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
             ->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
             ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_promotion_price_id<>'.(int)$virtuemart_promotion_price_id)
             ->where(
                 '((sale_period_from<='.$query->q($sale_period_from->toSql()).' AND sale_period_to>= '.$query->q($sale_period_from->toSql()).') OR (sale_period_from<='.$query->q($sale_period_to->toSql()).' AND sale_period_to>= '.$query->q($sale_period_to->toSql()).'))'
 

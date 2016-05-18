@@ -44,6 +44,11 @@
                 alert('please select tour class');
                 return false;
             }
+            var virtuemart_price_id = $('select[name="virtuemart_price_id"]').val();
+            if (virtuemart_price_id <= 0) {
+                alert('please select range of date');
+                return false;
+            }
 
             var sale_period_from = $('input[name="sale_period_from"]').val();
             if (sale_period_from.trim() == '') {
@@ -289,7 +294,7 @@
                 if (confirm('Are you sure you want publish this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var price_id = $row.data('price_id');
+                    var virtuemart_promotion_price_id = $row.data('virtuemart_promotion_price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -299,9 +304,7 @@
                                 option: 'com_virtuemart',
                                 controller: 'promotion',
                                 task: 'ajax_publish',
-                                price_id: price_id,
-                                tour_id: tour_id,
-                                price_type: price_type,
+                                price_id: virtuemart_promotion_price_id
                             };
                             return dataPost;
                         })(),
@@ -562,6 +565,9 @@
                     return;
                 }
                 var virtuemart_product_id = $promotion_price_form.find('select[name="virtuemart_product_id"]').val();
+                if (virtuemart_product_id == 0) {
+                    return;
+                }
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -631,7 +637,7 @@
 
             });
             $("#price-form").find('#virtuemart_product_id').change(function () {
-                var tour_id = $(this).val();
+                var virtuemart_product_id = $(this).val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -642,7 +648,7 @@
                             option: 'com_virtuemart',
                             controller: 'promotion',
                             task: 'ajax_get_change_tour',
-                            tour_id: tour_id
+                            virtuemart_product_id: virtuemart_product_id
 
                         };
                         return dataPost;
@@ -808,24 +814,28 @@
             var date_format = plugin.settings.date_format;
             var list_tour_promotion_price_by_tour_promotion_price_id = result.list_tour_promotion_price_by_tour_promotion_price_id;
             if (typeof list_tour_promotion_price_by_tour_promotion_price_id == "undefined") {
-                list_tour_promotion_price_by_tour_promotion_price_id = result.tour_private_price_by_tour_price_id;
+                list_tour_promotion_price_by_tour_promotion_price_id = result.tour_private_price_by_tour_promotion_price_id;
 
             }
-            $element.find('input[name="tax"]').val(result.promotion_price.tax);
-            $element.find('input[name="price_type"]').val(result.tour.price_type);
-            $element.find('input[name="virtuemart_promotion_price_id"]').val(result.promotion_price.virtuemart_promotion_price_id);
-            $element.find('textarea[name="price_note"]').val(result.promotion_price.price_note.trim());
-            $element.find('#sale_period_from').val(result.promotion_price.sale_period_from);
-            var sale_period_from = $.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_from))
-            $element.find('#sale_period_from_text').val(sale_period_from);
-
-            $element.find('#sale_period_to').val(result.promotion_price.sale_period_to);
-            var sale_period_to = $.datepicker.formatDate(date_format, new Date(result.promotion_price.sale_period_to))
-            $element.find('#sale_period_to_text').val(sale_period_to);
+            $promotion_price_form.find('input[name="tax"]').val(result.promotion_price.tax);
+            $promotion_price_form.find('input[name="price_type"]').val(result.tour.price_type);
+            $promotion_price_form.find('input[name="virtuemart_promotion_price_id"]').val(result.promotion_price.virtuemart_promotion_price_id);
+            $promotion_price_form.find('textarea[name="price_note"]').val(result.promotion_price.price_note.trim());
 
 
-            $element.find('select[name="service_class_id"]').val(result.promotion_price.virtuemart_service_class_id);
-            $element.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
+            var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
+
+            if(typeof range_of_date!="undefined") {
+
+                range_of_date.set_date(result.promotion_price.sale_period_from,result.promotion_price.sale_period_to);
+            }
+
+
+
+
+
+            $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.virtuemart_service_class_id);
+            $promotion_price_form.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
             price_type = result.tour.price_type;
             if (price_type == 'tour_group') {
                 $element.find('#tour_group').css({
@@ -835,7 +845,7 @@
                     display: "none"
                 });
                 $.each(list_tour_promotion_price_by_tour_promotion_price_id, function (index, item) {
-                    var $row = $element.find('table.base-price tr[data-group_size_id="' + item.virtuemart_group_size_id + '"]');
+                    var $row = $promotion_price_form.find('table.base-price tr[data-group_size_id="' + item.virtuemart_group_size_id + '"]');
                     $row.find('td input[column-type="senior"]').val(item.price_senior);
                     $row.find('td input[column-type="adult"]').val(item.price_adult);
                     $row.find('td input[column-type="teen"]').val(item.price_teen);
@@ -848,10 +858,10 @@
                 });
 
             } else if (typeof list_tour_promotion_price_by_tour_promotion_price_id != "undefined") {
-                $element.find('#tour_group').css({
+                $promotion_price_form.find('#tour_group').css({
                     display: "none"
                 });
-                $element.find('#tour_basic').css({
+                $promotion_price_form.find('#tour_basic').css({
                     display: "block"
                 });
                 console.log(list_tour_promotion_price_by_tour_promotion_price_id);
@@ -863,6 +873,7 @@
                 $row.find('td input[column-type="children2"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_children2);
                 $row.find('td input[column-type="infant"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_infant);
                 $row.find('td input[column-type="private_room"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_private_room);
+                $row.find('td input[column-type="extra_bed"]').val(list_tour_promotion_price_by_tour_promotion_price_id.price_extra_bed);
             }
 
 
@@ -876,6 +887,7 @@
                 $row.find('td input[column-type="children2"]').val(item.children2);
                 $row.find('td input[column-type="infant"]').val(item.infant);
                 $row.find('td input[column-type="private_room"]').val(item.private_room);
+                $row.find('td input[column-type="extra_bed"]').val(item.extra_bed);
 
             });
 

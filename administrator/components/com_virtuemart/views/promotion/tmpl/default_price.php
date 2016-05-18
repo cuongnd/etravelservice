@@ -27,15 +27,15 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
             <?php for ($i=0;$i<$total_group_size;$i++) { ?>
                 <?php
                 $group_size=$this->list_group_size_by_tour_id[$i];
-                $tour_price_by_tour_price_id = $this->list_tour_promotion_price_by_tour_promotion_price_id[$group_size->virtuemart_group_size_id];
-                $price_senior = $tour_price_by_tour_price_id->price_senior;
-                $price_adult = $tour_price_by_tour_price_id->price_adult;
-                $price_teen = $tour_price_by_tour_price_id->price_teen;
-                $price_children1 = $tour_price_by_tour_price_id->price_children1;
-                $price_children2 = $tour_price_by_tour_price_id->price_children2;
-                $price_infant = $tour_price_by_tour_price_id->price_infant;
-                $price_private_room = $tour_price_by_tour_price_id->price_private_room;
-                $price_extra_bed = $tour_price_by_tour_price_id->extra_bed;
+                $tour_promotion_price_by_tour_promotion_price_id = $this->list_tour_promotion_price_by_tour_promotion_price_id[$group_size->virtuemart_group_size_id];
+                $price_senior = $tour_promotion_price_by_tour_promotion_price_id->price_senior;
+                $price_adult = $tour_promotion_price_by_tour_promotion_price_id->price_adult;
+                $price_teen = $tour_promotion_price_by_tour_promotion_price_id->price_teen;
+                $price_children1 = $tour_promotion_price_by_tour_promotion_price_id->price_children1;
+                $price_children2 = $tour_promotion_price_by_tour_promotion_price_id->price_children2;
+                $price_infant = $tour_promotion_price_by_tour_promotion_price_id->price_infant;
+                $price_private_room = $tour_promotion_price_by_tour_promotion_price_id->price_private_room;
+                $price_extra_bed = $tour_promotion_price_by_tour_promotion_price_id->extra_bed;
 
                 ?>
                 <tr role="row"
@@ -388,63 +388,63 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
         <?php for ($i=0;$i<$total_group;$i++) { ?>
             <?php
             $group_size=$this->list_group_size_by_tour_id[$i];
-            $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
-            $price_senior = $tour_price_by_tour_price_id->price_senior;
-            $price_adult = $tour_price_by_tour_price_id->price_adult;
-            $price_teen = $tour_price_by_tour_price_id->price_teen;
-            $price_children1 = $tour_price_by_tour_price_id->price_children1;
-            $price_children2 = $tour_price_by_tour_price_id->price_children2;
-            $price_infant = $tour_price_by_tour_price_id->price_infant;
-            $price_private_room = $tour_price_by_tour_price_id->price_private_room;
-            $extra_bed = $tour_price_by_tour_price_id->extra_bed;
+            $tour_promotion_price_by_tour_promotion_price_id = $this->tour_private_price_by_tour_promotion_price_id[$group_size->virtuemart_group_size_id];
+            $price_senior = $tour_promotion_price_by_tour_promotion_price_id->price_senior;
+            $price_adult = $tour_promotion_price_by_tour_promotion_price_id->price_adult;
+            $price_teen = $tour_promotion_price_by_tour_promotion_price_id->price_teen;
+            $price_children1 = $tour_promotion_price_by_tour_promotion_price_id->price_children1;
+            $price_children2 = $tour_promotion_price_by_tour_promotion_price_id->price_children2;
+            $price_infant = $tour_promotion_price_by_tour_promotion_price_id->price_infant;
+            $price_private_room = $tour_promotion_price_by_tour_promotion_price_id->price_private_room;
+            $price_extra_bed = $tour_promotion_price_by_tour_promotion_price_id->price_extra_bed;
             ?>
             <tr role="row"
                 data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
                 <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                 <td>
-                    <input type="hidden" name="tour_price_by_tour_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
+                    <input type="hidden" name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
                     <input required="true"
                            group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="senior" type="text" size="7"
                            value="<?php echo $price_senior ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_senior]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_senior]"
                            required="true" class="inputbox number price_senior"></td>
                 <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="adult" type="text" size="7"
                            value="<?php echo $price_adult ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_adult]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_adult]"
                            required="true" class="inputbox number price_adult"></td>
                 <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="teen" type="text" size="7"
                            value="<?php echo $price_teen ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_teen]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_teen]"
                            required="true" class="inputbox number price_teen"></td>
                 <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="children1" type="text" size="7"
                            value="<?php echo $price_children1 ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_children1]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_children1]"
                            required="true" class="inputbox number price_children1"></td>
                 <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="children2" type="text" size="7"
                            value="<?php echo $price_children2 ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_children2]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_children2]"
                            required="true" class="inputbox number price_children2"></td>
                 <td><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                            column-type="infant" type="text" size="7"
                            value="<?php echo $price_infant ?>"
-                           name="tour_price_by_tour_price_id[<?php echo $i ?>][price_infant]"
+                           name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_infant]"
                            required="true" class="inputbox number price_infant"></td>
                 <?php if($i==0){ ?>
                     <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle" ><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                                                                     column-type="private_room" type="text" size="7"
                                                                                                     value="<?php echo $price_private_room ?>"
-                                                                                                    name="tour_price_by_tour_price_id[<?php echo $i ?>][price_private_room]"
+                                                                                                    name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_private_room]"
                                                                                                     required="true" class="inputbox number price_private_room"></td>
                     <td rowspan="<?php echo $total_group ?>" style="vertical-align: middle"><input group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                                                                    column-type="extra_bed" type="text" size="7"
-                                                                                                   value="<?php echo $extra_bed ?>"
-                                                                                                   name="tour_price_by_tour_price_id[<?php echo $i ?>][extra_bed]"
-                                                                                                   required="true" class="inputbox number extra_bed"></td>
+                                                                                                   value="<?php echo $price_extra_bed ?>"
+                                                                                                   name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][price_extra_bed]"
+                                                                                                   required="true" class="inputbox number price_extra_bed"></td>
                 <?php } ?>
 
             </tr>
@@ -473,70 +473,70 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
         <tr class="amount">
             <td>Amout</td>
             <td style="text-align: center"><input name="amount[promotion][senior]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->senior ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][adult]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->adult ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][teen]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->teen ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][children1]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->children1 ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][children2]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->children2 ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][infant]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->infant ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][private_room]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->private_room ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
             <td style="text-align: center"><input name="amount[promotion][extra_bed]"
-                                                  value="<?php echo $this->list_promotion_price_markup['amount']->extra_bed ?>"
+                                                  value="<?php echo $this->list_promotion['amount']->extra_bed ?>"
                                                   class="inputbox number" column-type="extra_bed"
                                                   type="text"></td>
         </tr>
         <tr class="percent">
             <td>percent</td>
             <td style="text-align: center"><input name="percent[promotion][senior]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->senior ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][adult]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->adult ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][teen]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->teen ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][children1]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->children1 ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][children2]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->children2 ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][infant]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->infant ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][private_room]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->private_room ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
             <td style="text-align: center"><input name="percent[promotion][extra_bed]"
-                                                  value="<?php echo $this->list_promotion_price_markup['percent']->extra_bed ?>"
+                                                  value="<?php echo $this->list_promotion['percent']->extra_bed ?>"
                                                   class="inputbox number" column-type="extra_bed"
                                                   type="text"></td>
         </tr>
@@ -556,71 +556,71 @@ require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgrou
         </tr>
         <tr class="amount">
             <td>Amout</td>
-            <td style="text-align: center"><input name="amount[senior]"
-                                                  value="<?php echo $this->list_mark_up['amount']->senior ?>"
+            <td style="text-align: center"><input name="amount[mark_up][senior]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[adult]"
-                                                  value="<?php echo $this->list_mark_up['amount']->adult ?>"
+            <td style="text-align: center"><input name="amount[mark_up][adult]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[teen]"
-                                                  value="<?php echo $this->list_mark_up['amount']->teen ?>"
+            <td style="text-align: center"><input name="amount[mark_up][teen]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[children1]"
-                                                  value="<?php echo $this->list_mark_up['amount']->children1 ?>"
+            <td style="text-align: center"><input name="amount[mark_up][children1]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[children2]"
-                                                  value="<?php echo $this->list_mark_up['amount']->children2 ?>"
+            <td style="text-align: center"><input name="amount[mark_up][children2]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[infant]"
-                                                  value="<?php echo $this->list_mark_up['amount']->infant ?>"
+            <td style="text-align: center"><input name="amount[mark_up][infant]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[private_room]"
-                                                  value="<?php echo $this->list_mark_up['amount']->private_room ?>"
+            <td style="text-align: center"><input name="amount[mark_up][private_room]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="amount[extra_bed]"
-                                                  value="<?php echo $this->list_mark_up['amount']->extra_bed ?>"
+            <td style="text-align: center"><input name="amount[mark_up][extra_bed]"
+                                                  value="<?php echo $this->list_promotion_mark_up['amount']->extra_bed ?>"
                                                   class="inputbox number" column-type="extra_bed"
                                                   type="text"></td>
         </tr>
         <tr class="percent">
             <td>percent</td>
-            <td style="text-align: center"><input name="percent[senior]"
-                                                  value="<?php echo $this->list_mark_up['percent']->senior ?>"
+            <td style="text-align: center"><input name="percent[mark_up][senior]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->senior ?>"
                                                   class="inputbox number" column-type="senior"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[adult]"
-                                                  value="<?php echo $this->list_mark_up['percent']->adult ?>"
+            <td style="text-align: center"><input name="percent[mark_up][adult]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->adult ?>"
                                                   class="inputbox number" column-type="adult"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[teen]"
-                                                  value="<?php echo $this->list_mark_up['percent']->teen ?>"
+            <td style="text-align: center"><input name="percent[mark_up][teen]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->teen ?>"
                                                   class="inputbox number" column-type="teen"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[children1]"
-                                                  value="<?php echo $this->list_mark_up['percent']->children1 ?>"
+            <td style="text-align: center"><input name="percent[mark_up][children1]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->children1 ?>"
                                                   class="inputbox number" column-type="children1"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[children2]"
-                                                  value="<?php echo $this->list_mark_up['percent']->children2 ?>"
+            <td style="text-align: center"><input name="percent[mark_up][children2]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->children2 ?>"
                                                   class="inputbox number" column-type="children2"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[infant]"
-                                                  value="<?php echo $this->list_mark_up['percent']->infant ?>"
+            <td style="text-align: center"><input name="percent[mark_up][infant]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->infant ?>"
                                                   class="inputbox number" column-type="infant"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[private_room]"
-                                                  value="<?php echo $this->list_mark_up['percent']->private_room ?>"
+            <td style="text-align: center"><input name="percent[mark_up][private_room]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->private_room ?>"
                                                   class="inputbox number" column-type="private_room"
                                                   type="text"></td>
-            <td style="text-align: center"><input name="percent[extra_bed]"
-                                                  value="<?php echo $this->list_mark_up['percent']->extra_bed ?>"
+            <td style="text-align: center"><input name="percent[mark_up][extra_bed]"
+                                                  value="<?php echo $this->list_promotion_mark_up['percent']->extra_bed ?>"
                                                   class="inputbox number" column-type="extra_bed"
                                                   type="text"></td>
         </tr>
