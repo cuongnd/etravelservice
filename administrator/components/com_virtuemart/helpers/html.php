@@ -353,11 +353,12 @@ class VmHtml
         }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
-    public static function select_state($name,  $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function select_state($name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
-        $options=array();
-        $options[]= array($key => "1", $text => vmText::_('active'));
-        $options[]= array($key => "0", $text => vmText::_('unactive'));
+        $options = array();
+        $options[] = array($key => "1", $text => vmText::_('active'));
+        $options[] = array($key => "0", $text => vmText::_('unactive'));
         if ($zero == true) {
             $option = array($key => "", $text => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
@@ -405,31 +406,30 @@ class VmHtml
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
-    public static function location_city($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function location_city($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.less');
         $input = JFactory::getApplication()->input;
-        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
-        $cities=vmcities::get_cities();
-        $option=array('id'=>'','text'=>'Please select location');
-        foreach($cities as &$city)
-        {
-            $city->id=$city->virtuemart_cityarea_id;
-            $city->text=$city->city_area_name;
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
+        $cities = vmcities::get_cities();
+        $option = array('id' => '', 'text' => 'Please select location');
+        foreach ($cities as &$city) {
+            $city->id = $city->virtuemart_cityarea_id;
+            $city->text = $city->city_area_name;
         }
-        array_unshift($cities,$option);
+        array_unshift($cities, $option);
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_location_city({
                     cities:<?php echo json_encode($cities) ?>,
-                    vituemart_cityarea_id:<?php echo $default?$default:0 ?>
+                    vituemart_cityarea_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -448,36 +448,37 @@ class VmHtml
             $attrib .= '  disable_chosen="true"';
 
         }
-        $html= VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
+        $html = VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
         ob_start();
         ?>
         <div class="html_select_select_location_city">
             <?php echo $html ?>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
-    public static function select_tour_type($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function select_tour_type($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_tour_type/html_select_tour_type.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_tour_type/html_select_tour_type.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtourtype.php';
         $list_tour_type = vmtourtype::get_list_tour_type();
-        $id_element='html_select_tour_type_'.$name;
+        $id_element = 'html_select_tour_type_' . $name;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_select_tour_type({
                     list_tour_type:<?php echo json_encode($list_tour_type) ?>,
-                    select_name:"<?php echo $name ?>",
-                    virtuemart_tour_type_id:<?php echo $default?$default:0 ?>
+                    select_name: "<?php echo $name ?>",
+                    virtuemart_tour_type_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -489,41 +490,42 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>">
-            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select tour type') ?></option>
-                <?php foreach($list_tour_type as $tour_type){ ?>
-                    <option <?php echo $tour_type->virtuemart_tour_type_id==$default?' selected ':'' ?>  value="<?php echo $tour_type->virtuemart_tour_type_id ?>" data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->title ?></option>
+                <?php foreach ($list_tour_type as $tour_type) { ?>
+                    <option <?php echo $tour_type->virtuemart_tour_type_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $tour_type->virtuemart_tour_type_id ?>"
+                        data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->title ?></option>
                 <?php } ?>
             </select>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
 
-    public static function select_number_passenger($name,$text_header='', $min=0,$max=100, $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function select_number_passenger($name, $text_header = '', $min = 0, $max = 100, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
-        if(!$text_header)
-        {
-            $text_header="Passenger from 12 years old";
+        if (!$text_header) {
+            $text_header = "Passenger from 12 years old";
         }
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_number_passenger/html_select_number_passenger.less');
         $input = JFactory::getApplication()->input;
-        $list_number=range($min,$max,1);
+        $list_number = range($min, $max, 1);
 
-        $element_id="select_number_passenger_$name";
+        $element_id = "select_number_passenger_$name";
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_number_passenger({
                     list_number:<?php echo json_encode($list_number) ?>,
-                    number_selected:<?php echo $default?$default:0 ?>
+                    number_selected:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -534,33 +536,33 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $element_id ?>" class="select_number_passenger">
-            <select  disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>" <?php echo $attrib ?> >
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>" <?php echo $attrib ?> >
                 <option value=""><?php echo $text_header ?></option>
-                <?php for($i=$min;$i<$max;$i++){ ?>
+                <?php for ($i = $min; $i < $max; $i++) { ?>
                     <option value="<?php echo $i ?>"><?php echo $i ?></option>
                 <?php } ?>
             </select>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
-    public static function select_tour($name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function select_tour($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_location_city/html_select_select_location_city.less');
         $input = JFactory::getApplication()->input;
-        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcities.php';
-        $list_products=vmproduct::get_list_product();
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmcities.php';
+        $list_products = vmproduct::get_list_product();
 
-        foreach($list_products as &$tour)
-        {
-            $tour->id=$city->virtuemart_cityarea_id;
-            $tour->text=$city->city_area_name;
+        foreach ($list_products as &$tour) {
+            $tour->id = $city->virtuemart_cityarea_id;
+            $tour->text = $city->city_area_name;
         }
         ob_start();
         ?>
@@ -568,7 +570,7 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_location_city({
                     cities:<?php echo json_encode($cities) ?>,
-                    vituemart_cityarea_id:<?php echo $default?$default:0 ?>
+                    vituemart_cityarea_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -587,14 +589,14 @@ class VmHtml
             $attrib .= '  disable_chosen="true"';
 
         }
-        $html= VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
+        $html = VmHtml::genericlist(array(), $name, $attrib, 'vituemart_cityarea_id', 'city_area_name', $default, false, $tranlsate);
         ob_start();
         ?>
         <div class="html_select_select_location_city">
             <?php echo $html ?>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
 
@@ -767,7 +769,8 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
-    public static function select_date($name, $value_selected= '', $format = 'mm/dd/yy',$view_format = 'mm/dd/yy', $min_date = '', $max_date = '',$class='',$attrib='')
+
+    public static function select_date($name, $value_selected = '', $format = 'mm/dd/yy', $view_format = 'mm/dd/yy', $min_date = '', $max_date = '', $class = '', $attrib = '')
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
@@ -786,8 +789,8 @@ class VmHtml
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php echo $select_date ?>').html_select_date({
-                    format: "<?php echo $format?$format:'mm/dd/yy' ?>",
-                    view_format: "<?php echo $view_format?$view_format:'mm/dd/yy' ?>",
+                    format: "<?php echo $format ? $format : 'mm/dd/yy' ?>",
+                    view_format: "<?php echo $view_format ? $view_format : 'mm/dd/yy' ?>",
                     input_name: "<?php echo $name ?>",
                     value_selected: "<?php echo $value_selected ?>",
                     min_date: "<?php echo $min_date ?>",
@@ -803,16 +806,18 @@ class VmHtml
         ?>
         <div id="<?php echo $select_date ?>" class="select_date">
             <div class="input-append ">
-                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?> id="select_date_picker_<?php echo $name ?>" class="select_date <?php echo $class ?>"/>
+                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?>
+                       id="select_date_picker_<?php echo $name ?>" class="select_date <?php echo $class ?>"/>
                 <span class="icon-calendar add-on"></span>
             </div>
-            <input type="hidden" value="<?php echo $value_selected ?>"  class="" name="<?php echo $name ?>">
+            <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
         </div>
         <?php
         $htm = ob_get_clean();
         return $htm;
     }
-    public static function select_month($name, $value_selected= '', $format = 'MM/YYYY', $view_format = 'MM/YYYY', $min_month = 1, $max_month = 12, $class='', $attrib='')
+
+    public static function select_month($name, $value_selected = '', $format = 'MM/YYYY', $view_format = 'MM/YYYY', $min_month = 1, $max_month = 12, $class = '', $attrib = '')
     {
         JHtml::_('jquery.ui');
 
@@ -832,8 +837,8 @@ class VmHtml
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php echo $select_month ?>').html_select_month({
-                    format: "<?php echo $format?$format:'MM/YYYY' ?>",
-                    view_format: "<?php echo $view_format?$view_format:'MM/YYYY' ?>",
+                    format: "<?php echo $format ? $format : 'MM/YYYY' ?>",
+                    view_format: "<?php echo $view_format ? $view_format : 'MM/YYYY' ?>",
                     input_name: "<?php echo $name ?>",
                     value_selected: "<?php echo $value_selected ?>",
                     min_month: "<?php echo $min_month ?>",
@@ -849,10 +854,11 @@ class VmHtml
         ?>
         <div id="<?php echo $select_month ?>" class="select_month">
             <div class="input-append ">
-                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?> id="select_month_picker_<?php echo $name ?>" class="select_month <?php echo $class ?>"/>
+                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?>
+                       id="select_month_picker_<?php echo $name ?>" class="select_month <?php echo $class ?>"/>
                 <span class="icon-calendar add-on"></span>
             </div>
-            <input type="hidden" value="<?php echo $value_selected ?>"  class="" name="<?php echo $name ?>">
+            <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
         </div>
         <?php
         $htm = ob_get_clean();
@@ -1124,7 +1130,7 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('#div_<?php echo $name ?>').html_select_add_on({
                     id_field_edit_content_wrapper: 'field_edit_content_wrapper_<?php echo $name ?>',
-                    iframe_link: '<?php echo  $iframe_link ?>',
+                    iframe_link: '<?php echo $iframe_link ?>',
                     link_reload: '<?php echo base64_encode(JUri::getInstance()->toString()) ?>',
                     ui_dialog_id: 'dialog_content_<?php echo $name ?>',
                     iframe_id: 'iframe_<?php echo $name ?>',
@@ -1183,9 +1189,10 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
-    public static function list_checkbox_group_size($name,  $list_selected = array(), $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
+
+    public static function list_checkbox_group_size($name, $list_selected = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
-        $doc=JFactory::getDocument();
+        $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.less');
 
@@ -1220,8 +1227,10 @@ class VmHtml
                         <div class="span<?php echo round(12 / $column) ?>">
                             <label class="checkbox">
                                 <input
-                                    name="<?php echo $name ?>[]" data-from="<?php echo $group_size->from ?>"  data-to="<?php echo $group_size->to ?>" <?php echo in_array($group_size->virtuemart_group_size_id, $list_selected) ? 'checked' : '' ?>
-                                    value="<?php echo $group_size->virtuemart_group_size_id ?>" type="checkbox"> <?php echo $group_size->group_name ?>
+                                    name="<?php echo $name ?>[]" data-from="<?php echo $group_size->from ?>"
+                                    data-to="<?php echo $group_size->to ?>" <?php echo in_array($group_size->virtuemart_group_size_id, $list_selected) ? 'checked' : '' ?>
+                                    value="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                    type="checkbox"> <?php echo $group_size->group_name ?>
                             </label>
                         </div>
                     <?php } ?>
@@ -1280,6 +1289,7 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
+
     public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmprice.php';
@@ -1793,7 +1803,8 @@ class VmHtml
         <?php
         return ob_get_clean();
     }
-    public static function input_button($name, $value,$type="submit",$size_class="btn-large",$class_type="btn-primary",$attr=array())
+
+    public static function input_button($name, $value, $type = "submit", $size_class = "btn-large", $class_type = "btn-primary", $attr = array())
     {
 
         $doc = JFactory::getDocument();
@@ -1811,12 +1822,13 @@ class VmHtml
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
-            <button type="<?php echo $type ?>" name="<?php echo $name ?>"  class="btn <?php echo $class_type ?> <?php echo $size_class ?>"><?php echo $value ?></button>
+        <button type="<?php echo $type ?>" name="<?php echo $name ?>"
+                class="btn <?php echo $class_type ?> <?php echo $size_class ?>"><?php echo $value ?></button>
         <?php
         return ob_get_clean();
     }
 
-    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 100, $more = '',$option=array())
+    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 100, $more = '', $option = array())
     {
 
         $doc = JFactory::getDocument();
@@ -1828,7 +1840,8 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('.input_number_<?php echo $name ?>').autoNumeric('init',<?php echo json_encode($option) ?>).change(function () {
                     var value_of_this = $(this).autoNumeric('get');
-                    $('input[name="<?php echo $name ?>"]').val(value_of_this).trigger("change");;
+                    $('input[name="<?php echo $name ?>"]').val(value_of_this).trigger("change");
+                    ;
                 });
 
             });
@@ -1920,10 +1933,13 @@ class VmHtml
     {
         return '<input type="text" disabled class="text-view"    value="' . ($value) . '" />' . $more;
     }
-    public static function textarea_view($name,$value, $attr=array(), $more = '')
+
+    public static function textarea_view($name, $value, $attr = array(), $more = '')
     {
         $attr = implode(' , ', array_map(
-            function ($v, $k) { return  $k . '="' . $v.'"'; },
+            function ($v, $k) {
+                return $k . '="' . $v . '"';
+            },
             $attr,
             array_keys($attr)
         ));
@@ -1931,8 +1947,8 @@ class VmHtml
         ?>
         <textarea name="<?php echo $name ?>" readonly <?php echo $attr ?> ><?php echo $value ?></textarea>
         <?php
-        $html=ob_get_clean();
-        return $html. $more;
+        $html = ob_get_clean();
+        return $html . $more;
     }
 
     public static function text_view_from_to($from, $to, $text, $attr1, $attr1, $more = '')
@@ -2041,29 +2057,30 @@ XML;
 
         return $html;
     }
-    public static function select_service_class($list_service_class=array(),$name,  $default = '0', $attrib = "onchange='submit();'",  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function select_service_class($list_service_class = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . 'administrator/components/com_virtuemart/assets/js/controller/select_service_class/html_select_service_class.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_service_class/html_select_service_class.less');
         $input = JFactory::getApplication()->input;
-        if(empty($list_service_class)) {
+        if (empty($list_service_class)) {
             require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmserviceclass.php';
             $list_service_class = vmServiceclass::get_list_service_class();
         }
 
-        $id_element='html_select_service_class_'.$name;
+        $id_element = 'html_select_service_class_' . $name;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_select_service_class({
                     list_service_class:<?php echo json_encode($list_service_class) ?>,
-                    select_name:"<?php echo $name ?>",
-                    virtuemart_service_class_id:<?php echo $default?$default:0 ?>
+                    select_name: "<?php echo $name ?>",
+                    virtuemart_service_class_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -2075,35 +2092,37 @@ XML;
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>">
-            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select Service class') ?></option>
-                <?php foreach($list_service_class as $service_class){ ?>
-                    <option <?php echo $service_class->virtuemart_service_class_id==$default?' selected ':'' ?>  value="<?php echo $service_class->virtuemart_service_class_id ?>" ><?php echo $service_class->service_class_name ?></option>
+                <?php foreach ($list_service_class as $service_class) { ?>
+                    <option <?php echo $service_class->virtuemart_service_class_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
                 <?php } ?>
             </select>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
-    public static function select_range_of_date($list_rang_of_date=array(),$name,  $default = '0', $attrib = "onchange='submit();'",$key = 'value', $text = 'text',  $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function select_range_of_date($list_rang_of_date = array(), $name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root().'/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.less');
         $input = JFactory::getApplication()->input;
-        $id_element='html_select_range_of_date_'.$name;
+        $id_element = 'html_select_range_of_date_' . $name;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_select_list_range_of_date({
                     list_range_of_date:<?php echo json_encode($list_rang_of_date) ?>,
-                    select_name:"<?php echo $name ?>",
-                    id_selected:<?php echo $default?$default:0 ?>
+                    select_name: "<?php echo $name ?>",
+                    id_selected:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -2115,19 +2134,173 @@ XML;
         ob_start();
         ?>
         <div class="html_select_list_range_of_date" id="<?php echo $id_element ?>">
-            <select disable_chosen="true" id="<?php echo  $name?>" name="<?php echo $name ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select range of date') ?></option>
-                <?php foreach($list_rang_of_date as $range_of_date){ ?>
-                    <option <?php echo $range_of_date->id==$default?' selected ':'' ?>  value="<?php echo $range_of_date->$key ?>" ><?php echo $range_of_date->$text ?></option>
+                <?php foreach ($list_rang_of_date as $range_of_date) { ?>
+                    <option <?php echo $range_of_date->id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $range_of_date->$key ?>"><?php echo $range_of_date->$text ?></option>
                 <?php } ?>
             </select>
         </div>
         <?php
-        $html=ob_get_clean();
+        $html = ob_get_clean();
         return $html;
     }
 
+    public static function input_passenger($list_passenger = array(),$name='', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
+        $input = JFactory::getApplication()->input;
+        $id_element = 'html_input_passenger';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_input_passenger({
+                    list_range_of_date:<?php echo json_encode($list_passenger) ?>,
+                    id_selected:<?php echo $default ? $default : 0 ?>,
+                    input_name:"<?php echo $name ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
 
+        ob_start();
+        ?>
+        <div class="html_input_passenger row-fluid" id="<?php echo $id_element ?>">
+            <div class="row-fluid person-type">
+                <div class="span12">
+                    <h4 class=""><?php echo JText::_('senior/adult/teen(12-99 years)') ?></h4>
+                </div>
+            </div>
+            <div class="row-fluid herder">
+                <div class="span1"></div>
+                <div class="span1"><?php echo JText::_('Gender') ?></div>
+                <div class="span1"><?php echo JText::_('First name') ?></div>
+                <div class="span1"><?php echo JText::_('Middle name') ?></div>
+                <div class="span1"><?php echo JText::_('Last name') ?></div>
+                <div class="span1"><?php echo JText::_('Nationality') ?></div>
+                <div class="span1"><?php echo JText::_('Date of birth') ?></div>
+                <div class="span1"></div>
+                <div class="span1"></div>
+            </div>
+            <div class="row-fluid item-passenger">
+                <div class="span1"><?php echo JText::_('Person 1') ?></div>
+                <div class="span1">
+                    <select>
+                        <option value="mr">Mr</option>
+                        <option value="ms">Ms</option>
+                    </select>
+                </div>
+                <div class="span1"><input name="first_name[]" placeholder="<?php echo JText::_('First name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="middle_name[]" placeholder="<?php echo JText::_('Middle name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="last_name[]" placeholder="<?php echo JText::_('Last name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="nationality[]" placeholder="<?php echo JText::_('Nationality') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="date_of_birth[]" placeholder="<?php echo JText::_('Date of birth') ?>"
+                                          type="text"></div>
+                <div class="span1">
+                    <button type="button" class="remove">X</button>
+                </div>
+                <div class="span1">
+                    <button type="button" class="add">+</button>
+                </div>
+            </div>
+            <input type="hidden" name="<?php echo $name ?>">
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function build_room($list_passenger = array(),$name='', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
+        $input = JFactory::getApplication()->input;
+        $id_element = 'html_input_passenger';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_input_passenger({
+                    list_range_of_date:<?php echo json_encode($list_passenger) ?>,
+                    id_selected:<?php echo $default ? $default : 0 ?>,
+                    input_name:"<?php echo $name ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div class="html_input_passenger row-fluid" id="<?php echo $id_element ?>">
+            <div class="row-fluid person-type">
+                <div class="span12">
+                    <h4 class=""><?php echo JText::_('senior/adult/teen(12-99 years)') ?></h4>
+                </div>
+            </div>
+            <div class="row-fluid herder">
+                <div class="span1"></div>
+                <div class="span1"><?php echo JText::_('Gender') ?></div>
+                <div class="span1"><?php echo JText::_('First name') ?></div>
+                <div class="span1"><?php echo JText::_('Middle name') ?></div>
+                <div class="span1"><?php echo JText::_('Last name') ?></div>
+                <div class="span1"><?php echo JText::_('Nationality') ?></div>
+                <div class="span1"><?php echo JText::_('Date of birth') ?></div>
+                <div class="span1"></div>
+                <div class="span1"></div>
+            </div>
+            <div class="row-fluid item-passenger">
+                <div class="span1"><?php echo JText::_('Person 1') ?></div>
+                <div class="span1">
+                    <select>
+                        <option value="mr">Mr</option>
+                        <option value="ms">Ms</option>
+                    </select>
+                </div>
+                <div class="span1"><input name="first_name[]" placeholder="<?php echo JText::_('First name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="middle_name[]" placeholder="<?php echo JText::_('Middle name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="last_name[]" placeholder="<?php echo JText::_('Last name') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="nationality[]" placeholder="<?php echo JText::_('Nationality') ?>"
+                                          type="text"></div>
+                <div class="span1"><input name="date_of_birth[]" placeholder="<?php echo JText::_('Date of birth') ?>"
+                                          type="text"></div>
+                <div class="span1">
+                    <button type="button" class="remove">X</button>
+                </div>
+                <div class="span1">
+                    <button type="button" class="add">+</button>
+                </div>
+            </div>
+            <input type="hidden" name="<?php echo $name ?>">
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
 
 
 

@@ -24,7 +24,7 @@ jimport('joomla.application.component.controller');
 
 if(!class_exists('VirtueMartModelState')) require( VMPATH_ADMIN.DS.'models'.DS.'state.php' );
 
-class VirtueMartControllerTrip extends JControllerLegacy {
+class VirtueMartControllerbookjointgroup extends JControllerLegacy {
 
     public function book_now()
     {
@@ -32,14 +32,6 @@ class VirtueMartControllerTrip extends JControllerLegacy {
         $input=$app->input;
         $virtuemart_price_id=$input->getInt('virtuemart_price_id',0);
         $this->setRedirect(JRoute::_('index.php?option=com_virtuemart&view=book&virtuemart_price_id='.$virtuemart_price_id));
-        return true;
-    }
-    public function departure_book_now()
-    {
-        $app=JFactory::getApplication();
-        $input=$app->input;
-        $virtuemart_departure_id=$input->getInt('virtuemart_departure_id',0);
-        $this->setRedirect(JRoute::_('index.php?option=com_virtuemart&view=bookjointgroup&virtuemart_departure_id='.$virtuemart_departure_id));
         return true;
     }
 }

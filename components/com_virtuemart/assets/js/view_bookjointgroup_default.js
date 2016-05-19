@@ -1,24 +1,24 @@
 //huong dan su dung
 /*
- $('.view_productdetails_jontgrouptrip').view_productdetails_jontgrouptrip();
+ $('.view_bookjointgroup_default').view_bookjointgroup_default();
 
- view_productdetails_jontgrouptrip=$('.view_productdetails_jontgrouptrip').data('view_productdetails_jontgrouptrip');
- console.log(view_productdetails_jontgrouptrip);
+ view_bookjointgroup_default=$('.view_bookjointgroup_default').data('view_bookjointgroup_default');
+ console.log(view_bookjointgroup_default);
  */
 
-// jQuery Plugin for SprFlat admin view_productdetails_jontgrouptrip
-// Control options and basic function of view_productdetails_jontgrouptrip
+// jQuery Plugin for SprFlat admin view_bookjointgroup_default
+// Control options and basic function of view_bookjointgroup_default
 // version 1.0, 28.02.2013
 // by SuggeElson www.suggeelson.com
 
 (function($) {
 
     // here we go!
-    $.view_productdetails_jontgrouptrip = function(element, options) {
+    $.view_bookjointgroup_default = function(element, options) {
 
         // plugin's default options
         var defaults = {
-            //main color scheme for view_productdetails_jontgrouptrip
+            //main color scheme for view_bookjointgroup_default
             //be sure to be same as colors on main.css or custom-variables.less
 
         }
@@ -31,6 +31,20 @@
 
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
+        plugin.show_passenger = function () {
+            var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
+            $html_input_passenger.settings.event_after_change=function(data){
+                var $list_passenger=$element.find('.list_passenger');
+                var total_passenger=data.first_name.length;
+                $list_passenger.empty();
+                for(var i=0;i<total_passenger;i++){
+                    var full_name=data.first_name[i]+' '+data.middle_name[i]+' '+data.last_name[i];
+                    var $li=$('<li>'+full_name+'</li>');
+                    $li.appendTo($list_passenger);
+                }
+
+            }
+        };
 
         // the "constructor" method that gets called when the object is created
         plugin.init = function() {
@@ -64,29 +78,17 @@
                 $item.find('.header-item > .service-class,.header-item > .price').addClass('hide');
                 console.log($item);
             });
-            $element.find('span.price').autoNumeric('init',{
-                mDec:0,
-                aSep:' ',
-                aSign:'US$'
-            });
+            $element.find('span.price').autoNumeric('init');
             $element.find('button.book-now').click(function(){
                 var $item=$(this).closest('.item');
-                var virtuemart_departure_id=$item.data('virtuemart_departure_id');
+                var virtuemart_price_id=$item.data('virtuemart_price_id');
                 var $form=$element.find('form#tour_price');
-                $form.find('input[name="virtuemart_departure_id"]').val(virtuemart_departure_id);
-                $form.find('input[name="task"]').val('departure_book_now');
+                $form.find('input[name="virtuemart_price_id"]').val(virtuemart_price_id);
+                $form.find('input[name="task"]').val('book_now');
                 $form.submit();
+                console.log($form);
             });
-
-            $element.find('.btn-clear button').click(function(){
-               $('select[name="filter_total_passenger_from_12_years_old"]').val('').rules('remove');
-               $('select[name="filter_total_passenger_under_12_years_old"]').val('').rules('remove');
-               $('input[name="filter_start_date"]').val('');
-
-            });
-
-
-
+            plugin.show_passenger();
         };
 
         plugin.example_function = function() {
@@ -97,16 +99,16 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_productdetails_jontgrouptrip = function(options) {
+    $.fn.view_bookjointgroup_default = function(options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function() {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('view_productdetails_jontgrouptrip')) {
-                var plugin = new $.view_productdetails_jontgrouptrip(this, options);
+            if (undefined == $(this).data('view_bookjointgroup_default')) {
+                var plugin = new $.view_bookjointgroup_default(this, options);
 
-                $(this).data('view_productdetails_jontgrouptrip', plugin);
+                $(this).data('view_bookjointgroup_default', plugin);
 
             }
 

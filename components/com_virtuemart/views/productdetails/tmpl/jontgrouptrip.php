@@ -140,7 +140,7 @@ $doc->addScriptDeclaration($js_content);
                                     $total_day = $total_day ? $total_day : 0;
 
                                     ?>
-                                    <div data-virtuemart_price_id="<?php echo $trip->virtuemart_price_id ?>"
+                                    <div data-virtuemart_departure_id="<?php echo $trip->virtuemart_departure_id ?>"
                                          class="row-fluid item">
 
                                         <div class="span12">
@@ -262,7 +262,7 @@ $doc->addScriptDeclaration($js_content);
                     <input name="option" value="com_virtuemart" type="hidden">
                     <input name="controller" value="trip" type="hidden">
                     <input type="hidden" value="trip" name="view">
-                    <input name="virtuemart_price_id" value="0" type="hidden">
+                    <input name="virtuemart_departure_id" value="0" type="hidden">
                     <input name="task" value="" type="hidden">
                 </form>
             </div>
