@@ -2147,13 +2147,14 @@ XML;
         return $html;
     }
 
-    public static function input_passenger($list_passenger = array(),$name='', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function input_passenger($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
         $input = JFactory::getApplication()->input;
@@ -2163,9 +2164,9 @@ XML;
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_input_passenger({
-                    list_range_of_date:<?php echo json_encode($list_passenger) ?>,
+                    list_passenger:<?php echo json_encode($list_passenger) ?>,
                     id_selected:<?php echo $default ? $default : 0 ?>,
-                    input_name:"<?php echo $name ?>"
+                    input_name: "<?php echo $name ?>"
                 });
             });
         </script>
@@ -2196,7 +2197,7 @@ XML;
             <div class="row-fluid item-passenger">
                 <div class="span1"><?php echo JText::_('Person 1') ?></div>
                 <div class="span1">
-                    <select>
+                    <select name="gender[]">
                         <option value="mr">Mr</option>
                         <option value="ms">Ms</option>
                     </select>
@@ -2224,25 +2225,26 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_room($list_passenger = array(),$name='', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+
+    public static function build_room($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
-        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
+        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.less');
         $input = JFactory::getApplication()->input;
-        $id_element = 'html_input_passenger';
+        $id_element = 'html_build_room';
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('#<?php  echo $id_element ?>').html_input_passenger({
-                    list_range_of_date:<?php echo json_encode($list_passenger) ?>,
+                $('#<?php  echo $id_element ?>').html_build_room({
+                    list_passenger:<?php echo json_encode($list_passenger) ?>,
                     id_selected:<?php echo $default ? $default : 0 ?>,
-                    input_name:"<?php echo $name ?>"
+                    input_name: "<?php echo $name ?>"
                 });
             });
         </script>
@@ -2253,46 +2255,45 @@ XML;
 
         ob_start();
         ?>
-        <div class="html_input_passenger row-fluid" id="<?php echo $id_element ?>">
-            <div class="row-fluid person-type">
-                <div class="span12">
-                    <h4 class=""><?php echo JText::_('senior/adult/teen(12-99 years)') ?></h4>
+        <div class="html_build_room row-fluid" id="<?php echo $id_element ?>">
+            <div class="item-room">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <h3><?php echo JText::_('Select room type') ?></h3>
+                        <div class="row-fluid list-room">
+                            <div class="span2">
+                                <label><?php echo JText::_('Single') ?><input type="radio"  data-name="type" name="type"
+                                                                              value="single"></label>
+                            </div>
+                            <div class="span2">
+                                <label><?php echo JText::_('Double') ?><input type="radio" data-name="type" name="type"
+                                                                              value="double"></label>
+                            </div>
+                            <div class="span4"></div>
+                            <div class="span2">
+                                <label><?php echo JText::_('Twin') ?><input type="radio" data-name="type" name="type"
+                                                                            value="twin"></label>
+                            </div>
+                            <div class="span2">
+                                <label><?php echo JText::_('Triple') ?><input type="radio" data-name="type" name="type"
+                                                                              value="triple"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h3><?php echo JText::_('select person for room on your own') ?></h3>
+                        <ul class="list-passenger">
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="row-fluid herder">
-                <div class="span1"></div>
-                <div class="span1"><?php echo JText::_('Gender') ?></div>
-                <div class="span1"><?php echo JText::_('First name') ?></div>
-                <div class="span1"><?php echo JText::_('Middle name') ?></div>
-                <div class="span1"><?php echo JText::_('Last name') ?></div>
-                <div class="span1"><?php echo JText::_('Nationality') ?></div>
-                <div class="span1"><?php echo JText::_('Date of birth') ?></div>
-                <div class="span1"></div>
-                <div class="span1"></div>
-            </div>
-            <div class="row-fluid item-passenger">
-                <div class="span1"><?php echo JText::_('Person 1') ?></div>
-                <div class="span1">
-                    <select>
-                        <option value="mr">Mr</option>
-                        <option value="ms">Ms</option>
-                    </select>
-                </div>
-                <div class="span1"><input name="first_name[]" placeholder="<?php echo JText::_('First name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input name="middle_name[]" placeholder="<?php echo JText::_('Middle name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input name="last_name[]" placeholder="<?php echo JText::_('Last name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input name="nationality[]" placeholder="<?php echo JText::_('Nationality') ?>"
-                                          type="text"></div>
-                <div class="span1"><input name="date_of_birth[]" placeholder="<?php echo JText::_('Date of birth') ?>"
-                                          type="text"></div>
-                <div class="span1">
-                    <button type="button" class="remove">X</button>
-                </div>
-                <div class="span1">
-                    <button type="button" class="add">+</button>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <button type="button"
+                                class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
+                        <button type="button"
+                                class="btn btn-primary remove-room pull-right"><?php echo JText::_('Remove room') ?></button>
+                    </div>
                 </div>
             </div>
             <input type="hidden" name="<?php echo $name ?>">
@@ -2301,7 +2302,6 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-
 
 
 }

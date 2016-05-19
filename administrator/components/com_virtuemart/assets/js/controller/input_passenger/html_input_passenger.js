@@ -10,10 +10,10 @@
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
-            to_date: new Date(),
+            enable_cookie_passenger: true,
             display_format:'YYYY-MM-DD',
             format:'YYYY-MM-DD',
-            ranges: {},
+            list_passenger: {},
             output_data:[],
             event_after_change:false
 
@@ -32,7 +32,27 @@
 
         };
         plugin.render_input_person = function () {
+            var list_passenger=plugin.settings.list_passenger;
 
+            var total_passenger=list_passenger.first_name.length;
+            console.log(total_passenger);
+            for(var i=0;i<total_passenger-1;i++){
+                $element.find('.add').trigger('click');
+            }
+            for(var i=0;i<total_passenger;i++){
+                var $item=$element.find('.item-passenger:eq('+i+')');
+                $item.find(':input[name]').each(function(index,input){
+                    var $input=$(input);
+                    var attr_name=$input.attr('name');
+                    if(typeof attr_name =="undefined"){
+                        throw "attr_name undefined";
+                    }
+                    attr_name=attr_name.replace("[]", "");
+
+                    $item.find(':input[name="'+attr_name+'[]"]').val(list_passenger[attr_name][i]);
+                });
+            }
+            //$html_build_room.update_passengers(data);
         };
         plugin.config_layout = function () {
             $element.find('.item-passenger').each(function(index,item){
@@ -47,7 +67,7 @@
         plugin.update_data = function () {
             var input_name=plugin.settings.input_name;
             var $input_name=$element.find('input[name="'+input_name+'"]');
-            var data=$element.find(':input').serializeObject();
+            var data=$element.find(':input[name]').serializeObject();
             plugin.settings.output_data=data;
             data= JSON.stringify(data);
             $input_name.val(data);
@@ -56,6 +76,13 @@
             {
                 event_after_change(plugin.settings.output_data);
             }
+            var enable_cookie_passenger=plugin.settings.enable_cookie_passenger;
+            if(enable_cookie_passenger)
+            {
+                $.cookie('list_passenger',JSON.stringify(plugin.settings.output_data));
+                console.log($.cookie('list_passenger'));
+            }
+
         };
         plugin.add_passenger = function ($self) {
             $element.find(".item-passenger:last").clone(true).insertAfter(".item-passenger:last");
@@ -88,7 +115,7 @@
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            plugin.render_input_person();
+
             $element.find('.add').click(function(){
                 plugin.add_passenger($(this));
             });
@@ -97,6 +124,15 @@
             });
             plugin.update_event();
             plugin.update_data();
+            var enable_cookie_passenger=plugin.settings.enable_cookie_passenger;
+            var list_passenger=plugin.settings.list_passenger;
+            if(enable_cookie_passenger)
+            {
+                list_passenger=$.cookie('list_passenger');
+                plugin.settings.list_passenger= $.parseJSON(list_passenger);
+
+            }
+            plugin.render_input_person();
 
         };
         plugin.init();

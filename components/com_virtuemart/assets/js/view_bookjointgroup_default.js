@@ -32,6 +32,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         plugin.show_passenger = function () {
+            var $html_build_room=$('#html_build_room').data('html_build_room');
             var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
             $html_input_passenger.settings.event_after_change=function(data){
                 var $list_passenger=$element.find('.list_passenger');
@@ -42,6 +43,7 @@
                     var $li=$('<li>'+full_name+'</li>');
                     $li.appendTo($list_passenger);
                 }
+                $html_build_room.update_passengers(data);
 
             }
         };
