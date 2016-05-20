@@ -18,6 +18,15 @@
 
         // plugin's default options
         var defaults = {
+            list_passenger:[
+                {
+                    first_name:'',
+                    middle_name:'',
+                    last_name:'',
+                    date_of_birth:''
+                }
+            ]
+
             //main color scheme for view_bookjointgroup_default
             //be sure to be same as colors on main.css or custom-variables.less
 
@@ -34,16 +43,18 @@
         plugin.show_passenger = function () {
             var $html_build_room=$('#html_build_room').data('html_build_room');
             var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
-            $html_input_passenger.settings.event_after_change=function(data){
+            $html_input_passenger.settings.event_after_change=function(list_passenger){
                 var $list_passenger=$element.find('.list_passenger');
-                var total_passenger=data.first_name.length;
+                var total_passenger=list_passenger.length;
                 $list_passenger.empty();
                 for(var i=0;i<total_passenger;i++){
-                    var full_name=data.first_name[i]+' '+data.middle_name[i]+' '+data.last_name[i];
+                    var passenger=list_passenger[i];
+                    var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name;
                     var $li=$('<li>'+full_name+'</li>');
                     $li.appendTo($list_passenger);
                 }
-                $html_build_room.update_passengers(data);
+                $html_build_room.update_passengers(list_passenger);
+
 
             }
         };

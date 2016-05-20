@@ -2154,7 +2154,6 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
         $input = JFactory::getApplication()->input;
@@ -2164,7 +2163,6 @@ XML;
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_input_passenger({
-                    list_passenger:<?php echo json_encode($list_passenger) ?>,
                     id_selected:<?php echo $default ? $default : 0 ?>,
                     input_name: "<?php echo $name ?>"
                 });
@@ -2197,20 +2195,20 @@ XML;
             <div class="row-fluid item-passenger">
                 <div class="span1"><?php echo JText::_('Person 1') ?></div>
                 <div class="span1">
-                    <select name="gender[]">
+                    <select data-name="gender" ">
                         <option value="mr">Mr</option>
                         <option value="ms">Ms</option>
                     </select>
                 </div>
-                <div class="span1"><input name="first_name[]" placeholder="<?php echo JText::_('First name') ?>"
+                <div class="span1"><input data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
                                           type="text"></div>
-                <div class="span1"><input name="middle_name[]" placeholder="<?php echo JText::_('Middle name') ?>"
+                <div class="span1"><input  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
                                           type="text"></div>
-                <div class="span1"><input name="last_name[]" placeholder="<?php echo JText::_('Last name') ?>"
+                <div class="span1"><input data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
                                           type="text"></div>
-                <div class="span1"><input name="nationality[]" placeholder="<?php echo JText::_('Nationality') ?>"
+                <div class="span1"><input data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
                                           type="text"></div>
-                <div class="span1"><input name="date_of_birth[]" placeholder="<?php echo JText::_('Date of birth') ?>"
+                <div class="span1"><input data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
                                           type="text"></div>
                 <div class="span1">
                     <button type="button" class="remove">X</button>

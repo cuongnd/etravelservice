@@ -27,19 +27,19 @@
                 max_adult:2,
                 max_children:2,
                 max_infant:1,
-                max_total:1
+                max_total:2
             },
             twin:{
                 max_adult:2,
                 max_children:2,
                 max_infant:1,
-                max_total:1
+                max_total:3
             },
             triple:{
                 max_adult:2,
                 max_children:2,
                 max_infant:1,
-                max_total:1
+                max_total:4
             }
 
         };
@@ -62,7 +62,7 @@
         plugin.config_layout = function () {
             $element.find('.item-room').each(function(index,item){
                 var $item=$(item);
-                $item.find('input').each(function(index1,input){
+                $item.find('input[data-name="type"]').each(function(index1,input){
                     var $input=$(input);
                     var data_name=$input.data('name');
                     $input.attr('name',data_name+'['+index+']');
@@ -94,21 +94,49 @@
         plugin.get_data=function(){
             return plugin.settings.output_data;
         };
+        plugin.validate_data = function ($self) {
+            var $item_room=$self.closest('.item-room');
+            console.log($item_room);
+            var $type=$item_room.find('input[type="radio"][data-name="type"]:checked');
+            if($type.length==0)
+            {
+                alert('please select room type');
+                return false;
+            }
+            var type=$type.val();
+            type=plugin.settings[type];
+            console.log(type);
+            return true;
+        };
         plugin.update_event = function () {
-            $element.find('input').change(function(){
-                plugin.update_data();
+            $element.find('input.passenger-item').change(function selected_passenger(event){
+                var $self=$(this);
+                if(!plugin.validate_data($self))
+                {
+                    $self.prop('checked', false);
+                    return false;
+                }
+
             });
         };
-        plugin.update_passengers = function (data) {
-            plugin.settings.list_passenger=data;
-            var $list_passenger=$element.find('.list-passenger');
-            var total_passenger=data.first_name.length;
-            $list_passenger.empty();
-            for(var i=0;i<total_passenger;i++){
-                var full_name=data.first_name[i]+' '+data.middle_name[i]+' '+data.last_name[i];
-                var $li=$('<li><label><input type="checkbox">'+full_name+'</label></li>');
-                $li.appendTo($list_passenger);
-            }
+        plugin.update_passengers = function (list_passenger) {
+            plugin.settings.list_passenger=list_passenger;
+            var total_passenger=list_passenger.length;
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(index,room){
+                var $room=$(room);
+                var $list_passenger=$room.find('.list-passenger');
+                $list_passenger.empty();
+                for(var i=0;i<total_passenger;i++){
+                    var passenger=list_passenger[i];
+                    var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name;
+                    var $li=$('<li><label><input class="passenger-item" name="passenger['+i+']" type="checkbox">'+full_name+'</label></li>');
+                    $li.appendTo($list_passenger);
+                }
+            });
+
+
+            plugin.update_event();
         };
         plugin.remove_room = function ($self) {
             var total_room=$element.find('.item-room').length;

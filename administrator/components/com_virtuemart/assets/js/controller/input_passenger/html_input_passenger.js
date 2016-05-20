@@ -10,10 +10,16 @@
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
-            enable_cookie_passenger: true,
             display_format:'YYYY-MM-DD',
             format:'YYYY-MM-DD',
-            list_passenger: {},
+            list_passenger:[
+                {
+                    first_name:'',
+                    middle_name:'',
+                    last_name:'',
+                    date_of_birth:''
+                }
+            ],
             output_data:[],
             event_after_change:false
 
@@ -33,13 +39,12 @@
         };
         plugin.render_input_person = function () {
             var list_passenger=plugin.settings.list_passenger;
-
-            var total_passenger=list_passenger.first_name.length;
-            console.log(total_passenger);
+            var total_passenger=list_passenger.length;
             for(var i=0;i<total_passenger-1;i++){
                 $element.find('.add').trigger('click');
             }
             for(var i=0;i<total_passenger;i++){
+                var passenger=list_passenger[i];
                 var $item=$element.find('.item-passenger:eq('+i+')');
                 $item.find(':input[name]').each(function(index,input){
                     var $input=$(input);
@@ -49,7 +54,7 @@
                     }
                     attr_name=attr_name.replace("[]", "");
 
-                    $item.find(':input[name="'+attr_name+'[]"]').val(list_passenger[attr_name][i]);
+                    $item.find(':input[name="'+attr_name+'[]"]').val(passenger[attr_name]);
                 });
             }
             //$html_build_room.update_passengers(data);
@@ -57,7 +62,7 @@
         plugin.config_layout = function () {
             $element.find('.item-passenger').each(function(index,item){
                 var $item=$(item);
-                $item.find('input').each(function(index1,input){
+                $item.find('input[name]').each(function(index1,input){
 
                 });
 
@@ -65,23 +70,29 @@
         };
 
         plugin.update_data = function () {
+            var $list_passenger=$element.find('.item-passenger');
+            $list_passenger.each(function(index,item){
+                var $item=$(item);
+                $item.find('input[data-name]').each(function(index1,input){
+                    var $input=$(input);
+                    var data_name=$input.data('name');
+                    $input.attr('name','list_passenger['+index+']['+data_name+']');
+                });
+
+            });
             var input_name=plugin.settings.input_name;
             var $input_name=$element.find('input[name="'+input_name+'"]');
-            var data=$element.find(':input[name]').serializeObject();
-            plugin.settings.output_data=data;
-            data= JSON.stringify(data);
-            $input_name.val(data);
+            var post=$element.find(':input[name]').serializeObject();
+            var list_passenger=post.list_passenger;
+            plugin.settings.list_passenger=list_passenger;
+            var list_passenger_stringify= JSON.stringify(list_passenger);
+            $input_name.val(list_passenger_stringify);
             var event_after_change=plugin.settings.event_after_change;
             if(event_after_change instanceof Function)
             {
-                event_after_change(plugin.settings.output_data);
+                event_after_change(plugin.settings.list_passenger);
             }
-            var enable_cookie_passenger=plugin.settings.enable_cookie_passenger;
-            if(enable_cookie_passenger)
-            {
-                $.cookie('list_passenger',JSON.stringify(plugin.settings.output_data));
-                console.log($.cookie('list_passenger'));
-            }
+            console.log(plugin.settings.list_passenger);
 
         };
         plugin.add_passenger = function ($self) {
@@ -93,10 +104,10 @@
             plugin.update_event();
         };
         plugin.get_data=function(){
-            return plugin.settings.output_data;
+            return plugin.settings.list_passenger;
         };
         plugin.update_event = function () {
-            $element.find('input').change(function(){
+            $element.find('input').change(function update_data(){
                 plugin.update_data();
             });
         };
@@ -113,25 +124,23 @@
             plugin.update_event();
 
         };
+        plugin.update_passengers=function(list_passenger){
+            plugin.settings.list_passenger=list_passenger;
+            plugin.render_input_person();
+
+
+        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
 
-            $element.find('.add').click(function(){
+            $element.find('.add').click(function add_passenger(){
                 plugin.add_passenger($(this));
             });
-            $element.find('.remove').click(function(){
+            $element.find('.remove').click(function remove_passenger(){
                 plugin.remove_passenger($(this));
             });
             plugin.update_event();
             plugin.update_data();
-            var enable_cookie_passenger=plugin.settings.enable_cookie_passenger;
-            var list_passenger=plugin.settings.list_passenger;
-            if(enable_cookie_passenger)
-            {
-                list_passenger=$.cookie('list_passenger');
-                plugin.settings.list_passenger= $.parseJSON(list_passenger);
-
-            }
             plugin.render_input_person();
 
         };

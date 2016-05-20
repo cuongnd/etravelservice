@@ -6,6 +6,8 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo
 $doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_bookjointgroup_default.js');
 $doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_bookjointgroup_default.less');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
+
 $app = JFactory::getApplication();
 $input = $app->input;
 $virtuemart_price_id = $input->getInt('virtuemart_price_id', 0);
