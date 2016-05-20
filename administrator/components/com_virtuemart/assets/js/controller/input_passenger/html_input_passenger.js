@@ -10,8 +10,8 @@
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
-            display_format:'YYYY-MM-DD',
-            format:'YYYY-MM-DD',
+            format: 'mm/dd/yy',
+            view_format: 'mm/dd/yy',
             list_passenger:[
                 {
                     first_name:'',
@@ -102,6 +102,7 @@
             plugin.config_layout();
             plugin.update_data();
             plugin.update_event();
+            plugin.setup_calendar_date_of_birth();
         };
         plugin.get_data=function(){
             return plugin.settings.list_passenger;
@@ -130,6 +131,21 @@
 
 
         };
+        plugin.setup_calendar_date_of_birth = function () {
+            var view_format = plugin.settings.view_format;
+            $element.find('input[data-name="date_of_birth"]').datepicker({
+                showButtonPanel: true,
+                showWeek: true,
+                minDate: "+0",
+                dateFormat: view_format,
+                changeMonth: true,
+                changeYear: true,
+                onSelect:function(dateText, inst ){
+                   /* dateText=$.format.date(dateText, format);
+                    $element.find('input[name="'+input_name+'"]').val(dateText);*/
+                }
+            });
+        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
 
@@ -142,6 +158,7 @@
             plugin.update_event();
             plugin.update_data();
             plugin.render_input_person();
+            plugin.setup_calendar_date_of_birth();
 
         };
         plugin.init();

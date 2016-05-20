@@ -2154,6 +2154,10 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
         $input = JFactory::getApplication()->input;
@@ -2281,7 +2285,7 @@ XML;
                     <div class="span6">
                         <h3><?php echo JText::_('select person for room on your own') ?></h3>
                         <ul class="list-passenger">
-                            <li></li>
+                            <li><label><input class="passenger-item" name="passenger[0]" type="checkbox">full_name</label></li>
                         </ul>
                     </div>
                 </div>
