@@ -2250,6 +2250,7 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript(JUri::root() . '/media/system/js/base64.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.less');

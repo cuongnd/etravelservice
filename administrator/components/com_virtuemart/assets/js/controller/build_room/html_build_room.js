@@ -191,12 +191,30 @@
                 var $room=$(room);
                 var $list_passenger=$room.find('.list-passenger');
                 $list_passenger.empty();
+                var list_old_passenger=[];
+                $list_passenger.find('li input.passenger-item').each(function(index){
+                    var $self=$(this);
+                    if($self.is(':checked')) {
+                        var key_full_name = $(this).data('key_full_name');
+                        list_old_passenger.push(key_full_name);
+                    }
+                });
                 for(var i=0;i<total_passenger;i++){
                     var passenger=list_passenger[i];
                     var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name+'('+passenger.year_old+')';
-                    var $li=$('<li><label><input class="passenger-item" data-index="'+i+'" name="passenger['+i+']" type="checkbox">'+full_name+'</label></li>');
+                    var key_full_name=passenger.first_name+passenger.middle_name+passenger.last_name;
+                    key_full_name= base64.encode(key_full_name);
+                    var $li=$('<li><label><input class="passenger-item" data-key_full_name="'+key_full_name+'" data-index="'+i+'" name="passenger['+i+']" type="checkbox">'+full_name+'</label></li>');
                     $li.appendTo($list_passenger);
                 }
+
+                $list_passenger.find('li input.passenger-item').each(function(index){
+                    var $self=$(this);
+                    var key_full_name = $(this).data('key_full_name');
+                    if(list_old_passenger.length>0 && $.inArray(key_full_name,list_old_passenger)){
+                        $self.prop('checked',true).trigger('change');
+                    }
+                });
             });
 
 

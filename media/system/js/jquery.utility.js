@@ -70,6 +70,10 @@
     }
 
     $.get_year_old_by_date = function(dateString) {
+        if(dateString=='')
+        {
+            return '';
+        }
         var today = new Date();
         var birthDate = new Date(dateString);
         var age = today.getFullYear() - birthDate.getFullYear();

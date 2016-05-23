@@ -20,6 +20,7 @@
                             first_name:'',
                             middle_name:'',
                             last_name:'',
+                            nationality:'',
                             date_of_birth:''
                         }
                     ],
@@ -123,6 +124,7 @@
             });
 
             $element.find('.input-passenger-list-passenger').sortable("refresh");
+            plugin.update_data();
 
         };
         plugin.get_data=function(){
@@ -211,7 +213,7 @@
                 list_passenger.splice(index_passenger, 1);
                 plugin.settings.list_passenger.children_infant=list_passenger;
             }
-
+            plugin.update_data();
 
         };
         plugin.update_passengers=function(list_passenger){
