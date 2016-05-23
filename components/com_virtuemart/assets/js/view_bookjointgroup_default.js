@@ -49,7 +49,7 @@
                 $list_passenger.empty();
                 for(var i=0;i<total_passenger;i++){
                     var passenger=list_passenger[i];
-                    var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name;
+                    var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name+'('+passenger.year_old+')';
                     var $li=$('<li>'+full_name+'</li>');
                     $li.appendTo($list_passenger);
                 }

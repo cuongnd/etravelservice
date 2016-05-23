@@ -12,73 +12,61 @@
             from_date: new Date(),
             format: 'mm/dd/yy',
             view_format: 'mm/dd/yy',
-            list_passenger:[
+            list_passenger:
                 {
-                    first_name:'',
-                    middle_name:'',
-                    last_name:'',
-                    date_of_birth:''
-                }
-            ],
+                    senior_adult_teen:[
+                        {
+
+                            first_name:'',
+                            middle_name:'',
+                            last_name:'',
+                            date_of_birth:''
+                        }
+                    ],
+                    children_infant:[]
+                },
             output_data:[],
-            event_after_change:false
+            event_after_change:false,
+            html_item_passenger_template:'',
+            range_senior_adult_teen_years:[12,99],
+            range_children_infant:[0,11],
+
 
         };
 
         // current instance of the object
         var plugin = this;
-
+        const SENIOR_ADULT_TEEN = "senior-adult-teen";
+        const CHILDREN_INFANT = "children-infant";
         // this will hold the merged default, and user-provided options
         plugin.settings = {};
 
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
-        plugin.on_change = function (start, end) {
-
-        };
-        plugin.render_input_person = function () {
-            var list_passenger=plugin.settings.list_passenger;
-            var total_passenger=list_passenger.length;
-            for(var i=0;i<total_passenger-1;i++){
-                $element.find('.add').trigger('click');
-            }
-            for(var i=0;i<total_passenger;i++){
-                var passenger=list_passenger[i];
-                var $item=$element.find('.item-passenger:eq('+i+')');
-                $item.find(':input[name]').each(function(index,input){
-                    var $input=$(input);
-                    var attr_name=$input.attr('name');
-                    if(typeof attr_name =="undefined"){
-                        throw "attr_name undefined";
-                    }
-                    attr_name=attr_name.replace("[]", "");
-
-                    $item.find(':input[name="'+attr_name+'[]"]').val(passenger[attr_name]);
-                });
-            }
-            //$html_build_room.update_passengers(data);
-        };
-        plugin.config_layout = function () {
-            $element.find('.item-passenger').each(function(index,item){
-                var $item=$(item);
-                $item.find('input[name]').each(function(index1,input){
-
-                });
-
-            });
-        };
 
         plugin.update_data = function () {
-            var $list_passenger=$element.find('.item-passenger');
-            $list_passenger.each(function(index,item){
-                var $item=$(item);
-                $item.find('input[data-name]').each(function(index1,input){
-                    var $input=$(input);
-                    var data_name=$input.data('name');
-                    $input.attr('name','list_passenger['+index+']['+data_name+']');
-                });
+            var $list_list_passenger=$element.find('.input-passenger-list-passenger');
+            $list_list_passenger.each(function(index_list_passenger,list_passenger){
+                var $list_passenger=$(this);
+                var group_passenger=plugin.get_type_passenger($list_passenger);
+                if(group_passenger==SENIOR_ADULT_TEEN)
+                {
+                    var type='senior_adult_teen';
 
+                }else{
+                    var type='children_infant';
+
+                }
+                $list_passenger.find('.item-passenger').each(function(index_passenger){
+                    var $item_passenger=$(this);
+                    $item_passenger.find('input[data-name]').each(function(index1,input){
+                        var $input=$(input);
+                        var data_name=$input.data('name');
+
+                        $input.attr('name','list_passenger['+type+']['+index_passenger+']['+data_name+']');
+                    });
+                });
             });
             var input_name=plugin.settings.input_name;
             var $input_name=$element.find('input[name="'+input_name+'"]');
@@ -90,39 +78,140 @@
             var event_after_change=plugin.settings.event_after_change;
             if(event_after_change instanceof Function)
             {
-                event_after_change(plugin.settings.list_passenger);
+                var list_passenger_not_group=[];
+                $.each(plugin.settings.list_passenger.senior_adult_teen,function(index,passenger){
+                    passenger.year_old= ''+$.get_year_old_by_date(passenger.date_of_birth);
+                    list_passenger_not_group.push(passenger);
+                });
+                $.each(plugin.settings.list_passenger.children_infant,function(index,passenger){
+                    passenger.year_old= $.get_year_old_by_date(passenger.date_of_birth);
+                    list_passenger_not_group.push(passenger);
+                });
+                event_after_change(list_passenger_not_group);
             }
-            console.log(plugin.settings.list_passenger);
 
         };
         plugin.add_passenger = function ($self) {
-            $element.find(".item-passenger:last").clone(true).insertAfter(".item-passenger:last");
-            var $item_passenger=$element.find('.item-passenger:last');
-            $item_passenger.find('input').val('');
-            plugin.config_layout();
-            plugin.update_data();
-            plugin.update_event();
-            plugin.setup_calendar_date_of_birth();
+            var item_passenger_template=plugin.settings.item_passenger_template;
+
+            var $list_passenger=$self.closest('.input-passenger-list-passenger');
+
+            $list_passenger.empty();
+            var group_passenger=plugin.get_type_passenger($list_passenger);
+            if(group_passenger==SENIOR_ADULT_TEEN)
+            {
+
+                plugin.settings.list_passenger.senior_adult_teen.push(item_passenger_template);
+                var list_passenger=plugin.settings.list_passenger.senior_adult_teen;
+                var type='senior_adult_teen';
+            }else{
+                plugin.settings.list_passenger.children_infant.push(item_passenger_template);
+                var list_passenger=plugin.settings.list_passenger.children_infant;
+                var type='children_infant';
+            }
+            $.each(list_passenger,function(index,passenger){
+                var $item_passenger_template=$(plugin.settings.html_item_passenger_template);
+                $item_passenger_template.appendTo($list_passenger);
+                $item_passenger_template.find(':input[data-name]').each(function(index1,input){
+                    var $input=$(input);
+                    var data_name=$input.attr('data-name');
+                    $input.attr('name','list_passenger['+type+']['+index+']['+data_name+']');
+                    $input.val(passenger[data_name]);
+                });
+                $item_passenger_template.find('.passenger-index').html(index+1);
+                plugin.update_event($item_passenger_template);
+            });
+
+            $element.find('.input-passenger-list-passenger').sortable("refresh");
+
         };
         plugin.get_data=function(){
             return plugin.settings.list_passenger;
         };
-        plugin.update_event = function () {
-            $element.find('input').change(function update_data(){
+        plugin.update_event = function ($wrapper) {
+            $wrapper.find('input[name],select[name]').change(function update_data(){
                 plugin.update_data();
             });
+            $wrapper.find('.add').click(function add_passenger(){
+                plugin.add_passenger($(this));
+            });
+            $wrapper.find('.remove').click(function remove_passenger(){
+                plugin.remove_passenger($(this));
+            });
+
+            var view_format = plugin.settings.view_format;
+            $wrapper.find('input[data-name="date_of_birth"]').each(function(index_date_of_birth){
+                var $self=$(this);
+
+
+
+                var option_date_picker={
+                    showButtonPanel: true,
+                    showWeek: true,
+                    minDate: "-11Y",
+                    maxDate: '0',
+                    buttonImage: "images/calendar.gif",
+                    dateFormat: view_format,
+                    changeMonth: true,
+                    changeYear: true,
+
+                    onSelect:function(dateText, inst ){
+                        $(this).trigger('change');
+                        /* dateText=$.format.date(dateText, format);
+                         $element.find('input[name="'+input_name+'"]').val(dateText);*/
+                    }
+                };
+                var group_passenger=plugin.get_type_passenger($self);
+                if(group_passenger==SENIOR_ADULT_TEEN)
+                {
+
+                    option_date_picker.minDate='-'+ plugin.settings.range_senior_adult_teen_years[1]+'Y';
+                    option_date_picker.maxDate='-'+plugin.settings.range_senior_adult_teen_years[0]+'Y';
+                    option_date_picker.yearRange='-'+plugin.settings.range_senior_adult_teen_years[1]+':-'+plugin.settings.range_senior_adult_teen_years[0];
+                }else{
+                    option_date_picker.minDate='-'+plugin.settings.range_children_infant[1]+'Y';
+                    option_date_picker.yearRange='-'+plugin.settings.range_children_infant[1]+':-'+plugin.settings.range_children_infant[0];
+                }
+                $self.datepicker(option_date_picker);
+
+            });
+
+
         };
+        plugin.get_type_passenger=function($self){
+            var $list_passenger=$self.closest('.input-passenger-list-passenger');
+            
+            if($list_passenger.hasClass('senior-adult-teen'))
+            {
+               return SENIOR_ADULT_TEEN;
+            }else{
+                return CHILDREN_INFANT;
+            }
+            
+        },
         plugin.remove_passenger = function ($self) {
-            var total_passenger=$element.find('.item-passenger').length;
+
+            var $list_passenger=$self.closest('.input-passenger-list-passenger');
+            var total_passenger=$list_passenger.find('.item-passenger').length;
             if(total_passenger==1)
             {
                 return;
             }
             var $item_passenger=$self.closest('.item-passenger');
+            var index_passenger=$item_passenger.index();
             $item_passenger.remove();
-            plugin.config_layout();
-            plugin.update_data();
-            plugin.update_event();
+            var group_passenger=plugin.get_type_passenger($list_passenger);
+            if(group_passenger==SENIOR_ADULT_TEEN)
+            {
+                var list_passenger=plugin.settings.list_passenger.senior_adult_teen;
+                list_passenger.splice(index_passenger, 1);
+                plugin.settings.list_passenger.senior_adult_teen=list_passenger;
+            }else{
+                var list_passenger=plugin.settings.list_passenger.children_infant;
+                list_passenger.splice(index_passenger, 1);
+                plugin.settings.list_passenger.children_infant=list_passenger;
+            }
+
 
         };
         plugin.update_passengers=function(list_passenger){
@@ -131,34 +220,36 @@
 
 
         };
-        plugin.setup_calendar_date_of_birth = function () {
-            var view_format = plugin.settings.view_format;
-            $element.find('input[data-name="date_of_birth"]').datepicker({
-                showButtonPanel: true,
-                showWeek: true,
-                minDate: "+0",
-                dateFormat: view_format,
-                changeMonth: true,
-                changeYear: true,
-                onSelect:function(dateText, inst ){
-                   /* dateText=$.format.date(dateText, format);
-                    $element.find('input[name="'+input_name+'"]').val(dateText);*/
-                }
-            });
-        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            var html_item_passenger_template=$element.find('.item-passenger').getOuterHTML();
+            plugin.settings.html_item_passenger_template= html_item_passenger_template;
+            var item_passenger_template=plugin.settings.list_passenger.senior_adult_teen[0];
+            plugin.settings.item_passenger_template= item_passenger_template;
+            plugin.settings.list_passenger.children_infant.push(item_passenger_template);
+            $(html_item_passenger_template).appendTo($element.find('.input-passenger-list-passenger.children-infant'));
 
-            $element.find('.add').click(function add_passenger(){
-                plugin.add_passenger($(this));
+            plugin.update_event($element);
+            $element.find('.input-passenger-list-passenger').sortable({
+                placeholder: "ui-state-highlight",
+                axis: "y",
+                handle: ".handle",
+                items: ">.item-passenger",
+                stop:function(event, ui ){
+                    var $list_list_passenger=$element.find('.input-passenger-list-passenger');
+                    $list_list_passenger.each(function(index_list_passenger){
+                        $(this).find('.passenger-index').each(function(index_passenger){
+                            $(this).html(index_passenger+1);
+                        });
+                    });
+
+                    plugin.update_data();
+                }
+
             });
-            $element.find('.remove').click(function remove_passenger(){
-                plugin.remove_passenger($(this));
-            });
-            plugin.update_event();
+            //$element.find('.input-passenger-list-passenger').disableSelection();
             plugin.update_data();
-            plugin.render_input_person();
-            plugin.setup_calendar_date_of_birth();
+            //plugin.render_input_person();
 
         };
         plugin.init();

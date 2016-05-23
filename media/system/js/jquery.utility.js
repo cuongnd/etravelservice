@@ -55,4 +55,28 @@
 			$script.appendTo('head');
 		});
 	}
+    $.fn.getOuterHTML = function() {
+        var wrapper = $('<div class="getOuterHTML"></div>');
+        $(this).wrap(wrapper);
+        var html=$(this).parent().html();
+        $(this).unwrap();
+        return html;
+    };
+    function _calculateAge(birthday) { // birthday is a date
+
+    }
+    function getAge(dateString) {
+
+    }
+
+    $.get_year_old_by_date = function(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
 })(jQuery);

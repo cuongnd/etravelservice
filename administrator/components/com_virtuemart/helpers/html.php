@@ -2150,8 +2150,11 @@ XML;
     public static function input_passenger($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
+        JHtml::_('jquery.ui');
+        JHtml::_('jquery.ui',array('sortable'));
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
@@ -2196,30 +2199,43 @@ XML;
                 <div class="span1"></div>
                 <div class="span1"></div>
             </div>
-            <div class="row-fluid item-passenger">
-                <div class="span1"><?php echo JText::_('Person 1') ?></div>
-                <div class="span1">
-                    <select data-name="gender" ">
-                        <option value="mr">Mr</option>
-                        <option value="ms">Ms</option>
-                    </select>
+            <div class="input-passenger-list-passenger senior-adult-teen">
+                <div class="row-fluid item-passenger">
+                    <div class="span1 handle"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span></div>
+                    <div class="span1">
+                        <select data-name="gender" ">
+                            <option value="mr">Mr</option>
+                            <option value="ms">Ms</option>
+                        </select>
+                    </div>
+                    <div class="span1"><input data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
+                                              type="text"></div>
+                    <div class="span1"><input  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
+                                              type="text"></div>
+                    <div class="span1"><input data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
+                                              type="text"></div>
+                    <div class="span1"><input data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
+                                              type="text"></div>
+                    <div class="span1"><input data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
+                                              type="text"></div>
+                    <div class="span1">
+                        <button type="button" class="btn remove"><span class="icon-remove " title=""></span></button>
+                    </div>
+                    <div class="span1">
+                        <div  class="btn handle"><span class="icon-move " title=""></span></div>
+                    </div>
+                    <div class="span1">
+                        <button type="button" class="btn add "><span class="icon-plus " title=""></span></button>
+                    </div>
                 </div>
-                <div class="span1"><input data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
-                                          type="text"></div>
-                <div class="span1"><input data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
-                                          type="text"></div>
-                <div class="span1"><input data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
-                                          type="text"></div>
-                <div class="span1">
-                    <button type="button" class="remove">X</button>
+            </div>
+            <div class="row-fluid person-type">
+                <div class="span12">
+                    <h4 class=""><?php echo JText::_('Children/infant(0-11 years)') ?></h4>
                 </div>
-                <div class="span1">
-                    <button type="button" class="add">+</button>
-                </div>
+            </div>
+            <div class="input-passenger-list-passenger children-infant">
+
             </div>
             <input type="hidden" name="<?php echo $name ?>">
         </div>
