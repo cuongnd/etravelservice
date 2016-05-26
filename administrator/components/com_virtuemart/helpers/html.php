@@ -2161,8 +2161,12 @@ XML;
         $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
         $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
+        $doc->addScript(JUri::root() . '/media/system/js/Create-A-Tooltip/js/jquery.tooltip.js');
+
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
+        $doc->addLessStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.less');
+        $doc->addStyleSheet(JUri::root().'/media/system/js/Create-A-Tooltip/css/tooltip.css');
         $input = JFactory::getApplication()->input;
         $id_element = 'html_input_passenger';
         ob_start();
@@ -2182,62 +2186,64 @@ XML;
 
         ob_start();
         ?>
-        <div class="html_input_passenger row-fluid" id="<?php echo $id_element ?>">
-            <div class="row-fluid person-type">
-                <div class="span12">
-                    <h4 class=""><?php echo JText::_('senior/adult/teen(12-99 years)') ?></h4>
-                </div>
-            </div>
-            <div class="row-fluid herder">
-                <div class="span1"></div>
-                <div class="span1"><?php echo JText::_('Gender') ?></div>
-                <div class="span1"><?php echo JText::_('First name') ?></div>
-                <div class="span1"><?php echo JText::_('Middle name') ?></div>
-                <div class="span1"><?php echo JText::_('Last name') ?></div>
-                <div class="span1"><?php echo JText::_('Nationality') ?></div>
-                <div class="span1"><?php echo JText::_('Date of birth') ?></div>
-                <div class="span1"></div>
-                <div class="span1"></div>
-            </div>
-            <div class="input-passenger-list-passenger senior-adult-teen">
-                <div class="row-fluid item-passenger">
-                    <div class="span1 handle"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span></div>
-                    <div class="span1">
-                        <select data-name="gender" ">
-                            <option value="mr">Mr</option>
-                            <option value="ms">Ms</option>
-                        </select>
-                    </div>
-                    <div class="span1"><input data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
-                                              type="text"></div>
-                    <div class="span1"><input  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
-                                              type="text"></div>
-                    <div class="span1"><input data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
-                                              type="text"></div>
-                    <div class="span1"><input data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
-                                              type="text"></div>
-                    <div class="span1"><input data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
-                                              type="text"></div>
-                    <div class="span1">
-                        <button type="button" class="btn remove"><span class="icon-remove " title=""></span></button>
-                    </div>
-                    <div class="span1">
-                        <div  class="btn handle"><span class="icon-move " title=""></span></div>
-                    </div>
-                    <div class="span1">
-                        <button type="button" class="btn add "><span class="icon-plus " title=""></span></button>
+        <div id="<?php echo $id_element ?>" class="html_input_passenger">
+            <div class="row-fluid" >
+                <div class="row-fluid person-type">
+                    <div class="span12">
+                        <h4 class=""><span title="" class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?></h4>
                     </div>
                 </div>
-            </div>
-            <div class="row-fluid person-type">
-                <div class="span12">
-                    <h4 class=""><?php echo JText::_('Children/infant(0-11 years)') ?></h4>
+                <div class="row-fluid herder">
+                    <div class="span1"></div>
+                    <div class="span1"><?php echo JText::_('Gender') ?></div>
+                    <div class="span1"><?php echo JText::_('First name') ?></div>
+                    <div class="span1"><?php echo JText::_('Middle name') ?></div>
+                    <div class="span1"><?php echo JText::_('Last name') ?></div>
+                    <div class="span1"><?php echo JText::_('Nationality') ?></div>
+                    <div class="span1"><?php echo JText::_('Date of birth') ?></div>
+                    <div class="span1"></div>
+                    <div class="span1"></div>
                 </div>
-            </div>
-            <div class="input-passenger-list-passenger children-infant">
+                <div class="input-passenger-list-passenger senior-adult-teen">
+                    <div class="row-fluid item-passenger">
+                        <div class="span1 handle"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span></div>
+                        <div class="span1">
+                            <select required data-name="gender" ">
+                                <option value="mr">Mr</option>
+                                <option value="ms">Ms</option>
+                            </select>
+                        </div>
+                        <div class="span1"><input required data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
+                                                  type="text"></div>
+                        <div class="span1"><input required  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
+                                                  type="text"></div>
+                        <div class="span1"><input required data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
+                                                  type="text"></div>
+                        <div class="span1"><input required data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
+                                                  type="text"></div>
+                        <div class="span1"><input required data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
+                                                  type="text"></div>
+                        <div class="span1">
+                            <button type="button" class="btn remove"><span class="icon-remove " title=""></span></button>
+                        </div>
+                        <div class="span1">
+                            <div  class="btn handle"><span class="icon-move " title=""></span></div>
+                        </div>
+                        <div class="span1">
+                            <button type="button" class="btn add "><span class="icon-plus " title=""></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid person-type">
+                    <div class="span12">
+                        <h4 class=""><span title="" class="travel-icon">n</span> <?php echo JText::_('Children/infant(0-11 years)') ?></h4>
+                    </div>
+                </div>
+                <div class="input-passenger-list-passenger children-infant">
 
+                </div>
+                <input type="hidden" name="<?php echo $name ?>">
             </div>
-            <input type="hidden" name="<?php echo $name ?>">
         </div>
         <?php
         $html = ob_get_clean();
@@ -2247,13 +2253,18 @@ XML;
     public static function build_room($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
+        JHtml::_('jquery.ui');
+        JHtml::_('jquery.ui',array('sortable'));
+
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/base64.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.less');
+        require_once JPATH_ROOT.'/libraries/php-loremipsum-master/src/LoremIpsum.php';
+        $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
         $id_element = 'html_build_room';
         ob_start();
@@ -2263,7 +2274,8 @@ XML;
                 $('#<?php  echo $id_element ?>').html_build_room({
                     list_passenger:<?php echo json_encode($list_passenger) ?>,
                     id_selected:<?php echo $default ? $default : 0 ?>,
-                    input_name: "<?php echo $name ?>"
+                    input_name: "<?php echo $name ?>",
+                    element_key:"<?php echo $id_element ?>"
                 });
             });
         </script>
@@ -2275,43 +2287,92 @@ XML;
         ob_start();
         ?>
         <div class="html_build_room row-fluid" id="<?php echo $id_element ?>">
-            <div class="item-room">
-                <div class="row-fluid">
-                    <div class="span6">
-                        <h3><?php echo JText::_('Select room type') ?></h3>
-                        <div class="row-fluid list-room">
-                            <div class="span2">
-                                <label><?php echo JText::_('Single') ?><input type="radio"  data-name="type" name="type"
-                                                                              value="single"></label>
+            <div class="<?php echo $id_element ?>_list_room">
+                <div class="item-room">
+                    <div  class="move-room handle"><span title="" class="icon-move "></span></div>
+                    <div class="row-fluid">
+                        <div class="span12"><h3><?php echo JText::_('Room ') ?><span class="room-order">1</span></h3></div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <h3><?php echo JText::_('Select room type') ?></h3>
+                            <div class="row-fluid list-room">
+                                <div class="span2">
+                                    <label><?php echo JText::_('Single') ?><input type="radio"  data-name="type" name="type"
+                                                                                  value="single"></label>
+                                </div>
+                                <div class="span2">
+                                    <label><?php echo JText::_('Double') ?><input type="radio" data-name="type" name="type"
+                                                                                  value="double"></label>
+                                </div>
+                                <div class="span4"></div>
+                                <div class="span2">
+                                    <label><?php echo JText::_('Twin') ?><input type="radio" data-name="type" name="type"
+                                                                                value="twin"></label>
+                                </div>
+                                <div class="span2">
+                                    <label><?php echo JText::_('Triple') ?><input type="radio" data-name="type" name="type"
+                                                                                  value="triple"></label>
+                                </div>
                             </div>
-                            <div class="span2">
-                                <label><?php echo JText::_('Double') ?><input type="radio" data-name="type" name="type"
-                                                                              value="double"></label>
+                            <div class="row-fluid note">
+                                <div class="span12">
+                                    <?php echo $lipsum->words(50) ?>
+                                </div>
                             </div>
-                            <div class="span4"></div>
-                            <div class="span2">
-                                <label><?php echo JText::_('Twin') ?><input type="radio" data-name="type" name="type"
-                                                                            value="twin"></label>
-                            </div>
-                            <div class="span2">
-                                <label><?php echo JText::_('Triple') ?><input type="radio" data-name="type" name="type"
-                                                                              value="triple"></label>
+                            <div class="row-fluid note">
+                                <div class="span12">
+                                    <h4><?php echo JText::_('Your note') ?></h4>
+                                    <textarea data-name="note" style="width: 100%;height: 50px"></textarea>
+                                </div>
                             </div>
                         </div>
+                        <div class="span6">
+                            <h3><?php echo JText::_('select person for room on your own') ?></h3>
+                            <ul class="list-passenger">
+                                <li><label><input class="passenger-item" name="passenger[0]" type="checkbox">full_name</label></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="span6">
-                        <h3><?php echo JText::_('select person for room on your own') ?></h3>
-                        <ul class="list-passenger">
-                            <li><label><input class="passenger-item" name="passenger[0]" type="checkbox">full_name</label></li>
-                        </ul>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <button type="button"
+                                    class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
+                            <button type="button"
+                                    class="btn btn-primary remove-room pull-right"><?php echo JText::_('Remove room') ?></button>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="rooming-list">
                 <div class="row-fluid">
                     <div class="span12">
-                        <button type="button"
-                                class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
-                        <button type="button"
-                                class="btn btn-primary remove-room pull-right"><?php echo JText::_('Remove room') ?></button>
+                        <h4 style="text-align: center"><?php echo JText::_('Rooming list') ?></h4>
+                        <div class="table table-hover table-bordered table-rooming-list">
+                           <div class="thead">
+                                <div class="row-fluid">
+                                    <div class="span2"><?php echo JText::_('Room') ?></div>
+                                    <div class="span2"><?php echo JText::_('Passenger') ?></div>
+                                    <div class="span2"><?php echo JText::_('Title') ?></div>
+                                    <div class="span2"><?php echo JText::_('Room type') ?></div>
+                                    <div class="span2"><?php echo JText::_('Room note') ?></div>
+                                    <div class="span2"><?php echo JText::_('Action') ?></div>
+                                </div>
+                           </div>
+                            <div class="tbody">
+                                <div class="row-fluid div-item-room">
+                                    <div class="span2"><label class="checked"><input type="checkbox"><span class="order">1</span></label></div>
+                                    <div class="span2"><div class="table_list_passenger"></div></div>
+                                    <div class="span2"></div>
+                                    <div class="span2"><div class="room_type"></div></div>
+                                    <div class="span2"><div class="room_note"></div></div>
+                                    <div class="span2">
+                                        <button type="button" class="btn btn-link delete-room"><span title="" class="icon-delete "></span></button>
+                                        <div  class="btn btn-link move-room handle"><span title="" class="icon-move "></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

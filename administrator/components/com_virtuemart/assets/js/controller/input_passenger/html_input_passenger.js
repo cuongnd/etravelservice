@@ -216,6 +216,45 @@
             plugin.update_data();
 
         };
+        plugin.validate=function(){
+            var error=false;
+            var $list_list_passenger=$element.find('.input-passenger-list-passenger');
+            $list_list_passenger.each(function(index_list_passenger,list_passenger){
+                var $list_passenger=$(this);
+                var group_passenger=plugin.get_type_passenger($list_passenger);
+                if(group_passenger==SENIOR_ADULT_TEEN)
+                {
+                    var type='senior_adult_teen';
+
+                }else{
+                    var type='children_infant';
+
+                }
+                $list_passenger.find('.item-passenger').each(function(index_passenger){
+                    var $passenger=$(this);
+                    $passenger.find('input[required]').removeClass('error');
+                    $passenger.find('input[required]').each(function(index){
+                        if($(this).val()=='')
+                        {
+                            $(this).addClass('error');
+                            error=true;
+                        }
+                    });
+
+                });
+            });
+            if(error)
+            {
+
+                $element.find('.error:first').tooltip({
+                    trigger:'click'
+                }).focus();
+                return false;
+            }else{
+                return true;
+            }
+
+        };
         plugin.update_passengers=function(list_passenger){
             plugin.settings.list_passenger=list_passenger;
             plugin.render_input_person();

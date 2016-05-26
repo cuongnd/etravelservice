@@ -28,9 +28,9 @@ $departure = $this->depatrure;
                 <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
                 <div class="row-fluid">
                     <div class="span12">
-                        <fieldset class="tour-border">
+                        <fieldset class="tour-border departure-filter">
                             <legend
-                                class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
+                                class="tour-border"><?php echo JText::_('Update passenger') ?></legend>
                             <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, 1, ''); ?>
                             <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20, 1, ''); ?>
                             <div class="btn-go">
@@ -40,39 +40,7 @@ $departure = $this->depatrure;
 
                     </div>
                 </div>
-                <div class="table table-trip">
-                    <div class="row-fluid header">
-                        <div class="span12">
-                            <div class="row-fluid">
-                                <div class="offset9 span2">
-                                    <div><?php echo JText::_('Dates listing') ?></div>
-                                    <a class="pull-left" href="javascript:void(0)"><span title=""
-                                                                                         class="icon-arrow-down-3 "></span></a>
-                                </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span1">
-
-                                </div>
-                                <div class="span3">
-                                    <?php echo JText::_('tour start/end date') ?>
-                                </div>
-                                <div class="span2">
-                                    <?php echo JText::_('Tour class') ?>
-                                </div>
-                                <div class="span2">
-                                    <?php echo JText::_('Lowest price') ?>
-                                </div>
-                                <div class="span2">
-                                    <?php echo JText::_('Space status') ?>
-                                </div>
-                                <div class="span2">
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="table table-trip departure-item">
                     <div class="row-fluid body">
                         <div class="span12">
                             <div class="row-fluid item">
@@ -99,14 +67,9 @@ $departure = $this->depatrure;
 
                                         </div>
                                         <div class="span2">
-                                            <a href="javascript:void(0)" class="btn-collapse"
-                                               data-toggle="collapse" data-target="#trip"><span
-                                                    title=""
-                                                    class="icon-chevron-down  hasTooltip"
-                                                    data-original-title="Detail"></span></a>
                                         </div>
                                     </div>
-                                    <div id="trip" class="row-fluid body-item collapse">
+                                    <div id="trip" class="row-fluid body-item">
                                         <div class="span2">
                                             <div><?php echo JText::_('Start') ?></div>
                                         </div>
@@ -176,39 +139,69 @@ $departure = $this->depatrure;
                         <?php echo VmHtml::input_passenger() ?>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <h4><?php echo JText::_('Contact detail')?></h4>
+                <div class="form-contact form-horizontal">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h4 class="title contact-detail"><span class="icon-location " title=""></span><?php echo JText::_('Contact detail')?></h4>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'phone_number', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Email Address'), 'email_address', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Confirm Email'), 'confirm_email', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Street address'), 'street_address', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Suburb/Town'), 'suburb_town', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('State/province'), 'state_province', '', 'class="required"'); ?>
+
+                        </div>
+                        <div class="span6">
+                            <?php echo VmHTML::row_control('input', JText::_('Postcode/Zip'), 'post_code_zip', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Res. Country'), 'res_country', '', 'class="required"'); ?>
+                            <h3 class=" emergency-contact"><?php echo JText::_('Emergency contact') ?></h3>
+                            <?php echo VmHTML::row_control('input', JText::_('Contact Name'), 'emergency_contact_name', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Street address'), 'emergency_email_address', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'emergency_phone_number', '', 'class="required"'); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
+                    <div class="span12">
+                        <fieldset class="tour-border rooming">
+                            <legend
+                                class="tour-border"><?php echo JText::_('Roomming') ?></legend>
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <span class="icon-notification " title=""></span>
+                                </div>
+                                <div class="span9">
+                                    <?php echo VmHTML::list_radio('rooming',$this->rooming_select,'share_room' ); ?>
+                                </div>
+                            </div>
+
+
+
+                        </fieldset>
 
                     </div>
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', 'service name', 'title', '', 'class="required"'); ?>
+                </div>
+                <div class="joint_group_note joint_group_note_1">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <?php echo $this->lipsum->words(100) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="joint_group_note joint_group_note_2">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <?php echo $this->lipsum->words(100) ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <h4><?php echo JText::_('Build your room')?></h4>
+                        <h3 class="build-your-room"><?php echo JText::_('Build your room')?></h3>
                     </div>
                 </div>
                 <div class="row-fluid">

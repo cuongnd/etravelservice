@@ -3,6 +3,20 @@
 
 }
 .view-bookjointgroup-default {
+  h3.passenger-details
+  {
+    background: #95a5a5;
+    padding: 10px;
+    color: #fff;
+  }
+  .departure-filter legend
+  {
+    color: #006964;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+  }
+
+
   .content-overview
   {
     .header-content
@@ -17,6 +31,7 @@
       }
     }
   }
+
   .product-name{
     text-align: center;
   }
@@ -44,25 +59,10 @@
   .btn-go {
     float: right;
   }
-  .table {
-    .header {
-      color: #fff;
-      background: #006599;
-      margin-bottom: 0;
-      text-transform: uppercase;
-      [class^="icon-"], [class*=" icon-"] {
-        color: #fff;
-        font-size: 25px;
-      }
-    }
+  .departure-item.table {
+    border: 1px solid #ccc;
     .body{
-      .item:nth-child(2n+1){
-        background: #f4ecea;
-      }
-      .item:nth-child(2n){
-        background: #f6fafb;
-      }
-      .item.in .header-item
+      .item .header-item
       {
         background: #006668;
         padding: 10px 0;
@@ -73,7 +73,7 @@
         }
 
       }
-      .item.in
+      .item
       {
         .body-item
         {
@@ -104,5 +104,36 @@
         text-transform: uppercase;
       }
     }
+  }
+  .form-contact
+  {
+    background: #f6f6f6;
+    padding: 10px;
+    margin-top: 30px;
+    .title.contact-detail
+    {
+      text-transform: uppercase;
+      color: #8c0000;
+    }
+    .emergency-contact
+    {
+      color: #0072c2;
+      padding-left: 10%;
+    }
+  }
+  .rooming legend
+  {
+    color: #006369;
+    margin-bottom: 0px;
+  }
+  .joint_group_note
+  {
+    background: #f6f6f6;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  .build-your-room
+  {
+    text-transform: uppercase;
   }
 }

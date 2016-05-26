@@ -1,7 +1,5 @@
-.html_build_room
-{
-  input,select
-  {
+.html_build_room {
+  input, select {
     width: 80px;
   }
   ul.list-passenger {
@@ -9,4 +7,36 @@
     -webkit-columns: 2;
     -moz-columns: 2;
   }
+
+  .item-room, .rooming-list {
+    padding: 10px;
+  }
+  .item-room:nth-child(2n+1) {
+    background: #f4ecea;
+  }
+  .item-room:nth-child(2n) {
+    background: #f6fafb;
+  }
+  .item-room {
+    position: relative;
+    margin-top: 10px;
+  }
+  .item-room .move-room {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  .ui-state-highlight {
+    height: 30px;
+    line-height: 1.2em;
+  }
+  .html_build_room_list_room .ui-state-highlight {
+    height: 300px;
+    line-height: 1.2em;
+  }
+  .error
+  {
+    border: red solid 1px;
+  }
+
 }

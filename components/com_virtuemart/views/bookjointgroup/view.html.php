@@ -52,6 +52,10 @@ class virtuemartViewbookjointgroup extends VmView {
             $this->depatrure=reset($jontgrouptrip_model->getItems());
             $product_model=VmModel::getModel('product');
             $this->product=$product_model->getItem( $this->depatrure->virtuemart_product_id);
+            require_once JPATH_ROOT.'/components/com_virtuemart/helpers/vmjointgroup.php';
+            $this->rooming_select=Vmjointgroup::get_list_rooming();
+            require_once JPATH_ROOT.'/libraries/php-loremipsum-master/src/LoremIpsum.php';
+            $this->lipsum = new joshtronic\LoremIpsum();
             parent::display($tpl);
         }
 
