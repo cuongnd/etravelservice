@@ -215,11 +215,9 @@ class VirtueMartModeljontgrouptrip extends VmModel {
             mark_up_tour_price_id.type AS mark_up_type
             ')
 
-            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to')
+            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to AND tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id AND tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('tour_promotion_price.tax AS promotion_tax')
             ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
-            ->where('tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('
                     group_size_id_tour_promotion_price_id.price_senior AS promotion_price_senior,
                     group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult,

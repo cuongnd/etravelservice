@@ -31,6 +31,27 @@
             html_item_passenger_template:'',
             range_senior_adult_teen_years:[12,99],
             range_children_infant:[0,11],
+            debug:false,
+            senior_adult_teen_title:[
+                {
+                    'id':'Mr',
+                    'text':'Mr'
+                },
+                {
+                    'id':'Miss',
+                    'text':'Miss'
+                }
+            ],
+            children_infant_title:[
+                {
+                    'id':'title1',
+                    'text':'title1'
+                },
+                {
+                    'id':'title2',
+                    'text':'title2'
+                }
+            ]
 
 
         };
@@ -112,6 +133,7 @@
             }
             $.each(list_passenger,function(index,passenger){
                 var $item_passenger_template=$(plugin.settings.html_item_passenger_template);
+                $item_passenger_template.find('input.date').addClass(type);
                 $item_passenger_template.appendTo($list_passenger);
                 $item_passenger_template.find(':input[data-name]').each(function(index1,input){
                     var $input=$(input);
@@ -291,6 +313,41 @@
             //$element.find('.input-passenger-list-passenger').disableSelection();
             plugin.update_data();
             //plugin.render_input_person();
+            var debug=plugin.settings.debug;
+            if(debug)
+            {
+                $element.find('.auto-fill-date').click(function(event){
+                    $element.find('input:not(.date)').delorean({ type: 'words', amount: 1, character: 'Name', tag:  '' }).trigger('change');
+                    $element.find('input.date.senior_adult_teen').each(function(){
+                        var date=$.randomDate(new Date(1917, 0, 1),new Date(2004, 0, 1));
+                        date=moment(date);
+                        $(this).val(date.format('MM/DD/YYYY')).trigger('change');
+                    });
+
+                    $element.find('input.date.children_infant').each(function(){
+                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2013, 0, 1));
+                        date=moment(date);
+                        $(this).val(date.format('MM/DD/YYYY')).trigger('change');
+                    });
+
+                    var items=[''];
+                    var item = items[Math.floor(Math.random()*items.length)];
+
+
+                    $element.find('input.date.children_infant').each(function(){
+                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2013, 0, 1));
+                        date=moment(date);
+                        $(this).val(date.format('MM/DD/YYYY')).trigger('change');
+                    });
+
+                });
+                for (var i=0;i<3;i++)
+                {
+                    $element.find('.input-passenger-list-passenger.senior-adult-teen .btn.add:first').trigger('click');
+                    $element.find('.input-passenger-list-passenger.children-infant .btn.add:first').trigger('click');
+                    $element.find('.auto-fill-date').trigger('click');
+                }
+            }
 
         };
         plugin.init();
