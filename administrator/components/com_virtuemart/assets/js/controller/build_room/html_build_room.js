@@ -18,7 +18,7 @@
             list_room:[
                 {
                     passengers:[],
-                    room_type:[],
+                    room_type:'',
                     room_note:''
 
                 }
@@ -225,8 +225,8 @@
             var item_room_template={};
             var list_room=plugin.settings.list_room;
             item_room_template.passengers=[];
-            item_room_template.room_type=[];
-            item_room_template.note=[];
+            item_room_template.room_type='';
+            item_room_template.note='';
             item_room_template.full=false;
             list_room.push(item_room_template);
             console.log(list_room);
@@ -238,6 +238,7 @@
             }
             plugin.format_name_for_room_index(last_room_index);
             plugin.lock_passenger_inside_room_index(last_room_index);
+            plugin.set_label_passenger_in_rooms();
 
         };
         plugin.validate=function(){
@@ -523,19 +524,12 @@
         };
         plugin.set_label_passenger_in_room_index = function (room_index) {
             var $room_item=$element.find('.item-room:eq('+room_index+')');
-            var list_passenger_selected=plugin.get_list_passenger_selected();
-
-            var list_room=plugin.settings.list_room;
-            var room_item=list_room[room_index];
-            if(!room_item.full)
-            {
-                $room_item.find('input.passenger-item:not(:checked)').prop("disabled", false);
-            }
-            $.each(list_passenger_selected,function(index,passenger_index){
+            $room_item.find('.list-passenger li .in_room').html('');
+            $room_item.find('.list-passenger li').each(function(passenger_index){
                 var a_room_index=plugin.get_room_index_by_passenger_index_selected(passenger_index);
-                if(a_room_index!=room_index)
+                if($.isNumeric(a_room_index))
                 {
-                    $room_item.find('input.passenger-item:eq('+passenger_index+')').prop("disabled", true);
+                    $(this).find('.in_room').html(' (room '+(a_room_index+1)+')');
                 }
             });
         };
@@ -552,7 +546,9 @@
             $.each(passengers,function(index,passenger_id){
                 $item_room.find('.passenger-item:eq('+passenger_id+')').prop('checked',false);
             });
+            var room_type=$item_room.find('input[type="radio"][data-name="type"]:checked').val();
             list_room[room_index].passengers=[];
+            list_room[room_index].room_type=room_type;
             plugin.settings.list_room=list_room;
             plugin.lock_passenger_inside_rooms();
             plugin.set_label_passenger_in_rooms();
@@ -576,6 +572,7 @@
             list_room[room_index].passengers=passengers;
             plugin.settings.list_room=list_room;
             plugin.lock_passenger_inside_rooms();
+            plugin.set_label_passenger_in_rooms();
        };
         plugin.add_event_room_index = function (room_index) {
             var $room_item=$element.find('.item-room:eq('+room_index+')');
@@ -657,6 +654,7 @@
             $item_room.remove();
             plugin.lock_passenger_inside_rooms();
             plugin.format_name_for_rooms();
+            plugin.set_label_passenger_in_rooms();
 
         };
         plugin.add_passenger_to_last_room_index = function () {
@@ -683,6 +681,9 @@
             plugin.settings.html_template_passenger= html_template_passenger;
         };
         plugin.format_name_for_room_index = function (room_index) {
+            var list_room=plugin.settings.list_room;
+            var room_item=list_room[room_index];
+            console.log(room_item);
             var $room_item=$element.find('.item-room:eq('+room_index+')');
 
             $room_item.find('textarea[data-name="note"]').attr('name','list_room['+room_index+'][note]');
@@ -693,10 +694,17 @@
                 var data_name=$input.data('name');
                 $input.attr('name','list_room['+room_index+']['+data_name+']');
             });
+            $room_item.find('input[data-name="type"][value="'+room_item.room_type+'"]').prop('checked',true);
+
             $room_item.find('ul.list-passenger input.passenger-item').each(function(passenger_index){
                 $(this).attr('name','list_room['+room_index+'][passengers][]');
                 $(this).val(passenger_index);
             });
+            var passengers=room_item.passengers;
+            for(var i=0;i<passengers.length;i++){
+                var passenger_index=passengers[i];
+                $room_item.find('ul.list-passenger input.passenger-item:eq('+passenger_index+')').prop('checked',true);
+            }
             //var $li=$('<li><label class="checkbox-inline"> <input class="passenger-item" data-key_full_name="'+key_full_name+'" value="'+i+'" data-index="'+i+'" name="list_room['+room_index+'][passengers][]" type="checkbox"> '+full_name+'</label></li>');
 
         };
@@ -711,6 +719,7 @@
             list_room[old_index]=list_room[new_index];
             list_room[new_index]=temp_room;
             plugin.settings.list_room=list_room;
+
         };
         plugin.setup_sortable = function () {
             $element.find('.table-rooming-list .tbody').sortable({
@@ -739,9 +748,15 @@
                     var new_index=ui.item.index();
                     if( ui.item.startPos!=ui.item.index())
                     {
-                        plugin.format_name_for_room_index(old_index);
-                        plugin.format_name_for_room_index(new_index);
                         plugin.exchange_index_for_list_room(old_index,new_index);
+                        if(old_index<new_index) {
+                            plugin.format_name_for_room_index(old_index);
+                            plugin.format_name_for_room_index(new_index);
+                        }else {
+                            plugin.format_name_for_room_index(new_index);
+                            plugin.format_name_for_room_index(old_index);
+                        }
+                        plugin.set_label_passenger_in_rooms();
                         console.log("Start position: " + ui.item.startPos);
                         console.log("New position: " + ui.item.index());
 

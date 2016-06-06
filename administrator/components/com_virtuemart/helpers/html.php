@@ -2347,7 +2347,7 @@ XML;
                         <div class="span6">
                             <h3><?php echo JText::_('select person for room on your own') ?></h3>
                             <ul class="list-passenger">
-                                <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span class="full-name"></span></label></li>
+                                <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span class="full-name"></span><span class="in_room"></span></label></li>
                             </ul>
                         </div>
                     </div>
