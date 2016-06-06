@@ -91,40 +91,47 @@
             }
         };
         plugin.get_list_passenger_selected=function(){
-            var $list_room=$element.find('.item-room');
+            var list_room=plugin.settings.list_room;
             var list_passenger_selected=[];
-            $list_room.each(function(index,room){
-                var $room=$(room);
-                var $list_passenger_selected_inside_room=$room.find('.list-passenger input.passenger-item:checked');
-                $list_passenger_selected_inside_room.each(function(index1,passenger){
-                    var $passenger=$(passenger);
-                    var data_index=$passenger.data('index');
-                    list_passenger_selected.push(data_index);
-                });
-
-
+            $.each(list_room,function(index,room_item){
+                var passengers=room_item.passengers;
+                list_passenger_selected=list_passenger_selected.concat(passengers);
             });
             return list_passenger_selected;
         }
-        plugin.lock_passenger_inside_room = function ($self) {
-            var $current_room=$self.closest('.item-room');
-            var current_room_index=$current_room.index();
-            var $list_room=$element.find('.item-room');
-            var list_passenger_selected=plugin.get_list_passenger_selected();
-            if(list_passenger_selected.length>0) {
-                $list_room.each(function (index, room) {
-                    if (index != current_room_index) {
-                        var $room = $(room);
-                        $room.find('.list-passenger input.passenger-item').each(function (passenger_index) {
-                            if (!$.inArray(passenger_index, list_passenger_selected)) {
-                                $(this).prop("disabled", true);
-                            }
-                        });
-                    }
-                });
-            }
-            console.log('hello lock_passenger_inside_room');
+        plugin.get_room_index_by_passenger_index_selected = function (passenger_index) {
+            var list_room=plugin.settings.list_room;
+            var return_room_index=false;
+            for (var i=0;i<list_room.length;i++){
+                var room_item=list_room[i];
+                var passengers=room_item.passengers;
+                if($.inArray(passenger_index,passengers) != -1) {
+                    return_room_index=i;
+                    break;
+                } else {
 
+                }
+
+            }
+            return return_room_index;
+        };
+        plugin.lock_passenger_inside_room_index = function (room_index) {
+            var $room_item=$element.find('.item-room:eq('+room_index+')');
+            var list_passenger_selected=plugin.get_list_passenger_selected();
+
+            var list_room=plugin.settings.list_room;
+            var room_item=list_room[room_index];
+            if(!room_item.full)
+            {
+                $room_item.find('input.passenger-item:not(:checked)').prop("disabled", false);
+            }
+            $.each(list_passenger_selected,function(index,passenger_index){
+                var a_room_index=plugin.get_room_index_by_passenger_index_selected(passenger_index);
+                if(a_room_index!=room_index)
+                {
+                    $room_item.find('input.passenger-item:eq('+passenger_index+')').prop("disabled", true);
+                }
+            });
         };
         plugin.get_list_passenger_checked=function(){
             var list_passenger_checked=[];
@@ -220,6 +227,7 @@
             item_room_template.passengers=[];
             item_room_template.room_type=[];
             item_room_template.note=[];
+            item_room_template.full=false;
             list_room.push(item_room_template);
             console.log(list_room);
 
@@ -229,7 +237,7 @@
                 plugin.add_passenger_to_room_index(last_room_index);
             }
             plugin.format_name_for_room(last_room_index);
-
+            plugin.lock_passenger_inside_room_index(last_room_index);
 
         };
         plugin.validate=function(){
@@ -298,8 +306,10 @@
         plugin.get_data=function(){
             return plugin.settings.output_data;
         };
-        plugin.validate_data = function ($self) {
-            var $item_room=$self.closest('.item-room');
+        plugin.validate_data_room_index = function (room_index) {
+            var $item_room=$element.find('.item-room:eq('+room_index+')');
+            var list_room=plugin.settings.list_room;
+            var room_item=list_room[room_index];
             var $type=$item_room.find('input[type="radio"][data-name="type"]:checked');
             if($type.length==0)
             {
@@ -317,12 +327,15 @@
             var total_passenger_selected=$item_room.find('.list-passenger input.passenger-item[exists_inside_other_room!="true"]:checked').length;
             if(total_passenger_selected>=type.max_total)
             {
+                room_item.full=true;
                 $item_room.find('.list-passenger input.passenger-item[exists_inside_other_room!="true"]:not(:checked)').prop("disabled", true);
 
             }else{
+                room_item.full=false;
                 $item_room.find('.list-passenger input.passenger-item[exists_inside_other_room!="true"]').prop("disabled", false);
             }
-
+            list_room[room_index]=room_item;
+            plugin.settings.list_room=list_room;
             return true;
         };
         plugin.reset_passenger_selected = function ($self) {
@@ -503,10 +516,21 @@
             plugin.add_event_room_index(last_room_index);
         };
         plugin.chang_room_type_to_room_index = function (room_index) {
-            
+            var $item_room=$element.find('.item-room:eq('+room_index+')');
+            var list_room=plugin.settings.list_room;
+            var passengers=list_room[room_index].passengers;
+            $.each(passengers,function(index,passenger_id){
+                $item_room.find('.passenger-item:eq('+passenger_id+')').prop('checked',false);
+            });
+            list_room[room_index].passengers=[];
+            plugin.settings.list_room=list_room;
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(a_room_index){
+                plugin.lock_passenger_inside_room_index(a_room_index);
+            });
         };
         plugin.enable_change_passenger_inside_room_index = function (room_index) {
-            return true;
+            return plugin.validate_data_room_index(room_index);
         };
         plugin.change_passenger_inside_room_index = function (room_index) {
 
@@ -521,6 +545,11 @@
             });
             var list_room=plugin.settings.list_room;
             list_room[room_index].passengers=passengers;
+            plugin.settings.list_room=list_room;
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(a_room_index){
+                plugin.lock_passenger_inside_room_index(a_room_index);
+            });
             console.log(plugin.settings.list_room);
         };
         plugin.add_event_room_index = function (room_index) {
@@ -543,10 +572,12 @@
                 var event_class='change_passenger';
                 if(!$passenger.hasClass(event_class))
                 {
-                    $passenger.change(function(){
+                    $passenger.change(function(event){
                         if(plugin.enable_change_passenger_inside_room_index(room_index))
                         {
                             plugin.change_passenger_inside_room_index(room_index);
+                        }else{
+                            $passenger.prop('checked',!$passenger.is(':checked'));
                         }
                     }).addClass(event_class);
                 }
@@ -555,24 +586,24 @@
             if(!$room_item.find('.add-more-room').hasClass(event_class))
             {
                 $room_item.find('.add-more-room').click(function(){
-                    if(plugin.enable_add_room(room_index))
+                    var a_room_index=$(this).closest('.item-room').index();
+                    if(plugin.enable_add_room(a_room_index))
                     {
-                        plugin.add_room(room_index);
-                        plugin.add_event_room_index(room_index+1);
+                        plugin.add_room(a_room_index);
+                        plugin.add_event_room_index(a_room_index+1);
                     }
                 }).addClass(event_class);
 
 
             }
             var event_class='remove_room';
-            if(!$room_item.hasClass(event_class))
+            if(!$room_item.find('.remove-room').hasClass(event_class))
             {
                 $room_item.find('.remove-room').click(function(){
-                    var $room=$(this).closest('.item-room');
-                    var room_index=$room.index();
-                    if(plugin.enable_remove_room_index(room_index))
+                    var a_room_index=$(this).closest('.item-room').index();
+                    if(plugin.enable_remove_room_index(a_room_index))
                     {
-                        plugin.remove_room_index(room_index);
+                        plugin.remove_room_index(a_room_index);
                     }
                 }).addClass(event_class);
             }
@@ -593,6 +624,13 @@
             list_room.splice(room_index, 1);
             plugin.settings.list_room=list_room;
             $item_room.remove();
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(a_room_index){
+                plugin.lock_passenger_inside_room_index(a_room_index);
+            });
+            $list_room.each(function(a_room_index){
+                plugin.format_name_for_room(a_room_index);
+            });
         };
         plugin.add_passenger_to_last_room_index = function () {
 
