@@ -236,7 +236,7 @@
             {
                 plugin.add_passenger_to_room_index(last_room_index);
             }
-            plugin.format_name_for_room(last_room_index);
+            plugin.format_name_for_room_index(last_room_index);
             plugin.lock_passenger_inside_room_index(last_room_index);
 
         };
@@ -405,7 +405,7 @@
                 if(plugin.enable_add_passenger_to_room_index(room_index))
                 {
                     plugin.add_passenger_to_room_index(room_index);
-                    plugin.format_name_for_room(room_index);
+                    plugin.format_name_for_room_index(room_index);
                 }
                 plugin.add_event_room_index(room_index);
 /*
@@ -515,6 +515,36 @@
             var last_room_index=$last_room_item.index();
             plugin.add_event_room_index(last_room_index);
         };
+        plugin.lock_passenger_inside_rooms = function () {
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(room_index){
+                plugin.lock_passenger_inside_room_index(room_index);
+            });
+        };
+        plugin.set_label_passenger_in_room_index = function (room_index) {
+            var $room_item=$element.find('.item-room:eq('+room_index+')');
+            var list_passenger_selected=plugin.get_list_passenger_selected();
+
+            var list_room=plugin.settings.list_room;
+            var room_item=list_room[room_index];
+            if(!room_item.full)
+            {
+                $room_item.find('input.passenger-item:not(:checked)').prop("disabled", false);
+            }
+            $.each(list_passenger_selected,function(index,passenger_index){
+                var a_room_index=plugin.get_room_index_by_passenger_index_selected(passenger_index);
+                if(a_room_index!=room_index)
+                {
+                    $room_item.find('input.passenger-item:eq('+passenger_index+')').prop("disabled", true);
+                }
+            });
+        };
+        plugin.set_label_passenger_in_rooms = function () {
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(room_index){
+                plugin.set_label_passenger_in_room_index(room_index);
+            });
+        };
         plugin.chang_room_type_to_room_index = function (room_index) {
             var $item_room=$element.find('.item-room:eq('+room_index+')');
             var list_room=plugin.settings.list_room;
@@ -524,10 +554,9 @@
             });
             list_room[room_index].passengers=[];
             plugin.settings.list_room=list_room;
-            var $list_room=$element.find('.item-room');
-            $list_room.each(function(a_room_index){
-                plugin.lock_passenger_inside_room_index(a_room_index);
-            });
+            plugin.lock_passenger_inside_rooms();
+            plugin.set_label_passenger_in_rooms();
+
         };
         plugin.enable_change_passenger_inside_room_index = function (room_index) {
             return plugin.validate_data_room_index(room_index);
@@ -546,12 +575,8 @@
             var list_room=plugin.settings.list_room;
             list_room[room_index].passengers=passengers;
             plugin.settings.list_room=list_room;
-            var $list_room=$element.find('.item-room');
-            $list_room.each(function(a_room_index){
-                plugin.lock_passenger_inside_room_index(a_room_index);
-            });
-            console.log(plugin.settings.list_room);
-        };
+            plugin.lock_passenger_inside_rooms();
+       };
         plugin.add_event_room_index = function (room_index) {
             var $room_item=$element.find('.item-room:eq('+room_index+')');
             var $room_type_item=$room_item.find('input[data-name="type"]');
@@ -612,6 +637,12 @@
 
 
         };
+        plugin.format_name_for_rooms = function () {
+            var $list_room=$element.find('.item-room');
+            $list_room.each(function(room_index){
+                plugin.format_name_for_room_index(room_index);
+            });
+        };
         plugin.remove_room_index = function (room_index) {
 
             var total_room=$element.find('.item-room').length;
@@ -624,13 +655,9 @@
             list_room.splice(room_index, 1);
             plugin.settings.list_room=list_room;
             $item_room.remove();
-            var $list_room=$element.find('.item-room');
-            $list_room.each(function(a_room_index){
-                plugin.lock_passenger_inside_room_index(a_room_index);
-            });
-            $list_room.each(function(a_room_index){
-                plugin.format_name_for_room(a_room_index);
-            });
+            plugin.lock_passenger_inside_rooms();
+            plugin.format_name_for_rooms();
+
         };
         plugin.add_passenger_to_last_room_index = function () {
 
@@ -655,7 +682,7 @@
             var html_template_passenger=$element.find('ul.list-passenger li:first').getOuterHTML();
             plugin.settings.html_template_passenger= html_template_passenger;
         };
-        plugin.format_name_for_room = function (room_index) {
+        plugin.format_name_for_room_index = function (room_index) {
             var $room_item=$element.find('.item-room:eq('+room_index+')');
 
             $room_item.find('textarea[data-name="note"]').attr('name','list_room['+room_index+'][note]');
@@ -676,7 +703,7 @@
         plugin.format_name_for_last_room = function () {
             var $last_room_item=$element.find('.item-room:last');
             var last_room_index=$last_room_item.index();
-            plugin.format_name_for_room(last_room_index);
+            plugin.format_name_for_room_index(last_room_index);
         };
         plugin.exchange_index_for_list_room = function (old_index, new_index) {
             var list_room=plugin.settings.list_room;
@@ -712,8 +739,8 @@
                     var new_index=ui.item.index();
                     if( ui.item.startPos!=ui.item.index())
                     {
-                        plugin.format_name_for_room(old_index);
-                        plugin.format_name_for_room(new_index);
+                        plugin.format_name_for_room_index(old_index);
+                        plugin.format_name_for_room_index(new_index);
                         plugin.exchange_index_for_list_room(old_index,new_index);
                         console.log("Start position: " + ui.item.startPos);
                         console.log("New position: " + ui.item.index());
