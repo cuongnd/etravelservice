@@ -749,6 +749,7 @@
                     if( ui.item.startPos!=ui.item.index())
                     {
                         plugin.exchange_index_for_list_room(old_index,new_index);
+                        console.log(plugin.settings.list_room);
                         if(old_index<new_index) {
                             plugin.format_name_for_room_index(old_index);
                             plugin.format_name_for_room_index(new_index);
