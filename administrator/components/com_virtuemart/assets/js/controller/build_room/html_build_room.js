@@ -125,13 +125,15 @@
             {
                 $room_item.find('input.passenger-item:not(:checked)').prop("disabled", false);
             }
-            $.each(list_passenger_selected,function(index,passenger_index){
+            for(var i=0;i<list_passenger_selected.length;i++)
+            {
+                var passenger_index=list_passenger_selected[i];
                 var a_room_index=plugin.get_room_index_by_passenger_index_selected(passenger_index);
                 if(a_room_index!=room_index)
                 {
                     $room_item.find('input.passenger-item:eq('+passenger_index+')').prop("disabled", true);
                 }
-            });
+            }
         };
         plugin.get_list_passenger_checked=function(){
             var list_passenger_checked=[];
@@ -221,15 +223,14 @@
             var $last_item_room=$element.find(".item-room:last");
             $(html_item_room_template).insertAfter($last_item_room);
             var $last_item_room=$element.find(".item-room:last");
-
+            $last_item_room.find('input[value="single"][data-name="type"]').prop("checked", true);
             var item_room_template={};
             var list_room=plugin.settings.list_room;
             item_room_template.passengers=[];
-            item_room_template.room_type='';
+            item_room_template.room_type='single';
             item_room_template.note='';
             item_room_template.full=false;
             list_room.push(item_room_template);
-            console.log(list_room);
 
             var last_room_index=$last_item_room.index();
             if(plugin.enable_add_passenger_to_room_index(last_room_index))
@@ -476,35 +477,18 @@
         };
         plugin.add_passenger_to_room_index = function (room_index) {
 
-            var function_add_passenger=function(passenger){
+            var list_passenger=plugin.settings.list_passenger.slice();
+            console.log(list_passenger);
+            var $room_item=$element.find('.item-room:eq('+room_index+')');
+            $room_item.find('ul.list-passenger').empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var passenger=list_passenger[i];
                 var passenger_full_name=plugin.get_passenger_full_name(passenger);
                 var html_template_passenger=plugin.settings.html_template_passenger;
                 var $template_passenger=$(html_template_passenger);
                 $template_passenger.find('.full-name').html(passenger_full_name);
                 $room_item.find('ul.list-passenger').append($template_passenger);
 
-            };
-            var function_change_passenger=function(passenger,$passenger){
-                var passenger_full_name=plugin.get_passenger_full_name(passenger);
-
-                $passenger.find('.full-name').html(passenger_full_name);
-            };
-            var list_passenger=plugin.settings.list_passenger.slice();
-            var $room_item=$element.find('.item-room:eq('+room_index+')');
-            var $list_passenger=$room_item.find('ul.list-passenger li');
-            for(var i=0;i<$list_passenger.length;i++){
-                var passenger=list_passenger.pop();
-                var $passenger=$($list_passenger.get( i ));
-                if(typeof passenger=="undefined")
-                {
-                    $passenger.remove();
-                }else{
-                    function_change_passenger(passenger,$passenger);
-                }
-            }
-            for(var i=0;i<list_passenger.length;i++){
-                var passenger=list_passenger[i];
-                function_add_passenger(passenger);
             }
 
         };
@@ -549,12 +533,27 @@
             var room_type=$item_room.find('input[type="radio"][data-name="type"]:checked').val();
             list_room[room_index].passengers=[];
             list_room[room_index].room_type=room_type;
+            list_room[room_index].full=false;
             plugin.settings.list_room=list_room;
             plugin.lock_passenger_inside_rooms();
             plugin.set_label_passenger_in_rooms();
 
         };
+        plugin.exists_adult_in_room_index = function (room_index) {
+            var list_room=plugin.settings.list_room;
+            var passengers=list_room[room_index].passengers;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_adult_by_passenger_index(passenger_index))
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
         plugin.enable_change_passenger_inside_room_index = function (room_index) {
+
             return plugin.validate_data_room_index(room_index);
         };
         plugin.change_passenger_inside_room_index = function (room_index) {
@@ -574,6 +573,28 @@
             plugin.lock_passenger_inside_rooms();
             plugin.set_label_passenger_in_rooms();
        };
+        plugin.remove_passenger_in_room_index = function (room_index) {
+            var list_room=plugin.settings.list_room;
+            list_room[room_index].passengers=[];
+            plugin.settings.list_room=list_room;
+        };
+        plugin.is_adult_by_passenger_index = function (passenger_index) {
+
+            var list_passenger=plugin.settings.list_passenger;
+            console.log(list_passenger);
+            console.log(passenger_index);
+            var passenger=list_passenger[passenger_index];
+            console.log(passenger);
+            console.log(passenger_index);
+            console.log(parseInt(passenger.year_old));
+            console.log(parseInt(passenger.year_old)>=12);
+            console.log(parseInt(passenger.year_old)<=70);
+            if(typeof passenger!="undefined" && parseInt(passenger.year_old)>=12 && parseInt(passenger.year_old)<=70){
+                return true;
+            }else {
+                return false;
+            }
+        };
         plugin.add_event_room_index = function (room_index) {
             var $room_item=$element.find('.item-room:eq('+room_index+')');
             var $room_type_item=$room_item.find('input[data-name="type"]');
@@ -595,12 +616,37 @@
                 if(!$passenger.hasClass(event_class))
                 {
                     $passenger.change(function(event){
-                        if(plugin.enable_change_passenger_inside_room_index(room_index))
+                        var $self=$(this);
+                        var a_room_index=$self.closest('.item-room').index();
+                        console.log('room_index:'+a_room_index);
+                        var passenger_index=$self.closest('li').index();
+                        var list_room=plugin.settings.list_room;
+                        var passengers=list_room[a_room_index].passengers;
+                        if($self.is(':checked') && passengers.length==0 )
                         {
-                            plugin.change_passenger_inside_room_index(room_index);
-                        }else{
-                            $passenger.prop('checked',!$passenger.is(':checked'));
+                            if(!plugin.is_adult_by_passenger_index(passenger_index))
+                            {
+                                $room_item.find('.list-passenger').tipso({
+                                    size: 'tiny',
+                                    useTitle:false,
+                                    content:'please select adult first',
+                                    animationIn:'bounceInDown'
+                                }).addClass('error');
+                                $room_item.find('.list-passenger').tipso('show');
+                                $(this).prop('checked',!$passenger.is(':checked'));
+                            }
                         }
+                        if(plugin.enable_change_passenger_inside_room_index(a_room_index))
+                        {
+                            plugin.change_passenger_inside_room_index(a_room_index);
+
+                        }else{
+                            $(this).prop('checked',!$passenger.is(':checked'));
+                        }
+
+
+
+
                     }).addClass(event_class);
                 }
             });

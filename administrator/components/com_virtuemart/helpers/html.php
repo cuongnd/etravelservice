@@ -2314,7 +2314,7 @@ XML;
                             <div class="list-room">
                                 <div class="row-fluid">
                                     <div class="span2">
-                                        <label><?php echo JText::_('Single') ?><input type="radio"  data-name="type" name="type"
+                                        <label><?php echo JText::_('Single') ?><input type="radio" checked  data-name="type" name="type"
                                                                                       value="single"></label>
                                     </div>
                                     <div class="span2">
