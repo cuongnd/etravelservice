@@ -162,7 +162,6 @@ $captioncss = modSlideshowckHelper::createCss($params, 'captionstyles');
 $fontfamily = ($params->get('captionstylesusefont','0') && $params->get('captionstylestextgfont', '0')) ? "font-family:'" . $params->get('captionstylestextgfont', 'Droid Sans') . "';" : '';
 if ($fontfamily) {
 	$gfonturl = str_replace(" ", "+", $params->get('captionstylestextgfont', 'Droid Sans'));
-	$document->addStylesheet('https://fonts.googleapis.com/css?family=' . $gfonturl);
 }
 
 $css .= "

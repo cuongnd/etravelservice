@@ -2275,6 +2275,7 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
         $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.less');
         require_once JPATH_ROOT.'/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
