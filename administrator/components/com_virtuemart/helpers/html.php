@@ -2165,6 +2165,7 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
 
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
@@ -2276,6 +2277,7 @@ XML;
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
         $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
         $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.less');
         require_once JPATH_ROOT.'/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
@@ -2354,6 +2356,8 @@ XML;
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
+                            <button type="button"
+                                    class="btn btn-primary save-room pull-right"><?php echo JText::_('Save') ?></button>
                             <button type="button"
                                     class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
                             <button type="button"

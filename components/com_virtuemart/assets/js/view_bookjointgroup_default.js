@@ -58,7 +58,18 @@
 
             }
         };
-
+        plugin.validate=function(){
+            var $html_build_room=$('#html_build_room').data('html_build_room');
+            var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
+            if(!$html_input_passenger.validate())
+            {
+                return false;
+            }else if(!$html_build_room.validate())
+            {
+                return false;
+            }
+            return true;
+        };
         // the "constructor" method that gets called when the object is created
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, options);
@@ -102,6 +113,13 @@
                 console.log($form);
             });
             plugin.show_passenger();
+            $element.find('.control-next').click(function(){
+                if(plugin.validate())
+                {
+                    alert('ok');
+                }
+            });
+
         };
 
         plugin.example_function = function() {

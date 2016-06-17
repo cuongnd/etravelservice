@@ -270,7 +270,12 @@
 
                 $element.find('.error:first').tooltip({
                     trigger:'click'
-                }).focus();
+                });
+                $.scrollTo($element.find('.error:first'),800,{
+                    onAfter:function(elem, targ, settings){
+                        $element.find('.error:first').focus();
+                    }
+                });
                 return false;
             }else{
                 return true;
@@ -325,7 +330,7 @@
                     });
 
                     $element.find('input.date.children_infant').each(function(){
-                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2013, 0, 1));
+                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2016, 0, 1));
                         date=moment(date);
                         $(this).val(date.format('MM/DD/YYYY')).trigger('change');
                     });
@@ -335,13 +340,13 @@
 
 
                     $element.find('input.date.children_infant').each(function(){
-                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2013, 0, 1));
+                        var date=$.randomDate(new Date(2005, 0, 1),new Date(2016, 0, 1));
                         date=moment(date);
                         $(this).val(date.format('MM/DD/YYYY')).trigger('change');
                     });
 
                 });
-                for (var i=0;i<7;i++)
+                for (var i=0;i<10;i++)
                 {
                     $element.find('.input-passenger-list-passenger.senior-adult-teen .btn.add:first').trigger('click');
                     $element.find('.input-passenger-list-passenger.children-infant .btn.add:first').trigger('click');

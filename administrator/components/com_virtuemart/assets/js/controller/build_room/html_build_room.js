@@ -26,16 +26,76 @@
             item_room_template:{},
             event_after_change:false,
             update_passenger:false,
+            limit_total:false,
             single:{
                 max_adult:1,
                 max_children:1,
                 max_infant:0,
                 max_total:1,
-                enable_select_infant:function(room_item,range_year_old_infant2,passenger_index_selected){
+                validate_room:function(room_item,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length>max_total)
+                    {
+                        var content_notify='our policy does not allow two persons to stay in a single room. You are suggested to select a twin/double room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(plugin.exists_infant1_in_room_index(room_index) || plugin.exists_infant2_in_room_index(room_index)){
+                        var content_notify='our policy does not allow a child under 5 years to stay alone in single room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }
+                    return true;
+                },
+                enable_select_infant1:function(room_item,range_year_old_infant1,passenger_index_selected,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var content_notify='you cannot add infant(2-5) to sigle room, you can add adult or children (>6) inside room';
+                    plugin.notify(content_notify);
+                    $room_item.find('.list-passenger').removeClass('error');
+                    $room_item.find('.list-passenger').tipso('destroy');
+                    $room_item.find('.list-passenger').tipso({
+                        size: 'tiny',
+                        useTitle:false,
+                        content:content_notify,
+                        animationIn:'bounceInDown'
+                    }).addClass('error');
+                    $room_item.find('.list-passenger').tipso('show');
+                    $room_item.find('.list-passenger').addClass('error');
+                    return false;
+                },
+                enable_select_infant2:function(room_item,range_year_old_infant2,passenger_index_selected,room_index){
 
                     return false;
                 },
-                enable_select_children:function(room_item,range_year_old_children,passenger_index_selected){
+                enable_select_children:function(room_item,range_year_old_children,passenger_index_selected,room_index){
+
+                    return true;
+                },
+                enable_select_adult:function(room_item,range_year_old_adult,passenger_index_selected,room_index){
 
                     return true;
                 }
@@ -45,6 +105,285 @@
                 max_children:2,
                 max_infant:1,
                 max_total:3,
+                validate_room:function(room_item,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length>max_total)
+                    {
+                        var content_notify='max person in room is '+max_total;
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if( plugin.exists_infant2_in_room_index(room_index) && (!plugin.exists_adult_in_room_index(room_index) && !plugin.exists_children_in_room_index(room_index) )){
+                        var content_notify='room exists infant (2-5) you need add adult or children in this room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if( plugin.exists_infant1_in_room_index(room_index) && !plugin.exists_adult_in_room_index(room_index)){
+                        var content_notify='our policy does not allow infant to stay in   room other children. You are suggested to assign a Teen/Adult/Senior to look after the infant.';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(passengers.length==max_total && plugin.all_passenger_in_room_is_adult_or_children(room_index)){
+                        var content_notify='our policy does not allow 3 persons  from 6 years old up to share a double /twin room . You are suggested to select a triple room instead.';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }
+                    return true;
+                },
+                enable_select_infant1:function(room_item,range_year_old_infant1,passenger_index_selected,room_index){
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length==max_total-1  && !plugin.exists_adult_in_room_index(room_index))
+                    {
+                        return false;
+                    }
+                    return true;
+                },
+                enable_select_infant2:function(room_item,range_year_old_infant2,passenger_index_selected,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length==max_total-1  && !plugin.exists_children_or_adult_in_room_index(room_index))
+                    {
+                        var content_notify='you cannot add more infant (2-5) because  exists baby infant (2-5) in room you need add one adult(>=12) or children (6-11) inside this room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }
+                    if(passengers.length==max_total-1  && plugin.exists_infant1_in_room_index(room_index) && !plugin.exists_adult_in_room_index(room_index))
+                    {
+                        var content_notify='you cannot add more infant (2-5) because  exists baby infant (0-1) in room  you need add one adult(>=12) inside this room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }
+                    return true;
+                },
+                enable_select_children:function(room_item,range_year_old_children,passenger_index_selected,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    console.log('max_total:'+max_total);
+                    console.log('passengers_length:'+passengers.length);
+                    var all_passenger_is_infant_and_children=function(passengers){
+                        var all_passenger_is_infant_or_children=true;
+                        for (var i=0;i<passengers.length;i++)
+                        {
+                            var passenger_index=passengers[i];
+                            if(plugin.is_adult(passenger_index)){
+                                all_passenger_is_infant_or_children= false;
+                                break;
+                            }
+                        }
+                        return all_passenger_is_infant_or_children;
+                    };
+                    var exists_infant_in_room=function(passengers){
+                        var exists_infant_in_room=false;
+                        for (var i=0;i<passengers.length;i++)
+                        {
+                            var passenger_index=passengers[i];
+                            if(plugin.is_infant(passenger_index)){
+                                exists_infant_in_room= true;
+                                break;
+                            }
+                        }
+                        return exists_infant_in_room;
+                    };
+                    var total_adult_and_children=0;
+                    for (var i=0;i<passengers.length;i++)
+                    {
+                        var passenger_index=passengers[i];
+                        if(plugin.is_adult(passenger_index) || plugin.is_children(passenger_index)){
+                            total_adult_and_children++;
+                        }
+                    }
+
+                    if(passengers.length==max_total-1 && plugin.exists_infant1_in_room_index(room_index) && all_passenger_is_infant_and_children(passengers))
+                    {
+                        var content_notify='exists baby infant(0-1) please select one adult(>=12)';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        return false;
+                    }else if(passengers.length==max_total-1 && total_adult_and_children==max_total-1){
+                        var content_notify='double room max total adult and children is two person, if you want this  you should select twin room, or triple room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        return false;
+
+                    }
+                    return true;
+                },
+                enable_select_adult:function(room_item,range_year_old_adult,passenger_index_selected,room_index){
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var max_total=plugin.settings[room_type].max_total;
+                    var all_passenger_is_adult=function(passengers){
+                        var all_passenger_is_adult=true;
+                        for (var i=0;i<passengers.length;i++)
+                        {
+                            var passenger_index=passengers[i];
+                            if(!plugin.is_adult(passenger_index)){
+                                all_passenger_is_adult= false;
+                                break;
+                            }
+                        }
+                        return all_passenger_is_adult;
+                    };
+
+                    if(passengers.length==max_total-1  && all_passenger_is_adult(passengers))
+                    {
+                        var content_notify='double room max total adult and children is two person, if you want this  you should select twin room, or triple room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+
+
+                        return false;
+                    }
+                    return true;
+                }
+            },
+            twin:{
+                max_adult:2,
+                max_children:2,
+                max_infant:1,
+                max_total:3,
+                validate_room:function(room_item,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length>max_total)
+                    {
+                        var content_notify='max person in room is '+max_total;
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(plugin.exists_infant1_in_room_index(room_index) && !plugin.exists_adult_in_room_index(room_index)){
+                        var content_notify='our policy does not allow infant  to stay with other children  in   room . You are suggested to assign a Teen/Adult/Senior to look after the infant.';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(passengers.length==max_total && plugin.all_passenger_in_room_is_adult_or_children(room_index)){
+                        var content_notify='our policy does not allow 3 persons  from 6 years old up to share a double /twin room . You are suggested to select a triple room instead';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }
+                    return true;
+                },
                 enable_select_infant1:function(room_item,range_year_old_infant1,passenger_index_selected,room_index){
                     var room_type=room_item.room_type;
                     var passengers=room_item.passengers;
@@ -97,9 +436,8 @@
                 enable_select_children:function(room_item,range_year_old_children,passenger_index_selected,room_index){
                     var room_type=room_item.room_type;
                     var passengers=room_item.passengers;
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
                     var max_total=plugin.settings[room_type].max_total;
-                    console.log('max_total:'+max_total);
-                    console.log('passengers_length:'+passengers.length);
                     var all_passenger_is_infant_and_children=function(passengers){
                         var all_passenger_is_infant_or_children=true;
                         for (var i=0;i<passengers.length;i++)
@@ -127,24 +465,7 @@
 
                     if(passengers.length==max_total-1 && plugin.exists_infant1_in_room_index(room_index) && all_passenger_is_infant_and_children(passengers))
                     {
-                        return false;
-                    }
-                    return true;
-                }
-            },
-            twin:{
-                max_adult:2,
-                max_children:2,
-                max_infant:1,
-                max_total:3,
-                enable_select_infant2:function(room_item,range_year_old_infant2,passenger_index_selected,room_index){
-                    var $room_item=$element.find('.item-room:eq('+room_index+')');
-                    var room_type=room_item.room_type;
-                    var passengers=room_item.passengers;
-                    var max_total=plugin.settings[room_type].max_total;
-                    if(passengers.length==max_total-1  && !plugin.exists_children_or_adult_in_room_index(room_index))
-                    {
-                        var content_notify='you cannot add more infant (2-5) because  exists baby infant (2-5) in room you need add one adult(>=12) or children (6-11) inside this room';
+                        var content_notify='you cannot add more children room  exists baby infant (0-1) in room  you need add one adult(>=12) inside this room';
                         plugin.notify(content_notify);
                         $room_item.find('.list-passenger').removeClass('error');
                         $room_item.find('.list-passenger').tipso('destroy');
@@ -157,60 +478,12 @@
                         $room_item.find('.list-passenger').tipso('show');
                         $room_item.find('.list-passenger').addClass('error');
                         return false;
-                    }
-                    if(passengers.length==max_total-1  && plugin.exists_infant1_in_room_index(room_index) && !plugin.exists_adult_in_room_index(room_index))
-                    {
-                        var content_notify='you cannot add more infant (2-5) because  exists baby infant (0-1) in room  you need add one adult(>=12) inside this room';
-                        plugin.notify(content_notify);
-                        $room_item.find('.list-passenger').removeClass('error');
-                        $room_item.find('.list-passenger').tipso('destroy');
-                        $room_item.find('.list-passenger').tipso({
-                            size: 'tiny',
-                            useTitle:false,
-                            content:content_notify,
-                            animationIn:'bounceInDown'
-                        }).addClass('error');
-                        $room_item.find('.list-passenger').tipso('show');
-                        $room_item.find('.list-passenger').addClass('error');
+
                         return false;
                     }
                     return true;
                 },
-                enable_select_children:function(room_item,range_year_old_children,passenger_index_selected,room_index){
-                    var room_type=room_item.room_type;
-                    var passengers=room_item.passengers;
-                    var max_total=plugin.settings[room_type].max_total;
-                    console.log('max_total:'+max_total);
-                    console.log('passengers_length:'+passengers.length);
-                    var all_passenger_is_infant_and_children=function(passengers){
-                        var all_passenger_is_infant_or_children=true;
-                        for (var i=0;i<passengers.length;i++)
-                        {
-                            var passenger_index=passengers[i];
-                            if(plugin.is_adult(passenger_index)){
-                                all_passenger_is_infant_or_children= false;
-                                break;
-                            }
-                        }
-                        return all_passenger_is_infant_or_children;
-                    };
-                    var exists_infant_in_room=function(passengers){
-                        var exists_infant_in_room=false;
-                        for (var i=0;i<passengers.length;i++)
-                        {
-                            var passenger_index=passengers[i];
-                            if(plugin.is_infant(passenger_index)){
-                                exists_infant_in_room= true;
-                                break;
-                            }
-                        }
-                        return exists_infant_in_room;
-                    };
-
-                    if(passengers.length==max_total-1 && plugin.exists_infant1_in_room_index(room_index) && all_passenger_is_infant_and_children(passengers))
-                    {
-                        return false;
-                    }
+                enable_select_adult:function(room_item,range_year_old_adult,passenger_index_selected,room_index){
                     return true;
                 }
             },
@@ -219,6 +492,83 @@
                 max_children:2,
                 max_infant:1,
                 max_total:4,
+                validate_room:function(room_item,room_index){
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length>max_total)
+                    {
+                        var content_notify='max person in room is '+max_total+' please eject some person';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(plugin.exists_infant1_in_room_index(room_index) && !plugin.exists_adult_in_room_index(room_index)){
+                        var content_notify='our policy does not allow infant  to stay with other children  in   room . You are suggested to assign a Teen/Adult/Senior to look after the infant.';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+                    }else if(plugin.get_total_adult(room_index)==4){
+                        var content_notify='Our policy does not allow 4 teeners/adults/seniors to share the same room.You are suggested to select 2 rooms .You are suggested to select 2 rooms';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+
+                    }else if(plugin.get_total_adult(room_index)==3&&plugin.exists_children_in_room_index(room_index)){
+                        var content_notify='Our policy does not allow a child over 6 years old to share the same room with 3 teeners/adults/seniors .You are suggested to select 2 rooms';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+
+                    }
+                    return true;
+                },
+                enable_select_infant1:function(room_item,range_year_old_infant1,passenger_index_selected,room_index){
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var max_total=plugin.settings[room_type].max_total;
+                    if(passengers.length==max_total-1  && !plugin.exists_adult_in_room_index(room_index))
+                    {
+                        return false;
+                    }
+                    return true;
+                },
                 enable_select_infant2:function(room_item,range_year_old_infant2,passenger_index_selected,room_index){
                     var $room_item=$element.find('.item-room:eq('+room_index+')');
                     var room_type=room_item.room_type;
@@ -261,9 +611,8 @@
                 enable_select_children:function(room_item,range_year_old_children,passenger_index_selected,room_index){
                     var room_type=room_item.room_type;
                     var passengers=room_item.passengers;
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
                     var max_total=plugin.settings[room_type].max_total;
-                    console.log('max_total:'+max_total);
-                    console.log('passengers_length:'+passengers.length);
                     var all_passenger_is_infant_and_children=function(passengers){
                         var all_passenger_is_infant_or_children=true;
                         for (var i=0;i<passengers.length;i++)
@@ -291,6 +640,57 @@
 
                     if(passengers.length==max_total-1 && plugin.exists_infant1_in_room_index(room_index) && all_passenger_is_infant_and_children(passengers))
                     {
+                        var content_notify='you cannot add more children room  exists baby infant (0-1) in room  you need add one adult(>=12) inside this room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+                        $room_item.find('.list-passenger').addClass('error');
+                        return false;
+
+                        return false;
+                    }
+                    return true;
+                },
+                enable_select_adult:function(room_item,range_year_old_adult,passenger_index_selected,room_index){
+                    var room_type=room_item.room_type;
+                    var passengers=room_item.passengers;
+                    var $room_item=$element.find('.item-room:eq('+room_index+')');
+                    var max_total=plugin.settings[room_type].max_total;
+                    var all_passenger_is_adult=function(passengers){
+                        var all_passenger_is_adult=true;
+                        for (var i=0;i<passengers.length;i++)
+                        {
+                            var passenger_index=passengers[i];
+                            if(!plugin.is_adult(passenger_index)){
+                                all_passenger_is_adult= false;
+                                break;
+                            }
+                        }
+                        return all_passenger_is_adult;
+                    };
+
+                    if(passengers.length==max_total-1  && all_passenger_is_adult(passengers))
+                    {
+                        var content_notify='triple room max total adult is three person, you should add more room';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+                        $room_item.find('.list-passenger').tipso('show');
+
+
                         return false;
                     }
                     return true;
@@ -320,10 +720,53 @@
         plugin.on_change = function (start, end) {
 
         };
+        plugin.get_total_adult=function(room_index){
+            var total_adult=0;
+            var list_room=plugin.settings.list_room;
+            var passengers=list_room[room_index].passengers;
+            var exists_infant2_in_room=false;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_adult(passenger_index)){
+                    total_adult++;
+                }
+            }
+            return total_adult;
+        };
         plugin.render_input_person = function () {
 
         };
-
+        plugin.all_passenger_in_room_is_adult=function(room_index){
+            var list_room=plugin.settings.list_room;
+            var all_passenger_in_room_is_adult=true;
+            var passengers=list_room[room_index].passengers;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_children(passenger_index) ||  plugin.is_children(passenger_index) || plugin.is_infant1(passenger_index) ||plugin.is_infant2(passenger_index) )
+                {
+                    all_passenger_in_room_is_adult=false;
+                    break;
+                }
+            }
+            return all_passenger_in_room_is_adult;
+        };
+        plugin.all_passenger_in_room_is_adult_or_children=function(room_index){
+            var list_room=plugin.settings.list_room;
+            var all_passenger_in_room_is_adult_or_children=true;
+            var passengers=list_room[room_index].passengers;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_infant1(passenger_index) ||plugin.is_infant2(passenger_index) )
+                {
+                    all_passenger_in_room_is_adult_or_children=false;
+                    break;
+                }
+            }
+            return all_passenger_in_room_is_adult_or_children;
+        };
         plugin.update_data = function () {
             var input_name=plugin.settings.input_name;
             var $input_name=$element.find('input[name="'+input_name+'"]');
@@ -372,11 +815,8 @@
             var list_passenger_selected=plugin.get_list_passenger_selected();
 
             var list_room=plugin.settings.list_room;
+            var limit_total=plugin.settings.limit_total;
             var room_item=list_room[room_index];
-            if(!room_item.full)
-            {
-                $room_item.find('input.passenger-item:not(:checked)').prop("disabled", false);
-            }
             for(var i=0;i<list_passenger_selected.length;i++)
             {
                 var passenger_index=list_passenger_selected[i];
@@ -495,22 +935,25 @@
             plugin.update_list_rooming();
 
         };
+        plugin.jumper_room=function(room_index){
+            $.scrollTo($element.find('.item-room:eq('+room_index+')'),800);
+        };
         plugin.validate=function(){
-            var error=false;
             var $list_room=$element.find('.item-room');
             var list_room=plugin.settings.list_room;
-            $list_room.each(function(room_index){
+            for(var i=0;i<$list_room.length;i++){
+                var room_index=i;
                 var $room_item=$element.find('.item-room:eq('+room_index+')');
                 var room_item=list_room[room_index];
                 var passengers=room_item.passengers;
-                $list_room=$room_item.find('.list-room');
+                var room_type =room_item.room_type;
+                var $list_passenger=$room_item.find('ul.list-passenger');
                 if(room_item.room_type=='')
                 {
                     var content_notify='please select room type';
                     plugin.notify(content_notify);
                     $list_room.tipso('destroy');
                     $list_room.addClass('error');
-                    error=true;
                     $list_room.tipso({
                         size: 'tiny',
                         useTitle:false,
@@ -518,18 +961,14 @@
                         animationIn:'bounceInDown'
                     });
                     $list_room.tipso('show');
-                }else{
-                    $list_room.removeClass('error');
-                    $list_room.tipso('destroy');
-                }
-                var $list_passenger=$room_item.find('ul.list-passenger');
-                if(passengers.length==0)
+                    plugin.jumper_room(room_index);
+                    return false;
+                }else if(passengers.length==0)
                 {
                     $list_passenger.removeClass('error');
                     $list_passenger.tipso('destroy');
                     var content_notify='please select passenger';
                     plugin.notify(content_notify);
-                    error=true;
                     $list_passenger.tipso({
                         size: 'tiny',
                         useTitle:false,
@@ -538,26 +977,24 @@
                     });
                     $list_passenger.addClass('error');
                     $list_passenger.tipso('show');
-                }else{
-                    $list_passenger.removeClass('error');
-                    $list_passenger.tipso('destroy');
-
+                    plugin.jumper_room(room_index);
+                    return false;
+                $list_passenger.tipso('destroy');
+                }else if(!plugin.settings[room_type].validate_room(room_item,room_index))
+                {
+                    return false;
                 }
-            });
+                $list_passenger.removeClass('error');
+
+            }
             var list_passenger=plugin.settings.list_passenger;
             var list_passenger_checked=plugin.get_list_passenger_checked();
-            console.log(list_passenger_checked.length);
             if(list_passenger_checked.length>=list_passenger.length)
             {
-                error= true;
                 plugin.notify('you cannot add more room');
-            }
-            if(error)
-            {
                 return false;
-            }else{
-                return true;
             }
+            return true;
         };
         plugin.get_data=function(){
             return plugin.settings.output_data;
@@ -734,6 +1171,20 @@
             }
             return exists_infant1_in_room;
         };
+        plugin.exists_infant2_in_room_index = function (room_index) {
+            var list_room=plugin.settings.list_room;
+            var passengers=list_room[room_index].passengers;
+            var exists_infant2_in_room=false;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_infant2(passenger_index)){
+                    exists_infant2_in_room= true;
+                    break;
+                }
+            }
+            return exists_infant2_in_room;
+        };
         plugin.check_all_passenger_is_infant_and_children_in_room_index = function (room_index) {
             var list_room=plugin.settings.list_room;
             var passengers=list_room[room_index].passengers;
@@ -749,32 +1200,11 @@
             return all_passenger_is_infant_or_children;
         };
         plugin.enable_add_room = function (room_index) {
-            var $room_item=$element.find('.item-room:eq('+room_index+')');
-            var $list_passenger=$room_item.find('.list-passenger');
-            if(plugin.exists_infant_in_room_index(room_index) && plugin.check_all_passenger_is_infant_and_children_in_room_index(room_index))
-            {
-
-                var content_notify='room exists infant you need add one adult';
-                $list_passenger.removeClass('error');
-                $list_passenger.tipso('destroy');
-                $list_passenger.tipso({
-                    size: 'tiny',
-                    useTitle:false,
-                    content:content_notify,
-                    animationIn:'bounceInDown'
-                }).addClass('error');
-                $list_passenger.tipso('show');
-                plugin.notify(content_notify);
-                return false;
-            }else{
-                $list_passenger.removeClass('error');
-                $list_passenger.tipso('destroy');
-            }
-
             if(!plugin.validate())
             {
                 return  false;
             }
+
             return true;
         };
         plugin.enable_remove_room = function (room_index) {
@@ -871,6 +1301,19 @@
             }
             return false;
         };
+        plugin.exists_children_in_room_index = function (room_index) {
+            var list_room=plugin.settings.list_room;
+            var passengers=list_room[room_index].passengers;
+            for (var i=0;i<passengers.length;i++)
+            {
+                var passenger_index=passengers[i];
+                if(plugin.is_children(passenger_index))
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
         plugin.exists_children_or_adult_in_room_index = function (room_index) {
             var list_room=plugin.settings.list_room;
             var passengers=list_room[room_index].passengers;
@@ -885,7 +1328,7 @@
             return false;
         };
         plugin.enable_change_passenger_inside_room_index = function (room_index) {
-            return plugin.validate_data_room_index(room_index);
+            return true;
         };
         plugin.check_is_full_passenger_inside_room = function (room_index) {
             var list_room=plugin.settings.list_room;
@@ -979,7 +1422,7 @@
             var room_type=room_item.room_type;
             if(plugin.is_infant1(current_passenger_index_selected) && !plugin.settings[room_type].enable_select_infant1(room_item,range_year_old_infant1,current_passenger_index_selected,room_index))
             {
-                var content_notify='you cannot add more infant 0-1';
+                var content_notify='you cannot add more infant 0-1 because there are no adult in room';
                 plugin.notify(content_notify);
                 $room_item.find('.list-passenger').removeClass('error');
                 $room_item.find('.list-passenger').tipso('destroy');
@@ -1005,17 +1448,14 @@
             var range_year_old_children=plugin.settings.range_year_old_children;
             if(plugin.is_children(current_passenger_index_selected) && !plugin.settings[room_type].enable_select_children(room_item,range_year_old_children,current_passenger_index_selected,room_index))
             {
-                var content_notify='exists baby infant(0-1) please select one adult(>=12)';
-                plugin.notify(content_notify);
+                return false;
+            }else {
                 $room_item.find('.list-passenger').removeClass('error');
                 $room_item.find('.list-passenger').tipso('destroy');
-                $room_item.find('.list-passenger').tipso({
-                    size: 'tiny',
-                    useTitle:false,
-                    content:content_notify,
-                    animationIn:'bounceInDown'
-                }).addClass('error');
-                $room_item.find('.list-passenger').tipso('show');
+            }
+            var range_year_old_adult=plugin.settings.range_year_old_adult;
+            if(plugin.is_adult(current_passenger_index_selected) && !plugin.settings[room_type].enable_select_adult(room_item,range_year_old_adult,current_passenger_index_selected,room_index))
+            {
                 return false;
             }else {
                 $room_item.find('.list-passenger').removeClass('error');
@@ -1065,34 +1505,7 @@
                         var passenger_index=$self.closest('li').index();
                         var list_room=plugin.settings.list_room;
                         var passengers=list_room[a_room_index].passengers;
-                        if($self.is(':checked') && passengers.length==0 )
-                        {
-                            if(!plugin.is_adult_or_children_by_passenger_index(passenger_index))
-                            {
-                                var content_notify='please select adult or children(>=6) first';
-                                plugin.notify(content_notify);
-                                $room_item.find('.list-passenger').removeClass('error');
-                                $room_item.find('.list-passenger').tipso('destroy');
-                                $room_item.find('.list-passenger').tipso({
-                                    size: 'tiny',
-                                    useTitle:false,
-                                    content:content_notify,
-                                    animationIn:'bounceInDown'
-                                }).addClass('error');
-                                $room_item.find('.list-passenger').tipso('show');
-                                $(this).prop('checked',!$passenger.is(':checked'));
-                                return false;
-                            }else{
-                                $room_item.find('.list-passenger').removeClass('error');
-                                $room_item.find('.list-passenger').tipso('destroy');
-                            }
-                        }
                         var passenger_index_selected=$self.closest('li').index();
-                        if($self.is(':checked') && !plugin.check_room_before_add_passenger(room_index,passenger_index_selected) )
-                        {
-                            $(this).prop('checked',!$passenger.is(':checked'));
-                            return false;
-                        }
 
                         if(plugin.enable_change_passenger_inside_room_index(a_room_index))
                         {
@@ -1106,8 +1519,37 @@
 
 
                     }).addClass(event_class);
+
+                }
+
+            });
+/*
+            $list_passenger.find('input.passenger-item').each(function(passenger_index){
+                var event_class='click_passenger';
+                var $passenger=$(this);
+                if(!$passenger.hasClass(event_class))
+                {
+                    $passenger.click(function(event){
+
+                        var content_notify='room is full you can not add more passenger';
+                        plugin.notify(content_notify);
+                        $room_item.find('.list-passenger').removeClass('error');
+                        $room_item.find('.list-passenger').tipso('destroy');
+                        $room_item.find('.list-passenger').tipso({
+                            size: 'tiny',
+                            useTitle:false,
+                            content:content_notify,
+                            animationIn:'bounceInDown'
+                        }).addClass('error');
+
+
+
+
+                    }).addClass(event_class);
+
                 }
             });
+*/
             var event_class='add_room';
             if(!$room_item.find('.add-more-room').hasClass(event_class))
             {
@@ -1116,11 +1558,9 @@
                     var $a_room_item=$(this).closest('.item-room');
                     if(plugin.enable_add_room(a_room_index))
                     {
-                        $a_room_item.find('.list-passenger').removeClass('error');
-                        $a_room_item.find('.list-passenger').tipso('destroy');
-                        console.log($a_room_item);
-                        plugin.add_room(a_room_index);
-                        plugin.add_event_room_index(a_room_index+1);
+                        alert('ok');
+                        //plugin.add_room(a_room_index);
+                       // plugin.add_event_room_index(a_room_index+1);
                     }
                 }).addClass(event_class);
 

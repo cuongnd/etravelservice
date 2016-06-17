@@ -210,6 +210,14 @@ $departure = $this->depatrure;
 
                     </div>
                 </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-large control-next "><span title="" class="icon-next "></span><?php echo JText::_('Next') ?></button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="span2">
                 <h1><?php echo JText::_('Book and go') ?></h1>
