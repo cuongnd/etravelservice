@@ -346,7 +346,7 @@
                     });
 
                 });
-                for (var i=0;i<10;i++)
+                for (var i=0;i<3;i++)
                 {
                     $element.find('.input-passenger-list-passenger.senior-adult-teen .btn.add:first').trigger('click');
                     $element.find('.input-passenger-list-passenger.children-infant .btn.add:first').trigger('click');

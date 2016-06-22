@@ -24,7 +24,7 @@ $departure = $this->depatrure;
             </div>
         </div>
         <div class="row-fluid">
-            <div class="span10">
+            <div class="span9">
                 <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
                 <div class="row-fluid">
                     <div class="span12">
@@ -219,44 +219,76 @@ $departure = $this->depatrure;
                 </div>
 
             </div>
-            <div class="span2">
-                <h1><?php echo JText::_('Book and go') ?></h1>
-                <h3><?php echo JText::_('Booking summary') ?></h3>
-                <div><span><?php echo JText::_('details') ?></span></div>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <div><span class="icon-file-2"></span><?php echo JText::_('Start date, city') ?></div>
-                    </div>
-                    <div class="span6">
-                        <div><span class="icon-file-2"></span><?php echo JText::_('Finish date, city') ?></div>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        line
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div style="text-align: center" class="span12">
-                        <span class="icon-file-2"></span> 20 days | duration
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
-                    </div>
-                    <div class="span6">
-                        <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <h4><span class="icon-users"></span><?php echo JText::_('Passenger number') ?>:7 pers.</h4>
-                <ul class="list_passenger">
-                    <li>1.per1</li>
-                    <li>2.per2</li>
-                    <li>3.per3</li>
-                </ul>
+            <div class="span3">
+                <div class="booking-summary-content">
+                    <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
+                    <div class="booking-summary-content-body">
+                        <h3 class="booking-summary"><?php echo JText::_('Booking summary') ?></h3>
+                        <div class="row-fluid" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span class="trip-name">trip-name</span></h4>
+                            </div>
+                        </div>
 
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div><span class="icon-clock"></span><?php echo JText::_('Start date, city') ?></div>
+                            </div>
+                            <div class="span6">
+                                <div><span class="icon-clock"></span><?php echo JText::_('Finish date, city') ?></div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                line
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div style="text-align: center" class="span12">
+                                <span class="icon-clock"></span> 20 days | duration
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
+                            </div>
+                            <div class="span6">
+                                <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
+                            </div>
+                        </div>
+                        <div class="line-dotted"></div>
+                        <h4><span class="icon-users"></span><span class="passenger-number"><?php echo JText::_('Passenger number') ?> :</span><span>7 pers.</span></h4>
+                        <ul class="list_passenger">
+                            <li>1.per1</li>
+                            <li>2.per2</li>
+                            <li>3.per3</li>
+                        </ul>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="passenger-service-fee pull-right">
+                                    <?php echo JText::_('Service fee') ?> <span class="total">$1233445</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-dotted"></div>
+                        <div class="list-room">
+                            <div class="room-item">
+                                <h4><span class="icon-room"></span><span class="room-type"></span></h4>
+                                <ul class="list_passenger_room">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="room-service-fee pull-right">
+                                    <?php echo JText::_('Service fee') ?> <span class="total">$1233445</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

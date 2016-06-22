@@ -37,11 +37,17 @@ else
 
 // Add JavaScript Frameworks
 JHtml::_('bootstrap.framework');
+JHtml::_('bootstrap.framework');
+
+$doc->addLessStyleSheet(JUri::root() . '/templates/protostar/less/variables.less');
+$doc->addLessStyleSheet(JUri::root() . '/templates/protostar/less/icomoon.less');
+$doc->addLessStyleSheet(JUri::root() . '/templates/protostar/less/template.less');
+
 $doc->addScript($this->baseurl . '/templates/' . $this->template . '/js/template.js');
 
 // Add Stylesheets
-$doc->addStyleSheet($this->baseurl . '/templates/' . $this->template . '/css/template.css');
-
+//$doc->addStyleSheet($this->baseurl . '/templates/' . $this->template . '/css/template.css');
+$doc->addLessStyleSheet(JUri::root().'/templates/protostar/less/custom.less');
 // Load optional RTL Bootstrap CSS
 JHtml::_('bootstrap.loadCss', false, $this->direction);
 
@@ -156,7 +162,7 @@ else
 							<span class="icon-bar"></span>
 						</a>
 					</div>
-					<div class="nav-collapse">
+					<div class="nav-collapse menu-navigation">
 						<jdoc:include type="modules" name="position-1" style="none" />
 					</div>
 				</nav>
@@ -167,7 +173,7 @@ else
 					<jdoc:include type="modules" name="position-9" style="none" />
 				</div>
 			<?php endif; ?>
-			<div class="row-fluid">
+			<div class="row-fluid body-content">
 				<?php if ($this->countModules('position-8')) : ?>
 					<!-- Begin Sidebar -->
 					<div id="sidebar" class="span3">
@@ -208,7 +214,7 @@ else
 	</div>
 	<!-- Footer -->
 	<footer class="footer" role="contentinfo">
-		<div class="container<?php echo ($params->get('fluidContainer') ? '-fluid' : ''); ?>">
+		<div class="container<?php echo ($params->get('fluidContainer') ? '-fluid' : ''); ?> footer-content">
 			<hr />
 			<jdoc:include type="modules" name="footer" style="none" />
 			<p class="pull-right">

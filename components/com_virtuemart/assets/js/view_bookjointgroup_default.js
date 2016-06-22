@@ -23,7 +23,8 @@
                     first_name:'',
                     middle_name:'',
                     last_name:'',
-                    date_of_birth:''
+                    date_of_birth:'',
+                    template_html_room_item:""
                 }
             ]
 
@@ -58,6 +59,20 @@
 
             }
         };
+        plugin.notify=function(content,type){
+            if(typeof  type=="undefined")
+            {
+                type="error";
+            }
+            var notify = $.notify(content, {
+                allow_dismiss: true,
+                type:type,
+                placement:{
+                    align:"right"
+                }
+            });
+        };
+
         plugin.validate=function(){
             var $html_build_room=$('#html_build_room').data('html_build_room');
             var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
@@ -68,9 +83,43 @@
             {
                 return false;
             }
+            var passenger_not_inside_room=$html_build_room.find_passenger_not_inside_room();
+            if(passenger_not_inside_room.length>0)
+            {
+                plugin.notify('there are some person not set room');
+                console.log(passenger_not_inside_room);
+                return false;
+            }
             return true;
         };
+        plugin.get_passenger_full_name = function (passenger) {
+            var passenger_full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name+'('+passenger.year_old+')';
+            return passenger_full_name;
+        };
+
         // the "constructor" method that gets called when the object is created
+        plugin.update_room = function (list_room) {
+            var $html_build_room=$('#html_build_room').data('html_build_room');
+            var list_passenger=$html_build_room.settings.list_passenger;
+            $element.find('.booking-summary-content .list-room').empty();
+            for (i=0;i<list_room.length;i++)
+            {
+                var room_item=list_room[i];
+                var passengers=room_item.passengers;
+                var room_type=room_item.room_type;
+                var $template_html_room_item=$(plugin.settings.template_html_room_item);
+                $template_html_room_item.find('.room-type').html(room_type);
+                for(j=0;j<passengers.length;j++)
+                {
+                    var passenger_index=passengers[j];
+                    var full_name=plugin.get_passenger_full_name(list_passenger[passenger_index]);
+                    var $li=$('<li>'+full_name+'</li>');
+                    $li.appendTo($template_html_room_item.find('.list_passenger_room'));
+                }
+                $template_html_room_item.appendTo($element.find('.booking-summary-content .list-room'));
+            }
+
+        };
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, options);
             $element.find("#tabbed-nav").zozoTabs({
@@ -85,6 +134,8 @@
                 },
                 defaultTab: "tab1"
             });
+            plugin.settings.template_html_room_item=$element.find('.booking-summary-content .list-room .room-item').getOuterHTML();
+            $element.find('.booking-summary-content .list-room').empty();
 
             $element.find('.table-trip .body .item  .body-item').on('hidden', function () {
                 // do something…
@@ -119,6 +170,10 @@
                     alert('ok');
                 }
             });
+            var $html_build_room=$('#html_build_room').data('html_build_room');
+            $html_build_room.settings.trigger_after_change=function(list_room){
+                plugin.update_room(list_room);
+            };
 
         };
 

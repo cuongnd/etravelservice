@@ -8,6 +8,7 @@
     background: #95a5a5;
     padding: 10px;
     color: #fff;
+    margin-top: 0px;
   }
   .departure-filter legend
   {
@@ -136,4 +137,75 @@
   {
     text-transform: uppercase;
   }
+  .booking-summary-content {
+    border: 1px solid #ddd;
+    .book-and-go {
+      background: #01789a none repeat scroll 0 0;
+      color: #fff;
+      height: 24px;
+      padding-left: 18%;
+      padding-right: 0;
+      padding-top: 25px;
+      position: relative;
+      width: 82%;
+      margin-top: 0;
+      &:after {
+        border-left: 182px solid transparent;
+        border-right: 132px solid transparent;
+        border-top: 53px solid #01789a;
+        bottom: -53px;
+        content: "";
+        left: 0;
+        position: absolute;
+      }
+
+    }
+    .booking-summary-content-body{
+      padding: 10px;
+      .booking-summary {
+        margin-top: 50px;
+        color: #9c0305;
+        background: #eeeeee;
+        padding:10px ;
+      }
+      .detail
+      {
+        padding: 10px;
+        background: #666666;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold ;
+      }
+      .trip{
+        text-transform: uppercase;
+        font-weight: bold ;
+        .trip-name{
+          color: #056796;
+        }
+      }
+      .line-dotted
+      {
+        height: 2px;
+        border-bottom: 2px dotted #ccc;
+      }
+      .passenger-number
+      {
+        color: #006599;
+        text-transform: uppercase;
+        font-weight: bold ;
+      }
+      .list_passenger,.list_passenger_room
+      {
+        list-style: decimal;
+        margin-left: 50px;
+      }
+      .passenger-service-fee,.room-service-fee
+      {
+        text-transform: uppercase;
+        font-weight: bold ;
+        color: #9c0305;
+      }
+    }
+  }
+
 }

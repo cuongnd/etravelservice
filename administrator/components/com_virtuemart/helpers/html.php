@@ -2193,9 +2193,9 @@ XML;
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
             <div class="row-fluid" >
-                <div class="span12">
+                <div class="span10">
                     <div class="row-fluid person-type">
-                        <div class="span12">
+                        <div class="span10">
                             <h4 class="">
                                 <span title="" class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>
                                 <button type="button" class="btn btn-primary auto-fill-date">auto fill data</button>
@@ -2215,16 +2215,16 @@ XML;
                     </div>
                     <div class="input-passenger-list-passenger senior-adult-teen">
                         <div class="row-fluid item-passenger">
-                            <div class="span1 handle"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span></div>
+                            <div class="span1"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span></div>
                             <div class="span1">
-                                <select required data-name="gender" ">
+                                <select  data-name="gender" ">
                                     <option value="mr">Mr</option>
                                     <option value="ms">Ms</option>
                                 </select>
                             </div>
                             <div class="span1"><input  required data-name="first_name"   placeholder="<?php echo JText::_('First name') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input required  data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
+                            <div class="span1"><input   data-name="middle_name" placeholder="<?php echo JText::_('Middle name') ?>"
                                                       type="text"></div>
                             <div class="span1"><input required data-name="last_name"  placeholder="<?php echo JText::_('Last name') ?>"
                                                       type="text"></div>
@@ -2236,15 +2236,12 @@ XML;
                                 <button type="button" class="btn remove"><span class="icon-remove " title=""></span></button>
                             </div>
                             <div class="span1">
-                                <div  class="btn handle"><span class="icon-move " title=""></span></div>
-                            </div>
-                            <div class="span1">
                                 <button type="button" class="btn add "><span class="icon-plus " title=""></span></button>
                             </div>
                         </div>
                     </div>
                     <div class="row-fluid person-type">
-                        <div class="span12">
+                        <div class="span10">
                             <h4 class=""><span title="" class="travel-icon">n</span> <?php echo JText::_('Children/infant(0-11 years)') ?></h4>
                         </div>
                     </div>
@@ -2378,7 +2375,6 @@ XML;
                                     <div class="span2"><?php echo JText::_('Title') ?></div>
                                     <div class="span2"><?php echo JText::_('Room type') ?></div>
                                     <div class="span2"><?php echo JText::_('Room note') ?></div>
-                                    <div class="span2"><?php echo JText::_('Action') ?></div>
                                 </div>
                            </div>
                             <div class="tbody">
@@ -2388,10 +2384,6 @@ XML;
                                     <div class="span2"></div>
                                     <div class="span2"><div class="room_type"></div></div>
                                     <div class="span2"><div class="room_note"></div></div>
-                                    <div class="span2">
-                                        <button type="button" class="btn btn-link delete-room"><span title="" class="icon-delete "></span></button>
-                                        <div  class="btn btn-link move-room handle"><span title="" class="icon-move "></span></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
