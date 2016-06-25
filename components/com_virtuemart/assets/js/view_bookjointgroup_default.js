@@ -18,6 +18,21 @@
 
         // plugin's default options
         var defaults = {
+            passenger_config:{
+                senior_passenger_age_to:99,
+                senior_passenger_age_from:60,
+                adult_passenger_age_to:59,
+                adult_passenger_age_from:18,
+                teen_passenger_age_to:17,
+                teen_passenger_age_from:12,
+                children_1_passenger_age_to:11,
+                children_1_passenger_age_from:9,
+                children_2_passenger_age_to:8,
+                children_2_passenger_age_from:6,
+                infant_passenger_age_to:5,
+                infant_passenger_age_from:0,
+
+            },
             list_passenger:[
                 {
                     first_name:'',
@@ -41,12 +56,18 @@
 
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
+        plugin.update_price = function () {
+            var $html_build_room=$('#html_build_room').data('html_build_room');
+            var list_room=$html_build_room.settings.list_room;
+
+        };
         plugin.show_passenger = function () {
             var $html_build_room=$('#html_build_room').data('html_build_room');
             var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
             $html_input_passenger.settings.event_after_change=function(list_passenger){
                 var $list_passenger=$element.find('.list_passenger');
                 var total_passenger=list_passenger.length;
+                $element.find('.booking-summary-content .total-passenger').html(total_passenger);
                 $list_passenger.empty();
                 for(var i=0;i<total_passenger;i++){
                     var passenger=list_passenger[i];
@@ -55,7 +76,7 @@
                     $li.appendTo($list_passenger);
                 }
                 $html_build_room.update_passengers(list_passenger);
-
+                plugin.update_price();
 
             }
         };
@@ -173,6 +194,7 @@
             var $html_build_room=$('#html_build_room').data('html_build_room');
             $html_build_room.settings.trigger_after_change=function(list_room){
                 plugin.update_room(list_room);
+                plugin.updata_price();
             };
 
         };

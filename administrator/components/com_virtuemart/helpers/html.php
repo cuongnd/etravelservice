@@ -692,12 +692,13 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_from_to/html_select_from_to.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/select_from_to/html_select_from_to.less');
         $input = JFactory::getApplication()->input;
-        $select_from_to = 'select_from_to_' . $from_name . '_' . $to_name;
+        $id_select_from_to = 'select_from_to_' . $from_name . '_' . $to_name;
+        $id_select_from_to=str_replace(array("[","]"),"_",$id_select_from_to);
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('#<?php echo $select_from_to ?>').html_select_from_to({
+                $('#<?php echo $id_select_from_to ?>').html_select_from_to({
                     from_name: "<?php echo $from_name ?>",
                     to_name: "<?php echo $to_name ?>",
                     from:<?php echo (int)$from ?>,
@@ -713,7 +714,7 @@ class VmHtml
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
-        <div id="<?php echo $select_from_to ?>">
+        <div id="<?php echo $id_select_from_to ?>">
             <div class="integer-range"></div>
             <input type="hidden" value="<?php echo $from ?>" name="<?php echo $from_name ?>">
             <input type="hidden" value="<?php echo $to ?>" name="<?php echo $to_name ?>">
@@ -2309,7 +2310,7 @@ XML;
                         <div class="span12"><h3><?php echo JText::_('Room ') ?><span class="room-order">1</span></h3></div>
                     </div>
                     <div class="row-fluid">
-                        <div class="span6">
+                        <div class="span5">
                             <h3><?php echo JText::_('Select room type') ?></h3>
                             <div class="list-room">
                                 <div class="row-fluid">
@@ -2344,7 +2345,7 @@ XML;
                                 </div>
                             </div>
                         </div>
-                        <div class="span6">
+                        <div class="span7">
                             <h3><?php echo JText::_('select person for room on your own') ?></h3>
                             <ul class="list-passenger">
                                 <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span class="full-name"></span><span class="in_room"></span></label></li>

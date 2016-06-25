@@ -1125,6 +1125,8 @@
                 {
                     plugin.add_passenger_to_room_index(room_index);
                     plugin.format_name_for_room_index(room_index);
+                    plugin.lock_passenger_inside_room_index(room_index);
+                    plugin.set_label_passenger_in_rooms();
                 }
                 plugin.add_event_room_index(room_index);
 /*
@@ -1225,7 +1227,11 @@
             return all_passenger_is_infant_or_children;
         };
         plugin.enable_add_room = function (room_index) {
-            if(!plugin.validate())
+            var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
+            if(!$html_input_passenger.validate())
+            {
+                return false;
+            }else if(!plugin.validate())
             {
                 return  false;
             }
@@ -1236,6 +1242,8 @@
                 plugin.notify('you cannot add more room');
                 return false;
             }
+
+
             return true;
         };
         plugin.enable_remove_room = function (room_index) {

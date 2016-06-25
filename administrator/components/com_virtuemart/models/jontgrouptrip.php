@@ -151,7 +151,7 @@ class VirtueMartModeljontgrouptrip extends VmModel {
         $virtuemart_departure_id=$this->getState('filter.virtuemart_departure_id');
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-        $query->select('departure.virtuemart_departure_id,departure.departure_date,departure.departure_code')
+        $query->select('departure.virtuemart_departure_id,departure.departure_date,departure.departure_code,departure.virtuemart_product_id')
             ->from('#__virtuemart_departure AS departure')
             ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
             ->where('departure.departure_date>='.$db->quote(JFactory::getDate()->toSql()))

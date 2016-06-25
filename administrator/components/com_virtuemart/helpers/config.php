@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009-2014 VirtueMart Team. All rights reserved.
  */
 defined('_JEXEC') or die('Restricted access');
-
+use Joomla\Registry\Registry;
 /**
  *
  * We need this extra paths to have always the correct path undependent by loaded application, module or plugin
@@ -1112,7 +1112,34 @@ class VmConfig {
         return (int)$price;
     }
 
-    /**
+	public static function get_passenger_config()
+	{
+		$db=JFactory::getDbo();
+		$query=$db->getQuery(true);
+		$query->select('*')
+			->from('#__virtuemart_general')
+		;
+		$item=$db->setQuery($query)->loadObject();
+		$params = new Registry;
+		$params->loadString($item->params);
+		$item->params=$params;
+		$passenger_config=new stdClass();
+		$passenger_config->senior_passenger_age_from=$item->params->get('senior_passenger_age_from',0);
+		$passenger_config->senior_passenger_age_to=$item->params->get('senior_passenger_age_to',0);
+		$passenger_config->adult_passenger_age_from=$item->params->get('adult_passenger_age_from',0);
+		$passenger_config->adult_passenger_age_to=$item->params->get('adult_passenger_age_to',0);
+		$passenger_config->teen_passenger_age_from=$item->params->get('teen_passenger_age_from',0);
+		$passenger_config->teen_passenger_age_to=$item->params->get('teen_passenger_age_to',0);
+		$passenger_config->children_1_passenger_age_from=$item->params->get('children_1_passenger_age_from',0);
+		$passenger_config->children_1_passenger_age_to=$item->params->get('children_1_passenger_age_to',0);
+		$passenger_config->children_2_passenger_age_from=$item->params->get('children_2_passenger_age_from',0);
+		$passenger_config->children_2_passenger_age_to=$item->params->get('children_2_passenger_age_to',0);
+		$passenger_config->infant_passenger_age_from=$item->params->get('infant_passenger_age_from',0);
+		$passenger_config->infant_passenger_age_to=$item->params->get('infant_passenger_age_to',0);
+		return $passenger_config;
+	}
+
+	/**
 	 * Writes the params as string and escape them before
 	 * @author Max Milbers
 	 */

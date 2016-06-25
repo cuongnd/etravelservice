@@ -12,6 +12,8 @@ $app = JFactory::getApplication();
 $input = $app->input;
 $virtuemart_price_id = $input->getInt('virtuemart_price_id', 0);
 $departure = $this->depatrure;
+$passenger_config=VmConfig::get_passenger_config();
+
 ?>
 <div class="view-bookjointgroup-default">
     <form
@@ -219,6 +221,16 @@ $departure = $this->depatrure;
                 </div>
 
             </div>
+            <?php
+            $list_destination = explode(';', $departure->list_destination);
+            $des_start = reset($list_destination);
+            $des_finish = end($list_destination);
+            $total_day = $departure->total_day - 1;
+            $start_date = JFactory::getDate($departure->departure_date);
+
+            $total_day = $total_day ? $total_day : 0;
+
+            ?>
             <div class="span3">
                 <div class="booking-summary-content">
                     <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
@@ -227,16 +239,20 @@ $departure = $this->depatrure;
                         <div class="row-fluid" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
                         <div class="row-fluid">
                             <div class="span12">
-                                <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span class="trip-name">trip-name</span></h4>
+                                <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span class="trip-name"><?php echo $this->product->product_name ?></span></h4>
                             </div>
                         </div>
 
                         <div class="row-fluid">
                             <div class="span6">
-                                <div><span class="icon-clock"></span><?php echo JText::_('Start date, city') ?></div>
+                                <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $departure->departure_date) ?>,<?php echo  $des_start ?></div>
                             </div>
                             <div class="span6">
-                                <div><span class="icon-clock"></span><?php echo JText::_('Finish date, city') ?></div>
+                                <?php
+                                $start_date->modify("+$total_day day");
+
+                                ?>
+                                <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $start_date) ?>,<?php echo  $des_finish ?></div>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -246,7 +262,7 @@ $departure = $this->depatrure;
                         </div>
                         <div class="row-fluid">
                             <div style="text-align: center" class="span12">
-                                <span class="icon-clock"></span> 20 days | duration
+                                <span class="icon-clock"></span> <?php echo $total_day ?> days | duration
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -258,7 +274,7 @@ $departure = $this->depatrure;
                             </div>
                         </div>
                         <div class="line-dotted"></div>
-                        <h4><span class="icon-users"></span><span class="passenger-number"><?php echo JText::_('Passenger number') ?> :</span><span>7 pers.</span></h4>
+                        <h4><span class="icon-users"></span><span class="passenger-number"><?php echo JText::_('Passenger number') ?> : </span><span class="total-passenger"> 7 </span> <?php echo JText::_('pers') ?>.</h4>
                         <ul class="list_passenger">
                             <li>1.per1</li>
                             <li>2.per2</li>
@@ -267,7 +283,7 @@ $departure = $this->depatrure;
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="passenger-service-fee pull-right">
-                                    <?php echo JText::_('Service fee') ?> <span class="total">$1233445</span>
+                                    <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total">$1233445</span>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +323,9 @@ ob_start();
 ?>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('.view-bookjointgroup-default').view_bookjointgroup_default({});
+            $('.view-bookjointgroup-default').view_bookjointgroup_default({
+                passenger_config:<?php  echo json_encode($passenger_config) ?>
+            });
 
 
         });

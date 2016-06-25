@@ -635,8 +635,8 @@ static function startAdminArea($vmView, $selectText = 'COM_VIRTUEMART_DRDOWN_AVA
                             <div class="row-fluid">
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
-                                        <li><a href='index.php?option=com_virtuemart&view=generalsetup'><i
-                                                    class="im-screen"></i>Genarral setup</a></li>
+                                        <li><a href='index.php?option=com_virtuemart&view=general'><i
+                                                    class="im-screen"></i>general setup</a></li>
                                         <li><a href="index.php?option=com_virtuemart&view=template"><span
                                                     class="icon-palette" title=""></span>Template</a></li>
 
