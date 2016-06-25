@@ -2148,7 +2148,7 @@ XML;
         return $html;
     }
 
-    public static function input_passenger($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function input_passenger($list_passenger = array(), $name = '', $default = '0',$min_age=0,$max_age=99)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -2181,6 +2181,8 @@ XML;
                 $('#<?php  echo $id_element ?>').html_input_passenger({
                     id_selected:<?php echo $default ? $default : 0 ?>,
                     input_name: "<?php echo $name ?>",
+                    min_age: <?php echo $min_age ?>,
+                    max_age: <?php echo $max_age!=0?$max_age:99 ?>,
                     debug:true,
                 });
             });

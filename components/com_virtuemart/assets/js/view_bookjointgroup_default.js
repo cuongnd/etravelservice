@@ -11,35 +11,39 @@
 // version 1.0, 28.02.2013
 // by SuggeElson www.suggeelson.com
 
-(function($) {
+(function ($) {
 
     // here we go!
-    $.view_bookjointgroup_default = function(element, options) {
+    $.view_bookjointgroup_default = function (element, options) {
 
         // plugin's default options
         var defaults = {
-            passenger_config:{
-                senior_passenger_age_to:99,
-                senior_passenger_age_from:60,
-                adult_passenger_age_to:59,
-                adult_passenger_age_from:18,
-                teen_passenger_age_to:17,
-                teen_passenger_age_from:12,
-                children_1_passenger_age_to:11,
-                children_1_passenger_age_from:9,
-                children_2_passenger_age_to:8,
-                children_2_passenger_age_from:6,
-                infant_passenger_age_to:5,
-                infant_passenger_age_from:0,
+            passenger_config: {
+                senior_passenger_age_to: 99,
+                senior_passenger_age_from: 60,
+                adult_passenger_age_to: 59,
+                adult_passenger_age_from: 18,
+                teen_passenger_age_to: 17,
+                teen_passenger_age_from: 12,
+                children_1_passenger_age_to: 11,
+                children_1_passenger_age_from: 9,
+                children_2_passenger_age_to: 8,
+                children_2_passenger_age_from: 6,
+                infant_passenger_age_to: 5,
+                infant_passenger_age_from: 0,
 
             },
-            list_passenger:[
+            departure: {},
+            tour_min_age: 0,
+            tour_max_age: 99,
+
+            list_passenger: [
                 {
-                    first_name:'',
-                    middle_name:'',
-                    last_name:'',
-                    date_of_birth:'',
-                    template_html_room_item:""
+                    first_name: '',
+                    middle_name: '',
+                    last_name: '',
+                    date_of_birth: '',
+                    template_html_room_item: ""
                 }
             ]
 
@@ -57,22 +61,143 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         plugin.update_price = function () {
-            var $html_build_room=$('#html_build_room').data('html_build_room');
-            var list_room=$html_build_room.settings.list_room;
+            var departure = plugin.settings.departure;
+            var $html_build_room = $('#html_build_room').data('html_build_room');
+            var list_room = $html_build_room.settings.list_room;
+            var list_passenger = $html_build_room.settings.list_passenger;
+            var total_price = 0;
+
+            /*
+             senior_passenger_age_to:99,
+             senior_passenger_age_from:60,
+             adult_passenger_age_to:59,
+             adult_passenger_age_from:18,
+             teen_passenger_age_to:17,
+             teen_passenger_age_from:12,
+             children_1_passenger_age_to:11,
+             children_1_passenger_age_from:9,
+             children_2_passenger_age_to:8,
+             children_2_passenger_age_from:6,
+             infant_passenger_age_to:5,
+             infant_passenger_age_from:0,
+             */
+            var senior_passenger_age_to = plugin.settings.passenger_config.senior_passenger_age_to,
+                senior_passenger_age_from = plugin.settings.passenger_config.senior_passenger_age_from,
+                adult_passenger_age_to = plugin.settings.passenger_config.adult_passenger_age_to,
+                adult_passenger_age_from = plugin.settings.passenger_config.adult_passenger_age_from,
+                teen_passenger_age_to = plugin.settings.passenger_config.teen_passenger_age_to,
+                teen_passenger_age_from = plugin.settings.passenger_config.teen_passenger_age_from,
+                children_1_passenger_age_to = plugin.settings.passenger_config.children_1_passenger_age_to,
+                children_1_passenger_age_from = plugin.settings.passenger_config.children_1_passenger_age_from,
+                children_2_passenger_age_to = plugin.settings.passenger_config.children_2_passenger_age_to,
+                children_2_passenger_age_from = plugin.settings.passenger_config.children_2_passenger_age_from,
+                infant_passenger_age_to = plugin.settings.passenger_config.infant_passenger_age_to,
+                infant_passenger_age_from = plugin.settings.passenger_config.infant_passenger_age_from;
+
+            var sale_price_senior = plugin.settings.departure.sale_price_senior,
+                sale_price_adult = plugin.settings.departure.sale_price_adult,
+                sale_price_teen = plugin.settings.departure.sale_price_teen,
+                sale_price_children1 = plugin.settings.departure.sale_price_children1,
+                sale_price_children2 = plugin.settings.departure.sale_price_children2,
+                sale_price_infant = plugin.settings.departure.sale_price_infant,
+                sale_price_private_room = plugin.settings.departure.sale_price_private_room,
+                sale_price_extra_bed = plugin.settings.departure.sale_price_extra_bed,
+                sale_promotion_price_senior = plugin.settings.departure.sale_promotion_price_senior,
+                sale_promotion_price_adult = plugin.settings.departure.sale_promotion_price_adult,
+                sale_promotion_price_teen = plugin.settings.departure.sale_promotion_price_teen,
+                sale_promotion_price_children1 = plugin.settings.departure.sale_promotion_price_children1,
+                sale_promotion_price_children2 = plugin.settings.departure.sale_promotion_price_children2,
+                sale_promotion_price_infant = plugin.settings.departure.sale_promotion_price_infant,
+                sale_promotion_price_private_room = plugin.settings.departure.sale_promotion_price_private_room,
+                sale_promotion_price_extra_bed = plugin.settings.departure.sale_promotion_price_extra_bed;
+
+            console.log(plugin.settings.departure);
+
+            for (var i = 0; i < list_passenger.length; i++) {
+                var passenger = list_passenger[i];
+                var year_old = passenger.year_old;
+                if (year_old >= senior_passenger_age_from && year_old <= senior_passenger_age_to) {
+                    total_price += sale_promotion_price_senior != 0 ? sale_promotion_price_senior : sale_price_senior;
+                } else if (year_old >= adult_passenger_age_from && year_old <= adult_passenger_age_to) {
+
+                    total_price += sale_promotion_price_adult != 0 ? sale_promotion_price_adult : sale_price_adult;
+
+                } else if (year_old >= teen_passenger_age_from && year_old <= teen_passenger_age_to) {
+
+                    total_price += sale_promotion_price_teen != 0 ? sale_promotion_price_teen : sale_price_teen;
+
+                } else if (year_old >= children_1_passenger_age_from && year_old <= children_1_passenger_age_to) {
+
+                    total_price += sale_promotion_price_children1 != 0 ? sale_promotion_price_children1 : sale_price_children1;
+
+                } else if (year_old >= children_2_passenger_age_from && year_old <= children_2_passenger_age_to) {
+
+                    total_price += sale_promotion_price_children2 != 0 ? sale_promotion_price_children2 : sale_price_children2;
+
+                } else if (year_old >= infant_passenger_age_from && year_old <= infant_passenger_age_to) {
+                    total_price += sale_promotion_price_infant != 0 ? sale_promotion_price_infant : sale_price_infant;
+                }
+
+            }
+            $element.find('.passenger-service-fee-total').autoNumeric('set', total_price);
+
+
+
+
+
+
+
+            var room_total_price=0;
+            for (var i = 0; i < list_room.length; i++) {
+                var room_item=list_room[i];
+                var passengers=room_item.passengers;
+                for (var j = 0; j < passengers.length; j++) {
+                    var passenger = list_passenger[j];
+                    var year_old = passenger.year_old;
+                    if (year_old >= senior_passenger_age_from && year_old <= senior_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    } else if (year_old >= adult_passenger_age_from && year_old <= adult_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    } else if (year_old >= teen_passenger_age_from && year_old <= teen_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    } else if (year_old >= children_1_passenger_age_from && year_old <= children_1_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    } else if (year_old >= children_2_passenger_age_from && year_old <= children_2_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    } else if (year_old >= infant_passenger_age_from && year_old <= infant_passenger_age_to) {
+
+                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
+
+                    }
+
+                }
+            }
+            $element.find('.room-service-fee-total').autoNumeric('set', room_total_price);
+
 
         };
         plugin.show_passenger = function () {
-            var $html_build_room=$('#html_build_room').data('html_build_room');
-            var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
-            $html_input_passenger.settings.event_after_change=function(list_passenger){
-                var $list_passenger=$element.find('.list_passenger');
-                var total_passenger=list_passenger.length;
+            var $html_build_room = $('#html_build_room').data('html_build_room');
+            var $html_input_passenger = $('#html_input_passenger').data('html_input_passenger');
+            $html_input_passenger.settings.event_after_change = function (list_passenger) {
+                var $list_passenger = $element.find('.list_passenger');
+                var total_passenger = list_passenger.length;
                 $element.find('.booking-summary-content .total-passenger').html(total_passenger);
                 $list_passenger.empty();
-                for(var i=0;i<total_passenger;i++){
-                    var passenger=list_passenger[i];
-                    var full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name+'('+passenger.year_old+')';
-                    var $li=$('<li>'+full_name+'</li>');
+                for (var i = 0; i < total_passenger; i++) {
+                    var passenger = list_passenger[i];
+                    var full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+                    var $li = $('<li>' + full_name + '</li>');
                     $li.appendTo($list_passenger);
                 }
                 $html_build_room.update_passengers(list_passenger);
@@ -80,33 +205,29 @@
 
             }
         };
-        plugin.notify=function(content,type){
-            if(typeof  type=="undefined")
-            {
-                type="error";
+        plugin.notify = function (content, type) {
+            if (typeof  type == "undefined") {
+                type = "error";
             }
             var notify = $.notify(content, {
                 allow_dismiss: true,
-                type:type,
-                placement:{
-                    align:"right"
+                type: type,
+                placement: {
+                    align: "right"
                 }
             });
         };
 
-        plugin.validate=function(){
-            var $html_build_room=$('#html_build_room').data('html_build_room');
-            var $html_input_passenger=$('#html_input_passenger').data('html_input_passenger');
-            if(!$html_input_passenger.validate())
-            {
+        plugin.validate = function () {
+            var $html_build_room = $('#html_build_room').data('html_build_room');
+            var $html_input_passenger = $('#html_input_passenger').data('html_input_passenger');
+            if (!$html_input_passenger.validate()) {
                 return false;
-            }else if(!$html_build_room.validate())
-            {
+            } else if (!$html_build_room.validate()) {
                 return false;
             }
-            var passenger_not_inside_room=$html_build_room.find_passenger_not_inside_room();
-            if(passenger_not_inside_room.length>0)
-            {
+            var passenger_not_inside_room = $html_build_room.find_passenger_not_inside_room();
+            if (passenger_not_inside_room.length > 0) {
                 plugin.notify('there are some person not set room');
                 console.log(passenger_not_inside_room);
                 return false;
@@ -114,34 +235,32 @@
             return true;
         };
         plugin.get_passenger_full_name = function (passenger) {
-            var passenger_full_name=passenger.first_name+' '+passenger.middle_name+' '+passenger.last_name+'('+passenger.year_old+')';
+            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
             return passenger_full_name;
         };
 
         // the "constructor" method that gets called when the object is created
         plugin.update_room = function (list_room) {
-            var $html_build_room=$('#html_build_room').data('html_build_room');
-            var list_passenger=$html_build_room.settings.list_passenger;
+            var $html_build_room = $('#html_build_room').data('html_build_room');
+            var list_passenger = $html_build_room.settings.list_passenger;
             $element.find('.booking-summary-content .list-room').empty();
-            for (i=0;i<list_room.length;i++)
-            {
-                var room_item=list_room[i];
-                var passengers=room_item.passengers;
-                var room_type=room_item.room_type;
-                var $template_html_room_item=$(plugin.settings.template_html_room_item);
+            for (i = 0; i < list_room.length; i++) {
+                var room_item = list_room[i];
+                var passengers = room_item.passengers;
+                var room_type = room_item.room_type;
+                var $template_html_room_item = $(plugin.settings.template_html_room_item);
                 $template_html_room_item.find('.room-type').html(room_type);
-                for(j=0;j<passengers.length;j++)
-                {
-                    var passenger_index=passengers[j];
-                    var full_name=plugin.get_passenger_full_name(list_passenger[passenger_index]);
-                    var $li=$('<li>'+full_name+'</li>');
+                for (j = 0; j < passengers.length; j++) {
+                    var passenger_index = passengers[j];
+                    var full_name = plugin.get_passenger_full_name(list_passenger[passenger_index]);
+                    var $li = $('<li>' + full_name + '</li>');
                     $li.appendTo($template_html_room_item.find('.list_passenger_room'));
                 }
                 $template_html_room_item.appendTo($element.find('.booking-summary-content .list-room'));
             }
 
         };
-        plugin.init = function() {
+        plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             $element.find("#tabbed-nav").zozoTabs({
                 theme: "silver",
@@ -155,12 +274,13 @@
                 },
                 defaultTab: "tab1"
             });
-            plugin.settings.template_html_room_item=$element.find('.booking-summary-content .list-room .room-item').getOuterHTML();
+            plugin.settings.template_html_room_item = $element.find('.booking-summary-content .list-room .room-item').getOuterHTML();
             $element.find('.booking-summary-content .list-room').empty();
-
+            $element.find('.passenger-service-fee-total').autoNumeric('init');
+            $element.find('.room-service-fee-total').autoNumeric('init');
             $element.find('.table-trip .body .item  .body-item').on('hidden', function () {
                 // do something…
-                var $item=$(this).closest('.item');
+                var $item = $(this).closest('.item');
                 $item.removeClass('in');
                 $item.find('.header-item > .service-class-price').addClass('hide');
                 $item.find('.header-item > .service-class,.header-item > .price').removeClass('hide');
@@ -168,38 +288,37 @@
             });
             $element.find('.table-trip .body .item  .body-item').on('show', function () {
                 // do something…
-                var $item=$(this).closest('.item');
+                var $item = $(this).closest('.item');
                 $item.addClass('in');
                 $item.find('.header-item > .service-class-price').removeClass('hide');
                 $item.find('.header-item > .service-class,.header-item > .price').addClass('hide');
                 console.log($item);
             });
             $element.find('span.price').autoNumeric('init');
-            $element.find('button.book-now').click(function(){
-                var $item=$(this).closest('.item');
-                var virtuemart_price_id=$item.data('virtuemart_price_id');
-                var $form=$element.find('form#tour_price');
+            $element.find('button.book-now').click(function () {
+                var $item = $(this).closest('.item');
+                var virtuemart_price_id = $item.data('virtuemart_price_id');
+                var $form = $element.find('form#tour_price');
                 $form.find('input[name="virtuemart_price_id"]').val(virtuemart_price_id);
                 $form.find('input[name="task"]').val('book_now');
                 $form.submit();
                 console.log($form);
             });
             plugin.show_passenger();
-            $element.find('.control-next').click(function(){
-                if(plugin.validate())
-                {
+            $element.find('.control-next').click(function () {
+                if (plugin.validate()) {
                     alert('ok');
                 }
             });
-            var $html_build_room=$('#html_build_room').data('html_build_room');
-            $html_build_room.settings.trigger_after_change=function(list_room){
+            var $html_build_room = $('#html_build_room').data('html_build_room');
+            $html_build_room.settings.trigger_after_change = function (list_room) {
                 plugin.update_room(list_room);
-                plugin.updata_price();
+                plugin.update_price();
             };
 
         };
 
-        plugin.example_function = function() {
+        plugin.example_function = function () {
 
         }
         plugin.init();
@@ -207,10 +326,10 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_bookjointgroup_default = function(options) {
+    $.fn.view_bookjointgroup_default = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
-        return this.each(function() {
+        return this.each(function () {
 
             // if plugin has not already been attached to the element
             if (undefined == $(this).data('view_bookjointgroup_default')) {

@@ -7,6 +7,8 @@
         var defaults = {
             input_name: '',
             to_name: '',
+            min_age:0,
+            max_age:99,
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
@@ -283,6 +285,7 @@
 
         };
         plugin.update_passengers=function(list_passenger){
+
             plugin.settings.list_passenger=list_passenger;
             plugin.render_input_person();
 
@@ -290,6 +293,30 @@
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            var min_age=plugin.settings.min_age;
+            var max_age=plugin.settings.max_age;
+            var range_senior_adult_teen_years=plugin.settings.range_senior_adult_teen_years;
+            if(range_senior_adult_teen_years[1]>max_age)
+            {
+                plugin.settings.range_senior_adult_teen_years[1]=max_age;
+            }
+            if(range_senior_adult_teen_years[0]<min_age)
+            {
+                plugin.settings.range_senior_adult_teen_years[0]=min_age;
+            }
+            var range_children_infant=plugin.settings.range_children_infant;
+
+            if(range_children_infant[1]>max_age)
+            {
+                plugin.settings.range_children_infant[1]=max_age;
+            }
+            if(range_children_infant[0]<min_age)
+            {
+                plugin.settings.range_children_infant[0]=min_age;
+            }
+
+
+
             var html_item_passenger_template=$element.find('.item-passenger').getOuterHTML();
             plugin.settings.html_item_passenger_template= html_item_passenger_template;
             var item_passenger_template=plugin.settings.list_passenger.senior_adult_teen[0];

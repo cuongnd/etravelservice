@@ -138,7 +138,7 @@ $passenger_config=VmConfig::get_passenger_config();
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <?php echo VmHtml::input_passenger() ?>
+                        <?php echo VmHtml::input_passenger(array(),'json_list_passenger','',$this->product->min_age,$this->product->max_age) ?>
                     </div>
                 </div>
                 <div class="form-contact form-horizontal">
@@ -283,7 +283,7 @@ $passenger_config=VmConfig::get_passenger_config();
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="passenger-service-fee pull-right">
-                                    <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total">$1233445</span>
+                                    <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total" data-a-sign="US$">0</span>
                                 </div>
                             </div>
                         </div>
@@ -299,7 +299,7 @@ $passenger_config=VmConfig::get_passenger_config();
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="room-service-fee pull-right">
-                                    <?php echo JText::_('Service fee') ?> <span class="total">$1233445</span>
+                                    <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total" data-a-sign="US$"></span>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +324,10 @@ ob_start();
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.view-bookjointgroup-default').view_bookjointgroup_default({
-                passenger_config:<?php  echo json_encode($passenger_config) ?>
+                passenger_config:<?php  echo json_encode($passenger_config) ?>,
+                departure:<?php  echo json_encode($departure) ?>,
+                tour_min_age:<?php echo $this->product->min_age ?>,
+                tour_max_age:<?php echo $this->product->max_age ?>
             });
 
 
