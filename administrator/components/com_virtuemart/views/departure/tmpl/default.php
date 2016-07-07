@@ -352,6 +352,14 @@ AdminUIHelper::startAdminArea($this);
                                     type="checkbox">
                             </div>
                             <div class="span1">
+                                Adult
+                                <br/>
+                                <input
+                                    name="allow_passenger[]" <?php echo in_array('adult', $this->departure->allow_passenger) ? 'checked' : '' ?>
+                                    value="adult"
+                                    type="checkbox">
+                            </div>
+                            <div class="span1">
                                 Teen
                                 <br/>
                                 <input

@@ -108,7 +108,9 @@ class VirtueMartModelPrice extends VmModel
             ->select('products.price_type')
             ->innerJoin('#__virtuemart_tour_type AS tour_type ON tour_type.virtuemart_tour_type_id=products.virtuemart_tour_type_id')
             ->select('tour_type.title AS tour_type_name')
-            ->order('tour_service_class.ordering,tour_price.sale_period_from,tour_price.sale_period_to');
+            ->order('tour_price.sale_period_from,tour_price.sale_period_to,tour_service_class.ordering')
+        ;
+        echo $query->dump();
         return $db->setQuery($query)->loadObjectList();
 
     }

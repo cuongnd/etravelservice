@@ -67,7 +67,7 @@ class VirtueMartModelDeparture extends VmModel
     }
 
     function getItemList($search='') {
-        echo $this->getListQuery()->dump();
+        //echo $this->getListQuery()->dump();
         $items=parent::getItems();
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmprice.php';
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmpromotion.php';
@@ -174,6 +174,7 @@ class VirtueMartModelDeparture extends VmModel
         }
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
+        $query->group('departure.virtuemart_departure_id');
         return $query;
     }
 
@@ -868,66 +869,7 @@ class VirtueMartModelDeparture extends VmModel
         }
         return $list_price_available2;
     }
-    function getVendorAcceptedCurrrenciesList($vendorId = 0)
-    {
 
-        static $currencies = array();
-        if ($vendorId === 0) {
-            $multix = Vmconfig::get('multix', 'none');
-            if (strpos($multix, 'payment') !== FALSE) {
-                if (!class_exists('VirtueMartModelVendor'))
-                    require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-                $vendorId = VirtueMartModelVendor::getLoggedVendor();
-
-            } else {
-                $vendorId = 1;
-            }
-        }
-        if (!isset($currencies[$vendorId])) {
-            $db = JFactory::getDbo();
-            $q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
-            $db->setQuery($q);
-            $vendor_currency = $db->loadAssoc();
-            if (!$vendor_currency['vendor_accepted_currencies']) {
-                $vendor_currency['vendor_accepted_currencies'] = $vendor_currency['vendor_currency'];
-                vmWarn('No accepted currencies defined');
-                if (empty($vendor_currency['vendor_accepted_currencies'])) {
-                    $uri = JFactory::getURI();
-                    $link = $uri->root() . 'administrator/index.php?option=com_virtuemart&view=user&task=editshop';
-                    vmWarn(vmText::sprintf('COM_VIRTUEMART_CONF_WARN_NO_CURRENCY_DEFINED', '<a href="' . $link . '">' . $link . '</a>'));
-                    $currencies[$vendorId] = false;
-                    return $currencies[$vendorId];
-                }
-            }
-            $q = 'SELECT `virtuemart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
-					FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id` IN (' . $vendor_currency['vendor_accepted_currencies'] . ')';
-            if ($vendorId != 1) {
-                $q .= ' AND (`virtuemart_vendor_id` = "' . $vendorId . '" OR `shared`="1")';
-            }
-            $q .= '	AND published = "1"
-					ORDER BY `ordering`,`currency_name`';
-
-            $db->setQuery($q);
-            $currencies[$vendorId] = $db->loadObjectList();
-        }
-
-        return $currencies[$vendorId];
-    }
-
-    /**
-     * Retireve a list of currencies from the database.
-     *
-     * This is written to get a list for selecting currencies. Therefore it asks for enabled
-     * @author Max Milbers
-     * @return object List of currency objects
-     */
-    function getCurrencies($vendorId = 1)
-    {
-        $db = JFactory::getDBO();
-        $q = 'SELECT * FROM `#__virtuemart_currencies` WHERE (`virtuemart_vendor_id` = "' . (int)$vendorId . '" OR `shared`="1") AND published = "1" ORDER BY `ordering`,`#__virtuemart_currencies`.`currency_name`';
-        $db->setQuery($q);
-        return $db->loadObjectList();
-    }
     public function create_children_departure($virtuemart_departure_id)
     {
         $query=$this->_db->getQuery(true);

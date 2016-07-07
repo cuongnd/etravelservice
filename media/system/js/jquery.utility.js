@@ -68,7 +68,36 @@
     function getAge(dateString) {
 
     }
+    $.get_year_old_by_date_and_current_date_and_tour_length = function(dateString,current_date,tour_length) {
+        if(dateString=='')
+        {
+            return '';
+        }
+        var today = new Date(current_date);
 
+		today.setDate(today.getDate() + tour_length);
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+    $.get_year_old_by_date_and_current_date = function(dateString,current_date) {
+        if(dateString=='')
+        {
+            return '';
+        }
+        var today = new Date(current_date);
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
     $.get_year_old_by_date = function(dateString) {
         if(dateString=='')
         {

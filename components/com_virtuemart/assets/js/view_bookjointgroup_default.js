@@ -33,7 +33,10 @@
                 infant_passenger_age_from: 0,
 
             },
-            departure: {},
+            departure: {
+                full_charge_children1: 0,
+                full_charge_children2: 0
+            },
             tour_min_age: 0,
             tour_max_age: 99,
 
@@ -63,125 +66,9 @@
         plugin.update_price = function () {
             var departure = plugin.settings.departure;
             var $html_build_room = $('#html_build_room').data('html_build_room');
-            var list_room = $html_build_room.settings.list_room;
-            var list_passenger = $html_build_room.settings.list_passenger;
-            var total_price = 0;
-
-            /*
-             senior_passenger_age_to:99,
-             senior_passenger_age_from:60,
-             adult_passenger_age_to:59,
-             adult_passenger_age_from:18,
-             teen_passenger_age_to:17,
-             teen_passenger_age_from:12,
-             children_1_passenger_age_to:11,
-             children_1_passenger_age_from:9,
-             children_2_passenger_age_to:8,
-             children_2_passenger_age_from:6,
-             infant_passenger_age_to:5,
-             infant_passenger_age_from:0,
-             */
-            var senior_passenger_age_to = plugin.settings.passenger_config.senior_passenger_age_to,
-                senior_passenger_age_from = plugin.settings.passenger_config.senior_passenger_age_from,
-                adult_passenger_age_to = plugin.settings.passenger_config.adult_passenger_age_to,
-                adult_passenger_age_from = plugin.settings.passenger_config.adult_passenger_age_from,
-                teen_passenger_age_to = plugin.settings.passenger_config.teen_passenger_age_to,
-                teen_passenger_age_from = plugin.settings.passenger_config.teen_passenger_age_from,
-                children_1_passenger_age_to = plugin.settings.passenger_config.children_1_passenger_age_to,
-                children_1_passenger_age_from = plugin.settings.passenger_config.children_1_passenger_age_from,
-                children_2_passenger_age_to = plugin.settings.passenger_config.children_2_passenger_age_to,
-                children_2_passenger_age_from = plugin.settings.passenger_config.children_2_passenger_age_from,
-                infant_passenger_age_to = plugin.settings.passenger_config.infant_passenger_age_to,
-                infant_passenger_age_from = plugin.settings.passenger_config.infant_passenger_age_from;
-
-            var sale_price_senior = plugin.settings.departure.sale_price_senior,
-                sale_price_adult = plugin.settings.departure.sale_price_adult,
-                sale_price_teen = plugin.settings.departure.sale_price_teen,
-                sale_price_children1 = plugin.settings.departure.sale_price_children1,
-                sale_price_children2 = plugin.settings.departure.sale_price_children2,
-                sale_price_infant = plugin.settings.departure.sale_price_infant,
-                sale_price_private_room = plugin.settings.departure.sale_price_private_room,
-                sale_price_extra_bed = plugin.settings.departure.sale_price_extra_bed,
-                sale_promotion_price_senior = plugin.settings.departure.sale_promotion_price_senior,
-                sale_promotion_price_adult = plugin.settings.departure.sale_promotion_price_adult,
-                sale_promotion_price_teen = plugin.settings.departure.sale_promotion_price_teen,
-                sale_promotion_price_children1 = plugin.settings.departure.sale_promotion_price_children1,
-                sale_promotion_price_children2 = plugin.settings.departure.sale_promotion_price_children2,
-                sale_promotion_price_infant = plugin.settings.departure.sale_promotion_price_infant,
-                sale_promotion_price_private_room = plugin.settings.departure.sale_promotion_price_private_room,
-                sale_promotion_price_extra_bed = plugin.settings.departure.sale_promotion_price_extra_bed;
-
-            console.log(plugin.settings.departure);
-
-            for (var i = 0; i < list_passenger.length; i++) {
-                var passenger = list_passenger[i];
-                var year_old = passenger.year_old;
-                if (year_old >= senior_passenger_age_from && year_old <= senior_passenger_age_to) {
-                    total_price += sale_promotion_price_senior != 0 ? sale_promotion_price_senior : sale_price_senior;
-                } else if (year_old >= adult_passenger_age_from && year_old <= adult_passenger_age_to) {
-
-                    total_price += sale_promotion_price_adult != 0 ? sale_promotion_price_adult : sale_price_adult;
-
-                } else if (year_old >= teen_passenger_age_from && year_old <= teen_passenger_age_to) {
-
-                    total_price += sale_promotion_price_teen != 0 ? sale_promotion_price_teen : sale_price_teen;
-
-                } else if (year_old >= children_1_passenger_age_from && year_old <= children_1_passenger_age_to) {
-
-                    total_price += sale_promotion_price_children1 != 0 ? sale_promotion_price_children1 : sale_price_children1;
-
-                } else if (year_old >= children_2_passenger_age_from && year_old <= children_2_passenger_age_to) {
-
-                    total_price += sale_promotion_price_children2 != 0 ? sale_promotion_price_children2 : sale_price_children2;
-
-                } else if (year_old >= infant_passenger_age_from && year_old <= infant_passenger_age_to) {
-                    total_price += sale_promotion_price_infant != 0 ? sale_promotion_price_infant : sale_price_infant;
-                }
-
-            }
-            $element.find('.passenger-service-fee-total').autoNumeric('set', total_price);
-
-
-
-
-
-
-
+            var list_room = $html_build_room.get_list_room();// $html_build_room.settings.list_room;
+            var list_passenger = $html_build_room.get_list_passenger(); //$html_build_room.settings.list_passenger;
             var room_total_price=0;
-            for (var i = 0; i < list_room.length; i++) {
-                var room_item=list_room[i];
-                var passengers=room_item.passengers;
-                for (var j = 0; j < passengers.length; j++) {
-                    var passenger = list_passenger[j];
-                    var year_old = passenger.year_old;
-                    if (year_old >= senior_passenger_age_from && year_old <= senior_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    } else if (year_old >= adult_passenger_age_from && year_old <= adult_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    } else if (year_old >= teen_passenger_age_from && year_old <= teen_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    } else if (year_old >= children_1_passenger_age_from && year_old <= children_1_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    } else if (year_old >= children_2_passenger_age_from && year_old <= children_2_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    } else if (year_old >= infant_passenger_age_from && year_old <= infant_passenger_age_to) {
-
-                        room_total_price += sale_promotion_price_private_room != 0 ? sale_promotion_price_private_room : sale_price_private_room;
-
-                    }
-
-                }
-            }
             $element.find('.room-service-fee-total').autoNumeric('set', room_total_price);
 
 

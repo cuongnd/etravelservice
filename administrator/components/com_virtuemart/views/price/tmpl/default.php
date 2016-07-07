@@ -450,6 +450,7 @@ AdminUIHelper::startAdminArea($this);
                             <td style="text-align: center">Child 2</td>
                             <td style="text-align: center">Infant</td>
                             <td style="text-align: center">Pr. Room</td>
+                            <td style="text-align: center">extra bed</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -539,6 +540,7 @@ AdminUIHelper::startAdminArea($this);
                             <td style="text-align: center">Child 2</td>
                             <td style="text-align: center">Infant</td>
                             <td style="text-align: center">Pr. Room</td>
+                            <td style="text-align: center">extra bed</td>
                         </tr>
                         <tr class="amount">
                             <td>Amout</td>
@@ -569,6 +571,10 @@ AdminUIHelper::startAdminArea($this);
                             <td style="text-align: center"><input name="amount[private_room]"
                                                                   value="<?php echo $this->list_mark_up['amount']->private_room ?>"
                                                                   class="inputbox number" column-type="private_room"
+                                                                  type="text"></td>
+                            <td style="text-align: center"><input name="amount[private_room]"
+                                                                  value="<?php echo $this->list_mark_up['amount']->extra_bed ?>"
+                                                                  class="inputbox number" column-type="extra_bed"
                                                                   type="text"></td>
                         </tr>
                         <tr class="percent">
@@ -601,6 +607,10 @@ AdminUIHelper::startAdminArea($this);
                                                                   value="<?php echo $this->list_mark_up['percent']->private_room ?>"
                                                                   class="inputbox number" column-type="private_room"
                                                                   type="text"></td>
+                            <td style="text-align: center"><input name="percent[private_room]"
+                                                                  value="<?php echo $this->list_mark_up['percent']->extra_bed ?>"
+                                                                  class="inputbox number" column-type="extra_bed"
+                                                                  type="text"></td>
                         </tr>
                     </table>
                     <h3>PROFIT</h3>
@@ -614,6 +624,7 @@ AdminUIHelper::startAdminArea($this);
                             <td style="text-align: center">Child 2</td>
                             <td style="text-align: center">Infant</td>
                             <td style="text-align: center">Pr. Room</td>
+                            <td style="text-align: center">extra bed</td>
                         </tr>
                         <tbody>
                         <tr role="row">
@@ -625,6 +636,7 @@ AdminUIHelper::startAdminArea($this);
                             <td><span column-type="children2"></span></td>
                             <td><span column-type="infant"></span></td>
                             <td><span column-type="private_room"></span></td>
+                            <td><span column-type="extra_bed"></span></td>
 
 
                         </tr>
@@ -651,6 +663,7 @@ AdminUIHelper::startAdminArea($this);
                             <td style="text-align: center">Child 2</td>
                             <td style="text-align: center">Infant</td>
                             <td style="text-align: center">Pr. Room</td>
+                            <td style="text-align: center">Extra bed</td>
                         </tr>
                         <tbody>
                         <tr role="row">
@@ -662,6 +675,7 @@ AdminUIHelper::startAdminArea($this);
                             <td><span column-type="children2"></span></td>
                             <td><span column-type="infant"></span></td>
                             <td><span column-type="private_room"></span></td>
+                            <td><span column-type="extra_bed"></span></td>
 
                         </tr>
                         </tbody>

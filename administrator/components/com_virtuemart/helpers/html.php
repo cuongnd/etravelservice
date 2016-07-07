@@ -2148,7 +2148,7 @@ XML;
         return $html;
     }
 
-    public static function input_passenger($list_passenger = array(), $name = '', $default = '0',$min_age=0,$max_age=99)
+    public static function input_passenger($list_passenger = array(), $name = '', $default = '0',$min_age=0,$max_age=99,$departure,$passenger_config)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -2167,11 +2167,21 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
         $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
 
         $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/input_passenger/html_input_passenger.less');
         $doc->addLessStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.less');
         $doc->addStyleSheet(JUri::root().'/media/system/js/Create-A-Tooltip/css/tooltip.css');
+
+        $model = VmModel::getModel('country');
+
+        $list_country = $model->getItemList();
+        foreach($list_country AS &$country)
+        {
+            $country->id=$country->virtuemart_country_id;
+            $country->text=$country->country_name;
+        }
         $input = JFactory::getApplication()->input;
         $id_element = 'html_input_passenger';
         ob_start();
@@ -2184,6 +2194,9 @@ XML;
                     min_age: <?php echo $min_age ?>,
                     max_age: <?php echo $max_age!=0?$max_age:99 ?>,
                     debug:true,
+                    departure:<?php echo json_encode($departure) ?>,
+                    passenger_config:<?php echo json_encode($passenger_config) ?>,
+                    list_country:<?php echo json_encode($list_country) ?>
                 });
             });
         </script>
@@ -2233,7 +2246,7 @@ XML;
                                                       type="text"></div>
                             <div class="span1"><input required data-name="nationality" placeholder="<?php echo JText::_('Nationality') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input required class="date" data-name="date_of_birth"  placeholder="<?php echo JText::_('Date of birth') ?>"
+                            <div class="span1"><input required class="date readonly" data-name="date_of_birth" readonly  placeholder="<?php echo JText::_('Date of birth') ?>"
                                                       type="text"></div>
                             <div class="span1">
                                 <button type="button" class="btn remove"><span class="icon-remove " title=""></span></button>
@@ -2260,7 +2273,7 @@ XML;
         return $html;
     }
 
-    public static function build_room($list_passenger = array(), $name = '', $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -2293,7 +2306,8 @@ XML;
                     id_selected:<?php echo $default ? $default : 0 ?>,
                     input_name: "<?php echo $name ?>",
                     element_key:"<?php echo $id_element ?>",
-                    debug:<?php echo json_encode($debug) ?>
+                    debug:<?php echo json_encode($debug) ?>,
+                    departure:<?php echo json_encode($departure) ?>
                 });
             });
         </script>
@@ -2317,20 +2331,20 @@ XML;
                             <div class="list-room">
                                 <div class="row-fluid">
                                     <div class="span2">
-                                        <label><?php echo JText::_('Single') ?><input type="radio" checked  data-name="type" name="type"
+                                        <label><?php echo JText::_('Single') ?><input type="radio" checked  data-name="room_type" name="room_type"
                                                                                       value="single"></label>
                                     </div>
-                                    <div class="span2">
-                                        <label><?php echo JText::_('Double') ?><input type="radio" data-name="type" name="type"
+                                    <div class="span3">
+                                        <label><?php echo JText::_('Double') ?><input type="radio" data-name="room_type" name="room_type"
                                                                                       value="double"></label>
                                     </div>
-                                    <div class="span4"></div>
+                                    <div class="span3"></div>
                                     <div class="span2">
-                                        <label><?php echo JText::_('Twin') ?><input type="radio" data-name="type" name="type"
+                                        <label><?php echo JText::_('Twin') ?><input type="radio" data-name="room_type" name="room_type"
                                                                                     value="twin"></label>
                                     </div>
                                     <div class="span2">
-                                        <label><?php echo JText::_('Triple') ?><input type="radio" data-name="type" name="type"
+                                        <label><?php echo JText::_('Triple') ?><input type="radio" data-name="room_type" name="room_type"
                                                                                       value="triple"></label>
                                     </div>
                                 </div>
@@ -2356,8 +2370,6 @@ XML;
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
-                            <button type="button"
-                                    class="btn btn-primary save-room pull-right"><?php echo JText::_('Save') ?></button>
                             <button type="button"
                                     class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
                             <button type="button"

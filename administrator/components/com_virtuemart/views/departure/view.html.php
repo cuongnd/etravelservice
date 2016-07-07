@@ -74,6 +74,7 @@ class VirtuemartViewDeparture extends VmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 			$this->list_departure = $model->getItemList(vRequest::getCmd('search'));
+
 			$this->pagination = $model->getPagination();
 
 		}
