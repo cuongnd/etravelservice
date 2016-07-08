@@ -24,6 +24,10 @@ $departure->sale_price_private_room=200;
 $departure->sale_price_extra_bed=100;
 
 
+$departure->full_charge_children1=0;
+$departure->full_charge_children2=1;
+
+
 /*$departure->sale_promotion_price_senior=100;
 $departure->sale_promotion_price_adult=100;
 $departure->sale_promotion_price_teen=100;
@@ -232,7 +236,7 @@ $passenger_config=VmConfig::get_passenger_config();
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <?php echo VmHtml::build_room(array(),"build_room","",$departure) ?>
+                        <?php echo VmHtml::build_room(array(),"build_room","",$departure,$passenger_config) ?>
 
                     </div>
                 </div>
@@ -312,6 +316,7 @@ $passenger_config=VmConfig::get_passenger_config();
                             </div>
                         </div>
                         <div class="line-dotted"></div>
+                        <h3><?php echo JText::_('Room supplement fee') ?></h3>
                         <div class="list-room">
                             <div class="room-item">
                                 <h4><span class="icon-room"></span><span class="room-type"></span></h4>

@@ -2273,7 +2273,7 @@ XML;
         return $html;
     }
 
-    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure)
+    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure,$passenger_config)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -2307,7 +2307,8 @@ XML;
                     input_name: "<?php echo $name ?>",
                     element_key:"<?php echo $id_element ?>",
                     debug:<?php echo json_encode($debug) ?>,
-                    departure:<?php echo json_encode($departure) ?>
+                    departure:<?php echo json_encode($departure) ?>,
+                    passenger_config:<?php echo json_encode($passenger_config) ?>
                 });
             });
         </script>

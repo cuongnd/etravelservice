@@ -67,8 +67,28 @@
             var departure = plugin.settings.departure;
             var $html_build_room = $('#html_build_room').data('html_build_room');
             var list_room = $html_build_room.get_list_room();// $html_build_room.settings.list_room;
-            var list_passenger = $html_build_room.get_list_passenger(); //$html_build_room.settings.list_passenger;
+            var total_tour_cost=0;
             var room_total_price=0;
+            for(var i=0;i<list_room.length;i++)
+            {
+                var room_item=list_room[i];
+                var tour_cost_and_room_price=room_item.tour_cost_and_room_price;
+                if(typeof tour_cost_and_room_price!="undefined")
+                {
+                    tour_cost_and_room_price.forEach(function(item_tour_cost_and_room_price) {
+                        total_tour_cost+=item_tour_cost_and_room_price.tour_cost;
+
+                        room_total_price+=item_tour_cost_and_room_price.room_price;
+                        room_total_price+=item_tour_cost_and_room_price.extra_bed_price;
+                    });
+                }
+
+
+            }
+            $element.find('.booking-summary-content .passenger-service-fee-total').autoNumeric('set', total_tour_cost);
+
+            var list_passenger = $html_build_room.get_list_passenger(); //$html_build_room.settings.list_passenger;
+
             $element.find('.room-service-fee-total').autoNumeric('set', room_total_price);
 
 
@@ -127,6 +147,18 @@
         };
 
         // the "constructor" method that gets called when the object is created
+        plugin.get_item_tour_cost_and_room_price_by_passenger_index = function (tour_cost_and_room_price,passenger_index) {
+
+            if(tour_cost_and_room_price.length>0){
+                for (var i=0;i<tour_cost_and_room_price.length;i++){
+                    var item_tour_cost_and_room_price=tour_cost_and_room_price[i];
+                    if(item_tour_cost_and_room_price.passenger_index==passenger_index){
+                        return item_tour_cost_and_room_price;
+                    }
+                }
+            }
+            return null;
+        };
         plugin.update_room = function (list_room) {
             var $html_build_room = $('#html_build_room').data('html_build_room');
             var list_passenger = $html_build_room.settings.list_passenger;
@@ -135,13 +167,29 @@
                 var room_item = list_room[i];
                 var passengers = room_item.passengers;
                 var room_type = room_item.room_type;
+                var tour_cost_and_room_price = room_item.tour_cost_and_room_price;
                 var $template_html_room_item = $(plugin.settings.template_html_room_item);
                 $template_html_room_item.find('.room-type').html(room_type);
-                for (j = 0; j < passengers.length; j++) {
-                    var passenger_index = passengers[j];
-                    var full_name = plugin.get_passenger_full_name(list_passenger[passenger_index]);
-                    var $li = $('<li>' + full_name + '</li>');
-                    $li.appendTo($template_html_room_item.find('.list_passenger_room'));
+                if(passengers.length>0)
+                {
+                    for (j = 0; j < passengers.length; j++) {
+                        var passenger_index = passengers[j];
+                        var full_name = plugin.get_passenger_full_name(list_passenger[passenger_index]);
+                        var total_price_per_passenger=0;
+                        if(typeof tour_cost_and_room_price!="undefined")
+                        {
+                            var item_tour_cost_and_room_price=plugin.get_item_tour_cost_and_room_price_by_passenger_index(tour_cost_and_room_price,passenger_index);
+                            if(item_tour_cost_and_room_price!=null)
+                            {
+                                total_price_per_passenger=item_tour_cost_and_room_price.room_price+item_tour_cost_and_room_price.extra_bed_price;
+                                console.log(item_tour_cost_and_room_price);
+                                console.log(total_price_per_passenger);
+                            }
+                        }
+
+                        var $li = $('<li>' + full_name + ' <span class=""><b>'+total_price_per_passenger+'$</b></span><span  title="" class="pull-right icon-question "></span></li>');
+                        $li.appendTo($template_html_room_item.find('.list_passenger_room'));
+                    }
                 }
                 $template_html_room_item.appendTo($element.find('.booking-summary-content .list-room'));
             }
