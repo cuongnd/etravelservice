@@ -276,7 +276,7 @@ class VirtueMartModeljontgrouptrip extends VmModel {
         {
             $query->where('departure.virtuemart_departure_id='.(int)$virtuemart_departure_id);
         }
-        echo $query->dump();
+        //echo $query->dump();
 		return $query;
 	}
 

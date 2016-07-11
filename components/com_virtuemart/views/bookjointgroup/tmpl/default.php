@@ -20,8 +20,8 @@ $departure->sale_price_teen=400;
 $departure->sale_price_children1=300;
 $departure->sale_price_children2=200;
 $departure->sale_price_infant=100;
-$departure->sale_price_private_room=200;
-$departure->sale_price_extra_bed=100;
+$departure->sale_price_private_room=100;
+$departure->sale_price_extra_bed=50;
 
 
 $departure->full_charge_children1=0;

@@ -969,6 +969,7 @@
                 if (room_type == "single") {
                     if (passengers.length == 1 && plugin.get_total_senior_adult_teen(room_index) == 1) {
                         //case 0
+                        console.log("case 0");
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = price_private_room;
@@ -976,16 +977,25 @@
 
                     } else if (plugin.get_total_children_1(room_index) == 1) {
                         //case 1a
-                        var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
-                        var tour_cost = price_children1;
-                        var room_price = price_private_room * 2;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        console.log("case 1a");
+                        if(full_charge_children1){
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room * 2;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        }else{
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room ;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        }
                     }
                 } else if (room_type == "double" || room_type == "twin") {
                     //Double OR Twin
                     if (passengers.length == 2 && plugin.get_total_senior_adult_teen(room_index) == 2) {
                         //case case 2 adult (case 0)
                         //add adult first
+                        console.log("case 0");
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
@@ -1488,7 +1498,7 @@
                                         var extra_bed_price = 0;
                                     } else {
                                         var room_price = 0;
-                                        var extra_bed_price = price_private_room;
+                                        var extra_bed_price = price_extra_bed;
                                     }
                                     room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
                                     a_children_1_index++;
@@ -1617,7 +1627,7 @@
                         console.log("case 4d");
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
-                        var room_price = 0;
+                        var room_price = price_private_room;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1646,6 +1656,7 @@
                     } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_children_1(room_index) == 2) {
                         // 2adult,  2 child 6-12 (case 4e)
                         //adult 1
+                        console.log("case 4e");
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
@@ -1674,15 +1685,15 @@
                             //children (6-11) 1
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
-                            var room_price = 0;
-                            var extra_bed_price = price_private_room;
+                            var room_price = (price_private_room+price_extra_bed)/2;
+                            var extra_bed_price = 0;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
                             //children (6-11) 2
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                             var tour_cost = price_children1;
-                            var room_price = 0;
-                            var extra_bed_price = price_private_room;
+                            var room_price = (price_private_room+price_extra_bed)/2;
+                            var extra_bed_price = 0;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
                         }
@@ -1690,7 +1701,13 @@
                     } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 1) {
                         // 2adult,  1 child 6-12 ,1 child 0-5 (case 4f)
                         //adult
+                        console.log("case 4f");
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
+                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
+                        var room_price = 0;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+
+                        var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
@@ -1729,10 +1746,10 @@
                         }
 
 
-                    } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 1) {
+                    } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 2  && plugin.get_total_infant_and_children_2(room_index) == 2) {
                         // 2 adult,  ,2 child 0-5 (case 4g)
 
-
+                        console.log("case 4g");
                         //adult 1
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
@@ -1780,16 +1797,16 @@
 
 
                         //group_2_infant_children_2
-                        var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
+                        var passenger_index = group_2_infant_children_2;
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = 0;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
 
-                    } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 1) {
+                    } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 3  && plugin.get_total_infant_and_children_2(room_index) == 1) {
                         // 3 adult,  ,1 child 0-5 (case 4i)
-
+                        console.log("case 4i");
                         //adult 1
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
@@ -1830,6 +1847,7 @@
 
                     } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 4) {
                         // 4 child 6-11 (case 4l)
+                        console.log("case 4l");
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
                                 var a_passenger_index = passengers[p_index];
@@ -1849,8 +1867,8 @@
                                     var room_price = price_private_room;
                                     var extra_bed_price = 0;
                                 } else {
-                                    var room_price = 0;
-                                    var extra_bed_price = price_extra_bed;
+                                    var room_price = (price_private_room+price_extra_bed)/2;
+                                    var extra_bed_price = 0;
                                 }
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
                                 b_index++;
@@ -1861,6 +1879,8 @@
 
                     } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 3 && plugin.get_total_children_2(room_index) == 1) {
                         // 3 child 6-11, 1 children 2-5 (case 4m)
+
+                        console.log("case 4m");
                         //3 children 6-11
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1898,9 +1918,9 @@
                         room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
 
 
-                    } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 3 && plugin.get_total_children_2(room_index) == 1) {
+                    } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 2 && plugin.get_total_infant_and_children_2(room_index) == 2) {
                         // 2 child 6-11, 2 children 2-5 (case 4p)
-
+                        console.log("case 4p");
                         //2 children 6-11
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1925,7 +1945,7 @@
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = 0;
-                        var extra_bed_price = price_private_room;
+                        var extra_bed_price = price_extra_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
                         // children (2-5) 2
@@ -1935,26 +1955,21 @@
                         var extra_bed_price = 0;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
                     } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_children_2(room_index) == 3) {
-                        // 1 child 6-11, 3 children 2-5 (case 4p)
-
+                        // 1 child 6-11, 3 children 2-5 (case 4q)
+                        console.log("case 4q");
                         //1 children 6-11
                         if (full_charge_children1) {
-                            for (var p_index = 0; p_index < passengers.length; p_index++) {
-                                var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                var room_price = 0;
-                                var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
-
-                            }
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                            var tour_cost = price_children1;
+                            var room_price = 0;
+                            var extra_bed_price = 0;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
                         } else {
-                            for (var p_index = 0; p_index < passengers.length; p_index++) {
-                                var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                var room_price = price_private_room;
-                                var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
-                            }
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room;
+                            var extra_bed_price = 0;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
 
                         }
 
@@ -2269,8 +2284,6 @@
             var passenger_not_inside_room = [];
             var list_passenger = plugin.settings.list_passenger.slice();
             var list_passenger_checked = plugin.get_list_passenger_checked();
-            console.log(list_passenger);
-            console.log(list_passenger_checked);
             for (var i = 0; i < list_passenger.length; i++) {
                 if (list_passenger_checked.indexOf(i) > -1) {
 
@@ -2278,7 +2291,6 @@
                     passenger_not_inside_room.push(list_passenger[i]);
                 }
             }
-            console.log(passenger_not_inside_room);
             return passenger_not_inside_room;
 
         }
