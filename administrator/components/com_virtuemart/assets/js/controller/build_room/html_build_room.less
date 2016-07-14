@@ -8,7 +8,7 @@
     -moz-columns: 2;
   }
 
-  .item-room, .rooming-list {
+  .item-room {
     padding: 10px;
   }
   .item-room:nth-child(2n+1) {
@@ -47,6 +47,53 @@
   .list-passenger
   {
     list-style: decimal;
+  }
+  .rooming-list
+  {
+    .table-rooming-list{
+      border-radius: 0;
+      border-width:1px;
+      border-color: #000;
+      border-style:solid;
+      .column-header-item,.row-item-column
+      {
+        border-right: 1px #000 solid;
+      }
+      .column-header-item:last-child,.row-item-column::last-child
+      {
+        border-right: none;
+      }
+      .thead
+      {
+        .column-header-item
+        {
+          padding: 10px;
+          font-weight: bold;
+        }
+        border-bottom: 1px #000 solid;
+        background: #F4F4F4;
+      }
+      .tbody
+      {
+        .row-item-column
+        {
+          padding: 10px;
+          min-height: 38px;
+        }
+
+        .div-item-room:nth-of-type(2n+1){
+          background: #F4F4F4;
+        }
+        .div-item-room
+        {
+          .passenger-item,.bed_note
+          {
+            padding: 5px;
+          }
+        }
+
+      }
+    }
   }
 
 }

@@ -2386,20 +2386,20 @@ XML;
                         <div class="table table-hover table-bordered table-rooming-list">
                            <div class="thead">
                                 <div class="row-fluid">
-                                    <div class="span2"><?php echo JText::_('Room') ?></div>
-                                    <div class="span2"><?php echo JText::_('Passenger') ?></div>
-                                    <div class="span2"><?php echo JText::_('Title') ?></div>
-                                    <div class="span2"><?php echo JText::_('Room type') ?></div>
-                                    <div class="span2"><?php echo JText::_('Room note') ?></div>
+                                    <div class="span2"><div class="column-header-item"><?php echo JText::_('Room') ?></div></div>
+                                    <div class="span2"><div class="column-header-item"><?php echo JText::_('Room type') ?></div></div>
+                                    <div class="span3"><div class="column-header-item"><?php echo JText::_('Passenger') ?></div></div>
+                                    <div class="span3"><div class="column-header-item"><?php echo JText::_('Bed note') ?></div></div>
+                                    <div class="span2"><div class="column-header-item"><?php echo JText::_('Room note') ?></div></div>
                                 </div>
                            </div>
                             <div class="tbody">
                                 <div class="row-fluid div-item-room">
-                                    <div class="span2"><label class="checked"><input type="checkbox"><span class="order">1</span></label></div>
-                                    <div class="span2"><div class="table_list_passenger"></div></div>
-                                    <div class="span2"></div>
-                                    <div class="span2"><div class="room_type"></div></div>
-                                    <div class="span2"><div class="room_note"></div></div>
+                                    <div class="span2"><div class="row-item-column"><span class="order">1</span></div></div>
+                                    <div class="span2"><div class="row-item-column"><div class="room_type"></div></div></div>
+                                    <div class="span3"><div class="row-item-column"><div class="table_list_passenger"></div></div></div>
+                                    <div class="span3"><div class="row-item-column"><div class="private-room"></div></div></div>
+                                    <div class="span2"><div class="row-item-column"><div class="room_note"></div></div></div>
                                 </div>
                             </div>
                         </div>

@@ -164,40 +164,60 @@
             }
             return null;
         };
+
         plugin.update_room = function (list_room) {
             var $html_build_room = $('#html_build_room').data('html_build_room');
             var list_passenger = $html_build_room.settings.list_passenger;
             $element.find('.booking-summary-content .list-room').empty();
+
+
+            var $template_html_room_item = $(plugin.settings.template_html_room_item);
+            $template_html_room_item.appendTo($element.find('.booking-summary-content .list-room'));
+            var $list_passenger_room=$element.find('.booking-summary-content .list-room .list_passenger_room');
+            var room_total_price=0;
             for (var i = 0; i < list_room.length; i++) {
                 var room_item = list_room[i];
 
                 var passengers = room_item.passengers;
                 var room_type = room_item.room_type;
                 var tour_cost_and_room_price = room_item.tour_cost_and_room_price;
-                console.log(tour_cost_and_room_price);
-                var $template_html_room_item = $(plugin.settings.template_html_room_item);
-                $template_html_room_item.find('.room-type').html(room_type);
+                //$template_html_room_item.find('.room-type').html(room_type);
+                var total_price_per_room=0;
                 if(passengers.length>0)
                 {
                     for (j = 0; j < passengers.length; j++) {
                         var passenger_index = passengers[j];
                         var full_name = plugin.get_passenger_full_name(list_passenger[passenger_index]);
                         var total_price_per_passenger=0;
+                        var passenger_note="";
                         if(typeof tour_cost_and_room_price!="undefined")
                         {
                             var item_tour_cost_and_room_price=plugin.get_item_tour_cost_and_room_price_by_passenger_index(tour_cost_and_room_price,passenger_index);
+
                             if(item_tour_cost_and_room_price!=null)
                             {
                                 total_price_per_passenger=item_tour_cost_and_room_price.room_price+item_tour_cost_and_room_price.extra_bed_price;
+                                var passenger_note=item_tour_cost_and_room_price.msg;
                             }
                         }
+                        total_price_per_room+=total_price_per_passenger;
+                        var $li = $('<li>' + full_name + ' <span class=""><b>'+total_price_per_passenger+'$</b></span><span data-tipso-content="'+passenger_note+'" class="pull-right icon-question "></span></li>');
+                        if(total_price_per_passenger>0)
+                        {
+                            $li.appendTo($list_passenger_room);
+                        }
+                        room_total_price+=total_price_per_passenger;
 
-                        var $li = $('<li>' + full_name + ' <span class=""><b>'+total_price_per_passenger+'$</b></span><span  title="" class="pull-right icon-question "></span></li>');
-                        $li.appendTo($template_html_room_item.find('.list_passenger_room'));
                     }
                 }
-                $template_html_room_item.appendTo($element.find('.booking-summary-content .list-room'));
             }
+            $element.find('.booking-summary-content .list-room .icon-question').tipso({
+                size: 'tiny',
+                useTitle: false,
+                animationIn: 'bounceInDown'
+            }).addClass('error');
+            $element.find('.room-service-fee-total').autoNumeric('set', room_total_price);
+
 
         };
         plugin.init = function () {
@@ -214,7 +234,7 @@
                 },
                 defaultTab: "tab1"
             });
-            plugin.settings.template_html_room_item = $element.find('.booking-summary-content .list-room .room-item').getOuterHTML();
+            plugin.settings.template_html_room_item = $element.find('.booking-summary-content .list-room .list_passenger_room').getOuterHTML();
             $element.find('.booking-summary-content .list-room').empty();
             $element.find('.passenger-service-fee-total').autoNumeric('init');
             $element.find('.room-service-fee-total').autoNumeric('init');

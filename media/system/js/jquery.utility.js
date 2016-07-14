@@ -115,4 +115,12 @@
     $.randomDate=function(start, end) {
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
+    $.set_height_element=function($element) {
+        var height=0;
+        $element.each(function(){
+            var a_height=$(this).height();
+            height=a_height>height?a_height:height;
+        });
+        $element.height(height);
+    }
 })(jQuery);

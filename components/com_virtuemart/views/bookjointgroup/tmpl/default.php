@@ -7,6 +7,8 @@ $doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_bookjo
 $doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_bookjointgroup_default.less');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
 $doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/controller/build_room/html_build_room.js');
+$doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 
 $app = JFactory::getApplication();
 $input = $app->input;
@@ -318,12 +320,9 @@ $passenger_config=VmConfig::get_passenger_config();
                         <div class="line-dotted"></div>
                         <h3><?php echo JText::_('Room supplement fee') ?></h3>
                         <div class="list-room">
-                            <div class="room-item">
-                                <h4><span class="icon-room"></span><span class="room-type"></span></h4>
-                                <ul class="list_passenger_room">
+                            <ul class="list_passenger_room">
 
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
                         <div class="row-fluid">
                             <div class="span12">

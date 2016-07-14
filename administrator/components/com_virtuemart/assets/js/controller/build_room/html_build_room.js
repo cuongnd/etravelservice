@@ -29,11 +29,19 @@
 
                 }
             ],
+            infant_title:"Infant",
+            teen_title:"Teen",
+            children_title:"Children",
+            adult_title:"Adult",
+            senior_title:"Adult",
             item_room_template: {},
             event_after_change: false,
             update_passenger: false,
             limit_total: false,
             trigger_after_change: null,
+            private_bed:"private bed",
+            share_bed:"Share bed with others",
+            extra_bed:"Extra  bed",
             single: {
                 max_adult: 1,
                 max_children: 1,
@@ -954,7 +962,7 @@
                 }
                 var room_type = room_item.room_type;
                 room_item.tour_cost_and_room_price = [];
-                var func_set_tour_cost_and_room_price = function (room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg) {
+                var func_set_tour_cost_and_room_price = function (room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note) {
                     var item_passenger = {};
                     item_passenger.passenger_index = passenger_index;
                     item_passenger.tour_cost = tour_cost;
@@ -967,6 +975,15 @@
                         msg = "";
                     }
                     item_passenger.msg = msg;
+
+
+                    if (typeof bed_note == "undefined") {
+                        bed_note = "";
+                    }
+                    item_passenger.bed_note = bed_note;
+
+
+
                     room_item.tour_cost_and_room_price.push(item_passenger);
                     return room_item;
                 };
@@ -974,24 +991,31 @@
                     if (passengers.length == 1 && plugin.get_total_senior_adult_teen(room_index) == 1) {
                         //case 0
                         console.log("case 0");
+                        var msg="The tour cost for this passenger is based on room for 2 persons.  Therefore he or she is required to pay the room supplement fee while taking a private room.";
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = price_private_room;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                     } else if (plugin.get_total_children_1(room_index) == 1) {
                         //case 1a
                         console.log("case 1a");
                         if(full_charge_children1){
-                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
-                            var tour_cost = price_children1;
-                            var room_price = price_private_room * 2;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
-                        }else{
+                            var msg="The tour cost for this passenger is based on room for 2 persons.  Therefore he or she is required to pay the single room supplement fee while taking a private room.";
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room ;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
+                        }else{
+                            var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while taking a private room.";
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room * 2;
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
+
                         }
                     }
                 } else if (room_type == "double" || room_type == "twin") {
@@ -1003,12 +1027,14 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,bed_note);
 
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                     } else if (passengers.length == 2 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_children_1(room_index) == 1) {
@@ -1019,20 +1045,22 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //end add adult first
                         if (full_charge_children1) {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
 
@@ -1040,10 +1068,12 @@
                         //case 2b Adult,1 Child ( 0 - 5 years)
                         //add adult first
                         console.log("case 2b");
+                        var msg="This passenger is required to pay the room supplement fee to grant the free stay to kid sharing this room.";
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = price_private_room;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
 
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1051,11 +1081,13 @@
                             if (plugin.is_infant(a_passenger_index)) {
                                 var tour_cost = price_infant;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             }
 
                         }
@@ -1068,13 +1100,15 @@
                                 var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, p_index);
                                 var tour_cost = price_children1;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else {
                                 var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, p_index);
                                 var tour_cost = price_children1;
                                 var room_price = price_private_room;
                                 var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                             }
                         }
@@ -1085,19 +1119,22 @@
                         if (full_charge_children1) {
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
                         var passenger_index = plugin.get_infant_or_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = price_private_room;
                         var msg="include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
 
                     } else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_infant_and_children_2(room_index) == 1) {
@@ -1107,23 +1144,27 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //children (0-5)
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
                             if (plugin.is_infant(a_passenger_index)) {
                                 var tour_cost = price_infant;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             }
 
                         }
@@ -1136,19 +1177,22 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         if (full_charge_children1) {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1156,11 +1200,13 @@
                             if (plugin.is_infant(a_passenger_index)) {
                                 var tour_cost = price_infant;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             }
 
                         }
@@ -1174,20 +1220,57 @@
                                 var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, p_index);
                                 var tour_cost = price_children1;
                                 var room_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else {
                                 var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, p_index);
                                 var tour_cost = price_children1;
                                 var room_price = price_private_room;
                                 var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                             }
                         }
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
+
+
+                    }else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 2) {
+                        //1adult 2 children 0-5 (case 3i)
+                        console.log("case 3i");
+                        //adult
+                        var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
+                        var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
+                        var room_price = 0;
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
+
+
+                        //2 children (0-5)
+                        var msg="";
+                        for (var p_index = 0; p_index < passengers.length; p_index++) {
+                            var a_passenger_index = passengers[p_index];
+                            if (plugin.is_infant(a_passenger_index)) {
+                                var tour_cost = price_infant;
+                                var room_price = 0;
+                                var extra_bed_price = price_extra_bed;
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
+                            } else if (plugin.is_children_2(a_passenger_index)) {
+                                var tour_cost = price_children2;
+                                var room_price = 0;
+                                var extra_bed_price = price_extra_bed;
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
+                            }
+
+                        }
+
+
 
 
                     }
@@ -1199,7 +1282,8 @@
                             var a_passenger_index = passengers[p_index];
                              var tour_cost = plugin.get_price_tour_cost_by_passenger_index(a_passenger_index, price_senior, price_adult, price_teen);
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                         }
                     } else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_children_1(room_index) == 2) {
                         //1adult,2 child 6-11 (case 3a)
@@ -1208,19 +1292,22 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                         if (full_charge_children1) {
 
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="not include any room fee. Therefore if you assign this shild to a triple sharing room, he or she is required to pay half room fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
 
@@ -1231,13 +1318,15 @@
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,0,"",bed_note);
                         } else {
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = price_extra_bed;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a triple  sharing room, he or she is required to pay extra bed fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,0,msg,bed_note);
 
                         }
 
@@ -1248,7 +1337,8 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                         var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
@@ -1261,7 +1351,8 @@
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="not include any room fee. Therefore if you assign this shild to a triple sharing room, he or she is required to pay half room fee.";
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
                         var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a triple  sharing room, he or she is required to pay extra bed fee.";
@@ -1271,12 +1362,14 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             }
 
                         }
@@ -1288,7 +1381,8 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = price_private_room;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                         //2 children 0-5
@@ -1319,14 +1413,16 @@
                         var passenger_index = group_1_infant_children_2;
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //group_2_infant_children_2
                         var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                         var passenger_index = group_2_infant_children_2;
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                     } else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_children_1(room_index) == 1) {
                         //2 adult, 1 children 6-11 (case 3d)
@@ -1335,12 +1431,14 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //adult second
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         //children (6-11)
                         var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
@@ -1349,13 +1447,15 @@
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                         } else {
                             var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = price_extra_bed;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
                     } else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 2 && plugin.get_total_infant_and_children_2(room_index) == 1) {
@@ -1365,12 +1465,14 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //adult 2
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         //children 0-5
                         var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
@@ -1381,12 +1483,14 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             }
 
                         }
@@ -1400,13 +1504,19 @@
                                 var tour_cost = price_children1;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             }
                         } else {
                             var msgs=[];
                             msgs[0]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
                             msgs[1]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
                             msgs[2]="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
+
+                            var list_bed_note=[];
+                            list_bed_note[0]=plugin.settings.private_bed;
+                            list_bed_note[1]=plugin.settings.private_bed;
+                            list_bed_note[2]=plugin.settings.extra_bed;
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
                                 var a_passenger_index = passengers[p_index];
                                 var tour_cost = price_children1;
@@ -1418,7 +1528,7 @@
                                     room_price = 0;
                                     extra_bed_price = price_extra_bed;
                                 }
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[i]);
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[i],list_bed_note[i]);
 
                             }
                         }
@@ -1430,12 +1540,14 @@
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         } else {
                             var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
@@ -1443,21 +1555,24 @@
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                             var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
 
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
                         }
                         var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = 0;
                         extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                     }else if(passengers.length == 3 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_children_2(room_index) == 2){
                         //1adult, 3 child 6-11 (case 3h)
@@ -1467,13 +1582,15 @@
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other."
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
                         var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
@@ -1481,14 +1598,16 @@
                         var tour_cost = price_children2;
                         var room_price = price_private_room;
                         var extra_bed_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 1);
                         var tour_cost = price_children2;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                     } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_children_1(room_index) == 3) {
                         //1adult, 3 child 6-11 (case 4a)
@@ -1497,7 +1616,8 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //3 child 6-11
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1507,7 +1627,8 @@
                                     var tour_cost = price_children1;
                                     var room_price = 0;
                                     var extra_bed_price = 0;
-                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                    var bed_note=plugin.settings.private_bed;
+                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                                 }
                             }
                         } else {
@@ -1515,6 +1636,16 @@
                             msgs[0]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
                             msgs[1]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
                             msgs[2]="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
+
+
+                            var list_bed_note=[];
+                            list_bed_note[0]=plugin.settings.private_bed;
+                            list_bed_note[1]=plugin.settings.extra_bed;
+                            list_bed_note[2]=plugin.settings.extra_bed;
+
+
+
+
                             var a_children_1_index = 0;
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
                                 var a_passenger_index = passengers[p_index];
@@ -1528,7 +1659,7 @@
                                         var room_price = 0;
                                         var extra_bed_price = price_extra_bed;
                                     }
-                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[a_children_1_index]);
+                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[a_children_1_index],list_bed_note[a_children_1_index]);
                                     a_children_1_index++;
                                 }
                             }
@@ -1541,19 +1672,22 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //2 children (6-11)
                         if (full_charge_children1) {
                             //children 1
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                              var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                             //children 2
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                              var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         } else {
                             //children 1
@@ -1562,14 +1696,16 @@
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,extra_bed_price,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,extra_bed_price,msg,bed_note);
                             //children 2
                             var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = price_extra_bed;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,price_extra_bed,msg);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,price_extra_bed,msg,bed_note);
                         }
                         // 1 children 0-5
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1578,12 +1714,14 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             }
 
                         }
@@ -1597,21 +1735,24 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //1 children 6-11
                         if (full_charge_children1) {
                             //children 1
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                              var tour_cost = price_children1;
                             var room_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             //children 1
                             var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                              var tour_cost = price_children1;
                             var room_price = price_private_room;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
                         }
 
                         var group_1_infant_children_2 = null;
@@ -1644,7 +1785,8 @@
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
 
                         //group_2_infant_children_2
@@ -1652,7 +1794,8 @@
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
 
 
                     } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 3) {
@@ -1663,7 +1806,20 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = price_private_room;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
+
+
+                        //3 children (0-5)
+
+                        var list_bed_note=[];
+                        list_bed_note[0]=plugin.settings.extra_bed;
+                        list_bed_note[1]=plugin.settings.share_bed;
+                        list_bed_note[2]=plugin.settings.share_bed;
+
+
+
+
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
                             var b_index = 0;
@@ -1690,7 +1846,7 @@
                                     var msg="";
                                 }
 
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,list_bed_note[b_index]);
                                 b_index++;
                             }
                         }
@@ -1701,27 +1857,31 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         //adult 2
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         if (full_charge_children1) {
                             //children (6-11) 1
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
 
                             //children (6-11) 2
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                         } else {
                             //children (6-11) 1
                             var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
@@ -1729,7 +1889,8 @@
                             var tour_cost = price_children1;
                             var room_price = (price_private_room+price_extra_bed)/2;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                             //children (6-11) 2
                             var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
@@ -1737,7 +1898,8 @@
                             var tour_cost = price_children1;
                             var room_price = (price_private_room+price_extra_bed)/2;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
 
@@ -1748,12 +1910,14 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         if (full_charge_children1) {
                             //children (6-11)
@@ -1761,7 +1925,8 @@
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                         } else {
                             //children (6-11)
                             var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
@@ -1769,7 +1934,8 @@
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = price_extra_bed;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
                         //children 0-5
@@ -1779,12 +1945,14 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             }
 
                         }
@@ -1798,15 +1966,16 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                         //adult 2
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                         var group_1_infant_children_2 = null;
@@ -1838,7 +2007,8 @@
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
 
                         //group_2_infant_children_2
@@ -1846,7 +2016,8 @@
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
 
 
                     } else if (passengers.length == 4 && plugin.get_total_senior_adult_teen(room_index) == 3  && plugin.get_total_infant_and_children_2(room_index) == 1) {
@@ -1856,21 +2027,23 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
 
                         //adult 2
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.private_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         //adult 3
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 2);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         //children 0-5
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1879,12 +2052,14 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.share_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                             }
 
                         }
@@ -1899,10 +2074,27 @@
                                 var tour_cost = price_children1;
                                 var room_price = 0;
                                 var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                var bed_note=plugin.settings.private_bed;
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
 
                             }
                         } else {
+                            var msgs=[];
+                            msgs[0]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            msgs[1]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            msgs[2]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            msgs[3]="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
+
+
+                            var list_bed_note=[];
+                            list_bed_note[0]=plugin.settings.private_bed;
+                            list_bed_note[1]=plugin.settings.private_bed;
+                            list_bed_note[2]=plugin.settings.extra_bed;
+                            list_bed_note[3]=plugin.settings.extra_bed;
+
+
+
+
                             var b_index = 0;
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
 
@@ -1915,7 +2107,7 @@
                                     var room_price = (price_private_room+price_extra_bed)/2;
                                     var extra_bed_price = 0;
                                 }
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[b_index],list_bed_note[b_index]);
                                 b_index++;
 
                             }
@@ -1930,27 +2122,44 @@
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
                                 var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                var room_price = 0;
-                                var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                if(plugin.is_children_1(a_passenger_index)){
+                                    var tour_cost = price_children1;
+                                    var room_price = 0;
+                                    var extra_bed_price = 0;
+                                    var bed_note=plugin.settings.private_bed;
+                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
+                                }
 
                             }
                         } else {
+                            var msgs=[];
+                            msgs[0]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            msgs[1]="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            msgs[2]="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
+
+                            var list_bed_note=[];
+                            list_bed_note[0]=plugin.settings.private_bed;
+                            list_bed_note[1]=plugin.settings.private_bed;
+                            list_bed_note[2]=plugin.settings.extra_bed;
+
+
+
+
                             var b_index = 0;
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
-
                                 var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                if (b_index == 0 || b_index == 1) {
-                                    var room_price = price_private_room;
-                                    var extra_bed_price = 0;
-                                } else {
-                                    var room_price = 0;
-                                    var extra_bed_price = price_extra_bed;
+                                if(plugin.is_children_1(a_passenger_index)){
+                                    var tour_cost = price_children1;
+                                    if (b_index == 0 || b_index == 1) {
+                                        var room_price = price_private_room;
+                                        var extra_bed_price = 0;
+                                    } else {
+                                        var room_price = 0;
+                                        var extra_bed_price = price_extra_bed;
+                                    }
+                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[b_index],list_bed_note[b_index]);
+                                    b_index++;
                                 }
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
-                                b_index++;
 
                             }
 
@@ -1960,7 +2169,8 @@
                         var tour_cost = price_children2;
                         var room_price = 0;
                         var extra_bed_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
 
 
                     } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 2 && plugin.get_total_infant_and_children_2(room_index) == 2) {
@@ -1970,35 +2180,49 @@
                         if (full_charge_children1) {
                             for (var p_index = 0; p_index < passengers.length; p_index++) {
                                 var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                var room_price = 0;
-                                var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
-
+                                if(plugin.is_children_1(a_passenger_index)){
+                                    var tour_cost = price_children1;
+                                    var room_price = 0;
+                                    var extra_bed_price = 0;
+                                    var bed_note=plugin.settings.private_bed;
+                                    room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
+                                }
                             }
                         } else {
-                            for (var p_index = 0; p_index < passengers.length; p_index++) {
-                                var a_passenger_index = passengers[p_index];
-                                var tour_cost = price_children1;
-                                var room_price = price_private_room;
-                                var extra_bed_price = 0;
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
-                            }
+                            var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index,0);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room;
+                            var extra_bed_price = 0;
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
+
+
+                            var msg="The tour cost for this child type does not include the room fee.  Therefore he or she is required to pay the  room supplement fee while sharing room with other.";
+                            var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index,1);
+                            var tour_cost = price_children1;
+                            var room_price = price_private_room;
+                            var extra_bed_price = 0;
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
                         // children (2-5) 1
+                        var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                        var bed_note=plugin.settings.extra_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         // children (2-5) 2
                         var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
                         var tour_cost = price_children2;
                         var room_price = 0;
                         var extra_bed_price = 0;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                        var bed_note=plugin.settings.share_bed;
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                     } else if (passengers.length == 4 && plugin.get_total_children_1(room_index) == 1 && plugin.get_total_children_2(room_index) == 3) {
                         // 1 child 6-11, 3 children 2-5 (case 4q)
                         console.log("case 4q");
@@ -2008,17 +2232,36 @@
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,"",bed_note);
                         } else {
+                            var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to this triple room, he or she is required to pay the room supplement fee.";
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var extra_bed_price = 0;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price);
+                            var bed_note=plugin.settings.private_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
 
                         //3 children 2-5
+                        var list_msg=[];
+                        list_msg[0]="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to this triple room, he or she is required to pay the room supplement fee.";
+                        list_msg[1]="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
+                        list_msg[2]="";
+
+
+                        var list_bed_note=[];
+                        list_bed_note[0]=plugin.settings.private_bed;
+                        list_bed_note[1]=plugin.settings.extra_bed;
+                        list_bed_note[2]=plugin.settings.share_bed;
+
+
+
+
+
+
                         var b_index = 0;
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
@@ -2032,7 +2275,7 @@
                                     //?
                                     var extra_bed_price = price_extra_bed;
                                 }
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price);
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,list_msg[b_index],list_bed_note[b_index]);
                                 b_index++;
                             }
 
@@ -2154,6 +2397,33 @@
                 $li.appendTo($list_passenger);
             }
         };
+        plugin.get_item_tour_cost_and_room_price_by_passenger_index = function (tour_cost_and_room_price,passenger_index) {
+
+            if(tour_cost_and_room_price.length>0){
+                for (var i=0;i<tour_cost_and_room_price.length;i++){
+                    var item_tour_cost_and_room_price=tour_cost_and_room_price[i];
+                    if(item_tour_cost_and_room_price.passenger_index==passenger_index){
+                        return item_tour_cost_and_room_price;
+                    }
+                }
+            }
+            return null;
+        };
+
+        plugin.get_passenger_title_by_passenger_index = function (index_passenger) {
+            if(plugin.is_infant(index_passenger))
+            {
+                return plugin.settings.infant_title;
+            }else if(plugin.is_children_1(index_passenger) ||  plugin.is_children_2(index_passenger) ){
+                return plugin.settings.children_title;
+            }else if(plugin.is_teen(index_passenger)  ){
+                return plugin.settings.teen_title;
+            }else if(plugin.is_adult(index_passenger)  ){
+                return plugin.settings.adult_title;
+            }else if(plugin.is_senior(index_passenger)){
+                return plugin.settings.senior_title;
+            }
+        };
         plugin.update_list_rooming = function () {
             var list_room = plugin.settings.list_room;
             var list_passenger = plugin.settings.list_passenger;
@@ -2168,18 +2438,40 @@
                 $tr_item_room.find('span.order').html(index + 1);
                 $tr_item_room.find('div.room_type').html(room.room_type);
                 $tr_item_room.find('div.room_note').html(room.room_note);
+                var tour_cost_and_room_price = room.tour_cost_and_room_price;
+                console.log(room);
 
-                if (typeof room.passengers != "undefined") {
+                if (typeof room.passengers != "undefined" && room.passengers.length>0) {
                     var passengers = room.passengers;
                     var sub_list_passenger = [];
-
+                    var sub_list_passenger_private_room = [];
                     $.each(passengers, function (index_passenger, order_passenger) {
                         var item_passenger = list_passenger[order_passenger];
+                        var room_price_per_passenger=0;
+                        var bed_note="";
+                        if(typeof tour_cost_and_room_price!="undefined")
+                        {
+                            var item_tour_cost_and_room_price=plugin.get_item_tour_cost_and_room_price_by_passenger_index(tour_cost_and_room_price,order_passenger);
+
+                            if(item_tour_cost_and_room_price!=null)
+                            {
+                                var passenger_note=item_tour_cost_and_room_price.msg;
+                                var bed_note=item_tour_cost_and_room_price.bed_note;
+
+                                bed_note='<div class="bed_note">'+bed_note+'&nbsp;</div>';
+                            }
+                        }
+                        sub_list_passenger_private_room.push(bed_note);
                         var full_name = item_passenger.first_name + ' ' + item_passenger.middle_name + ' ' + item_passenger.last_name + ' (' + item_passenger.year_old + ')';
-                        sub_list_passenger.push(full_name);
+                        sub_list_passenger.push('<div class="passenger-item">'+full_name+'</div>');
+
                     });
-                    sub_list_passenger = sub_list_passenger.join(',');
+                    sub_list_passenger = sub_list_passenger.join('');
                     $tr_item_room.find('div.table_list_passenger').html(sub_list_passenger);
+
+                    sub_list_passenger_private_room = sub_list_passenger_private_room.join('');
+                    $tr_item_room.find('div.private-room').html(sub_list_passenger_private_room);
+                    $.set_height_element($tr_item_room.find('.row-item-column'));
 
 
                 }
@@ -2693,7 +2985,6 @@
             plugin.settings.list_room = list_room;
             plugin.lock_passenger_inside_rooms();
             plugin.set_label_passenger_in_rooms();
-            plugin.update_list_rooming();
             plugin.trigger_after_change();
         };
         plugin.remove_passenger_in_room_index = function (room_index) {
@@ -2845,7 +3136,7 @@
                         var passenger_index_selected = $self.closest('li').index();
 
                         if (plugin.enable_change_passenger_inside_room_index(a_room_index)) {
-                            plugin.change_passenger_inside_room_index(a_room_index);
+                           plugin.change_passenger_inside_room_index(a_room_index);
 
                         } else {
                             $(this).prop('checked', !$passenger.is(':checked'));
