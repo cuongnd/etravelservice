@@ -1081,12 +1081,12 @@
                             if (plugin.is_infant(a_passenger_index)) {
                                 var tour_cost = price_infant;
                                 var room_price = 0;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.share_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.share_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             }
 
@@ -1141,16 +1141,17 @@
                         //2 adult 1 children (0-5)
                         //addd 2 adult first
                         console.log("case 3e");
+                        //adult 1
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 0);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
                         var bed_note=plugin.settings.private_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
-
+                        //adult 2
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        var bed_note=plugin.settings.private_bed;
+                        var bed_note=plugin.settings.extra_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //children (0-5)
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1158,12 +1159,12 @@
                             if (plugin.is_infant(a_passenger_index)) {
                                 var tour_cost = price_infant;
                                 var room_price = 0;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.share_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.share_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
                             }
 
@@ -1184,14 +1185,14 @@
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            var bed_note=plugin.settings.private_bed;
+                            var bed_note=plugin.settings.extra_bed;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                            var bed_note=plugin.settings.private_bed;
+                            var bed_note=plugin.settings.extra_bed;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
@@ -2303,6 +2304,7 @@
                     data.list_room[i].passengers = [];
                 }
             }
+            var list_room=plugin.get_list_room();
 
             plugin.settings.list_room = data.list_room;
             data = JSON.stringify(data);
@@ -2341,7 +2343,7 @@
             var $room_item = $element.find('.item-room:eq(' + room_index + ')');
             var list_passenger_selected = plugin.get_list_passenger_selected();
 
-            var list_room = plugin.settings.list_room;
+            var list_room = plugin.get_list_room();
             var limit_total = plugin.settings.limit_total;
             var room_item = list_room[room_index];
             if(list_passenger_selected.length>0)
@@ -2425,7 +2427,7 @@
             }
         };
         plugin.update_list_rooming = function () {
-            var list_room = plugin.settings.list_room;
+            var list_room = plugin.get_list_room();
             var list_passenger = plugin.settings.list_passenger;
             var $table_rooming_list = $element.find('.table-rooming-list');
             var $tbody = $table_rooming_list.find('.tbody');
@@ -2715,7 +2717,7 @@
                  plugin.update_list_rooming();*/
 
             });
-            $element.find('textarea[data-name="note"]').change(function change_note(event) {
+            $element.find('textarea[data-name="room_note"]').change(function change_note(event) {
                 plugin.update_data();
                 plugin.update_list_rooming();
 
@@ -3108,6 +3110,15 @@
                 }
             });
         };
+        plugin.update_room_note_room_index = function (room_index) {
+            var $item_room = $element.find('.item-room:eq(' + room_index + ')');
+            var list_room = plugin.settings.list_room;
+            var passengers = list_room[room_index].passengers;
+            var room_note=$item_room.find('textarea[data-name="room_note"]').val();
+            list_room[room_index].room_note = room_note;
+            plugin.settings.list_room = list_room;
+
+        };
         plugin.add_event_room_index = function (room_index) {
             var $room_item = $element.find('.item-room:eq(' + room_index + ')');
             var $room_type_item = $room_item.find('input[data-name="room_type"]');
@@ -3198,6 +3209,28 @@
                     }
                 }).addClass(event_class);
             }
+            var debug=plugin.settings.debug;
+            if(debug)
+            {
+                var event_class = 'change_room_note';
+                if (!$room_item.find('textarea[data-name="room_note"]').hasClass(event_class)) {
+
+                    $room_item.find('textarea[data-name="room_note"]').change(function () {
+                        plugin.update_room_note_room_index(room_index);
+                    }).addClass(event_class);
+                }
+            }
+
+            if(debug)
+            {
+                var event_class = 'add_room_note';
+                if (!$room_item.find('.random-text').hasClass(event_class)) {
+
+                    $room_item.find('.random-text').click(function () {
+                        $room_item.find('textarea[data-name="room_note"]').delorean({ type: 'words', amount: 5, character: 'Doc', tag:  '' }).trigger('change');
+                    }).addClass(event_class);
+                }
+            }
 
 
         };
@@ -3252,7 +3285,7 @@
             var room_item = list_room[room_index];
             var $room_item = $element.find('.item-room:eq(' + room_index + ')');
 
-            $room_item.find('textarea[data-name="note"]').attr('name', 'list_room[' + room_index + '][note]');
+            $room_item.find('textarea[data-name="room_note"]').attr('name', 'list_room[' + room_index + '][room_note]');
 
             $room_item.find('.room-order').html(room_index + 1);
             $room_item.find('input[data-name="room_type"]').each(function (index1, input) {
@@ -3369,10 +3402,11 @@
              {
              $element.find('.item-room .random-text').click(function(){
              var $item_room=$(this).closest('.item-room');
-             $item_room.find('textarea[data-name="note"]').delorean({ type: 'words', amount: 5, character: 'Doc', tag:  '' }).trigger('change');
+             $item_room.find('textarea[data-name="room_note"]').delorean({ type: 'words', amount: 5, character: 'Doc', tag:  '' }).trigger('change');
              });
              }
              */
+
 
         };
         plugin.init();

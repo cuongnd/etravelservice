@@ -2358,7 +2358,7 @@ XML;
                             <div class="row-fluid note">
                                 <div class="span12">
                                     <h4><?php echo JText::_('Your note') ?><?php if($debug){ ?><button type="button" class="btn btn-primary random-text">Random text </button><?php } ?></h4>
-                                    <textarea data-name="note" style="width: 100%;height: 50px"></textarea>
+                                    <textarea data-name="room_note" style="width: 100%;height: 50px"></textarea>
                                 </div>
                             </div>
                         </div>
