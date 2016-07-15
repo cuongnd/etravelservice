@@ -473,7 +473,7 @@
                     });
 
                 });
-                for (var i = 0; i < 6; i++) {
+                for (var i = 0; i < 5; i++) {
                     $element.find('.input-passenger-list-passenger.senior-adult-teen .btn.add:first').trigger('click');
                     $element.find('.input-passenger-list-passenger.children-infant .btn.add:first').trigger('click');
                     $element.find('.auto-fill-date').trigger('click');

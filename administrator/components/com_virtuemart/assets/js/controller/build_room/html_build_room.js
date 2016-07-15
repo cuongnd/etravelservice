@@ -905,6 +905,31 @@
                 return price_teen;
             }
         };
+        plugin.swith_index = function (passenger_index_1, passenger_index_2,get_min) {
+            var list_passenger = plugin.settings.list_passenger;
+            var passenger_1 = list_passenger[passenger_index_1];
+            var passenger_2 = list_passenger[passenger_index_2];
+            if(typeof get_min=="undefined")
+            {
+                get_min=true;
+            }
+            if(get_min)
+            {
+                if(passenger_1.year_old<=passenger_2.year_old)
+                {
+                    return passenger_index_1;
+                }else {
+                    return passenger_index_2;
+                }
+            }else{
+                if(passenger_1.year_old<=passenger_2.year_old)
+                {
+                    return passenger_index_2;
+                }else {
+                    return passenger_index_1;
+                }
+            }
+        };
         plugin.calculator_tour_cost_and_room_price = function () {
             var list_room = plugin.get_list_room();
             var list_passenger = plugin.get_list_passenger();
@@ -1020,6 +1045,7 @@
                     }
                 } else if (room_type == "double" || room_type == "twin") {
                     //Double OR Twin
+                    console.log('case room_type == "double" || room_type == "twin" ');
                     if (passengers.length == 2 && plugin.get_total_senior_adult_teen(room_index) == 2) {
                         //case case 2 adult (case 0)
                         //add adult first
@@ -1028,7 +1054,7 @@
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
                         var bed_note=plugin.settings.private_bed;
-                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,bed_note);
+                        room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                         var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
@@ -1151,7 +1177,7 @@
                         var passenger_index = plugin.get_senior_adult_teen_passenger_order_in_room(room_index, 1);
                          var tour_cost = plugin.get_price_tour_cost_by_passenger_index(passenger_index, price_senior, price_adult, price_teen);
                         var room_price = 0;
-                        var bed_note=plugin.settings.extra_bed;
+                        var bed_note=plugin.settings.private_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //children (0-5)
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
@@ -1185,14 +1211,14 @@
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = 0;
-                            var bed_note=plugin.settings.extra_bed;
+                            var bed_note=plugin.settings.private_bed;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         } else {
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
                             var tour_cost = price_children1;
                             var room_price = price_private_room;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a twin/double sharing room, he or she is required to pay half room fee.";
-                            var bed_note=plugin.settings.extra_bed;
+                            var bed_note=plugin.settings.private_bed;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,msg,bed_note);
 
                         }
@@ -1241,6 +1267,7 @@
 
 
                     }else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_infant_and_children_2(room_index) == 2) {
+
                         //1adult 2 children 0-5 (case 3i)
                         console.log("case 3i");
                         //adult
@@ -1279,12 +1306,18 @@
                     if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 3) {
                         //3 adult (case 0)
                         console.log("case 0");
+                        var list_bed_note=[];
+                        list_bed_note[0]=plugin.settings.private_bed;
+                        list_bed_note[1]=plugin.settings.private_bed;
+                        list_bed_note[2]=plugin.settings.extra_bed;
+
+
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
                              var tour_cost = plugin.get_price_tour_cost_by_passenger_index(a_passenger_index, price_senior, price_adult, price_teen);
                             var room_price = 0;
                             var bed_note=plugin.settings.private_bed;
-                            room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",bed_note);
+                            room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price,0,"",list_bed_note[p_index]);
                         }
                     } else if (passengers.length == 3 && plugin.get_total_senior_adult_teen(room_index) == 1 && plugin.get_total_children_1(room_index) == 2) {
                         //1adult,2 child 6-11 (case 3a)
@@ -1296,7 +1329,10 @@
                         var bed_note=plugin.settings.private_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
 
-                        var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);
+                        var order=plugin.swith_index(0,1);
+
+                        var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, order);
+
                         if (full_charge_children1) {
 
                             var tour_cost = price_children1;
@@ -1312,22 +1348,22 @@
 
                         }
 
-
-                        var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 1);
+                        var order=plugin.swith_index(0,1,false);
+                        var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, order);
                         if (full_charge_children1) {
 
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = 0;
-                            var bed_note=plugin.settings.private_bed;
+                            var bed_note=plugin.settings.extra_bed;
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,0,"",bed_note);
                         } else {
                             var tour_cost = price_children1;
                             var room_price = 0;
                             var extra_bed_price = price_extra_bed;
                             var msg="The tour cost for this child type does not include any room fee. Therefore if you assign this shild to a triple  sharing room, he or she is required to pay extra bed fee.";
-                            var bed_note=plugin.settings.private_bed;
-                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,0,msg,bed_note);
+                            var bed_note=plugin.settings.extra_bed;
+                            room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
 
@@ -1363,13 +1399,13 @@
                                 var tour_cost = price_infant;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.extra_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             } else if (plugin.is_children_2(a_passenger_index)) {
                                 var tour_cost = price_children2;
                                 var room_price = 0;
                                 var extra_bed_price = price_extra_bed;
-                                var bed_note=plugin.settings.private_bed;
+                                var bed_note=plugin.settings.extra_bed;
                                 room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
                             }
 
@@ -1410,15 +1446,17 @@
                             }
 
                         }
+                        var order=plugin.swith_index(group_1_infant_children_2,group_2_infant_children_2);
                         //group_1_infant_children_2
-                        var passenger_index = group_1_infant_children_2;
+                        var passenger_index = order;
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var bed_note=plugin.settings.share_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price,0,"",bed_note);
                         //group_2_infant_children_2
+                        var order=plugin.swith_index(group_1_infant_children_2,group_2_infant_children_2,false);
                         var msg="The tour cost for this child type does not include any room fee. Therefore  he or she is required to pay extra bed fee while  staying in triple room.";
-                        var passenger_index = group_2_infant_children_2;
+                        var passenger_index = order;
                         var tour_cost = group_infant_children_2_price;
                         var room_price = 0;
                         var extra_bed_price = price_extra_bed;
@@ -1529,7 +1567,7 @@
                                     room_price = 0;
                                     extra_bed_price = price_extra_bed;
                                 }
-                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[i],list_bed_note[i]);
+                                room_item = func_set_tour_cost_and_room_price(room_item, a_passenger_index, tour_cost, room_price, extra_bed_price,msgs[i],list_bed_note[p_index]);
 
                             }
                         }
@@ -1814,16 +1852,16 @@
                         //3 children (0-5)
 
                         var list_bed_note=[];
-                        list_bed_note[0]=plugin.settings.extra_bed;
-                        list_bed_note[1]=plugin.settings.share_bed;
+                        list_bed_note[0]=plugin.settings.private_bed;
+                        list_bed_note[1]=plugin.settings.extra_bed;
                         list_bed_note[2]=plugin.settings.share_bed;
 
 
 
-
+                        var b_index = 0;
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
-                            var b_index = 0;
+
                             if (!plugin.is_senior_adult_teen(a_passenger_index)) {
                                 var a_passenger_index = passengers[p_index];
                                 var room_price = 0;
@@ -2205,6 +2243,7 @@
                             var room_price = price_private_room;
                             var extra_bed_price = 0;
                             var bed_note=plugin.settings.private_bed;
+
                             room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         }
@@ -2218,7 +2257,7 @@
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, extra_bed_price,msg,bed_note);
 
                         // children (2-5) 2
-                        var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 0);
+                        var passenger_index = plugin.get_children_2_passenger_order_in_room(room_index, 1);
                         var tour_cost = price_children2;
                         var room_price = 0;
                         var extra_bed_price = 0;
@@ -2267,7 +2306,7 @@
                         for (var p_index = 0; p_index < passengers.length; p_index++) {
                             var a_passenger_index = passengers[p_index];
                             var tour_cost = price_children2;
-                            if (!plugin.is_children_1()) {
+                            if (!plugin.is_children_1(a_passenger_index)) {
                                 var room_price = 0;
                                 var extra_bed_price = 0;
                                 if (b_index == 0) {
@@ -2346,17 +2385,17 @@
             var list_room = plugin.get_list_room();
             var limit_total = plugin.settings.limit_total;
             var room_item = list_room[room_index];
+            $room_item.find('input.passenger-item').prop("disabled", false);
             if(list_passenger_selected.length>0)
             {
                 for (var i = 0; i < list_passenger_selected.length; i++) {
                     var passenger_index = list_passenger_selected[i];
                     var a_room_index = plugin.get_room_index_by_passenger_index_selected(passenger_index);
+                    console.log("a_room_index:"+a_room_index);
                     if (a_room_index != room_index) {
                         $room_item.find('input.passenger-item:eq(' + passenger_index + ')').prop("disabled", true);
                     }
                 }
-            }else{
-                $room_item.find('input.passenger-item').prop("disabled", false);
             }
         };
         plugin.get_list_passenger_checked = function () {
@@ -3021,6 +3060,7 @@
 
         plugin.is_infant = function (passenger_index) {
             var range_year_old_infant = plugin.settings.range_year_old_infant;
+            console.log(range_year_old_infant);
             var list_passenger = plugin.settings.list_passenger;
             var passenger = list_passenger[passenger_index];
             return passenger.year_old <= range_year_old_infant[1];
@@ -3376,7 +3416,7 @@
             plugin.settings = $.extend({}, defaults, options);
 
             var passenger_config = plugin.settings.passenger_config;
-            plugin.settings.range_year_old_infant = [passenger_config.infant_passenger_age_from, passenger_config.infant_passenger_age_from];
+            plugin.settings.range_year_old_infant = [passenger_config.infant_passenger_age_from, passenger_config.infant_passenger_age_to];
             plugin.settings.range_year_old_children_2 = [passenger_config.children_2_passenger_age_from, passenger_config.children_2_passenger_age_to];
             plugin.settings.range_year_old_children_1 = [passenger_config.children_1_passenger_age_from, passenger_config.children_1_passenger_age_to];
             plugin.settings.range_year_old_teen = [passenger_config.teen_passenger_age_from, passenger_config.teen_passenger_age_to];
