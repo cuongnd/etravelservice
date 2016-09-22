@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<access component="com_tsmart">
+	<section name="component">
+		<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+		<action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+        <action name="vm.manage" title="com_tsmart_MANAGE" description="com_tsmart_MANAGE_DESC" />
+        <action name="vm.managevendors" title="com_tsmart_MANAGE_VENDORS" description="com_tsmart_MANAGE_VENDORS_DESC" />
+        <!-- action name="core.edit.own" title="JACTION_EDITOWN" description="COM_CONFIG_ACTION_EDITOWN_DESC" /-->
+        <action name="vm.raw" title="com_tsmart_ALRAW" description="com_tsmart_ALRAW_DESC" />
+        <action name="vm.html" title="com_tsmart_ALHTML" description="com_tsmart_ALHTML_DESC" />
+	</section>
+    <section name="category">
+        <action name="vm.category" title="JACTION_MANAGE" description="com_tsmart_MANAGE_VIEW_DESC" />
+        <action name="vm.category.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+        <action name="vm.category.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+        <action name="vm.category.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+        <action name="vm.category.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+    </section>
+	<section name="product">
+        <action name="vm.product" title="JACTION_MANAGE" description="com_tsmart_MANAGE_VIEW_DESC" />
+        <action name="vm.product.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+        <action name="vm.product.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+        <action name="vm.product.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+		<action name="vm.product.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+        <action name="vm.inventory" title="com_tsmart_PRODUCT_INVENTORY" description="" />
+        <action name="vm.ratings" title="com_tsmart_REVIEW_RATE_S" description="" />
+        <action name="vm.ratings.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+        <action name="vm.ratings.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+        <action name="vm.ratings.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+	</section>
+    <section name="customs">
+        <action name="vm.custom" title="JACTION_MANAGE" description="com_tsmart_MANAGE_VIEW_DESC" />
+        <action name="vm.custom.edit" title="com_tsmart_PRODUCT_CUSTOM_FIELD_EDIT" description="" />
+        <action name="vm.custom.create" title="JACTION_CREATE" description="" />
+        <action name="vm.custom.delete" title="JACTION_DELETE" description="" />
+    </section>
+    <section name="calculation">
+        <action name="vm.calc" title="JACTION_MANAGE" description="" />
+        <action name="vm.calc.edit" title="com_tsmart_CALC_EDIT" description="" />
+        <action name="vm.calc.create" title="JACTION_CREATE" description="" />
+        <action name="vm.calc.delete" title="JACTION_DELETE" description="" />
+    </section>
+    <section name="manufacturer">
+        <action name="vm.manufacturer" title="JACTION_MANAGE" description="com_tsmart_MANAGE_VIEW_DESC" />
+        <action name="vm.manufacturer.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+        <action name="vm.manufacturer.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+        <action name="vm.manufacturer.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+        <action name="vm.manufacturer.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+        <action name="vm.manufacturercategories" title="com_tsmart_MANUFACTURER_CATEGORY_S" description="" />
+    </section>
+	<section name="orders">
+        <action name="vm.orders" title="JACTION_MANAGE" description="com_tsmart_MANAGEVIEW_DESC" />
+        <action name="vm.orders.edit" title="JACTION_EDIT" description="" />
+        <action name="vm.orders.status" title="com_tsmart_CHANGE_OS" description="com_tsmart_CHANGE_OS_DESC" />
+        <action name="vm.report" title="com_tsmart_REPORT" description="" />
+	</section>
+	<section name="shoppers">
+        <action name="vm.user" title="com_tsmart_USER_S" description="" />
+        <action name="vm.user.edit" title="com_tsmart_USERS_EDIT" description="" />
+        <action name="vm.user.editshop" title="com_tsmart_STORE" description="" />
+        <action name="vm.shoppergroup" title="com_tsmart_SHOPPERGROUP_S" description="" />
+        <action name="vm.shoppergroup.edit" title="com_tsmart_SHOPPERGROUP_EDIT" description="" />
+        <action name="vm.coupon" title="com_tsmart_COUPON_S" description="" />
+        <action name="vm.coupon.edit" title="com_tsmart_COUPON_EDIT" description="" />
+        <action name="vm.coupon.create" title="com_tsmart_COUPON_CREATE" description="" />
+        <action name="vm.coupon.delete" title="com_tsmart_COUPON_DELETE" description="" />
+    </section>
+    <section name="media">
+        <action name="vm.media" title="com_tsmart_MEDIA_S" description="" />
+        <action name="vm.media.edit" title="JACTION_EDIT" description="" />
+        <action name="vm.media.create" title="JACTION_CREATE" description="" />
+        <action name="vm.media.delete" title="JACTION_DELETE" description="" />
+        <action name="vm.media.potdang" title="com_tsmart_MEDIA_POTENTIAL_DANGEROUS" description="com_tsmart_MEDIA_POTENTIAL_DANGEROUS_DESC" />
+    </section>
+    <section name="method">
+        <action name="vm.shipmentmethod" title="com_tsmart_SHIPMENTMETHOD_S" description="" />
+        <action name="vm.shipmentmethod.edit" title="com_tsmart_SHIPMENTMETHOD_EDIT" description="" />
+        <action name="vm.shipmentmethod.create" title="com_tsmart_SHIPMENTMETHOD_CREATE" description="" />
+        <action name="vm.shipmentmethod.delete" title="com_tsmart_SHIPMENTMETHOD_DELETE" description="" />
+        <action name="vm.paymentmethod" title="com_tsmart_PAYMENTMETHOD_S" description="" />
+        <action name="vm.paymentmethod.edit" title="com_tsmart_PAYMENTMETHOD_EDIT" description="" />
+        <action name="vm.paymentmethod.create" title="com_tsmart_PAYMENTMETHOD_CREATE" description="" />
+        <action name="vm.paymentmethod.delete" title="com_tsmart_PAYMENTMETHOD_DELETE" description="" />
+    </section>
+	<section name="other">
+        <action name="vm.config" title="com_tsmart_CONFIGURATION" description="" />
+        <action name="vm.userfields" title="com_tsmart_USERFIELD_S" description="" />
+        <action name="vm.orderstatus" title="com_tsmart_ORDERSTATUS_S" description="" />
+        <action name="vm.currency" title="com_tsmart_CURRENCY_S" description="" />
+        <action name="vm.country" title="com_tsmart_COUNTRY_S" description="" />
+        <action name="vm.updatesmigration" title="com_tsmart_MIGRATION_UPDATE" description="" />
+        <action name="vm.about" title="com_tsmart_ABOUT" description="" />
+	</section>
+</access>
+
