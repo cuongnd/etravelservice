@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">etravelservice</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="me1u8_virtuemart_service_class" view="colnames">
+<left>615</left>
+<top>98</top>
+<width>303</width>
+<height>427</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_service_class` (
+  `virtuemart_service_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_class_name` varchar(50) DEFAULT NULL,
+  `icon` int(11) DEFAULT NULL,
+  `meta_title` int(11) DEFAULT NULL,
+  `key_word` int(11) DEFAULT NULL,
+  `description` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_service_class_id`),
+  KEY `virtuemart_service_class_id` (`virtuemart_service_class_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_service_class_id" view="colnames">
+<left>345</left>
+<top>104</top>
+<width>206</width>
+<height>124</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_service_class_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  `virtuemart_service_class_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_service_class_id`),
+  KEY `virtuemart_service_class_id` (`virtuemart_service_class_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_service_class_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_service_class_id_ibfk_2` FOREIGN KEY (`virtuemart_service_class_id`) REFERENCES `me1u8_virtuemart_service_class` (`virtuemart_service_class_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_products" view="colnames">
+<left>74</left>
+<top>79</top>
+<width>209</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_products` (
+  `virtuemart_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_vendor_id` int(11) DEFAULT NULL,
+  `product_parent_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_type_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_style_id` int(11) DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  `virtuemart_physicalgrade_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_section_id` int(11) DEFAULT NULL,
+  `product_sku` varchar(50) DEFAULT NULL,
+  `tour_methor` int(11) DEFAULT NULL,
+  `tour_length` int(11) DEFAULT NULL,
+  `min_person` int(11) DEFAULT NULL,
+  `max_person` int(11) DEFAULT NULL,
+  `min_age` int(11) DEFAULT NULL,
+  `max_age` int(11) DEFAULT NULL,
+  `start_city` int(11) DEFAULT NULL,
+  `end_city` int(11) DEFAULT NULL,
+  `highlights` text,
+  `inclusions` int(11) DEFAULT NULL,
+  `exclusions` int(11) DEFAULT NULL,
+  `meta_name` int(11) DEFAULT NULL,
+  `product_special` int(11) DEFAULT NULL,
+  `product_params` int(11) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
+  `intnotes` int(11) DEFAULT NULL,
+  `metaauthor` int(11) DEFAULT NULL,
+  `layout` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `pordering` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_product_id`),
+  KEY `virtuemart_vendor_id` (`virtuemart_vendor_id`),
+  KEY `product_parent_id` (`product_parent_id`),
+  KEY `product_special` (`product_special`),
+  KEY `published` (`published`),
+  KEY `pordering` (`pordering`),
+  KEY `created_on` (`created_on`),
+  KEY `modified_on` (`modified_on`),
+  KEY `virtuemart_product_id_2` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_3` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_4` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_5` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_6` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_7` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_8` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_9` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_10` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_11` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_12` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_13` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_14` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_15` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_16` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_17` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_18` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_19` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_20` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_21` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_22` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_23` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_24` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_25` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_26` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_27` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_28` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_29` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_30` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_32` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_33` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_34` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_35` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_36` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_37` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_38` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_39` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_40` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_41` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_42` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_43` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_44` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_45` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_46` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_47` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_48` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_49` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_50` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_51` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_52` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_53` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_54` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_55` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_56` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1222 DEFAULT CHARSET=utf8 COMMENT='All products are stored here.'</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

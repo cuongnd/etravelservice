@@ -660,6 +660,7 @@ abstract class JTable extends JObject implements JObservableInterface, JTableInt
 	 */
 	public function load($keys = null, $reset = true)
 	{
+
 		// Implement JObservableInterface: Pre-processing by observers
 		$this->_observers->update('onBeforeLoad', array($keys, $reset));
 

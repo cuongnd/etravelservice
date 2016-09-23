@@ -86,7 +86,7 @@ abstract class JHtmlFormbehavior
 		JHtml::_('stylesheet', 'jui/chosen.css', false, true);
 		JFactory::getDocument()->addScriptDeclaration("
 				jQuery(document).ready(function (){
-					//jQuery('" . $selector . ":not([disable_chosen=\"true\"])').chosen(" . $options_str . ");
+					jQuery('" . $selector . ":not([disable_chosen=\"true\"])').chosen(" . $options_str . ");
 				});
 			"
 		);

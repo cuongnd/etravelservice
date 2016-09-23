@@ -687,7 +687,6 @@ class PlgSystemDebug extends JPlugin
 		$db = JFactory::getDbo();
 
 		$log = $db->getLog();
-
 		if (!$log)
 		{
 			return null;

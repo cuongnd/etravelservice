@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">etravelservice</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="me1u8_virtuemart_states" view="standard">
+<left>445</left>
+<top>189</top>
+<width>278</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_states` (
+  `virtuemart_state_id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_country_id` int(11) DEFAULT NULL,
+  `state_name` varchar(200) DEFAULT NULL,
+  `state_3_code` char(3) DEFAULT NULL,
+  `state_2_code` char(2) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_state_id`),
+  KEY `virtuemart_country_id` (`virtuemart_country_id`),
+  KEY `ordering` (`ordering`),
+  KEY `shared` (`shared`),
+  KEY `published` (`published`),
+  KEY `virtuemart_state_id` (`virtuemart_state_id`),
+  CONSTRAINT `me1u8_virtuemart_states_ibfk_1` FOREIGN KEY (`virtuemart_country_id`) REFERENCES `me1u8_virtuemart_countries` (`virtuemart_country_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='States that are assigned to a country'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_countries" view="standard">
+<left>80</left>
+<top>117</top>
+<width>286</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_countries` (
+  `virtuemart_country_id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) DEFAULT NULL,
+  `phone_code` int(11) DEFAULT NULL,
+  `state_number` int(11) DEFAULT NULL,
+  `virtuemart_worldzone_id` int(11) DEFAULT NULL,
+  `country_name` varchar(50) DEFAULT NULL,
+  `iso2` int(11) DEFAULT NULL,
+  `iso3` int(11) DEFAULT NULL,
+  `flag` int(11) DEFAULT NULL,
+  `country_3_code` int(11) DEFAULT NULL,
+  `image` int(11) DEFAULT NULL,
+  `country_2_code` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_country_id`),
+  KEY `country_3_code` (`country_3_code`),
+  KEY `country_2_code` (`country_2_code`),
+  KEY `country_name` (`country_name`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `virtuemart_country_id` (`virtuemart_country_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Country records'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_cityarea" view="colnames">
+<left>815</left>
+<top>125</top>
+<width>176</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_cityarea` (
+  `virtuemart_cityarea_id` int(11) NOT NULL AUTO_INCREMENT,
+  `city_area_name` varchar(50) DEFAULT NULL,
+  `virtuemart_state_id` int(11) DEFAULT NULL,
+  `airport_code` int(11) DEFAULT NULL,
+  `phone_code` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_cityarea_id`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_cityarea_id_4` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_5` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_6` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_7` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_8` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_9` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_10` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_11` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_12` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_13` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_14` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_15` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_16` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_17` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_18` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_19` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_20` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_21` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_22` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_24` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_25` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_26` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_27` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_28` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_29` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_30` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_31` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_32` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_33` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_34` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_35` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_36` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_38` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_39` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_40` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_41` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_42` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_43` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_44` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_45` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_46` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_47` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_48` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_49` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_50` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_51` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_52` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_53` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_cityarea_id_54` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_state_id` (`virtuemart_state_id`),
+  CONSTRAINT `me1u8_virtuemart_cityarea_ibfk_1` FOREIGN KEY (`virtuemart_state_id`) REFERENCES `me1u8_virtuemart_states` (`virtuemart_state_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

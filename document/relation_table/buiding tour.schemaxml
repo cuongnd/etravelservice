@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">etravelservice</database>
+</source>
+<canvas zoom="70">
+<tables>
+<table name="me1u8_virtuemart_service_class" view="colnames">
+<left>23</left>
+<top>34</top>
+<width>133</width>
+<height>213</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_service_class` (
+  `virtuemart_service_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_class_name` varchar(50) DEFAULT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  `meta_title` text,
+  `key_word` text,
+  `description` text,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_service_class_id`),
+  KEY `virtuemart_service_class_id` (`virtuemart_service_class_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_products" view="colnames">
+<left>383</left>
+<top>297</top>
+<width>146</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_products` (
+  `virtuemart_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_vendor_id` int(11) DEFAULT NULL,
+  `product_parent_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_type_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_style_id` int(11) DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  `virtuemart_physicalgrade_id` int(11) DEFAULT NULL,
+  `virtuemart_tour_section_id` int(11) DEFAULT NULL,
+  `product_sku` varchar(50) DEFAULT NULL,
+  `tour_methor` int(11) DEFAULT NULL,
+  `tour_length` int(11) DEFAULT NULL,
+  `min_person` int(11) DEFAULT NULL,
+  `max_person` int(11) DEFAULT NULL,
+  `min_age` int(11) DEFAULT NULL,
+  `max_age` int(11) DEFAULT NULL,
+  `start_city` int(11) DEFAULT NULL,
+  `end_city` int(11) DEFAULT NULL,
+  `highlights` text,
+  `inclusions` int(11) DEFAULT NULL,
+  `exclusions` int(11) DEFAULT NULL,
+  `meta_name` int(11) DEFAULT NULL,
+  `product_special` int(11) DEFAULT NULL,
+  `product_params` int(11) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
+  `intnotes` int(11) DEFAULT NULL,
+  `metaauthor` int(11) DEFAULT NULL,
+  `layout` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `pordering` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_product_id`),
+  KEY `virtuemart_vendor_id` (`virtuemart_vendor_id`),
+  KEY `product_parent_id` (`product_parent_id`),
+  KEY `product_special` (`product_special`),
+  KEY `published` (`published`),
+  KEY `pordering` (`pordering`),
+  KEY `created_on` (`created_on`),
+  KEY `modified_on` (`modified_on`),
+  KEY `virtuemart_product_id_2` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_3` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_4` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_5` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_6` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_7` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_8` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_9` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_10` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_11` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_12` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_13` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_14` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_15` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_16` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_17` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_18` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_19` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_20` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_21` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_22` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_23` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_24` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_25` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_26` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_27` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_28` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_29` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_30` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_32` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_33` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_34` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_35` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_36` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_37` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_38` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_39` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_40` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_41` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_42` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_43` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_44` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_45` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_46` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_47` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_48` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_49` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_50` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_51` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_52` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_53` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_54` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_55` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id_56` (`virtuemart_product_id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1222 DEFAULT CHARSET=utf8 COMMENT='All products are stored here.'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_service_class_id" view="colnames">
+<left>203</left>
+<top>58</top>
+<width>112</width>
+<height>85</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_service_class_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  `virtuemart_service_class_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_service_class_id`),
+  KEY `virtuemart_service_class_id` (`virtuemart_service_class_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_service_class_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_service_class_id_ibfk_2` FOREIGN KEY (`virtuemart_service_class_id`) REFERENCES `me1u8_virtuemart_service_class` (`virtuemart_service_class_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_countries" view="colnames">
+<left>889</left>
+<top>13</top>
+<width>130</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_countries` (
+  `virtuemart_country_id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) DEFAULT NULL,
+  `phone_code` int(11) DEFAULT NULL,
+  `state_number` int(11) DEFAULT NULL,
+  `virtuemart_worldzone_id` int(11) DEFAULT NULL,
+  `country_name` varchar(50) DEFAULT NULL,
+  `iso2` int(11) DEFAULT NULL,
+  `iso3` int(11) DEFAULT NULL,
+  `flag` int(11) DEFAULT NULL,
+  `country_3_code` int(11) DEFAULT NULL,
+  `image` int(11) DEFAULT NULL,
+  `country_2_code` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_country_id`),
+  KEY `country_3_code` (`country_3_code`),
+  KEY `country_2_code` (`country_2_code`),
+  KEY `country_name` (`country_name`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `virtuemart_country_id` (`virtuemart_country_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Country records'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_group_size" view="colnames">
+<left>947</left>
+<top>307</top>
+<width>134</width>
+<height>206</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_group_size` (
+  `virtuemart_group_size_id` int(11) NOT NULL DEFAULT '0',
+  `group_name` varchar(50) DEFAULT NULL,
+  `from` int(11) DEFAULT NULL,
+  `to` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_group_size_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_group_size_id` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_2` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_3` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_4` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_5` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_6` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_7` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_8` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_9` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_10` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_11` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_12` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_13` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_14` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_15` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_16` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_17` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_18` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_19` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_20` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_21` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_22` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_23` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_24` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_25` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_26` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_27` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_28` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_29` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_30` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_31` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_32` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_33` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_34` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_35` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_36` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_37` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_38` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_39` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_40` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_41` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_42` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_43` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_44` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_45` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_46` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_47` (`virtuemart_group_size_id`),
+  KEY `virtuemart_group_size_id_48` (`virtuemart_group_size_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_group_size_id" view="colnames">
+<left>664</left>
+<top>186</top>
+<width>109</width>
+<height>93</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_group_size_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_group_size_id` int(11) DEFAULT NULL,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_group_size_id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `id_3` (`id`),
+  KEY `id_4` (`id`),
+  KEY `id_5` (`id`),
+  KEY `id_6` (`id`),
+  KEY `id_7` (`id`),
+  KEY `id_8` (`id`),
+  KEY `id_9` (`id`),
+  KEY `id_10` (`id`),
+  KEY `id_11` (`id`),
+  KEY `id_12` (`id`),
+  KEY `id_13` (`id`),
+  KEY `id_14` (`id`),
+  KEY `id_15` (`id`),
+  KEY `id_16` (`id`),
+  KEY `id_17` (`id`),
+  KEY `id_18` (`id`),
+  KEY `id_19` (`id`),
+  KEY `id_20` (`id`),
+  KEY `id_21` (`id`),
+  KEY `id_22` (`id`),
+  KEY `id_23` (`id`),
+  KEY `id_24` (`id`),
+  KEY `id_25` (`id`),
+  KEY `id_26` (`id`),
+  KEY `id_27` (`id`),
+  KEY `id_28` (`id`),
+  KEY `id_29` (`id`),
+  KEY `id_30` (`id`),
+  KEY `id_31` (`id`),
+  KEY `id_32` (`id`),
+  KEY `id_33` (`id`),
+  KEY `id_34` (`id`),
+  KEY `id_35` (`id`),
+  KEY `id_36` (`id`),
+  KEY `id_37` (`id`),
+  KEY `id_38` (`id`),
+  KEY `id_39` (`id`),
+  KEY `id_40` (`id`),
+  KEY `id_41` (`id`),
+  KEY `id_42` (`id`),
+  KEY `id_43` (`id`),
+  KEY `id_44` (`id`),
+  KEY `id_45` (`id`),
+  KEY `id_46` (`id`),
+  KEY `id_47` (`id`),
+  KEY `virtuemart_group_size_id` (`virtuemart_group_size_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_group_size_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_tour_id_group_size_id_ibfk_2` FOREIGN KEY (`virtuemart_group_size_id`) REFERENCES `me1u8_virtuemart_group_size` (`virtuemart_group_size_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_country_id" view="colnames">
+<left>541</left>
+<top>43</top>
+<width>121</width>
+<height>87</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_country_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_country_id` int(12) DEFAULT NULL,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_country_id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `id_3` (`id`),
+  KEY `id_4` (`id`),
+  KEY `id_5` (`id`),
+  KEY `id_6` (`id`),
+  KEY `id_7` (`id`),
+  KEY `id_8` (`id`),
+  KEY `id_9` (`id`),
+  KEY `id_10` (`id`),
+  KEY `id_11` (`id`),
+  KEY `id_12` (`id`),
+  KEY `id_13` (`id`),
+  KEY `id_14` (`id`),
+  KEY `id_15` (`id`),
+  KEY `id_16` (`id`),
+  KEY `id_17` (`id`),
+  KEY `id_18` (`id`),
+  KEY `id_19` (`id`),
+  KEY `id_20` (`id`),
+  KEY `id_21` (`id`),
+  KEY `id_22` (`id`),
+  KEY `id_23` (`id`),
+  KEY `id_24` (`id`),
+  KEY `id_25` (`id`),
+  KEY `id_26` (`id`),
+  KEY `id_27` (`id`),
+  KEY `id_28` (`id`),
+  KEY `id_29` (`id`),
+  KEY `id_30` (`id`),
+  KEY `id_31` (`id`),
+  KEY `id_32` (`id`),
+  KEY `id_33` (`id`),
+  KEY `id_34` (`id`),
+  KEY `id_35` (`id`),
+  KEY `id_36` (`id`),
+  KEY `id_37` (`id`),
+  KEY `id_38` (`id`),
+  KEY `id_39` (`id`),
+  KEY `id_40` (`id`),
+  KEY `id_41` (`id`),
+  KEY `id_42` (`id`),
+  KEY `id_43` (`id`),
+  KEY `id_44` (`id`),
+  KEY `id_45` (`id`),
+  KEY `id_46` (`id`),
+  KEY `id_47` (`id`),
+  KEY `id_48` (`id`),
+  KEY `id_49` (`id`),
+  KEY `id_50` (`id`),
+  KEY `id_51` (`id`),
+  KEY `id_52` (`id`),
+  KEY `id_53` (`id`),
+  KEY `id_54` (`id`),
+  KEY `id_55` (`id`),
+  KEY `id_56` (`id`),
+  KEY `id_57` (`id`),
+  KEY `virtuemart_country_id` (`virtuemart_country_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_country_id_ibfk_1` FOREIGN KEY (`virtuemart_country_id`) REFERENCES `me1u8_virtuemart_countries` (`virtuemart_country_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_tour_id_country_id_ibfk_2` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_excursion_addon_id" view="colnames">
+<left>115</left>
+<top>263</top>
+<width>159</width>
+<height>87</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_excursion_addon_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_excursion_addon_id` int(11) NOT NULL,
+  `virtuemart_product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_excursion_addon_id`),
+  KEY `virtuemart_excusion_addon_id` (`virtuemart_excursion_addon_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_excursion_addon_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_excursion_addon_id_ibfk_2` FOREIGN KEY (`virtuemart_excursion_addon_id`) REFERENCES `me1u8_virtuemart_excursion_addon` (`virtuemart_excursion_addon_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_excursion_addon" view="colnames">
+<left>55</left>
+<top>380</top>
+<width>159</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_excursion_addon` (
+  `virtuemart_excursion_addon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `excursion_addon_name` varchar(50) NOT NULL,
+  `description` text,
+  `excursion_payment_type` varchar(20) DEFAULT NULL,
+  `vail_from` date DEFAULT NULL,
+  `vail_to` date DEFAULT NULL,
+  `conditions` text,
+  `itinerary` text,
+  `inclusion` text,
+  `data_price` longtext NOT NULL,
+  `passenger_age_from` int(11) DEFAULT NULL,
+  `passenger_age_to` int(11) DEFAULT NULL,
+  `virtuemart_cityarea_id` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_excursion_addon_id`),
+  KEY `virtuemart_cityarea_id` (`virtuemart_cityarea_id`),
+  CONSTRAINT `me1u8_virtuemart_excursion_addon_ibfk_1` FOREIGN KEY (`virtuemart_cityarea_id`) REFERENCES `me1u8_virtuemart_cityarea` (`virtuemart_cityarea_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_payment_id" view="colnames">
+<left>430</left>
+<top>140</top>
+<width>179</width>
+<height>85</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_payment_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  `virtuemart_payment_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `id_3` (`id`),
+  KEY `id_4` (`id`),
+  KEY `id_5` (`id`),
+  KEY `id_6` (`id`),
+  KEY `id_7` (`id`),
+  KEY `id_8` (`id`),
+  KEY `id_9` (`id`),
+  KEY `id_10` (`id`),
+  KEY `id_11` (`id`),
+  KEY `id_12` (`id`),
+  KEY `id_13` (`id`),
+  KEY `id_14` (`id`),
+  KEY `id_15` (`id`),
+  KEY `id_16` (`id`),
+  KEY `id_17` (`id`),
+  KEY `id_18` (`id`),
+  KEY `id_19` (`id`),
+  KEY `id_20` (`id`),
+  KEY `id_21` (`id`),
+  KEY `id_22` (`id`),
+  KEY `id_23` (`id`),
+  KEY `id_24` (`id`),
+  KEY `id_25` (`id`),
+  KEY `id_26` (`id`),
+  KEY `id_27` (`id`),
+  KEY `id_28` (`id`),
+  KEY `id_29` (`id`),
+  KEY `id_30` (`id`),
+  KEY `id_31` (`id`),
+  KEY `id_32` (`id`),
+  KEY `id_33` (`id`),
+  KEY `id_34` (`id`),
+  KEY `id_35` (`id`),
+  KEY `id_36` (`id`),
+  KEY `id_37` (`id`),
+  KEY `id_38` (`id`),
+  KEY `id_39` (`id`),
+  KEY `id_40` (`id`),
+  KEY `id_41` (`id`),
+  KEY `id_42` (`id`),
+  KEY `id_43` (`id`),
+  KEY `id_44` (`id`),
+  KEY `id_45` (`id`),
+  KEY `id_46` (`id`),
+  KEY `virtuemart_payment_id` (`virtuemart_payment_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_payment_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_tour_id_payment_id_ibfk_2` FOREIGN KEY (`virtuemart_payment_id`) REFERENCES `me1u8_virtuemart_payment` (`virtuemart_payment_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_payment" view="colnames">
+<left>732</left>
+<top>363</top>
+<width>212</width>
+<height>213</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_payment` (
+  `virtuemart_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) DEFAULT NULL,
+  `virtuemart_currency_id` int(11) DEFAULT NULL,
+  `vat` float DEFAULT NULL,
+  `cancel_fee` float DEFAULT NULL,
+  `credit_card_fee` float DEFAULT NULL,
+  `deposit_amount_type` varchar(30) DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `dep_term` float DEFAULT NULL,
+  `bal_term` float DEFAULT NULL,
+  `mode` varchar(30) DEFAULT NULL,
+  `deposit_of_day` int(11) DEFAULT NULL,
+  `balance_of_day` int(11) DEFAULT NULL,
+  `cancellation_of_day` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_payment_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_payment_id` (`virtuemart_payment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_transfer_addon_id" view="colnames">
+<left>212</left>
+<top>485</top>
+<width>152</width>
+<height>87</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_transfer_addon_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_transfer_addon_id` int(11) DEFAULT NULL,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `virtuemart_transfer_addon_id` (`virtuemart_transfer_addon_id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_transfer_addon_id_ibfk_1` FOREIGN KEY (`virtuemart_transfer_addon_id`) REFERENCES `me1u8_virtuemart_transfer_addon` (`virtuemart_transfer_addon_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_tour_id_transfer_addon_id_ibfk_2` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_transfer_addon" view="colnames">
+<left>413</left>
+<top>595</top>
+<width>152</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_transfer_addon` (
+  `virtuemart_transfer_addon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `transfer_type` varchar(20) DEFAULT NULL,
+  `transfer_addon_name` varchar(50) DEFAULT NULL,
+  `description` text,
+  `transfer_payment_type` varchar(20) DEFAULT NULL,
+  `vail_from` date DEFAULT NULL,
+  `vail_to` date DEFAULT NULL,
+  `conditions` text,
+  `itinerary` text,
+  `inclusion` text,
+  `data_price` longtext NOT NULL,
+  `passenger_age_from` int(11) DEFAULT NULL,
+  `passenger_age_to` int(11) DEFAULT NULL,
+  `virtuemart_cityarea_id` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_transfer_addon_id`),
+  KEY `virtuemart_cityarea_id` (`virtuemart_cityarea_id`),
+  CONSTRAINT `me1u8_virtuemart_transfer_addon_ibfk_1` FOREIGN KEY (`virtuemart_cityarea_id`) REFERENCES `me1u8_virtuemart_cityarea` (`virtuemart_cityarea_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_activity_id" view="colnames">
+<left>550</left>
+<top>515</top>
+<width>183</width>
+<height>75</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_activity_id` (
+  `virtuemart_product_id` int(11) NOT NULL,
+  `virtuemart_activity_id` int(11) DEFAULT NULL,
+  UNIQUE KEY `virtuemart_product_id` (`virtuemart_product_id`,`virtuemart_activity_id`),
+  KEY `virtuemart_activity_id` (`virtuemart_activity_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_activity_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_activity_id_ibfk_2` FOREIGN KEY (`virtuemart_activity_id`) REFERENCES `me1u8_virtuemart_activity` (`virtuemart_activity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps Products to Categories'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_activity" view="colnames">
+<left>647</left>
+<top>639</top>
+<width>120</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_activity` (
+  `virtuemart_activity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) DEFAULT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  `meta_title` text,
+  `key_word` text,
+  `description` text,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_activity_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_activity_id` (`virtuemart_activity_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_tour_id_hotel_addon_id" view="colnames">
+<left>876</left>
+<top>602</top>
+<width>328</width>
+<height>87</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_tour_id_hotel_addon_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_hotel_addon_id` int(11) DEFAULT NULL,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `virtuemart_transfer_addon_id` (`virtuemart_hotel_addon_id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_tour_id_hotel_addon_id_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_tour_id_hotel_addon_id_ibfk_2` FOREIGN KEY (`virtuemart_hotel_addon_id`) REFERENCES `me1u8_virtuemart_hotel_addon` (`virtuemart_hotel_addon_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_hotel" view="colnames">
+<left>906</left>
+<top>732</top>
+<width>219</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_hotel` (
+  `virtuemart_hotel_id` int(11) NOT NULL AUTO_INCREMENT,
+  `hotel_name` varchar(50) DEFAULT NULL,
+  `address` text,
+  `virtuemart_cityarea_id` int(11) DEFAULT NULL,
+  `star_rating` int(11) DEFAULT NULL,
+  `review` int(11) DEFAULT NULL,
+  `photo` varchar(50) DEFAULT NULL,
+  `phone` varchar(40) DEFAULT NULL,
+  `description` text,
+  `website` varchar(30) DEFAULT NULL,
+  `google_map` varchar(50) DEFAULT NULL,
+  `overview` text,
+  `room_info` text,
+  `facility_info` text,
+  `hotel_photo1` varchar(50) DEFAULT NULL,
+  `hotel_photo2` varchar(50) DEFAULT NULL,
+  `facility_photo1` varchar(50) DEFAULT NULL,
+  `facility_photo2` varchar(50) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_hotel_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  CONSTRAINT `me1u8_virtuemart_hotel_ibfk_1` FOREIGN KEY (`virtuemart_hotel_id`) REFERENCES `me1u8_virtuemart_hotel_id_service_class_id_accommodation_id` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_hotel_addon" view="colnames">
+<left>349</left>
+<top>851</top>
+<width>266</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_hotel_addon` (
+  `virtuemart_hotel_addon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `hotel_addon_type` varchar(20) DEFAULT NULL,
+  `virtuemart_hotel_id` int(11) NOT NULL,
+  `term_policy` text,
+  `hotel_payment_type` varchar(20) DEFAULT NULL,
+  `hotel_addon_service_class` varchar(200) NOT NULL,
+  `vail_from` date DEFAULT NULL,
+  `vail_to` date DEFAULT NULL,
+  `conditions` text,
+  `itinerary` text,
+  `inclusion` text,
+  `data_price` longtext NOT NULL,
+  `passenger_age_from` int(11) DEFAULT NULL,
+  `passenger_age_to` int(11) DEFAULT NULL,
+  `virtuemart_cityarea_id` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` date DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` date DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_hotel_addon_id`),
+  KEY `virtuemart_cityarea_id` (`virtuemart_cityarea_id`),
+  KEY `virtuemart_hotel_id` (`virtuemart_hotel_id`),
+  CONSTRAINT `me1u8_virtuemart_hotel_addon_ibfk_1` FOREIGN KEY (`virtuemart_cityarea_id`) REFERENCES `me1u8_virtuemart_cityarea` (`virtuemart_cityarea_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_itinerary" view="colnames">
+<left>105</left>
+<top>763</top>
+<width>222</width>
+<height>289</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_itinerary` (
+  `virtuemart_itinerary_id` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(200) DEFAULT NULL,
+  `virtuemart_product_id` int(11) DEFAULT NULL,
+  `brief_itinerary` int(11) DEFAULT NULL,
+  `full_itinerary` int(11) DEFAULT NULL,
+  `virtuemart_cityarea_id` int(11) DEFAULT NULL,
+  `full_description` text,
+  `short_description` text,
+  `trip_note1` int(11) DEFAULT NULL,
+  `trip_note2` int(11) DEFAULT NULL,
+  `photo1` int(11) DEFAULT NULL,
+  `photo2` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_itinerary_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_itinerary_id` (`virtuemart_itinerary_id`),
+  KEY `virtuemart_product_id` (`virtuemart_product_id`),
+  KEY `virtuemart_cityarea_id` (`virtuemart_cityarea_id`),
+  CONSTRAINT `me1u8_virtuemart_itinerary_ibfk_1` FOREIGN KEY (`virtuemart_product_id`) REFERENCES `me1u8_virtuemart_products` (`virtuemart_product_id`),
+  CONSTRAINT `me1u8_virtuemart_itinerary_ibfk_2` FOREIGN KEY (`virtuemart_cityarea_id`) REFERENCES `me1u8_virtuemart_cityarea` (`virtuemart_cityarea_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_hotel_id_itinerary_id" view="colnames">
+<left>712</left>
+<top>886</top>
+<width>125</width>
+<height>87</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_hotel_id_itinerary_id` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `virtuemart_itinerary_id` int(11) DEFAULT NULL,
+  `virtuemart_hotel_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `virtuemart_itinerary_id` (`virtuemart_itinerary_id`),
+  KEY `virtuemart_hotel_id` (`virtuemart_hotel_id`),
+  KEY `id` (`id`),
+  CONSTRAINT `me1u8_virtuemart_hotel_id_itinerary_id_ibfk_1` FOREIGN KEY (`virtuemart_itinerary_id`) REFERENCES `me1u8_virtuemart_itinerary` (`virtuemart_itinerary_id`),
+  CONSTRAINT `me1u8_virtuemart_hotel_id_itinerary_id_ibfk_2` FOREIGN KEY (`virtuemart_hotel_id`) REFERENCES `me1u8_virtuemart_hotel` (`virtuemart_hotel_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_accommodation" view="colnames">
+<left>835</left>
+<top>1061</top>
+<width>249</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_accommodation` (
+  `virtuemart_accommodation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_itinerary_id` int(11) DEFAULT NULL,
+  `icon` int(11) DEFAULT NULL,
+  `meta_title` int(11) DEFAULT NULL,
+  `key_word` int(11) DEFAULT NULL,
+  `description` text,
+  `ordering` int(11) DEFAULT NULL,
+  `shared` int(11) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_on` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `locked_on` int(11) DEFAULT NULL,
+  `locked_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`virtuemart_accommodation_id`),
+  KEY `ordering` (`ordering`),
+  KEY `published` (`published`),
+  KEY `shared` (`shared`),
+  KEY `virtuemart_accommodation_id` (`virtuemart_accommodation_id`),
+  KEY `virtuemart_itinerary_id` (`virtuemart_itinerary_id`),
+  CONSTRAINT `me1u8_virtuemart_accommodation_ibfk_1` FOREIGN KEY (`virtuemart_itinerary_id`) REFERENCES `me1u8_virtuemart_itinerary` (`virtuemart_itinerary_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Used to store currencies'</sql_create_table>
+</table>
+<table name="me1u8_virtuemart_hotel_id_service_class_id_accommodation_id" view="colnames">
+<left>370</left>
+<top>1091</top>
+<width>306</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `me1u8_virtuemart_hotel_id_service_class_id_accommodation_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `virtuemart_accommodation_id` int(11) DEFAULT NULL,
+  `virtuemart_hotel_id` int(11) DEFAULT NULL,
+  `virtuemart_service_class_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `me1u8_virtuemart_hotel_id_service_class_id_ibfk_1` (`virtuemart_accommodation_id`),
+  KEY `virtuemart_service_class_id` (`virtuemart_service_class_id`),
+  KEY `virtuemart_hotel_id` (`virtuemart_hotel_id`),
+  CONSTRAINT `me1u8_virtuemart_hotel_id_service_class_id_accommodation_id_ibfk_1` FOREIGN KEY (`virtuemart_accommodation_id`) REFERENCES `me1u8_virtuemart_accommodation` (`virtuemart_accommodation_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `me1u8_virtuemart_hotel_id_service_class_id_accommodation_id_ibfk_2` FOREIGN KEY (`virtuemart_service_class_id`) REFERENCES `me1u8_virtuemart_service_class` (`virtuemart_service_class_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

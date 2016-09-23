@@ -68,6 +68,19 @@
     function getAge(dateString) {
 
     }
+    $.notify = function (content, type) {
+        if (typeof  type == "undefined") {
+            type = "error";
+        }
+        var notify = $.notify(content, {
+            allow_dismiss: true,
+            type: type,
+            placement: {
+                align: "right"
+            }
+        });
+    };
+
     $.get_year_old_by_date_and_current_date_and_tour_length = function(dateString,current_date,tour_length) {
         if(dateString=='')
         {
