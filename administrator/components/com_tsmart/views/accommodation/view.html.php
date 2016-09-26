@@ -40,7 +40,7 @@ class TsmartViewaccommodation extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		$task=$app->input->getString('task','');
 		$tsmart_product_id=$app->input->getInt('tsmart_product_id',0);
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$this->tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
         require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';

@@ -39,7 +39,7 @@ class TsmartViewgeneral extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		JToolBarHelper::save('save','Save');
 		$this->config = $model->getItem();
 		parent::display($tpl);

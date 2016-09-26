@@ -47,18 +47,18 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 		}
 
 		$this->user = JFactory::getUser();
-		$model = VmModel::getModel('paymentmethod');
+		$model = tmsModel::getModel('paymentmethod');
 
 		// TODO logo
 		$this->SetViewTitle();
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 
 		$vendorModel->setId(1);
 		$vendor = $vendorModel->getVendor();
-		$currencyModel = VmModel::getModel('currency');
+		$currencyModel = tmsModel::getModel('currency');
 		$currencyModel = $currencyModel->getItemList($vendor->vendor_currency);
 		$this->assignRef('vendor_currency', $currencyModel->currency_symbol);
 

@@ -60,7 +60,7 @@ class TsmartControllerpromotion extends TsmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('promotion');
+        $model_price = tmsModel::getModel('promotion');
         if(!$model_price->remove(array($price_id)))
         {
             echo 'cannot delete item';
@@ -76,7 +76,7 @@ class TsmartControllerpromotion extends TsmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('promotion');
+        $model_price = tmsModel::getModel('promotion');
         if(!$model_price->toggle('published',null,'price_id','promotion'))
         {
             echo 'cannot published item';
@@ -94,7 +94,7 @@ class TsmartControllerpromotion extends TsmController {
 
         $input=$app->input;
         $tsmart_promotion_price_id=$input->get('tsmart_promotion_price_id',0,'int');
-        $model_promotion_price = VmModel::getModel('promotion');
+        $model_promotion_price = tmsModel::getModel('promotion');
         $post->tsmart_product_id=$post->tsmart_product_id;
         $post=(array)$post;
         $return_ajax=new stdClass();
@@ -182,7 +182,7 @@ class TsmartControllerpromotion extends TsmController {
         $input=$app->input;
         $view = &$this->getView('promotion', 'html', 'tsmartView');
         $tsmart_promotion_price_id=$input->get('tsmart_promotion_price_id',0,'int');
-        $model_promotion_price = VmModel::getModel('promotion');
+        $model_promotion_price = tmsModel::getModel('promotion');
         $model_promotion_price->setId($tsmart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
@@ -201,7 +201,7 @@ class TsmartControllerpromotion extends TsmController {
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
 
 
-        $model_product = VmModel::getModel('product');
+        $model_product = tmsModel::getModel('product');
         $product=$model_product->getItem($tsmart_product_id);
         $return_item->tour=$product;
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';

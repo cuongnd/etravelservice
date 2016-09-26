@@ -22,14 +22,14 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model for tsmart Orders
  * WHY $this->db is never used in the model ?
  * @package tsmart
  */
-class tsmartModelOrders extends VmModel {
+class tsmartModelOrders extends tmsModel {
 
 	/**
 	 * constructs a VmModel
@@ -234,8 +234,8 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		$db->setQuery($q);
 		$order['items'] = $db->loadObjectList();
 
-		$customfieldModel = VmModel::getModel('customfields');
-		$pModel = VmModel::getModel('product');
+		$customfieldModel = tmsModel::getModel('customfields');
+		$pModel = tmsModel::getModel('product');
 		foreach($order['items'] as &$item){
 			$item->customfields = array();
 			$ids = array();
@@ -1070,7 +1070,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 
 		if(!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php');
 
-		$_userFieldsModel = VmModel::getModel('userfields');
+		$_userFieldsModel = tmsModel::getModel('userfields');
 		$_userFieldsBT = $_userFieldsModel->getUserFields('account'
 		, array('delimiters'=>true, 'captcha'=>true)
 		, array('username', 'password', 'password2', 'user_is_vendor')
@@ -1196,7 +1196,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		else $product_ordered = '=';
 
 		//Here trigger plgVmGetProductStockToUpdateByCustom
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 
 		if (!empty($tableOrderItems->product_attribute)) {
 			if(!class_exists('tsmartModelCustomfields'))require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
@@ -1378,7 +1378,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		if(!empty($_cart->tsmart_paymentmethod_id)){
 
 			$orderCalcRules = $this->getTable('order_calc_rules');
-			$calcModel = VmModel::getModel('calc');
+			$calcModel = tmsModel::getModel('calc');
 			$calcModel->setId($_cart->cartPrices['payment_calc_id']);
 			$calc = $calcModel->getCalc();
 			$orderCalcRules->tsmart_order_calc_rule_id = null;
@@ -1406,7 +1406,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		if(!empty($_cart->tsmart_shipmentmethod_id)){
 
 			$orderCalcRules = $this->getTable('order_calc_rules');
-			$calcModel = VmModel::getModel('calc');
+			$calcModel = tmsModel::getModel('calc');
 			$calcModel->setId($_cart->cartPrices['shipment_calc_id']);
 			$calc = $calcModel->getCalc();
 
@@ -1638,7 +1638,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 
 		//Important, the data of the order update mails, payments and invoice should
 		//always be in the database, so using getOrder is the right method
-		$orderModel=VmModel::getModel('orders');
+		$orderModel=tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($tsmart_order_id);
 
 		$payment_name = $shipment_name='';
@@ -1665,7 +1665,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		if(!isset($newOrderData['doVendor'])) $vars['doVendor'] = false; else $vars['doVendor'] = $newOrderData['doVendor'];
 
 		$tsmart_vendor_id = $order['details']['BT']->tsmart_vendor_id;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($tsmart_vendor_id);
 		$vars['vendor'] = $vendor;
 		$vendorEmail = $vendorModel->getVendorEmail($tsmart_vendor_id);
@@ -1879,7 +1879,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 
 		if(!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php');
 
-		$_userFieldsModel = VmModel::getModel('userfields');
+		$_userFieldsModel = tmsModel::getModel('userfields');
 
 		//bill to
 		$_userFieldsCart = $_userFieldsModel->getUserFields('account'
@@ -1935,7 +1935,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 			return false;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($tsmart_order_id);
 
 		$dispatcher = JDispatcher::getInstance();
@@ -2051,7 +2051,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 			vmError('Problem writing user info to order');
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order= $orderModel->getOrder($_orderID);
 
 		$dispatcher = JDispatcher::getInstance();

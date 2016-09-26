@@ -125,7 +125,7 @@ class TsmartControllerDateAvailability extends TsmController {
 		$input=$app->input;
 		$tsmart_dateavailability_id=$input->get('tsmart_dateavailability_id',0,'int');
 		$tour_id=$input->get('tour_id',0,'int');
-		$model_dateavailability = VmModel::getModel('dateavailability');
+		$model_dateavailability = tmsModel::getModel('dateavailability');
 		if(!$model_dateavailability->remove(array($tsmart_dateavailability_id)))
 		{
 			echo 'cannot delete item';
@@ -139,7 +139,7 @@ class TsmartControllerDateAvailability extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$model_dateavailability = VmModel::getModel('dateavailability');
+		$model_dateavailability = tmsModel::getModel('dateavailability');
 		if(!$model_dateavailability->toggle('published',null,'tsmart_dateavailability_id','dateavailability'))
 		{
 			echo 'cannot published item';

@@ -38,8 +38,8 @@ class TsmartViewCountry extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel('country');
-		$zoneModel = VmModel::getModel('worldzones');
+		$model = tmsModel::getModel('country');
+		$zoneModel = tmsModel::getModel('worldzones');
 		$this->SetViewTitle();
 
 		$layoutName = vRequest::getCmd('layout', 'default');

@@ -141,7 +141,7 @@ class TableUserfields extends tsmTable {
 		if (isset($this->name))
 		 {
 		    
-			$umodel = VmModel::getModel('userfields'); 
+			$umodel = tmsModel::getModel('userfields');
 			$arr = $umodel->getCoreFields();
 			if (in_array($this->name, $arr))
 			 {

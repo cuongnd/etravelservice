@@ -158,11 +158,11 @@ $i = 0;
         require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
     }
     $calculator = calculationHelper::getInstance();
-    $currency_model = VmModel::getModel('currency');
+    $currency_model = tmsModel::getModel('currency');
     $currencies = $currency_model->getCurrencies();
     $nbPrice = count($this->product->allPrices);
     $this->priceCounter = 0;
-    $this->product->allPrices[$nbPrice] = VmModel::getModel()->fillVoidPrice();
+    $this->product->allPrices[$nbPrice] = tmsModel::getModel()->fillVoidPrice();
 
     if (!class_exists('calculationHelper')) {
         require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
@@ -184,7 +184,7 @@ $i = 0;
             $this->calculatedPrices = $calculator->getProductPrices($this->product);
             $this->product->allPrices[$k] = array_merge($this->product->allPrices[$k], $this->calculatedPrices);
 
-            $currency_model = VmModel::getModel('currency');
+            $currency_model = tmsModel::getModel('currency');
             $this->lists['currencies'] = JHtml::_('select.genericlist', $currencies, 'mprices[product_currency][' . $this->priceCounter . ']', '', 'tsmart_currency_id', 'currency_name', $this->product->allPrices[$k]['product_currency']);
 
             $DBTax = ''; //vmText::_('com_tsmart_RULES_EFFECTING') ;

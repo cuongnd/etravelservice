@@ -120,7 +120,7 @@ class TsmartControllerDeparture extends TsmController {
 		$input=$app->input;
 		$tsmart_departure_id=$input->get('tsmart_departure_id',0,'int');
 		$tour_id=$input->get('tour_id',0,'int');
-		$model_departure = VmModel::getModel('departure');
+		$model_departure = tmsModel::getModel('departure');
 		if(!$model_departure->remove(array($tsmart_departure_id)))
 		{
 			echo 'cannot delete item';
@@ -134,7 +134,7 @@ class TsmartControllerDeparture extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$model_departure = VmModel::getModel('departure');
+		$model_departure = tmsModel::getModel('departure');
 		if(!$model_departure->toggle('published',null,'tsmart_departure_id','departure'))
 		{
 			echo 'cannot published item';

@@ -39,7 +39,7 @@ class TsmartViewActivity extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
         $this->view_height=1300;
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$doc=JFactory::getDocument();
 		$doc->setTitle('Activity');

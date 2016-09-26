@@ -22,11 +22,11 @@ if (!defined ('_JEXEC')) {
  * http://tsmart.org
  */
 
-if (!class_exists ('VmModel')) {
+if (!class_exists ('tmsModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
-class tsmartModelReport extends VmModel {
+class tsmartModelReport extends tmsModel {
 
 	var $from_period = '';
 	var $until_period = '';
@@ -148,7 +148,7 @@ class tsmartModelReport extends VmModel {
 	}
 
 	static public function getRevenueDiag ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id,$from_period,$until_period) {
-		$reportM = VmModel::getModel('report');
+		$reportM = tmsModel::getModel('report');
 		$report = $reportM->getRevenueSortListOrderQuery($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id);
 
 		$rows = count( $report );

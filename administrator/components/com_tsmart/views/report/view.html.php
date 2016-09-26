@@ -39,7 +39,7 @@ class TsmartViewReport extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'currencydisplay.php');
 
 
-		$model		= VmModel::getModel();
+		$model		= tmsModel::getModel();
 
 		vRequest::setvar('task','');
 
@@ -91,7 +91,7 @@ class TsmartViewReport extends tsmViewAdmin {
 		$this->assignRef('totalReport', $totalReport);
 
 
-		$orderstatusM =VmModel::getModel('orderstatus');
+		$orderstatusM =tmsModel::getModel('orderstatus');
 		$this->lists['select_date'] = $model->renderDateSelectList();
 		$orderstates = vRequest::getVar ('order_status_code', array('C','S'));
 		$this->lists['state_list'] = $orderstatusM->renderOSList($orderstates,'order_status_code',TRUE);

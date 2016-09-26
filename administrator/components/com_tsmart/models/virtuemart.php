@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @package		tsmart
  */
-class tsmartModeltsmart extends VmModel {
+class tsmartModeltsmart extends tmsModel {
 
 
 

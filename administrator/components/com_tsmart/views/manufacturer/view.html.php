@@ -41,9 +41,9 @@ class TsmartViewManufacturer extends tsmViewAdmin {
 
 
 		// get necessary models
-		$model = VmModel::getModel('manufacturer');
+		$model = tmsModel::getModel('manufacturer');
 
-		$categoryModel = VmModel::getModel('manufacturercategories');
+		$categoryModel = tmsModel::getModel('manufacturercategories');
 
 		$this->SetViewTitle();
 
@@ -57,7 +57,7 @@ class TsmartViewManufacturer extends tsmViewAdmin {
 			$model->addImages($this->manufacturer);
 
 			/* Process the images */
-			$mediaModel = VmModel::getModel('media');
+			$mediaModel = tmsModel::getModel('media');
 			$mediaModel -> setId($this->manufacturer->tsmart_media_id);
 			$image = $mediaModel->getFile('manufacturer','image');
 

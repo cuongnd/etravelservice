@@ -120,7 +120,7 @@ class calculationHelper {
 	public function setVendorId($id){
 
 		if(empty($this->_calcModel)){
-			$this->_calcModel = VmModel::getModel('calc');
+			$this->_calcModel = tmsModel::getModel('calc');
 		}
 		$this->productVendorId = (int)$id;
 		//vmdebug('setVendorId $allrules '.$this->productVendorId,count($this->allrules));
@@ -231,7 +231,7 @@ class calculationHelper {
 				}
 			}
 			if(!$this->_shopperGroupId) $this->_shopperGroupId = array();
-			$shoppergroupmodel = VmModel::getModel('ShopperGroup');
+			$shoppergroupmodel = tmsModel::getModel('ShopperGroup');
 			$site = JFactory::getApplication ()->isSite ();
 			$shoppergroupmodel->appendShopperGroups($this->_shopperGroupId,$user,$site,$vendorId);
 		}
@@ -648,7 +648,7 @@ class calculationHelper {
 
 		$this->_amountCart = 0;
 
-		$customfieldModel = VmModel::getModel('customfields');
+		$customfieldModel = tmsModel::getModel('customfields');
 
 		foreach ($this->_cart->products as $cprdkey => $productCart) {
 
@@ -980,7 +980,7 @@ class calculationHelper {
 	 */
 	protected function getCalcRuleData($calcRuleID) {
 		if(empty($this->_calcModel)){
-			$this->_calcModel = VmModel::getModel('calc');
+			$this->_calcModel = tmsModel::getModel('calc');
 		}
 		$calcRule = $this->_calcModel->getCalc($calcRuleID);
 		return $calcRule;
@@ -1267,7 +1267,7 @@ class calculationHelper {
 			return $testedRulesCached[$cartVendorId][$entrypoint];
 		}
 		if(empty($this->_calcModel)){
-			$this->_calcModel = VmModel::getModel('calc');
+			$this->_calcModel = tmsModel::getModel('calc');
 		}
 
 		//Test if calculation affects the current entry point

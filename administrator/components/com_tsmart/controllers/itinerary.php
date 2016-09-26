@@ -52,7 +52,7 @@ class TsmartControllerItinerary extends TsmController {
 
         $input=JFactory::getApplication()->input;
         $data=$input->getArray();
-        $model = VmModel::getModel($this->_cname);
+        $model = tmsModel::getModel($this->_cname);
 
         $id = $model->store($data);
         $tsmart_product_id=$data['tsmart_product_id'];

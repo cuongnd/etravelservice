@@ -78,7 +78,7 @@ class TsmartControllerShipmentmethod extends TsmController {
 		/* Load the view object */
 		$view = $this->getView('shipmentmethod', 'html');
 
-		$model = VmModel::getModel('shipmentmethod');
+		$model = tmsModel::getModel('shipmentmethod');
 		$msgtype = '';
 
 		$cids = vRequest::getVar($this->_cidName, vRequest::getInt('tsmart_shipment_id'));

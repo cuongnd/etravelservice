@@ -39,7 +39,7 @@ class TsmartViewdeparture extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 
 		$config = JFactory::getConfig();
@@ -64,8 +64,8 @@ class TsmartViewdeparture extends tsmViewAdmin {
 			$this->addStandardEditViewCommands();
 
 		} else {
-			$model_product = VmModel::getModel('product');
-			$model_tour_class = VmModel::getModel('tourclass');
+			$model_product = tmsModel::getModel('product');
+			$model_tour_class = tmsModel::getModel('tourclass');
 			$this->list_tour = $model_product->getProductListing(false,false,false,false);
 
 			$this->list_tour_class = $model_tour_class->getTourClassList();

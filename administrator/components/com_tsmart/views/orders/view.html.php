@@ -40,12 +40,12 @@ class TsmartViewOrders extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		if(!class_exists('vmPSPlugin')) require(VMPATH_PLUGINLIBS.DS.'vmpsplugin.php');
-		$orderStatusModel=VmModel::getModel('orderstatus');
+		$orderStatusModel=tmsModel::getModel('orderstatus');
 		$orderStates = $orderStatusModel->getOrderStatusList(true);
 
 		$this->SetViewTitle( 'ORDER');
 
-		$orderModel = VmModel::getModel();
+		$orderModel = tmsModel::getModel();
 
 		$curTask = vRequest::getCmd('task');
 		if ($curTask == 'edit') {
@@ -56,7 +56,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 			if (!class_exists('ShopFunctions'))	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 
 			// Load addl models
-			$userFieldsModel = VmModel::getModel('userfields');
+			$userFieldsModel = tmsModel::getModel('userfields');
 
 			// Get the data
 			$tsmart_order_id = vRequest::getInt('tsmart_order_id');
@@ -167,7 +167,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 
 			$this->assignRef('orderstatuses', $orderStates);
 
-			$model = VmModel::getModel();
+			$model = tmsModel::getModel();
 			$orderId = vRequest::getString('orderId', '');
 			$orderLineItem = vRequest::getVar('orderLineId', '');
 			$this->assignRef('tsmart_order_id', $orderId);
@@ -179,9 +179,9 @@ class TsmartViewOrders extends tsmViewAdmin {
 		else {
 			$this->setLayout('orders');
 
-			$model = VmModel::getModel();
+			$model = tmsModel::getModel();
 			$this->addStandardDefaultViewLists($model,'created_on');
-			$orderStatusModel =VmModel::getModel('orderstatus');
+			$orderStatusModel =tmsModel::getModel('orderstatus');
 			$orderstates = vRequest::getCmd('order_status_code','');
 			$this->lists['state_list'] = $orderStatusModel->renderOSList($orderstates,'order_status_code',FALSE,' onchange="this.form.submit();" ');
 			$orderslist = $model->getOrdersList();

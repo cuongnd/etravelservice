@@ -41,7 +41,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$layoutName = vRequest::getCmd('layout', 'default');
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		// The list of fields which can't be toggled
 		//$lists['coreFields']= array( 'name','username', 'email', 'password', 'password2' );
@@ -94,7 +94,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 			}
 
 			// Shopper groups for EU VAT Id
-			$shoppergroup_model = VmModel::getModel('shoppergroup');
+			$shoppergroup_model = tmsModel::getModel('shoppergroup');
 			$shoppergroup_list = $shoppergroup_model->getShopperGroups(true);
 			array_unshift($shoppergroup_list,'0');
 			$lists['shoppergroups'] = JHtml::_('select.genericlist', $shoppergroup_list, 'tsmart_shoppergroup_id', '', 'tsmart_shoppergroup_id', 'shopper_group_name', $this->userField->get('tsmart_shoppergroup_id'));

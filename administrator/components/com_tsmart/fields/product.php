@@ -45,9 +45,9 @@ class JFormFieldProduct extends JFormField
 		return JHtml::_('select.genericlist',  $this->_getProducts(), $this->name, 'class="inputbox"   ', 'value', 'text', $this->value, $this->id);
 	}
 	private function _getProducts() {
-		if (!class_exists('VmModel'))
+		if (!class_exists('tmsModel'))
 		require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
-		$productModel = VmModel::getModel('Product');
+		$productModel = tmsModel::getModel('Product');
 		$productModel->_noLimit = true;
 		$products = $productModel->getProductListing(false, false, false, false, true,false);
 		$productModel->_noLimit = false;

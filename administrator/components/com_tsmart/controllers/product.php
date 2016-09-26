@@ -137,7 +137,7 @@ class TsmartControllerProduct extends TsmController {
 
 		vRequest::vmCheckToken();
 
-		$model = VmModel::getModel($this->_cname);
+		$model = tmsModel::getModel($this->_cname);
 
 		$data = vRequest::getRequest();
 		$id = $model->store($data);
@@ -174,7 +174,7 @@ class TsmartControllerProduct extends TsmController {
 
 		$app = Jfactory::getApplication();
 
-		$model = VmModel::getModel('product');
+		$model = tmsModel::getModel('product');
 
 		$cids = vRequest::getInt($this->_cidName, vRequest::getint('tsmart_product_id',false));
 		if(!is_array($cids) and $cids > 0){
@@ -218,7 +218,7 @@ class TsmartControllerProduct extends TsmController {
 		$session = JFactory::getSession();
 		$cids = json_decode($session->get('vm_product_ids', array(), 'vm'),true);
 
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 		foreach($cids as $cid){
 			$data = array('tsmart_product_id' => $cid, 'tsmart_shoppergroup_id' => $tsmart_shoppergroup_ids);
 			$data = $productModel->updateXrefAndChildTables ($data, 'product_shoppergroups');
@@ -238,7 +238,7 @@ class TsmartControllerProduct extends TsmController {
 		$session = JFactory::getSession();
 		$cids = json_decode($session->get('vm_product_ids', array(), 'vm'),true);
 
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 		foreach($cids as $cid){
 			$data = array('tsmart_product_id' => $cid, 'tsmart_category_id' => $tsmart_cat_ids);
 			$data = $productModel->updateXrefAndChildTables ($data, 'product_categories',TRUE);
@@ -295,7 +295,7 @@ class TsmartControllerProduct extends TsmController {
 
 		$view = $this->getView('product', 'html');
 
-		$model = VmModel::getModel('product');
+		$model = tmsModel::getModel('product');
 		$msgtype = '';
 
 		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('tsmart_product_id'));
@@ -350,7 +350,7 @@ class TsmartControllerProduct extends TsmController {
 		$mailbody = vRequest::getVar('mailbody',  '');
 		$max_number = (int)vRequest::getVar('max_number', '');
 		
-		$waitinglist = VmModel::getModel('Waitinglist');
+		$waitinglist = tmsModel::getModel('Waitinglist');
 		$waitinglist->notifyList($tsmart_product_id,$subject,$mailbody,$max_number);
 		exit;
 	}
@@ -364,7 +364,7 @@ class TsmartControllerProduct extends TsmController {
 			$tsmart_product_id = (int)$tsmart_product_id;
 		}
 
-		$waitinglistmodel = VmModel::getModel('waitinglist');
+		$waitinglistmodel = tmsModel::getModel('waitinglist');
 		$waitinglist = $waitinglistmodel->getWaitingusers($tsmart_product_id);
 
 		if(empty($waitinglist)) $waitinglist = array();

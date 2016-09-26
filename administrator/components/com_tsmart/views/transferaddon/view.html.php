@@ -39,7 +39,7 @@ class TsmartViewtransferaddon extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$input = JFactory::getApplication()->input;
 		$task = $input->get('task');

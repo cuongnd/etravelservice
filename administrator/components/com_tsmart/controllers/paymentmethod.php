@@ -73,7 +73,7 @@ class TsmartControllerPaymentmethod extends TsmController {
 		/* Load the view object */
 		$view = $this->getView('paymentmethod', 'html');
 
-		$model = VmModel::getModel('paymentmethod');
+		$model = tmsModel::getModel('paymentmethod');
 		$msgtype = '';
 
 		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('tsmart_payment_id'));

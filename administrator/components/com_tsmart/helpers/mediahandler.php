@@ -950,7 +950,7 @@ class VmMediaHandler {
 		$html .= '<div id="ImagesContainer">';
 
 		if(!empty($fileIds)) {
-			$model = VmModel::getModel('Media');
+			$model = tmsModel::getModel('Media');
 			$medias = $model->createMediaByIds($fileIds, $type);
 			foreach($medias as $k=>$id){
 				$html .= $this->displayImage($id,$k );
@@ -1043,7 +1043,7 @@ class VmMediaHandler {
 
 		if ($tsmart_media_ids = $db->loadColumn()) {
 
-			$model = VmModel::getModel('Media');
+			$model = tmsModel::getModel('Media');
 
 			$db->setQuery('SELECT FOUND_ROWS()');
 			$list['total'] = $db->loadResult();
@@ -1172,7 +1172,7 @@ $html .='</td>';
 		$active_languages = VmConfig::get('active_languages');
 		if (count($active_languages)>1) {
 			$selectedImageLangue = explode(",", $this->file_lang);
-			$configM = VmModel::getModel('config');
+			$configM = tmsModel::getModel('config');
 			$languages = $configM->getActiveLanguages($selectedImageLangue,'media[active_languages][]');
 			$html .= '<tr>
 					<td class="labelcell"><span class="hasTip" title="' . tsmText::_ ('com_tsmart_FILES_FORM_LANGUAGE_TIP') . '">' . tsmText::_ ('com_tsmart_FILES_FORM_LANGUAGE') . '</span></td>

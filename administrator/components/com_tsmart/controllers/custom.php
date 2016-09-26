@@ -75,7 +75,7 @@ class TsmartControllerCustom extends TsmController {
 		/* Load the view object */
 		$view = $this->getView('custom', 'html');
 
-		$model = VmModel::getModel('custom');
+		$model = tmsModel::getModel('custom');
 		$msgtype = '';
 		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('tsmart_custom_id'));
 

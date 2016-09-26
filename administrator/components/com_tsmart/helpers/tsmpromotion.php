@@ -63,7 +63,7 @@ class vmpromotion
             ->order('group_size.from')
 
         ;
-        $model_product = VmModel::getModel('product');
+        $model_product = tmsModel::getModel('product');
         $product=$model_product->getItem($tsmart_product_id);
 
         if($product->price_type=='multi_price')

@@ -41,7 +41,7 @@ class TsmartControllertsmart extends TsmController {
 	public function disableDangerousTools(){
 
 		$data = vRequest::getRequest();
-		$config = VmModel::getInstance('config', 'tsmartModel');
+		$config = tmsModel::getInstance('config', 'tsmartModel');
 		$config->setDangerousToolsOff();
 		$this->display();
 	}

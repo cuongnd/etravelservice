@@ -40,7 +40,7 @@ class TsmartViewMedia extends tsmViewAdmin {
 		// TODO add icon for media view
 		$this->SetViewTitle();
 
-		$model = VmModel::getModel('media');
+		$model = tmsModel::getModel('media');
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {

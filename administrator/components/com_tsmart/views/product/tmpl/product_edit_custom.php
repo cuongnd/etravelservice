@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access');
 			$i=0;
 			$tables= array('categories'=>'','products'=>'','fields'=>'','customPlugins'=>'',);
 			if (isset($this->product->customfields)) {
-				$customfieldsModel = VmModel::getModel('customfields');
+				$customfieldsModel = tmsModel::getModel('customfields');
 				$i=0;
 
 				foreach ($this->product->customfields as $k=>$customfield) {

@@ -39,7 +39,7 @@ class TsmartViewlanguage extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 
 		$config = JFactory::getConfig();

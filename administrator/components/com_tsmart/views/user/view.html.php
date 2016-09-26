@@ -38,7 +38,7 @@ class TsmartViewUser extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$currentUser = JFactory::getUser();
 
 		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
@@ -163,7 +163,7 @@ class TsmartViewUser extends tsmViewAdmin {
 
 			if (!$_new) {
 				// Check for existing orders for this user
-				$orders = VmModel::getModel('orders');
+				$orders = tmsModel::getModel('orders');
 				$orderList = $orders->getOrdersList($userDetails->JUser->get('id'), true);
 			} else {
 				$orderList = null;
@@ -180,7 +180,7 @@ class TsmartViewUser extends tsmViewAdmin {
 
 
 
-				$vendorM = VmModel::getModel('vendor');
+				$vendorM = tmsModel::getModel('vendor');
 				//if(empty($userDetails->vendor->vendor_currency)){
 					$vendorCurrency = $vendorM->getVendorCurrency(1);
 					if($vendorCurrency) {
@@ -193,11 +193,11 @@ class TsmartViewUser extends tsmViewAdmin {
 				$vendorM->addImages($userDetails->vendor);
 				$this->assignRef('vendor', $userDetails->vendor);
 
-				$currencyModel = VmModel::getModel('currency');
+				$currencyModel = tmsModel::getModel('currency');
 				$_currencies = $currencyModel->getCurrencies();
 				$this->assignRef('currencies', $_currencies);
 				
-				$configModel = VmModel::getModel('config');
+				$configModel = tmsModel::getModel('config');
 				$TCPDFFontsList = $configModel->getTCPDFFontsList();
 				$this->assignRef('pdfFonts', $TCPDFFontsList);
 
@@ -228,7 +228,7 @@ class TsmartViewUser extends tsmViewAdmin {
 
 			$this->pagination = $model->getPagination();
 
-			$shoppergroupmodel = VmModel::getModel('shopperGroup');
+			$shoppergroupmodel = tmsModel::getModel('shopperGroup');
 			$this->defaultShopperGroup = $shoppergroupmodel->getDefault(0)->shopper_group_name;
 		}
 
@@ -248,7 +248,7 @@ class TsmartViewUser extends tsmViewAdmin {
 		$tpl = ($doVendor) ? 'mail_html_regvendor' : 'mail_html_reguser';
 		$this->setLayout($tpl);
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendorId = 1;
 		$vendorModel->setId($vendorId);
 		$vendor = $vendorModel->getVendor();

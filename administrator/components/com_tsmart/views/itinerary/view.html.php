@@ -39,7 +39,7 @@ class TsmartViewitinerary extends tsmViewAdmin {
         $this->setLayout('default');
 
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$app=JFactory::getApplication();
 		$task=$app->input->getString('task','');
 		$config = JFactory::getConfig();

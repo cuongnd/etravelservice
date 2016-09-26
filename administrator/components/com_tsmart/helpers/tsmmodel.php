@@ -23,7 +23,7 @@ define('USE_SQL_CALC_FOUND_ROWS' , true);
 
 if(!class_exists('vObject')) require(VMPATH_ADMIN .DS. 'helpers' .DS. 'vobject.php');
 
-class VmModel extends JModelList{
+class tmsModel extends JModelList{
 
 	/**
 	 * Indicates if the internal state has been set
@@ -1243,7 +1243,7 @@ class VmModel extends JModelList{
 
 	public function addImages($obj,$limit=0){
 
-		$mediaModel = VmModel::getModel('Media');
+		$mediaModel = tmsModel::getModel('Media');
 		$mediaModel->attachImages($obj,$this->_maintablename,'image',$limit);
 
 	}

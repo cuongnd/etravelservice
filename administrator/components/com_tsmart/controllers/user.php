@@ -67,7 +67,7 @@ class TsmartControllerUser extends TsmController {
 		$tsmart_user_id = vRequest::getInt('tsmart_user_id');
 
 		//Lets do it dirty for now
-		$userModel = VmModel::getModel('user');
+		$userModel = tmsModel::getModel('user');
 		vmdebug('removeAddressST',$tsmart_user_id,$tsmart_userinfo_id);
 		$userModel->setId($tsmart_user_id[0]);
 		$userModel->removeAddress($tsmart_userinfo_id);
@@ -106,7 +106,7 @@ class TsmartControllerUser extends TsmController {
 		if (!vmAccess::manager('user.edit')) {
 			$msg = tsmText::_('_NOT_AUTH');
 		} else {
-			$model = VmModel::getModel('user');
+			$model = tmsModel::getModel('user');
 
 			if($data===0) $data = vRequest::getRequest();
 

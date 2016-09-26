@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists ('VmModel')){
+if (!class_exists ('tmsModel')){
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
@@ -29,7 +29,7 @@ if (!class_exists ('VmModel')){
  * @package tsmart
  * @author RolandD
  */
-class tsmartModelRatings extends VmModel {
+class tsmartModelRatings extends tmsModel {
 
 	var $_productBought = array();
 
@@ -380,7 +380,7 @@ class tsmartModelRatings extends VmModel {
 					if (VmConfig::get ('reviews_autopublish', 1)) {
 						$data['published'] = 1;
 					} else {
-						$model = new VmModel();
+						$model = new tmsModel();
 						$product = $model->getTable('products');
 						$product->load($data['tsmart_product_id']);
 						$vendorId = vmAccess::isSuperVendor();

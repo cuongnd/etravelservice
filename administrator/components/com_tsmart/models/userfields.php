@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the helpers
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for user fields
@@ -30,7 +30,7 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
  * @subpackage Userfields
  * @author RolandD
  */
-class tsmartModelUserfields extends VmModel {
+class tsmartModelUserfields extends tmsModel {
 
 	// stAn, this variable is a cached result of  getUserFields
 	// where array key is $cache_hash = md5($sec.serialize($_switches).serialize($_skip).$this->_selectedOrdering.$this->_selectedOrderingDir);

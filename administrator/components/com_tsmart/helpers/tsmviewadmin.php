@@ -627,7 +627,7 @@ class tsmViewAdmin extends JViewLegacy
 
 
             if ($editView == 'product') {
-                $productModel = VmModel::getModel('product');
+                $productModel = tmsModel::getModel('product');
                 $childproducts = $productModel->getProductChilds($id) ? $productModel->getProductChilds($id) : '';
             }
 
@@ -798,7 +798,7 @@ class tsmViewAdmin extends JViewLegacy
 
 
             if ($editView == 'product') {
-                $productModel = VmModel::getModel('product');
+                $productModel = tmsModel::getModel('product');
                 $childproducts = $productModel->getProductChilds($id) ? $productModel->getProductChilds($id) : '';
             }
 
@@ -969,7 +969,7 @@ class tsmViewAdmin extends JViewLegacy
 
 
             if ($editView == 'product') {
-                $productModel = VmModel::getModel('product');
+                $productModel = tmsModel::getModel('product');
                 $childproducts = $productModel->getProductChilds($id) ? $productModel->getProductChilds($id) : '';
             }
 

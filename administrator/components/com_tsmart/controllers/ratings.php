@@ -160,7 +160,7 @@ class TsmartControllerRatings extends TsmController {
 			$data = vRequest::getPost();
 		}
 
-		$model = VmModel::getModel($this->_cname);
+		$model = tmsModel::getModel($this->_cname);
 		$id = $model->saveRating($data);
 
 		$msg = 'failed';

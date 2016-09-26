@@ -45,7 +45,7 @@ class CurrencyDisplay {
 		$this->_app = JFactory::getApplication();
 		if(empty($vendorId)) $vendorId = 1;
 
-		$vendorM = VmModel::getModel('vendor');
+		$vendorM = tmsModel::getModel('vendor');
 		$vendorCurrency = $vendorM->getVendorCurrency($vendorId);
 		if($vendorCurrency){
 			$this->_vendorCurrency = $vendorCurrency->vendor_currency;
@@ -110,7 +110,7 @@ class CurrencyDisplay {
 				self::$_instance[$h]->_currency_id = $currencyId;
 			}
 
-			$vendorM = VmModel::getModel('currency');
+			$vendorM = tmsModel::getModel('currency');
 			$style = $vendorM->getData((int)self::$_instance[$h]->_currency_id);
 
 			if(!empty($style)){
@@ -167,9 +167,9 @@ class CurrencyDisplay {
 
 		if(count($this->_priceConfig)>0)return true;
 
-		$userModel = VmModel::getModel('user');
+		$userModel = tmsModel::getModel('user');
 		$user = $userModel->getCurrentUser();
-		$shopperModel = VmModel::getModel('shoppergroup');
+		$shopperModel = tmsModel::getModel('shoppergroup');
 
 		if(count($user->shopper_groups)>0){
 			$sprgrp = $shopperModel->getShopperGroup($user->shopper_groups[0]);

@@ -35,7 +35,7 @@ class JFormFieldManufacturer extends JFormField
 	function getInput() {
 
 		VmConfig::loadConfig();
-		$model = VmModel::getModel('Manufacturer');
+		$model = tmsModel::getModel('Manufacturer');
 		$manufacturers = $model->getManufacturers(true, true, false);
 		$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'tsmart_manufacturer_id', 'mf_name');
 		if(!empty($manufacturers) and is_array($manufacturers)){

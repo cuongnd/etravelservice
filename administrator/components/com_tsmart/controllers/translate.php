@@ -89,7 +89,7 @@ class TsmartControllerTranslate extends TsmController {
 		}
 		$tableName = '#__tsmart_'.$tables[$viewKey].'_'.$dblang;
 
-		$m = VmModel::getModel('coupon');
+		$m = tmsModel::getModel('coupon');
 		$table = $m->getTable($tables[$viewKey]);
 
 		//Todo create method to load lang fields only

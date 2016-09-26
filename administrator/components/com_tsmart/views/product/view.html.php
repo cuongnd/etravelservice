@@ -45,7 +45,7 @@ class TsmartViewProduct extends tsmViewAdmin
         if (!class_exists('VmImage'))
             require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
-        $model = VmModel::getModel();
+        $model = tmsModel::getModel();
 
         // Handle any publish/unpublish
         switch ($task) {
@@ -56,7 +56,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 //$this->addTemplatePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'views'.DS.'product'.DS.'tmpl');
                 VmConfig::loadJLang('com_tsmart_orders', TRUE);
                 VmConfig::loadJLang('com_tsmart_shoppers', TRUE);
-                $model_country = VmModel::getModel('country');
+                $model_country = tmsModel::getModel('country');
                 $this->countries = $model_country->getItemList();
                 $tsmart_product_id = vRequest::getInt('tsmart_product_id');
 
@@ -83,7 +83,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
                 $this->tour_service_class = vmServiceclass::get_list_tour_service_class();
 
-                $customfields = VmModel::getModel('Customfields');
+                $customfields = tmsModel::getModel('Customfields');
 
                 $product->allIds[] = $product->tsmart_product_id;
                 if (!empty($product->product_parent_id)) $product->allIds[] = $product->product_parent_id;
@@ -130,14 +130,14 @@ class TsmartViewProduct extends tsmViewAdmin
 
 
                 // Load the vendors
-                $vendor_model = VmModel::getModel('vendor');
+                $vendor_model = tmsModel::getModel('vendor');
 
                 $lists['vendors'] = '';
                 if ($this->showVendors()) {
                     $lists['vendors'] = Shopfunctions::renderVendorList($product->tsmart_vendor_id);
                 }
                 // Load the currencies
-                $currency_model = VmModel::getModel('currency');
+                $currency_model = tmsModel::getModel('currency');
 
                 $vendor_model->setId(vmAccess::isSuperVendor());
                 $this->vendor = $vendor_model->getVendor();
@@ -180,14 +180,14 @@ class TsmartViewProduct extends tsmViewAdmin
                 if (empty($product->product_available_date)) {
                     $product->product_available_date = date("Y-m-d");
                 }
-                $waitinglistmodel = VmModel::getModel('waitinglist');
+                $waitinglistmodel = tmsModel::getModel('waitinglist');
                 /* Load waiting list */
                 if ($product->tsmart_product_id) {
                     //$waitinglist = $this->get('waitingusers', 'waitinglist');
                     $waitinglist = $waitinglistmodel->getWaitingusers($product->tsmart_product_id);
                     $this->assignRef('waitinglist', $waitinglist);
                 }
-                $orderstatusModel = VmModel::getModel('orderstatus');
+                $orderstatusModel = tmsModel::getModel('orderstatus');
                 $lists['OrderStatus'] = $orderstatusModel->renderOSList(array(), 'order_status', TRUE);
 
                 // Add the tsmart_shoppergroup_ids
@@ -195,12 +195,12 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $this->activeShoppergroups = shopfunctions::renderGuiList($cid, 'shoppergroups', 'shopper_group_name', 'category', 'vmuser_shoppergroups', 'tsmart_user_id');
                 if (!empty($this->activeShoppergroups)) {
-                    $shoppergroupModel = VmModel::getModel('shoppergroup');
+                    $shoppergroupModel = tmsModel::getModel('shoppergroup');
                     $this->activeShoppergroups = tsmText::_($shoppergroupModel->getDefault(0)->shopper_group_name);
                 }
 
                 // Load protocustom lists
-                $customModel = VmModel::getModel('custom');
+                $customModel = tmsModel::getModel('custom');
 
                 $this->fieldTypes = tsmartModelCustom::getCustomTypes();
 
@@ -340,7 +340,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 $this->assignRef('showVendors', $showVendors);
 
                 $keyWord = '';
-                $catmodel = VmModel::getModel('category');
+                $catmodel = tmsModel::getModel('category');
                 $this->assignRef('catmodel', $catmodel);
                 $this->addStandardDefaultViewCommandsNoValidate();
                 $this->addStandardDefaultViewLists($catmodel, 'category_name');
@@ -365,7 +365,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
             case 'massxref_sgrps':
             case 'massxref_sgrps_exe':
-                $sgrpmodel = VmModel::getModel('shoppergroup');
+                $sgrpmodel = tmsModel::getModel('shoppergroup');
                 $this->addStandardDefaultViewLists($sgrpmodel);
 
                 $shoppergroups = $sgrpmodel->getShopperGroups(false, true);
@@ -429,8 +429,8 @@ class TsmartViewProduct extends tsmViewAdmin
                 //Load the product price
                 if (!class_exists('calculationHelper')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
 
-                $vendor_model = VmModel::getModel('vendor');
-                $productreviews = VmModel::getModel('ratings');
+                $vendor_model = tmsModel::getModel('vendor');
+                $productreviews = tmsModel::getModel('ratings');
 
                 $this->mfTable = $model->getTable('manufacturers');
 
@@ -472,7 +472,7 @@ class TsmartViewProduct extends tsmViewAdmin
                     }
                 }
 
-                $mf_model = VmModel::getModel('manufacturer');
+                $mf_model = tmsModel::getModel('manufacturer');
                 $manufacturers = $mf_model->getManufacturerDropdown();
                 $this->assignRef('manufacturers', $manufacturers);
 

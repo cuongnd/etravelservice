@@ -717,7 +717,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			return false;
 		}
 
-		$model = VmModel::getModel('updatesMigration');
+		$model = tmsModel::getModel('updatesMigration');
 		$result = $model->resetThumbs();
 		$this->setRedirect($this->redirectPath, $result);
 	}

@@ -60,7 +60,7 @@ class vmproduct
     }
     public static function get_html_tour_information(&$view,$tsmart_product_id=0)
     {
-        $product_model=VmModel::getModel('product');
+        $product_model=tmsModel::getModel('product');
         $product = $product_model->getItem($tsmart_product_id);
         $db=JFactory::getDbo();
 

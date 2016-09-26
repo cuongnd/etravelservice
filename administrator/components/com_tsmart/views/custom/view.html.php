@@ -37,7 +37,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		if(!class_exists('vmCustomPlugin')) require(VMPATH_PLUGINLIBS.DS.'vmcustomplugin.php');
 
-		$model = VmModel::getModel('custom');
+		$model = tmsModel::getModel('custom');
 
 		// TODO Make an Icon for custom
 		$this->SetViewTitle('PRODUCT_CUSTOM_FIELD');
@@ -50,7 +50,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 			$this->custom = $model->getCustom();
 			$this->fieldTypes = tsmartModelCustom::getCustomTypes();
 
-			$this->customfields = VmModel::getModel('customfields');
+			$this->customfields = tmsModel::getModel('customfields');
  			//vmdebug('TsmartViewCustom',$this->custom);
 			JPluginHelper::importPlugin('vmcustom');
 			$dispatcher = JDispatcher::getInstance();
@@ -190,7 +190,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 
 		$html = "";
 
-		$model = VmModel::getModel('custom');
+		$model = tmsModel::getModel('custom');
 
 
 

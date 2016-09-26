@@ -18,9 +18,9 @@ class JFormFieldScustom extends JFormField {
 	}
 
 	private function _getStringCustoms() {
-		if (!class_exists('VmModel'))
+		if (!class_exists('tmsModel'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
-		$cModel = VmModel::getModel('custom');
+		$cModel = tmsModel::getModel('custom');
 		$cModel->_noLimit = true;
 		$q = 'SELECT `tsmart_custom_id` AS value, custom_title AS text FROM `#__tsmart_customs` WHERE custom_parent_id="0" AND field_type = "S" ';
 		$q .= ' AND `published`=1';

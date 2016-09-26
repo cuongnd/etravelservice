@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
  * @package	tsmart
  * @subpackage Config
  */
-class tsmartModelConfig extends VmModel {
+class tsmartModelConfig extends tmsModel {
 
 	function __construct() {
 		parent::__construct();

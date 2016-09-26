@@ -688,9 +688,9 @@ vmJsApi::addJScript('ordergui',$j);
 					<tr>
 						<td><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT_LBL') ?></td>
 						<?php
-						$model = VmModel::getModel('paymentmethod');
+						$model = tmsModel::getModel('paymentmethod');
 						$payments = $model->getPayments();
-						$model = VmModel::getModel('shipmentmethod');
+						$model = tmsModel::getModel('shipmentmethod');
 						$shipments = $model->getShipments();
 						?>
 						<td>

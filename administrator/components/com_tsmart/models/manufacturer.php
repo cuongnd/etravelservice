@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for tsmart Manufacturers
@@ -29,7 +29,7 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
  * @author Max Milbers
  * @todo Replace getOrderUp and getOrderDown with JTable move function. This requires the tsmart_product_category_xref table to replace the ordering with the ordering column
  */
-class tsmartModelManufacturer extends VmModel {
+class tsmartModelManufacturer extends tmsModel {
 
 	/**
 	 * constructs a VmModel
@@ -85,7 +85,7 @@ class tsmartModelManufacturer extends VmModel {
 		$table->bindChecknStore($data);
 
 		// Process the images
-		$mediaModel = VmModel::getModel('Media');
+		$mediaModel = tmsModel::getModel('Media');
 		$mediaModel->storeMedia($data,'manufacturer');
 
 		$cache = JFactory::getCache('com_tsmart_cat_manus','callback');

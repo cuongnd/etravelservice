@@ -37,7 +37,7 @@ class JFormFieldManufacturersmenu extends JFormField {
 
 		VmConfig::loadConfig();
 		VmConfig::loadJLang('com_tsmart');
-		$model = VmModel::getModel('Manufacturer');
+		$model = tmsModel::getModel('Manufacturer');
 		$manufacturers = $model->getManufacturers(true, true, false);
 
 		return JHtml::_('select.genericlist', $manufacturers, $this->name, 'class="inputbox"   ', 'value', 'text', $this->value, $this->id);

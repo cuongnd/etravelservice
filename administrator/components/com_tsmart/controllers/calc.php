@@ -80,7 +80,7 @@ class TsmartControllerCalc extends TsmController {
 			return false;
 		}
 
-		$model = VmModel::getModel('calc');
+		$model = tmsModel::getModel('calc');
 
 		if ($model->orderCalc($id, -1)) {
 			$msg = tsmText::_('com_tsmart_ITEM_MOVED_UP');
@@ -111,7 +111,7 @@ class TsmartControllerCalc extends TsmController {
 		}
 
 		//getting the model
-		$model = VmModel::getModel('calc');
+		$model = tmsModel::getModel('calc');
 		$msg = '';
 		if ($model->orderCalc($id, 1)) {
 			$msg = tsmText::_('com_tsmart_ITEM_MOVED_DOWN');
@@ -131,7 +131,7 @@ class TsmartControllerCalc extends TsmController {
 
 		$cid	= vRequest::getInt( 'cid', array() );
 
-		$model = VmModel::getModel('calc');
+		$model = tmsModel::getModel('calc');
 
 		$order	= vRequest::getInt('order');
 

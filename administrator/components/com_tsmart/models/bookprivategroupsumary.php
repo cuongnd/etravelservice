@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
+if (!class_exists('tmsModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 /**
  * Model class for shop Currencies
@@ -28,7 +28,7 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
  * @package    tsmart
  * @subpackage Currency
  */
-class tsmartModelbookprivategroupsumary extends VmModel
+class tsmartModelbookprivategroupsumary extends tmsModel
 {
 
     public function save_order($booking_summary,$user_id){

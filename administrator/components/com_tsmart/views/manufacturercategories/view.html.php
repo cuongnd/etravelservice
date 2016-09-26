@@ -38,7 +38,7 @@ class TsmartViewManufacturercategories extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		// get necessary model
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$this->SetViewTitle('MANUFACTURER_CATEGORY');
 

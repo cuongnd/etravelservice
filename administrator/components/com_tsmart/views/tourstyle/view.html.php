@@ -39,7 +39,7 @@ class TsmartViewtourstyle extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
         $this->view_height=1300;
 		$config = JFactory::getConfig();

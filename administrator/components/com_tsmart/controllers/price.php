@@ -61,7 +61,7 @@ class TsmartControllerPrice extends TsmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('price');
+        $model_price = tmsModel::getModel('price');
         if(!$model_price->remove(array($price_id)))
         {
             echo 'cannot delete item';
@@ -77,7 +77,7 @@ class TsmartControllerPrice extends TsmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $tour_methor=$input->get('tour_methor','','string');
-        $model_price = VmModel::getModel('price');
+        $model_price = tmsModel::getModel('price');
         if(!$model_price->toggle('published',null,'price_id','price'))
         {
             echo 'cannot published item';
@@ -94,7 +94,7 @@ class TsmartControllerPrice extends TsmController {
         $post = json_decode($post);
         $input=$app->input;
         $tsmart_price_id=$input->get('tsmart_price_id',0,'int');
-        $model_price = VmModel::getModel('price');
+        $model_price = tmsModel::getModel('price');
         $post=(array)$post;
         $return_ajax=new stdClass();
         $return_ajax->e=0;
@@ -122,7 +122,7 @@ class TsmartControllerPrice extends TsmController {
         $input=$app->input;
         $price_id=$input->get('price_id',0,'int');
         $price_type=$input->get('price_type','','string');
-        $model_price = VmModel::getModel('price');
+        $model_price = tmsModel::getModel('price');
         $model_price->setId($price_id);
         $price = $model_price->getPrice();
 
@@ -133,7 +133,7 @@ class TsmartControllerPrice extends TsmController {
         $tour_id=$input->get('tsmart_product_id',0,'int');
         $this->tsmart_product_id=$tour_id;
 
-        $model_product = VmModel::getModel('product');
+        $model_product = tmsModel::getModel('product');
         $product=$model_product->getItem($this->tsmart_product_id);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         if($price_type!=tsmGroupSize::FLAT_PRICE)

@@ -466,7 +466,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'user.php');
 		}
 
-		$usermodel = VmModel::getModel ('user');
+		$usermodel = tmsModel::getModel ('user');
 		$user = $usermodel->getUser ();
 		$user->shopper_groups = (array)$user->shopper_groups;
 
@@ -683,7 +683,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		// recipient is vendor and admin
 		$vendorId = 1;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($vendorId);
 		$vendorEmail = $vendorModel->getVendorEmail($vendorId);
 		$vendorName = $vendorModel->getVendorName($vendorId);
@@ -1058,7 +1058,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 				foreach($taxrules as &$rule){
 					//Quickn dirty
-					if(!isset($rule['calc_kind'])) $rule = (array)VmModel::getModel('calc')->getCalc($rule['tsmart_calc_id']);
+					if(!isset($rule['calc_kind'])) $rule = (array)tmsModel::getModel('calc')->getCalc($rule['tsmart_calc_id']);
 
 					if(!isset($rule['subTotal'])) $rule['subTotal'] = 0;
 					if(!isset($rule['taxAmount'])) $rule['taxAmount'] = 0;
@@ -1148,7 +1148,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			// send the email only if payment has been accepted
 			// update status
 
-			$modelOrder = VmModel::getModel ('orders');
+			$modelOrder = tmsModel::getModel ('orders');
 			$order['order_status'] = $new_status;
 			$order['customer_notified'] = 1;
 			$order['comments'] = '';
@@ -1306,7 +1306,7 @@ abstract class vmPSPlugin extends vmPlugin {
 				require(VMPATH_ADMIN . DS . 'models' . DS . 'orders.php');
 			}
 
-			$modelOrder = VmModel::getModel ('orders');
+			$modelOrder = tmsModel::getModel ('orders');
 			$order['order_status'] = 'X';
 			$order['tsmart_order_id'] = $tsmart_order_id;
 			$order['customer_notified'] = 0;

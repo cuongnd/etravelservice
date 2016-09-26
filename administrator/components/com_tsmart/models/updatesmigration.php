@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage updatesMigration
  * @author Max Milbers, RickG
  */
-class tsmartModelUpdatesMigration extends VmModel {
+class tsmartModelUpdatesMigration extends tmsModel {
 
     /**
      * Checks the tsmart Server for the latest available Version of tsmart
@@ -163,7 +163,7 @@ class tsmartModelUpdatesMigration extends VmModel {
 	$fields['vendor_letter_header_image']='1';
 	$fields['vendor_letter_footer_html']='{vm:vendorlegalinfo}<br /> Page {vm:pagenum}/{vm:pagecount}';
 	if(!class_exists('tsmartModelUser')) require(VMPATH_ADMIN.DS.'models'.DS.'user.php');
-	$usermodel = VmModel::getModel('user');
+	$usermodel = tmsModel::getModel('user');
 	$usermodel->setId($userId);
 
 	//Save the VM user stuff

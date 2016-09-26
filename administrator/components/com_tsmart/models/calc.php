@@ -20,9 +20,9 @@ defined('_JEXEC') or die('Restricted access');
 */
 
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
-class tsmartModelCalc extends VmModel {
+class tsmartModelCalc extends tmsModel {
 
 
     /**

@@ -79,7 +79,7 @@ class TsmartControllerCategory extends TsmController {
 		}
 
 		//getting the model
-		$model = VmModel::getModel('category');
+		$model = tmsModel::getModel('category');
 
 		$msg = '';
 		if ($model->orderCategory($id, -1)) {
@@ -117,7 +117,7 @@ class TsmartControllerCategory extends TsmController {
 		}
 
 		//getting the model
-		$model = VmModel::getModel('category');
+		$model = tmsModel::getModel('category');
 
 		$msg = '';
 		if ($model->orderCategory($id, 1)) {
@@ -143,7 +143,7 @@ class TsmartControllerCategory extends TsmController {
 
 		$cid	= vRequest::getInt( 'cid', array() );	//is sanitized
 
-		$model = VmModel::getModel('category');
+		$model = tmsModel::getModel('category');
 
 		$order	= vRequest::getInt('order', array() );
 

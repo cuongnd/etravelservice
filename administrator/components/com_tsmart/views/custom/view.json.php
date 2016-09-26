@@ -59,7 +59,7 @@ class TsmartViewCustom extends JViewLegacy {
 			$db ->setQuery($q);
 			$this->jCustom = $db ->loadObject();
 
-			$customModel = VmModel::getModel('custom');
+			$customModel = tmsModel::getModel('custom');
 			$this->custom = $customModel -> getCustom();
 
 			// Get the payment XML.
@@ -70,7 +70,7 @@ class TsmartViewCustom extends JViewLegacy {
 				$filename = 'plg_vmcustom_' .  $this->jCustom->element;
 				vmPlugin::loadJLang($filename,'vmcustom',$this->jCustom->element);
 
-				$this->custom = VmModel::getModel('custom')->getCustom();
+				$this->custom = tmsModel::getModel('custom')->getCustom();
 				$varsToPush = vmPlugin::getVarsToPushByXML($formFile,'customForm');
 				$this->custom->form = JForm::getInstance($this->jCustom->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 				$this->custom->params = new stdClass();

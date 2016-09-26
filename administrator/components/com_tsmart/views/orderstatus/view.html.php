@@ -37,7 +37,7 @@ class TsmartViewOrderstatus extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 
@@ -66,7 +66,7 @@ class TsmartViewOrderstatus extends tsmViewAdmin {
 			}
 
 			// Vendor selection
-			$vendor_model = VmModel::getModel('vendor');
+			$vendor_model = tmsModel::getModel('vendor');
 			$vendor_list = $vendor_model->getVendors();
 			$this->lists['vendors'] = JHtml::_('select.genericlist', $vendor_list, 'tsmart_vendor_id', '', 'tsmart_vendor_id', 'vendor_name', $this->orderStatus->tsmart_vendor_id);
 

@@ -53,7 +53,7 @@ class TsmartControllerMedia extends TsmController {
 
 	function save($data = 0){
 
-		$fileModel = VmModel::getModel('media');
+		$fileModel = tmsModel::getModel('media');
 
 		//Now we try to determine to which this media should be long to
 		$data = array_merge(vRequest::getRequest(),vRequest::get('media'));

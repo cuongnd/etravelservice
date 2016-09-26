@@ -63,7 +63,7 @@ class vmprice
 				->order('group_size.from')
 
 			;
-            $model_product = VmModel::getModel('product');
+            $model_product = tmsModel::getModel('product');
             $product=$model_product->getItem($tsmart_product_id);
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
             if($product->price_type!=tsmGroupSize::FLAT_PRICE)

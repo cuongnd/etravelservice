@@ -23,7 +23,7 @@ if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'compo
 VmConfig::loadConfig();
 
 if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
-if (!class_exists( 'VmModel' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if (!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 vmRam('Start');
 vmSetStartTime('Start');

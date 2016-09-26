@@ -40,7 +40,7 @@ class TsmartControllerReport extends TsmController {
 
 		vRequest::vmCheckToken();
 
-		$model = VmModel::getModel('report');
+		$model = tmsModel::getModel('report');
 		$model->updateOrderItems();
 		$this->setRedirect($this->redirectPath, 'Order Items updated');
 	}

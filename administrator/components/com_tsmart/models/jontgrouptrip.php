@@ -21,7 +21,7 @@ use SebastianBergmann\Money\Money;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for shop product
@@ -29,7 +29,7 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
  * @package	tsmart
  * @subpackage product
  */
-class tsmartModeljontgrouptrip extends VmModel {
+class tsmartModeljontgrouptrip extends tmsModel {
 
     protected $context = 'jontgrouptrip';
 

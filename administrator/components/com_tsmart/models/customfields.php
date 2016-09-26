@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined ('_JEXEC') or die('Restricted access');
 
-if (!class_exists ('VmModel')) {
+if (!class_exists ('tmsModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
@@ -28,7 +28,7 @@ if (!class_exists ('VmModel')) {
  *
  * @package        tsmart
  */
-class tsmartModelCustomfields extends VmModel {
+class tsmartModelCustomfields extends tmsModel {
 
 	/** @var array For roundable values */
 	static $dimensions = array('product_length','product_width','product_height','product_weight');
@@ -335,10 +335,10 @@ class tsmartModelCustomfields extends VmModel {
 		if ($field->is_input) {
 			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
 			if(!class_exists('tsmartModelCurrency')) require(VMPATH_ADMIN.DS.'models'.DS.'currency.php');
-			$vendor_model = VmModel::getModel('vendor');
+			$vendor_model = tmsModel::getModel('vendor');
 			//$tsmart_vendor_id = 1;
 			$vendor = $vendor_model->getVendor($tsmart_vendor_id);
-			$currency_model = VmModel::getModel('currency');
+			$currency_model = tmsModel::getModel('currency');
 			$vendor_currency = $currency_model->getCurrency($vendor->vendor_currency);
 
 			$priceInput = '<span style="white-space: nowrap;"><input type="text" size="12" style="text-align:right;" value="' . $field->customfield_price . '" name="field[' . $row . '][customfield_price]" /> '.$vendor_currency->currency_symbol."</span>";
@@ -394,7 +394,7 @@ class tsmartModelCustomfields extends VmModel {
 				$optAttr[] = array('value' => 'clabels', 'text' => tsmText::_ ('com_tsmart_CLABELS'));
 
 
-				$productModel = VmModel::getModel('product');
+				$productModel = tmsModel::getModel('product');
 
 				$childIds = array();
 				$sorted = array();
@@ -661,7 +661,7 @@ class tsmartModelCustomfields extends VmModel {
 						$options = $db->loadObjectList ();
 					} else {
 						$values = explode (';', $field->custom_value);
-						$mM = VmModel::getModel('media');
+						$mM = tmsModel::getModel('media');
 
 						foreach ($values as $key => $val) {
 							$mM->setId($val);
@@ -748,7 +748,7 @@ class tsmartModelCustomfields extends VmModel {
 					return '';
 				}
 
-				$pModel = VmModel::getModel('product');
+				$pModel = tmsModel::getModel('product');
 				$related = $pModel->getProduct((int)$field->customfield_value,TRUE,FALSE,FALSE,1);
 				if (!empty($related->tsmart_media_id[0])) {
 					$thumb = $this->displayCustomMedia ($related->tsmart_media_id[0]).' ';
@@ -1001,7 +1001,7 @@ class tsmartModelCustomfields extends VmModel {
 				}
 
 				if($fields['field_type']=='C'){
-					$cM = VmModel::getModel('custom');
+					$cM = tmsModel::getModel('custom');
 					$c = $cM->getCustom($fields['tsmart_custom_id'],'');
 
 					if(!empty($c->sCustomId)){

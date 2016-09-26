@@ -45,7 +45,7 @@ class JFormFieldVmproductsublayout extends JFormField
 
 		VmConfig::loadJLang('com_tsmart');
 		$view = substr($this->fieldname,0,-6);
-		$model = vmModel::getModel('config');
+		$model = tmsModel::getModel('config');
 		$vmLayoutList = $model->getFieldList('products');
 		$html = JHtml::_('Select.genericlist',$vmLayoutList, $this->name, 'size=1 width=200', 'value', 'text', array($this->value));
 

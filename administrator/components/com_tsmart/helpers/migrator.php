@@ -17,11 +17,11 @@
 
 if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not allowed.' );
 
-if(!class_exists('VmModel'))
+if(!class_exists('tmsModel'))
 require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 
-class Migrator extends VmModel{
+class Migrator extends tmsModel{
 
 	private $_stop = false;
 
@@ -220,7 +220,7 @@ class Migrator extends VmModel{
 
 		if(!class_exists('tsmartModelMedia'))
 		require(VMPATH_ADMIN . DS . 'models' . DS . 'media.php');
-		$this->mediaModel = VmModel::getModel('Media');
+		$this->mediaModel = tmsModel::getModel('Media');
 		//First lets read which files are already stored
 		$this->storedMedias = $this->mediaModel->getFiles(false, true);
 
@@ -534,7 +534,7 @@ class Migrator extends VmModel{
 		}
 
 		if(!class_exists('tsmartModelUser')) require(VMPATH_ADMIN . DS . 'models' . DS . 'user.php');
-		$userModel = VmModel::getModel('user');
+		$userModel = tmsModel::getModel('user');
 
 		$ok = true;
 		$continue = true;
@@ -703,7 +703,7 @@ class Migrator extends VmModel{
 		$this->_db->setQuery( 'SELECT tsmart_currency_id FROM `#__tsmart_currencies` WHERE `currency_code_3` =  "'. $vendor['vendor_currency'].'"  ' );
 		$vendor['vendor_currency']= $this->_db->loadResult();
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendorId = $vendorModel->store($vendor);
 		vmInfo('vendor '.$vendorId.' Stored');
 		return true;
@@ -719,7 +719,7 @@ class Migrator extends VmModel{
 			return false;
 		}
 
-		$catModel = VmModel::getModel('Category');
+		$catModel = tmsModel::getModel('Category');
 
 		$default_category_browse = vRequest::getString('migration_default_category_browse','');
 		// 		vmdebug('migration_default_category_browse '.$default_category_browse);
@@ -1005,7 +1005,7 @@ class Migrator extends VmModel{
 			$oldToNewShoppergroups = $this->getMigrationProgress('shoppergroups');
 		}
 
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 
 		if(count($alreadyKnownIds)==($startLimit+$maxItems) ){
 			$continue = false;
@@ -1278,7 +1278,7 @@ class Migrator extends VmModel{
 		$userOrderId = vRequest::getInt('userOrderId',0);
 
 		if(!class_exists('tsmartModelOrders'))
-			VmModel::getModel('orders');
+			tmsModel::getModel('orders');
 
 		while($continue){
 
@@ -1437,7 +1437,7 @@ class Migrator extends VmModel{
 		$this->_db->setQuery($q);
 		$oldOrderStatus = $this->_db->loadAssocList();
 
-		$orderstatusModel = VmModel::getModel('Orderstatus');
+		$orderstatusModel = tmsModel::getModel('Orderstatus');
 		$oldtonewOrderstates = array();
 		$alreadyKnownIds = $this->getMigrationProgress('orderstates');
 		$i = 0;
@@ -1677,7 +1677,7 @@ class Migrator extends VmModel{
 	 */
 	private function showVmDiff(){
 
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 		$product = $productModel->getProduct(0);
 
 		$productK = array();

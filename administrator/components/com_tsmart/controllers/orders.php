@@ -126,7 +126,7 @@ class TsmartControllerOrders extends TsmController {
 	 * @author Kohl Patrick
 	 */
 	public function nextItem($dir = 'ASC'){
-		$model = VmModel::getModel('orders');
+		$model = tmsModel::getModel('orders');
 		$id = vRequest::getInt('tsmart_order_id');
 		if (!$order_id = $model->getOrderId($id, $dir)) {
 			$order_id  = $id;
@@ -164,7 +164,7 @@ class TsmartControllerOrders extends TsmController {
 		$view = $this->getView('orders', 'html');
 
 		if($this->getPermOrderStatus()){
-			$model = VmModel::getModel('orders');
+			$model = tmsModel::getModel('orders');
 			$model->updateOrderStatus();
 		} else {
 			vmInfo('Restricted');
@@ -202,7 +202,7 @@ class TsmartControllerOrders extends TsmController {
 		}
 
 		/* Update the statuses */
-		$model = VmModel::getModel('orders');
+		$model = tmsModel::getModel('orders');
 
 		if ($lastTask == 'updatestatus') {
 			// single order is in POST but we need an array
@@ -240,7 +240,7 @@ class TsmartControllerOrders extends TsmController {
 		$mainframe = Jfactory::getApplication();
 
 		$data = vRequest::getRequest();
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$model->updateItemStatus(JArrayHelper::toObject($data), $data['new_status']);
 
 		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$data['tsmart_order_id']);
@@ -280,7 +280,7 @@ class TsmartControllerOrders extends TsmController {
 	{
 
 		$mainframe = Jfactory::getApplication();
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 
 		$_items = vRequest::getVar('item_id',  0, '', 'array');
@@ -295,7 +295,7 @@ class TsmartControllerOrders extends TsmController {
 	public function updateOrderHead()
 	{
 		$mainframe = Jfactory::getApplication();
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$_items = vRequest::getVar('item_id',  0, '', 'array');
 		$_orderID = vRequest::getInt('tsmart_order_id', '');
 		$model->UpdateOrderHead((int)$_orderID, vRequest::getRequest());
@@ -306,7 +306,7 @@ class TsmartControllerOrders extends TsmController {
 	public function CreateOrderHead()
 	{
 		$mainframe = Jfactory::getApplication();
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$orderid = $model->CreateOrderHead();
 		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$orderid );
 	}
@@ -314,7 +314,7 @@ class TsmartControllerOrders extends TsmController {
 	public function newOrderItem() {
 
 		$orderId = vRequest::getInt('tsmart_order_id', '');
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$msg = '';
 		$data = vRequest::getRequest();
 		$model->saveOrderLineItem($data);
@@ -328,7 +328,7 @@ class TsmartControllerOrders extends TsmController {
 	 */
 	public function removeOrderItem() {
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$msg = '';
 		$orderId = vRequest::getInt('orderId', '');
 		// TODO $orderLineItem as int ???

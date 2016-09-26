@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for shop shipment
@@ -28,7 +28,7 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
  * @subpackage Shipment
  * @author RickG
  */
-class tsmartModelShipmentmethod extends VmModel {
+class tsmartModelShipmentmethod extends tmsModel {
 
 	//    /** @var integer Primary key */
 	//    var $_id;

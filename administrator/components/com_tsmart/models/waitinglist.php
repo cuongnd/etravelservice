@@ -24,7 +24,7 @@ defined ('_JEXEC') or die('Restricted access');
  * Model for tsmart wating list
  *
  */
-class tsmartModelWaitingList extends VmModel {
+class tsmartModelWaitingList extends tmsModel {
 
 	/**
 	 * Load the customers on the waitinglist
@@ -97,7 +97,7 @@ class tsmartModelWaitingList extends VmModel {
 		$vars['mailbody'] = $mailbody;
 
 		$tsmart_vendor_id = 1;
-		$vendorModel = VmModel::getModel ('vendor');
+		$vendorModel = tmsModel::getModel ('vendor');
 		$vendor = $vendorModel->getVendor ($tsmart_vendor_id);
 		$vendorModel->addImages ($vendor);
 		$vars['vendor'] = $vendor;

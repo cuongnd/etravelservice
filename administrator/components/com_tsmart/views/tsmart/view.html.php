@@ -32,7 +32,8 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 class TsmartViewTsmart extends tsmViewAdmin {
 
 	function display($tpl = null) {
-
+		echo "sdfsdfds";
+		die;
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 		VmConfig::loadJLang('com_tsmart_orders',TRUE);
@@ -48,7 +49,7 @@ class TsmartViewTsmart extends tsmViewAdmin {
 		if($this->manager('report')){
 			vmSetStartTime('report');
 
-			$model = VmModel::getModel('tsmart');
+			$model = tmsModel::getModel('tsmart');
 
 			$nbrCustomers = $model->getTotalCustomers();
 			$this->nbrCustomers=$nbrCustomers;
@@ -80,7 +81,7 @@ class TsmartViewTsmart extends tsmViewAdmin {
 			$recentCustomers = $model->getRecentCustomers();
 			$this->recentCustomers=$recentCustomers;
 
-			$reportModel		= VmModel::getModel('report');
+			$reportModel		= tmsModel::getModel('report');
 			vRequest::setvar('task','');
 			$myCurrencyDisplay = CurrencyDisplay::getInstance();
 			$revenueBasic = $reportModel->getRevenue(60,true);

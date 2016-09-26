@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined ('_JEXEC') or die('Restricted access');
 
-if (!class_exists ('VmModel')) {
+if (!class_exists ('tmsModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
@@ -28,7 +28,7 @@ if (!class_exists ('VmModel')) {
  *
  * @package        tsmart
  */
-class tsmartModelVendor extends VmModel {
+class tsmartModelVendor extends tmsModel {
 
 	/**
 	 * constructs a VmModel
@@ -222,7 +222,7 @@ class tsmartModelVendor extends VmModel {
 			$usertable->store();
 		}
 		// Process the images
-		$mediaModel = VmModel::getModel ('Media');
+		$mediaModel = tmsModel::getModel ('Media');
 		$mediaModel->storeMedia ($data, 'vendor');
 
 		$plg_datas = $dispatcher->trigger ('plgVmAfterVendorStore', $data);
@@ -393,7 +393,7 @@ class tsmartModelVendor extends VmModel {
 	public function getVendorAdressBT ($tsmart_vendor_id) {
 
 		$userId = self::getUserIdByVendorId ($tsmart_vendor_id);
-		$usermodel = VmModel::getModel ('user');
+		$usermodel = tmsModel::getModel ('user');
 // 		$usermodel->setId($userId);
 		$tsmart_userinfo_id = $usermodel->getBTuserinfo_id ($userId);
 		$vendorAddressBt = $this->getTable ('userinfos');
@@ -406,7 +406,7 @@ class tsmartModelVendor extends VmModel {
 		if($vendorId!=0) $this->_id = (int)$vendorId;
 		if(!$this->_vendorFields){
 			$userId = tsmartModelVendor::getUserIdByVendorId ($this->_id);
-			$userModel = VmModel::getModel ('user');
+			$userModel = tmsModel::getModel ('user');
 			$tsmart_userinfo_id = $userModel->getBTuserinfo_id ($userId);
 
 			// this is needed to set the correct user id for the vendor when the user is logged

@@ -39,7 +39,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 		$this->type = vRequest::getCmd('type', false);
 		$this->row = vRequest::getInt('row', false);
 		$this->db = JFactory::getDBO();
-		$this->model = VmModel::getModel('Customfields') ;
+		$this->model = tmsModel::getModel('Customfields') ;
 
 	}
 	function display($tpl = null) {
@@ -84,7 +84,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 				require(VMPATH_ADMIN . DS . 'models' . DS . 'custom.php');
 			}
 			$fieldTypes = tsmartModelCustom::getCustomTypes();
-			$model = VmModel::getModel('custom');
+			$model = tmsModel::getModel('custom');
 			$q = 'SELECT `tsmart_custom_id` FROM `#__tsmart_customs`
 			WHERE (`custom_parent_id`='.$id.') ';
 			$q .= 'order by `ordering` asc';
@@ -173,7 +173,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 			$status = vRequest::getvar('status');
 			$productShoppers=0;
 			if ($status) {
-				$productModel = VmModel::getModel('product');
+				$productModel = tmsModel::getModel('product');
 				$productShoppers = $productModel->getProductShoppersByStatus($product_id ,$status);
 			}
 			if(!class_exists('ShopFunctions'))require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');

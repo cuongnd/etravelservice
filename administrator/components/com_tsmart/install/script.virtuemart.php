@@ -48,9 +48,9 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			if(!class_exists('VmConfig')) require_once($this->path .'/helpers/config.php');
 			VmConfig::loadConfig(false,true);
 			if(!class_exists('tsmTable')) require_once($this->path .'/helpers/tsmtable.php');
-			if(!class_exists('VmModel')) require_once($this->path .'/helpers/tsmmodel.php');
+			if(!class_exists('tmsModel')) require_once($this->path .'/helpers/tsmmodel.php');
 			tsmTable::addIncludePath($this->path.DS.'tables');
-			VmModel::addIncludePath($this->path.DS.'models');
+			tmsModel::addIncludePath($this->path.DS.'models');
 
 		}
 
@@ -138,10 +138,10 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 
-			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
+			if(!class_exists('tmsModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
 
 			if(!class_exists('tsmartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
-			$model = VmModel::getModel('updatesmigration');
+			$model = tmsModel::getModel('updatesmigration');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install.sql');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install_essential_data.sql');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install_required_data.sql');
@@ -240,9 +240,9 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 
-			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
+			if(!class_exists('tmsModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
 			if(!class_exists('tsmartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
-			$model = VmModel::getModel('updatesmigration');
+			$model = tmsModel::getModel('updatesmigration');
 			//$model = new tsmartModelUpdatesMigration(); //JModel::getInstance('updatesmigration', 'tsmartModel');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install.sql');
 
@@ -509,7 +509,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 		private function checkUserfields(){
 
-			$model = VmModel::getModel('userfields');
+			$model = tmsModel::getModel('userfields');
 			$field = $model->getUserfield('customer_note','name');
 
 			$data = array ('type' => 'textarea'
@@ -797,7 +797,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			if ($type != 'uninstall') {
 				$this->loadVm();
 				//fix joomla BE menu
-				$model = VmModel::getModel('updatesmigration');
+				$model = tmsModel::getModel('updatesmigration');
 
 
 
@@ -807,7 +807,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 				if(!empty($res)){
 					vRequest::setVar(JSession::getFormToken(), '1');
-					$config = VmModel::getModel('config');
+					$config = tmsModel::getModel('config');
 
 					$config->setDangerousToolsOff();
 				}

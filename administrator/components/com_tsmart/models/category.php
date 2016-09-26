@@ -20,12 +20,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model for product categories
  */
-class tsmartModelCategory extends VmModel {
+class tsmartModelCategory extends tmsModel {
 
 	private $_category_tree;
 	public $_cleanCache = true ;
@@ -552,7 +552,7 @@ class tsmartModelCategory extends VmModel {
 		}
 
 		// Process the images
-		$mediaModel = VmModel::getModel('Media');
+		$mediaModel = tmsModel::getModel('Media');
 		$file_id = $mediaModel->storeMedia($data,'category');
 
 		$cache = JFactory::getCache();

@@ -2366,7 +2366,7 @@ XML;
         $doc->addLessStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.less');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.css');
 
-        $model = VmModel::getModel('country');
+        $model = tmsModel::getModel('country');
 
         $list_country = $model->getItemList();
         foreach ($list_country AS &$country) {

@@ -86,7 +86,7 @@ if(!class_exists('tsmTable')){
 }
 tsmTable::addIncludePath(VMPATH_ADMIN.DS.'tables');
 
-if (!class_exists ('VmModel')) {
+if (!class_exists ('tmsModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 

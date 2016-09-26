@@ -19,14 +19,14 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model for tsmart Customs Fields
  *
  * @package		tsmart
  */
-class tsmartModelCustom extends VmModel {
+class tsmartModelCustom extends tmsModel {
 
 
 	/**

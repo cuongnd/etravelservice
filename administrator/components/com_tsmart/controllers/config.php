@@ -49,7 +49,7 @@ class TsmartControllerConfig extends TsmController {
 	function save($data = 0){
 
 		vRequest::vmCheckToken();
-		$model = VmModel::getModel('config');
+		$model = tmsModel::getModel('config');
 
 		$data = vRequest::getPost();
 

@@ -39,8 +39,8 @@ class TsmartViewConfig extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
-		$usermodel = VmModel::getModel('user');
+		$model = tmsModel::getModel();
+		$usermodel = tmsModel::getModel('user');
 
 		JToolBarHelper::title( tsmText::_('com_tsmart_CONFIG') , 'head vm_config_48');
 
@@ -66,7 +66,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		$this->noimagelist = $model->getNoImageList();
 
-		$this->orderStatusModel= VmModel::getModel('orderstatus');
+		$this->orderStatusModel= tmsModel::getModel('orderstatus');
 
 		$this->os_Options = $this->osWoP_Options = $this->osDel_Options = $this->orderStatusModel->getOrderStatusNames();
 		$emptyOption = JHtml::_ ('select.option', -1, tsmText::_ ('com_tsmart_NONE'), 'order_status_code', 'order_status_name');
@@ -89,7 +89,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		$this->orderByFieldsProduct = $model->getProductFilterFields('browse_orderby_fields');
 
-		VmModel::getModel('category');
+		tmsModel::getModel('category');
 
 		foreach (tsmartModelCategory::$_validOrderingFields as $key => $field ) {
 			if($field=='c.category_shared') continue;

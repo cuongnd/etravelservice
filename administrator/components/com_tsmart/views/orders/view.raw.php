@@ -44,9 +44,9 @@ class TsmartViewOrders extends tsmViewAdmin {
 		if(!class_exists('vmPSPlugin')) require(VMPATH_PLUGINLIBS.DS.'vmpsplugin.php');
 
 		// Load addl models
-		$orderModel = VmModel::getModel();
-		$userFieldsModel = VmModel::getModel('userfields');
-		$productModel = VmModel::getModel('product');
+		$orderModel = tmsModel::getModel();
+		$userFieldsModel = tmsModel::getModel('userfields');
+		$productModel = tmsModel::getModel('product');
 
 		/* Get the data */
 

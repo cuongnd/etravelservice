@@ -39,7 +39,7 @@ class TsmartViewfaq extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$this->tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
 		$config = JFactory::getConfig();

@@ -41,7 +41,7 @@ class JFormFieldVmAcceptedCurrency extends JFormFieldList {
 		VmConfig::loadConfig();
 		VmConfig::loadJLang('com_tsmart', false);
 
-		$cModel = VmModel::getModel('currency');
+		$cModel = tmsModel::getModel('currency');
 		$values = $cModel->getVendorAcceptedCurrrenciesList();
 
 		$options[] = JHtml::_('select.option', 0, tsmText::_('com_tsmart_DEFAULT_VENDOR_CURRENCY'));

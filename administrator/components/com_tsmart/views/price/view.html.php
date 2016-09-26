@@ -39,9 +39,9 @@ class TsmartViewPrice extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 		$app=JFactory::getApplication();
-		$model_product=VmModel::getModel('product');
+		$model_product=tmsModel::getModel('product');
 		$input=$app->input;
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
@@ -71,7 +71,7 @@ class TsmartViewPrice extends tsmViewAdmin {
 
 			$model->setId($cid);
 			$this->price = $model->getPrice();
-			$model_product = VmModel::getModel('product');
+			$model_product = tmsModel::getModel('product');
 			$this->list_tour = $model_product->getProductListing();
 			$this->SetViewTitle('',$this->departure->departure_name);
 			$this->addStandardEditViewCommands();

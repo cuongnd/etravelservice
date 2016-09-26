@@ -42,7 +42,7 @@ class TsmartViewInventory extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		// Get the data
-		$model = VmModel::getModel('product');
+		$model = tmsModel::getModel('product');
 
 		// Create filter
 		$this->addStandardDefaultViewLists($model);

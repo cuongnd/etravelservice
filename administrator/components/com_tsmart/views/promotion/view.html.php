@@ -43,7 +43,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model_promotion_price = VmModel::getModel();
+		$model_promotion_price = tmsModel::getModel();
 		$app=JFactory::getApplication();
 		$input=$app->input;
 
@@ -66,7 +66,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 
 
 			$cid	= vRequest::getInt( 'cid' );
-			$model_product = VmModel::getModel('product');
+			$model_product = tmsModel::getModel('product');
 			$this->product=$model_product->getProduct($this->tsmart_product_id,false,false,false);
 			if($this->product->tour_methor=='tour_group')
 			{
@@ -85,7 +85,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 
 			$model_promotion_price->setId($cid);
 			$this->price = $model_promotion_price->get_promotion_price();
-			$model_product = VmModel::getModel('product');
+			$model_product = tmsModel::getModel('product');
 			$this->list_tour = $model_product->getProductListing();
 			$this->SetViewTitle('',$this->promotion->promotion_name);
 			$this->addStandardEditViewCommands();
@@ -96,7 +96,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
             $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
             $this->tsmart_product_id=$tsmart_product_id;
 
-            $model_product = VmModel::getModel('product');
+            $model_product = tmsModel::getModel('product');
 			$this->list_tour = $model_product->getItems();
 
             $this->product=$model_product->getItem($this->tsmart_product_id);
@@ -113,7 +113,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');
             $this->addStandardDefaultViewCommandspromotion();
-            $model_tourclass = VmModel::getModel('tourclass');
+            $model_tourclass = tmsModel::getModel('tourclass');
             $this->list_service_class_by_tour_id=$model_tourclass->getItems();
 
 			$this->promotion_prices = $model_promotion_price->get_list_promotion_price($tsmart_product_id);

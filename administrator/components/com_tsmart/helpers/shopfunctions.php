@@ -51,7 +51,7 @@ class ShopFunctions {
 			$cid = 'tsmart_shoppergroup_id';
 		}
 
-		$model = new VmModel();
+		$model = new tmsModel();
 		$table = $model->getTable($table);
 
 		if(!is_array($idList)){
@@ -151,7 +151,7 @@ class ShopFunctions {
 	static public function renderShopperGroupList ($shopperGroupId = 0, $multiple = TRUE,$name='tsmart_shoppergroup_id', $select_attribute='com_tsmart_DRDOWN_AVA2ALL' ) {
 		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
-		$shopperModel = VmModel::getModel ('shoppergroup');
+		$shopperModel = tmsModel::getModel ('shoppergroup');
 		$shoppergrps = $shopperModel->getShopperGroups (FALSE, TRUE);
 
 		$attrs = '';
@@ -180,7 +180,7 @@ class ShopFunctions {
 	 */
 	static public function renderManufacturerList ($manufacturerId = 0, $multiple = FALSE, $name = 'tsmart_manufacturer_id') {
 
-		$manufacturerModel = VmModel::getModel ('manufacturer');
+		$manufacturerModel = tmsModel::getModel ('manufacturer');
 		$manufacturers = $manufacturerModel->getManufacturers (FALSE, TRUE);
 		//$attrs = array('style'=>"width: 210px");
 		$attrs['class'] = 'width100';
@@ -580,7 +580,7 @@ class ShopFunctions {
 
 		$tsmart_vendor_id = 1;
 
-		$categoryModel = VmModel::getModel ('category');
+		$categoryModel = tmsModel::getModel ('category');
 		$level++;
 
 		$categoryModel->_noLimit = TRUE;
@@ -831,7 +831,7 @@ class ShopFunctions {
 	 */
 	static public function getEnumeratedCategories ($onlyPublished = TRUE, $withParentId = FALSE, $parentId = 0, $name = '', $attribs = '', $key = '', $text = '', $selected = NULL) {
 
-		$categoryModel = VmModel::getModel ('category');
+		$categoryModel = tmsModel::getModel ('category');
 
 		$categories = $categoryModel->getCategories ($onlyPublished, $parentId);
 

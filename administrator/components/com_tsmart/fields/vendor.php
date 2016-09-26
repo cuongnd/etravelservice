@@ -38,7 +38,7 @@ class JFormFieldVendor extends JFormField {
 		VmConfig::loadJLang('com_tsmart');
 		$key = ($this->element['key_field'] ? $this->element['key_field'] : 'value');
 		$val = ($this->element['value_field'] ? $this->element['value_field'] : $this->name);
-		$model = VmModel::getModel('vendor');
+		$model = tmsModel::getModel('vendor');
 
 		$vendors = $model->getVendors(true, true, false);
 		return JHtml::_('select.genericlist', $vendors, $this->name, 'class="inputbox"  size="1"', 'tsmart_vendor_id', 'vendor_name', $this->value, $this->id);

@@ -40,7 +40,7 @@ class TsmartViewMedia extends tsmViewAdmin {
 		if ($tsmart_media_id = vRequest::getInt('tsmart_media_id')) {
 			//JResponse::setHeader( 'Content-Disposition', 'attachment; filename="media'.$tsmart_media_id.'.json"' );
 
-			$model = VmModel::getModel('Media');
+			$model = tmsModel::getModel('Media');
 			$image = $model->createMediaByIds($tsmart_media_id);
 // 			echo '<pre>'.print_r($image,1).'</pre>';
 			$this->json = $image[0];

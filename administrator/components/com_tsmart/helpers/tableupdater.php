@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
  * @author Milbo
  *
  */
-if(!class_exists('VmModel')) require VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php';
+if(!class_exists('tmsModel')) require VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php';
 
-class GenericTableUpdater extends VmModel{
+class GenericTableUpdater extends tmsModel{
 
 	public function __construct(){
 

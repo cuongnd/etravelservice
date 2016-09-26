@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 // Hardcoded groupID of the Super Admin
 define('__SUPER_ADMIN_GID', 25);
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
+if (!class_exists('tmsModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 
 /**
@@ -35,7 +35,7 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
  * @author    RickG
  * @author Max Milbers
  */
-class tsmartModelUser extends VmModel
+class tsmartModelUser extends tmsModel
 {
 
 
@@ -129,7 +129,7 @@ class tsmartModelUser extends VmModel
      */
     function getVendor($vendorId = 1, $return = TRUE)
     {
-        $vendorModel = VmModel::getModel('vendor');
+        $vendorModel = tmsModel::getModel('vendor');
         $userId = tsmartModelVendor::getUserIdByVendorId($vendorId);
         if ($userId) {
             $this->setUserId($userId);
@@ -166,7 +166,7 @@ class tsmartModelUser extends VmModel
 
         $site = JFactory::getApplication()->isSite();
         if ($site) {
-            $shoppergroupmodel = VmModel::getModel('ShopperGroup');
+            $shoppergroupmodel = tmsModel::getModel('ShopperGroup');
             $shoppergroupmodel->appendShopperGroups($this->_data->shopper_groups, $this->_data->JUser, $site);
         }
 
@@ -200,7 +200,7 @@ class tsmartModelUser extends VmModel
         // 		vmdebug('user_is_vendor ?',$this->_data->user_is_vendor);
         if ($this->_data->user_is_vendor) {
 
-            $vendorModel = VmModel::getModel('vendor');
+            $vendorModel = tmsModel::getModel('vendor');
             if (Vmconfig::get('multix', 'none') == 'none') {
                 $this->_data->tsmart_vendor_id = 1;
                 //vmdebug('user model, single vendor',$this->_data->tsmart_vendor_id);
@@ -958,7 +958,7 @@ class tsmartModelUser extends VmModel
         }
 
         if (vmAccess::manager()) {
-            $shoppergroupmodel = VmModel::getModel('ShopperGroup');
+            $shoppergroupmodel = tmsModel::getModel('ShopperGroup');
             if (empty($this->_defaultShopperGroup)) {
                 $this->_defaultShopperGroup = $shoppergroupmodel->getDefault(0);
             }
@@ -1010,7 +1010,7 @@ class tsmartModelUser extends VmModel
 
         if ($data['user_is_vendor']) {
 
-            $vendorModel = VmModel::getModel('vendor');
+            $vendorModel = tmsModel::getModel('vendor');
 
             //TODO Attention this is set now to tsmart_vendor_id=1 in single vendor mode, because using a vendor with different id then 1 is not completly supported and can lead to bugs
             //So we disable the possibility to store vendors not with tsmart_vendor_id = 1
@@ -1169,7 +1169,7 @@ class tsmartModelUser extends VmModel
 
         if (!class_exists('tsmartModelUserfields'))
             require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
-        $userFieldsModel = VmModel::getModel('userfields');
+        $userFieldsModel = tmsModel::getModel('userfields');
 
         if ($type == 'BT') {
             $fieldtype = 'account';
@@ -1252,7 +1252,7 @@ class tsmartModelUser extends VmModel
     function _prepareUserFields(&$data, $type, $userinfo = 0)
     {
         if (!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
-        $userFieldsModel = VmModel::getModel('userfields');
+        $userFieldsModel = tmsModel::getModel('userfields');
 
         if ($type == 'ST') {
             $prepareUserFields = $userFieldsModel->getUserFields(
@@ -1317,7 +1317,7 @@ class tsmartModelUser extends VmModel
 
         // 		if(!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php' );
         // 		$userFieldsModel = new tsmartModelUserfields();
-        $userFieldsModel = VmModel::getModel('userfields');
+        $userFieldsModel = tmsModel::getModel('userfields');
         $prepareUserFields = $userFieldsModel->getUserFieldsFor($layoutName, $type);
 
         if ($type == 'ST') {
@@ -1439,7 +1439,7 @@ class tsmartModelUser extends VmModel
     {
 
         if (!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
-        $userFieldsModel = VmModel::getModel('userfields');
+        $userFieldsModel = tmsModel::getModel('userfields');
 
         $prepareUserFields = $userFieldsModel->getUserFields(
             $type,

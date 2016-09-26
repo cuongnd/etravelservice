@@ -36,7 +36,7 @@ class TsmartViewCalc extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = VmModel::getModel('calc');
+		$model = tmsModel::getModel('calc');
 
 		//@todo should be depended by loggedVendor
 		$this->vendorId = vmAccess::getVendorId();
@@ -79,7 +79,7 @@ class TsmartViewCalc extends tsmViewAdmin {
 			$calc_categories = $calc->calc_categories;
 			$this->categoryTree = ShopFunctions::categoryListTree($calc_categories);
 
-			$currencyModel = VmModel::getModel('currency');
+			$currencyModel = tmsModel::getModel('currency');
 			$this->currencies = $currencyModel->getCurrencies();
 
 			$this->shopperGroupList= ShopFunctions::renderShopperGroupList($calc->tsmart_shoppergroup_ids,True);

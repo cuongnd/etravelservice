@@ -37,7 +37,7 @@ class TsmartViewState extends tsmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$this->SetViewTitle();
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$this->state = $model->getItem();
 
@@ -50,14 +50,14 @@ class TsmartViewState extends tsmViewAdmin {
 			return false;
 		}
 
-		$country = VmModel::getModel('country');
+		$country = tmsModel::getModel('country');
 		$country->setId($this->tsmart_country_id);
 		$this->country_name = $country->getData()->country_name;
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
 
-			$zoneModel = VmModel::getModel('Worldzones');
+			$zoneModel = tmsModel::getModel('Worldzones');
 			$this->worldZones = $zoneModel->getWorldZonesSelectList();
 			$this->addStandardEditViewCommands();
 
