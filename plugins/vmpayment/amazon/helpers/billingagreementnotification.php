@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: billingagreementnotification.php 8316 2014-09-22 15:24:16Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *

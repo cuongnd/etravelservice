@@ -13,7 +13,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 defined('_JEXEC') or die();
@@ -30,7 +30,7 @@ if (!class_exists( 'VmConfig' )) {
 		return false;
 	}
 }
-if(!class_exists('vmText')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'vmtext.php');
+if(!class_exists('tsmText')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'tsmtext.php');
 
 $task = vRequest::getCmd('task');
 if($task=='updateDatabase'){
@@ -38,10 +38,10 @@ if($task=='updateDatabase'){
 	$app = JFactory::getApplication();
 
 
-		if(!class_exists('com_virtuemart_allinoneInstallerScript')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart_allinone'.DS.'script.vmallinone.php');
+		if(!class_exists('com_virtuemart_allinoneInstallerScript')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart_allinone'.DS.'script.vmallinone.php');
 		$updater = new com_virtuemart_allinoneInstallerScript();
 		$updater->vmInstall();
-		$app->redirect('index.php?option=com_virtuemart_allinone', 'Database updated');
+		$app->redirect('index.php?option=com_tsmart_allinone', 'Database updated');
 
 }
 
@@ -71,11 +71,11 @@ function confirmation(message, destnUrl) {
 				VmConfig::loadJLang('com_virtuemart');
 
 				?>
-				<?php $link = JROUTE::_('index.php?option=com_virtuemart_allinone&task=updateDatabase&' . JSession::getFormToken() . '=1'); ?>
+				<?php $link = JROUTE::_('index.php?option=com_tsmart_allinone&task=updateDatabase&' . JSession::getFormToken() . '=1'); ?>
 				<button
-					onclick="javascript:confirmation('<?php echo addslashes(vmText::_('COM_VIRTUEMART_UPDATE_VMPLUGINTABLES')); ?>', '<?php echo $link; ?>');">
+					onclick="javascript:confirmation('<?php echo addslashes(tsmText::_('COM_VIRTUEMART_UPDATE_VMPLUGINTABLES')); ?>', '<?php echo $link; ?>');">
 
-					<?php echo vmText::_('COM_VIRTUEMART_UPDATE_VMPLUGINTABLES'); ?>
+					<?php echo tsmText::_('COM_VIRTUEMART_UPDATE_VMPLUGINTABLES'); ?>
 				</button>
 			</td>
 		</tr>

@@ -7,7 +7,7 @@
  * @subpackage
  * @author Max Milbers
  * @todo handle child products
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -76,15 +76,15 @@ if (!VmConfig::get('use_as_catalog', 0)  ) { ?>
 	// Display the quantity box
 	$stockhandle = VmConfig::get ('stockhandle', 'none');
 	if (($stockhandle == 'disableit' or $stockhandle == 'disableadd') and ($product->product_in_stock - $product->product_ordered) < 1) { ?>
-		<a href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $product->virtuemart_product_id); ?>" class="notify"><?php echo vmText::_ ('COM_VIRTUEMART_CART_NOTIFY') ?></a><?php
+		<a href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $product->virtuemart_product_id); ?>" class="notify"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NOTIFY') ?></a><?php
 	} else {
 		$tmpPrice = (float) $product->prices['costPrice'];
 		if (!( VmConfig::get('askprice', true) and empty($tmpPrice) ) ) { ?>
 			<?php if ($product->orderable) { ?>
-				<!-- <label for="quantity<?php echo $product->virtuemart_product_id; ?>" class="quantity_box"><?php echo vmText::_ ('COM_VIRTUEMART_CART_QUANTITY'); ?>: </label> -->
+				<!-- <label for="quantity<?php echo $product->virtuemart_product_id; ?>" class="quantity_box"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY'); ?>: </label> -->
 				<span class="quantity-box">
 				<input type="text" class="quantity-input js-recalculate" name="quantity[]"
-					data-errStr="<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>"
+					data-errStr="<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>"
 					value="<?php echo $init; ?>" init="<?php echo $init; ?>" step="<?php echo $step; ?>" <?php echo $maxOrder; ?> />
 			</span>
 				<span class="quantity-controls js-recalculate">

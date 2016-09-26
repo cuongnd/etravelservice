@@ -6,13 +6,13 @@
 	border="0"
 	width="100%">
 <tr>
-	<th class="vm-cart-item-name" ><?php echo vmText::_ ('COM_VIRTUEMART_CART_NAME') ?></th>
-	<th class="vm-cart-item-sku" ><?php echo vmText::_ ('COM_VIRTUEMART_CART_SKU') ?></th>
-	<th	class="vm-cart-item-basicprice" ><?php echo vmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
-	<th	class="vm-cart-item-quantity" ><?php echo vmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?></th>
+	<th class="vm-cart-item-name" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NAME') ?></th>
+	<th class="vm-cart-item-sku" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_SKU') ?></th>
+	<th	class="vm-cart-item-basicprice" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
+	<th	class="vm-cart-item-quantity" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?></th>
 
 	<?php if (VmConfig::get ('show_tax')) {
-		$tax = vmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
+		$tax = tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
 		if(!empty($this->cart->cartData['VatTax'])){
 			if(count($this->cart->cartData['VatTax']) < 2) {
 				reset($this->cart->cartData['VatTax']);
@@ -23,8 +23,8 @@
 		?>
 	<th class="vm-cart-item-tax" ><?php echo "<span  class='priceColor2'>" . $tax . '</span>' ?></th>
 	<?php } ?>
-	<th class="vm-cart-item-discount" ><?php echo "<span  class='priceColor2'>" . vmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
-	<th class="vm-cart-item-total" ><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?></th>
+	<th class="vm-cart-item-discount" ><?php echo "<span  class='priceColor2'>" . tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
+	<th class="vm-cart-item-total" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?></th>
 </tr>
 
 <?php
@@ -75,15 +75,15 @@ foreach ($this->cart->products as $pkey => $prow) {
 					$step=1;
 				?>
 		   <input type="text"
-				   onblur="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				   onclick="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				   onchange="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				   onsubmit="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				   title="<?php echo  vmText::_('COM_VIRTUEMART_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
+				  onblur="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
+				  onclick="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
+				  onchange="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
+				  onsubmit="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
+				  title="<?php echo  tsmText::_('COM_VIRTUEMART_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
 
-			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  vmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" ></button>
+			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  tsmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" ></button>
 
-			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" ></button>
+			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" ></button>
 	</td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
@@ -117,7 +117,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 	</td>
 </tr>
 <tr class="sectiontableentry1">
-	<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $this->cart->cartPrices, FALSE, false, true) . "</span>" ?></td>
@@ -229,7 +229,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 	<?php if (!$this->cart->automaticSelectedShipment) { ?>
 		<td colspan="4" style="align:left;vertical-align:top;">
 			<?php
-				echo '<h3>'.vmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h3>';
+				echo '<h3>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h3>';
 				echo $this->cart->cartData['shipmentName'].'<br/>';
 
 		if (!empty($this->layoutName) and $this->layoutName == 'default') {
@@ -241,13 +241,13 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 				echo JHtml::_('link', JRoute::_('index.php?option=com_virtuemart&view=cart&task=edit_shipment', $this->useXHTML, $this->useSSL), $this->select_shipment_text, 'class=""');
 			}
 		} else {
-			echo vmText::_ ('COM_VIRTUEMART_CART_SHIPPING');
+			echo tsmText::_ ('COM_VIRTUEMART_CART_SHIPPING');
 		}
 		echo '</td>';
 	} else {
 	?>
 	<td colspan="4" style="align:left;vertical-align:top;">
-		<?php echo '<h4>'.vmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h4>'; ?>
+		<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h4>'; ?>
 		<?php echo $this->cart->cartData['shipmentName']; ?>
 	</td>
 	<?php } ?>
@@ -269,7 +269,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 	<?php if (!$this->cart->automaticSelectedPayment) { ?>
 		<td colspan="4" style="align:left;vertical-align:top;">
 			<?php
-				echo '<h3>'.vmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h3>';
+				echo '<h3>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h3>';
 				echo $this->cart->cartData['paymentName'].'<br/>';
 
 		if (!empty($this->layoutName) && $this->layoutName == 'default') {
@@ -281,12 +281,12 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 				echo JHtml::_('link', JRoute::_('index.php?option=com_virtuemart&view=cart&task=editpayment', $this->useXHTML, $this->useSSL), $this->select_payment_text, 'class=""');
 			}
 		} else {
-		echo vmText::_ ('COM_VIRTUEMART_CART_PAYMENT');
+		echo tsmText::_ ('COM_VIRTUEMART_CART_PAYMENT');
 	} ?> </td>
 
 	<?php } else { ?>
 		<td colspan="4" style="align:left;vertical-align:top;" >
-			<?php echo '<h4>'.vmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
+			<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
 			<?php echo $this->cart->cartData['paymentName']; ?> </td>
 	<?php } ?>
 	<?php if (VmConfig::get ('show_tax')) { ?>
@@ -303,7 +303,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 	</td>
 </tr>
 <tr class="sectiontableentry2">
-	<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
 	<td align="right"> <?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('billTaxAmount', '', $this->cart->cartPrices['billTaxAmount'], FALSE) . "</span>" ?> </td>
@@ -316,7 +316,7 @@ if ($this->totalInPaymentCurrency) {
 ?>
 
 <tr class="sectiontableentry2">
-	<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
@@ -334,7 +334,7 @@ if(!empty($this->cart->cartData)){
 		if (!VmConfig::get ('show_tax') or $c>1) {
 			if($c>0){
 				?><tr class="sectiontableentry2">
-				<td colspan="5" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_TOTAL_INCL_TAX') ?></td>
+				<td colspan="5" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_TOTAL_INCL_TAX') ?></td>
 
 				<?php if (VmConfig::get ('show_tax')) { ?>
 					<td ></td>

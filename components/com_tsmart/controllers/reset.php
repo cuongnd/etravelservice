@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -28,7 +28,7 @@ class VirtueMartControllerreset extends JControllerLegacy {
     public function reset_password(){
         $input=JFactory::getApplication()->input;
         $data=$input->getArray();
-        $user_model=VmModel::getModel('user');
+        $user_model=tmsModel::getModel('user');
         if($user_model->reset_password($data,false)){
             $go_to=$data['go_to'];
             if($go_to=='last_booking')

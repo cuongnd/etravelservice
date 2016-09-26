@@ -61,7 +61,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 			$this->recurse_copy ($src, $dst);
 
 			echo '<a
-					href="http://virtuemart.net"
+					href="http://tsmart.net"
 					target="_blank"> <img
 						border="0"
 						align="left" style="margin-right: 20px"

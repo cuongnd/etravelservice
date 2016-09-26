@@ -7,7 +7,7 @@ defined('_JEXEC') or die('');
  * @subpackage product details
  * @author Seyi
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -20,13 +20,13 @@ defined('_JEXEC') or die('');
 echo str_replace( "<br />", "\n",$this->vendorAddress);
 echo "\n";
 echo "\n";
-echo vmText::sprintf ('COM_VIRTUEMART_MAIL_SHOPPER_NAME', $this->user->name);
+echo tsmText::sprintf ('COM_VIRTUEMART_MAIL_SHOPPER_NAME', $this->user->name);
 echo "\n";
 echo "\n";
 if(!empty($this->mailbody)) {
 	echo $this->mailbody;
 } else {
-	echo str_replace( "<br />", "\n", vmText::sprintf('COM_VIRTUEMART_CART_NOTIFY_MAIL_RAW', $this->productName,$this->link) );
+	echo str_replace( "<br />", "\n", tsmText::sprintf('COM_VIRTUEMART_CART_NOTIFY_MAIL_RAW', $this->productName,$this->link) );
 }
 
 echo "\n";
@@ -38,7 +38,7 @@ $link= JHtml::_('link', $link, $this->vendor->vendor_name) ;
 
 //	echo vmText::_('COM_VIRTUEMART_MAIL_VENDOR_TITLE').$this->vendor->vendor_name.'<br/>';
 /* GENERAL FOOTER FOR ALL MAILS */
-echo vmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . $link;
+echo tsmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . $link;
 echo "\n";
 echo $this->vendor->vendor_name ."\n".$this->vendor->vendor_phone .' '.$this->vendor->vendor_store_name ."\n".strip_tags($this->vendor->vendor_store_desc)."\n".str_replace('<br />',"\n",$this->vendor->vendor_legal_info);
 

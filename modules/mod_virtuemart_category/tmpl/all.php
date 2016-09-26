@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 	foreach ($category->childs as $child) {
 
 		$caturl = JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$child->virtuemart_category_id);
-		$cattext = vmText::_($child->category_name);
+		$cattext = tsmText::_($child->category_name);
 		?>
 <li>
 	<div ><?php echo JHTML::link($caturl, $cattext); ?></div>

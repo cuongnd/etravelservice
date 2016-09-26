@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -48,8 +48,8 @@ class RealexHelperCustomerData {
 		*/
 		$session = JFactory::getSession();
 		$sessionData = $session->get(self::REALEX_SESSION, 0, 'vm');
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		if (!empty($sessionData)) {
 			$data =   (object)json_decode($sessionData, true);

@@ -14,6 +14,6 @@
 ?>
 <!-- KLARNA BOX -->
 <div class="klarna_box_login">
-  <a href="<?php echo $viewData['editpayment_link']  ?>"><?php echo vmText::_('VMPAYMENT_KLARNA_SWE_EDIT_PAYMENT') ?> </a>
+  <a href="<?php echo $viewData['editpayment_link']  ?>"><?php echo tsmText::_('VMPAYMENT_KLARNA_SWE_EDIT_PAYMENT') ?> </a>
 </div>
 <!-- END KLARNA BOX LOGIN -->

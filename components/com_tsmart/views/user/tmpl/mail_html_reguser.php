@@ -7,7 +7,7 @@ defined('_JEXEC') or die('');
  * @subpackage User
  * @author Max Milbers
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -46,11 +46,11 @@ $li = '<br />';
 			    <tr>
 				<td >
 
-				    <?php echo vmText::sprintf('COM_VIRTUEMART_WELCOME_USER', $this->user->name); ?>
+				    <?php echo tsmText::sprintf('COM_VIRTUEMART_WELCOME_USER', $this->user->name); ?>
 				    <br />
 				    <?php
 				    if (!empty($this->activationLink)) {
-					$activationLink = '<a class="default" href="' . JURI::root() . $this->activationLink . '">' . vmText::_('COM_VIRTUEMART_LINK_ACTIVATE_ACCOUNT') . '</a>';
+					$activationLink = '<a class="default" href="' . JURI::root() . $this->activationLink . '">' . tsmText::_('COM_VIRTUEMART_LINK_ACTIVATE_ACCOUNT') . '</a>';
 					echo $li;
 					echo $activationLink . $li;
 				    }
@@ -62,19 +62,19 @@ $li = '<br />';
 			<table class="html-email" cellspacing="0" cellpadding="0" border="0" width="100%">
 			    <tr>
 				<th width="100%">
-				    <?php echo vmText::_('COM_VIRTUEMART_SHOPPER_REGISTRATION_DATA') ?>
+				    <?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_REGISTRATION_DATA') ?>
 				</th>
 
 			    </tr>
 			    <tr>
 				<td valign="top" width="100%">
 				    <?php
-				    echo vmText::_('COM_VIRTUEMART_YOUR_LOGINAME')   . $this->user->username . $li;
-				    echo vmText::_('COM_VIRTUEMART_YOUR_DISPLAYED_NAME')   . $this->user->name . $li;
+				    echo tsmText::_('COM_VIRTUEMART_YOUR_LOGINAME')   . $this->user->username . $li;
+				    echo tsmText::_('COM_VIRTUEMART_YOUR_DISPLAYED_NAME')   . $this->user->name . $li;
 				    if ($this->password) {
-					    echo vmText::_('COM_VIRTUEMART_YOUR_PASSWORD')  . $this->password . $li;
+					    echo tsmText::_('COM_VIRTUEMART_YOUR_PASSWORD')  . $this->password . $li;
 				    }
-				    echo $li.vmText::_('COM_VIRTUEMART_YOUR_ADDRESS')  . $li;
+				    echo $li.tsmText::_('COM_VIRTUEMART_YOUR_ADDRESS')  . $li;
 
 				    foreach ($this->userFields['fields'] as $userField) {
 					if (!empty($userField['value']) && $userField['type'] != 'delimiter' && $userField['type'] != 'BT' && $userField['type'] != 'hidden') {					    echo $userField['title'] . ': ' . $userField['value'] . $li;

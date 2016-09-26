@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -58,7 +58,7 @@ class PaypalHelperPaypal {
 		$this->_method = $method;
 		$this->paypalPlugin = $paypalPlugin;
 		//Set the vendor
-		$vendorModel = VmModel::getModel('Vendor');
+		$vendorModel = tmsModel::getModel('Vendor');
 		$vendorModel->setId($this->_method->virtuemart_vendor_id);
 		$vendor = $vendorModel->getVendor();
 		$vendorModel->addImages($vendor, 1);
@@ -330,7 +330,7 @@ class PaypalHelperPaypal {
 		if ($this->_method->payment_type == '_xclick-auto-billing' && $this->customerData->getVar('autobilling_max_amount')) {
 			$cd = CurrencyDisplay::getInstance($this->_method->payment_currency);
 			$extraInfo .= '<br/>';
-			$extraInfo .= vmText::_('VMPAYMENT_PAYPAL_PAYMENT_BILLING_MAX_AMOUNT') . ': ' . $cd->priceDisplay($this->customerData->getVar('autobilling_max_amount'));
+			$extraInfo .= tsmText::_('VMPAYMENT_PAYPAL_PAYMENT_BILLING_MAX_AMOUNT') . ': ' . $cd->priceDisplay($this->customerData->getVar('autobilling_max_amount'));
 		}
 		if ($this->_method->payment_type == '_xclick-subscriptions') {
 			$extraInfo .= '<br /><span class="vmpayment_cardinfo">';
@@ -353,7 +353,7 @@ class PaypalHelperPaypal {
 
 	public function getLogoImage () {
 		if ($this->_method->logoimg) {
-			return JURI::base() . '/images/stories/virtuemart/payment/' . $this->_method->logoimg;
+			return JURI::base() . '/images/stories/tsmart/payment/' . $this->_method->logoimg;
 		} else {
 			return JURI::base() . $this->vendor->images[0]->file_url;
 		}
@@ -371,7 +371,7 @@ class PaypalHelperPaypal {
 
 		$durationValue = $this->getDurationValue($this->_method->subscription_duration);
 		$durationUnit = $this->getDurationUnit($this->_method->subscription_duration);
-		$recurringDesc = vmText::sprintf('VMPAYMENT_PAYPAL_SUBSCRIPTION_DESCRIPTION', $durationValue, $durationUnit, $this->_method->subscription_term);
+		$recurringDesc = tsmText::sprintf('VMPAYMENT_PAYPAL_SUBSCRIPTION_DESCRIPTION', $durationValue, $durationUnit, $this->_method->subscription_term);
 		return $recurringDesc;
 	}
 
@@ -386,16 +386,16 @@ class PaypalHelperPaypal {
 
 		$durationValue = $this->getDurationValue($this->_method->payment_plan_duration);
 		$durationUnit = $this->getDurationUnit($this->_method->payment_plan_duration);
-		$recurringDesc = vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_DESCRIPTION', $this->_method->payment_plan_term, $durationValue, $durationUnit);
+		$recurringDesc = tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_DESCRIPTION', $this->_method->payment_plan_term, $durationValue, $durationUnit);
 		if ($this->_method->payment_plan_defer && $this->_method->paypalproduct == 'std') {
 			$defer_duration = $this->getDurationValue($this->_method->payment_plan_defer_duration);
 			$defer_unit = $this->getDurationUnit($this->_method->payment_plan_defer_duration);
 			$startDate = JFactory::getDate('+' . $defer_duration . ' ' . $defer_unit);
-			$recurringDesc .= '<br/>' . vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_INITIAL_PAYMENT', JHTML::_('date', $startDate->toFormat(), vmText::_('DATE_FORMAT_LC4')));
+			$recurringDesc .= '<br/>' . tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_INITIAL_PAYMENT', JHTML::_('date', $startDate->toFormat(), tsmText::_('DATE_FORMAT_LC4')));
 		} else {
 			if ($this->_method->payment_plan_defer_strtotime) {
 				$startDate = JFactory::getDate($this->_method->payment_plan_defer_strtotime);
-				$recurringDesc .= '<br/>' . vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_INITIAL_PAYMENT', JHTML::_('date', $startDate->toFormat(), vmText::_('DATE_FORMAT_LC4')));
+				$recurringDesc .= '<br/>' . tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_INITIAL_PAYMENT', JHTML::_('date', $startDate->toFormat(), tsmText::_('DATE_FORMAT_LC4')));
 				//$recurringDesc .= '<br/>'.vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_PLAN_INITIAL_PAYMENT',date(vmText::_('DATE_FORMAT_LC4'),strtotime('first day of next month')));
 			}
 		}
@@ -471,7 +471,7 @@ class PaypalHelperPaypal {
 				} else {
 					$order_history['order_status'] = $this->_method->status_success;
 				}
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_CONFIRMED', $this->order['details']['BT']->order_number);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_CONFIRMED', $this->order['details']['BT']->order_number);
 
 			} elseif (strcmp($paypal_data['payment_status'], 'Pending') == 0) {
 				$lang = JFactory::getLanguage();
@@ -479,15 +479,15 @@ class PaypalHelperPaypal {
 				if (!$lang->hasKey($key)) {
 					$key = 'VMPAYMENT_PAYPAL_PENDING_REASON_FE_DEFAULT';
 				}
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_PENDING', $this->order['details']['BT']->order_number) . vmText::_($key);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_PENDING', $this->order['details']['BT']->order_number) . tsmText::_($key);
 				$order_history['order_status'] = $this->_method->status_pending;
 
 			} elseif (strcmp($paypal_data['payment_status'], 'Refunded') == 0) {
 				if ($this->_is_full_refund($payments, $paypal_data)) {
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_REFUNDED', $this->order['details']['BT']->order_number);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_REFUNDED', $this->order['details']['BT']->order_number);
 					$order_history['order_status'] = $this->_method->status_refunded;
 				} else {
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_PARTIAL_REFUNDED', $this->order['details']['BT']->order_number);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_PAYPAL_PAYMENT_STATUS_PARTIAL_REFUNDED', $this->order['details']['BT']->order_number);
 					$order_history['order_status'] = isset($this->_method->status_partial_refunded) ? $this->_method->status_partial_refunded : 'R';
 				}
 			} elseif (strcmp($paypal_data['payment_status'], 'Denied') == 0) {
@@ -501,7 +501,7 @@ class PaypalHelperPaypal {
 				* but the IPN notification has no $paypal_data['payment_status']
 				* We just log the info in the order, and do not change the status, do not notify the customer
 				*/
-				$order_history['comments'] = vmText::_('VMPAYMENT_PAYPAL_IPN_NOTIFICATION_RECEIVED');
+				$order_history['comments'] = tsmText::_('VMPAYMENT_PAYPAL_IPN_NOTIFICATION_RECEIVED');
 				$order_history['customer_notified'] = 0;
 			}
 		}
@@ -663,7 +663,7 @@ class PaypalHelperPaypal {
 
 	/**
 	 * Get IP address in environment with reverse proxy (squid, ngnix, varnish,....)
-	 * http://forum.virtuemart.net/index.php?topic=124934.msg427325#msg427325
+	 * http://forum.tsmart.net/index.php?topic=124934.msg427325#msg427325
 	 * http://blackbe.lt/advanced-method-to-obtain-the-client-ip-in-php/
 	 * @return mixed
 	 */
@@ -732,7 +732,7 @@ class PaypalHelperPaypal {
 		$fps = fsockopen($paypal_url, $port, $errno, $errstr, 30);
 		$valid_ipn = false;
 		if (!$fps) {
-			$this->debugLog(vmText::sprintf('VMPAYMENT_PAYPAL_ERROR_POSTING_IPN', $errstr, $errno), 'validateIpnContent', 'error', false);
+			$this->debugLog(tsmText::sprintf('VMPAYMENT_PAYPAL_ERROR_POSTING_IPN', $errstr, $errno), 'validateIpnContent', 'error', false);
 		} else {
 			$return = fputs($fps, $header . $post_msg);
 			if ($return === false) {
@@ -750,9 +750,9 @@ class PaypalHelperPaypal {
 			if (!$valid_ipn) {
 				if (strstr($res, "INVALID")) {
 					$errorInfo = array("paypal_data" => $paypal_data, 'post_msg' => $post_msg, 'paypal_res' => $res);
-					$this->debugLog($errorInfo, vmText::_('VMPAYMENT_PAYPAL_ERROR_IPN_VALIDATION'), 'error', false);
+					$this->debugLog($errorInfo, tsmText::_('VMPAYMENT_PAYPAL_ERROR_IPN_VALIDATION'), 'error', false);
 				} else {
-					$this->debugLog(vmText::_('VMPAYMENT_PAYPAL_ERROR_IPN_VALIDATION') . ": NO ANSWER FROM PAYPAL", 'validateIpnContent', 'error', false);
+					$this->debugLog(tsmText::_('VMPAYMENT_PAYPAL_ERROR_IPN_VALIDATION') . ": NO ANSWER FROM PAYPAL", 'validateIpnContent', 'error', false);
 				}
 			}
 		}

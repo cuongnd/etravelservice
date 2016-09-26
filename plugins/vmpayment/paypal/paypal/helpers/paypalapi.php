@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -48,7 +48,7 @@ class PaypalHelperPayPalApi extends PaypalHelperPaypal {
 		}
 
 		if (empty($this->api_login_id) || empty($this->api_signature) || empty($this->api_password)) {
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text, $text);
 		}
 	}
@@ -197,7 +197,7 @@ class PaypalHelperPayPalApi extends PaypalHelperPaypal {
 
 		// Handling Coupon (handling must be positive value, add then coupon as a product with negative value
 		if (!empty($this->cart->cartPrices['salesPriceCoupon'])) {
-			$post_variables["L_NAME" . $i] = vmText::_('COM_VIRTUEMART_COUPON_DISCOUNT') . ': ' . $this->cart->couponCode;
+			$post_variables["L_NAME" . $i] = tsmText::_('COM_VIRTUEMART_COUPON_DISCOUNT') . ': ' . $this->cart->couponCode;
 			$post_variables["L_AMT" . $i] = vmPSPlugin::getAmountValueInCurrency($this->cart->cartPrices['salesPriceCoupon'], $this->_method->payment_currency);
 			$post_variables["L_QTY" . $i] = 1;
 			$ITEMAMT += $post_variables["L_AMT" . $i] * $post_variables["L_QTY" . $i];
@@ -206,7 +206,7 @@ class PaypalHelperPayPalApi extends PaypalHelperPaypal {
 
 		if ($this->cart->cartPrices['paymentValue']) {
 			$paymentValue = vmPSPlugin::getAmountValueInCurrency($this->cart->cartPrices['paymentValue'], $this->_method->payment_currency);
-			$post_variables["L_NAME" . $i] = vmText::_('COM_VIRTUEMART_PAYMENT');
+			$post_variables["L_NAME" . $i] = tsmText::_('COM_VIRTUEMART_PAYMENT');
 			$post_variables["L_AMT" . $i] = $paymentValue;
 			$post_variables["L_TAXAMT" . $i] = vmPSPlugin::getAmountValueInCurrency($this->cart->cartPrices['paymentTax'], $this->_method->payment_currency); // Item sales tax
 			$post_variables["L_QTY" . $i] = 1;
@@ -462,7 +462,7 @@ class PaypalHelperPayPalApi extends PaypalHelperPaypal {
 		}
 		if (!$cc_valid) {
 			foreach ($errormessages as $msg) {
-				$html .= vmText::_($msg) . "<br/>";
+				$html .= tsmText::_($msg) . "<br/>";
 			}
 		}
 		if (!$cc_valid && $enqueueMessage) {
@@ -483,10 +483,10 @@ class PaypalHelperPayPalApi extends PaypalHelperPaypal {
 		//if ($this->customerData->getVar('cc_number') && $this->validate()) {
 		if ($this->customerData->getVar('cc_number')) {
 			$cc_number = "**** **** **** " . substr($this->customerData->getVar('cc_number'), -4);
-			$creditCardInfos = '<br /><span class="vmpayment_cardinfo">' . vmText::_('VMPAYMENT_PAYPAL_CC_CCTYPE') . $this->customerData->getVar('cc_type') . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_PAYPAL_CC_CCNUM') . $cc_number . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_PAYPAL_CC_CVV2') . '****' . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_PAYPAL_CC_EXDATE') . $this->customerData->getVar('cc_expire_month') . '/' . $this->customerData->getVar('cc_expire_year');
+			$creditCardInfos = '<br /><span class="vmpayment_cardinfo">' . tsmText::_('VMPAYMENT_PAYPAL_CC_CCTYPE') . $this->customerData->getVar('cc_type') . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_PAYPAL_CC_CCNUM') . $cc_number . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_PAYPAL_CC_CVV2') . '****' . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_PAYPAL_CC_EXDATE') . $this->customerData->getVar('cc_expire_month') . '/' . $this->customerData->getVar('cc_expire_year');
 			$creditCardInfos .= "</span>";
 			$extraInfo .= $creditCardInfos;
 		} else {

@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: getauthorizationdetailsresponse.php 8431 2014-10-14 14:11:46Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -53,7 +53,7 @@ class amazonHelperGetAuthorizationDetailsResponse extends amazonHelper {
 				if ($amazonState == 'Open') {
 					// it should always be the case if the CaptureNow == false
 					$order_history['order_status'] = $this->_currentMethod->status_authorization;
-					$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_OPEN');
+					$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_OPEN');
 					$order_history['customer_notified'] = 1;
 				} elseif ($amazonState == 'Closed') {
 					// it should always be the case if the CaptureNow == true
@@ -62,7 +62,7 @@ class amazonHelperGetAuthorizationDetailsResponse extends amazonHelper {
 						return $amazonState;
 					}
 					$order_history['order_status'] = $this->_currentMethod->status_capture;
-					$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_CAPTURED');
+					$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_CAPTURED');
 					$order_history['customer_notified'] = 1;
 
 				} elseif ($amazonState == 'Declined') {
@@ -76,7 +76,7 @@ class amazonHelperGetAuthorizationDetailsResponse extends amazonHelper {
 
 				}
 				$order_history['amazonState'] = $amazonState;
-				$modelOrder = VmModel::getModel('orders');
+				$modelOrder = tmsModel::getModel('orders');
 				$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, TRUE);
 
 

@@ -7,7 +7,7 @@ defined('_JEXEC') or die('');
  * @subpackage User
  * @author Max Milbers
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -47,7 +47,7 @@ $li = '<br />';
 			    <tr>
 				<td>
 
-				    <?php echo vmText::sprintf('COM_VIRTUEMART_WELCOME_VENDOR', $this->vendor->vendor_store_name); ?>
+				    <?php echo tsmText::sprintf('COM_VIRTUEMART_WELCOME_VENDOR', $this->vendor->vendor_store_name); ?>
 				    <br />
 				</td>
 			    </tr>
@@ -55,16 +55,16 @@ $li = '<br />';
 
 			<table class="html-email" cellspacing="0" cellpadding="0" border="0" width="100%">  <tr>
 				<th width="100%">
-				    <?php echo vmText::_('COM_VIRTUEMART_VENDOR_REGISTRATION_DATA') ?>
+				    <?php echo tsmText::_('COM_VIRTUEMART_VENDOR_REGISTRATION_DATA') ?>
 				</th>
 			    </tr>
 			    <tr>
 				<td valign="top" width="100%">
 				    <?php
-				    echo vmText::_('COM_VIRTUEMART_USERNAME') . ' : ' . $this->user->username . $li;
-				    echo vmText::_('COM_VIRTUEMART_DISPLAYED_NAME') . ' : ' . $this->user->name . $li . $li;
+				    echo tsmText::_('COM_VIRTUEMART_USERNAME') . ' : ' . $this->user->username . $li;
+				    echo tsmText::_('COM_VIRTUEMART_DISPLAYED_NAME') . ' : ' . $this->user->name . $li . $li;
 
-				    echo vmText::_('COM_VIRTUEMART_ENTERED_ADDRESS') . $li;
+				    echo tsmText::_('COM_VIRTUEMART_ENTERED_ADDRESS') . $li;
 
 				    foreach ($this->userFields['fields'] as $userField) {
 					if (!empty($userField['value']) && $userField['type'] != 'delimiter' && $userField['type'] != 'BT') {

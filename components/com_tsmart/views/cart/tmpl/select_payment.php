@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author Max Milbers
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -22,7 +22,7 @@ $addClass="";
 
 
 if (VmConfig::get('oncheckout_show_steps', 1)) {
-	echo '<div class="checkoutStep" id="checkoutStep3">' . vmText::_('COM_VIRTUEMART_USER_FORM_CART_STEP3') . '</div>';
+	echo '<div class="checkoutStep" id="checkoutStep3">' . tsmText::_('COM_VIRTUEMART_USER_FORM_CART_STEP3') . '</div>';
 }
 
 if ($this->layoutName!='default') {
@@ -40,9 +40,9 @@ if ($this->layoutName!='default') {
 }
 
 if($this->cart->virtuemart_paymentmethod_id){
-	echo '<h'.$headerLevel.' class="vm-payment-header-selected">'.vmText::_('COM_VIRTUEMART_CART_SELECTED_PAYMENT_SELECT').'</h'.$headerLevel.'>';
+	echo '<h'.$headerLevel.' class="vm-payment-header-selected">'.tsmText::_('COM_VIRTUEMART_CART_SELECTED_PAYMENT_SELECT').'</h'.$headerLevel.'>';
 } else {
-	echo '<h'.$headerLevel.' class="vm-payment-header-select">'.vmText::_('COM_VIRTUEMART_CART_SELECT_PAYMENT').'</h'.$headerLevel.'>';
+	echo '<h'.$headerLevel.' class="vm-payment-header-select">'.tsmText::_('COM_VIRTUEMART_CART_SELECT_PAYMENT').'</h'.$headerLevel.'>';
 } ?>
 
 	<div class="buttonBar-right">
@@ -51,10 +51,10 @@ if($this->cart->virtuemart_paymentmethod_id){
 		if( VmConfig::get('oncheckout_ajax',false)) {
 			$dynUpdate=' data-dynamic-update="1" ';
 		} ?>
-		<button name="updatecart" class="<?php echo $buttonclass ?>" type="submit" <?php echo $dynUpdate ?> ><?php echo vmText::_('COM_VIRTUEMART_SAVE'); ?></button>
+		<button name="updatecart" class="<?php echo $buttonclass ?>" type="submit" <?php echo $dynUpdate ?> ><?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?></button>
 
 		<?php   if ($this->layoutName!='default') { ?>
-			<button class="<?php echo $buttonclass ?>" type="reset" onClick="window.location.href='<?php echo JRoute::_('index.php?option=com_virtuemart&view=cart&task=cancel'); ?>'" ><?php echo vmText::_('COM_VIRTUEMART_CANCEL'); ?></button>
+			<button class="<?php echo $buttonclass ?>" type="reset" onClick="window.location.href='<?php echo JRoute::_('index.php?option=com_virtuemart&view=cart&task=cancel'); ?>'" ><?php echo tsmText::_('COM_VIRTUEMART_CANCEL'); ?></button>
 		<?php  } ?>
 	</div>
 

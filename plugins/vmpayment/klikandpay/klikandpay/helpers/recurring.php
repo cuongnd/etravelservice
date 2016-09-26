@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -38,7 +38,7 @@ class KlikandpayHelperKlikandpayRecurring extends KlikandpayHelperKlikandpay {
 		static $displayInfoMsg = true;
 		if ($cart->BT) {
 			if (empty($cart->BT['phone_1']) and empty($cart->BT['phone_2']) and $displayInfoMsg) {
-				vmInfo(vmText::sprintf('VMPAYMENT_KLIKANDPAY_SUBSCRIBE_TEL_REQUIRED', JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscheckout&addrtype=BT')));
+				vmInfo(tsmText::sprintf('VMPAYMENT_KLIKANDPAY_SUBSCRIBE_TEL_REQUIRED', JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscheckout&addrtype=BT')));
 				$return = false;
 			}
 		}
@@ -72,7 +72,7 @@ class KlikandpayHelperKlikandpayRecurring extends KlikandpayHelperKlikandpay {
 		$totalInPaymentCurrency = $this->getTotal();
 		$recurring["MONTANT"] = $totalInPaymentCurrency;
 		$recurring["EXTRA"] = ($this->_method->recurring_number - 1) . "FOIS";
-		$recurring["info"] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_COMMENT_RECURRING_IDENTICAL', $this->_method->recurring_number);
+		$recurring["info"] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_COMMENT_RECURRING_IDENTICAL', $this->_method->recurring_number);
 		return $recurring;
 	}
 
@@ -122,7 +122,7 @@ class KlikandpayHelperKlikandpayRecurring extends KlikandpayHelperKlikandpay {
 		if ($this->_method->recurring_date) {
 			$recurring["DATE2"] = $this->getNextTermDate();
 		}
-		$recurring["info"] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_COMMENT_RECURRING_DEPOSIT', $this->_method->recurring_number, $montant_currency['display']);
+		$recurring["info"] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_COMMENT_RECURRING_DEPOSIT', $this->_method->recurring_number, $montant_currency['display']);
 
 
 		return $recurring;
@@ -139,11 +139,11 @@ class KlikandpayHelperKlikandpayRecurring extends KlikandpayHelperKlikandpay {
 	function getOrderHistory($klikandpay_data, $order, $payments) {
 		if (count($payments) == 1) {
 			$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
 		}
 
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($klikandpay_data['MONTANTXKP'], $order['details']['BT']->order_currency);
-		$order_history['comments'] .= "<br />" . vmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
+		$order_history['comments'] .= "<br />" . tsmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
 		if (count($payments) == 1) {
 			$recurring_comment = '';
 			$payment = $payments[0];
@@ -151,16 +151,16 @@ class KlikandpayHelperKlikandpayRecurring extends KlikandpayHelperKlikandpay {
 
 			$amountInCurrency = vmPSPlugin::getAmountInCurrency($recurring->MONTANT, $order['details']['BT']->order_currency);
 
-			$recurring_comment .= "<br />" . vmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_MONTANT') . ' ' . $amountInCurrency['display'];
+			$recurring_comment .= "<br />" . tsmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_MONTANT') . ' ' . $amountInCurrency['display'];
 			if (isset($recurring->MONTANT2)) {
 				$amountInCurrency = vmPSPlugin::getAmountInCurrency($recurring->MONTANT2, $order['details']['BT']->order_currency);
-				$recurring_comment .= "<br />" . vmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_MONTANT2') . ' ' . $amountInCurrency['display'];
+				$recurring_comment .= "<br />" . tsmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_MONTANT2') . ' ' . $amountInCurrency['display'];
 			}
 			if (isset($recurring->EXTRA)) {
-				$recurring_comment .= "<br />" . vmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_EXTRA') . ' ' . substr($recurring->EXTRA, 0, 1);
+				$recurring_comment .= "<br />" . tsmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_EXTRA') . ' ' . substr($recurring->EXTRA, 0, 1);
 			}
 			if (isset($recurring->DATE2)) {
-				$recurring_comment .= vmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_DATE2') . ' ' . $recurring->DATE2;
+				$recurring_comment .= tsmText::_('VMPAYMENT_KLIKANDPAY_RECURRING_DATE2') . ' ' . $recurring->DATE2;
 			}
 		}
 		$nbRecurringDone = $this->getNbRecurringDone($payments);

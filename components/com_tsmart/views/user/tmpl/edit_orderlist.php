@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -24,19 +24,19 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<thead>
 	<tr>
 		<th>
-			<?php echo vmText::_('COM_VIRTUEMART_ORDER_LIST_ORDER_NUMBER'); ?>
+			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_ORDER_NUMBER'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('COM_VIRTUEMART_ORDER_LIST_CDATE'); ?>
+			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_CDATE'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('COM_VIRTUEMART_ORDER_LIST_MDATE'); ?>
+			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_MDATE'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('COM_VIRTUEMART_ORDER_LIST_STATUS'); ?>
+			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_STATUS'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('COM_VIRTUEMART_ORDER_LIST_TOTAL'); ?>
+			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_TOTAL'); ?>
 		</th>
 	</tr>
 	</thead>

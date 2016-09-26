@@ -51,7 +51,7 @@ $document = JFactory::getDocument();
         <div class="klarna_PPBox_top">
             <span class="klarna_PPBox_topRight"></span>
             <span class="klarna_PPBox_topMid  <?php echo $country_width ?>">
-                <p><?php echo vmText::_('VMPAYMENT_KLARNA_PPBOX_FROMTEXT'); ?><label> <?php echo $viewData['defaultMonth'] ?> </label><?php echo vmText::_('VMPAYMENT_KLARNA_PPBOX_MONTHTEXT'); ?><?php echo $viewData['asterisk']; ?></p>
+                <p><?php echo tsmText::_('VMPAYMENT_KLARNA_PPBOX_FROMTEXT'); ?><label> <?php echo $viewData['defaultMonth'] ?> </label><?php echo tsmText::_('VMPAYMENT_KLARNA_PPBOX_MONTHTEXT'); ?><?php echo $viewData['asterisk']; ?></p>
             </span>
             <span class="klarna_PPBox_topLeft"></span>
         </div>
@@ -60,8 +60,8 @@ $document = JFactory::getDocument();
                 <table cellpadding="0" cellspacing="0" width="100%" border="0">
                     <thead>
                         <tr>
-                            <th style="text-align: left"><?php echo vmText::_('VMPAYMENT_KLARNA_PPBOX_TH_MONTH'); ?></th>
-                            <th style="text-align: right"><?php echo vmText::_('VMPAYMENT_KLARNA_PPBOX_TH_SUM'); ?></th>
+                            <th style="text-align: left"><?php echo tsmText::_('VMPAYMENT_KLARNA_PPBOX_TH_MONTH'); ?></th>
+                            <th style="text-align: right"><?php echo tsmText::_('VMPAYMENT_KLARNA_PPBOX_TH_SUM'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,7 +78,7 @@ $document = JFactory::getDocument();
                     </tbody>
                 </table>
                 <div class="klarna_PPBox_bottomMid_readMore">
-                    <a href="#"><?php echo vmText::_('VMPAYMENT_KLARNA_PPBOX_READMORE'); ?></a>
+                    <a href="#"><?php echo tsmText::_('VMPAYMENT_KLARNA_PPBOX_READMORE'); ?></a>
                 </div>
                 <div class="klarna_PPBox_pull" id="klarna_PPBox_pullUp">
                     <img src="<?php echo VMKLARNAPLUGINWEBASSETS ?>/images/productPrice/default/pullUp.png" alt="More info" />

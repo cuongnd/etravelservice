@@ -4,7 +4,7 @@
  *
  * @package	VirtueMart
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL2, see LICENSE.php
  * @version $Id: cart.php 7682 2014-02-26 17:07:20Z Milbo $
@@ -28,7 +28,7 @@ foreach ($viewData['products'] as $type => $products ) {
 	$rowsHeight = shopFunctionsF::calculateProductRowsHeights($products,$currency,$products_per_row);
 
 	if(!empty($type) and count($products)>0){
-		$productTitle = vmText::_('COM_VIRTUEMART_'.strtoupper($type).'_PRODUCT'); ?>
+		$productTitle = tsmText::_('COM_VIRTUEMART_'.strtoupper($type).'_PRODUCT'); ?>
 <div class="<?php echo $type ?>-view">
   <h4><?php echo $productTitle ?></h4>
 		<?php // Start the Output
@@ -112,7 +112,7 @@ foreach ($viewData['products'] as $type => $products ) {
 			<div class="vm-details-button">
 				<?php // Product Details Button
 				$link = empty($product->link)? $product->canonical:$product->link;
-				echo JHtml::link($link.$ItemidStr,vmText::_ ( 'COM_VIRTUEMART_PRODUCT_DETAILS' ), array ('title' => $product->product_name, 'class' => 'product-details' ) );
+				echo JHtml::link($link.$ItemidStr,tsmText::_ ( 'COM_VIRTUEMART_PRODUCT_DETAILS' ), array ('title' => $product->product_name, 'class' => 'product-details' ) );
 				//echo JHtml::link ( JRoute::_ ( 'index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $product->virtuemart_product_id . '&virtuemart_category_id=' . $product->virtuemart_category_id , FALSE), vmText::_ ( 'COM_VIRTUEMART_PRODUCT_DETAILS' ), array ('title' => $product->product_name, 'class' => 'product-details' ) );
 				?>
 			</div>

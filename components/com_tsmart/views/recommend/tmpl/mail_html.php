@@ -5,7 +5,7 @@ defined('_JEXEC') or die('');
 	* @package	VirtueMart
 	* @subpackage product details
 	* @author Maik Künnemann
-	* @link http://www.virtuemart.net
+	* @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('');
 
 					<tr>
 						<td align="center" style="border-bottom : 1px solid #dad8d8;">
-							<span style="font-size: 14px; font-weight: bold"><?php echo vmText::sprintf ('COM_VIRTUEMART_RECOMMEND_MAIL_BODY', $this->name, $this->product->product_name); ?></span>
+							<span style="font-size: 14px; font-weight: bold"><?php echo tsmText::sprintf ('COM_VIRTUEMART_RECOMMEND_MAIL_BODY', $this->name, $this->product->product_name); ?></span>
 							<br /><br /><?php echo $this->comment; ?><br /><br />
 						</td>
 					</tr>
@@ -72,7 +72,7 @@ defined('_JEXEC') or die('');
 									<td width="70%" valign="top">
 										<h2><?php  echo $this->product->product_name ?></h2>
 										<p style="margin: 15px 0; display:block;"><?php  echo $this->product->product_s_desc ?></p>
-										<a href="<?php  echo $product_link ?>" class="product-details"><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_DETAILS') ?></a>
+										<a href="<?php  echo $product_link ?>" class="product-details"><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_DETAILS') ?></a>
 									</td>
 								</tr>
 							</table>

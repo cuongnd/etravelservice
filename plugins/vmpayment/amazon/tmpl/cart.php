@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author Valerie Isaksen
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -64,7 +64,7 @@ $this->addCheckRequiredJs();
 	<div class="cart-view" id="cart-view">
 		<div id="amazonHeader">
 			<div class="width50 floatleft">
-				<h1><?php echo vmText::_('VMPAYMENT_AMAZON_PAY_WITH_AMAZON'); ?></h1>
+				<h1><?php echo tsmText::_('VMPAYMENT_AMAZON_PAY_WITH_AMAZON'); ?></h1>
 				<div class="payments-signin-button"></div>
 			</div>
 			<div class="width50 floatleft right">
@@ -74,7 +74,7 @@ $this->addCheckRequiredJs();
 				}
 				?>
 				<div>
-					<a href="#" id="leaveAmazonCheckout"><?php echo vmText::_('VMPAYMENT_AMAZON_LEAVE_PAY_WITH_AMAZON') ?></a>
+					<a href="#" id="leaveAmazonCheckout"><?php echo tsmText::_('VMPAYMENT_AMAZON_LEAVE_PAY_WITH_AMAZON') ?></a>
 				</div>
 			</div>
 			<div class="clear"></div>

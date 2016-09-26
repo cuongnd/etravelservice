@@ -14,7 +14,7 @@ defined('_JEXEC') or die( 'Direct Access to '.basename(__FILE__).' is not allowe
 * VirtueMart is Free Software.
 * VirtueMart comes with absolute no warranty.
 *
-* www.virtuemart.net
+* www.tsmart.net
 */
 
 
@@ -67,7 +67,7 @@ $vendorId = vRequest::getInt('vendorid', 1);
 
 if ($filter_category ) $filter_category = TRUE;
 
-$productModel = VmModel::getModel('Product');
+$productModel = tmsModel::getModel('Product');
 
 $products = $productModel->getProductListing($Product_group, $max_items, $show_price, true, false,$filter_category, $category_id);
 $productModel->addImages($products);

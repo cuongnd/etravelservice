@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -52,10 +52,10 @@ class JFormFieldDuration extends JFormField {
 		$doc->addScriptDeclaration($js);
 
 		$options = array();
-		$options[] = JHTML::_('select.option', 'D', vmText::_('VMPAYMENT_PAYPAL_DURATION_D'));
-		$options[] = JHTML::_('select.option', 'W', vmText::_('VMPAYMENT_PAYPAL_DURATION_W'));
-		$options[] = JHTML::_('select.option', 'M', vmText::_('VMPAYMENT_PAYPAL_DURATION_M'));
-		$options[] = JHTML::_('select.option', 'Y', vmText::_('VMPAYMENT_PAYPAL_DURATION_Y'));
+		$options[] = JHTML::_('select.option', 'D', tsmText::_('VMPAYMENT_PAYPAL_DURATION_D'));
+		$options[] = JHTML::_('select.option', 'W', tsmText::_('VMPAYMENT_PAYPAL_DURATION_W'));
+		$options[] = JHTML::_('select.option', 'M', tsmText::_('VMPAYMENT_PAYPAL_DURATION_M'));
+		$options[] = JHTML::_('select.option', 'Y', tsmText::_('VMPAYMENT_PAYPAL_DURATION_Y'));
 
 		$html = '<input type="text" style="width:25px;position:relative;font-size:14px;margin-right:10px;" name="' . $duration_value_id . '" id="' . $duration_value_id . '" value="' . $duration_value . '" >';
 		$html .= JHTML::_('select.genericlist', $options, $duration_unit_id, '', 'value', 'text', $duration_unit, $duration_unit_id);

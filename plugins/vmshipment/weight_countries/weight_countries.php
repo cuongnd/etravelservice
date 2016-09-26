@@ -16,7 +16,7 @@ defined ('_JEXEC') or die('Restricted access');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.org
+ * http://tsmart.org
  * @author Valerie Isaksen
  *
  */
@@ -175,7 +175,7 @@ class plgVmShipmentWeight_countries extends vmPSPlugin {
 		$currency = CurrencyDisplay::getInstance ();
 		$tax = ShopFunctions::getTaxByID ($shipinfo->tax_id);
 		$taxDisplay = is_array ($tax) ? $tax['calc_value'] . ' ' . $tax['calc_value_mathop'] : $shipinfo->tax_id;
-		$taxDisplay = ($taxDisplay == -1) ? vmText::_ ('COM_VIRTUEMART_PRODUCT_TAX_NONE') : $taxDisplay;
+		$taxDisplay = ($taxDisplay == -1) ? tsmText::_ ('COM_VIRTUEMART_PRODUCT_TAX_NONE') : $taxDisplay;
 
 		$html = '<table class="adminlist table">' . "\n";
 		$html .= $this->getHtmlHeaderBE ();
@@ -260,7 +260,7 @@ class plgVmShipmentWeight_countries extends vmPSPlugin {
 			$orderamount_cond = FALSE;
 		}
 
-		$userFieldsModel =VmModel::getModel('Userfields');
+		$userFieldsModel =tmsModel::getModel('Userfields');
 		if ($userFieldsModel->fieldPublished('zip', $type)){
 			if (!isset($address['zip'])) {
 				$address['zip'] = '';

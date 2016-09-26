@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -41,7 +41,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 			if ($this->_method->sandbox) {
 				$sandbox = 'SANDBOX_';
 			}
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', vmText::_('VMPAYMENT_PAYPAL_' . $sandbox . 'MERCHANT'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', tsmText::_('VMPAYMENT_PAYPAL_' . $sandbox . 'MERCHANT'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text, $text);
 			return FALSE;
 		}
@@ -55,7 +55,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 
 		$post_variables = $this->initPostVariables($this->_method->payment_type);
 		$paymentCurrency = CurrencyDisplay::getInstance($this->_method->payment_currency);
-		$order_number_text=$this->getItemName(vmText::_('COM_VIRTUEMART_ORDER_NUMBER'));
+		$order_number_text=$this->getItemName(tsmText::_('COM_VIRTUEMART_ORDER_NUMBER'));
 
 		switch ($this->_method->payment_type) {
 			case '_xclick':
@@ -169,7 +169,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 
 		$url = $this->_getPayPalUrl();
 		if (vmconfig::get('css')) {
-			$msg = vmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE', true);
+			$msg = tsmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE', true);
 		} else {
 			$msg='';
 		}
@@ -202,7 +202,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 			$this->debugLog($post_variables, 'PayPal request:', 'debug');
 
 		} else {
-			$html .= '<input type="submit"  value="' . vmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE') . '" />';
+			$html .= '<input type="submit"  value="' . tsmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE') . '" />';
 
 		}
 		$html .= '</form>';
@@ -262,7 +262,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 		if (empty($this->_method->headerimg) OR $this->_method->headerimg == -1) {
 			$post_variables['image_url'] = $this->getLogoImage();
 		} else {
-			$post_variables['cpp_header_image'] = JURI::base() . 'images/stories/virtuemart/payment/' . $this->_method->headerimg;
+			$post_variables['cpp_header_image'] = JURI::base() . 'images/stories/tsmart/payment/' . $this->_method->headerimg;
 		}
 		/*
 		 * The HTML hex code for your principal identifying color.

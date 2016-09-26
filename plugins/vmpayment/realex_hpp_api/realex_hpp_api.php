@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 defined('_JEXEC') or die('Restricted access');
@@ -181,16 +181,16 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 					$status = $this->_currentMethod->status_success;
 					$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
 					$currencyDisplay = CurrencyDisplay::getInstance($cart->pricesCurrency);
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
 
 				} else {
-					$order_history['comments'] = vmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
+					$order_history['comments'] = tsmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
 					$status = $this->_currentMethod->status_canceled;
 				}
 				$order_history['customer_notified'] = true;
 				$order_history['order_status'] = $status;
 
-				$modelOrder = VmModel::getModel('orders');
+				$modelOrder = tmsModel::getModel('orders');
 				$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, TRUE);
 
 				$payments = $this->getDatasByOrderId($realexInterface->order['details']['BT']->virtuemart_order_id);
@@ -244,15 +244,15 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			//$amountValueInPaymentCurrency = vmPSPlugin::getAmountInCurrency($realexInterface->getTotalInPaymentCurrency(), $realexInterface->getPaymentCurrency());
 			$currencyDisplay = CurrencyDisplay::getInstance($realexInterface->cart->pricesCurrency);
 
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $order['details']['BT']->order_number);
 			$order_history['success'] = true;
 
 			if (isset($xml_response->dccinfo) AND isset($xml_response->dccinfo->cardholderrate)) {
 				$order_history['comments'] .= "<br />";
 				if ($xml_response->dccinfo->cardholderrate != 1.0) {
-					$order_history['comments'] .= vmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency, $this->getCardHolderAmount($xml_response->dccinfo->cardholderamount), $xml_response->dccinfo->cardholdercurrency);
+					$order_history['comments'] .= tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency, $this->getCardHolderAmount($xml_response->dccinfo->cardholderamount), $xml_response->dccinfo->cardholdercurrency);
 				} else {
-					$order_history['comments'] .= vmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_MERCHANT_CURRENCY', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency);
+					$order_history['comments'] .= tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_MERCHANT_CURRENCY', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency);
 				}
 				$order_history['comments'] .= "<br />";
 			} else {
@@ -262,10 +262,10 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 
 		} else {
 			if ($realexInterface->isResponseDeclined($xml_response)) {
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_DECLINED', $realexInterface->order['details']['BT']->order_number);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_DECLINED', $realexInterface->order['details']['BT']->order_number);
 
 			} else {
-				$order_history['comments'] = vmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
+				$order_history['comments'] = tsmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
 			}
 			$status = $this->_currentMethod->status_canceled;
 			$order_history['success'] = false;
@@ -274,7 +274,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$order_history['customer_notified'] = true;
 		$order_history['order_status'] = $status;
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, $useTriggers);
 		return $success;
 	}
@@ -282,7 +282,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 	function redirectToCart ($msg = NULL) {
 
 		if (!$msg) {
-			$msg = vmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_TRY_AGAIN');
+			$msg = tsmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_TRY_AGAIN');
 		}
 		$this->customerData->clear();
 		$app = JFactory::getApplication();
@@ -346,7 +346,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$payments = $this->getDatasByOrderId($virtuemart_order_id);
 
 		VmConfig::loadJLang('com_virtuemart');
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 		$realexInterface = $this->_loadRealexInterface();
@@ -375,7 +375,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		if (!$this->selectedThisElement($this->_currentMethod->payment_element)) {
 			return NULL;
 		}
-		JFactory::getApplication()->enqueueMessage(vmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_TRY_AGAIN'));
+		JFactory::getApplication()->enqueueMessage(tsmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_TRY_AGAIN'));
 	}
 
 	/**
@@ -403,7 +403,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$code = "realex_hpp_api_response_";
 		$first = TRUE;
 		foreach ($payments as $payment) {
-			$html .= '<tr class="row1"><td><strong>' . vmText::_('VMPAYMENT_REALEX_HPP_API_DATE') . '</strong></td><td align="left"><strong>' . $payment->created_on . '</strong></td></tr>';
+			$html .= '<tr class="row1"><td><strong>' . tsmText::_('VMPAYMENT_REALEX_HPP_API_DATE') . '</strong></td><td align="left"><strong>' . $payment->created_on . '</strong></td></tr>';
 			// Now only the first entry has this data when creating the order
 			if ($first) {
 				$html .= $this->getHtmlRowBE('COM_VIRTUEMART_PAYMENT_NAME', $payment->payment_name);
@@ -449,7 +449,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 
 					$html .= ' </div>
         <span class="icon-nofloat vmicon vmicon-16-xml"></span>&nbsp;';
-					$html .= vmText::_('VMPAYMENT_REALEX_HPP_API_VIEW_TRANSACTION_LOG');
+					$html .= tsmText::_('VMPAYMENT_REALEX_HPP_API_VIEW_TRANSACTION_LOG');
 					$html .= '  </a>';
 					$html .= ' </td></tr>';
 				} else {
@@ -476,13 +476,13 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 	}
 
 	private function showActionOrderBEPayment ($virtuemart_order_id, $virtuemart_paymentmethod_id, $payments) {
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$options = array();
 		if ($this->isDelayedSettlement()) {
-			$options[] = JHTML::_('select.option', 'settlePayment', vmText::_('VMPAYMENT_REALEX_HPP_API_ORDER_BE_CAPTURE'), 'value', 'text');
+			$options[] = JHTML::_('select.option', 'settlePayment', tsmText::_('VMPAYMENT_REALEX_HPP_API_ORDER_BE_CAPTURE'), 'value', 'text');
 		}
-		$options[] = JHTML::_('select.option', 'rebatePayment', vmText::_('VMPAYMENT_REALEX_HPP_API_ORDER_BE_REBATE'), 'value', 'text');
+		$options[] = JHTML::_('select.option', 'rebatePayment', tsmText::_('VMPAYMENT_REALEX_HPP_API_ORDER_BE_REBATE'), 'value', 'text');
 		$actionList = JHTML::_('select.genericlist', $options, 'action', '', 'value', 'text', 'capturePayment', 'action', true);
 
 
@@ -493,7 +493,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$html .= '<tr ><td >';
 		$html .= $actionList;
 		$html .= ' </td><td>';
-		$html .= '<input type="text" id="amount" name="amount" size="20" value="" class="required" maxlength="25"  placeholder="' . vmText::sprintf('VMPAYMENT_REALEX_HPP_API_ORDER_BE_AMOUNT', shopFunctions::getCurrencyByID($payments[0]->payment_currency, 'currency_code_3')) . '"/>';
+		$html .= '<input type="text" id="amount" name="amount" size="20" value="" class="required" maxlength="25"  placeholder="' . tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_ORDER_BE_AMOUNT', shopFunctions::getCurrencyByID($payments[0]->payment_currency, 'currency_code_3')) . '"/>';
 		$html .= '<input type="hidden" name="type" value="vmpayment"/>';
 		$html .= '<input type="hidden" name="name" value="realex_hpp_api"/>';
 		$html .= '<input type="hidden" name="view" value="plugin"/>';
@@ -501,7 +501,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$html .= '<input type="hidden" name="virtuemart_order_id" value="' . $virtuemart_order_id . '"/>';
 		$html .= '<input type="hidden" name="virtuemart_paymentmethod_id" value="' . $virtuemart_paymentmethod_id . '"/>';
 
-		$html .= '<a class="updateOrderBEPayment btn btn-small" href="#"   >' . vmText::_('COM_VIRTUEMART_SAVE') . '</a>';
+		$html .= '<a class="updateOrderBEPayment btn btn-small" href="#"   >' . tsmText::_('COM_VIRTUEMART_SAVE') . '</a>';
 		$html .= '</form>';
 		$html .= ' </td></tr>';
 
@@ -550,7 +550,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			//vmInfo(vmText::_('VMPAYMENT_REALEX_HPP_API_NO_ACTION'));
 			return true;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderData = $orderModel->getOrder($order->virtuemart_order_id);
 		$requestSent = false;
 		$order_history_comment = '';
@@ -558,7 +558,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$canDo = true;
 		if ($order->order_status == $this->_currentMethod->status_capture AND !$this->isDcc() AND $this->isDelayedSettlement() AND  ($canDo = $this->canDoSettle($realexInterface, $old_order_status, $payments))) {
 			$requestSent = true;
-			$order_history_comment = vmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CAPTURE');
+			$order_history_comment = tsmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CAPTURE');
 			$realexInterface->setOrder($orderData);
 			$realexInterface->setPaymentCurrency();
 			$realexInterface->setTotalInPaymentCurrency($orderData['details']['BT']->order_total);
@@ -567,7 +567,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 
 		} elseif ($order->order_status == $this->_currentMethod->status_canceled AND ($canDo = $this->canDoVoid($realexInterface, $old_order_status, $payments))) {
 			$requestSent = true;
-			$order_history_comment = vmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CANCELED');
+			$order_history_comment = tsmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CANCELED');
 			$realexInterface->setOrder($orderData);
 			$realexInterface->setPaymentCurrency();
 			$realexInterface->setTotalInPaymentCurrency($orderData['details']['BT']->order_total);
@@ -594,7 +594,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 					$order_history['comments'] = $order_history_comment;
 					$order_history['customer_notified'] = false;
 					$order_history['order_status'] = $order->order_status;
-					$modelOrder = VmModel::getModel('orders');
+					$modelOrder = tmsModel::getModel('orders');
 					$modelOrder->updateStatusForOneOrder($orderData['details']['BT']->virtuemart_order_id, $order_history, false);
 					return true;
 				}
@@ -631,7 +631,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		if (!($payments = $this->getDatasByOrderId($virtuemart_order_id))) {
 			return null;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderData = $orderModel->getOrder(vRequest::getInt('virtuemart_order_id'));
 		$requestSent = false;
 		$order_history_comment = '';
@@ -640,7 +640,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		if ( $action=='settlePayment' ) {
 
 			$requestSent = true;
-			$order_history_comment = vmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CAPTURE');
+			$order_history_comment = tsmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_CAPTURE');
 			$realexInterface->setOrder($orderData);
 			$realexInterface->setPaymentCurrency();
 			$realexInterface->setTotalInPaymentCurrency($amount);
@@ -666,7 +666,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 					$order_history['comments'] = $order_history_comment;
 					$order_history['customer_notified'] = false;
 					$order_history['order_status'] = $orderData['details']['BT']->order_status;
-					$modelOrder = VmModel::getModel('orders');
+					$modelOrder = tmsModel::getModel('orders');
 					$modelOrder->updateStatusForOneOrder($orderData['details']['BT']->virtuemart_order_id, $order_history, false);
 				}
 			} else {
@@ -694,7 +694,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 	function doRebate ($realexInterface, $orderData, $payments, $amount=false) {
 
 
-		$order_history_comment = vmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_REBATE');
+		$order_history_comment = tsmText::_('VMPAYMENT_REALEX_HPP_API_UPDATE_STATUS_REBATE');
 		$realexInterface->setOrder($orderData);
 		$realexInterface->setPaymentCurrency();
 		if ($amount===false) {
@@ -783,7 +783,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 	 */
 	private function canDoRebate ($realexInterface, $old_order_status, $payments) {
 		if ($this->transactionIsDcc($realexInterface, $payments)) {
-			vmError(vmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_REBATE_DCC_TRANSACTION'));
+			vmError(tsmText::_('VMPAYMENT_REALEX_HPP_API_ERROR_REBATE_DCC_TRANSACTION'));
 			return false;
 		}
 		if ($this->_currentMethod->settlement == 'auto') {
@@ -870,7 +870,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$required_parameters = array('merchant_id', 'shared_secret', 'subaccount');
 			foreach ($required_parameters as $required_parameter) {
 				if (empty ($this->_currentMethod->$required_parameter)) {
-					$text = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PARAMETER_REQUIRED', vmText::_('VMPAYMENT_REALEX_HPP_API_' . $required_parameter), $this->_currentMethod->payment_name, $this->_currentMethod->virtuemart_paymentmethod_id);
+					$text = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PARAMETER_REQUIRED', tsmText::_('VMPAYMENT_REALEX_HPP_API_' . $required_parameter), $this->_currentMethod->payment_name, $this->_currentMethod->virtuemart_paymentmethod_id);
 					vmWarn($text);
 				}
 			}
@@ -891,7 +891,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$extension_id = $db->loadResult();
 		if (empty($extension_id)) {
 			$app = JFactory::getApplication();
-			$app->enqueueMessage(vmText::_('VMPAYMENT_REALEX_HPP_API_NO_PLUGIN_INSTALLED'));
+			$app->enqueueMessage(tsmText::_('VMPAYMENT_REALEX_HPP_API_NO_PLUGIN_INSTALLED'));
 			return;
 		}
 		// publish the plugin
@@ -907,7 +907,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			//$app = JFactory::getApplication();
 			//$app -> enqueueMessage(vmText::_('VMUSERFIELD_REALEX_NO_PLUGIN_ALREADY_INSTALLED'));
 
-			$userFieldsModel = VmModel::getModel('UserFields');
+			$userFieldsModel = tmsModel::getModel('UserFields');
 
 			$data['virtuemart_userfield_id'] = 0;
 
@@ -925,9 +925,9 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$ret = $userFieldsModel->store($data);
 
 			if (!$ret) {
-				vmError(vmText::_('VMPAYMENT_REALEX_HPP_API_CREATE_USERFIELD_FAILED') . " " . $data['name'] . " " . $ret);
+				vmError(tsmText::_('VMPAYMENT_REALEX_HPP_API_CREATE_USERFIELD_FAILED') . " " . $data['name'] . " " . $ret);
 			} else {
-				vmInfo(vmText::_('VMPAYMENT_REALEX_HPP_API_CREATE_USERFIELD_OK') . " " . $data['name']);
+				vmInfo(tsmText::_('VMPAYMENT_REALEX_HPP_API_CREATE_USERFIELD_OK') . " " . $data['name']);
 			}
 		}
 
@@ -978,8 +978,8 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$db = JFactory::getDBO();
 		$db->setQuery($query);
 		if (!$db->execute()) {
-			JError::raiseWarning(1, $payerRefTableName . '::createPayerRefTable: ' . vmText::_('COM_VIRTUEMART_SQL_ERROR') . ' ' . $db->stderr(TRUE));
-			echo $payerRefTableName . '::createPayerRefTable: ' . vmText::_('COM_VIRTUEMART_SQL_ERROR') . ' ' . $db->stderr(TRUE);
+			JError::raiseWarning(1, $payerRefTableName . '::createPayerRefTable: ' . tsmText::_('COM_VIRTUEMART_SQL_ERROR') . ' ' . $db->stderr(TRUE));
+			echo $payerRefTableName . '::createPayerRefTable: ' . tsmText::_('COM_VIRTUEMART_SQL_ERROR') . ' ' . $db->stderr(TRUE);
 		}
 
 	}
@@ -1028,7 +1028,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		if ($this->getPluginMethods($cart->vendorId) === 0) {
 			if (empty($this->_name)) {
 				$app = JFactory::getApplication();
-				$app->enqueueMessage(vmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
+				$app->enqueueMessage(tsmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
 				return false;
 			} else {
 				return false;
@@ -1312,7 +1312,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			return FALSE;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 		$this->_currentMethod = $this->getVmPluginMethod($order['details']['BT']->virtuemart_paymentmethod_id);
@@ -1342,19 +1342,19 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
 			//$currencyDisplay = CurrencyDisplay::getInstance($cart->pricesCurrency);
 
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order_number);
 
 			if (isset($realex_data['DCCCHOICE']) and $realex_data['DCCCHOICE'] == $realexInterface::RESPONSE_DCC_CHOICE_YES) {
 				$order_history['comments'] .= "<br />";
-				$order_history['comments'] .= vmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($realex_data['DCCMERCHANTAMOUNT']), $realex_data['DCCMERCHANTCURRENCY'], $this->getCardHolderAmount($realex_data['DCCCARDHOLDERAMOUNT']), $realex_data['DCCCARDHOLDERCURRENCY']);
+				$order_history['comments'] .= tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($realex_data['DCCMERCHANTAMOUNT']), $realex_data['DCCMERCHANTCURRENCY'], $this->getCardHolderAmount($realex_data['DCCCARDHOLDERAMOUNT']), $realex_data['DCCCARDHOLDERCURRENCY']);
 			}
 			$userfield = $realexInterface->cardStorageResponse($realex_data);
 			$realexInterface->storeNewPayment($userfield);
 			if (isset($realex_data['REALWALLET_CHOSEN']) and  $realex_data['REALWALLET_CHOSEN'] == 1) {
 				if ($userfield) {
-					$cardStorageResponseText = vmText::_('VMPAYMENT_REALEX_HPP_API_CARD_STORAGE_SUCCESS');
+					$cardStorageResponseText = tsmText::_('VMPAYMENT_REALEX_HPP_API_CARD_STORAGE_SUCCESS');
 				} else {
-					$cardStorageResponseText = vmText::_('VMPAYMENT_REALEX_HPP_API_CARD_STORAGE_FAILED');
+					$cardStorageResponseText = tsmText::_('VMPAYMENT_REALEX_HPP_API_CARD_STORAGE_FAILED');
 				}
 				$order_history['comments'] .= "<br />";
 				$order_history['comments'] .= $cardStorageResponseText;
@@ -1365,7 +1365,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			 * HPP will send a post back to your response script with a Result Code of 110 and a relevant error message. The transaction will not be processed.
 			 */
 
-			$order_history['comments'] = vmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
+			$order_history['comments'] = tsmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
 			// here we check if wee need to add the message
 			/*
 			if ($realex_data['RESULT'] == (int)$realexInterface::RESPONSE_CODE_NOT_VALIDATED) {
@@ -1394,7 +1394,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 
 		$this->storePSPluginInternalData($db_values);
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($virtuemart_order_id, $order_history, TRUE);
 		if ($result == $realexInterface::RESPONSE_CODE_SUCCESS) {
 			if (isset($payments[0]->realex_hpp_api_custom)) {
@@ -1425,7 +1425,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$this->redirectToCart();
 			return FALSE;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$realexInterface->setOrder($order);
 		$realexInterface->setPaymentCurrency();
@@ -1655,17 +1655,17 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$amountValue = vmPSPlugin::getAmountInCurrency($realexInterface->order['details']['BT']->order_total, $realexInterface->order['details']['BT']->order_currency);
 			$currencyDisplay = CurrencyDisplay::getInstance($realexInterface->cart->pricesCurrency);
 
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $realexInterface->order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $realexInterface->order['details']['BT']->order_number);
 
 		} else {
-			$order_history['comments'] = vmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
+			$order_history['comments'] = tsmText::_('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED');
 			$status = $this->_currentMethod->status_canceled;
 		}
 
 		$order_history['customer_notified'] = true;
 		$order_history['order_status'] = $status;
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($realexInterface->order['details']['BT']->virtuemart_order_id, $order_history, TRUE);
 
 		//$payments = $this->getDatasByOrderId($realexInterface->order['details']['BT']->virtuemart_order_id);
@@ -1737,13 +1737,13 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 			$amountValue = vmPSPlugin::getAmountInCurrency($realexInterface->order['details']['BT']->order_total, $realexInterface->order['details']['BT']->order_currency);
 			$currencyDisplay = CurrencyDisplay::getInstance($realexInterface->cart->pricesCurrency);
 
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $realexInterface->order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CONFIRMED', $amountValue['display'], $realexInterface->order['details']['BT']->order_number);
 			if (isset($xml_response->dccinfo) AND isset($xml_response->dccinfo->cardholderrate)) {
 				$order_history['comments'] .= "<br />";
 				if ($xml_response->dccinfo->cardholderrate != 1.0) {
-					$order_history['comments'] .= vmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency, $this->getCardHolderAmount($xml_response->dccinfo->cardholderamount), $xml_response->dccinfo->cardholdercurrency);
+					$order_history['comments'] .= tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_OWN_CURRENCY_CHARGED', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency, $this->getCardHolderAmount($xml_response->dccinfo->cardholderamount), $xml_response->dccinfo->cardholdercurrency);
 				} else {
-					$order_history['comments'] .= vmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_MERCHANT_CURRENCY', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency);
+					$order_history['comments'] .= tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_DCC_PAY_MERCHANT_CURRENCY', $this->getCardHolderAmount($xml_response->dccinfo->merchantamount), $xml_response->dccinfo->merchantcurrency);
 				}
 				$order_history['comments'] .= "<br />";
 			} else {
@@ -1752,10 +1752,10 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		} else {
 			$msgToShopper='';
 			if ($realexInterface->isResponseDeclined($xml_response3DSVerifysig)) {
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_DECLINED', $realexInterface->order['details']['BT']->order_number);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_DECLINED', $realexInterface->order['details']['BT']->order_number);
 				$msgToShopper=$xml_response3DSVerifysig->message;
 			} elseif ($realexInterface->isResponseWrongPhrase($xml_response3DSVerifysig)) {
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED', $realexInterface->order['details']['BT']->order_number);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED', $realexInterface->order['details']['BT']->order_number);
 				$msgToShopper=$xml_response3DSVerifysig->message;
 			} elseif ($realexInterface->isResponseAlreadyProcessed($xml_response3DSVerifysig)) {
 				$order_history['comments'] = $xml_response3DSVerifysig->message;
@@ -1772,7 +1772,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 	*/
 
 			} else {
-				$order_history['comments'] = vmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED', $realexInterface->order['details']['BT']->order_number);
+				$order_history['comments'] = tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_PAYMENT_STATUS_CANCELLED', $realexInterface->order['details']['BT']->order_number);
 			}
 			$redirectToCart = true;
 			$status = $this->_currentMethod->status_canceled;
@@ -1782,7 +1782,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$order_history['order_status'] = $status;
 		//	$this->updateOrderStatus($realexInterface->order, $redirectToCart);
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($realexInterface->order['details']['BT']->virtuemart_order_id, $order_history, false);
 
 		/*
@@ -1841,7 +1841,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$html .= '<input type="hidden" name="Itemid" value="' . vRequest::getInt('Itemid') . '" />';
 		$html .= '<input type="hidden" name="lang" value="' . vRequest::getCmd('lang', '') . '" />';
 
-		$html .= '<input type="submit"  value="' . vmText::_('VMPAYMENT_REALEX_HPP_API_REDIRECT_MESSAGE') . '" />
+		$html .= '<input type="submit"  value="' . tsmText::_('VMPAYMENT_REALEX_HPP_API_REDIRECT_MESSAGE') . '" />
 					<script type="text/javascript">';
 		$html .= '		document.vm_realex_form.submit();';
 		$html .= '	</script>';

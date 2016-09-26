@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: authorizationnotification.php 8685 2015-02-05 18:40:30Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -68,7 +68,7 @@ class amazonHelperAuthorizationNotification extends amazonHelper {
 		if ($amazonState != $previousAmazonState) {
 			if ($amazonState == 'Open') {
 				$order_history['order_status'] = $this->_currentMethod->status_authorization;
-				$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_OPEN');
+				$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_OPEN');
 			} elseif ($amazonState == 'Declined') {
 				if ($reasonCode == 'InvalidPaymentMethod') {
 					$order_history['customer_notified'] = 0;
@@ -77,36 +77,36 @@ class amazonHelperAuthorizationNotification extends amazonHelper {
 						$order_history['order_status'] = $this->_currentMethod->status_orderconfirmed;
 						$order_history['customer_notified'] = 1;
 					} else {
-						$order_history['comments'] = vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_INVALIDPAYMENTMETHOD', $reasonCode);
+						$order_history['comments'] = tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_INVALIDPAYMENTMETHOD', $reasonCode);
 						$order_history['order_status'] = $this->_currentMethod->status_cancel;
 					}
 				} elseif ($reasonCode == 'AmazonRejected') {
 					$order_history['order_status'] = $this->_currentMethod->status_cancel;
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_DECLINED', $reasonCode);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_DECLINED', $reasonCode);
 				} elseif ($reasonCode == 'TransactionTimedOut') {
 // TODO  retry the authorization again
 					$order_history['order_status'] = $this->_currentMethod->status_cancel;
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_DECLINED', $reasonCode);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_DECLINED', $reasonCode);
 				}
 
 			} elseif ($amazonState == 'Pending') {
 				$order_history['order_status'] = $this->_currentMethod->status_orderconfirmed;
-				$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_PENDING');
+				$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_PENDING');
 				$order_history['customer_notified'] = 0;
 			} elseif ($amazonState == 'Closed') {
 				if ($reasonCode == 'MaxCapturesProcessed' and $this->isCaptureNow()) {
 					$order_history['order_status'] = $this->_currentMethod->status_capture;
-					$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_CAPTURE_NOTIFICATION');
+					$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_CAPTURE_NOTIFICATION');
 					$order_history['customer_notified'] = 0;
 				} else {
 					$order_history['order_status'] = $this->_currentMethod->status_cancel;
-					$order_history['comments'] = vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_CLOSED', $reasonCode);
+					$order_history['comments'] = tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_CLOSED', $reasonCode);
 					$order_history['customer_notified'] = 0;
 				}
 
 			}
 
-			$orderModel = VmModel::getModel('orders');
+			$orderModel = tmsModel::getModel('orders');
 			$orderModel->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, false);
 		}
 
@@ -119,7 +119,7 @@ class amazonHelperAuthorizationNotification extends amazonHelper {
 			require(JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'vendor.php');
 		}
 		$virtuemart_vendor_id = 1;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		$vendorModel->setId($virtuemart_vendor_id);
 		$vendorFields = $vendorModel->getVendorAddressFields($virtuemart_vendor_id);
@@ -130,7 +130,7 @@ class amazonHelperAuthorizationNotification extends amazonHelper {
 			$vendorPhone = "";
 		}
 
-		return vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_INVALIDPAYMENTMETHOD_SOFT_DECLINED', $vendor->vendor_store_name, $vendorEmail, $vendorPhone);
+		return tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_AUTHORIZATION_INVALIDPAYMENTMETHOD_SOFT_DECLINED', $vendor->vendor_store_name, $vendorEmail, $vendorPhone);
 
 	}
 

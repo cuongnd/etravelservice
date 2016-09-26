@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage User
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <fieldset>
     <legend>
-	<?php echo '<span class="userfields_info">' .vmText::_('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL').'</span>'; ?>
+	<?php echo '<span class="userfields_info">' .tsmText::_('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL').'</span>'; ?>
     </legend>
     <?php echo $this->lists['shipTo']; ?>
 

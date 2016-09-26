@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -24,13 +24,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td valign="top">
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('COM_VIRTUEMART_VENDOR_FORM_INFO_LBL') ?>
+						<?php echo tsmText::_('COM_VIRTUEMART_VENDOR_FORM_INFO_LBL') ?>
 					</legend>
 					<table class="admintable">
 						<tr>
 							<td class="key">
                 <label for="vendor_store_name">
-								<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_STORE_NAME'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_STORE_NAME'); ?>:
                 </label>
 							</td>
 							<td>
@@ -40,7 +40,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<tr>
 							<td class="key">
                 <label for="vendor_name">
-								<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_COMPANY_NAME'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_COMPANY_NAME'); ?>:
                 </label>
 							</td>
 							<td>
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<tr>
 							<td class="key">
                 <label for="vendor_url">
-								<?php echo vmText::_('COM_VIRTUEMART_PRODUCT_FORM_URL'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_FORM_URL'); ?>:
                 </label>
 							</td>
 							<td>
@@ -60,7 +60,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<tr>
 							<td class="key">
                 <label for="vendor_min_pov">
-								<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_MPOV'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_MPOV'); ?>:
                 </label>
 							</td>
 							<td>
@@ -75,13 +75,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td valign="top">
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('COM_VIRTUEMART_STORE_CURRENCY_DISPLAY') ?>
+						<?php echo tsmText::_('COM_VIRTUEMART_STORE_CURRENCY_DISPLAY') ?>
 					</legend>
 					<table class="admintable">
 						<tr>
 							<td class="key">
                 <label for="vendor_currency">
-								<?php echo vmText::_('COM_VIRTUEMART_CURRENCY'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_CURRENCY'); ?>:
                 </label>
 							</td>
 							<td>
@@ -91,7 +91,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<tr>
 							<td class="key">
                 <label for="vendor_accepted_currencies[]">
-								<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_ACCEPTED_CURRENCIES'); ?>:
+								<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_ACCEPTED_CURRENCIES'); ?>:
                 </label>
 							</td>
 							<td>
@@ -106,7 +106,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
   		<td colspan="2">
   		<fieldset>
   			<legend>
-  				<?php echo vmText::_('COM_VIRTUEMART_VENDOR_FORM_INFO_LBL') ?>
+  				<?php echo tsmText::_('COM_VIRTUEMART_VENDOR_FORM_INFO_LBL') ?>
   			</legend>
   			<?php
   				echo $this->vendor->images[0]->displayFilesHandler($this->vendor->virtuemart_media_id,'vendor');
@@ -118,7 +118,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
   		<td colspan="2">
     		<fieldset>
     			<legend>
-    				<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_DESCRIPTION');?>
+    				<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_DESCRIPTION');?>
     			</legend>
     			<?php echo $this->editor->display('vendor_store_desc', $this->vendor->vendor_store_desc, '100%', 450, 70, 15)?>
     		</fieldset>
@@ -128,7 +128,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td colspan="2">
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_TOS');?>
+						<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_TOS');?>
 					</legend>
 					<?php echo $this->editor->display('vendor_terms_of_service', $this->vendor->vendor_terms_of_service, '100%', 450, 70, 15)?>
 				</fieldset>
@@ -138,7 +138,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td colspan="2">
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('COM_VIRTUEMART_STORE_FORM_LEGAL');?>
+						<?php echo tsmText::_('COM_VIRTUEMART_STORE_FORM_LEGAL');?>
 					</legend>
 					<?php echo $this->editor->display('vendor_legal_info', $this->vendor->vendor_legal_info, '100%', 400, 70, 15)?>
 				</fieldset>

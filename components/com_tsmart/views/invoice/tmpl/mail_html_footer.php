@@ -7,7 +7,7 @@
 * @subpackage Cart
 * @author Max Milbers
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 /* TODO Chnage the footer place in helper or assets ???*/
 if (empty($this->vendor)) {
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$this->vendor = $vendorModel->getVendor();
 }
 
@@ -33,7 +33,7 @@ echo '<br/><br/>';
 
 //	echo vmText::_('COM_VIRTUEMART_MAIL_VENDOR_TITLE').$this->vendor->vendor_name.'<br/>';
 /* GENERAL FOOTER FOR ALL MAILS */
-	echo vmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
+	echo tsmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
         echo '<br/>';
 	echo $this->vendor->vendor_name .'<br />'.$this->vendor->vendor_phone .' '.$this->vendor->vendor_store_name .'<br /> '.$this->vendor->vendor_store_desc.'<br />';
 ?>	

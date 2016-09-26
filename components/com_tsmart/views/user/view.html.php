@@ -8,7 +8,7 @@
  * @subpackage User
  * @author Oscar van Eijk
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -72,7 +72,7 @@ class VirtuemartViewUser extends VmView {
 			$this->setLayout($layoutName);
 		}
 
-		$this->_model = VmModel::getModel('user');
+		$this->_model = tmsModel::getModel('user');
 
 		//$this->_model->setCurrent(); //without this, the administrator can edit users in the FE, permission is handled in the usermodel, but maybe unsecure?
 		$editor = JFactory::getEditor();
@@ -138,9 +138,9 @@ class VirtuemartViewUser extends VmView {
 		if ($layoutName == 'edit') {
 
 			if ($this->_model->getId() == 0 && $this->_cuid == 0) {
-			$button_lbl = vmText::_('COM_VIRTUEMART_REGISTER');
+			$button_lbl = tsmText::_('COM_VIRTUEMART_REGISTER');
 			} else {
-			$button_lbl = vmText::_('COM_VIRTUEMART_SAVE');
+			$button_lbl = tsmText::_('COM_VIRTUEMART_SAVE');
 			}
 
 			$this->assignRef('button_lbl', $button_lbl);
@@ -164,7 +164,7 @@ class VirtuemartViewUser extends VmView {
 		$this->assignRef('editor', $editor);
 
 		if ($layoutName == 'mailregisteruser') {
-			$vendorModel = VmModel::getModel('vendor');
+			$vendorModel = tmsModel::getModel('vendor');
 			//			$vendorModel->setId($this->_userDetails->virtuemart_vendor_id);
 			$vendor = $vendorModel->getVendor();
 			$this->assignRef('vendor', $vendor);
@@ -176,37 +176,37 @@ class VirtuemartViewUser extends VmView {
 		}
 
 		if (!$this->userDetails->JUser->get('id')) {
-			$corefield_title = vmText::_('COM_VIRTUEMART_USER_CART_INFO_CREATE_ACCOUNT');
+			$corefield_title = tsmText::_('COM_VIRTUEMART_USER_CART_INFO_CREATE_ACCOUNT');
 		} else {
-			$corefield_title = vmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_DETAILS');
+			$corefield_title = tsmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_DETAILS');
 		}
 		if ($this->cart->_fromCart or $this->cart->getInCheckOut()) {
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
 		} else {
 			//$pathway->addItem(vmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_DETAILS'), JRoute::_('index.php?option=com_virtuemart&view=user&&layout=edit'));
 		}
-		$pathway_text = vmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_DETAILS');
+		$pathway_text = tsmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_DETAILS');
 		if (!$this->userDetails->JUser->get('id')) {
 			if ($this->cart->_fromCart or $this->cart->getInCheckOut()) {
 			if ($this->address_type == 'BT') {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
 			} else {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
 			}
 			} else {
 			if ($this->address_type == 'BT') {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
-				$title = vmText::_('COM_VIRTUEMART_REGISTER');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
+				$title = tsmText::_('COM_VIRTUEMART_REGISTER');
 			} else {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
 			}
 			}
 		} else {
 
 			if ($this->address_type == 'BT') {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_LBL');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_LBL');
 			} else {
-				$vmfield_title = vmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
+				$vmfield_title = tsmText::_('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
 			}
 		}
 
@@ -242,7 +242,7 @@ class VirtuemartViewUser extends VmView {
 
     function lOrderlist() {
 	// Check for existing orders for this user
-	$orders = VmModel::getModel('orders');
+	$orders = tmsModel::getModel('orders');
 
 	if ($this->_model->getId() == 0) {
 	    // getOrdersList() returns all orders when no userID is set (admin function),
@@ -283,7 +283,7 @@ class VirtuemartViewUser extends VmView {
 			$this->_lists['shoppergroups'] = ShopFunctions::renderShopperGroupList($shoppergrps);
 		} else {
 			foreach($_shoppergroup as $group){
-				$this->_lists['shoppergroups'] .= vmText::_($group['shopper_group_name']).', ';
+				$this->_lists['shoppergroups'] .= tsmText::_($group['shopper_group_name']).', ';
 			}
 			$this->_lists['shoppergroups'] = substr($this->_lists['shoppergroups'],0,-2);
 		}
@@ -292,7 +292,7 @@ class VirtuemartViewUser extends VmView {
 			if (!class_exists('ShopFunctions'))	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 			$this->_lists['vendors'] = ShopFunctions::renderVendorList($this->userDetails->virtuemart_vendor_id);
 		} else {
-			$this->_lists['vendors'] = vmText::_('COM_VIRTUEMART_USER_NOT_A_VENDOR');
+			$this->_lists['vendors'] = tsmText::_('COM_VIRTUEMART_USER_NOT_A_VENDOR');
 		}
 
 		//todo here is something broken we use $userDetailsList->perms and $this->userDetailsList->perms and perms seems not longer to exist
@@ -340,7 +340,7 @@ class VirtuemartViewUser extends VmView {
 			vmJsApi::chosenDropDowns();
 			vmJsApi::jQueryUi();
 
-			$currencymodel = VmModel::getModel('currency', 'VirtuemartModel');
+			$currencymodel = tmsModel::getModel('currency', 'VirtuemartModel');
 			$currencies = $currencymodel->getCurrencies();
 			$this->assignRef('currencies', $currencies);
 
@@ -348,7 +348,7 @@ class VirtuemartViewUser extends VmView {
 				$this->lOrderlist();
 			}
 
-			$vendorModel = VmModel::getModel('vendor');
+			$vendorModel = tmsModel::getModel('vendor');
 			$vendorModel->setId($this->userDetails->virtuemart_vendor_id);
 
 			$this->vendor = $vendorModel->getVendor();
@@ -373,7 +373,7 @@ class VirtuemartViewUser extends VmView {
 		$this->useSSL = VmConfig::get('useSSL', 0);
 		$this->useXHTML = true;
 
-		$userFieldsModel = VmModel::getModel('UserFields');
+		$userFieldsModel = tmsModel::getModel('UserFields');
 		$userFields = $userFieldsModel->getUserFields();
 		$this->userFields = $userFieldsModel->getUserFieldsFilled($userFields, $this->user->userInfo);
 
@@ -387,17 +387,17 @@ class VirtuemartViewUser extends VmView {
 		}
 
 		$virtuemart_vendor_id=1;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		$vendorModel->addImages($vendor);
 		$vendor->vendorFields = $vendorModel->getVendorAddressFields();
 		$this->assignRef('vendor', $vendor);
 
 		if (!$doVendor) {
-			$this->subject = vmText::sprintf('COM_VIRTUEMART_NEW_SHOPPER_SUBJECT', $this->user->username, $this->vendor->vendor_store_name);
+			$this->subject = tsmText::sprintf('COM_VIRTUEMART_NEW_SHOPPER_SUBJECT', $this->user->username, $this->vendor->vendor_store_name);
 			$tpl = 'mail_' . $mailFormat . '_reguser';
 		} else {
-			$this->subject = vmText::sprintf('COM_VIRTUEMART_VENDOR_NEW_SHOPPER_SUBJECT', $this->user->username, $this->vendor->vendor_store_name);
+			$this->subject = tsmText::sprintf('COM_VIRTUEMART_VENDOR_NEW_SHOPPER_SUBJECT', $this->user->username, $this->vendor->vendor_store_name);
 			$tpl = 'mail_' . $mailFormat . '_regvendor';
 		}
 

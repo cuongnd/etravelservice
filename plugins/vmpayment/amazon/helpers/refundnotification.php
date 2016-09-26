@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: refundnotification.php 8431 2014-10-14 14:11:46Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -47,18 +47,18 @@ class amazonHelperRefundNotification extends amazonHelper {
 		$order_history['customer_notified'] = 1;
 		if ($amazonState == 'Completed') {
 			$order_history['order_status'] = $this->_currentMethod->status_refunded;
-			$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_COMPLETED');
+			$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_COMPLETED');
 		} elseif ($amazonState == 'Declined') {
 			$order_history['customer_notified'] = 0;
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_DECLINED', $reasonCode);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_DECLINED', $reasonCode);
 			$order_history['order_status'] = $order['details']['BT']->order_status;
 
 		} elseif ($amazonState == 'Pending') {
-			$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_PENDING');
+			$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_REFUND_PENDING');
 			$order_history['order_status'] = $this->_currentMethod->status_orderconfirmed;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderModel->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, false);
 		return $amazonState;
 	}

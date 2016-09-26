@@ -17,7 +17,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 vmJsApi::jQuery();
 vmJsApi::chosenDropDowns();
@@ -51,7 +51,7 @@ vmJsApi::chosenDropDowns();
 		<div class="vmpayment_selected_cc">
 			<?php
 			if ($viewData['extraInfo']['cc_type']) {
-				echo "(" . vmText::_('VMPAYMENT_REALEX_HPP_API_CC_' . $viewData['extraInfo']['cc_type']) . ' ';
+				echo "(" . tsmText::_('VMPAYMENT_REALEX_HPP_API_CC_' . $viewData['extraInfo']['cc_type']) . ' ';
 				if ($viewData['where'] != 'order') {
 					echo $viewData['extraInfo']['cc_number'];
 				} else {
@@ -77,7 +77,7 @@ vmJsApi::chosenDropDowns();
 		?>
 		<div class="vmpayment_description">
 			<?php
-			echo vmText::_('VMPAYMENT_REALEX_HPP_API_SAVE_CARD_DETAILS_YES');
+			echo tsmText::_('VMPAYMENT_REALEX_HPP_API_SAVE_CARD_DETAILS_YES');
 			?>
 
 		</div>

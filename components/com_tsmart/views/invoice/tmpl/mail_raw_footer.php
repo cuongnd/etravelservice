@@ -7,7 +7,7 @@
 * @subpackage Cart
 * @author Max Milbers, Valerie Isaksen
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 /* TODO Chnage the footer place in helper or assets ???*/
 if (empty($this->vendor)) {
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$this->vendor = $vendorModel->getVendor();
 }
 
@@ -32,7 +32,7 @@ $link= JHtml::_('link', $link, $this->vendor->vendor_name) ;
 
 //	echo vmText::_('COM_VIRTUEMART_MAIL_VENDOR_TITLE').$this->vendor->vendor_name.'<br/>';
 /* GENERAL FOOTER FOR ALL MAILS */
-	echo vmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . $link;
+	echo tsmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . $link;
         echo "\n";
 	echo $this->vendor->vendor_name ."\n".$this->vendor->vendor_phone .' '.$this->vendor->vendor_store_name ."\n".strip_tags($this->vendor->vendor_store_desc)."\n".strip_tags(str_replace('<br />',"\n",$this->replaceVendorFields($this->vendor->vendor_letter_footer_html, $this->vendor)));
 

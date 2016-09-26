@@ -34,8 +34,8 @@ var $type = 'getKlikandpay';
 		$logo = '<img src="https://www.klikandpay.com/images/logo_en.png" style="width: 150px;">';
 		$html = '<p><a target="_blank" href="' . $url . '"  >' . $logo . '</a></p>';
 
-		$html .= '<p><a class="signin-button-link" href="' . $url . '" target="_blank">' . vmText::_('VMPAYMENT_KLIKANDPAY_GET') . '</a>';
-		$html .= ' <a target="_blank" href="https://www.youtube.com/watch?v=DVcUU3FiuMM" class="signin-button-link">' . vmText::_('VMPAYMENT_KLIKANDPAY_DOCUMENTATION') . '</a></p>';
+		$html .= '<p><a class="signin-button-link" href="' . $url . '" target="_blank">' . tsmText::_('VMPAYMENT_KLIKANDPAY_GET') . '</a>';
+		$html .= ' <a target="_blank" href="https://www.youtube.com/watch?v=DVcUU3FiuMM" class="signin-button-link">' . tsmText::_('VMPAYMENT_KLIKANDPAY_DOCUMENTATION') . '</a></p>';
 
 		return $html;
 	}

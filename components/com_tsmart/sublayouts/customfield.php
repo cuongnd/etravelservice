@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author Max Milbers, Valerie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @version $Id: addtocartbtn.php 8024 2014-06-12 15:08:59Z Milbo $
@@ -71,7 +71,7 @@ class VirtueMartCustomFieldRenderer {
 			$idTag = VmHtml::ensureUniqueId($idTag);
 
 			$emptyOption = new stdClass();
-			$emptyOption->text = vmText::_ ('COM_VIRTUEMART_ADDTOCART_CHOOSE_VARIANT');
+			$emptyOption->text = tsmText::_ ('COM_VIRTUEMART_ADDTOCART_CHOOSE_VARIANT');
 			$emptyOption->value = 0;
 			switch ($type) {
 
@@ -149,11 +149,11 @@ class VirtueMartCustomFieldRenderer {
 									}
 									//vmdebug('($dropdowns[$k] in DIMENSION value = '.$elem.' r='.$rd.' '.$text);
 								} else if  ($soption->voption === 'clabels' and $soption->clabel!='') {
-									$text = vmText::_($elem);
+									$text = tsmText::_($elem);
 								}
 
 								if(empty($elem)){
-									$text = vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION');
+									$text = tsmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION');
 								}
 								$options[] = array('value'=>$elem,'text'=>$text);
 
@@ -170,9 +170,9 @@ class VirtueMartCustomFieldRenderer {
 						$idTagK = $idTag.'cvard'.$k;
 						if($customfield->showlabels){
 							if( in_array($soption->voption,VirtueMartModelCustomfields::$dimensions) ){
-								$soption->slabel = vmText::_('COM_VIRTUEMART_'.strtoupper($soption->voption));
+								$soption->slabel = tsmText::_('COM_VIRTUEMART_'.strtoupper($soption->voption));
 							} else if(!empty($soption->clabel) and !in_array($soption->voption,VirtueMartModelCustomfields::$dimensions) ){
-								$soption->slabel = vmText::_($soption->clabel);
+								$soption->slabel = tsmText::_($soption->clabel);
 							}
 							if(isset($soption->slabel)){
 								$html .= '<span class="vm-cmv-label" >'.$soption->slabel.'</span>';
@@ -225,7 +225,7 @@ class VirtueMartCustomFieldRenderer {
 
 					$html = '';
 
-					$productModel = VmModel::getModel ('product');
+					$productModel = tmsModel::getModel ('product');
 
 					//Note by Jeremy Magne (Daycounts) 2013-08-31
 					//Previously the the product model is loaded but we need to ensure the correct product id is set because the getUncategorizedChildren does not get the product id as parameter.
@@ -391,7 +391,7 @@ class VirtueMartCustomFieldRenderer {
 									$tmp = array('value' => $val, 'text' => VirtueMartModelCustomfields::displayCustomMedia ($val,'product',$customfield->width,$customfield->height));
 									$options[] = (object)$tmp;
 								} else {
-									$options[] = array('value' => $val, 'text' => vmText::_($val));
+									$options[] = array('value' => $val, 'text' => tsmText::_($val));
 								}
 							}
 
@@ -402,7 +402,7 @@ class VirtueMartCustomFieldRenderer {
 							if($type == 'M'){
 								$customfield->display =  VirtueMartModelCustomfields::displayCustomMedia ($customfield->customfield_value,'product',$customfield->width,$customfield->height);
 							} else {
-								$customfield->display =  vmText::_ ($customfield->customfield_value);
+								$customfield->display =  tsmText::_ ($customfield->customfield_value);
 							}
 						}
 					} else {
@@ -439,9 +439,9 @@ class VirtueMartCustomFieldRenderer {
 									if(!isset($productCustom->customfield_value)) $productCustom->customfield_value = '';
 									$productCustom->text = VirtueMartModelCustomfields::displayCustomMedia ($productCustom->customfield_value,'product',$customfield->width,$customfield->height).' '.$price;
 								} else {
-									$trValue = vmText::_($productCustom->customfield_value);
+									$trValue = tsmText::_($productCustom->customfield_value);
 									if($productCustom->customfield_value!=$trValue and strpos($trValue,'%1')!==false){
-										$productCustom->text = vmText::sprintf($productCustom->customfield_value,$price);
+										$productCustom->text = tsmText::sprintf($productCustom->customfield_value,$price);
 									} else {
 										$productCustom->text = $trValue.' '.$price;
 									}
@@ -456,7 +456,7 @@ class VirtueMartCustomFieldRenderer {
 							if($type == 'M'){
 								$customfield->display = VirtueMartModelCustomfields::displayCustomMedia ($customfield->customfield_value,'product',$customfield->width,$customfield->height);
 							} else {
-								$customfield->display = vmText::_ ($customfield->customfield_value);
+								$customfield->display = tsmText::_ ($customfield->customfield_value);
 							}
 						}
 					}
@@ -468,11 +468,11 @@ class VirtueMartCustomFieldRenderer {
 					//$customfield->display = vmText::_ ('COM_VIRTUEMART_'.strtoupper($customfield->customfield_value));
 					$attr = $customfield->customfield_value;
 					$lkey = 'COM_VIRTUEMART_'.strtoupper($customfield->customfield_value).'_FE';
-					$trValue = vmText::_ ($lkey);
-					$options[] = array('value' => 'product_length', 'text' => vmText::_ ('COM_VIRTUEMART_PRODUCT_LENGTH'));
-					$options[] = array('value' => 'product_width', 'text' => vmText::_ ('COM_VIRTUEMART_PRODUCT_WIDTH'));
-					$options[] = array('value' => 'product_height', 'text' => vmText::_ ('COM_VIRTUEMART_PRODUCT_HEIGHT'));
-					$options[] = array('value' => 'product_weight', 'text' => vmText::_ ('COM_VIRTUEMART_PRODUCT_WEIGHT'));
+					$trValue = tsmText::_ ($lkey);
+					$options[] = array('value' => 'product_length', 'text' => tsmText::_ ('COM_VIRTUEMART_PRODUCT_LENGTH'));
+					$options[] = array('value' => 'product_width', 'text' => tsmText::_ ('COM_VIRTUEMART_PRODUCT_WIDTH'));
+					$options[] = array('value' => 'product_height', 'text' => tsmText::_ ('COM_VIRTUEMART_PRODUCT_HEIGHT'));
+					$options[] = array('value' => 'product_weight', 'text' => tsmText::_ ('COM_VIRTUEMART_PRODUCT_WEIGHT'));
 
 					$dim = '';
 
@@ -490,11 +490,11 @@ class VirtueMartCustomFieldRenderer {
 						$val = round($val,$customfield->round);
 					}
 					if($lkey!=$trValue and strpos($trValue,'%1')!==false) {
-						$customfield->display = vmText::sprintf( $customfield->customfield_value, $val , $dim );
+						$customfield->display = tsmText::sprintf( $customfield->customfield_value, $val , $dim );
 					} else if($lkey!=$trValue) {
 						$customfield->display = $trValue.' '.$val;
 					} else {
-						$customfield->display = vmText::_ ('COM_VIRTUEMART_'.strtoupper($customfield->customfield_value)).' '.$val.$dim;
+						$customfield->display = tsmText::_ ('COM_VIRTUEMART_'.strtoupper($customfield->customfield_value)).' '.$val.$dim;
 					}
 
 					break;
@@ -523,7 +523,7 @@ class VirtueMartCustomFieldRenderer {
 						$customfield->display = 'customfield related product has no value';
 						break;
 					}
-					$pModel = VmModel::getModel('product');
+					$pModel = tmsModel::getModel('product');
 					$related = $pModel->getProduct((int)$customfield->customfield_value,TRUE,$customfield->wPrice,TRUE,1);
 
 					if(!$related) break;
@@ -560,7 +560,7 @@ class VirtueMartCustomFieldRenderer {
 		$variantmods = isset($product -> customProductData)?$product -> customProductData:$product -> product_attribute;
 
 		if(empty($variantmods)){
-			$productDB = VmModel::getModel('product')->getProduct($product->virtuemart_product_id);
+			$productDB = tmsModel::getModel('product')->getProduct($product->virtuemart_product_id);
 			if($productDB){
 				$product->customfields = $productDB->customfields;
 			}
@@ -624,45 +624,45 @@ class VirtueMartCustomFieldRenderer {
 							$value = $child->product_name;
 						}
 						elseif (($productCustom->field_type == 'M')) {
-							$customFieldModel = VmModel::getModel('customfields');
+							$customFieldModel = tmsModel::getModel('customfields');
 							$value = $customFieldModel->displayCustomMedia ($productCustom->customfield_value,'product',$productCustom->width,$productCustom->height,VirtueMartModelCustomfields::$useAbsUrls);
 						}
 						elseif (($productCustom->field_type == 'S')) {
 
 							if($productCustom->is_list and $productCustom->is_input){
 								if($productCustom->is_list==2){
-									$value = vmText::_($productCustom->customfield_value);
+									$value = tsmText::_($productCustom->customfield_value);
 								} else {
-									$value = vmText::_($params);
+									$value = tsmText::_($params);
 								}
 
 							} else {
-								$value = vmText::_($productCustom->customfield_value);
+								$value = tsmText::_($productCustom->customfield_value);
 							}
 						}
 						elseif (($productCustom->field_type == 'A')) {
 							if(!property_exists($product,$productCustom->customfield_value)){
-								$productDB = VmModel::getModel('product')->getProduct($product->virtuemart_product_id);
+								$productDB = tmsModel::getModel('product')->getProduct($product->virtuemart_product_id);
 								if($productDB){
 									$attr = $productCustom->customfield_value;
 									$product->$attr = $productDB->$attr;
 								}
 							}
-							$value = vmText::_( $product->{$productCustom->customfield_value} );
+							$value = tsmText::_( $product->{$productCustom->customfield_value} );
 						}
 						elseif (($productCustom->field_type == 'C')) {
 
 							foreach($productCustom->options->{$product->virtuemart_product_id} as $k=>$option){
 								$value .= '<span> ';
 								if(!empty($productCustom->selectoptions[$k]->clabel) and in_array($productCustom->selectoptions[$k]->voption,VirtueMartModelCustomfields::$dimensions)){
-									$value .= vmText::_('COM_VIRTUEMART_'.$productCustom->selectoptions[$k]->voption);
+									$value .= tsmText::_('COM_VIRTUEMART_'.$productCustom->selectoptions[$k]->voption);
 									$rd = $productCustom->selectoptions[$k]->clabel;
 									if(is_numeric($rd) and is_numeric($option)){
 										$value .= ' '.number_format(round((float)$option,(int)$rd),$rd);
 									}
 								} else {
-									if(!empty($productCustom->selectoptions[$k]->clabel)) $value .= vmText::_($productCustom->selectoptions[$k]->clabel);
-									$value .= ' '.vmText::_($option).' ';
+									if(!empty($productCustom->selectoptions[$k]->clabel)) $value .= tsmText::_($productCustom->selectoptions[$k]->clabel);
+									$value .= ' '.tsmText::_($option).' ';
 								}
 								$value .= '</span><br>';
 							}
@@ -674,13 +674,13 @@ class VirtueMartCustomFieldRenderer {
 							continue;
 						}
 						else {
-							$value = vmText::_($productCustom->customfield_value);
+							$value = tsmText::_($productCustom->customfield_value);
 						}
-						$trTitle = vmText::_($productCustom->custom_title);
+						$trTitle = tsmText::_($productCustom->custom_title);
 						$tmp = '';
 
 						if($productCustom->custom_title!=$trTitle and strpos($trTitle,'%1')!==false){
-							$tmp .= vmText::sprintf($productCustom->custom_title,$value);
+							$tmp .= tsmText::sprintf($productCustom->custom_title,$value);
 						} else {
 							$tmp .= $trTitle.' '.$value;
 						}

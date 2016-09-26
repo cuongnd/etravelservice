@@ -34,7 +34,7 @@
 	   <?php echo $viewData['payment_name']; ?>
 	</span>
         <span id="klarna_invno_wrapper">
-            <span id="klarna_invno_text"><?php echo vmText::sprintf('VMPAYMENT_KLARNA_INVOICE_NUMBER_TEXT'); ?></span>
+            <span id="klarna_invno_text"><?php echo tsmText::sprintf('VMPAYMENT_KLARNA_INVOICE_NUMBER_TEXT'); ?></span>
             <span id="klarna_invno"><?php echo  $viewData['klarna_invoiceno']; ?></span>
         </span>
 

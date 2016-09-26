@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('JPATH_BASE') or die();
 
@@ -34,11 +34,11 @@ class JFormFieldGetRealex extends JFormField {
 		vmJsApi::addJScript( '/plugins/vmpayment/realex_hpp_api/realex_hpp_api/assets/js/admin.js');
 		vmJsApi::css( 'admin','plugins/vmpayment/realex_hpp_api/realex_hpp_api/assets/css/');
 
-		$url = "http://www.realexpayments.com/partner-referral?id=virtuemart";
+		$url = "http://www.realexpayments.com/partner-referral?id=tsmart";
 		$logo = '<img src="http://www.realexpayments.com/images/logo_realex_large.png" width="150"/>';
 		$html = '<p><a target="_blank" href="' . $url . '"  >' . $logo . '</a></p>';
-		$html .= '<p><a target="_blank" href="' . $url . '" class="signin-button-link">' . vmText::_('VMPAYMENT_REALEX_HPP_API_REGISTER') . '</a>';
-		$html .= ' <a target="_blank" href="http://docs.virtuemart.net/manual/shop-menu/payment-methods/realex-hpp-and-api.html" class="signin-button-link">' . vmText::_('VMPAYMENT_REALEX_HPP_API_DOCUMENTATION') . '</a></p>';
+		$html .= '<p><a target="_blank" href="' . $url . '" class="signin-button-link">' . tsmText::_('VMPAYMENT_REALEX_HPP_API_REGISTER') . '</a>';
+		$html .= ' <a target="_blank" href="http://docs.tsmart.net/manual/shop-menu/payment-methods/realex-hpp-and-api.html" class="signin-button-link">' . tsmText::_('VMPAYMENT_REALEX_HPP_API_DOCUMENTATION') . '</a></p>';
 
 
 		return $html;

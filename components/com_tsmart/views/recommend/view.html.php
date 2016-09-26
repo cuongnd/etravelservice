@@ -6,7 +6,7 @@
 * @package VirtueMart
 * @subpackage
 * @author RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -53,7 +53,7 @@ class virtuemartViewrecommend extends VmView {
 		}
 
 		// Load the product
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
 
 		$this->product = $productModel->getProduct ($virtuemart_product_id);
@@ -94,7 +94,7 @@ class virtuemartViewrecommend extends VmView {
 		}
 
 		/* Set the titles */
-		$document->setTitle(vmText::sprintf('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE',$this->product->product_name.' - '.vmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')));
+		$document->setTitle(tsmText::sprintf('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE',$this->product->product_name.' - '.tsmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')));
 
 		if(empty($this->product)){
 			self::showLastCategory($tpl);
@@ -105,7 +105,7 @@ class virtuemartViewrecommend extends VmView {
 
 
 		/* Load the category */
-		$category_model = VmModel::getModel('category');
+		$category_model = tmsModel::getModel('category');
 		/* Get the category ID */
 		$virtuemart_category_id = vRequest::getInt('virtuemart_category_id');
 		if ($virtuemart_category_id == 0 && !empty($this->product)) {
@@ -118,14 +118,14 @@ class virtuemartViewrecommend extends VmView {
 		if($category_model){
 			$category = $category_model->getCategory($virtuemart_category_id);
 			$this->assignRef('category', $category);
-			$pathway->addItem(vmText::_($category->category_name),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id, FALSE));
+			$pathway->addItem(tsmText::_($category->category_name),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id, FALSE));
 		}
 
 		//$pathway->addItem(vmText::_('COM_VIRTUEMART_PRODUCT_DETAILS'), $uri->toString(array('path', 'query', 'fragment')));
 		$pathway->addItem($this->product->product_name,JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_category_id='.$virtuemart_category_id.'&virtuemart_product_id='.$this->product->virtuemart_product_id, FALSE));
 
 		// for askquestion
-		$pathway->addItem( vmText::_('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
+		$pathway->addItem( tsmText::_('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
 
 		/* Check for editing access */
 		/** @todo build edit page */
@@ -163,7 +163,7 @@ class virtuemartViewrecommend extends VmView {
 		$this->setLayout ($tpl);
 
 		// Load the product
-		$productModel = VmModel::getModel('product');
+		$productModel = tmsModel::getModel('product');
 		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
 
 		$this->product = $productModel->getProduct ($virtuemart_product_id);
@@ -176,7 +176,7 @@ class virtuemartViewrecommend extends VmView {
 		$vars['user'] = array('name' => $user->name, 'email' =>  $user->email);
 
 		$vars['vendorEmail'] = $user->email;
-		$vendorModel = VmModel::getModel ('vendor');
+		$vendorModel = tmsModel::getModel ('vendor');
 		$this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
 
 		$vendorModel->addImages ($this->vendor);
@@ -189,7 +189,7 @@ class virtuemartViewrecommend extends VmView {
 			$this->$key = $val;
 		}
 
-		$this->subject = vmText::sprintf('COM_VIRTUEMART_RECOMMEND_PRODUCT',$this->name, $this->product->product_name);
+		$this->subject = tsmText::sprintf('COM_VIRTUEMART_RECOMMEND_PRODUCT',$this->name, $this->product->product_name);
 
 		$this->isMail = true;
 		parent::display();

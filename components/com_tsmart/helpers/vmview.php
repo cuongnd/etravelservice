@@ -17,7 +17,7 @@ defined('_JEXEC') or die('');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 // Load the view framework
 jimport( 'joomla.application.component.view');
@@ -134,7 +134,7 @@ class VmView extends JViewLegacy{
 		}
 
 		$this->continue_link = JURI::root() .'index.php?option=com_virtuemart&view=category' . $categoryStr.$lang.$ItemidStr;
-		$this->continue_link_html = '<a class="continue_link" href="' . $this->continue_link . '">' . vmText::_ ('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
+		$this->continue_link_html = '<a class="continue_link" href="' . $this->continue_link . '">' . tsmText::_ ('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
 
 		$this->cart_link = JURI::root().'index.php?option=com_virtuemart&view=cart'.$lang;
 
@@ -147,11 +147,11 @@ class VmView extends JViewLegacy{
 		}
 		$folder = 'media/system/images/'; //shouldn't be root slash before media, as it automatically tells to look in root directory, for media/system/ which is wrong it should append to root directory.
 		$text='';
-		if ( $use_icon ) $text .= JHtml::_('image', $folder.$boutonName.'.png',  vmText::_($altText), null, false, false); //$folder shouldn't be as alt text, here it is: image(string $file, string $alt, mixed $attribs = null, boolean $relative = false, mixed $path_rel = false) : string, you should change first false to true if images are in templates media folder
-		if ( $use_text ) $text .= '&nbsp;'. vmText::_($altText);
-		if ( $text=='' )  $text .= '&nbsp;'. vmText::_($altText);
-		if ($modal) return '<a '.$class.' class="modal" rel="{handler: \'iframe\', size: {x: 700, y: 550}}" title="'. vmText::_($altText).'" href="'.JRoute::_($link, FALSE).'">'.$text.'</a>';
-		else 		return '<a '.$class.' title="'. vmText::_($altText).'" href="'.JRoute::_($link, FALSE).'">'.$text.'</a>';
+		if ( $use_icon ) $text .= JHtml::_('image', $folder.$boutonName.'.png',  tsmText::_($altText), null, false, false); //$folder shouldn't be as alt text, here it is: image(string $file, string $alt, mixed $attribs = null, boolean $relative = false, mixed $path_rel = false) : string, you should change first false to true if images are in templates media folder
+		if ( $use_text ) $text .= '&nbsp;'. tsmText::_($altText);
+		if ( $text=='' )  $text .= '&nbsp;'. tsmText::_($altText);
+		if ($modal) return '<a '.$class.' class="modal" rel="{handler: \'iframe\', size: {x: 700, y: 550}}" title="'. tsmText::_($altText).'" href="'.JRoute::_($link, FALSE).'">'.$text.'</a>';
+		else 		return '<a '.$class.' title="'. tsmText::_($altText).'" href="'.JRoute::_($link, FALSE).'">'.$text.'</a>';
 	}
 
 	public function escape($var)

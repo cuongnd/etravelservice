@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Manufacturer
 * @author Kohl Patrick
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -44,7 +44,7 @@ class VirtuemartViewManufacturer extends VmView {
 		$mf_category_id = vRequest::getInt('mf_category_id', 0);
 
 		// get necessary models
-		$model = VmModel::getModel('manufacturer');
+		$model = tmsModel::getModel('manufacturer');
 		if ($virtuemart_manufacturer_id !=0 ) {
 
 			$manufacturer = $model->getManufacturer();
@@ -56,7 +56,7 @@ class VirtuemartViewManufacturer extends VmView {
 				shopFunctionsF::triggerContentPlugin($manufacturer, 'manufacturer','mf_desc');
 			}
 
-			$document->setTitle(vmText::_('COM_VIRTUEMART_MANUFACTURER_DETAILS').' '.strip_tags($manufacturer->mf_name));
+			$document->setTitle(tsmText::_('COM_VIRTUEMART_MANUFACTURER_DETAILS').' '.strip_tags($manufacturer->mf_name));
 			//added so that the canonical points to page with visible products thx to P2Peter
 			// remove joomla canonical before adding it
 			foreach ( $document->_links as $k => $array ) {
@@ -73,7 +73,7 @@ class VirtuemartViewManufacturer extends VmView {
 			$this->setLayout('details');
 
 		} else {
-			$document->setTitle(vmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE')) ;
+			$document->setTitle(tsmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE')) ;
 			$manufacturers = $model->getManufacturers(true, true,  true);
 			$model->addImages($manufacturers,1);
 			$this->assignRef('manufacturers',	$manufacturers);

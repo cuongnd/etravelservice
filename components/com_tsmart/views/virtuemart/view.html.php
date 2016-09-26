@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -32,7 +32,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		$vendorId = vRequest::getInt('vendorid', 1);
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 
 		$vendorIdUser = vmAccess::isSuperVendor();
 		$vendorModel->setId($vendorId);
@@ -66,9 +66,9 @@ class VirtueMartViewVirtueMart extends VmView {
 			}
 			$this->assignRef('add_product_link', $add_product_link);
 
-			$categoryModel = VmModel::getModel('category');
-			$productModel = VmModel::getModel('product');
-			$ratingModel = VmModel::getModel('ratings');
+			$categoryModel = tmsModel::getModel('category');
+			$productModel = tmsModel::getModel('product');
+			$ratingModel = tmsModel::getModel('ratings');
 			$productModel->withRating = $this->showRating = $ratingModel->showRating();
 
 			$this->products = array();
@@ -170,7 +170,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		//Todo this may not work everytime as expected, because the error must be set in the redirect links.
 		if(!empty($error)){
-			$document->setTitle(vmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND').vmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name));
+			$document->setTitle(tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND').tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name));
 		} else {
 
 			if(empty($this->vendor->customtitle)){
@@ -178,11 +178,11 @@ class VirtueMartViewVirtueMart extends VmView {
 				if ($menu){
 					$menuTitle = $menu->params->get('page_title');
 					if(empty($menuTitle)) {
-						$menuTitle = vmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
+						$menuTitle = tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
 					}
 					$document->setTitle($menuTitle);
 				} else {
-					$title = vmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
+					$title = tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
 					$document->setTitle($title);
 				}
 			} else {

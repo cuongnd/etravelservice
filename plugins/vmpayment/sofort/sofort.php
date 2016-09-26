@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 if (!class_exists('vmPSPlugin')) {
 	require(JPATH_VM_PLUGINS . DS . 'vmpsplugin.php');
@@ -98,8 +98,8 @@ class plgVmPaymentSofort extends vmPSPlugin {
 	function displayErrors ($errors) {
 
 		foreach ($errors as $error) {
-			vmError(vmText::sprintf('VMPAYMENT_SOFORT_ERROR_FROM', $error ['message'], $error ['field'], $error ['code']));
-			vmInfo(vmText::sprintf('VMPAYMENT_SOFORT_ERROR_FROM', $error ['message'], $error ['field'], $error ['code']));
+			vmError(tsmText::sprintf('VMPAYMENT_SOFORT_ERROR_FROM', $error ['message'], $error ['field'], $error ['code']));
+			vmInfo(tsmText::sprintf('VMPAYMENT_SOFORT_ERROR_FROM', $error ['message'], $error ['field'], $error ['code']));
 			if ($error ['message'] == 401) {
 				vmdebug('check you payment parameters: custom_id, project_id, api key');
 			}
@@ -198,7 +198,7 @@ class plgVmPaymentSofort extends vmPSPlugin {
 	function redirectToCart ($msg = NULL) {
 
 		if (!$msg) {
-			$msg = vmText::_('VMPAYMENT_SOFORT_ERROR_TRY_AGAIN');
+			$msg = tsmText::_('VMPAYMENT_SOFORT_ERROR_TRY_AGAIN');
 		}
 		$app = JFactory::getApplication();
 		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&Itemid=' . vRequest::getInt('Itemid').'&lang='.vRequest::getCmd('lang',''), false), $msg);
@@ -289,7 +289,7 @@ class plgVmPaymentSofort extends vmPSPlugin {
 			// JError::raiseWarning(500, $db->getErrorMsg());
 			return '';
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		// may be we did not receive the notification
 		// Thus the call of the success-URL should check, if the notification has already been arrived at the shop  .
@@ -327,7 +327,7 @@ class plgVmPaymentSofort extends vmPSPlugin {
 		}
 		vmdebug('plgVmOnUserPaymentCancel', 'VMPAYMENT_SOFORT_PAYMENT_CANCELLED');
 
-		VmInfo(vmText::_('VMPAYMENT_SOFORT_PAYMENT_CANCELLED'));
+		VmInfo(tsmText::_('VMPAYMENT_SOFORT_PAYMENT_CANCELLED'));
 		$session = JFactory::getSession();
 		$return_context = $session->getId();
 		if (strcmp($paymentTable->sofort_custom, $return_context) === 0) {
@@ -430,14 +430,14 @@ class plgVmPaymentSofort extends vmPSPlugin {
 			return false;
 		}
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$order_history = array();
 		$status = 'status_' . $sofortLib_TransactionData->getStatus();
 		//$this->debugLog('plgVmOnPaymentNotification getStatus:' .$status. ' '.var_export($method, true) , 'message');
 
 		$order_history['customer_notified'] = true;
 		$order_history['order_status'] = $this->_currentMethod->$status;
-		$order_history['comments'] = vmText::_('VMPAYMENT_SOFORT_RESPONSE_STATUS_REASON_' . $sofortLib_TransactionData->getStatusReason());
+		$order_history['comments'] = tsmText::_('VMPAYMENT_SOFORT_RESPONSE_STATUS_REASON_' . $sofortLib_TransactionData->getStatusReason());
 
 		$sofort_data['sofort_response_status_reason'] = $sofortLib_TransactionData->getStatusReason();
 		$sofort_data['sofort_response_transaction'] = $sofortLib_TransactionData->getTransaction();
@@ -486,7 +486,7 @@ class plgVmPaymentSofort extends vmPSPlugin {
 		$code = "sofort_response_";
 		$first = TRUE;
 		foreach ($payments as $payment) {
-			$html .= '<tr class="row1"><th>' . vmText::_('COM_VIRTUEMART_DATE') . '</th><th align="left">' . $payment->created_on . '</th></tr>';
+			$html .= '<tr class="row1"><th>' . tsmText::_('COM_VIRTUEMART_DATE') . '</th><th align="left">' . $payment->created_on . '</th></tr>';
 			// Now only the first entry has this data when creating the order
 			if ($first) {
 				$html .= $this->getHtmlRowBE('SOFORT_PAYMENT_NAME', $payment->payment_name);
@@ -688,7 +688,7 @@ class plgVmPaymentSofort extends vmPSPlugin {
 		if ($this->getPluginMethods($cart->vendorId) === 0) {
 			if (empty($this->_name)) {
 				$app = JFactory::getApplication();
-				$app->enqueueMessage(vmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
+				$app->enqueueMessage(tsmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
 				return false;
 			} else {
 				return false;

@@ -5,7 +5,7 @@
  *
  * @package	VirtueMart
  * @author Max Milbers, Valerie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @version $Id: default_manufacturer.php 8794 2015-03-12 18:31:55Z Milbo $

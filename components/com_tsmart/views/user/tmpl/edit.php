@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -30,14 +30,14 @@ JHtml::stylesheet('vmpanels.css', JURI::root().'components/com_virtuemart/assets
 <?php echo shopFunctionsF::getLoginForm(false); ?>
 
 <?php if($this->userDetails->virtuemart_user_id==0) {
-	echo '<h2>'.vmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_REG').'</h2>';
+	echo '<h2>'.tsmText::_('COM_VIRTUEMART_YOUR_ACCOUNT_REG').'</h2>';
 }?>
 <form method="post" id="adminForm" name="userForm" action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=user',$this->useXHTML,$this->useSSL) ?>" class="form-validate">
 <?php if($this->userDetails->user_is_vendor){ ?>
     <div class="buttonBar-right">
 	<button class="button" type="submit" onclick="javascript:return myValidator(userForm, true);" ><?php echo $this->button_lbl ?></button>
 	&nbsp;
-<button class="button" type="reset" onclick="window.location.href='<?php echo JRoute::_('index.php?option=com_virtuemart&view=user&task=cancel', FALSE); ?>'" ><?php echo vmText::_('COM_VIRTUEMART_CANCEL'); ?></button></div>
+<button class="button" type="reset" onclick="window.location.href='<?php echo JRoute::_('index.php?option=com_virtuemart&view=user&task=cancel', FALSE); ?>'" ><?php echo tsmText::_('COM_VIRTUEMART_CANCEL'); ?></button></div>
     <?php } ?>
 <?php // Loading Templates in Tabs
 if($this->userDetails->virtuemart_user_id!=0) {

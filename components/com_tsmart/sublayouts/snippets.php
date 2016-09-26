@@ -5,7 +5,7 @@ $product = $viewData['product'];
 $currency = $viewData['currency'];
 $view = vRequest::getCmd('view');
 if($viewData['showRating']){
-	$ratingModel = VmModel::getModel('Ratings');
+	$ratingModel = tmsModel::getModel('Ratings');
 	$productrating = $ratingModel->getRatingByProduct($product->virtuemart_product_id);
 	$productratingcount = isset($productrating->ratingcount) ? $productrating->ratingcount:'';
 }

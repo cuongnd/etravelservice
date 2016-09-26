@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,7 +31,7 @@ class VirtueMartControllerOrder extends JControllerLegacy {
         $passenger_id=$input->getInt('passenger_id',0);
         $post=$input->getArray();
         $passenger_data=$post['data'];
-        $order_mode=VmModel::getModel('orders');
+        $order_mode=tmsModel::getModel('orders');
         $orderTable=$order_mode->getTable('orders');
         $orderTable->load($virtuemart_order_id);
         $order_data=$orderTable->order_data;

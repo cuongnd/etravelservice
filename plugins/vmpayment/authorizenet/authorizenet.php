@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -125,7 +125,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		if ($this->getPluginMethods($cart->vendorId) === 0) {
 			if (empty($this->_name)) {
 				$app = JFactory::getApplication();
-				$app->enqueueMessage(vmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
+				$app->enqueueMessage(tsmText::_('COM_VIRTUEMART_CART_NO_' . strtoupper($this->_psType)));
 				return FALSE;
 			} else {
 				return FALSE;
@@ -166,22 +166,22 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 				}
 				$sandbox_msg = "";
 				if ($this->_currentMethod->sandbox) {
-					$sandbox_msg .= '<br />' . vmText::_('VMPAYMENT_AUTHORIZENET_SANDBOX_TEST_NUMBERS');
+					$sandbox_msg .= '<br />' . tsmText::_('VMPAYMENT_AUTHORIZENET_SANDBOX_TEST_NUMBERS');
 				}
 
 				$cvv_images = $this->_displayCVVImages($this->_currentMethod);
-				$html .= '<br /><span class="vmpayment_cardinfo">' . vmText::_('VMPAYMENT_AUTHORIZENET_COMPLETE_FORM') . $sandbox_msg . '
+				$html .= '<br /><span class="vmpayment_cardinfo">' . tsmText::_('VMPAYMENT_AUTHORIZENET_COMPLETE_FORM') . $sandbox_msg . '
 		    <table border="0" cellspacing="0" cellpadding="2" width="100%">
 		    <tr valign="top">
 		        <td nowrap width="10%" align="right">
-		        	<label for="creditcardtype">' . vmText::_('VMPAYMENT_AUTHORIZENET_CCTYPE') . '</label>
+		        	<label for="creditcardtype">' . tsmText::_('VMPAYMENT_AUTHORIZENET_CCTYPE') . '</label>
 		        </td>
 		        <td>' . $creditCardList .
 					'</td>
 		    </tr>
 		    <tr valign="top">
 		        <td nowrap width="10%" align="right">
-		        	<label for="cc_type">' . vmText::_('VMPAYMENT_AUTHORIZENET_CCNUM') . '</label>
+		        	<label for="cc_type">' . tsmText::_('VMPAYMENT_AUTHORIZENET_CCNUM') . '</label>
 		        </td>
 		        <td>
 				<script type="text/javascript">
@@ -201,17 +201,17 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		    </tr>
 		    <tr valign="top">
 		        <td nowrap width="10%" align="right">
-		        	<label for="cc_cvv">' . vmText::_('VMPAYMENT_AUTHORIZENET_CVV2') . '</label>
+		        	<label for="cc_cvv">' . tsmText::_('VMPAYMENT_AUTHORIZENET_CVV2') . '</label>
 		        </td>
 		        <td>
 		            <input type="text" class="inputbox" id="cc_cvv_' . $this->_currentMethod->virtuemart_paymentmethod_id . '" name="cc_cvv_' . $this->_currentMethod->virtuemart_paymentmethod_id . '" maxlength="4" size="5" value="' . $this->_cc_cvv . '" autocomplete="off" />
 
-			<span class="hasTip" title="' . vmText::_('VMPAYMENT_AUTHORIZENET_WHATISCVV') . '::' . vmText::sprintf("VMPAYMENT_AUTHORIZENET_WHATISCVV_TOOLTIP", $cvv_images) . ' ">' .
-					vmText::_('VMPAYMENT_AUTHORIZENET_WHATISCVV') . '
+			<span class="hasTip" title="' . tsmText::_('VMPAYMENT_AUTHORIZENET_WHATISCVV') . '::' . tsmText::sprintf("VMPAYMENT_AUTHORIZENET_WHATISCVV_TOOLTIP", $cvv_images) . ' ">' .
+					tsmText::_('VMPAYMENT_AUTHORIZENET_WHATISCVV') . '
 			</span></td>
 		    </tr>
 		    <tr>
-		        <td nowrap width="10%" align="right">' . vmText::_('VMPAYMENT_AUTHORIZENET_EXDATE') . '</td>
+		        <td nowrap width="10%" align="right">' . tsmText::_('VMPAYMENT_AUTHORIZENET_EXDATE') . '</td>
 		        <td> ';
 				$html .= shopfunctions::listMonths('cc_expire_month_' . $this->_currentMethod->virtuemart_paymentmethod_id, $this->_cc_expire_month);
 				$html .= " / ";
@@ -303,15 +303,15 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 
 	function _setAuthorizeNetIntoSession ()
 	{
-		if (!class_exists('vmCrypt')) {
-			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		$session = JFactory::getSession();
 		$sessionAuthorizeNet = new stdClass();
 		// card information
 		$sessionAuthorizeNet->cc_type = $this->_cc_type;
-		$sessionAuthorizeNet->cc_number = vmCrypt::encrypt($this->_cc_number);
-		$sessionAuthorizeNet->cc_cvv = vmCrypt::encrypt($this->_cc_cvv);
+		$sessionAuthorizeNet->cc_number = tsmCrypt::encrypt($this->_cc_number);
+		$sessionAuthorizeNet->cc_cvv = tsmCrypt::encrypt($this->_cc_cvv);
 		$sessionAuthorizeNet->cc_expire_month = $this->_cc_expire_month;
 		$sessionAuthorizeNet->cc_expire_year = $this->_cc_expire_year;
 		$sessionAuthorizeNet->cc_valid = $this->_cc_valid;
@@ -319,8 +319,8 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 	}
 
 	function _getAuthorizeNetFromSession() {
-		if (!class_exists('vmCrypt')) {
-			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		$session = JFactory::getSession();
 		$authorizenetSession = $session->get('authorizenet', 0, 'vm');
@@ -328,8 +328,8 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		if (!empty($authorizenetSession)) {
 			$authorizenetData = (object)json_decode($authorizenetSession,true);
 			$this->_cc_type = $authorizenetData->cc_type;
-			$this->_cc_number =  vmCrypt::decrypt($authorizenetData->cc_number);
-			$this->_cc_cvv =  vmCrypt::decrypt($authorizenetData->cc_cvv);
+			$this->_cc_number =  tsmCrypt::decrypt($authorizenetData->cc_number);
+			$this->_cc_cvv =  tsmCrypt::decrypt($authorizenetData->cc_cvv);
 			$this->_cc_expire_month = $authorizenetData->cc_expire_month;
 			$this->_cc_expire_year = $authorizenetData->cc_expire_year;
 			$this->_cc_valid = $authorizenetData->cc_valid;
@@ -580,7 +580,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 				}
 			}
 		}
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$order['order_status'] = $new_status;
 		$order['customer_notified'] = 1;
 		$order['comments'] = '';
@@ -596,12 +596,12 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		if (!class_exists('VirtueMartModelOrders')) {
 			require(JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
 		}
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		//$modelOrder->remove(array('virtuemart_order_id' => $virtuemart_order_id));
 		// error while processing the payment
 		$mainframe = JFactory::getApplication();
 		$mainframe->enqueueMessage($html);
-		$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&task=editpayment', FALSE), vmText::_('COM_VIRTUEMART_CART_ORDERDONE_DATA_NOT_VALID'));
+		$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&task=editpayment', FALSE), tsmText::_('COM_VIRTUEMART_CART_ORDERDONE_DATA_NOT_VALID'));
 	}
 
 	/**
@@ -649,10 +649,10 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		$creditCardInfos = '';
 		if ($this->_validate_creditcard_data(FALSE)) {
 			$cc_number = "**** **** **** " . substr($this->_cc_number, -4);
-			$creditCardInfos .= '<br /><span class="vmpayment_cardinfo">' . vmText::_('VMPAYMENT_AUTHORIZENET_CCTYPE') . $this->_cc_type . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_AUTHORIZENET_CCNUM') . $cc_number . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_AUTHORIZENET_CVV2') . '****' . '<br />';
-			$creditCardInfos .= vmText::_('VMPAYMENT_AUTHORIZENET_EXDATE') . $this->_cc_expire_month . '/' . $this->_cc_expire_year;
+			$creditCardInfos .= '<br /><span class="vmpayment_cardinfo">' . tsmText::_('VMPAYMENT_AUTHORIZENET_CCTYPE') . $this->_cc_type . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_AUTHORIZENET_CCNUM') . $cc_number . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_AUTHORIZENET_CVV2') . '****' . '<br />';
+			$creditCardInfos .= tsmText::_('VMPAYMENT_AUTHORIZENET_EXDATE') . $this->_cc_expire_month . '/' . $this->_cc_expire_year;
 			$creditCardInfos .= "</span>";
 		}
 		return $creditCardInfos;
@@ -671,7 +671,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 			$creditCards = (array)$creditCards;
 		}
 		foreach ($creditCards as $creditCard) {
-			$options[] = JHTML::_('select.option', $creditCard, vmText::_('VMPAYMENT_AUTHORIZENET_' . strtoupper($creditCard)));
+			$options[] = JHTML::_('select.option', $creditCard, tsmText::_('VMPAYMENT_AUTHORIZENET_' . strtoupper($creditCard)));
 		}
 		if ($multiple) {
 			$attrs = 'multiple="multiple"';
@@ -710,7 +710,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 			//$html.= "<ul>";
 			foreach ($this->_errormessage as $msg) {
 				//$html .= "<li>" . vmText::_($msg) . "</li>";
-				$html .= vmText::_($msg) . "<br/>";
+				$html .= tsmText::_($msg) . "<br/>";
 			}
 			//$html.= "</ul>";
 		}
@@ -923,7 +923,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 			if (count($response_array) < 10) {
 				$this->approved = FALSE;
 				$this->error = TRUE;
-				$error_message = vmText::_('VMPAYMENT_AUTHORIZENET_UNKNOWN') . $response;
+				$error_message = tsmText::_('VMPAYMENT_AUTHORIZENET_UNKNOWN') . $response;
 				$this->debugLog($error_message, 'getOrderIdByOrderNumber', 'error');
 				return $error_message;
 			}
@@ -988,7 +988,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 				$dbValues['authorizenet_response_response_reason_code'] = $authorizeNetResponse['response_reason_code'];
 				$dbValues['authorizenet_response_response_reason_text'] = $authorizeNetResponse['response_reason_text'];
 				//$this->storePSPluginInternalData($dbValues, 'id', true);
-				$html = vmText::sprintf('VMPAYMENT_AUTHORIZENET_ERROR', $authorizeNetResponse['response_reason_text'], $authorizeNetResponse['response_code']) . "<br />";
+				$html = tsmText::sprintf('VMPAYMENT_AUTHORIZENET_ERROR', $authorizeNetResponse['response_reason_text'], $authorizeNetResponse['response_code']) . "<br />";
 				$this->debugLog($html, '_handleResponse PAYMENT DECLINED', 'message');
 				return $html;
 			}
@@ -999,8 +999,8 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 			if (!$virtuemart_order_id) {
 				$this->approved = FALSE;
 				$this->error = TRUE;
-				$this->debugLog(vmText::sprintf('VMPAYMENT_AUTHORIZENET_NO_ORDER_NUMBER', $authorizeNetResponse['invoice_number']), 'getOrderIdByOrderNumber', 'error');
-				$html = vmText::sprintf('VMPAYMENT_AUTHORIZENET_ERROR', $authorizeNetResponse['response_reason_text'], $authorizeNetResponse['response_code']) . "<br />";
+				$this->debugLog(tsmText::sprintf('VMPAYMENT_AUTHORIZENET_NO_ORDER_NUMBER', $authorizeNetResponse['invoice_number']), 'getOrderIdByOrderNumber', 'error');
+				$html = tsmText::sprintf('VMPAYMENT_AUTHORIZENET_ERROR', $authorizeNetResponse['response_reason_text'], $authorizeNetResponse['response_code']) . "<br />";
 				$this->debugLog($html, '_handleResponse PAYMENT DECLINED', 'message');
 
 				return $html;
@@ -1009,8 +1009,8 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		} else {
 			$this->approved = FALSE;
 			$this->error = TRUE;
-			$this->debugLog(vmText::_('VMPAYMENT_AUTHORIZENET_CONNECTING_ERROR'), '_handleResponse', 'error');
-			return vmText::_('VMPAYMENT_AUTHORIZENET_CONNECTING_ERROR');
+			$this->debugLog(tsmText::_('VMPAYMENT_AUTHORIZENET_CONNECTING_ERROR'), '_handleResponse', 'error');
+			return tsmText::_('VMPAYMENT_AUTHORIZENET_CONNECTING_ERROR');
 		}
 		// Prep
 		// get all know columns of the table
@@ -1040,7 +1040,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 			$html .= $this->getHtmlRow('AUTHORIZENET_RESPONSE_TRANSACTION_ID', $authorizeNetResponse['transaction_id']);
 		}
 		$html .= '</table>' . "\n";
-		$this->debugLog(vmText::_('VMPAYMENT_AUTHORIZENET_ORDER_NUMBER') . " " . $authorizeNetResponse['invoice_number'] . ' payment approved', '_handleResponse', 'debug');
+		$this->debugLog(tsmText::_('VMPAYMENT_AUTHORIZENET_ORDER_NUMBER') . " " . $authorizeNetResponse['invoice_number'] . ' payment approved', '_handleResponse', 'debug');
 
 		return $html;
 	}

@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage User
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <fieldset>
 	<span class="userfields_info">
-		<?php echo vmText::_('COM_VIRTUEMART_SHOPPER_FORM_LBL') ?>
+		<?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_FORM_LBL') ?>
 	</span>
 	<table class="adminForm user-details">
 <?php	if(Vmconfig::get('multix','none')!=='none'){ ?>
@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="virtuemart_vendor_id">
-					<?php echo vmText::_('COM_VIRTUEMART_PRODUCT_FORM_VENDOR') ?>:
+					<?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_FORM_VENDOR') ?>:
 				</label>
 			</td>
 			<td>
@@ -43,7 +43,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="customer_number">
-					<?php echo vmText::_('COM_VIRTUEMART_USER_FORM_CUSTOMER_NUMBER') ?>:
+					<?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_CUSTOMER_NUMBER') ?>:
 				</label>
 			</td>
 			<td>
@@ -60,7 +60,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="virtuemart_shoppergroup_id">
-					<?php echo vmText::_('COM_VIRTUEMART_SHOPPER_FORM_GROUP') ?>:
+					<?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_FORM_GROUP') ?>:
 				</label>
 			</td>
 			<td>

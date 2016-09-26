@@ -14,7 +14,7 @@ defined('JPATH_BASE') or die();
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
     if (!defined('JPATH_VMKLARNAPLUGIN'))

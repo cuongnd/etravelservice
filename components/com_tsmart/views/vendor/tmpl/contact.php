@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage vendor
 * @author Kohl Patrick, Eugen Stranz
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -67,7 +67,7 @@ defined('_JEXEC') or die('Restricted access');
 	');
 ?>
 
-		<h3><?php echo vmText::_('COM_VIRTUEMART_VENDOR_ASK_QUESTION')  ?></h3>
+		<h3><?php echo tsmText::_('COM_VIRTUEMART_VENDOR_ASK_QUESTION')  ?></h3>
 
 		<div class="clear"></div>
 
@@ -75,23 +75,23 @@ defined('_JEXEC') or die('Restricted access');
 
 			<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php') ; ?>" name="askform" id="askform">
 
-				<label><?php echo vmText::_('COM_VIRTUEMART_USER_FORM_NAME')  ?> : <input type="text" class="validate[required,minSize[4],maxSize[64]]" value="<?php echo $this->user->name ?>" name="name" id="name" size="30"  validation="required name"/></label>
+				<label><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_NAME')  ?> : <input type="text" class="validate[required,minSize[4],maxSize[64]]" value="<?php echo $this->user->name ?>" name="name" id="name" size="30" validation="required name"/></label>
 				<br />
-				<label><?php echo vmText::_('COM_VIRTUEMART_USER_FORM_EMAIL')  ?> : <input type="text" class="validate[required,custom[email]]" value="<?php echo $this->user->email ?>" name="email" id="email" size="30"  validation="required email"/></label>
+				<label><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_EMAIL')  ?> : <input type="text" class="validate[required,custom[email]]" value="<?php echo $this->user->email ?>" name="email" id="email" size="30" validation="required email"/></label>
 				<br/>
 				<label>
 					<?php
-					$ask_comment = vmText::sprintf('COM_VIRTUEMART_ASK_COMMENT', $min, $max);
+					$ask_comment = tsmText::sprintf('COM_VIRTUEMART_ASK_COMMENT', $min, $max);
 					echo $ask_comment;
 					?>
 					<br />
 					<textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" cols="30" rows="10"></textarea>
 				</label>
 				<div class="submit">
-					<input class="highlight-button" type="submit" name="submit_ask" title="<?php echo vmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" value="<?php echo vmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" />
+					<input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" />
 
 					<div class="width50 floatright right paddingtop">
-						<?php echo vmText::_('COM_VIRTUEMART_ASK_COUNT')  ?>
+						<?php echo tsmText::_('COM_VIRTUEMART_ASK_COUNT')  ?>
 						<input type="text" value="0" size="4" class="counter" id="counter" name="counter" maxlength="4" readonly="readonly" />
 					</div>
 				</div>

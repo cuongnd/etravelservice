@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -36,11 +36,11 @@ class KlikandpayHelperKlikandpaySubscribe extends KlikandpayHelperKlikandpay {
 	function getOrderHistory($klikandpay_data, $order, $payments) {
 		$subscribe_comment = '';
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
-		$order_history['comments'] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
+		$order_history['comments'] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
 
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($klikandpay_data['MONTANTXKP'], $order['details']['BT']->order_currency);
 		if (isset($klikandpay_data['PROCHAINE'])) {
-			$subscribe_comment = vmText::_('VMPAYMENT_KLIKANDPAY_RESPONSE_PROCHAINE') . ' ' . $klikandpay_data['PROCHAINE'];
+			$subscribe_comment = tsmText::_('VMPAYMENT_KLIKANDPAY_RESPONSE_PROCHAINE') . ' ' . $klikandpay_data['PROCHAINE'];
 		}
 
 		$order_history['customer_notified'] = true;
@@ -98,7 +98,7 @@ class KlikandpayHelperKlikandpaySubscribe extends KlikandpayHelperKlikandpay {
 		if ($cart->BT) {
 			if (empty($cart->BT['phone_1']) and empty($cart->BT['phone_2']) and $displayInfoMsg) {
 				//vmInfo(vmText::sprintf('VMPAYMENT_KLIKANDPAY_SUBSCRIBE_TEL_REQUIRED',JRoute::_('index.php?option=com_virtuemart&view=cart')) );
-				vmInfo(vmText::sprintf('VMPAYMENT_KLIKANDPAY_SUBSCRIBE_TEL_REQUIRED', JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscheckout&addrtype=BT')));
+				vmInfo(tsmText::sprintf('VMPAYMENT_KLIKANDPAY_SUBSCRIBE_TEL_REQUIRED', JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscheckout&addrtype=BT')));
 				$return = false;
 			}
 		}
@@ -256,7 +256,7 @@ class KlikandpayHelperKlikandpaySubscribe extends KlikandpayHelperKlikandpay {
 	function getProdCustomFields($virtuemart_product_id) {
 		$product = new stdClass();
 		$product->virtuemart_product_id = $virtuemart_product_id;
-		$customfields = VmModel::getModel('Customfields');
+		$customfields = tmsModel::getModel('Customfields');
 		$product_customfields = $customfields->getProductCustomsFieldCart($product);
 		return $product_customfields;
 	}

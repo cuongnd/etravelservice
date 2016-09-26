@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 if (!class_exists('vmUserfieldPlugin')) {
@@ -195,12 +195,12 @@ class plgVmUserfieldRealex_hpp_api extends vmUserfieldPlugin {
 				$query = 'DELETE FROM `' . $this->_tablename . '` WHERE `id`=' . $card_id . ' AND `virtuemart_user_id`=' . $storedCC['virtuemart_user_id'];
 				$db->setQuery($query);
 				$db->query();
-				vmInfo(vmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_DELETED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $expDate['mm'], $expDate['yy']));
+				vmInfo(tsmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_DELETED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $expDate['mm'], $expDate['yy']));
 
 			} else {
 				$vendorId = 1;
 				$vendor_link = JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=contact&virtuemart_vendor_id=' . $vendorId);
-				vmInfo(vmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_NOT_DELETED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $expDate['mm'], $expDate['yy'], $vendor_link));
+				vmInfo(tsmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_NOT_DELETED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $expDate['mm'], $expDate['yy'], $vendor_link));
 
 			}
 
@@ -239,12 +239,12 @@ class plgVmUserfieldRealex_hpp_api extends vmUserfieldPlugin {
 				$query = 'UPDATE  `' . $this->_tablename . '` SET `realex_hpp_api_saved_pmt_name`="' . $storedCC['realex_hpp_api_saved_pmt_name'] . '" , `realex_hpp_api_saved_pmt_expdate`="' . $storedCC['realex_hpp_api_saved_pmt_expdate'] . '" WHERE `id`=' . $card_id . ' AND `virtuemart_user_id`=' . $storedCC['virtuemart_user_id'];
 				$db->setQuery($query);
 				$db->query();
-				vmInfo(vmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_UPDATED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $updatedMonth, $updatedYear));
+				vmInfo(tsmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_UPDATED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $updatedMonth, $updatedYear));
 
 			} else {
 				$vendorId = 1;
 				$vendor_link = JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=contact&virtuemart_vendor_id=' . $vendorId);
-				vmInfo(vmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_NOT_UPDATED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $updatedMonth, $updatedYear, $vendor_link));
+				vmInfo(tsmText::sprintf('VMUSERFIELD_REALEX_HPP_API_CARD_NOT_UPDATED', $storedCC['realex_hpp_api_saved_pmt_name'], $storedCC['realex_hpp_api_saved_pmt_digits'], $updatedMonth, $updatedYear, $vendor_link));
 
 			}
 
@@ -277,7 +277,7 @@ class plgVmUserfieldRealex_hpp_api extends vmUserfieldPlugin {
 		if (($view == 'user')) {
 			$storedCreditCards = $this->getStoredCreditCards($userId);
 			if (empty ($storedCreditCards)) {
-				return vmText::_('VMUSERFIELD_REALEX_HPP_API_NO_CARD_SAVED');
+				return tsmText::_('VMUSERFIELD_REALEX_HPP_API_NO_CARD_SAVED');
 			}
 			//$storedCreditCards = $this->isValidExpiredDate($storedCreditCards);
 

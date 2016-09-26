@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -100,8 +100,8 @@ class VirtuemartViewCategory extends VmView {
 			$this->setCanonicalLink($tpl,$document,$virtuemart_manufacturer_id,$catType);
 		}
 
-		$categoryModel = VmModel::getModel('category');
-		$productModel = VmModel::getModel('product');
+		$categoryModel = tmsModel::getModel('category');
+		$productModel = tmsModel::getModel('product');
 
 		if($this->categoryId===-1) $this->categoryId = 0;
 
@@ -129,7 +129,7 @@ class VirtuemartViewCategory extends VmView {
 			if ((!empty($this->categoryId) and $this->categoryId!==-1 ) and (empty($category->slug) or !$category->published)) {
 
 				if(empty($category->slug)){
-					vmInfo(vmText::_('COM_VIRTUEMART_CAT_NOT_FOUND'));
+					vmInfo(tsmText::_('COM_VIRTUEMART_CAT_NOT_FOUND'));
 				} else {
 					if($category->virtuemart_id!==0 and !$category->published){
 						vmInfo('COM_VIRTUEMART_CAT_NOT_PUBL',$category->category_name,$this->categoryId);
@@ -165,7 +165,7 @@ class VirtuemartViewCategory extends VmView {
 			// Add the category name to the pathway
 			if ($category->parents) {
 				foreach ($category->parents as $c){
-					$pathway->addItem(strip_tags(vmText::_($c->category_name)),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$c->virtuemart_category_id, FALSE));
+					$pathway->addItem(strip_tags(tsmText::_($c->category_name)),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$c->virtuemart_category_id, FALSE));
 				}
 			}
 
@@ -236,10 +236,10 @@ class VirtuemartViewCategory extends VmView {
 			$title = $this->setTitleByJMenu($app);
 		}
 
-		$title = vmText::_($title);
+		$title = tsmText::_($title);
 
 	  	if(vRequest::getInt('error')){
-			$title .=' '.vmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND');
+			$title .=' '.tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND');
 		}
 		if(!empty($keyword)){
 			$title .=' ('.strip_tags(htmlspecialchars_decode($keyword)).')';
@@ -269,10 +269,10 @@ class VirtuemartViewCategory extends VmView {
 			$title = $app->getCfg('sitename');
 		}
 		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-			$title = vmText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = tsmText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-			$title = vmText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = tsmText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
 		return $title;
 	}
@@ -312,7 +312,7 @@ class VirtuemartViewCategory extends VmView {
 	 */
 	public function getSearchCustom() {
 
-		$emptyOption  = array('virtuemart_custom_id' =>0, 'custom_title' => vmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+		$emptyOption  = array('virtuemart_custom_id' =>0, 'custom_title' => tsmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
 		$this->_db =JFactory::getDBO();
 		$this->_db->setQuery('SELECT `virtuemart_custom_id`, `custom_title` FROM `#__virtuemart_customs` WHERE `field_type` ="P"');
 		$this->options = $this->_db->loadAssocList();
@@ -325,7 +325,7 @@ class VirtuemartViewCategory extends VmView {
 				$this->_db->setQuery('SELECT `custom_value` as virtuemart_custom_id,`custom_value` as custom_title FROM `#__virtuemart_product_customfields` WHERE virtuemart_custom_id='.$selected->virtuemart_custom_id);
 				 $valueOptions= $this->_db->loadAssocList();
 				 $valueOptions = array_merge(array($emptyOption), $valueOptions);
-				$this->searchCustomValues .= vmText::_($selected->custom_title).' '.JHtml::_('select.genericlist', $valueOptions, 'customfields['.$selected->virtuemart_custom_id.']', 'class="inputbox"', 'virtuemart_custom_id', 'custom_title', 0);
+				$this->searchCustomValues .= tsmText::_($selected->custom_title).' '.JHtml::_('select.genericlist', $valueOptions, 'customfields['.$selected->virtuemart_custom_id.']', 'class="inputbox"', 'virtuemart_custom_id', 'custom_title', 0);
 			}
 		}
 
@@ -338,7 +338,7 @@ class VirtuemartViewCategory extends VmView {
 			$this->options = array_merge(array($emptyOption), $this->options);
 			// render List of available groups
 			vmJsApi::chosenDropDowns();
-			$this->searchCustomList = vmText::_('COM_VIRTUEMART_SET_PRODUCT_TYPE').' '.JHtml::_('select.genericlist',$this->options, 'custom_parent_id', 'class="inputbox vm-chzn-select"', 'virtuemart_custom_id', 'custom_title', $this->custom_parent_id);
+			$this->searchCustomList = tsmText::_('COM_VIRTUEMART_SET_PRODUCT_TYPE').' '.JHtml::_('select.genericlist',$this->options, 'custom_parent_id', 'class="inputbox vm-chzn-select"', 'virtuemart_custom_id', 'custom_title', $this->custom_parent_id);
 		} else {
 			$this->searchCustomList = '';
 		}

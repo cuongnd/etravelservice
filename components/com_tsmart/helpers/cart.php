@@ -8,7 +8,7 @@
  * @subpackage Cart
  * @author RolandD
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -128,7 +128,7 @@ class VirtueMartCart {
 				$cartSession=$sessionCart=$cartData;
 			}
 
-			$userModel = VmModel::getModel('user');
+			$userModel = tmsModel::getModel('user');
 			self::$_cart->user = $userModel->getCurrentUser();
 
 			$lang = JFactory::getLanguage();
@@ -196,7 +196,7 @@ class VirtueMartCart {
 			$multixcart = VmConfig::get('multixcart',0);
 			if(!empty($multixcart)){
 				if($multixcart=='byvendor' or self::$_cart->vendorId==1){
-					$vendor = VmModel::getModel('vendor');
+					$vendor = tmsModel::getModel('vendor');
 					$vId = $vendor->getLoggedVendor();
 					if(!empty($vId) and $vId!=1){
 						self::$_cart->vendorId = $vId;
@@ -245,7 +245,7 @@ class VirtueMartCart {
 	//function prepareAddressDataInCart($type='BT',$new = false,$virtuemart_user_id = null){
 	function prepareAddressFieldsInCart(){
 
-		$userFieldsModel =VmModel::getModel('Userfields');
+		$userFieldsModel =tmsModel::getModel('Userfields');
 
 		$types = array('BT','ST');
 		foreach($types as $type){
@@ -272,7 +272,7 @@ class VirtueMartCart {
 	public function loadCart(&$existingSession){
 		$currentUser = JFactory::getUser();
 		if(!$currentUser->guest and $existingSession){
-			$model = new VmModel();
+			$model = new tmsModel();
 			$carts = $model->getTable('carts');
 			if(!empty($existingSession->virtuemart_cart_id)){
 				$carts->load($existingSession->virtuemart_cart_id,'virtuemart_cart_id');
@@ -320,7 +320,7 @@ class VirtueMartCart {
 	public function storeCart($cartDataToStore = false){
 		$currentUser = JFactory::getUser();
 		if(!$currentUser->guest){
-			$model = new VmModel();
+			$model = new tmsModel();
 			$carts = $model->getTable('carts');
 			if(!$cartDataToStore) $cartDataToStore = json_encode($this->getCartDataToStore());
 
@@ -339,7 +339,7 @@ class VirtueMartCart {
 
 	public function deleteCart(){
 
-		$model = new VmModel();
+		$model = new tmsModel();
 		$carts = $model->getTable('carts');
 
 		if(!empty($this->virtuemart_cart_id)){
@@ -483,8 +483,8 @@ class VirtueMartCart {
 
 		$products = array();
 		$this->_productAdded = true;
-		$productModel = VmModel::getModel('product');
-		$customFieldsModel = VmModel::getModel('customfields');
+		$productModel = tmsModel::getModel('product');
+		$customFieldsModel = tmsModel::getModel('customfields');
 		//Iterate through the prod_id's and perform an add to cart for each one
 		foreach ($virtuemart_product_ids as $p_key => $virtuemart_product_id) {
 
@@ -543,10 +543,10 @@ class VirtueMartCart {
 					if(isset($customProductData[$customfield->virtuemart_custom_id][$customfield->virtuemart_customfield_id])){
 
 						if(is_array($customProductData[$customfield->virtuemart_custom_id][$customfield->virtuemart_customfield_id])){
-							if(!class_exists('vmFilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmfilter.php');
+							if(!class_exists('tsmilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmfilter.php');
 							foreach($customProductData[$customfield->virtuemart_custom_id][$customfield->virtuemart_customfield_id] as &$customData){
 
-								$value = vmFilter::hl( $customData,array('deny_attribute'=>'*'));
+								$value = tsmilter::hl( $customData,array('deny_attribute'=>'*'));
 								//to strong
 								/* $value = preg_replace('@<[\/\!]*?[^<>]*?>@si','',$value);//remove all html tags  */
 								//lets use instead
@@ -766,7 +766,7 @@ class VirtueMartCart {
 	 */
 	public function setCouponCode($coupon_code) {
 
-		if(empty($coupon_code) or $coupon_code == vmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER')) {
+		if(empty($coupon_code) or $coupon_code == tsmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER')) {
 			$this->couponCode = '';
 			return false;
 		} else if($this->couponCode==$coupon_code) {
@@ -788,7 +788,7 @@ class VirtueMartCart {
 			vmdebug('setCouponCode',$coupon_code, $this->cartPrices['salesPrice']);
 			$msg = CouponHelper::ValidateCouponCode($coupon_code, $this->cartPrices['salesPrice']);;
 		} else{
-			$msg = vmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
+			$msg = tsmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
 		}
 
 		if (!empty($msg)) {
@@ -802,7 +802,7 @@ class VirtueMartCart {
 		//$this->getCartPrices(true);
 		$this->prepareCartData(true);
 		$this->setCartIntoSession(true);
-		return vmText::_('COM_VIRTUEMART_CART_COUPON_VALID');
+		return tsmText::_('COM_VIRTUEMART_CART_COUPON_VALID');
 	}
 
 	/**
@@ -884,7 +884,7 @@ class VirtueMartCart {
 		if($cHash != $this->_dataValidated){
 			$this->_dataValidated = false;
 			$app = JFactory::getApplication();
-			$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), vmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_CHANGED'));
+			$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), tsmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_CHANGED'));
 		}
 
 		//Final check
@@ -896,7 +896,7 @@ class VirtueMartCart {
 		} else {
 			$this->_dataValidated = false;
 			$app = JFactory::getApplication();
-			$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), vmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_NOT_VALID'));
+			$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$this->getLayoutUrlString(), FALSE), tsmText::_('COM_VIRTUEMART_CART_CHECKOUT_DATA_NOT_VALID'));
 		}
 	}
 
@@ -956,7 +956,7 @@ class VirtueMartCart {
 			$this->ST = $this->BT;
 		} else {
 			if ($this->selected_shipto >0 ) {
-				$userModel = VmModel::getModel('user');
+				$userModel = tmsModel::getModel('user');
 				$stData = $userModel->getUserAddressList($currentUser->id, 'ST', $this->selected_shipto);
 
 				if(isset($stData[0]) and is_object($stData[0])){
@@ -980,7 +980,7 @@ class VirtueMartCart {
 		if(VmConfig::get('oncheckout_only_registered',0)) {
 
 			if(empty($currentUser->id)){
-				$redirectMsg = vmText::_('COM_VIRTUEMART_CART_ONLY_REGISTERED');
+				$redirectMsg = tsmText::_('COM_VIRTUEMART_CART_ONLY_REGISTERED');
 				return $this->redirecter('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT' , $redirectMsg);
 			}
 		}
@@ -997,7 +997,7 @@ class VirtueMartCart {
 			if(count($this->_triesValidateCoupon)<8){
 				$redirectMsg = CouponHelper::ValidateCouponCode($this->couponCode, $this->cartPrices['salesPrice']);
 			} else{
-				$redirectMsg = vmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
+				$redirectMsg = tsmText::_('COM_VIRTUEMART_CART_COUPON_TOO_MANY_TRIES');
 			}
 
 			if (!empty($redirectMsg)) {
@@ -1071,7 +1071,7 @@ class VirtueMartCart {
 		//Either we use here $this->_redirect, or we redirect always directly, atm we check the boolean _redirect
 		if (count($this->cartProductsData) == 0) {
 			$this->_inCheckOut = false;
-			return $this->redirecter('index.php?option=com_virtuemart&view=cart', vmText::_('COM_VIRTUEMART_CART_NO_PRODUCT'));
+			return $this->redirecter('index.php?option=com_virtuemart&view=cart', tsmText::_('COM_VIRTUEMART_CART_NO_PRODUCT'));
 		}
 
 		//Show cart and checkout data overview
@@ -1092,7 +1092,7 @@ class VirtueMartCart {
 			$this->setCartIntoSession(true);
 			if ($this->_redirect) {
 				$app = JFactory::getApplication();
-				$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$layoutName, FALSE), vmText::_('COM_VIRTUEMART_CART_CHECKOUT_DONE_CONFIRM_ORDER'));
+				$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$layoutName, FALSE), tsmText::_('COM_VIRTUEMART_CART_CHECKOUT_DONE_CONFIRM_ORDER'));
 			} else {
 				return true;
 			}
@@ -1114,7 +1114,7 @@ class VirtueMartCart {
 				if (!class_exists('CurrencyDisplay'))
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'currencydisplay.php');
 				$currency = CurrencyDisplay::getInstance();
-				return vmText::sprintf('COM_VIRTUEMART_CART_MIN_PURCHASE', $currency->priceDisplay($this->vendor->vendor_min_pov));
+				return tsmText::sprintf('COM_VIRTUEMART_CART_MIN_PURCHASE', $currency->priceDisplay($this->vendor->vendor_min_pov));
 			}
 		}
 		return null;
@@ -1130,7 +1130,7 @@ class VirtueMartCart {
 	 */
 	public function validateUserData($type='BT', $obj = null,$redirect = false) {
 
-		$usersModel = VmModel::getModel('user');
+		$usersModel = tmsModel::getModel('user');
 		if($obj==null){
 			return $usersModel->validateUserData($this->{$type},$type,$redirect);
 		} else {
@@ -1154,7 +1154,7 @@ class VirtueMartCart {
 			if($this->_inConfirm) return false;
 
 			//We set this in the trigger of the plugin. so old plugins keep the old behaviour
-			$orderModel = VmModel::getModel('orders');
+			$orderModel = tmsModel::getModel('orders');
 
 			if(!$this->virtuemart_order_id){
 				if (($this->virtuemart_order_id = $orderModel->createOrderFromCart($this)) === false) {
@@ -1167,7 +1167,7 @@ class VirtueMartCart {
 			$orderDetails = $orderModel->getMyOrderDetails($this->virtuemart_order_id,$this->order_number,$this->order_pass);
 
 			if(!$orderDetails or empty($orderDetails['details'])){
-				echo vmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
+				echo tsmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
 				return;
 			}
 
@@ -1184,8 +1184,8 @@ class VirtueMartCart {
 
 			if( $this->_confirmDone ) {
 				$lifetime = (24 * 60 * 60) * 180; //180 days
-				if(!class_exists('vmCrypt')){
-					require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+				if(!class_exists('tsmCrypt')){
+					require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
 				}
 
 				/*foreach($orderDetails['items'] as $product){
@@ -1273,7 +1273,7 @@ class VirtueMartCart {
 
 		if (!class_exists('VirtueMartModelUserfields'))
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
-		$userFieldsModel = VmModel::getModel('userfields');
+		$userFieldsModel = tmsModel::getModel('userfields');
 
 		$cartFields = $userFieldsModel->getUserFields(
 			'cart'
@@ -1319,7 +1319,7 @@ class VirtueMartCart {
 
 		// VirtueMartModelUserfields::getUserFields() won't work
 		if(!class_exists('VirtueMartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php' );
-		$userFieldsModel = VmModel::getModel('userfields');
+		$userFieldsModel = tmsModel::getModel('userfields');
 
 		if ($type == 'STaddress' or $type == 'BTaddress'){
 			vmTrace('STaddress found, seek and destroy');
@@ -1340,7 +1340,7 @@ class VirtueMartCart {
 		}
 
 		$address = array();
-		if(!class_exists('vmFilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmfilter.php');
+		if(!class_exists('tsmilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmfilter.php');
 		foreach ($prepareUserFields as $fld) {
 			if(!empty($fld->name)){
 				$name = $fld->name;
@@ -1389,7 +1389,7 @@ class VirtueMartCart {
 	}
 
 	private function filterCartInput($v){
-		$v = vmFilter::hl( $v,array('deny_attribute'=>'*'));
+		$v = tsmilter::hl( $v,array('deny_attribute'=>'*'));
 		//to strong
 		/* $value = preg_replace('@<[\/\!]*?[^<>]*?>@si','',$value);//remove all html tags  */
 		//lets use instead
@@ -1529,7 +1529,7 @@ class VirtueMartCart {
 
 	function prepareVendor(){
 		if(empty($this->vendor)){
-			$vendorModel = VmModel::getModel('vendor');
+			$vendorModel = tmsModel::getModel('vendor');
 			$this->vendor = $vendorModel->getVendor($this->vendorId);
 			$vendorModel->addImages($this->vendor,1);
 			if (VmConfig::get('enable_content_plugin', 0)) {
@@ -1542,10 +1542,10 @@ class VirtueMartCart {
 
 		$this->totalProduct = 0;
 		if(count($this->products) != count($this->cartProductsData) or $this->_productAdded){
-			$productsModel = VmModel::getModel('product');
+			$productsModel = tmsModel::getModel('product');
 			$this->totalProduct = 0;
 			$this->productsQuantity = array();
-			$customFieldsModel = VmModel::getModel('customfields');
+			$customFieldsModel = tmsModel::getModel('customfields');
 			foreach($this->cartProductsData as $k =>&$productdata){
 				$productdata = (array)$productdata;
 
@@ -1648,13 +1648,13 @@ class VirtueMartCart {
 		$mainframe = JFactory::getApplication();
 		// Check for a valid quantity
 		if (!is_numeric( $quantity)) {
-			$errorMsg = vmText::_('COM_VIRTUEMART_CART_ERROR_NO_VALID_QUANTITY', false);
+			$errorMsg = tsmText::_('COM_VIRTUEMART_CART_ERROR_NO_VALID_QUANTITY', false);
 			vmInfo($errorMsg,$product->product_name);
 			return false;
 		}
 		// Check for negative quantity
 		if ($quantity < 1) {
-			$errorMsg = vmText::_('COM_VIRTUEMART_CART_ERROR_NO_VALID_QUANTITY', false);
+			$errorMsg = tsmText::_('COM_VIRTUEMART_CART_ERROR_NO_VALID_QUANTITY', false);
 			vmInfo($errorMsg,$product->product_name);
 			return false;
 		}
@@ -1669,11 +1669,11 @@ class VirtueMartCart {
 				vmdebug('my products left '.$productsleft.' and my quantity '.$quantity);
 				if($productsleft>0 and ($stockhandle=='disableadd' or $stockhandle=='disableit_children') ){
 					$quantity = $productsleft;
-					$product->errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_PRODUCT_OUT_OF_QUANTITY',$product->product_name,$quantity);
+					$product->errorMsg = tsmText::sprintf('COM_VIRTUEMART_CART_PRODUCT_OUT_OF_QUANTITY',$product->product_name,$quantity);
 					vmError($product->errorMsg);
 				} else {
 					$quantity = 0;
-					$product->errorMsg = vmText::_('COM_VIRTUEMART_CART_PRODUCT_OUT_OF_STOCK');
+					$product->errorMsg = tsmText::_('COM_VIRTUEMART_CART_PRODUCT_OUT_OF_STOCK');
 					vmError($product->errorMsg); // Private error retrieved with getError is used only by addJS, so only the latest is fine
 					// todo better key string
 					vmInfo($product->errorMsg. ' '.$product->product_name);
@@ -1686,7 +1686,7 @@ class VirtueMartCart {
 		$min = $product->min_order_level;
 		if ($min != 0 && $quantity < $min){
 			$quantity = $min;
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MIN_ORDER', $min, $product->product_name);
+			$errorMsg = tsmText::sprintf('COM_VIRTUEMART_CART_MIN_ORDER', $min, $product->product_name);
 			vmInfo($errorMsg,$product->product_name);
 			return false;
 		}
@@ -1694,7 +1694,7 @@ class VirtueMartCart {
 		$max = $product->max_order_level;
 		if ($max != 0 && $quantity > $max) {
 			$quantity = $max;
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_MAX_ORDER', $max, $product->product_name);
+			$errorMsg = tsmText::sprintf('COM_VIRTUEMART_CART_MAX_ORDER', $max, $product->product_name);
 			vmInfo($errorMsg,$product->product_name);
 			return false;
 		}
@@ -1702,7 +1702,7 @@ class VirtueMartCart {
 		$step = $product->step_order_level;
 		if ($step != 0 && ($quantity%$step)!= 0) {
 			$quantity = $quantity + ($quantity%$step);
-			$errorMsg = vmText::sprintf('COM_VIRTUEMART_CART_STEP_ORDER', $step);
+			$errorMsg = tsmText::sprintf('COM_VIRTUEMART_CART_STEP_ORDER', $step);
 			vmInfo($errorMsg,$product->product_name);
 			return false;
 		}
@@ -1760,19 +1760,19 @@ class VirtueMartCart {
 		//end
 		$data->dataValidated = $this->_dataValidated ;
 
-		if ($data->totalProduct>1) $data->totalProductTxt = vmText::sprintf('COM_VIRTUEMART_CART_X_PRODUCTS', $data->totalProduct);
-		else if ($data->totalProduct == 1) $data->totalProductTxt = vmText::_('COM_VIRTUEMART_CART_ONE_PRODUCT');
-		else $data->totalProductTxt = vmText::_('COM_VIRTUEMART_EMPTY_CART');
+		if ($data->totalProduct>1) $data->totalProductTxt = tsmText::sprintf('COM_VIRTUEMART_CART_X_PRODUCTS', $data->totalProduct);
+		else if ($data->totalProduct == 1) $data->totalProductTxt = tsmText::_('COM_VIRTUEMART_CART_ONE_PRODUCT');
+		else $data->totalProductTxt = tsmText::_('COM_VIRTUEMART_EMPTY_CART');
 		if (false && $data->dataValidated == true) {
 			$taskRoute = '&task=confirm';
-			$linkName = vmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU');
+			$linkName = tsmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU');
 		} else {
 			$taskRoute = '';
-			$linkName = vmText::_('COM_VIRTUEMART_CART_SHOW');
+			$linkName = tsmText::_('COM_VIRTUEMART_CART_SHOW');
 		}
 
 		$data->cart_show = '<a style ="float:right;" href="'.JRoute::_("index.php?option=com_virtuemart&view=cart".$taskRoute,$this->useSSL).'" rel="nofollow" >'.$linkName.'</a>';
-		$data->billTotal = vmText::sprintf('COM_VIRTUEMART_CART_TOTALP',$data->billTotal);
+		$data->billTotal = tsmText::sprintf('COM_VIRTUEMART_CART_TOTALP',$data->billTotal);
 
 		return $data ;
 	}

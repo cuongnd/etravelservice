@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author Max Milbers
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -27,11 +27,11 @@ JHtml::_ ('behavior.formvalidation');
 <div id="cart-view" class="cart-view">
 	<div class="vm-cart-header-container">
 		<div class="width50 floatleft vm-cart-header">
-			<h1><?php echo vmText::_ ('COM_VIRTUEMART_CART_TITLE'); ?></h1>
+			<h1><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TITLE'); ?></h1>
 			<div class="payments-signin-button" ></div>
 		</div>
 		<?php if (VmConfig::get ('oncheckout_show_steps', 1) && $this->checkout_task === 'confirm') {
-			echo '<div class="checkoutStep" id="checkoutStep4">' . vmText::_ ('COM_VIRTUEMART_USER_FORM_CART_STEP4') . '</div>';
+			echo '<div class="checkoutStep" id="checkoutStep4">' . tsmText::_ ('COM_VIRTUEMART_USER_FORM_CART_STEP4') . '</div>';
 		} ?>
 		<div class="width50 floatleft right vm-continue-shopping">
 			<?php // Continue Shopping Button
@@ -59,7 +59,7 @@ JHtml::_ ('behavior.formvalidation');
 		if(VmConfig::get('multixcart')=='byselection'){
 			if (!class_exists('ShopFunctions')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 			echo shopFunctions::renderVendorFullVendorList($this->cart->vendorId);
-			?><input type="submit" name="updatecart" title="<?php echo vmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo vmText::_('COM_VIRTUEMART_SAVE'); ?>" class="button"  style="margin-left: 10px;"/><?php
+			?><input type="submit" name="updatecart" title="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>"class="button"style="margin-left: 10px;"/><?php
 		}
 		echo $this->loadTemplate ('address');
 		// This displays the pricelist MUST be done with tables, because it is also used for the emails

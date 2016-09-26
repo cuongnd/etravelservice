@@ -15,14 +15,14 @@ defined('_JEXEC') or die('Restricted access');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
 ?>
 
 
-<a class="vm-button-correct" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=orders&layout=details&order_number='.$viewData["order_number"].'&order_pass='.$viewData["order_pass"], false)?>"><?php echo vmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER'); ?></a>
+<a class="vm-button-correct" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=orders&layout=details&order_number='.$viewData["order_number"].'&order_pass='.$viewData["order_pass"], false)?>"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER'); ?></a>
 
 <?php if ($viewData ['snippet'] )  { ?>
 	<div><?php echo $viewData ['snippet']; ?>  </div>

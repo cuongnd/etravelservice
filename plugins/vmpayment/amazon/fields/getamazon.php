@@ -42,11 +42,11 @@ class JFormFieldGetAmazon extends JFormField {
 
 		$logo = '<p></p><img src="https://images-na.ssl-images-amazon.com/images/G/02/Iris3_UK/en_GB/inca/images/37x23-whitegrad-x2.png" /></p>';
 		$html = '<p><a target="_blank" href="' . $url . '"  >' . $logo . '</a>';
-		$html .= '<a target="_blank" href="' . $url . '"  class="signin-button-link">' . vmText::_('VMPAYMENT_AMAZON_GETAMAZON') . '</a>';
-		$html .= '<a target="_blank" href="http://docs.virtuemart.net/manual/shop-menu/payment-methods/pay-with-amazon.html"  class="signin-button-link">' . vmText::_('VMPAYMENT_AMAZON_DOCUMENTATION') . '</a></p></div>';
+		$html .= '<a target="_blank" href="' . $url . '"  class="signin-button-link">' . tsmText::_('VMPAYMENT_AMAZON_GETAMAZON') . '</a>';
+		$html .= '<a target="_blank" href="http://docs.tsmart.net/manual/shop-menu/payment-methods/pay-with-amazon.html"  class="signin-button-link">' . tsmText::_('VMPAYMENT_AMAZON_DOCUMENTATION') . '</a></p></div>';
 		$html .="<p>This plugin is in beta version. <br /> If you want to be a beta tester, please click ";
-		$html .= '<a target="_blank" href="' . $url . '">' . vmText::_('VMPAYMENT_AMAZON_GETAMAZON') . '</a></p>';
-		$html.='<p>Please report errors on the <a href="http://forum.virtuemart.net/index.php?board=131.0">forum</a>; We will help you.</p>';
+		$html .= '<a target="_blank" href="' . $url . '">' . tsmText::_('VMPAYMENT_AMAZON_GETAMAZON') . '</a></p>';
+		$html.='<p>Please report errors on the <a href="http://forum.tsmart.net/index.php?board=131.0">forum</a>; We will help you.</p>';
 		return $html;	}
 
 }

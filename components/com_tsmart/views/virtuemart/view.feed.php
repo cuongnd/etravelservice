@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2013 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -39,7 +39,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
-		$productModel = VmModel::getModel ('product');
+		$productModel = tmsModel::getModel ('product');
 		$feed_show_prices = VmConfig::get ('feed_home_show_prices', 0);
 		$feed_show_images = VmConfig::get ('feed_home_show_images', 0);
 		$feed_show_description = VmConfig::get ('feed_home_show_description', 0);
@@ -109,12 +109,12 @@ class VirtueMartViewVirtueMart extends VmView {
 				$description .= $currency->createPriceDiv ('priceWithoutTax', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITHOUT_TAX', $product->prices);
 				$description .= $currency->createPriceDiv ('discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
 				$description .= $currency->createPriceDiv ('taxAmount', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT', $product->prices);
-				$unitPriceDescription = vmText::sprintf ('COM_VIRTUEMART_PRODUCT_UNITPRICE', $product->product_unit);
+				$unitPriceDescription = tsmText::sprintf ('COM_VIRTUEMART_PRODUCT_UNITPRICE', $product->product_unit);
 				$description .= $currency->createPriceDiv ('unitPrice', $unitPriceDescription, $product->prices);
 
 			}
 			if ($feed_description_type == 'product_s_desc'  OR $feed_max_text_length > 0) {
-				$description .= '<p class="feed-readmore"><a target="_blank" href ="' .JRoute::_($product->link). '">' . vmText::_ ('COM_VIRTUEMART_FEED_READMORE') . '</a></p>';
+				$description .= '<p class="feed-readmore"><a target="_blank" href ="' .JRoute::_($product->link). '">' . tsmText::_ ('COM_VIRTUEMART_FEED_READMORE') . '</a></p>';
 			}
 			$item = new JFeedItem();
 			$item->title = $title;

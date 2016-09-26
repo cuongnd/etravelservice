@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage Orders
  * @author Oscar van Eijk, Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -38,7 +38,7 @@ class VirtuemartViewOrders extends VmView {
 	// add vendor for cart
 	function prepareVendor(){
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor =  $vendorModel->getVendor();
 		$this->assignRef('vendor', $vendor);
 		$vendorModel->addImages($this->vendor,1);

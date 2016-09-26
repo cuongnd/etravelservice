@@ -7,7 +7,7 @@
  * @package VirtueMart
  * @subpackage
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -43,20 +43,20 @@ class VirtueMartViewProductdetails extends VmView {
             } else {
                 $virtuemart_product_id = (int)$virtuemart_product_idArray;
             }
-            $product_model = VmModel::getModel('product');
+            $product_model = tmsModel::getModel('product');
 
             $this->product = $product_model->getItem($virtuemart_product_id);
-            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmgroupsize.php';
+            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/tsmgroupsize.php';
 
-            if($this->product->price_type!=vmGroupSize::FLAT_PRICE)
+            if($this->product->price_type!=tsmGroupSize::FLAT_PRICE)
             {
 
-                $privategrouptrip_model = VmModel::getModel('privategrouptrip');
+                $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
                 $this->state=$privategrouptrip_model->getState();
                 $this->list_trip=$privategrouptrip_model->getItems();
 
             }else{
-                $jontgrouptrip_model = VmModel::getModel('jontgrouptrip');
+                $jontgrouptrip_model = tmsModel::getModel('jontgrouptrip');
                 $this->state=$jontgrouptrip_model->getState();
                 $this->list_trip=$jontgrouptrip_model->getItems();
                 $this->setLayout('jontgrouptrip');
@@ -70,7 +70,7 @@ class VirtueMartViewProductdetails extends VmView {
 		$this->doVendor=$doVendor;
 		$this->fromPdf=false;
 		$this->uselayout = $tpl;
-		$this->subject = !empty($this->subject) ? $this->subject : vmText::_('COM_VIRTUEMART_CART_NOTIFY_MAIL_SUBJECT');
+		$this->subject = !empty($this->subject) ? $this->subject : tsmText::_('COM_VIRTUEMART_CART_NOTIFY_MAIL_SUBJECT');
 		$this->layoutName = $tpl;
 		$this->setLayout($tpl);
 		$this->isMail = true;

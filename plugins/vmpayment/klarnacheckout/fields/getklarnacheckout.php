@@ -64,7 +64,7 @@ class JFormFieldGetKlarnacheckout extends JFormField {
 			        $("#klarna_getklarna_link").html("' . addslashes ($logo) . '");
 				} else {
 				 $("#klarna_getklarna_show_hide").show("slow");
-			       $("#klarna_getklarna_link").html("' . addslashes (vmText::_ ('VMPAYMENT_KLARNA_GET_KLARNA_HIDE')) . '");
+			       $("#klarna_getklarna_link").html("' . addslashes (tsmText::_ ('VMPAYMENT_KLARNA_GET_KLARNA_HIDE')) . '");
 			    }
 		    });
 		});
@@ -75,7 +75,7 @@ class JFormFieldGetKlarnacheckout extends JFormField {
 
 		$html .= '<iframe src="' . $url . '" scrolling="yes" style="x-overflow: none;" frameborder="0" height="600px" width="850px"></iframe>';
 		$html .= '</div>';
-		$html .= '<p><a target="_blank" href="http://cdn.klarna.com/1.0/shared/content/integration/guide/virtuemart.pdf" class="signin-button-link">' . vmText::_('VMPAYMENT_KLARNACHECKOUT_DOCUMENTATION') . '</a></p>';
+		$html .= '<p><a target="_blank" href="http://cdn.klarna.com/1.0/shared/content/integration/guide/tsmart.pdf" class="signin-button-link">' . tsmText::_('VMPAYMENT_KLARNACHECKOUT_DOCUMENTATION') . '</a></p>';
 
 		return $html;
 	}

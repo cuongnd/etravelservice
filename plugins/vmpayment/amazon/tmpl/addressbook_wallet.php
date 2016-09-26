@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 ?>
 
@@ -70,7 +70,7 @@ $('#leaveAmazonCheckout').click(function(){
 	if ($viewData['captureNow']) {
 		$js = "
 jQuery(document).ready( function($) {
-	amazonPayment.displayCaptureNowWarning('" . vmText::_('VMPAYMENT_AMAZON_CHARGE_NOW') . "');
+	amazonPayment.displayCaptureNowWarning('" . tsmText::_('VMPAYMENT_AMAZON_CHARGE_NOW') . "');
 });
 ";
 

@@ -11,7 +11,7 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 * VirtueMart is Free Software.
 * VirtueMart comes with absolute no warranty.
 *
-* www.virtuemart.net
+* www.tsmart.net
 */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
@@ -26,7 +26,7 @@ $headerText = 		$params->get( 'headerText', '' ); // Display a Header Text
 $footerText = 		$params->get( 'footerText', ''); // Display a footerText
 $show = 			$params->get( 'show', 'all'); // Display a footerText
 
-$model = VmModel::getModel('Manufacturer');
+$model = tmsModel::getModel('Manufacturer');
 $manufacturers = $model->getManufacturers(true, true,true);
 $model->addImages($manufacturers);
 if(empty($manufacturers)) return false;

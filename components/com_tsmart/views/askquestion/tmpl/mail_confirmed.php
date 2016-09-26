@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author KOHL Patrick
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -26,6 +26,6 @@ if(VmConfig::get('usefancy',1)){
 }
 ?>
 <div class="productdetails-view">
-	<?php echo vmText::_('COM_VIRTUEMART_ASK_QUESTION_THANK_YOU'); ?>
-	<button onclick="<?php echo $onclick ?>" type="button"><?php echo vmText::_('COM_VIRTUEMART_CLOSE'); ?></button>
+	<?php echo tsmText::_('COM_VIRTUEMART_ASK_QUESTION_THANK_YOU'); ?>
+	<button onclick="<?php echo $onclick ?>" type="button"><?php echo tsmText::_('COM_VIRTUEMART_CLOSE'); ?></button>
 </div>

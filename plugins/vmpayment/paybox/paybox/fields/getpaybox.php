@@ -36,10 +36,10 @@ class JFormFieldGetPaybox extends JFormField {
 		    jQuery("#paybox_getpaybox_link").click( function() {
 				 if ( $("#paybox_getpaybox_show_hide").is(":visible") ) {
 				  $("#paybox_getpaybox_show_hide").hide("slow");
-			        $("#paybox_getpaybox_link").html("' . addslashes(vmText::_('VMPAYMENT_PAYBOX_ALREADY_ACCOUNT')) . '");
+			        $("#paybox_getpaybox_link").html("' . addslashes(tsmText::_('VMPAYMENT_PAYBOX_ALREADY_ACCOUNT')) . '");
 				} else {
 				 $("#paybox_getpaybox_show_hide").show("slow");
-			       $("#paybox_getpaybox_link").html("' . addslashes(vmText::_('VMPAYMENT_PAYBOX_GET_PAYBOX_HIDE')) . '");
+			       $("#paybox_getpaybox_link").html("' . addslashes(tsmText::_('VMPAYMENT_PAYBOX_GET_PAYBOX_HIDE')) . '");
 			    }
 		    });
 		});
@@ -60,16 +60,16 @@ class JFormFieldGetPaybox extends JFormField {
 		$db = JFactory::getDBO();
 		$db->setQuery($query);
 		$params = $db->loadObject();
-		$html = '<img src="http://virtuemart.boutique-paybox.com/PayboxLogo.jpg" width="200px"/><br />';
+		$html = '<img src="http://tsmart.boutique-paybox.com/PayboxLogo.jpg" width="200px"/><br />';
 
 		if ($params->created_on == $params->modified_on) {
 			$id = "paybox_getpaybox_link";
-			$html .= '<a href="#" id="' . $id . '">' . vmText::_('VMPAYMENT_PAYBOX_GET_PAYBOX_HIDE') . '</a>';
+			$html .= '<a href="#" id="' . $id . '">' . tsmText::_('VMPAYMENT_PAYBOX_GET_PAYBOX_HIDE') . '</a>';
 			$display = '';
 			$html .= '<div id="paybox_getpaybox_show_hide" align=""' . $display . ' >';
 		} else {
 			$id = "paybox_getpaybox_link";
-			$html .= '<a href="#" id="' . $id . '">' . vmText::_('VMPAYMENT_PAYBOX_ALREADY_ACCOUNT') . '</a>';
+			$html .= '<a href="#" id="' . $id . '">' . tsmText::_('VMPAYMENT_PAYBOX_ALREADY_ACCOUNT') . '</a>';
 			$display = ' style="display: none;"';
 			$html .= '<div id="paybox_getpaybox_show_hide" align=""' . $display . ' >';
 		}
@@ -78,9 +78,9 @@ class JFormFieldGetPaybox extends JFormField {
 
 		$lang = $this->getLang();;
 		if ($lang == 'fr') {
-			$url = "http://virtuemart.boutique-paybox.com/PayboxPres.html";
+			$url = "http://tsmart.boutique-paybox.com/PayboxPres.html";
 		} else {
-			$url = "http://virtuemart.boutique-paybox.com/PayboxPres.html";
+			$url = "http://tsmart.boutique-paybox.com/PayboxPres.html";
 		}
 		$html .= '<iframe src="' . $url . '" scrolling="yes" style="x-overflow: none;" frameborder="0" height="1400px" width="800px"></iframe>';
 		$html .= "</div>";

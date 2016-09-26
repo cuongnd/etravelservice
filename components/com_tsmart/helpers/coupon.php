@@ -5,7 +5,7 @@
  * @package	VirtueMart
  * @subpackage Helpers
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -31,7 +31,7 @@ abstract class CouponHelper
 	 */
 	static public function ValidateCouponCode($_code, $_billTotal){
 
-		if(empty($_code) or $_code == vmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER') or $_code == vmText::_('COM_VIRTUEMART_COUPON_CODE_CHANGE')) {
+		if(empty($_code) or $_code == tsmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER') or $_code == tsmText::_('COM_VIRTUEMART_COUPON_CODE_CHANGE')) {
 			return '';
 		}
 		$couponData = 0;
@@ -62,21 +62,21 @@ abstract class CouponHelper
 		}
 
 		if (!$couponData) {
-			return vmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
+			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
 		}
 		if ($couponData->coupon_used) {
 			$session = JFactory::getSession();
 			$session_id = $session->getId();
 			if ($couponData->coupon_used != $session_id) {
-				return vmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
+				return tsmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
 			}
 		}
 		if (!$couponData->started) {
-			return vmText::_('COM_VIRTUEMART_COUPON_CODE_NOTYET') . $couponData->coupon_start_date;
+			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_NOTYET') . $couponData->coupon_start_date;
 		}
 		if ($couponData->ended) {
 			self::RemoveCoupon($_code, true);
-			return vmText::_('COM_VIRTUEMART_COUPON_CODE_EXPIRED');
+			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_EXPIRED');
 		}
 
 		if ($_billTotal < $couponData->coupon_value_valid) {
@@ -85,7 +85,7 @@ abstract class CouponHelper
 			$currency = CurrencyDisplay::getInstance();
 
 			$coupon_value_valid = $currency->priceDisplay($couponData->coupon_value_valid);
-			return vmText::_('COM_VIRTUEMART_COUPON_CODE_TOOLOW') . " ".$coupon_value_valid;
+			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_TOOLOW') . " ".$coupon_value_valid;
 		}
 
 		return '';

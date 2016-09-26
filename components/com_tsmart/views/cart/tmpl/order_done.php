@@ -9,7 +9,7 @@ defined('_JEXEC') or die('');
 * @subpackage Cart
 * @author Max Milbers
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -20,10 +20,10 @@ defined('_JEXEC') or die('');
 echo '<div class="vm-wrap vm-order-done">';
 
 if (vRequest::getBool('display_title',true)) {
-	echo '<h3>'.vmText::_('COM_VIRTUEMART_CART_ORDERDONE_THANK_YOU').'</h3>';
+	echo '<h3>'.tsmText::_('COM_VIRTUEMART_CART_ORDERDONE_THANK_YOU').'</h3>';
 }
 
-$this->html = vRequest::get('html', vmText::_('COM_VIRTUEMART_ORDER_PROCESSED') );
+$this->html = vRequest::get('html', tsmText::_('COM_VIRTUEMART_ORDER_PROCESSED') );
 echo $this->html;
 
 if (vRequest::getBool('display_loginform',true)) {

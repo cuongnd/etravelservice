@@ -5,11 +5,11 @@
  * just for legacy, will be removed
  * @package VirtueMart
  * @copyright (C) 2011 - 2014 The VirtueMart Team
- * @Email: max@virtuemart.net
+ * @Email: max@tsmart.net
  *
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *
- * www.virtuemart.net
+ * www.tsmart.net
  */
 
 class mod_virtuemart_product {

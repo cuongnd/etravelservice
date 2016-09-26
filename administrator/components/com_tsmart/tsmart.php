@@ -57,6 +57,7 @@ vmJsApi::jQuery(0);
 $_class = 'TsmartController'.ucfirst($_controller);
 $controller = new $_class();
 
+
 // Perform the Request task
 $controller->execute(vRequest::getCmd('task', $_controller));
 

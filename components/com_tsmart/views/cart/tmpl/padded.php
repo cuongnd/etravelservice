@@ -7,7 +7,7 @@
 * @subpackage Cart
 * @author Max Milbers
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2013 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -20,12 +20,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-echo '<a class="continue_link" href="' . $this->continue_link . '" >' . vmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
-echo '<a class="showcart floatright" href="' . $this->cart_link . '">' . vmText::_('COM_VIRTUEMART_CART_SHOW') . '</a>';
+echo '<a class="continue_link" href="' . $this->continue_link . '" >' . tsmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
+echo '<a class="showcart floatright" href="' . $this->cart_link . '">' . tsmText::_('COM_VIRTUEMART_CART_SHOW') . '</a>';
 if($this->products){
 	foreach($this->products as $product){
 		if($product->quantity>0){
-			echo '<h4>'.vmText::sprintf('COM_VIRTUEMART_CART_PRODUCT_ADDED',$product->product_name,$product->quantity).'</h4>';
+			echo '<h4>'.tsmText::sprintf('COM_VIRTUEMART_CART_PRODUCT_ADDED',$product->product_name,$product->quantity).'</h4>';
 		} else {
 			if(!empty($product->errorMsg)){
 				echo '<div>'.$product->errorMsg.'</div>';
@@ -42,14 +42,14 @@ if(VmConfig::get('popup_rel',1)){
 
 		$product = reset($this->products);
 
-		$customFieldsModel = VmModel::getModel('customfields');
+		$customFieldsModel = tmsModel::getModel('customfields');
 		$product->customfields = $customFieldsModel->getCustomEmbeddedProductCustomFields($product->allIds,'R');
 
 		$customFieldsModel->displayProductCustomfieldFE($product,$product->customfields);
 		if(!empty($product->customfields)){
 			?>
 			<div class="product-related-products">
-			<h4><?php echo vmText::_('COM_VIRTUEMART_RELATED_PRODUCTS'); ?></h4>
+			<h4><?php echo tsmText::_('COM_VIRTUEMART_RELATED_PRODUCTS'); ?></h4>
 			<?php
 		}
 		foreach($product->customfields as $rFields){

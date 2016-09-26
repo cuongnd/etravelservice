@@ -7,7 +7,7 @@
 * @subpackage Cart
 * @author Max Milbers
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -21,6 +21,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
-	<a href="<?php echo $this->continue_link; ?>"><?php echo vmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') ?></a>
-	<a style ="float:right;" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=cart'); ?>"><?php echo vmText::_('COM_VIRTUEMART_CART_SHOW') ?></a>
+	<a href="<?php echo $this->continue_link; ?>"><?php echo tsmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') ?></a>
+	<a style ="float:right;" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=cart'); ?>"><?php echo tsmText::_('COM_VIRTUEMART_CART_SHOW') ?></a>
 <br style="clear:both">

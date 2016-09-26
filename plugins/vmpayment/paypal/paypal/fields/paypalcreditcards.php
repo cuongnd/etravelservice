@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -43,7 +43,7 @@ class JFormFieldPaypalCreditcards extends JFormFieldList {
 		$prefix = 'VMPAYMENT_PAYPAL_CC_';
 
 		foreach ($creditcards as $creditcard) {
-			$options[] = JHtml::_('select.option', $creditcard, vmText::_($prefix . strtoupper($creditcard)));
+			$options[] = JHtml::_('select.option', $creditcard, tsmText::_($prefix . strtoupper($creditcard)));
 		}
 
 		return $options;

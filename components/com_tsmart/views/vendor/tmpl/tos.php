@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage vendor
 * @author Patrick Kohl, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <div class="vendor-details-view">
-	<h1><?php echo vmText::_('COM_VIRTUEMART_VENDOR_TOS').$this->vendor->vendor_store_name;
+	<h1><?php echo tsmText::_('COM_VIRTUEMART_VENDOR_TOS').$this->vendor->vendor_store_name;
 	if (!empty($this->vendor->images[0])) { ?>
 		<div class="vendor-image">
 		<?php echo $this->vendor->images[0]->displayMediaThumb('',false); ?>

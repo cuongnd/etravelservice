@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -88,17 +88,17 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$validMail = filter_var (vRequest::getVar ('email'), FILTER_VALIDATE_EMAIL);
 
 		if ($commentSize < $min or $commentSize > $max or !$validMail) {
-			$errmsg = vmText::_ ('COM_VIRTUEMART_COMMENT_NOT_VALID_JS');
+			$errmsg = tsmText::_ ('COM_VIRTUEMART_COMMENT_NOT_VALID_JS');
 			if ($commentSize < $min) {
-				$errmsg = vmText::_ ('COM_VIRTUEMART_ASKQU_CS_MIN');
+				$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_CS_MIN');
 
 			} else {
 				if ($commentSize > $max) {
-					$errmsg = vmText::_ ('COM_VIRTUEMART_ASKQU_CS_MAX');
+					$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_CS_MAX');
 
 				} else {
 					if (!$validMail) {
-						$errmsg = vmText::_ ('COM_VIRTUEMART_ASKQU_INV_MAIL');
+						$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_INV_MAIL');
 
 					}
 				}
@@ -117,7 +117,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 			if(!$res[0]){
 				$askquestionform = array('name' => vRequest::getVar ('name'), 'email' => vRequest::getVar ('email'), 'comment' => vRequest::getString ('comment'));
 				$session->set('askquestion', $askquestionform, 'vm');
-				$errmsg = vmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
+				$errmsg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
 				$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), $errmsg);
 				return;
 			} else {
@@ -138,11 +138,11 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$vars['user'] = array('name' => $fromName, 'email' => $fromMail);
 
 		$virtuemart_product_id = vRequest::getInt ('virtuemart_product_id', 0);
-		$productModel = VmModel::getModel ('product');
+		$productModel = tmsModel::getModel ('product');
 
 		$vars['product'] = $productModel->getProduct ($virtuemart_product_id);
 
-		$vendorModel = VmModel::getModel ('vendor');
+		$vendorModel = tmsModel::getModel ('vendor');
 		$VendorEmail = $vendorModel->getVendorEmail ($vars['product']->virtuemart_vendor_id);
 
 		JPluginHelper::importPlugin ('system');
@@ -158,7 +158,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		} else {
 			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
-		$app->enqueueMessage (vmText::_ ($string));
+		$app->enqueueMessage (tsmText::_ ($string));
 
 
 		$view->setLayout ('mail_confirmed');
@@ -189,7 +189,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 			if(!$res[0]){
 				$mailrecommend = array('email' => vRequest::getVar ('email'), 'comment' => vRequest::getString ('comment'));
 				$session->set('mailrecommend', $mailrecommend, 'vm');
-				$errmsg = vmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
+				$errmsg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
 				$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=recommend&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), $errmsg);
 				return;
 			} else {
@@ -208,7 +208,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		} else {
 			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
-		$app->enqueueMessage (vmText::_ ($string));
+		$app->enqueueMessage (tsmText::_ ($string));
 
 		$view = $this->getView ('recommend', 'html');
 
@@ -241,7 +241,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 	public function review () {
 		$msg="";
 
-		$model = VmModel::getModel ('ratings');
+		$model = tmsModel::getModel ('ratings');
 		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
 
 		$allowReview = $model->allowReview($virtuemart_product_id);
@@ -249,7 +249,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		if($allowReview || $allowRating){
 			$return = $model->saveRating ();
 			if ($return !== FALSE) {
-				$msg = vmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', vmText::_ ('COM_VIRTUEMART_REVIEW'));
+				$msg = tsmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', tsmText::_ ('COM_VIRTUEMART_REVIEW'));
 
 				if (!class_exists ('ShopFunctionsF')) {
 					require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
@@ -292,7 +292,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 			$quantity = 1;
 		}
 
-		$product_model = VmModel::getModel ('product');
+		$product_model = tmsModel::getModel ('product');
 
 		if(!empty($virtuemart_product_id)){
 			$prices = $product_model->getPrice ($virtuemart_product_id, $quantity);
@@ -357,11 +357,11 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 
 		$data = vRequest::getPost();
 
-		$model = VmModel::getModel ('waitinglist');
+		$model = tmsModel::getModel ('waitinglist');
 		if (!$model->adduser ($data)) {
 			$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $data['virtuemart_product_id'], FALSE), $msg);
 		} else {
-			$msg = vmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', vmText::_ ('COM_VIRTUEMART_CART_NOTIFY'));
+			$msg = tsmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', tsmText::_ ('COM_VIRTUEMART_CART_NOTIFY'));
 			$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $data['virtuemart_product_id'], FALSE), $msg);
 		}
 
@@ -372,7 +372,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 	 */
 	public function sentProductEmailToShoppers () {
 
-		$model = VmModel::getModel ('product');
+		$model = tmsModel::getModel ('product');
 	    $model->sentProductEmailToShoppers ();
 	}
 

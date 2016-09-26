@@ -51,7 +51,7 @@ if ($viewData['country']== "nl") {
 <div class="klarna_AdvertisementBox">
  <div id="klarna_partpayment" style="display: none"></div>
                 <div class="klarna_AdvertBox_bottomMid_readMore">
-                    <a href="#"><?php echo vmText::sprintf('VMPAYMENT_KLARNA_ADVERTISEMENT',$viewData['sFee'] ); ?></a>
+                    <a href="#"><?php echo tsmText::sprintf('VMPAYMENT_KLARNA_ADVERTISEMENT',$viewData['sFee'] ); ?></a>
                 </div>
 
         <?php

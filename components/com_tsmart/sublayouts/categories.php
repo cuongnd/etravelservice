@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -67,8 +67,8 @@ $verticalseparator = " vertical-separator";
     <div class="category floatleft<?php echo $category_cellwidth . $show_vertical_separator ?>">
       <div class="spacer">
         <h2>
-          <a href="<?php echo $caturl ?>" title="<?php echo vmText::_($category->category_name) ?>">
-          <?php echo vmText::_($category->category_name) ?>
+          <a href="<?php echo $caturl ?>" title="<?php echo tsmText::_($category->category_name) ?>">
+          <?php echo tsmText::_($category->category_name) ?>
           <br />
           <?php // if ($category->ids) {
             echo $category->images[0]->displayMediaThumb("",false);

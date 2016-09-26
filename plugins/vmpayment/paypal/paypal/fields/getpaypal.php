@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('JPATH_BASE') or die();
 
@@ -40,8 +40,8 @@ class JFormFieldGetPaypal extends JFormField {
 		$url = "https://www.paypal.com/us/webapps/mpp/referral/paypal-payments-standard?partner_id=83EP5DJG9FU6L";
 		$logo = '<img src="https://www.paypalobjects.com/en_US/i/logo/PayPal_mark_60x38.gif" />';
 		$html = '<p><a target="_blank" href="' . $url . '"  >' . $logo . '</a></p>';
-		$html .= '<p><a target="_blank" href="' . $url . '" class="signin-button-link">' . vmText::_('VMPAYMENT_PAYPAL_REGISTER') . '</a>';
-		$html .= ' <a target="_blank" href="http://docs.virtuemart.net/manual/shop-menu/payment-methods/paypal.html" class="signin-button-link">' . vmText::_('VMPAYMENT_PAYPAL_DOCUMENTATION') . '</a></p>';
+		$html .= '<p><a target="_blank" href="' . $url . '" class="signin-button-link">' . tsmText::_('VMPAYMENT_PAYPAL_REGISTER') . '</a>';
+		$html .= ' <a target="_blank" href="http://docs.tsmart.net/manual/shop-menu/payment-methods/paypal.html" class="signin-button-link">' . tsmText::_('VMPAYMENT_PAYPAL_DOCUMENTATION') . '</a></p>';
 
 		return $html;
 	}

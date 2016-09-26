@@ -13,7 +13,7 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 * VirtueMart is Free Software.
 * VirtueMart comes with absolute no warranty.
 *
-* www.virtuemart.net
+* www.tsmart.net
 *----------------------------------------------------------------------
 * This code creates a list of the bestselling products
 * and displays it wherever you want
@@ -29,7 +29,7 @@ vmJsApi::jQuery();
 vmJsApi::cssSite();
 
 /* Setting */
-$categoryModel = VmModel::getModel('Category');
+$categoryModel = tmsModel::getModel('Category');
 $category_id = $params->get('Parent_Category_id', 0);
 $class_sfx = $params->get('class_sfx', '');
 $moduleclass_sfx = $params->get('moduleclass_sfx','');

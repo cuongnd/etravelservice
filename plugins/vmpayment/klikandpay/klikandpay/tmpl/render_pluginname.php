@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 ?>
@@ -58,16 +58,16 @@ defined('_JEXEC') or die();
 		<div class="vmpayment_subscribe">
 			<?php
 			if (isset($viewData['extraInfo']['subscribe']['subscribe_test_amount']) and !empty($viewData['extraInfo']['subscribe']['subscribe_test_amount'])) {
-				echo vmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT') . ": " . $viewData['extraInfo']['subscribe']['subscribe_test_amount'] . "<br />";
+				echo tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_AMOUNT') . ": " . $viewData['extraInfo']['subscribe']['subscribe_test_amount'] . "<br />";
 			}
 			if (isset($viewData['extraInfo']['subscribe']['subscribe_test_period']) and !empty($viewData['extraInfo']['subscribe']['subscribe_test_period'])) {
-				echo vmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD') . ": " . $viewData['extraInfo']['subscribe']['subscribe_test_period'] . "<br />";
+				echo tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_TEST_PERIOD') . ": " . $viewData['extraInfo']['subscribe']['subscribe_test_period'] . "<br />";
 			}
 			if (isset($viewData['extraInfo']['subscribe']['subscribe_due_date_amount']) and !empty($viewData['extraInfo']['subscribe']['subscribe_due_date_amount'])) {
-				echo vmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT') . " :" . $viewData['extraInfo']['subscribe']['subscribe_due_date_amount'] . "<br />";
+				echo tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_DUE_DATE_AMOUNT') . " :" . $viewData['extraInfo']['subscribe']['subscribe_due_date_amount'] . "<br />";
 			}
 			if (isset($viewData['extraInfo']['subscribe']['subscribe_frequency']) and !empty($viewData['extraInfo']['subscribe']['subscribe_frequency'])) {
-				echo vmText::sprintf('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY') . ": " . $viewData['extraInfo']['subscribe']['subscribe_frequency'] . "<br />";
+				echo tsmText::sprintf('VMPAYMENT_KLIKANDPAY_CONF_SUBSCRIBE_FREQUENCY') . ": " . $viewData['extraInfo']['subscribe']['subscribe_frequency'] . "<br />";
 			}
 			?>
 		</div>

@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @package VirtueMart
  * @subpackage
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -231,7 +231,7 @@ class plgVmpaymentPaybox extends vmPSPlugin {
 			return FALSE;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$extra_comment = "";
 		if (count($payments) == 1) {
@@ -273,7 +273,7 @@ class plgVmpaymentPaybox extends vmPSPlugin {
 			return FALSE;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$extra_comment = "";
 		if (count($payments) == 1) {
@@ -439,10 +439,10 @@ class plgVmpaymentPaybox extends vmPSPlugin {
 						}
 			*/
 			if (!extension_loaded('curl')) {
-				vmError(vmText::sprintf('VMPAYMENT_' . $this->_name . '_CONF_MANDATORY_PHP_EXTENSION', 'curl'));
+				vmError(tsmText::sprintf('VMPAYMENT_' . $this->_name . '_CONF_MANDATORY_PHP_EXTENSION', 'curl'));
 			}
 			if (!extension_loaded('openssl')) {
-				vmError(vmText::sprintf('VMPAYMENT_' . $this->_name . '_CONF_MANDATORY_PHP_EXTENSION', 'openssl'));
+				vmError(tsmText::sprintf('VMPAYMENT_' . $this->_name . '_CONF_MANDATORY_PHP_EXTENSION', 'openssl'));
 			}
 		}
 

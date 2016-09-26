@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 ?>
 <?php
@@ -36,10 +36,10 @@ if (!$jsSILoaded) {
 jQuery(document).ready(function($) {
 	jQuery(this).off('initializeAmazonPayment');
 	jQuery(this).on('initializeAmazonPayment', function() {
-		jQuery( '" . $viewData['sign_in_css'] . "' ).append('<div class=\"amazonSignTip\">" . vmText::_('VMPAYMENT_AMAZON_SIGNIN_TIP', true) . "</div>');
+		jQuery( '" . $viewData['sign_in_css'] . "' ).append('<div class=\"amazonSignTip\">" . tsmText::_('VMPAYMENT_AMAZON_SIGNIN_TIP', true) . "</div>');
 		amazonPayment.showAmazonButton('" . $viewData['sellerId'] . "', '" . $viewData['redirect_page'] . "', " . $renderAmazonAddressBook . ");
 		jQuery( '" . $viewData['sign_in_css'] . "' ).append('" . $signInButton . "');
-		jQuery( '" . $viewData['sign_in_css'] . "' ).append('<div class=\"amazonSignTip\" id=\"amazonSignOr\"><span>" . vmText::_('VMPAYMENT_AMAZON_SIGNIN_OR', true) . "</span></div>');
+		jQuery( '" . $viewData['sign_in_css'] . "' ).append('<div class=\"amazonSignTip\" id=\"amazonSignOr\"><span>" . tsmText::_('VMPAYMENT_AMAZON_SIGNIN_OR', true) . "</span></div>');
 	});
 	jQuery(this).trigger('initializeAmazonPayment');
 });
@@ -66,7 +66,7 @@ jQuery(document).ready( function($) {
 	jQuery('#checkoutFormSubmit').attr('disabled', 'true');
 	jQuery('#checkoutFormSubmit').removeClass( 'vm-button-correct' );
 	jQuery('#checkoutFormSubmit').addClass( 'vm-button' );
-	jQuery('#checkoutFormSubmit').text( '" . vmText::_('VMPAYMENT_AMAZON_CLICK_PAY_AMAZON', true) . "' );
+	jQuery('#checkoutFormSubmit').text( '" . tsmText::_('VMPAYMENT_AMAZON_CLICK_PAY_AMAZON', true) . "' );
 	});
 ";
 			vmJsApi::addJScript('vm.amazonSubmitform', $js);

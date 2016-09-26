@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Orders
 * @author Max Milbers, Valerie Isaksen
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -63,13 +63,13 @@ foreach($this->orderDetails['calc_rules'] as $rule){
  ?>
 <table class="html-email" width="100%" cellspacing="0" cellpadding="0" border="0">
 	<tr align="left" class="sectiontableheader">
-		<td align="left" width="5%"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_SKU') ?></strong></td>
-		<td align="left" colspan="2" width="38%" ><strong><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_NAME_TITLE') ?></strong></td>
-		<td align="center" width="10%"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_STATUS') ?></strong></td>
+		<td align="left" width="5%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_SKU') ?></strong></td>
+		<td align="left" colspan="2" width="38%" ><strong><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_NAME_TITLE') ?></strong></td>
+		<td align="center" width="10%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_STATUS') ?></strong></td>
 		<?php if ($this->doctype == 'invoice') { ?>
-		<td align="right" width="10%" ><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_PRICE') ?></strong></td>
+		<td align="right" width="10%" ><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRICE') ?></strong></td>
 		<?php } ?>
-		<td align="right" width="6%"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_QTY') ?></strong></td>
+		<td align="right" width="6%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_QTY') ?></strong></td>
 		<?php if ($this->doctype == 'invoice') { ?>
 		<?php if ( VmConfig::get('show_tax')) { ?>
 		<td align="right" width="10%" ><strong><?php
@@ -78,14 +78,14 @@ foreach($this->orderDetails['calc_rules'] as $rule){
 			$t = current($taxBill);
 			echo shopFunctionsF::getTaxNameWithValue($t->calc_rule_name,$t->calc_value);
 		} else {
-			echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_TAX');
+			echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_TAX');
 		}
 
 
 		?></strong></td>
 		  <?php } ?>
-		<td align="right" width="11%"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_SUBTOTAL_DISCOUNT_AMOUNT') ?></strong></td>
-		<td align="right" width="11%"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
+		<td align="right" width="11%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_SUBTOTAL_DISCOUNT_AMOUNT') ?></strong></td>
+		<td align="right" width="11%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
 		<?php } ?>
 	</tr>
 
@@ -158,7 +158,7 @@ foreach($this->orderDetails['calc_rules'] as $rule){
 <?php if ($this->doctype == 'invoice') { ?>
 <tr><td colspan="<?php echo $colspan ?>"></td></tr>
  <tr class="sectiontableentry1">
-			<td colspan="6" align="right"><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
+			<td colspan="6" align="right"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
                         <?php if ( VmConfig::get('show_tax')) { ?>
 			<td align="right"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_tax, $this->currency)."</span>" ?></td>
@@ -171,7 +171,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
     $coupon_code=$this->orderDetails['details']['BT']->coupon_code?' ('.$this->orderDetails['details']['BT']->coupon_code.')':'';
 	?>
 	<tr>
-		<td align="right" class="pricePad" colspan="6"><?php echo vmText::_('COM_VIRTUEMART_COUPON_DISCOUNT').$coupon_code ?></td>
+		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('COM_VIRTUEMART_COUPON_DISCOUNT').$coupon_code ?></td>
 		<?php if ( VmConfig::get('show_tax')) { ?>
 			<td align="right"> </td>
 		<?php } ?>
@@ -220,7 +220,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 	</tr>
 
 	<tr>
-		<td align="right" class="pricePad" colspan="6"><strong><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
+		<td align="right" class="pricePad" colspan="6"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
 
 		<?php if ( VmConfig::get('show_tax')) { ?>
 		<td align="right"><span class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderDetails['details']['BT']->order_billTaxAmount, $this->currency); ?></span></td>
@@ -232,7 +232,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 
 	if($taxBill){
 		?><tr >
-			<td colspan="7"  align="right" class="pricePad"><?php echo vmText::_('COM_VIRTUEMART_TOTAL_INCL_TAX') ?> </td>
+			<td colspan="7"  align="right" class="pricePad"><?php echo tsmText::_('COM_VIRTUEMART_TOTAL_INCL_TAX') ?> </td>
 			<td></td>
 			<td></td>
 		</tr><?php

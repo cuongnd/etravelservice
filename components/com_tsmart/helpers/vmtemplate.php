@@ -14,7 +14,7 @@ defined('_JEXEC') or die('');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
  
 
@@ -135,7 +135,7 @@ class VmTemplate {
 		}
 
 		//Lets get here the layout set in the shopconfig, if there is nothing set, get the joomla standard
-		if(vRequest::getCmd( 'view' ) == 'virtuemart') {
+		if(vRequest::getCmd( 'view' ) == 'tsmart') {
 			$layout = VmConfig::get( 'vmlayout', 'default' );
 			$view->setLayout( strtolower( $layout ) );
 		} else {

@@ -22,20 +22,20 @@ if ( $this->virtuemartFeed) {
 if ( $this->extensionsFeed ) {
 	$j=0;
 	foreach ($this->extensionsFeed as $item){
-		// This is directly related to extensions.virtuemart.net
+		// This is directly related to extensions.tsmart.net
 		if (($j / 5) == 0) { ?>
 			<div class="clear"></div>
 
-			<h2 class="cpanel"><?php echo vmText::_('COM_VIRTUEMART_FEED_LATEST_EXTENSION')?></h2>
+			<h2 class="cpanel"><?php echo tsmText::_('COM_VIRTUEMART_FEED_LATEST_EXTENSION')?></h2>
 			<?php
 		} elseif (($j / 5) == 1) { ?>
 			<div class="clear"></div>
 
-			<h2 class="cpanel"><?php echo vmText::_('COM_VIRTUEMART_FEED_FEATURED_EXTENSION')?></h2>
+			<h2 class="cpanel"><?php echo tsmText::_('COM_VIRTUEMART_FEED_FEATURED_EXTENSION')?></h2>
 		<?php
 		} elseif (($j / 5) == 2) { ?>
 			<div class="clear"></div>
-			<h2 class="cpanel"><?php echo vmText::_('COM_VIRTUEMART_FEED_POPULAR_EXTENSION')?></h2>
+			<h2 class="cpanel"><?php echo tsmText::_('COM_VIRTUEMART_FEED_POPULAR_EXTENSION')?></h2>
 		<?php
 		}
 		$image="";
@@ -46,7 +46,7 @@ if ( $this->extensionsFeed ) {
 				$image=$result[0];
 				$description=str_replace($image,"",$description);
 				$description=strip_tags($description);
-				$description=str_replace(vmText::_ ('COM_VIRTUEMART_FEED_READMORE') ,"",$description);
+				$description=str_replace(tsmText::_ ('COM_VIRTUEMART_FEED_READMORE') ,"",$description);
 			} else {
 				$description="";
 			}

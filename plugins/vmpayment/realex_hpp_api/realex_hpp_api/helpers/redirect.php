@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -68,7 +68,7 @@ class RealexHelperRealexRedirect extends RealexHelperRealex {
 			$html .= '<form action="' . $jump_url . '" method="post" name="vm_realex_form" target="realex">';
 		} else {
 			if (VmConfig::get('css')) {
-				$msg = vmText::_('VMPAYMENT_REALEX_HPP_API_REDIRECT_MESSAGE', true);
+				$msg = tsmText::_('VMPAYMENT_REALEX_HPP_API_REDIRECT_MESSAGE', true);
 			} else {
 				$msg='';
 			}
@@ -120,7 +120,7 @@ class RealexHelperRealexRedirect extends RealexHelperRealex {
 		$post_variables['DCC_ENABLE'] = $this->_method->dcc;
 
 		$post_variables['COMMENT1'] = $this->setComment1();
-		$post_variables['COMMENT2'] = 'virtuemart-rlx';
+		$post_variables['COMMENT2'] = 'tsmart-rlx';
 
 		$post_variables['MERCHANT_RESPONSE_URL'] = JURI::root() . 'index.php?option=com_virtuemart&format=raw&view=pluginresponse&task=pluginnotification&notificationTask=handleRedirect&tmpl=component';
 		$post_variables['AUTO_SETTLE_FLAG'] = $this->getSettlement();
@@ -297,7 +297,7 @@ class RealexHelperRealexRedirect extends RealexHelperRealex {
 				$extraPluginInfo['cc_expire_year'] = "";
 			}
 		} else {
-			$extraPluginInfo['cc_number'] = vmText::_('VMPAYMENT_REALEX_HPP_API_USE_ANOTHER_CC');
+			$extraPluginInfo['cc_number'] = tsmText::_('VMPAYMENT_REALEX_HPP_API_USE_ANOTHER_CC');
 		}
 
 
@@ -333,7 +333,7 @@ class RealexHelperRealexRedirect extends RealexHelperRealex {
 		$currencyDisplay = CurrencyDisplay::getInstance($this->cart->pricesCurrency);
 
 		$shop_name = $this->getVendorInfo('vendor_store_name');
-		return vmText::sprintf('VMPAYMENT_REALEX_HPP_API_COMMENT1', $amountValue['display'], $this->order['details']['BT']->order_number, $shop_name);
+		return tsmText::sprintf('VMPAYMENT_REALEX_HPP_API_COMMENT1', $amountValue['display'], $this->order['details']['BT']->order_number, $shop_name);
 	}
 
 

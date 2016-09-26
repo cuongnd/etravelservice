@@ -632,7 +632,7 @@ class KlarnaAPI {
 		}
 		else {
 			if ($sType == "lang") {
-				return vmText::_ ('VMPAYMENT_KLARNA_' . strtoupper ($sName)); //$this->fetchFromLanguagePack($sName);
+				return tsmText::_ ('VMPAYMENT_KLARNA_' . strtoupper ($sName)); //$this->fetchFromLanguagePack($sName);
 			}
 			else {
 				if ($sType == "setup") {
@@ -653,7 +653,7 @@ class KlarnaAPI {
 						$key = 'VMPAYMENT_KLARNA_' . strtoupper ($key);
 						$lang = JFactory::getLanguage ();
 						if ($lang->hasKey ($key)) {
-							$frmt = @vmText::_ ($key); //$this->fetchFromLanguagePack($key);
+							$frmt = @tsmText::_ ($key); //$this->fetchFromLanguagePack($key);
 							return @$this->translateInputFields ($frmt);
 						}
 						else {
@@ -688,7 +688,7 @@ class KlarnaAPI {
 
 		foreach ($this->aPClasses as $sPClassId => $aPClassData) {
 			$value = $this->getPresentableValuta ($aPClassData['monthlyCost']);
-			$pm = vmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
+			$pm = tsmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
 
 			$sString .= '<li ' . ($aPClassData['default'] ? 'id="click"' : "") . '>
                 <div>' . $aPClassData['pclass']->getDescription () .
@@ -715,7 +715,7 @@ class KlarnaAPI {
 		$i = 0;
 		foreach ($this->aPClasses as $sPClassId => $aPClassData) {
 			$value = $this->getPresentableValuta ($aPClassData['monthlyCost']);
-			$pm = vmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
+			$pm = tsmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
 			$pClasses[$i]['class'] = $aPClassData['default'] ? 'id="click"' : "";
 			$sString = $aPClassData['pclass']->getDescription () .
 				($aPClassData['monthlyCost'] > 0 ?
@@ -742,7 +742,7 @@ class KlarnaAPI {
 		foreach ($this->aPClasses as $sPClassId => $aPClassData) {
 			if ($aPClassData['pclass']->getId () == $pid) {
 				$value = $this->getPresentableValuta ($aPClassData['monthlyCost']);
-				$pm = vmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
+				$pm = tsmText::_ ('VMPAYMENT_KLARNA_PER_MONTH');
 				$sString .= $aPClassData['pclass']->getDescription () . ($aPClassData['monthlyCost'] > 0 ? " - $value $pm" : '');
 				return $sString;
 			}

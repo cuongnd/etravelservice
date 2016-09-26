@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -49,19 +49,19 @@ class PayboxHelperPayboxRecurring extends PayboxHelperPaybox {
 
 	function getOrderHistory ($paybox_data, $order, $payments) {
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
-		$order_history['comments'] = vmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
+		$order_history['comments'] = tsmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
 
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($paybox_data['M'] * 0.01, $order['details']['BT']->order_currency);
-		$order_history['comments'] .= "<br />" . vmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
+		$order_history['comments'] .= "<br />" . tsmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
 
-		$order_history['comments'] .= "<br />" . vmText::_('VMPAYMENT_'.$this->plugin_name.'_RESPONSE_S') . ' ' . $paybox_data['S'];
+		$order_history['comments'] .= "<br />" . tsmText::_('VMPAYMENT_'.$this->plugin_name.'_RESPONSE_S') . ' ' . $paybox_data['S'];
 		$recurring_comment = '';
 		$payment = $payments[0];
 		$recurring = json_decode($payment->recurring);
 
 		if (count($payments) == 1) {
-			$recurring_comment .= "<br />" . vmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_COMMENT_RECURRING_INFO', $payment->recurring_number, $payment->recurring_periodicity);
-			$recurring_comment .= "<br />" . vmText::_('VMPAYMENT_'.$this->plugin_name.'_COMMENT_NEXT_DEADLINES');
+			$recurring_comment .= "<br />" . tsmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_COMMENT_RECURRING_INFO', $payment->recurring_number, $payment->recurring_periodicity);
+			$recurring_comment .= "<br />" . tsmText::_('VMPAYMENT_'.$this->plugin_name.'_COMMENT_NEXT_DEADLINES');
 
 			$recurring_comment .= $this->getOrderRecurringTerms($payment, $order, 1);
 			$status_success='status_success_'.$this->_method->debit_type;
@@ -101,8 +101,8 @@ class PayboxHelperPayboxRecurring extends PayboxHelperPaybox {
 		for ($i = $start; $i < $payment->recurring_number; $i++) {
 			$index_mont = "PBX_2MONT" . $i;
 			$index_date = "PBX_DATE" . $i;
-			$text_mont = vmText::_('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_RECURRING_2MONT') . " ";
-			$text_date = vmText::_('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_RECURRING_DATE') . " ";
+			$text_mont = tsmText::_('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_RECURRING_2MONT') . " ";
+			$text_date = tsmText::_('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_RECURRING_DATE') . " ";
 			$recurring_comment .= "<br />" . $text_date . " " . $recurring->$index_date . " ";
 			$amountInCurrency = vmPSPlugin::getAmountInCurrency(($recurring->$index_mont) * 0.01, $order['details']['BT']->order_currency);
 			$recurring_comment .= $text_mont . " " . $amountInCurrency['display'];

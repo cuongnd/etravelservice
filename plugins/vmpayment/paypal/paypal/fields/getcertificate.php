@@ -5,7 +5,7 @@ defined('_JEXEC') or die();
  * @package    VirtueMart
  * @subpackage Plugins  - Elements
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -99,7 +99,7 @@ class JFormFieldGetcertificate extends JFormFieldFileList {
 
 		// Is the path a folder?
 		if (!is_dir($certificatePath)) {
-			return '<span>' . vmText::sprintf('VMPAYMENT_PAYPAL_CERTIFICATE_FOLDER_NOT_EXIST', $certificatePath) . '</span>';
+			return '<span>' . tsmText::sprintf('VMPAYMENT_PAYPAL_CERTIFICATE_FOLDER_NOT_EXIST', $certificatePath) . '</span>';
 		}
 		$path = str_replace('/', DS, $certificatePath);
 

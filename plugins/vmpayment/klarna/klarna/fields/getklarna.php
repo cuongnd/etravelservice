@@ -51,7 +51,7 @@ class JFormFieldGetKlarna extends JFormField {
 
 		$logo = '<img src="' . JURI::root() . VMKLARNAPLUGINWEBROOT . '/klarna/assets/images/logo/get_klarna_now.jpg" />';
 		$html = '<div><a target="_blank" href="' . $url . '" id="klarna_getklarna_link" ">' . $logo . '</a> ';
-		$html .= ' <a target="_blank" href="https://static.klarna.com/integration_sales/partner/VirtueMart/v1.0/Klarna_documentation.pdf" class="signin-button-link">' . vmText::_('VMPAYMENT_KLARNA_DOCUMENTATION') . '</a></div>';
+		$html .= ' <a target="_blank" href="https://static.klarna.com/integration_sales/partner/VirtueMart/v1.0/Klarna_documentation.pdf" class="signin-button-link">' . tsmText::_('VMPAYMENT_KLARNA_DOCUMENTATION') . '</a></div>';
 
 
 		return $html;

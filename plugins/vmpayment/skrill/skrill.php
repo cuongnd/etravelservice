@@ -233,7 +233,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		if (!class_exists ('TableVendors')) {
 			require(VMPATH_ADMIN . DS . 'tables' . DS . 'vendors.php');
 		}
-		$vendorModel = VmModel::getModel ('Vendor');
+		$vendorModel = tmsModel::getModel ('Vendor');
 		$vendorModel->setId (1);
 		$vendor = $vendorModel->getVendor ();
 		$vendorModel->addImages ($vendor, 1);
@@ -249,13 +249,13 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		$cartCurrency = CurrencyDisplay::getInstance($cart->pricesCurrency);
 
 		if ($totalInPaymentCurrency['value'] <= 0) {
-			vmInfo (vmText::_ ('VMPAYMENT_SKRILL_PAYMENT_AMOUNT_INCORRECT'));
+			vmInfo (tsmText::_ ('VMPAYMENT_SKRILL_PAYMENT_AMOUNT_INCORRECT'));
 			return FALSE;
 		}
 
 		$merchant_email = $method->pay_to_email;
 		if (empty($merchant_email)) {
-			vmInfo (vmText::_ ('VMPAYMENT_SKRILL_MERCHANT_EMAIL_NOT_SET'));
+			vmInfo (tsmText::_ ('VMPAYMENT_SKRILL_MERCHANT_EMAIL_NOT_SET'));
 			return FALSE;
 		}
 		$lang = JFactory::getLanguage ();
@@ -304,7 +304,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		                        'amount'                   => $totalInPaymentCurrency['value'],
 		                        'currency'                 => $currency_code_3,
 		                        'detail1_description'
-		                                                   => vmText::_ ('VMPAYMENT_SKRILL_ORDER_NUMBER') . ': ', //ihh hardcoded colon
+		                                                   => tsmText::_ ('VMPAYMENT_SKRILL_ORDER_NUMBER') . ': ', //ihh hardcoded colon
 		                        'detail1_text'             => $order['details']['BT']->order_number);
 
 		// Prepare data that should be stored in the database
@@ -331,11 +331,11 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		$sid = '';
 		if (!$fps || !stream_set_blocking ($fps, 0)) {
 			$this->sendEmailToVendorAndAdmins ("Error with SKRILL: ",
-				vmText::sprintf ('VMPAYMENT_SKRILL_ERROR_POSTING_IPN', $errstr, $errno));
-			$this->logInfo ('Process IPN ' . vmText::sprintf ('VMPAYMENT_SKRILL_ERROR_POSTING_IPN', $errstr, $errno),
+				tsmText::sprintf ('VMPAYMENT_SKRILL_ERROR_POSTING_IPN', $errstr, $errno));
+			$this->logInfo ('Process IPN ' . tsmText::sprintf ('VMPAYMENT_SKRILL_ERROR_POSTING_IPN', $errstr, $errno),
 				'message');
 
-			vmInfo (vmText::_ ('VMPAYMENT_SKRILL_DISPLAY_GWERROR'));
+			vmInfo (tsmText::_ ('VMPAYMENT_SKRILL_DISPLAY_GWERROR'));
 			return NULL;
 		} else {
 			fwrite ($fps, $header);
@@ -353,7 +353,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 
 			if (!count ($response)) {
 				$this->logInfo ('Process IPN (empty or bad response) ' . $msg, 'message');
-				vmInfo (vmText::_ ('VMPAYMENT_SKRILL_DISPLAY_GWERROR'));
+				vmInfo (tsmText::_ ('VMPAYMENT_SKRILL_DISPLAY_GWERROR'));
 				return NULL;
 			}
 			$sid = $response[0];
@@ -427,7 +427,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 			return '';
 		}
 		VmConfig::loadJLang('com_virtuemart');
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 		vmdebug ('SKRILL plgVmOnPaymentResponseReceived', $mb_data);
@@ -436,7 +436,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		$link=	JRoute::_("index.php?option=com_virtuemart&view=orders&layout=details&order_number=".$order['details']['BT']->order_number."&order_pass=".$order['details']['BT']->order_pass, false) ;
 
 		$html .='<br />
-		<a class="vm-button-correct" href="'.$link.'">'.vmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER').'</a>';
+		<a class="vm-button-correct" href="'.$link.'">'.tsmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER').'</a>';
 
 		$cart = VirtueMartCart::getCart ();
 		$cart->emptyCart ();
@@ -466,7 +466,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 			return NULL;
 		}
 
-		VmInfo (vmText::_ ('VMPAYMENT_SKRILL_PAYMENT_CANCELLED'));
+		VmInfo (tsmText::_ ('VMPAYMENT_SKRILL_PAYMENT_CANCELLED'));
 		$session = JFactory::getSession ();
 		$return_context = $session->getId ();
 		if (strcmp ($paymentTable->user_session, $return_context) === 0) {
@@ -508,7 +508,7 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 		}
 		$this->_storeInternalData ($method, $mb_data, $virtuemart_order_id);
 
-		$modelOrder = VmModel::getModel ('orders');
+		$modelOrder = tmsModel::getModel ('orders');
 		$vmorder = $modelOrder->getOrder ($virtuemart_order_id);
 		$order = array();
 		$error_msg = $this->_processStatus ($mb_data, $vmorder, $method);
@@ -533,9 +533,9 @@ class plgVmpaymentSkrill extends vmPSPlugin {
 
 		if (strcmp ($mb_data['payment_status'], 'Completed') == 0) {
 			$order['order_status'] = $method->status_success;
-			$order['comments'] = vmText::sprintf ('VMPAYMENT_SKRILL_PAYMENT_STATUS_CONFIRMED', $order_number);
+			$order['comments'] = tsmText::sprintf ('VMPAYMENT_SKRILL_PAYMENT_STATUS_CONFIRMED', $order_number);
 		} elseif (strcmp ($mb_data['payment_status'], 'Pending') == 0) {
-			$order['comments'] = vmText::sprintf ('VMPAYMENT_SKRILL_PAYMENT_STATUS_PENDING', $order_number);
+			$order['comments'] = tsmText::sprintf ('VMPAYMENT_SKRILL_PAYMENT_STATUS_PENDING', $order_number);
 			$order['order_status'] = $method->status_pending;
 		}
 		else {

@@ -11,7 +11,7 @@ defined ('_JEXEC') or  die('Direct Access to ' . basename (__FILE__) . ' is not 
  * VirtueMart is Free Software.
  * VirtueMart comes with absolute no warranty.
  *
- * www.virtuemart.net
+ * www.tsmart.net
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
@@ -20,14 +20,14 @@ if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'compo
 VmConfig::loadConfig ();
 VmConfig::loadJLang ('mod_virtuemart_search', true);
 
-// Load the virtuemart main parse code
+// Load the tsmart main parse code
 $button = $params->get ('button', 0);
 $imagebutton = $params->get ('imagebutton', 0);
 $button_pos = $params->get ('button_pos', 'left');
-$button_text = $params->get ('button_text', vmText::_ ('MOD_VIRTUEMART_SEARCH_GO'));
+$button_text = $params->get ('button_text', tsmText::_ ('MOD_VIRTUEMART_SEARCH_GO'));
 $width = intval ($params->get ('width', 20));
 $maxlength = $width > 20 ? $width : 20;
-$text = $params->get ('text', vmText::_ ('MOD_VIRTUEMART_SEARCH_TEXT_TXT'));
+$text = $params->get ('text', tsmText::_ ('MOD_VIRTUEMART_SEARCH_TEXT_TXT'));
 $set_Itemid = intval ($params->get ('set_itemid', 0));
 $moduleclass_sfx = $params->get ('moduleclass_sfx', '');
 

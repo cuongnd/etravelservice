@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -56,7 +56,7 @@ class PaypalHelperPayPalHosted extends PaypalHelperPaypal {
 		}
 
 		if (empty($this->api_login_id) || empty($this->api_signature) || empty($this->api_password)) {
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text, $text);
 		}
 		if ((empty ($this->_method->payflow_partner) OR empty($this->_method->sandbox_payflow_partner))) {
@@ -64,7 +64,7 @@ class PaypalHelperPayPalHosted extends PaypalHelperPaypal {
 			if ($this->_method->sandbox  ) {
 				$sandbox = 'SANDBOX_';
 			}
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', vmText::_('VMPAYMENT_PAYPAL_' . $sandbox . 'PAYFLOW_PARTNER'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', tsmText::_('VMPAYMENT_PAYPAL_' . $sandbox . 'PAYFLOW_PARTNER'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text);
 		}
 	}
@@ -140,7 +140,7 @@ class PaypalHelperPayPalHosted extends PaypalHelperPaypal {
 		$post_variables['L_BUTTONVAR']['logoFontSize'] = $this->_method->logoFontSize;
 		$post_variables['L_BUTTONVAR']['logoFontColor'] = $this->_method->logoFontColor;
 		if ($this->_method->bodyBgImg[0]) {
-			$post_variables['L_BUTTONVAR']['bodyBgImg'] = JURI::base() . 'images/stories/virtuemart/payment/' . $this->_method->bodyBgImg[0];
+			$post_variables['L_BUTTONVAR']['bodyBgImg'] = JURI::base() . 'images/stories/tsmart/payment/' . $this->_method->bodyBgImg[0];
 
 		}
 		$post_variables['L_BUTTONVAR']['logoImage'] = $this->getLogoImage();
@@ -151,7 +151,7 @@ class PaypalHelperPayPalHosted extends PaypalHelperPaypal {
 		//$post_variables['L_BUTTONVAR']['PageCollapseTextColor'] =    $this->_method->PageCollapseTextColor;
 		$post_variables['L_BUTTONVAR']['orderSummaryBgColor'] = $this->_method->orderSummaryBgColor;
 		if ($this->_method->orderSummaryBgImage[0]) {
-			$post_variables['L_BUTTONVAR']['orderSummaryBgImage'] = JURI::base() . 'images/stories/virtuemart/payment/' . $this->_method->orderSummaryBgImage[0];
+			$post_variables['L_BUTTONVAR']['orderSummaryBgImage'] = JURI::base() . 'images/stories/tsmart/payment/' . $this->_method->orderSummaryBgImage[0];
 		}
 		$post_variables['L_BUTTONVAR']['footerTextColor'] = $this->_method->footerTextColor;
 		$post_variables['L_BUTTONVAR']['footerTextlinkColor'] = $this->_method->footerTextlinkColor;

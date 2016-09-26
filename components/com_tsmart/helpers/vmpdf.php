@@ -17,13 +17,13 @@ defined('_JEXEC') or die('');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 VmConfig::loadConfig();
-if(!class_exists('VmModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 if(!class_exists('VmImage')) require(VMPATH_ADMIN.DS.'helpers'.DS.'image.php');
 
@@ -89,7 +89,7 @@ if(!file_exists(VMPATH_LIBS.DS.'tcpdf'.DS.'tcpdf.php')){
 		public function __construct() {
 			// Load the vendor, so we have the data for the header/footer...
 			// The images are NOT loaded by default, so do it manually, just in case
-			$vendorModel = VmModel::getModel('vendor');
+			$vendorModel = tmsModel::getModel('vendor');
 			$this->vendor = $vendorModel->getVendor($this->virtuemart_vendor_id);
 			$vendorModel->addImages($this->vendor,1);
 			$this->vendor->vendorFields = $vendorModel->getVendorAddressFields($this->virtuemart_vendor_id);
@@ -99,7 +99,7 @@ if(!file_exists(VMPATH_LIBS.DS.'tcpdf'.DS.'tcpdf.php')){
 			$this->css = $this->vendor->vendor_letter_css;
 			
 			// set document information
-			$this->SetCreator(vmText::_('COM_VIRTUEMART_PDF_CREATOR'));
+			$this->SetCreator(tsmText::_('COM_VIRTUEMART_PDF_CREATOR'));
 			if(empty($this->vendor->images[0])){
 				vmError('Vendor image given path empty ');
 			} else if(empty($this->vendor->images[0]->file_url_folder) or empty($this->vendor->images[0]->file_name) or empty($this->vendor->images[0]->file_extension) ){

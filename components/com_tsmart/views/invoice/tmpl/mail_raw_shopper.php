@@ -18,7 +18,7 @@
  * @subpackage Cart
  * @author Max Milbers, Valerie Isaksen
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -29,12 +29,12 @@
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-echo strip_tags(vmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER')) . "\n" . "\n";
-echo strip_tags(vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_SUMMARY', $this->vendor->vendor_store_name)) . "\n" . "\n";
+echo strip_tags(tsmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER')) . "\n" . "\n";
+echo strip_tags(tsmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_SUMMARY', $this->vendor->vendor_store_name)) . "\n" . "\n";
 
-echo vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_CONTENT', $this->shopperName, $this->vendor->vendor_store_name, $this->orderDetails['details']['BT']->order_total, $this->orderDetails['details']['BT']->order_number, $this->orderDetails['details']['BT']->order_pass, $this->orderDetails['details']['BT']->created_on) . "\n" . "\n";
+echo tsmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_CONTENT', $this->shopperName, $this->vendor->vendor_store_name, $this->orderDetails['details']['BT']->order_total, $this->orderDetails['details']['BT']->order_number, $this->orderDetails['details']['BT']->order_pass, $this->orderDetails['details']['BT']->created_on) . "\n" . "\n";
 
-echo "\n" . strip_tags(vmText::sprintf('COM_VIRTUEMART_MAIL_ORDER_STATUS', $this->orderDetails['details']['BT']->order_status_name));
+echo "\n" . strip_tags(tsmText::sprintf('COM_VIRTUEMART_MAIL_ORDER_STATUS', $this->orderDetails['details']['BT']->order_status_name));
 
 echo "\n\n";
 $nb = count($this->orderDetails['history']);
@@ -44,10 +44,10 @@ if ($this->orderDetails['history'][$nb - 1]->customer_notified && !(empty($this-
     echo "\n\n";
 
     echo "\n\n";
-    echo vmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER_LINK') . ' : ' . JURI::root() . 'index.php?option=com_virtuemart&view=orders&layout=details&order_number=' . $this->orderDetails['details']['BT']->order_number . '&order_pass=' . $this->orderDetails['details']['BT']->order_pass . "\n";
+    echo tsmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER_LINK') . ' : ' . JURI::root() . 'index.php?option=com_virtuemart&view=orders&layout=details&order_number=' . $this->orderDetails['details']['BT']->order_number . '&order_pass=' . $this->orderDetails['details']['BT']->order_pass . "\n";
 
     if (!empty($this->orderDetails['details']['BT']->customer_note)) {
-	echo "\n" . strip_tags(vmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_QUESTION', $this->orderDetails['details']['BT']->customer_note));
+	echo "\n" . strip_tags(tsmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_QUESTION', $this->orderDetails['details']['BT']->customer_note));
     }
     echo "\n\n";
 

@@ -9,7 +9,7 @@
 * @subpackage Cart
 * @author Max Milbers, Valerie Isaksen
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -22,7 +22,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
  echo "\n";
- echo vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_LBL'). "\n";
+ echo tsmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_LBL'). "\n";
 echo sprintf("%'-64.64s",'');
  echo "\n";
   foreach ($this->userfields['fields'] as $field) {
@@ -31,7 +31,7 @@ echo sprintf("%'-64.64s",'');
 		}
 	}
  echo "\n";
-echo vmText::_('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL'). "\n";
+echo tsmText::_('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL'). "\n";
 echo sprintf("%'-64.64s",'');
  echo "\n";
 

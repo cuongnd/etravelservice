@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: confirmorderreferenceresponse.php 8585 2014-11-25 11:11:13Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -41,8 +41,8 @@ class amazonHelperConfirmOrderReferenceResponse extends amazonHelper {
 
 			$order_history['customer_notified'] = $this->getCustomerNotified();
 
-		$order_history['comments'] = vmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_ORDERCONFIRMED');
-		$modelOrder = VmModel::getModel('orders');
+		$order_history['comments'] = tsmText::_('VMPAYMENT_AMAZON_COMMENT_STATUS_ORDERCONFIRMED');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, false);
 	}
 

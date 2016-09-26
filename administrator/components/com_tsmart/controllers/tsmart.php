@@ -26,7 +26,7 @@ if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmC
  * @package		tsmart
  */
 
-class TsmartControllertsmart extends TsmController {
+class TsmartControllerTsmart extends TsmController {
 
 
 	public function __construct() {

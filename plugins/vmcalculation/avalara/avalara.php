@@ -123,7 +123,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 	function plgVmOnDisplayEdit(&$calc,&$html){
 
 		$html .= '<fieldset>
-	<legend>'.vmText::_('VMCALCULATION_AVALARA').'</legend>
+	<legend>'.tsmText::_('VMCALCULATION_AVALARA').'</legend>
 	<table class="admintable">';
 
 		$html .= VmHTML::row('checkbox','VMCALCULATION_AVALARA_ACTIVATED','activated',$calc->activated);
@@ -137,7 +137,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 		$html .= VmHTML::row('checkbox','VMCALCULATION_AVALARA_PREVCHECKOUT_AD_INVALID','prevCheckoutAddInv',$calc->prevCheckoutAddInv);
 		$label = 'VMCALCULATION_AVALARA_VADDRESS';
 		$lang =JFactory::getLanguage();
-		$label = $lang->hasKey($label.'_TIP') ? '<span class="hasTip" title="'.vmText::_($label.'_TIP').'">'.vmText::_($label).'</span>' : vmText::_($label) ;
+		$label = $lang->hasKey($label.'_TIP') ? '<span class="hasTip" title="'.tsmText::_($label.'_TIP').'">'.tsmText::_($label).'</span>' : tsmText::_($label) ;
         	$html .= '
             <tr>
                 <td class="key">
@@ -168,7 +168,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 		if ($calc->activated) {
 			$html .= $this->ping($calc);
 		}
-		$html .= vmText::_('VMCALCULATION_AVALARA_MANUAL').'</fieldset>';
+		$html .= tsmText::_('VMCALCULATION_AVALARA_MANUAL').'</fieldset>';
 		return TRUE;
 	}
 
@@ -213,10 +213,10 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 
 		$calcData->setParameterable ($this->_xParams, $this->_varsToPushParam);
 
-		if (!class_exists ('VmTable')) {
-			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'vmtable.php');
+		if (!class_exists ('tsmTable')) {
+			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'tsmtable.php');
 		}
-		VmTable::bindParameterable ($calcData, $this->_xParams, $this->_varsToPushParam);
+		tsmTable::bindParameterable ($calcData, $this->_xParams, $this->_varsToPushParam);
 		if(!is_array($calcData->avatax_virtuemart_country_id)){
 			//Suppress Warning
 			$calcData->avatax_virtuemart_country_id = json_decode($calcData->avatax_virtuemart_country_id,true);
@@ -361,7 +361,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			}
 			//avadebug('plgVmInterpreteMathOp avalara ',$rule);
 			if(($productId!=0 and $productId==$requestedProductId) or $calculationHelper->inCart ){
-				VmTable::bindParameterable ($rule, $this->_xParams, $this->_varsToPushParam);
+				tsmTable::bindParameterable ($rule, $this->_xParams, $this->_varsToPushParam);
 				if($rule->activated==0) return $price;
 				if(empty($this->addresses)){
 					$vmadd = $this->getShopperDataFromCart($rule);
@@ -439,7 +439,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 
 		if($avaTaxRule!==0){
 			if(!empty($avaTaxRule->calc_params)){
-				VmTable::bindParameterable ($avaTaxRule, $this->_xParams, $this->_varsToPushParam);
+				tsmTable::bindParameterable ($avaTaxRule, $this->_xParams, $this->_varsToPushParam);
 
 				if($rule->activated==0)return false;
 				if($rule->accrual==0)return false;
@@ -450,7 +450,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 				if($this->addresses){
 					if (!class_exists ('calculationHelper')) require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'calculationh.php');
 					$calculator = calculationHelper::getInstance ();
-					$orderModel = VmModel::getModel('orders');
+					$orderModel = tmsModel::getModel('orders');
 					$invoiceNumber = 'onr_'.$order['details']['BT']->order_number;
 					vRequest::setVar('create_invoice',1);
 					$orderModel -> createInvoiceNumber($order['details']['BT'],$invoiceNumber);
@@ -686,7 +686,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			if(!empty($cart->virtuemart_shipmentmethod_id)){
 				$shipment = array();
 				$shipment['product_sku'] = 'VMShipmentId_'.$cart->virtuemart_shipmentmethod_id;
-				$shipmentModel = VmModel::getModel('Shipmentmethod');
+				$shipmentModel = tmsModel::getModel('Shipmentmethod');
 				$shipmentModel->setId($cart->virtuemart_shipmentmethod_id);
 				$shipmentMethod = $shipmentModel->getShipment();
 
@@ -832,7 +832,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 		if (!class_exists ('VirtueMartModelVendor')) require(JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'vendor.php');
 
 		$userId = VirtueMartModelVendor::getUserIdByVendorId ($calc['virtuemart_vendor_id']);
-		$userModel = VmModel::getModel ('user');
+		$userModel = tmsModel::getModel ('user');
 		$virtuemart_userinfo_id = $userModel->getBTuserinfo_id ($userId);
 		// this is needed to set the correct user id for the vendor when the user is logged
 		$userModel->getVendor($calc['virtuemart_vendor_id']);
@@ -1053,7 +1053,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 
 	private function creditMemo($data){
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderDetails = $orderModel->getOrder($data->virtuemart_order_id);
 		$calc = $this->getOrderCalc($orderDetails);
 		if(!$calc) return false;
@@ -1129,7 +1129,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			//$product['price'] = $item['product_final_price'];
 			$product['price'] = $item['product_item_price'];
 			$product['discount'] = $item['product_subtotal_discount'];
-			$model = VmModel::getModel('product');
+			$model = tmsModel::getModel('product');
 			$rProduct = $model->getProduct($item['virtuemart_product_id']);
 			$product['categories'] = $rProduct->categories;
 			$products[] = $product;
@@ -1137,7 +1137,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 		if(!empty($orderDetails['details']['BT']->virtuemart_shipmentmethod_id)){
 			$shipment = array();
 			$shipment['product_sku'] = 'VMShipmentId_'.$orderDetails['details']['BT']->virtuemart_shipmentmethod_id;
-			$shipmentModel = VmModel::getModel('Shipmentmethod');
+			$shipmentModel = tmsModel::getModel('Shipmentmethod');
 			$shipmentModel->setId($orderDetails['details']['BT']->virtuemart_shipmentmethod_id);
 			$shipmentMethod = $shipmentModel->getShipment();
 			$shipment['product_name'] = $shipmentMethod->shipment_name;
@@ -1199,7 +1199,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 	//	vmdebug('my data on cancelOrder ',$data);
 	//	if(empty($data->invoice_number)) return false;
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderDetails = $orderModel->getOrder($data->virtuemart_order_id);
 		$calc = $this->getOrderCalc($orderDetails);
 		if(!$calc) return false;
@@ -1284,7 +1284,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			$calc = get_object_vars($calc);
 		}
 		if(!empty($calc['calc_params'])){
-			VmTable::bindParameterable ($calc, $this->_xParams, $this->_varsToPushParam);
+			tsmTable::bindParameterable ($calc, $this->_xParams, $this->_varsToPushParam);
 			return $calc;
 		} else {
 			avadebug('rule had no parameters',$calc);

@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -96,7 +96,7 @@ class KlarnaCheckoutHelperKCO_php extends KlarnaCheckoutHelperKlarnaCheckout {
 			// ADD A DISCOUNT AS A NEGATIVE VALUE FOR THAT PRODUCT
 			if ($cart->cartPrices[$pkey]['discountAmount'] != 0.0) {
 				$items[$i]['reference'] = $items[$i - 1]['reference'];
-				$items[$i]['name'] = $items[$i - 1]['name'] . ' (' . vmText::_('VMPAYMENT_KLARNACHECKOUT_PRODUCTDISCOUNT') . ')';
+				$items[$i]['name'] = $items[$i - 1]['name'] . ' (' . tsmText::_('VMPAYMENT_KLARNACHECKOUT_PRODUCTDISCOUNT') . ')';
 				$items[$i]['quantity'] = (int)$product->quantity;
 				$discount_tax_percent = 0.0;
 				$discountInPaymentCurrency = vmPSPlugin::getAmountInCurrency(abs($cart->cartPrices[$pkey]['discountAmount']), $this->_currentMethod->payment_currency);
@@ -247,17 +247,17 @@ class KlarnaCheckoutHelperKCO_php extends KlarnaCheckoutHelperKlarnaCheckout {
 
 		$klarna = new Klarna_virtuemart();
 		$klarna->config($this->_currentMethod->merchantid, $this->_currentMethod->sharedsecret, $this->country_code_3, NULL, $this->currency_code_3, $this->mode, VMKLARNA_PC_TYPE, KlarnaHandler::getKlarna_pc_type(), $this->ssl);
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 
 		try {
 			$return = $klarna->activate($rno);
 			if ($return[0] == 'ok') {
-				VmInfo(vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ACTIVATE_RESERVATION', $rno));
+				VmInfo(tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ACTIVATE_RESERVATION', $rno));
 
 				$history = array();
 				$history['customer_notified'] = 0;
 				$history['order_status'] = $this->_currentMethod->status_activate;
-				$history['comments'] = vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_PAYMENT_STATUS_ACTIVATE', $rno); // $order['details']['BT']->order_number);
+				$history['comments'] = tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_PAYMENT_STATUS_ACTIVATE', $rno); // $order['details']['BT']->order_number);
 				$modelOrder->updateStatusForOneOrder($order->virtuemart_order_id, $history, false);
 
 				$dbValues['order_number'] = $order->order_number;
@@ -268,11 +268,11 @@ class KlarnaCheckoutHelperKCO_php extends KlarnaCheckoutHelperKlarnaCheckout {
 				$dbValues['klarna_status'] = 'activate';
 
 			} else {
-				$this->KlarnacheckoutError('activate returned KO', vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
+				$this->KlarnacheckoutError('activate returned KO', tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
 			}
 
 		} catch (Exception $e) {
-			$this->KlarnacheckoutError($e->getMessage(), vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
+			$this->KlarnacheckoutError($e->getMessage(), tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
 
 			return FALSE;
 		}
@@ -292,11 +292,11 @@ class KlarnaCheckoutHelperKCO_php extends KlarnaCheckoutHelperKlarnaCheckout {
 
 		$klarna = new Klarna_virtuemart();
 		$klarna->config($this->_currentMethod->merchantid, $this->_currentMethod->sharedsecret, $this->country_code_3, NULL, $this->currency_code_3, $this->mode, VMKLARNA_PC_TYPE, KlarnaHandler::getKlarna_pc_type(), $this->ssl);
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 
 		try {
 			$result = $klarna->cancelReservation($rno);
-			$info = vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_RESERVATION_CANCELED', $rno);
+			$info = tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_RESERVATION_CANCELED', $rno);
 			VmInfo($info);
 			$history = array();
 			$history['customer_notified'] = 1;
@@ -308,7 +308,7 @@ class KlarnaCheckoutHelperKCO_php extends KlarnaCheckoutHelperKlarnaCheckout {
 
 		} catch (Exception $e) {
 			$error = $e->getMessage();
-			$this->KlarnacheckoutError($e->getMessage(), vmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
+			$this->KlarnacheckoutError($e->getMessage(), tsmText::sprintf('VMPAYMENT_KLARNACHECKOUT_ERROR_OCCURRED', $this->_currentMethod->payment_name));
 
 			return FALSE;
 		}

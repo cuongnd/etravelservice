@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('_JEXEC') or die();
 $doc = JFactory::getDocument();
@@ -33,7 +33,7 @@ $storedCreditCards = $viewData['storedCreditCards'];
 
 			<div class="vmpayment_cc_info vmpayment_creditcardtype">
 				<span class="vmpayment_label"><label
-						for="creditcardtype"><?php echo vmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCTYPE'); ?></label></span>
+						for="creditcardtype"><?php echo tsmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCTYPE'); ?></label></span>
 			<span class="vmpayment_creditcardtype_<?php echo $storedCreditCard->realex_hpp_api_saved_pmt_type ?>">
 			<?php
 			echo $storedCreditCard->realex_hpp_api_saved_pmt_type;
@@ -42,7 +42,7 @@ $storedCreditCards = $viewData['storedCreditCards'];
 			</div>
 			<div class="vmpayment_cc_info vmpayment_cc_type">
 				<span class="vmpayment_label"><label
-						for="cc_type"><?php echo vmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCNUM'); ?></label></span>
+						for="cc_type"><?php echo tsmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCNUM'); ?></label></span>
 				<?php
 				echo $storedCreditCard->realex_hpp_api_saved_pmt_digits;
 				?>
@@ -51,7 +51,7 @@ $storedCreditCards = $viewData['storedCreditCards'];
 
 			<div class="vmpayment_cc_info vmpayment_cc_date">
 				<span class="vmpayment_label"><label
-						for="creditcardtype"><?php echo vmText::_('VMPAYMENT_REALEX_HPP_API_CC_EXPDATE'); ?></label></span>
+						for="creditcardtype"><?php echo tsmText::_('VMPAYMENT_REALEX_HPP_API_CC_EXPDATE'); ?></label></span>
 				<?php
 				$exp_date = $this->explodeExpDate($storedCreditCard->realex_hpp_api_saved_pmt_expdate);
 				if (count($exp_date) == 2) {
@@ -65,7 +65,7 @@ $storedCreditCards = $viewData['storedCreditCards'];
 			<div class="vmpayment_cc_info vmpayment_cc_name">
 
 				<span class="vmpayment_label"><label
-						for="cc_name"><?php echo vmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCNAME'); ?></label></span>
+						for="cc_name"><?php echo tsmText::_('VMPAYMENT_REALEX_HPP_API_CC_CCNAME'); ?></label></span>
 
 				<input type="text" size="30" class="inputbox" id="cc_name"
 				       name="cc_name_<?php echo $storedCreditCard->id; ?>"
@@ -82,12 +82,12 @@ $storedCreditCards = $viewData['storedCreditCards'];
 			<?php if ($viewData['deleteUpdateAuthorized']) { ?>
 				<div class="releax_delete_cc">
 					<?php
-					$checked_deleted = JHTML::_('grid.id', $i, $storedCreditCard->id, null, 'realex_card_delete_ids'); ?><?php  echo $checked_deleted ?><?php echo vmText::_('VMUSERFIELD_REALEX_HPP_API_DELETE_CARD') ?>
+					$checked_deleted = JHTML::_('grid.id', $i, $storedCreditCard->id, null, 'realex_card_delete_ids'); ?><?php  echo $checked_deleted ?><?php echo tsmText::_('VMUSERFIELD_REALEX_HPP_API_DELETE_CARD') ?>
 				</div>
 				<div class="releax_update_cc">
 					<?php
 					$checked_updated = JHTML::_('grid.id', $i, $storedCreditCard->id, null, 'realex_card_update_ids');
-					echo $checked_updated ?><?php echo vmText::_('VMUSERFIELD_REALEX_HPP_API_UPDATE_CARD') ?>
+					echo $checked_updated ?><?php echo tsmText::_('VMUSERFIELD_REALEX_HPP_API_UPDATE_CARD') ?>
 				</div>
 			<?php
 			}

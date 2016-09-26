@@ -7,7 +7,7 @@
  * @subpackage Helpers
  *
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -129,7 +129,7 @@ class shopFunctionsF {
 				vmError ('getOrderStatusName: couldnt find order_status_name for ' . $_code);
 				return 'current order status broken';
 			} else {
-				$orderNames[$_code] = vmText::_($orderNames[$_code]->order_status_name);
+				$orderNames[$_code] = tsmText::_($orderNames[$_code]->order_status_name);
 			}
 		}
 
@@ -150,7 +150,7 @@ class shopFunctionsF {
 	 */
 	static public function renderCountryList ($countryId = 0, $multiple = FALSE, $_attrib = array(), $_prefix = '', $required = 0) {
 
-		$countryModel = VmModel::getModel ('country');
+		$countryModel = tmsModel::getModel ('country');
 		$countries = $countryModel->getCountries (TRUE, TRUE, FALSE);
 		$attrs = array();
 		$name = 'country_name';
@@ -169,7 +169,7 @@ class shopFunctionsF {
 		$lang = JFactory::getLanguage();
 		$prefix="COM_VIRTUEMART_COUNTRY_";
 		foreach ($countries as  $country) {
-			$country_string = $lang->hasKey($prefix.$country->country_3_code) ?   vmText::_($prefix.$country->country_3_code)  : $country->country_name;
+			$country_string = $lang->hasKey($prefix.$country->country_3_code) ?   tsmText::_($prefix.$country->country_3_code)  : $country->country_name;
 			$sorted_countries[$country->virtuemart_country_id] = $country_string;
 		}
 
@@ -192,7 +192,7 @@ class shopFunctionsF {
 			$attrs['multiple'] = 'multiple';
 			$idA .= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', vmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION'), $id, $name);
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION'), $id, $name);
 			array_unshift ($countries_list, $emptyOption);
 		}
 
@@ -239,7 +239,7 @@ class shopFunctionsF {
 
 		$attrString= JArrayHelper::toString($attrs);
 		$listHTML = '<select  id="'.$_prefix.'virtuemart_state_id" ' . $attrString . '>
-						<option value="">' . vmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION') . '</option>
+						<option value="">' . tsmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION') . '</option>
 						</select>';
 
 		return $listHTML;
@@ -255,7 +255,7 @@ class shopFunctionsF {
 		// Shipment address(es)
 		$_addressList = $userModel->getUserAddressList ($userModel->getId (), 'ST');
 		if (count ($_addressList) == 1 && empty($_addressList[0]->address_type_name)) {
-			return vmText::_ ('COM_VIRTUEMART_USER_NOSHIPPINGADDR');
+			return tsmText::_ ('COM_VIRTUEMART_USER_NOSHIPPINGADDR');
 		} else {
 			$_shipTo = array();
 			$useXHTTML = empty($view->useXHTML) ? false : $view->useXHTML;
@@ -282,11 +282,11 @@ class shopFunctionsF {
 					. '">' . $_addressList[$_i]->address_type_name . '</a> ' ;
 
 				/*$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_virtuemart&view=user&task=removeAddressST&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id . '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id, $useXHTTML, $useSSL ). '" class="icon_delete">'.vmText::_('COM_VIRTUEMART_USER_DELETE_ST').'</a></li>';*/
-				$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_virtuemart&view=user&task=removeAddressST&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id . '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id, $useXHTTML, $useSSL ). '" >'.'<i class="icon-delete"></i>'.vmText::_('COM_VIRTUEMART_USER_DELETE_ST').'</a></li>';
+				$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_virtuemart&view=user&task=removeAddressST&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id . '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id, $useXHTTML, $useSSL ). '" >'.'<i class="icon-delete"></i>'.tsmText::_('COM_VIRTUEMART_USER_DELETE_ST').'</a></li>';
 			}
 
 			$addLink = '<a href="' . JRoute::_ ('index.php?option=com_virtuemart&view=user&task=' . $task . '&new=1&addrtype=ST&virtuemart_user_id[]=' . $userModel->getId (), $useXHTTML, $useSSL) . '"><span class="vmicon vmicon-16-editadd"></span> ';
-			$addLink .= vmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL') . ' </a>';
+			$addLink .= tsmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL') . ' </a>';
 
 			return $addLink . '<ul>' . join ('', $_shipTo) . '</ul>';
 		}
@@ -305,7 +305,7 @@ class shopFunctionsF {
 	 */
 	static public function renderVendorAddress ($vendorId,$lineSeparator="<br />", $skips = array('name','username','email','agreed')) {
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendorFields = $vendorModel->getVendorAddressFields($vendorId);
 
 		$vendorAddress = '';
@@ -362,7 +362,7 @@ class shopFunctionsF {
 
 	static public function sortLoadProductCustomsStockInd(&$products,$pModel){
 
-		$customfieldsModel = VmModel::getModel ('Customfields');
+		$customfieldsModel = tmsModel::getModel ('Customfields');
 		if (!class_exists ('vmCustomPlugin')) {
 			require(JPATH_VM_PLUGINS . DS . 'vmcustomplugin.php');
 		}
@@ -501,7 +501,7 @@ class shopFunctionsF {
 	//TODO this is quirk, why it is using here $noVendorMail, but everywhere else it is using $doVendor => this make logic trouble
 	static public function renderMail ($viewName, $recipient, $vars = array(), $controllerName = NULL, $noVendorMail = FALSE,$useDefault=true) {
 
-		if(!class_exists( 'VirtueMartControllerVirtuemart' )) require(VMPATH_SITE.DS.'controllers'.DS.'virtuemart.php');
+		if(!class_exists( 'VirtueMartControllerVirtuemart' )) require(VMPATH_SITE.DS.'controllers'.DS.'tsmart.php');
 
 		$controller = new VirtueMartControllerVirtuemart();
 		// refering to http://forum.virtuemart.net/index.php?topic=96318.msg317277#msg317277
@@ -628,7 +628,7 @@ class shopFunctionsF {
 		$body = ob_get_contents();
 		ob_end_clean();
 
-		$subject = (isset($view->subject)) ? $view->subject : vmText::_( 'COM_VIRTUEMART_DEFAULT_MESSAGE_SUBJECT' );
+		$subject = (isset($view->subject)) ? $view->subject : tsmText::_( 'COM_VIRTUEMART_DEFAULT_MESSAGE_SUBJECT' );
 		$mailer = JFactory::getMailer();
 		$mailer->addRecipient( $recipient );
 		$mailer->setSubject(  html_entity_decode( $subject , ENT_QUOTES, 'UTF-8') );
@@ -688,12 +688,12 @@ class shopFunctionsF {
 	function sendRatingEmailToVendor ($data) {
 
 		$vars = array();
-		$productModel = VmModel::getModel ('product');
+		$productModel = tmsModel::getModel ('product');
 		$product = $productModel->getProduct ($data['virtuemart_product_id']);
-		$vars['subject'] = vmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_SUBJECT', $product->product_name);
-		$vars['mailbody'] = vmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_BODY', $product->product_name);
+		$vars['subject'] = tsmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_SUBJECT', $product->product_name);
+		$vars['mailbody'] = tsmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_BODY', $product->product_name);
 
-		$vendorModel = VmModel::getModel ('vendor');
+		$vendorModel = tmsModel::getModel ('vendor');
 		$vendor = $vendorModel->getVendor ($product->virtuemart_vendor_id);
 		$vendorModel->addImages ($vendor);
 		$vars['vendor'] = $vendor;
@@ -769,7 +769,7 @@ class shopFunctionsF {
 		$html = '<div id="ui-tabs">';
 		$i = 1;
 		foreach( $load_template as $tab_content => $tab_title ) {
-			$html .= '<div id="tab-'.$i.'" class="tabs" title="'.vmText::_( $tab_title ).'">';
+			$html .= '<div id="tab-'.$i.'" class="tabs" title="'.tsmText::_( $tab_title ).'">';
 			$html .= $view->loadTemplate( $tab_content );
 			$html .= '<div class="clear"></div>
 			    </div>';
@@ -791,10 +791,10 @@ class shopFunctionsF {
 	static function translateTwoLangKeys ($pkey, $skey) {
 
 		$upper = strtoupper( $pkey ).'_2STRINGS';
-		if(vmText::_( $upper ) !== $upper) {
-			return vmText::sprintf( $upper, vmText::_( $skey ) );
+		if(tsmText::_( $upper ) !== $upper) {
+			return tsmText::sprintf( $upper, tsmText::_( $skey ) );
 		} else {
-			return vmText::_( $pkey ).' '.vmText::_( $skey );
+			return tsmText::_( $pkey ).' '.tsmText::_( $skey );
 		}
 	}
 
@@ -822,7 +822,7 @@ class shopFunctionsF {
 		}
 
 		foreach ($items as $item) {
-			if(strstr($item->link, 'view=virtuemart')) {
+			if(strstr($item->link, 'view=tsmart')) {
 				$itemID = $item->id;
 				break;
 			}
@@ -879,7 +879,7 @@ class shopFunctionsF {
 	 * @return The full filename of the invoice/deliverynote without file extension, sanitized not to contain problematic characters like /
 	 */
 	static function getInvoiceName($invoice_number, $layout='invoice'){
-		$prefix = vmText::_('COM_VIRTUEMART_FILEPREFIX_'.strtoupper($layout));
+		$prefix = tsmText::_('COM_VIRTUEMART_FILEPREFIX_'.strtoupper($layout));
 		if($prefix == 'COM_VIRTUEMART_FILEPREFIX_'.strtoupper($layout)){
 			$prefix = 'vm'.$layout.'_';
 		}
@@ -897,7 +897,7 @@ class shopFunctionsF {
 			if(file_exists($path)){
 				$link = JURI::root(true).'/index.php?option=com_virtuemart&view=invoice&layout=invoice&format=pdf&tmpl=component&order_number='.$orderInfo->order_number.'&order_pass='.$orderInfo->order_pass;
 				$pdf_link = "<a href=\"javascript:void window.open('".$link."', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
-				$pdf_link .= JHtml::_('image',$icon, vmText::_($descr), NULL, true);
+				$pdf_link .= JHtml::_('image',$icon, tsmText::_($descr), NULL, true);
 				$pdf_link .= '</a>';
 				$html = $pdf_link;
 			}

@@ -7,7 +7,7 @@
  * @package	VirtueMart
  * @subpackage User
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -51,14 +51,14 @@ class VirtuemartViewVendor extends VmView {
 		$pathway = $mainframe->getPathway();
 		$layoutName = $this->getLayout();
 
-		$model = VmModel::getModel();
+		$model = tmsModel::getModel();
 
 		$virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id',1);
 
 // 		if ($layoutName=='default') {
 		if (empty($virtuemart_vendor_id)) {
-			$document->setTitle( vmText::_('COM_VIRTUEMART_VENDOR_LIST') );
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_VENDOR_LIST'));
+			$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_LIST') );
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_LIST'));
 
 			$vendors = $model->getVendors();
 			$model->addImages($vendors);
@@ -80,25 +80,25 @@ class VirtuemartViewVendor extends VmView {
 			$userId = VirtueMartModelVendor::getUserIdByVendorId($virtuemart_vendor_id);
 
 			if ($layoutName=='tos') {
-				$document->setTitle( vmText::_('COM_VIRTUEMART_VENDOR_TOS') );
-				$pathway->addItem(vmText::_('COM_VIRTUEMART_VENDOR_TOS'));
+				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_TOS') );
+				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_TOS'));
 			}
 			elseif ($layoutName=='contact') {
 				$user = JFactory::getUser();
-				$document->setTitle( vmText::_('COM_VIRTUEMART_VENDOR_CONTACT') );
-				$pathway->addItem(vmText::_('COM_VIRTUEMART_VENDOR_CONTACT'));
+				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT') );
+				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT'));
 				$this->assignRef('user', $user);
 
 			} else {
-				$document->setTitle( vmText::_('COM_VIRTUEMART_VENDOR_DETAILS') );
-				$pathway->addItem(vmText::_('COM_VIRTUEMART_VENDOR_DETAILS'));
+				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS') );
+				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS'));
 				$this->setLayout('details');
 			}
 
 			$linkdetails = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=details&virtuemart_vendor_id=' .
-				$virtuemart_vendor_id, FALSE).'">'.vmText::_('COM_VIRTUEMART_VENDOR_DETAILS').'</a>';
-			$linkcontact = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.vmText::_('COM_VIRTUEMART_VENDOR_CONTACT').'</a>';
-			$linktos = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=tos&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.vmText::_('COM_VIRTUEMART_VENDOR_TOS').'</a>';
+				$virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS').'</a>';
+			$linkcontact = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT').'</a>';
+			$linktos = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=tos&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_TOS').'</a>';
 
 			$this->assignRef('linkdetails', $linkdetails);
 			$this->assignRef('linkcontact', $linkcontact);
@@ -117,11 +117,11 @@ class VirtuemartViewVendor extends VmView {
 		$virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id');
 		$this->doVendor=$doVendor;
 		//$this->doVendor=TRUE;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$this->vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		// in this particular case, overwrite the value for fix the recipient name
 		$this->vendor->vendor_name= $this->user['name'];
-		$this->subject = vmText::_('COM_VIRTUEMART_VENDOR_CONTACT') .' '.$this->user['name'];
+		$this->subject = tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT') .' '.$this->user['name'];
 		$this->vendorEmail= $this->user['email'];
 		//$this->vendorName= $this->user['email'];
 		if (VmConfig::get('order_mail_html')) {

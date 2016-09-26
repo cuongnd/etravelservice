@@ -6,14 +6,14 @@
 * @package		VirtueMart
 * @subpackage
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2011-2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: virtuemart.php 8850 2015-05-13 14:06:11Z Milbo $
+* @version $Id: tsmart.php 8850 2015-05-13 14:06:11Z Milbo $
  */
 
 // Check to ensure this file is included in Joomla!
@@ -49,7 +49,7 @@ class VirtueMartControllerVirtuemart extends JControllerLegacy
 
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
-		$viewName = vRequest::getCmd('view', 'virtuemart');
+		$viewName = vRequest::getCmd('view', 'tsmart');
 		$viewLayout = vRequest::getCmd('layout', 'default');
 
 		//vmdebug('basePath is NOT VMPATH_SITE',$this->basePath,VMPATH_SITE);
@@ -63,7 +63,7 @@ class VirtueMartControllerVirtuemart extends JControllerLegacy
 
 	public function feed(){
 
-		if(!class_exists( 'vmRSS' )) require(VMPATH_ADMIN.'/helpers/vmrss.php');
+		if(!class_exists( 'vmRSS' )) require(VMPATH_ADMIN.'/helpers/tsmrss.php');
 
 		$this->virtuemartFeed = vmRSS::getVirtueMartRssFeed();
 		$this->extensionsFeed = vmRSS::getExtensionsRssFeed();
@@ -75,7 +75,7 @@ class VirtueMartControllerVirtuemart extends JControllerLegacy
 
 		ob_clean();
 		ob_start();
-		include(VMPATH_SITE.DS.'views'.DS.'virtuemart'.DS.'tmpl'.DS.'feed.php');
+		include(VMPATH_SITE.DS.'views'.DS.'tsmart'.DS.'tmpl'.DS.'feed.php');
 		echo ob_get_clean();
 		jExit();
 	}

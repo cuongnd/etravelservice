@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Manufacturer
 * @author Kohl Patrick, Eugen Stranz
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -36,14 +36,14 @@ defined('_JEXEC') or die('Restricted access');
 	if(!empty($this->manufacturer->mf_email)) { ?>
 		<div class="manufacturer-email">
 		<?php // TO DO Make The Email Visible Within The Lightbox
-		echo JHtml::_('email.cloak', $this->manufacturer->mf_email,true,vmText::_('COM_VIRTUEMART_EMAIL'),false) ?>
+		echo JHtml::_('email.cloak', $this->manufacturer->mf_email,true,tsmText::_('COM_VIRTUEMART_EMAIL'),false) ?>
 		</div>
 	<?php } ?>
 
 	<?php // Manufacturer URL
 	if(!empty($this->manufacturer->mf_url)) { ?>
 		<div class="manufacturer-url">
-			<a target="_blank" href="<?php echo $this->manufacturer->mf_url ?>"><?php echo vmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE') ?></a>
+			<a target="_blank" href="<?php echo $this->manufacturer->mf_url ?>"><?php echo tsmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE') ?></a>
 		</div>
 	<?php } ?>
 
@@ -59,7 +59,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	if(!empty($this->manufacturer->virtuemart_manufacturer_id)) { ?>
 		<div class="manufacturer-product-link">
-			<a target="_top" href="<?php echo $manufacturerProductsURL; ?>"><?php echo vmText::sprintf('COM_VIRTUEMART_PRODUCT_FROM_MF',$this->manufacturer->mf_name); ?></a>
+			<a target="_top" href="<?php echo $manufacturerProductsURL; ?>"><?php echo tsmText::sprintf('COM_VIRTUEMART_PRODUCT_FROM_MF',$this->manufacturer->mf_name); ?></a>
 		</div>
 	<?php } ?>
 

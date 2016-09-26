@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage User
  * @author Oscar van Eijk, Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -47,28 +47,28 @@ function renderControlButtons($view,$rview){
 
 
 	if (VmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && !VmConfig::get ('oncheckout_only_registered', 0) && $view->address_type == 'BT' and $rview == 'cart') {
-		echo '<div id="reg_text">'.vmText::sprintf ('COM_VIRTUEMART_ONCHECKOUT_DEFAULT_TEXT_REGISTER', vmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'), vmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST')).'</div>';			}
+		echo '<div id="reg_text">'.tsmText::sprintf ('COM_VIRTUEMART_ONCHECKOUT_DEFAULT_TEXT_REGISTER', tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'), tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST')).'</div>';			}
 	else {
 		//echo vmText::_('COM_VIRTUEMART_REGISTER_ACCOUNT');
 	}
 	if (VmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && $view->address_type == 'BT' and $rview == 'cart') {
 		?>
 		<button name="register" class="<?php echo $buttonclass ?>" type="submit" onclick="javascript:return myValidator(userForm,true);"
-				title="<?php echo vmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?>"><?php echo vmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?></button>
+				title="<?php echo tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?>"><?php echo tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?></button>
 		<?php if (!VmConfig::get ('oncheckout_only_registered', 0)) { ?>
-			<button name="save" class="<?php echo $buttonclass ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?>" type="submit"
-					onclick="javascript:return myValidator(userForm, false);"><?php echo vmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?></button>
+			<button name="save" class="<?php echo $buttonclass ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?>" type="submit"
+					onclick="javascript:return myValidator(userForm, false);"><?php echo tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?></button>
 		<?php } ?>
 		<button class="default" type="reset"
-				onclick="window.location.href='<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=' . $rview.'&task=cancel'); ?>'"><?php echo vmText::_ ('COM_VIRTUEMART_CANCEL'); ?></button>
+				onclick="window.location.href='<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=' . $rview.'&task=cancel'); ?>'"><?php echo tsmText::_ ('COM_VIRTUEMART_CANCEL'); ?></button>
 	<?php
 	}
 	else {
 		?>
 		<button class="<?php echo $buttonclass ?>" type="submit"
-				onclick="javascript:return myValidator(userForm,true);"><?php echo vmText::_ ('COM_VIRTUEMART_SAVE'); ?></button>
+				onclick="javascript:return myValidator(userForm,true);"><?php echo tsmText::_ ('COM_VIRTUEMART_SAVE'); ?></button>
 		<button class="default" type="reset"
-				onclick="window.location.href='<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=' . $rview.'&task=cancel'); ?>'"><?php echo vmText::_ ('COM_VIRTUEMART_CANCEL'); ?></button>
+				onclick="window.location.href='<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=' . $rview.'&task=cancel'); ?>'"><?php echo tsmText::_ ('COM_VIRTUEMART_CANCEL'); ?></button>
 	<?php } ?>
 </div>
 <?php
@@ -93,10 +93,10 @@ echo shopFunctionsF::getLoginForm (TRUE, FALSE, $url);
 <fieldset>
 	<h2><?php
 		if ($this->address_type == 'BT') {
-			echo vmText::_ ('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
+			echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL');
 		}
 		else {
-			echo vmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
+			echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL');
 		}
 		?>
 	</h2>
@@ -114,7 +114,7 @@ echo shopFunctionsF::getLoginForm (TRUE, FALSE, $url);
 		?>
 		<fieldset id="recaptcha_wrapper" <?php echo $hide_captcha ?>>
 			<?php if(!VmConfig::get ('oncheckout_only_registered')) { ?>
-				<span class="userfields_info"><?php echo vmText::_ ('COM_VIRTUEMART_USER_FORM_CAPTCHA'); ?></span>
+				<span class="userfields_info"><?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_CAPTCHA'); ?></span>
 			<?php } ?>
 			<div id="dynamic_recaptcha_1"></div>
 		</fieldset>

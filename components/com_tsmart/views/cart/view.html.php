@@ -9,7 +9,7 @@
  * @author Max Milbers
  * @author Oscar van Eijk
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -78,24 +78,24 @@ class VirtueMartViewCart extends VmView {
 			$this->cart->prepareCartData();
 			$this->lSelectShipment();
 
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_SELECTSHIPMENT'));
-			$document->setTitle(vmText::_('COM_VIRTUEMART_CART_SELECTSHIPMENT'));
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_SELECTSHIPMENT'));
+			$document->setTitle(tsmText::_('COM_VIRTUEMART_CART_SELECTSHIPMENT'));
 		} else if ($this->layoutName == 'select_payment') {
 
 			$this->cart->prepareCartData();
 
 			$this->lSelectPayment();
 
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
-			$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_SELECTPAYMENT'));
-			$document->setTitle(vmText::_('COM_VIRTUEMART_CART_SELECTPAYMENT'));
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_OVERVIEW'), JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
+			$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_SELECTPAYMENT'));
+			$document->setTitle(tsmText::_('COM_VIRTUEMART_CART_SELECTPAYMENT'));
 		} else if ($this->layoutName == 'order_done') {
 			VmConfig::loadJLang( 'com_virtuemart_shoppers', true );
 			$this->lOrderDone();
 
-			$pathway->addItem( vmText::_( 'COM_VIRTUEMART_CART_THANKYOU' ) );
-			$document->setTitle( vmText::_( 'COM_VIRTUEMART_CART_THANKYOU' ) );
+			$pathway->addItem( tsmText::_( 'COM_VIRTUEMART_CART_THANKYOU' ) );
+			$document->setTitle( tsmText::_( 'COM_VIRTUEMART_CART_THANKYOU' ) );
 		} else {
 			VmConfig::loadJLang('com_virtuemart_shoppers', true);
 
@@ -105,7 +105,7 @@ class VirtueMartViewCart extends VmView {
 				require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
 			}
 
-			$userFieldsModel = VmModel::getModel ('userfields');
+			$userFieldsModel = tmsModel::getModel ('userfields');
 
 			$userFieldsCart = $userFieldsModel->getUserFields(
 				'cart'
@@ -123,7 +123,7 @@ class VirtueMartViewCart extends VmView {
 
 			$this->currencyDisplay = CurrencyDisplay::getInstance($this->cart->pricesCurrency);
 
-			$customfieldsModel = VmModel::getModel ('Customfields');
+			$customfieldsModel = tmsModel::getModel ('Customfields');
 			$this->assignRef('customfieldsModel',$customfieldsModel);
 
 			$this->lSelectCoupon();
@@ -134,20 +134,20 @@ class VirtueMartViewCart extends VmView {
 
 			if ($this->cart->getDataValidated()) {
 				if($this->cart->_inConfirm){
-					$pathway->addItem(vmText::_('COM_VIRTUEMART_CANCEL_CONFIRM_MNU'));
-					$document->setTitle(vmText::_('COM_VIRTUEMART_CANCEL_CONFIRM_MNU'));
-					$text = vmText::_('COM_VIRTUEMART_CANCEL_CONFIRM');
+					$pathway->addItem(tsmText::_('COM_VIRTUEMART_CANCEL_CONFIRM_MNU'));
+					$document->setTitle(tsmText::_('COM_VIRTUEMART_CANCEL_CONFIRM_MNU'));
+					$text = tsmText::_('COM_VIRTUEMART_CANCEL_CONFIRM');
 					$this->checkout_task = 'cancel';
 				} else {
-					$pathway->addItem(vmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU'));
-					$document->setTitle(vmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU'));
-					$text = vmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU');
+					$pathway->addItem(tsmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU'));
+					$document->setTitle(tsmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU'));
+					$text = tsmText::_('COM_VIRTUEMART_ORDER_CONFIRM_MNU');
 					$this->checkout_task = 'confirm';
 				}
 			} else {
-				$pathway->addItem(vmText::_('COM_VIRTUEMART_CART_OVERVIEW'));
-				$document->setTitle(vmText::_('COM_VIRTUEMART_CART_OVERVIEW'));
-				$text = vmText::_('COM_VIRTUEMART_CHECKOUT_TITLE');
+				$pathway->addItem(tsmText::_('COM_VIRTUEMART_CART_OVERVIEW'));
+				$document->setTitle(tsmText::_('COM_VIRTUEMART_CART_OVERVIEW'));
+				$text = tsmText::_('COM_VIRTUEMART_CHECKOUT_TITLE');
 				$this->checkout_task = 'checkout';
 			}
 			$dynUpdate = '';
@@ -176,16 +176,16 @@ class VirtueMartViewCart extends VmView {
 			}
 
 			if ($this->cart->virtuemart_shipmentmethod_id) {
-				$shippingText =  vmText::_('COM_VIRTUEMART_CART_CHANGE_SHIPPING');
+				$shippingText =  tsmText::_('COM_VIRTUEMART_CART_CHANGE_SHIPPING');
 			} else {
-				$shippingText = vmText::_('COM_VIRTUEMART_CART_EDIT_SHIPPING');
+				$shippingText = tsmText::_('COM_VIRTUEMART_CART_EDIT_SHIPPING');
 			}
 			$this->assignRef('select_shipment_text', $shippingText);
 
 			if ($this->cart->virtuemart_paymentmethod_id) {
-				$paymentText = vmText::_('COM_VIRTUEMART_CART_CHANGE_PAYMENT');
+				$paymentText = tsmText::_('COM_VIRTUEMART_CART_CHANGE_PAYMENT');
 			} else {
-				$paymentText = vmText::_('COM_VIRTUEMART_CART_EDIT_PAYMENT');
+				$paymentText = tsmText::_('COM_VIRTUEMART_CART_EDIT_PAYMENT');
 			}
 			$this->assignRef('select_payment_text', $paymentText);
 
@@ -239,7 +239,7 @@ class VirtueMartViewCart extends VmView {
 	private function lSelectCoupon() {
 
 		$this->couponCode = (!empty($this->cart->couponCode) ? $this->cart->couponCode : '');
-		$this->coupon_text = $this->cart->couponCode ? vmText::_('COM_VIRTUEMART_COUPON_CODE_CHANGE') : vmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER');
+		$this->coupon_text = $this->cart->couponCode ? tsmText::_('COM_VIRTUEMART_COUPON_CODE_CHANGE') : tsmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER');
 	}
 
 	/**
@@ -251,7 +251,7 @@ class VirtueMartViewCart extends VmView {
 
 	private function lSelectShipment() {
 		$found_shipment_method=false;
-		$shipment_not_found_text = vmText::_('COM_VIRTUEMART_CART_NO_SHIPPING_METHOD_PUBLIC');
+		$shipment_not_found_text = tsmText::_('COM_VIRTUEMART_CART_NO_SHIPPING_METHOD_PUBLIC');
 		$this->assignRef('shipment_not_found_text', $shipment_not_found_text);
 		$this->assignRef('found_shipment_method', $found_shipment_method);
 
@@ -282,7 +282,7 @@ class VirtueMartViewCart extends VmView {
 					$ok = false;
 				} else {
 					$mainframe = JFactory::getApplication();
-					$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT'), vmText::_('COM_VIRTUEMART_CART_ENTER_ADDRESS_FIRST'));
+					$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT'), tsmText::_('COM_VIRTUEMART_CART_ENTER_ADDRESS_FIRST'));
 				}
 			}
 
@@ -295,7 +295,7 @@ class VirtueMartViewCart extends VmView {
 			}
 		}
 
-		$shipment_not_found_text = vmText::_('COM_VIRTUEMART_CART_NO_SHIPPING_METHOD_PUBLIC');
+		$shipment_not_found_text = tsmText::_('COM_VIRTUEMART_CART_NO_SHIPPING_METHOD_PUBLIC');
 		$this->assignRef('shipment_not_found_text', $shipment_not_found_text);
 		$this->assignRef('shipments_shipment_rates', $shipments_shipment_rates);
 		$this->assignRef('found_shipment_method', $found_shipment_method);
@@ -332,7 +332,7 @@ class VirtueMartViewCart extends VmView {
 		$this->found_payment_method =count($this->paymentplugins_payments);
 		if (!$this->found_payment_method) {
 			$link=''; // todo
-			$this->payment_not_found_text = vmText::sprintf('COM_VIRTUEMART_CART_NO_PAYMENT_METHOD_PUBLIC', '<a href="'.$link.'" rel="nofollow">'.$link.'</a>');
+			$this->payment_not_found_text = tsmText::sprintf('COM_VIRTUEMART_CART_NO_PAYMENT_METHOD_PUBLIC', '<a href="'.$link.'" rel="nofollow">'.$link.'</a>');
 		}
 
 		$ok = true;
@@ -343,7 +343,7 @@ class VirtueMartViewCart extends VmView {
 					$ok = false;
 				} else {
 					$mainframe = JFactory::getApplication();
-					$mainframe->redirect( JRoute::_( 'index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT' ), vmText::_('COM_VIRTUEMART_CART_ENTER_ADDRESS_FIRST') );
+					$mainframe->redirect( JRoute::_( 'index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT' ), tsmText::_('COM_VIRTUEMART_CART_ENTER_ADDRESS_FIRST') );
 				}
 			}
 		}
@@ -383,21 +383,21 @@ class VirtueMartViewCart extends VmView {
 		$this->display_loginform = !isset($this->display_loginform) ? vRequest::getBool('display_loginform', true) : $this->display_loginform;
 
 		//Do not change this. It contains the payment form
-		$this->html = !isset($this->html) ? vRequest::get('html', vmText::_('COM_VIRTUEMART_ORDER_PROCESSED')) : $this->html;
+		$this->html = !isset($this->html) ? vRequest::get('html', tsmText::_('COM_VIRTUEMART_ORDER_PROCESSED')) : $this->html;
 		//Show Thank you page or error due payment plugins like paypal express
 	}
 
 	private function checkPaymentMethodsConfigured() {
 
 		//For the selection of the payment method we need the total amount to pay.
-		$paymentModel = VmModel::getModel('Paymentmethod');
+		$paymentModel = tmsModel::getModel('Paymentmethod');
 		$payments = $paymentModel->getPayments(true, false);
 		if (empty($payments)) {
 
 			$text = '';
 			if(vmAccess::manager() or vmAccess::isSuperVendor()) {
 				$link = JURI::root() . 'administrator/index.php?option=com_virtuemart&view=paymentmethod';
-				$text = vmText::sprintf('COM_VIRTUEMART_NO_PAYMENT_METHODS_CONFIGURED_LINK', '<a href="' . $link . '" rel="nofollow">' . $link . '</a>');
+				$text = tsmText::sprintf('COM_VIRTUEMART_NO_PAYMENT_METHODS_CONFIGURED_LINK', '<a href="' . $link . '" rel="nofollow">' . $link . '</a>');
 			}
 
 			vmInfo('COM_VIRTUEMART_NO_PAYMENT_METHODS_CONFIGURED', $text);
@@ -410,7 +410,7 @@ class VirtueMartViewCart extends VmView {
 	private function checkShipmentMethodsConfigured() {
 
 		//For the selection of the shipment method we need the total amount to pay.
-		$shipmentModel = VmModel::getModel('Shipmentmethod');
+		$shipmentModel = tmsModel::getModel('Shipmentmethod');
 		$shipments = $shipmentModel->getShipments();
 		if (empty($shipments)) {
 
@@ -419,7 +419,7 @@ class VirtueMartViewCart extends VmView {
 			if(vmAccess::manager() or vmAccess::isSuperVendor()) {
 				$uri = JFactory::getURI();
 				$link = $uri->root() . 'administrator/index.php?option=com_virtuemart&view=shipmentmethod';
-				$text = vmText::sprintf('COM_VIRTUEMART_NO_SHIPPING_METHODS_CONFIGURED_LINK', '<a href="' . $link . '" rel="nofollow">' . $link . '</a>');
+				$text = tsmText::sprintf('COM_VIRTUEMART_NO_SHIPPING_METHODS_CONFIGURED_LINK', '<a href="' . $link . '" rel="nofollow">' . $link . '</a>');
 			}
 
 			vmInfo('COM_VIRTUEMART_NO_SHIPPING_METHODS_CONFIGURED', $text);
@@ -445,7 +445,7 @@ class VirtueMartViewCart extends VmView {
 			$this->adminID = vmAccess::getBgManagerId();
 			$superVendor = vmAccess::isSuperVendor($this->adminID);
 			if($superVendor){
-				$uModel = VmModel::getModel('user');
+				$uModel = tmsModel::getModel('user');
 				$result = $uModel->getSwitchUserList($superVendor,$this->adminID);
 			}
 		}
@@ -464,7 +464,7 @@ class VirtueMartViewCart extends VmView {
 				.'&view=user'
 				.'&task=editaddresscart'
 				.'&addrtype=BT'
-				. '">'.vmText::_('COM_VIRTUEMART_ACC_BILL_DEF').'</a></br>';
+				. '">'.tsmText::_('COM_VIRTUEMART_ACC_BILL_DEF').'</a></br>';
 			foreach($this->cart->user->userInfo as $userInfo){
 				$address = $userInfo->loadFieldValues(false);
 				if($address->address_type=='BT'){
@@ -521,7 +521,7 @@ class VirtueMartViewCart extends VmView {
     jQuery("#checkoutForm").change(function(){
 
 		jQuery("#checkoutFormSubmit").attr("name","checkout");
-		jQuery("#checkoutFormSubmit").html("<span>'.vmText::_('COM_VIRTUEMART_CHECKOUT_TITLE').'</span>");
+		jQuery("#checkoutFormSubmit").html("<span>'.tsmText::_('COM_VIRTUEMART_CHECKOUT_TITLE').'</span>");
     });
     jQuery(".required").change(function(){
     	var count = 0;

@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Cart
  * @author Max Milbers, Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -26,22 +26,22 @@
 	border="0"
 	width="100%">
 <tr>
-	<th align="left"><?php echo vmText::_ ('COM_VIRTUEMART_CART_NAME') ?></th>
-	<th align="left"><?php echo vmText::_ ('COM_VIRTUEMART_CART_SKU') ?></th>
+	<th align="left"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NAME') ?></th>
+	<th align="left"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_SKU') ?></th>
 	<th
 		align="center"
-		width="60px"><?php echo vmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
+		width="60px"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
 	<th
 		align="right"
-		width="140px"><?php echo vmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?>
+		width="140px"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?>
 		<?php if (!$this->readonly_cart) { ?>
-			/ <?php echo vmText::_('COM_VIRTUEMART_CART_ACTION') ?>
+			/ <?php echo tsmText::_('COM_VIRTUEMART_CART_ACTION') ?>
 		<?php } ?>
 	</th>
 
 
 	<?php if (VmConfig::get ('show_tax')) {
-		$tax = vmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
+		$tax = tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
 		if(!empty($this->cart->cartData['VatTax'])){
 			reset($this->cart->cartData['VatTax']);
 			$taxd = current($this->cart->cartData['VatTax']);
@@ -50,8 +50,8 @@
 		?>
 		<th align="right" width="60px"><?php  echo "<span  class='priceColor2'>" . $tax . '</span>' ?></th>
 	<?php } ?>
-	<th align="right" width="60px"><?php echo "<span  class='priceColor2'>" . vmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
-	<th align="right" width="70px"><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?></th>
+	<th align="right" width="60px"><?php echo "<span  class='priceColor2'>" . tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
+	<th align="right" width="70px"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?></th>
 </tr>
 
 <?php
@@ -101,15 +101,15 @@ foreach ($this->cart->products as $pkey => $prow) { ?>
 				$step=1;
 			?>
 			<input type="text"
-			       onblur="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
-			       onclick="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
-			       onchange="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
-			       onsubmit="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo vmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
-			       title="<?php echo  vmText::_('COM_VIRTUEMART_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
+				   onblur="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
+				   onclick="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
+				   onchange="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
+				   onsubmit="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>');"
+				   title="<?php echo  tsmText::_('COM_VIRTUEMART_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
 
-			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  vmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" />
+			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  tsmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" />
 
-			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" />
+			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" />
 			 <?php } else {
 				 echo $prow->quantity  ;
 			 }?>
@@ -147,7 +147,7 @@ foreach ($this->cart->products as $pkey => $prow) { ?>
 	</td>
 </tr>
 <tr class="sectiontableentry1">
-	<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
 		<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $this->cart->cartPrices, FALSE) . "</span>" ?></td>
@@ -276,7 +276,7 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 			</td>
 		<?php } else { ?>
 			<td colspan="4" style="align:left;vertical-align:top;" >
-				<?php echo '<h4>'.vmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
+				<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
 				<?php echo $this->cart->cartData['paymentName']; ?> </td>
 		<?php } ?>
 		<?php if (VmConfig::get ('show_tax')) { ?>
@@ -293,7 +293,7 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 	</td>
 </tr>
 <tr class="sectiontableentry2">
-	<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
 
 	<?php if (VmConfig::get ('show_tax')) { ?>
 		<td align="right"> <?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('billTaxAmount', '', $this->cart->cartPrices['billTaxAmount'], FALSE) . "</span>" ?> </td>
@@ -306,7 +306,7 @@ if ($this->totalInPaymentCurrency) {
 	?>
 
 	<tr class="sectiontableentry2">
-		<td colspan="4" align="right"><?php echo vmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
+		<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
 
 		<?php if (VmConfig::get ('show_tax')) { ?>
 			<td align="right"></td>

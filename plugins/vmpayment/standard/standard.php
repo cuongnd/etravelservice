@@ -18,7 +18,7 @@ defined ('_JEXEC') or die('Restricted access');
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 if (!class_exists ('vmPSPlugin')) {
 	require(JPATH_VM_PLUGINS . DS . 'vmpsplugin.php');
@@ -116,7 +116,7 @@ class plgVmPaymentStandard extends vmPSPlugin {
 		if (!empty($method->payment_info)) {
 			$lang = JFactory::getLanguage ();
 			if ($lang->hasKey ($method->payment_info)) {
-				$payment_info = vmText::_ ($method->payment_info);
+				$payment_info = tsmText::_ ($method->payment_info);
 			} else {
 				$payment_info = $method->payment_info;
 			}
@@ -132,7 +132,7 @@ class plgVmPaymentStandard extends vmPSPlugin {
 			'payment_name' => $dbValues['payment_name'],
 			'displayTotalInPaymentCurrency' => $totalInPaymentCurrency['display']
 		));
-		$modelOrder = VmModel::getModel ('orders');
+		$modelOrder = tmsModel::getModel ('orders');
 		$order['order_status'] = $this->getNewStatus ($method);
 		$order['customer_notified'] = 1;
 		$order['comments'] = '';

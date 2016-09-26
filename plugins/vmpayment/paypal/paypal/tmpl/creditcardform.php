@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('_JEXEC') or die();
 
@@ -33,29 +33,29 @@ vmJsApi::addJScript('/plugins/vmpayment/paypal/paypal/assets/js/site.js');
     <br />
     <span class="vmpayment_cardinfo">
         <?php 
-       echo vmText::_('VMPAYMENT_PAYPAL_CC_COMPLETE_FORM');
+       echo tsmText::_('VMPAYMENT_PAYPAL_CC_COMPLETE_FORM');
         if ($viewData['sandbox'] ) {
-            echo '<br />' . vmText::_('VMPAYMENT_PAYPAL_CC_SANDBOX_INFO');
+            echo '<br />' . tsmText::_('VMPAYMENT_PAYPAL_CC_SANDBOX_INFO');
         }
         ?>
         <table border="0" cellspacing="0" cellpadding="2" width="100%">
             <tr valign="top">
                 <td nowrap width="10%" align="right">
-                    <label for="creditcardtype"><?php echo vmText::_('VMPAYMENT_PAYPAL_CC_CCTYPE'); ?></label>
+                    <label for="creditcardtype"><?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_CCTYPE'); ?></label>
                 </td>
                 <td>
 
                 	<ul class="cards">
 						<?php
 						foreach ( $viewData['creditcards'] as $creditCard) {
-							echo '<li class="'.$creditCard.'">'.vmText::_('VMPAYMENT_PAYPAL_CC_' . strtoupper($creditCard)).'</li>';
+							echo '<li class="'.$creditCard.'">'.tsmText::_('VMPAYMENT_PAYPAL_CC_' . strtoupper($creditCard)).'</li>';
 							//$options[] = JHTML::_('select.option', $creditCard, vmText::_('VMPAYMENT_PAYPAL_CC_' . strtoupper($creditCard)));
 						}
 						?>                    	
                     </ul>
                     <?php
                     foreach ($viewData['creditcards'] as $creditCard) {
-                        $options[] = JHTML::_('select.option', $creditCard, vmText::_('VMPAYMENT_PAYPAL_CC_' . strtoupper($creditCard)));
+                        $options[] = JHTML::_('select.option', $creditCard, tsmText::_('VMPAYMENT_PAYPAL_CC_' . strtoupper($creditCard)));
                     }
 					if ($viewData['method']->sandbox ) {
 						$attribs = 'class="cc_type_sandbox" rel="'.$viewData['virtuemart_paymentmethod_id'].'"';
@@ -68,7 +68,7 @@ vmJsApi::addJScript('/plugins/vmpayment/paypal/paypal/assets/js/site.js');
             </tr>
             <tr valign="top">
                 <td nowrap width="10%" align="right">
-                    <label for="cc_type"><?php echo vmText::_('VMPAYMENT_PAYPAL_CC_CCNUM'); ?></label>
+                    <label for="cc_type"><?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_CCNUM'); ?></label>
                 </td>
                 <td>
                     <input type="text" size="30" class="inputbox" id="cc_number_<?php echo $viewData['virtuemart_paymentmethod_id']; ?>"
@@ -82,17 +82,17 @@ vmJsApi::addJScript('/plugins/vmpayment/paypal/paypal/assets/js/site.js');
             </tr>
             <tr valign="top">
                 <td nowrap width="10%" align="right">
-                    <label for="cc_cvv"><?php echo vmText::_('VMPAYMENT_PAYPAL_CC_CVV2') ?></label>
+                    <label for="cc_cvv"><?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_CVV2') ?></label>
                 </td>
                 <td>
                     <input type="text" class="inputbox" id="cc_cvv_<?php echo $viewData['virtuemart_paymentmethod_id']; ?>" name="cc_cvv_<?php echo $viewData['virtuemart_paymentmethod_id']; ?>" maxlength="4" size="5" value="<?php echo $customerData->getVar('cc_cvv'); ?>" autocomplete="off" />
-                    <span class="hasTip" title="<?php echo vmText::_('VMPAYMENT_PAYPAL_CC_WHATISCVV') ?>::<?php echo vmText::sprintf("VMPAYMENT_PAYPAL_CC_WHATISCVV_TOOLTIP", $this->_displayCVVImages($viewData['method'])) ?> ">
-                        <?php echo vmText::_('VMPAYMENT_PAYPAL_CC_WHATISCVV'); ?>
+                    <span class="hasTip" title="<?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_WHATISCVV') ?>::<?php echo tsmText::sprintf("VMPAYMENT_PAYPAL_CC_WHATISCVV_TOOLTIP", $this->_displayCVVImages($viewData['method'])) ?> ">
+                        <?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_WHATISCVV'); ?>
                     </span>
                 </td>
             </tr>
             <tr>
-                <td nowrap width="10%" align="right"><?php echo vmText::_('VMPAYMENT_PAYPAL_CC_EXDATE'); ?></td>
+                <td nowrap width="10%" align="right"><?php echo tsmText::_('VMPAYMENT_PAYPAL_CC_EXDATE'); ?></td>
                 <td>
                     <?php 
                     echo shopfunctions::listMonths('cc_expire_month_' . $viewData['virtuemart_paymentmethod_id'], $customerData->getVar('cc_expire_month'));

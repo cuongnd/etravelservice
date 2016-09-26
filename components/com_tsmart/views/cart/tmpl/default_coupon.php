@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author Oscar van Eijk
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -25,7 +25,7 @@ if ($this->layoutName!='default') {
 <?php } ?>
     <input type="text" name="coupon_code" size="20" maxlength="50" class="coupon" alt="<?php echo $this->coupon_text ?>" placeholder="<?php echo $this->coupon_text ?>" value="<?php //echo $this->coupon_text; ?>" onblur="if(this.value=='') this.value='<?php echo $this->coupon_text; ?>';" onfocus="if(this.value=='<?php echo $this->coupon_text; ?>') this.value='';" />
     <span class="details-button">
-    <input class="details-button" type="submit" name="setcoupon" title="<?php echo vmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo vmText::_('COM_VIRTUEMART_SAVE'); ?>"/>
+    <input class="details-button" type="submit" name="setcoupon" title="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>"/>
     </span>
 <?php
 if ($this->layoutName!='default') {

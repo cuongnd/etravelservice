@@ -34,7 +34,7 @@ class JFormFieldKlarnaCountryLogo extends JFormField {
 		}
 		$flagImg = JURI::root(TRUE) . '/media/mod_languages/images/' . strtolower($flag) . '.gif';
 
-		return '<strong>' . vmText::_('VMPAYMENT_KLARNA_CONF_SETTINGS_' . $this->value) . '</strong><img style="margin-left: 5px;" src="' . $flagImg . '" />';
+		return '<strong>' . tsmText::_('VMPAYMENT_KLARNA_CONF_SETTINGS_' . $this->value) . '</strong><img style="margin-left: 5px;" src="' . $flagImg . '" />';
 
 	}
 }

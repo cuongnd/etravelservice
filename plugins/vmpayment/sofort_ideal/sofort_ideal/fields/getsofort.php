@@ -39,7 +39,7 @@ class JFormFieldGetSofort extends JFormField {
 		// MOre information
 		$getSofortLInk = "https://www.sofort.com/" . $getSofortLang . "/merchant/products/";
 		//$getSofortLInk="https://www.sofort.com/payment/users/register/688";
-		$html = '<a href="#" id="sofortmoreinfo_link" ">' . vmText::_('VMPAYMENT_SOFORT_READMORE') . '</a>';
+		$html = '<a href="#" id="sofortmoreinfo_link" ">' . tsmText::_('VMPAYMENT_SOFORT_READMORE') . '</a>';
 		$html .= '<div id="sofortmoreinfo_show_hide" >';
 
 		$js = '
@@ -48,10 +48,10 @@ class JFormFieldGetSofort extends JFormField {
 			jQuery("#sofortmoreinfo_link").click( function() {
 				 if ( $("#sofortmoreinfo_show_hide").is(":visible") ) {
 				  $("#sofortmoreinfo_show_hide").hide("slow");
-			        $("#sofortmoreinfo_link").html("' . addslashes(vmText::_('VMPAYMENT_SOFORT_READMORE')) . '");
+			        $("#sofortmoreinfo_link").html("' . addslashes(tsmText::_('VMPAYMENT_SOFORT_READMORE')) . '");
 				} else {
 				 $("#sofortmoreinfo_show_hide").show("slow");
-			       $("#sofortmoreinfo_link").html("' . addslashes(vmText::_('VMPAYMENT_SOFORT_HIDE')) . '");
+			       $("#sofortmoreinfo_link").html("' . addslashes(tsmText::_('VMPAYMENT_SOFORT_HIDE')) . '");
 			    }
 		    });
 		});
@@ -66,13 +66,13 @@ class JFormFieldGetSofort extends JFormField {
 
 		// MOre information
 		$getSofortLInk = "https://www.sofort.com/payment/users/register/688";
-		$html .= '<p style="margin-top: 20px;"><a target="_blank" href="' . $getSofortLInk . '" id="getsogort_link" class="signin-button-link">' . vmText::_('VMPAYMENT_SOFORT_REGISTERNOW') . '</a>';
+		$html .= '<p style="margin-top: 20px;"><a target="_blank" href="' . $getSofortLInk . '" id="getsogort_link" class="signin-button-link">' . tsmText::_('VMPAYMENT_SOFORT_REGISTERNOW') . '</a>';
 		if ($lang == 'de') {
 			$manualLink = "https://www.sofort.com/integrationCenter-ger-DE/content/view/full/4945";
 		} else {
 			$manualLink = "https://www.sofort.com/integrationCenter-eng-DE/content/view/full/4945";
 		}
-		$html .= '<a target="_blank" href="' . $manualLink . '" id="getsogort_link" class="signin-button-link">' . vmText::_('VMPAYMENT_SOFORT_DOCUMENTATION') . '</a>';
+		$html .= '<a target="_blank" href="' . $manualLink . '" id="getsogort_link" class="signin-button-link">' . tsmText::_('VMPAYMENT_SOFORT_DOCUMENTATION') . '</a>';
 		$html .= '</p>';
 		return $html;
 	}

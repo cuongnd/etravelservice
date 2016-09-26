@@ -16,7 +16,7 @@ defined('_JEXEC') or 	die( 'Direct Access to ' . basename( __FILE__ ) . ' is not
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.org
+ * http://tsmart.org
  */
 
 if (!class_exists('vmCustomPlugin')) require(JPATH_VM_PLUGINS . DS . 'vmcustomplugin.php');
@@ -44,7 +44,7 @@ class plgVmCustomTextinput extends vmCustomPlugin {
 		//vmdebug('plgVmOnProductEdit',$field);
 		$html ='
 			<fieldset>
-				<legend>'. vmText::_('VMCUSTOM_TEXTINPUT') .'</legend>
+				<legend>'. tsmText::_('VMCUSTOM_TEXTINPUT') .'</legend>
 				<table class="admintable">
 					'.VmHTML::row('input','VMCUSTOM_TEXTINPUT_SIZE','customfield_params['.$row.'][custom_size]',$field->custom_size);
 		$options = array(0=>'VMCUSTOM_TEXTINPUT_PRICE_BY_INPUT',1=>'VMCUSTOM_TEXTINPUT_PRICE_BY_LETTER');
@@ -82,7 +82,7 @@ class plgVmCustomTextinput extends vmCustomPlugin {
 
 			if(!empty($item['comment']) ){
 				if($product->productCustom->virtuemart_customfield_id==$k){
-					$html .='<span>'.vmText::_($product->productCustom->custom_title).' '.$item['comment'].'</span>';
+					$html .='<span>'.tsmText::_($product->productCustom->custom_title).' '.$item['comment'].'</span>';
 				}
 			}
 		}
@@ -104,7 +104,7 @@ class plgVmCustomTextinput extends vmCustomPlugin {
 		foreach( $product->customProductData[$productCustom->virtuemart_custom_id] as $k =>$item ) {
 			if($productCustom->virtuemart_customfield_id == $k) {
 				if(isset($item['comment'])){
-					$html .='<span>'.vmText::_($productCustom->custom_title).' '.$item['comment'].'</span>';
+					$html .='<span>'.tsmText::_($productCustom->custom_title).' '.$item['comment'].'</span>';
 				}
 			}
 		}

@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author Max Milbers, Valerie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -29,7 +29,7 @@ $currency = $viewData['currency'];
 	if ($product->prices['salesPrice']<=0 and VmConfig::get ('askprice', 1) and isset($product->images[0]) and !$product->images[0]->file_is_downloadable) {
 		$askquestion_url = JRoute::_('index.php?option=com_virtuemart&view=productdetails&task=askquestion&virtuemart_product_id=' . $product->virtuemart_product_id . '&virtuemart_category_id=' . $product->virtuemart_category_id . '&tmpl=component', FALSE);
 		?>
-		<a class="ask-a-question bold" href="<?php echo $askquestion_url ?>" rel="nofollow" ><?php echo vmText::_ ('COM_VIRTUEMART_PRODUCT_ASKPRICE') ?></a>
+		<a class="ask-a-question bold" href="<?php echo $askquestion_url ?>" rel="nofollow" ><?php echo tsmText::_ ('COM_VIRTUEMART_PRODUCT_ASKPRICE') ?></a>
 		<?php
 	} else {
 	//if ($showBasePrice) {
@@ -54,7 +54,7 @@ $currency = $viewData['currency'];
 	}
 	echo $currency->createPriceDiv ('discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
 	echo $currency->createPriceDiv ('taxAmount', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT', $product->prices);
-	$unitPriceDescription = vmText::sprintf ('COM_VIRTUEMART_PRODUCT_UNITPRICE', vmText::_('COM_VIRTUEMART_UNIT_SYMBOL_'.$product->product_unit));
+	$unitPriceDescription = tsmText::sprintf ('COM_VIRTUEMART_PRODUCT_UNITPRICE', tsmText::_('COM_VIRTUEMART_UNIT_SYMBOL_'.$product->product_unit));
 	echo $currency->createPriceDiv ('unitPrice', $unitPriceDescription, $product->prices);
 	}
 	?>

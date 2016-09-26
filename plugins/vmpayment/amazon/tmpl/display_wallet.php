@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author Valerie Isaksen
  *
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -26,12 +26,12 @@ JHtml::_('behavior.formvalidation');
 
 
 ?>
-<h3><?php echo vmText::_('VMPAYMENT_AMAZON_INVALIDPAYMENTMETHOD') ?></h3>
-<p><?php echo vmText::_('VMPAYMENT_AMAZON_INVALIDPAYMENTMETHOD_CLICK_DECLINE') ?></p>
+<h3><?php echo tsmText::_('VMPAYMENT_AMAZON_INVALIDPAYMENTMETHOD') ?></h3>
+<p><?php echo tsmText::_('VMPAYMENT_AMAZON_INVALIDPAYMENTMETHOD_CLICK_DECLINE') ?></p>
 	<div id="amazonWalletWidgetDiv" ></div>
 <form method="post" id="updateOrderId" name="updateOrderForm" action="<?php echo JRoute::_('index.php?option=com_virtuemart' , $viewData['useXHTML'], $viewData['useSSL']); ?>">
 
-				<button name="updateOrderButton" id="updateOrderId" class="vm-button-correct"><span><?php echo vmText::_('COM_VIRTUEMART_CHECKOUT_TITLE') ?></span></button>
+				<button name="updateOrderButton" id="updateOrderId" class="vm-button-correct"><span><?php echo tsmText::_('COM_VIRTUEMART_CHECKOUT_TITLE') ?></span></button>
 				<input type='hidden' name='type' value='vmpayment'/>
 				<input type='hidden' name='name' value='amazon'/>
 				<input type='hidden' name='view' value='plugin'/>

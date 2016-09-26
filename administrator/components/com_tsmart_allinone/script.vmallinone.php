@@ -17,11 +17,11 @@ if (!class_exists ('VmConfig')) {
 	if(file_exists(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php')){
 		require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 	} else {
-		jExit('Install the virtuemart Core first ');
+		jExit('Install the tsmart Core first ');
 	}
 }
 
-if(!method_exists('vRequest','vmSpecialChars')) jExit('Install the virtuemart Core first ');
+if(!method_exists('vRequest','vmSpecialChars')) jExit('Install the tsmart Core first ');
 
 
 $max_execution_time = ini_get ('max_execution_time');
@@ -77,7 +77,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 			}
 			$this->dontMove = $dontMove;
 			echo '<a
-					href="http://virtuemart.net"
+					href="http://tsmart.net"
 					target="_blank"> <img
 						border="0"
 						align="left" style="margin-right: 20px"
@@ -168,7 +168,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 			// 						(0, 0, 'COM_VIRTUEMART_STOCKABLE_PRODUCT', 'COM_VIRTUEMART_STOCKABLE_PRODUCT_TIP', NULL,
 			// 					'COM_VIRTUEMART_STOCKABLE_PRODUCT_DESC', 'G', 0, 0, 0, 1 );");
 
-			$this->installPlugin ('VirtueMart Product', 'plugin', 'virtuemart', 'search');
+			$this->installPlugin ('VirtueMart Product', 'plugin', 'tsmart', 'search');
 			$this->updateMoneyBookersToSkrill();
 
 
@@ -183,7 +183,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 				//echo "Checking VirtueMart modules...";
 					$defaultParams = '{"show_vmmenu":"1"}';
 					$this->installModule ('VM - Administrator Module', 'mod_vmmenu', 5, $defaultParams, $dst,1,'menu',3,$alreadyInstalled);
-					$umimodel = VmModel::getModel('updatesmigration');//$model = new VirtueMartModelUpdatesMigration();
+					$umimodel = tmsModel::getModel('updatesmigration');//$model = new VirtueMartModelUpdatesMigration();
 					$umimodel->updateJoomlaUpdateServer( 'module', 'mod_vmmenu', $dst   );
 
 
@@ -252,7 +252,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 					'mod_virtuemart_category'
 				);
 				foreach ($modules as $module) {
-					$umimodel = VmModel::getModel('updatesmigration');
+					$umimodel = tmsModel::getModel('updatesmigration');
 					$umimodel->updateJoomlaUpdateServer( 'module', $module, $dst   );
 				}
 
@@ -314,7 +314,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 			//The extension entry does not exist, lets insert one.
 			/*if(!$jId){
 				$q = 'INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `client_id`, `enabled`, `access`, `protected`, `manifest_cache`)
-VALUES (null, \'VIRTUEMART\', \'component\', \'com_virtuemart\', \'\', 1, 1, 1, 0, \'{"legacy":true,"name":"VIRTUEMART","type":"component","creationDate":"February 05 2015","author":"The VirtueMart Development Team","copyright":"Copyright (C) 2004-2013 Virtuemart Team. All rights reserved.","authorEmail":"max|at|virtuemart.net","authorUrl":"http:\\/\\/www.virtuemart.net","version":"3.0.4.2","description":"","group":""}\'); ';
+VALUES (null, \'VIRTUEMART\', \'component\', \'com_virtuemart\', \'\', 1, 1, 1, 0, \'{"legacy":true,"name":"VIRTUEMART","type":"component","creationDate":"February 05 2015","author":"The VirtueMart Development Team","copyright":"Copyright (C) 2004-2013 Virtuemart Team. All rights reserved.","authorEmail":"max|at|tsmart.net","authorUrl":"http:\\/\\/www.tsmart.net","version":"3.0.4.2","description":"","group":""}\'); ';
 				$db->setQuery($q);
 				if($db->execute($q)){
 					$jId = $db->insertid();
@@ -326,7 +326,7 @@ VALUES (null, \'VIRTUEMART\', \'component\', \'com_virtuemart\', \'\', 1, 1, 1, 
 
 			if($jId){
 				//now lets check if there are menue entries
-				$db->setQuery('SELECT `id` FROM `#__menu` WHERE `menutype` = "main" AND `path`="com-virtuemart"');
+				$db->setQuery('SELECT `id` FROM `#__menu` WHERE `menutype` = "main" AND `path`="com-tsmart"');
 
 				if($id = $db->loadResult()){
 					$db->setQuery('UPDATE `#__menu` SET `component_id`="'.$jId.'", `language`="*" WHERE `id` = "'.$id.'" ');
@@ -549,7 +549,7 @@ VALUES (null, \'VIRTUEMART\', \'component\', \'com_virtuemart\', \'\', 1, 1, 1, 
 			if ($success) {
 				$this->updatePluginTable ($name, $type, $element, $group, $dst);
 			}
-			$umimodel = VmModel::getModel('updatesmigration');
+			$umimodel = tmsModel::getModel('updatesmigration');
 			$umimodel->updateJoomlaUpdateServer( $type, $element, $dst , $group  );
 			$installTask= $count==0 ? 'installed':'updated';
 			echo '<tr><td>' . $name . '</td><td> '.$installTask.'</td></tr>';

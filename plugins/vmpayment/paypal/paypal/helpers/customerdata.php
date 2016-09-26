@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -49,8 +49,8 @@ class PaypalHelperCustomerData {
 	public function load() {
 
 		//$this->clear();
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		$session = JFactory::getSession();
 		$sessionData = $session->get('paypal', 0, 'vm');
@@ -60,8 +60,8 @@ class PaypalHelperCustomerData {
 			$this->_selected_method = $data->selected_method;
 			// card information
 			$this->_cc_type = $data->cc_type;
-			$this->_cc_number = vmCrypt::decrypt( $data->cc_number);
-			$this->_cc_cvv = vmCrypt::decrypt($data->cc_cvv);
+			$this->_cc_number = tsmCrypt::decrypt( $data->cc_number);
+			$this->_cc_cvv = tsmCrypt::decrypt($data->cc_cvv);
 			$this->_cc_expire_month = $data->cc_expire_month;
 			$this->_cc_expire_year = $data->cc_expire_year;
 			$this->_cc_valid = $data->cc_valid;
@@ -85,8 +85,8 @@ class PaypalHelperCustomerData {
 	}
 
 	public function loadPost() {
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		// card information
 		$virtuemart_paymentmethod_id = vRequest::getVar('virtuemart_paymentmethod_id', 0);
@@ -144,16 +144,16 @@ class PaypalHelperCustomerData {
 	}
 
 	public function save() {
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		$session = JFactory::getSession();
 		$sessionData = new stdClass();
 		$sessionData->selected_method = $this->_selected_method;
 		// card information
 		$sessionData->cc_type = $this->_cc_type;
-		$sessionData->cc_number = vmCrypt::encrypt($this->_cc_number);
-		$sessionData->cc_cvv =vmCrypt::encrypt( $this->_cc_cvv);
+		$sessionData->cc_number = tsmCrypt::encrypt($this->_cc_number);
+		$sessionData->cc_cvv =tsmCrypt::encrypt( $this->_cc_cvv);
 		$sessionData->cc_expire_month = $this->_cc_expire_month;
 		$sessionData->cc_expire_year = $this->_cc_expire_year;
 		$sessionData->cc_valid = $this->_cc_valid;

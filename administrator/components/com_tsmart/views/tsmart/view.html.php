@@ -32,8 +32,6 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 class TsmartViewTsmart extends tsmViewAdmin {
 
 	function display($tpl = null) {
-		echo "sdfsdfds";
-		die;
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 		VmConfig::loadJLang('com_tsmart_orders',TRUE);

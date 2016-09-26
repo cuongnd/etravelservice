@@ -14,7 +14,7 @@ defined ('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 ?>
@@ -22,7 +22,7 @@ defined ('_JEXEC') or die();
  		<?php echo  $viewData['paymentName'] ; ?>
     </div>
 <div class="response_transaction" style="width: 100%">
-	<span class="response_transaction_title"><?php echo vmText::_ ('VMPAYMENT_SOFORT_RESPONSE_TRANSACTION'); ?> </span>
+	<span class="response_transaction_title"><?php echo tsmText::_ ('VMPAYMENT_SOFORT_RESPONSE_TRANSACTION'); ?> </span>
 	<?php echo  $viewData['paymentInfos']->sofort_response_transaction; ?>
 </div>
 

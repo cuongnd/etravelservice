@@ -5,7 +5,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author Kohl Patrick, Maik K�nnemann
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -32,12 +32,12 @@ vmJsApi::addJScript('askform','
 	});
 '); 
 
-$vendorModel = VmModel::getModel ('vendor');
+$vendorModel = tmsModel::getModel ('vendor');
 $this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
 $ask_comment="";
 /* Let's see if we found the product */
 if (empty ( $this->product )) {
-	echo vmText::_ ( 'COM_VIRTUEMART_PRODUCT_NOT_FOUND' );
+	echo tsmText::_ ( 'COM_VIRTUEMART_PRODUCT_NOT_FOUND' );
 	echo '<br /><br />  ' . $this->continue_link_html;
 } else {
 	$session = JFactory::getSession();
@@ -48,7 +48,7 @@ if (empty ( $this->product )) {
 	if(empty($this->login) or VmConfig::get('recommend_unauth',false)){
 		?>
 		<div class="ask-a-question-view">
-			<h1><?php echo vmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')  ?></h1>
+			<h1><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')  ?></h1>
 
 			<div class="product-summary">
 				<div class="width70 floatleft">
@@ -77,18 +77,18 @@ if (empty ( $this->product )) {
 
 					<table class="askform">
 						<tr>
-							<td><label for="name"><?php echo vmText::_('COM_VIRTUEMART_RECOMMEND_NAME')  ?> : </label></td>
+							<td><label for="name"><?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_NAME')  ?> : </label></td>
 							<td><input type="text" value="<?php echo $this->user->name ? $this->user->name : $sessData['name'] ?>" name="name" id="name" size="30" class="validate[required,minSize[3],maxSize[64]]"/></td>
 						</tr>
 						<tr>
-							<td><label for="email"><?php echo vmText::_('COM_VIRTUEMART_RECOMMEND_EMAIL')  ?> : </label></td>
+							<td><label for="email"><?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_EMAIL')  ?> : </label></td>
 							<td><input type="text" value="<?php echo $sessData['email'] ?>" name="email" id="email" size="30" class="validate[required,custom[email]]"/></td>
 						</tr>
 						<tr>
-							<td colspan="2"><label for="comment"><?php echo vmText::sprintf('COM_VIRTUEMART_COMMENT', $min, $max); ?></label></td>
+							<td colspan="2"><label for="comment"><?php echo tsmText::sprintf('COM_VIRTUEMART_COMMENT', $min, $max); ?></label></td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ? $sessData['comment'] : vmText::sprintf('COM_VIRTUEMART_RECOMMEND_COMMENT', $this->vendor->vendor_store_name) ?></textarea></td>
+							<td colspan="2"><textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ? $sessData['comment'] : tsmText::sprintf('COM_VIRTUEMART_RECOMMEND_COMMENT', $this->vendor->vendor_store_name) ?></textarea></td>
 						</tr>
 					</table>
 
@@ -106,10 +106,10 @@ if (empty ( $this->product )) {
 						?>
             <div>
   						<div class="floatleft width50 ">
-                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo vmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" value="<?php echo vmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" />
+                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" />
               </div>
               <div class="floatleft width50 text-right">
-                <label for="counter"><?php echo vmText::_('COM_VIRTUEMART_ASK_COUNT')  ?></label>
+                <label for="counter"><?php echo tsmText::_('COM_VIRTUEMART_ASK_COUNT')  ?></label>
   							<input type="text" value="0" size="4" class="counter" id="counter" name="counter" maxlength="4" readonly="readonly" />
   						</div>
             </div>

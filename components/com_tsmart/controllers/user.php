@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage User
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -72,7 +72,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 	{
 		$user  	 = JFactory::getUser();
 		$input 	 = JFactory::getApplication()->input;
-		$user_model=VmModel::getModel('user');
+		$user_model=tmsModel::getModel('user');
 		$token=$input->getString('token','');
 		$user=$user_model->activate($token);
 		if($user->id)
@@ -161,7 +161,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 		$data = vRequest::getPost(FILTER_SANITIZE_STRING);
 		$register = isset($_REQUEST['register']);
 
-		$userModel = VmModel::getModel('user');
+		$userModel = tmsModel::getModel('user');
 		$currentUser = JFactory::getUser();
 
 		if(empty($data['address_type'])){
@@ -206,7 +206,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 
 			if($currentUser->guest==1 and ($register or !$cartObj )){
 				if($this->checkCaptcha('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT') == FALSE) {
-					$msg = vmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
+					$msg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
 					if($cartObj and $cartObj->_fromCart) {
 						$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT'), $msg );
 					} else if($cartObj and $cartObj->getInCheckOut()) {
@@ -298,7 +298,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 		$virtuemart_user_id = vRequest::getInt('virtuemart_user_id');
 
 		//Lets do it dirty for now
-		$userModel = VmModel::getModel('user');
+		$userModel = tmsModel::getModel('user');
 		vmdebug('removeAddressST',$virtuemart_user_id,$virtuemart_userinfo_id);
 		$userModel->setId($virtuemart_user_id[0]);
 		$userModel->removeAddress($virtuemart_userinfo_id);
@@ -328,7 +328,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 					$prefix = 'shipto_';
 				}
 				$cart->saveAddressInCart($data, $data['address_type'],true,$prefix);
-				$errmsg = vmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
+				$errmsg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
 				$this->setRedirect (JRoute::_ ($retUrl . '&captcha=1', FALSE), $errmsg);
 				return FALSE;
 			} else {

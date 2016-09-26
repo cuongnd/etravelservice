@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -151,7 +151,7 @@ class  KlikandpayHelperKlikandpay {
 	 */
 	function getOrderHistory($klikandpay_data, $order, $payments) {
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($klikandpay_data['MONTANTXKP'], $klikandpay_data['DEVISEXKP']);
-		$order_history['comments'] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
+		$order_history['comments'] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
 		$order_history['customer_notified'] = true;
 		if ($klikandpay_data['RESPONSE'] == self::RESPONSE_AWAITINGCHEQUE or $klikandpay_data['RESPONSE'] == self::RESPONSE_AWAITING) {
 			$order_history['order_status'] = $this->_method->status_waiting;

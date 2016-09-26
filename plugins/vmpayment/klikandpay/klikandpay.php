@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @package VirtueMart
  * @subpackage Payment
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -263,7 +263,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 			return FALSE;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 		$html = $this->getResponseHTML($order, $payments);
@@ -279,7 +279,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 
 	function redirectToCart() {
 		$app = JFactory::getApplication();
-		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&lg=&Itemid=' . vRequest::getInt('Itemid'), false), vmText::_('VMPAYMENT_KLIKANDPAY_ERROR_TRY_AGAIN'));
+		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&lg=&Itemid=' . vRequest::getInt('Itemid'), false), tsmText::_('VMPAYMENT_KLIKANDPAY_ERROR_TRY_AGAIN'));
 	}
 
 	function plgVmOnUserPaymentCancel() {
@@ -353,7 +353,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 			$this->debugLog('Wrong context', 'plgVmOnPaymentNotification', 'debug', false);
 			return NULL;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$klikandpay_data = vRequest::getGet();
 
@@ -388,7 +388,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 		if ($interface->isResponseValid($klikandpay_data, $order, $payments)) {
 			$order_history = $interface->getOrderHistory($klikandpay_data, $order, $payments);
 		} else {
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CANCELLED', $order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_KLIKANDPAY_PAYMENT_STATUS_CANCELLED', $order['details']['BT']->order_number);
 			$order_history['order_status'] = $this->_currentMethod->status_canceled;
 			$order_history['customer_notified'] = true;
 		}
@@ -413,7 +413,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 
 		$this->storePSPluginInternalData($db_values);
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, TRUE);
 		return $order_history;
 	}
@@ -442,7 +442,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 		$first = TRUE;
 		$lang = JFactory::getLanguage();
 		foreach ($payments as $payment) {
-			$html .= '<tr class="row1"><td>' . vmText::_('VMPAYMENT_KLIKANDPAY_DATE') . '</td><td align="left">' . $payment->created_on . '</td></tr>';
+			$html .= '<tr class="row1"><td>' . tsmText::_('VMPAYMENT_KLIKANDPAY_DATE') . '</td><td align="left">' . $payment->created_on . '</td></tr>';
 			// Now only the first entry has this data when creating the order
 			if ($first) {
 				$html .= $this->getHtmlRowBE('KLIKANDPAY_PAYMENT_NAME', $payment->payment_name);
@@ -494,7 +494,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 				foreach ($klikandpay_data as $key => $value) {
 					$langKey = 'VMPAYMENT_' . $keyPrefix . $key;
 					if ($lang->hasKey($langKey)) {
-						$label = vmText::_($langKey);
+						$label = tsmText::_($langKey);
 					} else {
 						$label = $key;
 					}
@@ -503,7 +503,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 
 				$html .= ' </div>
         <span class="icon-nofloat vmicon vmicon-16-xml"></span>&nbsp;';
-				$html .= vmText::_('VMPAYMENT_KLIKANDPAY_VIEW_TRANSACTION_LOG');
+				$html .= tsmText::_('VMPAYMENT_KLIKANDPAY_VIEW_TRANSACTION_LOG');
 				$html .= '  </a>';
 				$html .= ' </td></tr>';
 			}
@@ -835,7 +835,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 		$server = $interface->getKlikandpayServerUrl($subscribe_id);
 		$this->debugLog(var_export($post_variables, true), 'getConfirmedHtml', 'debug', false);
 		if (vmconfig::get('css')) {
-			$msg = vmText::_('VMPAYMENT_KLIKANDPAY_REDIRECT_MESSAGE', true);
+			$msg = tsmText::_('VMPAYMENT_KLIKANDPAY_REDIRECT_MESSAGE', true);
 		} else {
 			$msg='';
 		}
@@ -867,7 +867,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 			$this->debugLog($post_variables, 'getConfirmedHtml:', 'debug');
 
 		} else {
-			$html .= '<input type="submit"  value="' . vmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE') . '" />';
+			$html .= '<input type="submit"  value="' . tsmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE') . '" />';
 
 		}
 		$html .= '</form>';
@@ -963,20 +963,20 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 
 	private function setRetourParams($order, $context) {
 		$params = $order['details']['BT']->virtuemart_paymentmethod_id . ':' . $order['details']['BT']->order_number . ':' . $context;
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
-		$cryptedParams = vmCrypt::encrypt($params);
+		$cryptedParams = tsmCrypt::encrypt($params);
 		$cryptedParams = base64_encode($cryptedParams);
 		return $cryptedParams;
 	}
 
 	private function getRetourParams($cryptedParams) {
-		if (!class_exists('vmCrypt')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcrypt.php');
+		if (!class_exists('tsmCrypt')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 		}
 		$cryptedParams = base64_decode($cryptedParams);
-		$params = vmCrypt::decrypt($cryptedParams);
+		$params = tsmCrypt::decrypt($cryptedParams);
 		$paramsArray = explode(":", $params);
 		$retourParams['virtuemart_paymentmethod_id'] = $paramsArray[0];
 		$retourParams['order_number'] = $paramsArray[1];

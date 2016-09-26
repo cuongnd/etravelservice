@@ -28,7 +28,7 @@ defined('_JEXEC') or die('');
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="html-email">
 			    <tr>
 				<td >
-				    <?php echo vmText::sprintf('COM_VIRTUEMART_WELCOME_VENDOR', $this->vendor->vendor_store_name); ?>
+				    <?php echo tsmText::sprintf('COM_VIRTUEMART_WELCOME_VENDOR', $this->vendor->vendor_store_name); ?>
 				    <br />
 				</td>
 			    </tr>
@@ -36,13 +36,13 @@ defined('_JEXEC') or die('');
 
 			<table class="html-email" cellspacing="0" cellpadding="0" border="0" width="100%">  <tr >
 				<th width="100%">
-				    <?php echo vmText::_('COM_VIRTUEMART_VENDOR_CONTACT').' '.$this->vendor->vendor_name ?>
+				    <?php echo tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT').' '.$this->vendor->vendor_name ?>
 				</th>
 			    </tr>
 			    <tr>
 				<td valign="top" width="100%">
 				    <?php
-				    echo vmText::sprintf('COM_VIRTUEMART_QUESTION_MAIL_FROM', $this->user['name'], $this->user['email']) . "<br />";
+				    echo tsmText::sprintf('COM_VIRTUEMART_QUESTION_MAIL_FROM', $this->user['name'], $this->user['email']) . "<br />";
 				    echo nl2br($this->comment). "<br />";
 				    ?>
 				</td>

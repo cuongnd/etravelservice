@@ -7,7 +7,7 @@
  * @package VirtueMart
  * @subpackage
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -40,9 +40,9 @@ class virtuemartViewbook extends VmView {
             $app=JFactory::getApplication();
             $input=$app->input;
             $virtuemart_price_id=$input->getInt('virtuemart_price_id',0);
-            $trip_model=VmModel::getModel('trip');
+            $trip_model=tmsModel::getModel('trip');
             $this->trip=$trip_model->getItem($virtuemart_price_id);
-            $product_model=VmModel::getModel('product');
+            $product_model=tmsModel::getModel('product');
             $this->product=$product_model->getItem( $this->trip->virtuemart_product_id);
             parent::display($tpl);
         }

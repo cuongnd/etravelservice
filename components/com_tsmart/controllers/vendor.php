@@ -7,7 +7,7 @@
 * @subpackage User
 * @author Oscar van Eijk
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -41,7 +41,7 @@ class VirtueMartControllerVendor extends JControllerLegacy
 
 		if(!class_exists('shopFunctionsF')) require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
 
-		$model = VmModel::getModel('vendor');
+		$model = tmsModel::getModel('vendor');
 		$mainframe = JFactory::getApplication();
 		$vars = array();
 		$min = VmConfig::get('asks_minimum_comment_length', 50)+1;
@@ -63,7 +63,7 @@ class VirtueMartControllerVendor extends JControllerLegacy
 		//$vendorUser = JFactory::getUser($userId);
 
 		if ( $commentSize<$min || $commentSize>$max || !$validMail ) {
-			$this->setRedirect(JRoute::_ ( 'index.php?option=com_virtuemart&view=vendor&task=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id , FALSE),vmText::_('COM_VIRTUEMART_COMMENT_NOT_VALID_JS'));
+			$this->setRedirect(JRoute::_ ( 'index.php?option=com_virtuemart&view=vendor&task=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id , FALSE),tsmText::_('COM_VIRTUEMART_COMMENT_NOT_VALID_JS'));
 			return ;
 		}
 
@@ -93,7 +93,7 @@ class VirtueMartControllerVendor extends JControllerLegacy
 		else {
 			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
-		$mainframe->enqueueMessage(vmText::_($string));
+		$mainframe->enqueueMessage(tsmText::_($string));
 
 		// Display it all
 		$view = $this->getView('vendor', 'html');

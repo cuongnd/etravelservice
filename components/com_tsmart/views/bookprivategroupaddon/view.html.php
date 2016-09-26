@@ -7,7 +7,7 @@
  * @package VirtueMart
  * @subpackage
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -48,7 +48,7 @@ class virtuemartViewbookprivategroupaddon extends VmView
         $session=JFactory::getSession();
         $virtuemart_price_id = $session->get('virtuemart_price_id', 0);
         $booking_date = $input->getString('booking_date', '');
-        $privategrouptrip_model = VmModel::getModel('privategrouptrip');
+        $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
         $item_private_group_trip = $privategrouptrip_model->getData($virtuemart_price_id);
 
         $virtuemart_product_id = $item_private_group_trip->virtuemart_product_id;
@@ -58,7 +58,7 @@ class virtuemartViewbookprivategroupaddon extends VmView
         $this->privategrouptrip->allow_passenger='infant,child_1,child_2,teen,adult,senior';
         $this->privategrouptrip->departure_date=$booking_date;
 
-        $product_model = VmModel::getModel('product');
+        $product_model = tmsModel::getModel('product');
         $this->product = $product_model->getItem($this->privategrouptrip->virtuemart_product_id);
 
         require_once JPATH_ROOT . '/components/com_virtuemart/helpers/vmjointgroup.php';
@@ -66,9 +66,9 @@ class virtuemartViewbookprivategroupaddon extends VmView
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $this->lipsum = new joshtronic\LoremIpsum();
 
-        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/vmtransferaddon.php';
+        require_once JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/tsmtransferaddon.php';
 
-        $transfer_addon_model = VmModel::getModel('transferaddon');
+        $transfer_addon_model = tmsModel::getModel('transferaddon');
 
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
 
@@ -84,7 +84,7 @@ class virtuemartViewbookprivategroupaddon extends VmView
         $this->post_transfer_item->asale_price=$this->post_transfer_item->data_price->item_flat->net_price;
 
 
-        $hotel_addon_model = VmModel::getModel('hoteladdon');
+        $hotel_addon_model = tmsModel::getModel('hoteladdon');
 
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
 
@@ -103,7 +103,7 @@ class virtuemartViewbookprivategroupaddon extends VmView
 
 
 
-        $transfer_excursion_addon = VmModel::getModel('excursionaddon');
+        $transfer_excursion_addon = tmsModel::getModel('excursionaddon');
         $this->list_excursion_addon = $transfer_excursion_addon->getItemList();
 
 

@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -29,7 +29,7 @@ class VirtueMartControllerState extends JControllerLegacy {
 	public function __construct() {
 		parent::__construct();
 
-		$stateModel = VmModel::getModel('state');
+		$stateModel = tmsModel::getModel('state');
 		$states = array();
 
 		//retrieving countries id

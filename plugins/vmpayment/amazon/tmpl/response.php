@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('_JEXEC') or die();
 if ($viewData['include_amazon_css']) {
@@ -27,17 +27,17 @@ $order = $viewData["order"];
 ?>
 <div id="amazonResponse">
 
-	<h3> <?php echo vmText::_('VMPAYMENT_AMAZON_THANK_YOU'); ?></h3>
+	<h3> <?php echo tsmText::_('VMPAYMENT_AMAZON_THANK_YOU'); ?></h3>
 
 
 	<div class="amazonResponseOrderId">
-		<label><?php echo vmText::_('VMPAYMENT_AMAZON_ORDER_ID'); ?> </label>
+		<label><?php echo tsmText::_('VMPAYMENT_AMAZON_ORDER_ID'); ?> </label>
 		 <?php echo $viewData["amazonOrderId"]; ?>
 
 	</div>
 	<?php if ($success) { ?>
 		<div class="amazonResponseItem">
-			<a class="vm-button-correct" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=orders&layout=details&order_number=' . $viewData["order"]['details']['BT']->order_number . '&order_pass=' . $viewData["order"]['details']['BT']->order_pass, false) ?>"><?php echo vmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER'); ?></a>
+			<a class="vm-button-correct" href="<?php echo JRoute::_('index.php?option=com_virtuemart&view=orders&layout=details&order_number=' . $viewData["order"]['details']['BT']->order_number . '&order_pass=' . $viewData["order"]['details']['BT']->order_pass, false) ?>"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_VIEW_ORDER'); ?></a>
 		</div>
 	<?php } ?>
 </div>

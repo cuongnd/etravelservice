@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage Orders
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -59,17 +59,17 @@ class VirtuemartViewInvoice extends VmView {
 		switch ($layout) {
 			case 'invoice':
 				$this->doctype = $layout;
-				$title = vmText::_('COM_VIRTUEMART_INVOICE');
+				$title = tsmText::_('COM_VIRTUEMART_INVOICE');
 				break;
 			case 'deliverynote':
 				$this->doctype = $layout;
 				$layout = 'invoice';
-				$title = vmText::_('COM_VIRTUEMART_DELIVERYNOTE');
+				$title = tsmText::_('COM_VIRTUEMART_DELIVERYNOTE');
 				break;
 			case 'confirmation':
 				$this->doctype = $layout;
 				$layout = 'confirmation';
-				$title = vmText::_('COM_VIRTUEMART_CONFIRMATION');
+				$title = tsmText::_('COM_VIRTUEMART_CONFIRMATION');
 				break;
 			case 'mail':
 				if (VmConfig::get('order_mail_html')) {
@@ -89,7 +89,7 @@ class VirtuemartViewInvoice extends VmView {
 
 		$this->format = vRequest::getCmd('format','html');
 		if($layout == 'invoice'){
-			$document->setTitle( vmText::_('COM_VIRTUEMART_INVOICE') );
+			$document->setTitle( tsmText::_('COM_VIRTUEMART_INVOICE') );
 		}
 		$order_print=false;
 
@@ -97,23 +97,23 @@ class VirtuemartViewInvoice extends VmView {
 			$order_print=true;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderDetails = $this->orderDetails;
 
 		if($orderDetails==0){
 			$orderDetails = $orderModel ->getMyOrderDetails();
 			if(!$orderDetails ){
-				echo vmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
+				echo tsmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
 				vmdebug('COM_VIRTUEMART_CART_ORDER_NOTFOUND and $orderDetails ',$orderDetails);
 				return;
 			} else if(empty($orderDetails['details'])){
-				echo vmText::_('COM_VIRTUEMART_CART_ORDER_DETAILS_NOTFOUND');
+				echo tsmText::_('COM_VIRTUEMART_CART_ORDER_DETAILS_NOTFOUND');
 				return;
 			}
 		}
 
 		if(empty($orderDetails['details'])){
-			echo vmText::_('COM_VIRTUEMART_ORDER_NOTFOUND');
+			echo tsmText::_('COM_VIRTUEMART_ORDER_NOTFOUND');
 			return 0;
 		}
 		if(!empty($orderDetails['details']['BT']->order_language)) {
@@ -140,7 +140,7 @@ class VirtuemartViewInvoice extends VmView {
 			if (  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
                 if (shopFunctionsF::InvoiceNumberReserved( $invoiceNumberDate[0])) {
 	                if  ($this->uselayout!='mail') {
-		                $document->setTitle( vmText::_('COM_VIRTUEMART_PAYMENT_INVOICE') );
+		                $document->setTitle( tsmText::_('COM_VIRTUEMART_PAYMENT_INVOICE') );
                         return ;
 	                }
                 }
@@ -176,7 +176,7 @@ class VirtuemartViewInvoice extends VmView {
 		$this->assignRef('currency', $currency);
 
 		//Create BT address fields
-		$userFieldsModel = VmModel::getModel('userfields');
+		$userFieldsModel = tmsModel::getModel('userfields');
 		$_userFields = $userFieldsModel->getUserFields(
 				 'account'
 				, array('captcha' => true, 'delimiters' => true) // Ignore these types
@@ -214,11 +214,11 @@ class VirtuemartViewInvoice extends VmView {
 
 		// Create an array to allow orderlinestatuses to be translated
 		// We'll probably want to put this somewhere in ShopFunctions..
-		$orderStatusModel = VmModel::getModel('orderstatus');
+		$orderStatusModel = tmsModel::getModel('orderstatus');
 		$_orderstatuses = $orderStatusModel->getOrderStatusList(true);
 		$orderstatuses = array();
 		foreach ($_orderstatuses as $_ordstat) {
-			$orderstatuses[$_ordstat->order_status_code] = vmText::_($_ordstat->order_status_name);
+			$orderstatuses[$_ordstat->order_status_code] = tsmText::_($_ordstat->order_status_name);
 		}
 		$this->assignRef('orderstatuslist', $orderstatuses);
 		$this->assignRef('orderstatuses', $orderstatuses);
@@ -246,7 +246,7 @@ class VirtuemartViewInvoice extends VmView {
 
 		}
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		$vendorModel->addImages($vendor);
 		$vendor->vendorFields = $vendorModel->getVendorAddressFields($virtuemart_vendor_id);
@@ -279,10 +279,10 @@ class VirtuemartViewInvoice extends VmView {
 		if (strpos($layout,'mail') !== false) {
 		    if ($this->doVendor) {
 		    	 //Old text key COM_VIRTUEMART_MAIL_SUBJ_VENDOR_C
-			    $this->subject = vmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_VENDOR_'.$orderDetails['details']['BT']->order_status, $this->shopperName, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number);
+			    $this->subject = tsmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_VENDOR_'.$orderDetails['details']['BT']->order_status, $this->shopperName, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number);
 			    $recipient = 'vendor';
 		    } else {
-			    $this->subject = vmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_SHOPPER_'.$orderDetails['details']['BT']->order_status, $vendor->vendor_store_name, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number );
+			    $this->subject = tsmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_SHOPPER_'.$orderDetails['details']['BT']->order_status, $vendor->vendor_store_name, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number );
 			    $recipient = 'shopper';
 		    }
 		    $this->assignRef('recipient', $recipient);
@@ -304,7 +304,7 @@ class VirtuemartViewInvoice extends VmView {
 
 		if(empty($this->recipient)) $this->recipient = $recipient;
 		if(!empty($attach) and !$doVendor and in_array($this->orderDetails['details']['BT']->order_status,VmConfig::get('attach_os',0)) ){
-			$this->mediaToSend = VMPATH_ROOT.DS.'images'.DS.'stories'.DS.'virtuemart'.DS.'vendor'.DS.VmConfig::get('attach');
+			$this->mediaToSend = VMPATH_ROOT.DS.'images'.DS.'stories'.DS.'tsmart'.DS.'vendor'.DS.VmConfig::get('attach');
 		}
 		$this->isMail = true;
 		$this->display();

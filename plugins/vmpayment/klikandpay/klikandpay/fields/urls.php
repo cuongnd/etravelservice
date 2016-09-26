@@ -44,25 +44,25 @@ class JFormFieldUrls extends JFormField {
 		$refused_url = JURI::root() . 'index.php?option=com_virtuemart&amp;view=pluginresponse&amp;task=pluginUserPaymentCancel&amp;po=';
 		$msg = "";
 		$msg .= '<div>';
-		$msg .= "<strong>" . vmText::_('VMPAYMENT_KLIKANDPAY_CONF_DYNAMIC_RETURN_URL') . "</strong>";
+		$msg .= "<strong>" . tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_DYNAMIC_RETURN_URL') . "</strong>";
 		$msg .= "<br />";
-		$msg .= vmText::_('VMPAYMENT_KLIKANDPAY_CONF_DYNAMIC_RETURN_URL_TIP');
+		$msg .= tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_DYNAMIC_RETURN_URL_TIP');
 		$msg .= "<br />";
 		$msg .= '<input class="required" readonly size="180" value="' . $dynamic_url . '" />';
 		$msg .= "</div>";
 
 		$msg .= '<div style="margin-top: 10px ;">';
-		$msg .= "<strong>" . vmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_ACCEPTED') . "</strong>";
+		$msg .= "<strong>" . tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_ACCEPTED') . "</strong>";
 		$msg .= "<br />";
-		$msg .= vmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_ACCEPTED_TIP');
+		$msg .= tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_ACCEPTED_TIP');
 		$msg .= "<br />";
 		$msg .= '<input class="required" readonly size="180" value="' . $accepted_url . '" />';
 		$msg .= "</div>";
 
 		$msg .= '<div style="margin-top: 10px ;">';
-		$msg .= "<strong>" . vmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_REFUSED') . "</strong>";
+		$msg .= "<strong>" . tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_REFUSED') . "</strong>";
 		$msg .= "<br />";
-		$msg .= vmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_REFUSED_TIP');
+		$msg .= tsmText::_('VMPAYMENT_KLIKANDPAY_CONF_URL_TRANSACTION_REFUSED_TIP');
 		$msg .= "<br />";
 		//$msg .=   $refused_url  ;
 		$msg .= '<input class="required" readonly size="180" value="' . $refused_url . '" />';

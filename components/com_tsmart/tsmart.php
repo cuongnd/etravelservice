@@ -14,7 +14,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 * other free or open source software licenses.
 * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
 *
-* http://virtuemart.net
+* http://tsmart.net
 */
 
 /* Require the config */
@@ -37,9 +37,9 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css'
 $doc->addLessStyleSheet(JUri::root().'/components/com_virtuemart/assets/less/etravelservice.less');
 if(VmConfig::get('shop_is_offline',0)){
 	//$cache->setCaching (1);
-	$_controller = 'virtuemart';
-	require (VMPATH_SITE.DS.'controllers'.DS.'virtuemart.php');
-	vRequest::setVar('view', 'virtuemart');
+	$_controller = 'tsmart';
+	require (VMPATH_SITE.DS.'controllers'.DS.'tsmart.php');
+	vRequest::setVar('view', 'tsmart');
 	$task='';
 	$basePath = VMPATH_SITE;
 } else {
@@ -48,7 +48,7 @@ if(VmConfig::get('shop_is_offline',0)){
 	if(!class_exists('VmImage')) require(VMPATH_ADMIN.DS.'helpers'.DS.'image.php'); //dont remove that file it is actually in every view except the state view
 	if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php'); //dont remove that file it is actually in every view
 
-	$_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart')) ;
+	$_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart')) ;
 	$trigger = 'onVmSiteController';
 // 	$task = vRequest::getCmd('task',vRequest::getCmd('layout',$_controller) );		$this makes trouble!
 	$task = vRequest::getCmd('task','') ;
@@ -85,7 +85,7 @@ if(VmConfig::get('shop_is_offline',0)){
 			$session->set('manage', 0,'vm');
 			vRequest::setVar('manage',0);
 			$basePath = VMPATH_SITE;
-			$app->redirect('index.php?option=com_virtuemart', vmText::_('COM_VIRTUEMART_RESTRICTED_ACCESS') );
+			$app->redirect('index.php?option=com_virtuemart', tsmText::_('COM_VIRTUEMART_RESTRICTED_ACCESS') );
 		}
 
 	} elseif($_controller) {
@@ -139,7 +139,7 @@ if (class_exists($_class)) {
     vmDebug('VirtueMart controller not found: '. $_class);
     if (VmConfig::get('handle_404',1)) {
     	$mainframe = Jfactory::getApplication();
-    	$mainframe->redirect(JRoute::_ ('index.php?option=com_virtuemart&view=virtuemart', FALSE));
+    	$mainframe->redirect(JRoute::_ ('index.php?option=com_virtuemart&view=tsmart', FALSE));
     } else {
     	JError::raise(E_ERROR,'404','Not found');
     }

@@ -7,7 +7,7 @@
  * @subpackage User
  * @author Oscar van Eijk
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -19,7 +19,7 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access for invoices');
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 if(!class_exists('VmPdf'))require(VMPATH_SITE.DS.'helpers'.DS.'vmpdf.php');
 
 // Load the controller framework
@@ -140,7 +140,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 
 	public function getOrderDetails() {
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 
 		return $orderModel->getMyOrderDetails();
 		/*$orderDetails = 0;
@@ -189,7 +189,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 
 		$pdf = new VmVendorPDF();
 		$pdf->AddPage();
-		$pdf->PrintContents(vmText::_('COM_VIRTUEMART_PDF_SAMPLEPAGE'));
+		$pdf->PrintContents(tsmText::_('COM_VIRTUEMART_PDF_SAMPLEPAGE'));
 		$pdf->Output("vminvoice_sample.pdf", 'I');
 		JFactory::getApplication()->close();
 	}
@@ -212,7 +212,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 			}
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$invoiceNumberDate=array();
 		if (!  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
 		    return false;
@@ -265,15 +265,15 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		$view->uselayout = $layout;
 		$view->showHeaderFooter = false;
 
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$virtuemart_vendor_id = 1;	//We could set this automatically by the vendorId stored in the order.
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		
 		$metadata = array (
-			'title' => vmText::sprintf('COM_VIRTUEMART_INVOICE_TITLE',
+			'title' => tsmText::sprintf('COM_VIRTUEMART_INVOICE_TITLE',
 				$vendor->vendor_store_name, $view->invoiceNumber, 
 				$orderDetails['details']['BT']->order_number),
-			'keywords' => vmText::_('COM_VIRTUEMART_INVOICE_CREATOR'));
+			'keywords' => tsmText::_('COM_VIRTUEMART_INVOICE_CREATOR'));
 
 		return VmPdf::createVmPdf($view, $path, 'F', $metadata);
 	}

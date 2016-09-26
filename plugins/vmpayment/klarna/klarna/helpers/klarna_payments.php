@@ -156,7 +156,7 @@ class klarna_payments {
 		}
 		$payment_params['payment_currency_info'] = "";
 		if ($cart->pricesCurrency != $this->virtuemart_currency_id) {
-			$payment_params['payment_currency_info'] = vmText::_ ('VMPAYMENT_KLARNA_PAYMENT_CURRENCY_INFO');
+			$payment_params['payment_currency_info'] = tsmText::_ ('VMPAYMENT_KLARNA_PAYMENT_CURRENCY_INFO');
 		}
 		if ($payment_type == 'invoice') {
 			KlarnaHandler::getInvoiceFeeInclTax ($method, $this->country_code_3, $cart->pricesCurrency, $this->virtuemart_currency_id, $display_invoice_fee, $invoice_fee);
@@ -183,10 +183,10 @@ class klarna_payments {
 
 		if ($payment_type == 'invoice') {
 			if ($invoice_fee) {
-				$payment_params['module'] = vmText::sprintf ('VMPAYMENT_KLARNA_INVOICE_TITLE', $display_invoice_fee);
+				$payment_params['module'] = tsmText::sprintf ('VMPAYMENT_KLARNA_INVOICE_TITLE', $display_invoice_fee);
 
 			} else {
-				$payment_params['module'] = vmText::_ ('VMPAYMENT_KLARNA_INVOICE_TITLE_NO_PRICE');
+				$payment_params['module'] = tsmText::_ ('VMPAYMENT_KLARNA_INVOICE_TITLE_NO_PRICE');
 			}
 			$payment_params['pClasses'] = NULL;
 			$payment_params['id'] = 'klarna_invoice';
@@ -205,7 +205,7 @@ class klarna_payments {
 			//$sFee = $currencyDisplay->priceDisplay($cheapest, 0, 1,false);
 
 			$sFee = $kCheckout->getPresentableValuta ($cheapest);
-			$payment_params['module'] = vmText::sprintf ('VMPAYMENT_KLARNA_PARTPAY_TITLE', $sFee);
+			$payment_params['module'] = tsmText::sprintf ('VMPAYMENT_KLARNA_PARTPAY_TITLE', $sFee);
 			$payment_params['pClasses'] = $kCheckout->getPClassesInfo ();
 			$payment_params['id'] = 'klarna_partPayment';
 		}
@@ -214,7 +214,7 @@ class klarna_payments {
 			if (empty($pclasses)) {
 				return NULL;
 			}
-			$payment_params['module'] = vmText::_ ('VMPAYMENT_KLARNA_SPEC_TITLE');
+			$payment_params['module'] = tsmText::_ ('VMPAYMENT_KLARNA_SPEC_TITLE');
 			$payment_params['pClasses'] = $kCheckout->getPClassesInfo ();
 			$payment_params['id'] = 'klarna_SpecCamp';
 		}

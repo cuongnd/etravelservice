@@ -9,12 +9,12 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 * @package VirtueMart
 * @subpackage modules
 *
-* @copyright (C) 2014 virtuemart team - All rights reserved.
+* @copyright (C) 2014 tsmart team - All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl2.html GNU/GPL
 * VirtueMart is Free Software.
 * VirtueMart comes with absolute no warranty.
 *
-* www.virtuemart.net
+* www.tsmart.net
 */
 
 
@@ -35,7 +35,7 @@ $vendorId = vRequest::getInt('vendorid', 1);
 $text_before = $params->get( 'text_before', '');
 
 /* load the template */
-$currencyModel = VmModel::getModel('currency');
+$currencyModel = tmsModel::getModel('currency');
 
 $currencies = $currencyModel->getVendorAcceptedCurrrenciesList($vendorId);
 

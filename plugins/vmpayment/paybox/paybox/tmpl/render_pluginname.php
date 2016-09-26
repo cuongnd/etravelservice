@@ -14,7 +14,7 @@ defined ('_JEXEC') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 ?>
@@ -47,7 +47,7 @@ defined ('_JEXEC') or die();
 	if (isset($viewData['extraInfo']['recurring'])) {
 		?>
 		<div class="vmpayment_recurring">
-			<?php echo vmText::sprintf('VMPAYMENT_'.$this->_name.'_COMMENT_RECURRING_INFO', $viewData['extraInfo']['recurring_number'], $viewData['extraInfo']['recurring_periodicity']) ?>
+			<?php echo tsmText::sprintf('VMPAYMENT_'.$this->_name.'_COMMENT_RECURRING_INFO', $viewData['extraInfo']['recurring_number'], $viewData['extraInfo']['recurring_periodicity']) ?>
 		</div>
 	<?php
 	}
@@ -57,16 +57,16 @@ defined ('_JEXEC') or die();
 		?>
 		<div class="vmpayment_subscribe">
 			<?php
-			echo vmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_1MONT')." " .$viewData['extraInfo']['subscribe_1mont'] ."<br />" ;
-			echo vmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_2MONT')." " .$viewData['extraInfo']['subscribe_2mont'] ."<br />" ;
-			echo vmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_NBPAIE')." " .$viewData['extraInfo']['subscribe_nbpaie']  ."<br />" ;
+			echo tsmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_1MONT')." " .$viewData['extraInfo']['subscribe_1mont'] ."<br />" ;
+			echo tsmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_2MONT')." " .$viewData['extraInfo']['subscribe_2mont'] ."<br />" ;
+			echo tsmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_NBPAIE')." " .$viewData['extraInfo']['subscribe_nbpaie']  ."<br />" ;
 			if ($viewData['extraInfo']['subscribe_quand']==1) {
 				$viewData['extraInfo']['subscribe_quand'] ="";
 			}
-				echo vmText::sprintf('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_QUAND', $viewData['extraInfo']['subscribe_quand']  ) ."<br />" ;
-			echo vmText::sprintf('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_FREQ',$viewData['extraInfo']['subscribe_freq'])   ."<br />" ;
+				echo tsmText::sprintf('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_QUAND', $viewData['extraInfo']['subscribe_quand']  ) ."<br />" ;
+			echo tsmText::sprintf('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_FREQ',$viewData['extraInfo']['subscribe_freq'])   ."<br />" ;
 			if ($viewData['extraInfo']['subscribe_delais']) {
-			echo vmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_DELAIS')." " .$viewData['extraInfo']['subscribe_delais']  ."<br />" ;
+			echo tsmText::_('VMPAYMENT_'.$this->_name.'_SUBSCRIBE_DELAIS')." " .$viewData['extraInfo']['subscribe_delais']  ."<br />" ;
 			}
 			?>
 		</div>

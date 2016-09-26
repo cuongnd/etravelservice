@@ -327,7 +327,7 @@
                 <field name="payment_logos" type="vmfiles" multiple="true" scope="com_virtuemart" label="VMPAYMENT_PAYPAL_LOGOS"
                        description="VMPAYMENT_PAYPAL_LOGOS_DESC" directory="/images/stories/virtuemart/payment"
                        default="default" hide_default="1" hide_none="1" stripext="0" exclude="^_"/>
-                <!--param class="creditcard" name="cvv_images" type="vmfiles" label="VMPAYMENT_PAYPAL_CC_CVVIMAGES" description="VMPAYMENT_PAYPAL_CC_CVVIMAGES_DESC" directory="/images/stories/virtuemart/payment" default="default" hide_default="1" hide_none="1" stripext="0" exclude="^_" / -->
+                <!--param class="creditcard" name="cvv_images" type="vmfiles" label="VMPAYMENT_PAYPAL_CC_CVVIMAGES" description="VMPAYMENT_PAYPAL_CC_CVVIMAGES_DESC" directory="/images/stories/tsmart/payment" default="default" hide_default="1" hide_none="1" stripext="0" exclude="^_" / -->
                 <field class="std paypallayout" name="logoimg" type="filelist" label="VMPAYMENT_PAYPAL_LOGOIMAGE"
                        description="VMPAYMENT_PAYPAL_LOGOIMAGE_DESC" directory="/images/stories/virtuemart/payment"
                        default="" hide_default="0" hide_none="1" stripext="0" exclude="^_"/>

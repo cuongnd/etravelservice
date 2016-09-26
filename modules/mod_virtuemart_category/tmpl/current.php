@@ -33,7 +33,7 @@ $ID = str_replace('.', '_', substr(microtime(true), -8, 8));
 		foreach ($category->childs as $child) {
 
 			$caturl = JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$child->virtuemart_category_id);
-			$cattext = vmText::_($child->category_name);
+			$cattext = tsmText::_($child->category_name);
 			?>
 
 			<li>

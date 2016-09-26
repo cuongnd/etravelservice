@@ -7,7 +7,7 @@
  * @package	VirtueMart
  * @subpackage pluginResponse
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team and authors. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -67,7 +67,7 @@ class VirtueMartControllerVmplg extends JControllerLegacy {
 	$return_context = "";
 	$dispatcher = JDispatcher::getInstance();
 	$html = "";
-	$paymentResponse = vmText::_('COM_VIRTUEMART_CART_THANKYOU');
+	$paymentResponse = tsmText::_('COM_VIRTUEMART_CART_THANKYOU');
 	$returnValues = $dispatcher->trigger('plgVmOnPaymentResponseReceived', array( 'html' => &$html,&$paymentResponse));
 
 	$view = $this->getView('vmplg', 'html');
@@ -95,7 +95,7 @@ class VirtueMartControllerVmplg extends JControllerLegacy {
 	    $dispatcher = JDispatcher::getInstance();
 
 	    $html = "";
-	    $shipmentResponse = vmText::_('COM_VIRTUEMART_CART_THANKYOU');
+	    $shipmentResponse = tsmText::_('COM_VIRTUEMART_CART_THANKYOU');
 	    $dispatcher->trigger('plgVmOnShipmentResponseReceived', array( 'html' => &$html,&$shipmentResponse));
 
     }

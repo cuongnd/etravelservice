@@ -7,7 +7,7 @@
  * @package VirtueMart
  * @subpackage
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -48,7 +48,7 @@ class virtuemartViewbookprivategroupsumary extends VmView
         $session=JFactory::getSession();
         $virtuemart_price_id = $session->get('virtuemart_price_id', 0);
         $booking_date = $input->getString('booking_date', '');
-        $privategrouptrip_model = VmModel::getModel('privategrouptrip');
+        $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
         $item_private_group_trip = $privategrouptrip_model->getData($virtuemart_price_id);
 
         $virtuemart_product_id = $item_private_group_trip->virtuemart_product_id;
@@ -57,7 +57,7 @@ class virtuemartViewbookprivategroupsumary extends VmView
         $this->privategrouptrip = reset($privategrouptrip_model->getItems());
         $this->privategrouptrip->allow_passenger='infant,child_1,child_2,teen,adult,senior';
         $this->privategrouptrip->departure_date=$booking_date;
-        $product_model = VmModel::getModel('product');
+        $product_model = tmsModel::getModel('product');
         $this->product = $product_model->getItem($this->privategrouptrip->virtuemart_product_id);
         require_once JPATH_ROOT . '/components/com_virtuemart/helpers/vmjointgroup.php';
         $this->rooming_select = Vmjointgroup::get_list_rooming();

@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
 
 		$active_child_menu = 'class="VmClose"';
 		$caturl = JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$child->virtuemart_category_id);
-		$cattext = vmText::_($child->category_name);
+		$cattext = tsmText::_($child->category_name);
 		if ($child->virtuemart_category_id == $active_category_id) $active_child_menu = 'class="VmOpen"';
 		?>
 		<li <?php echo $active_child_menu ?>>

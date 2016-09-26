@@ -7,7 +7,7 @@
  * @package VirtueMart
  * @subpackage
  * @author RolandD
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -69,8 +69,8 @@ class VirtueMartViewAskquestion extends VmView {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
 		// Load the product
-		$product_model = VmModel::getModel ('product');
-		$category_model = VmModel::getModel ('Category');
+		$product_model = tmsModel::getModel ('product');
+		$category_model = tmsModel::getModel ('Category');
 
 		$virtuemart_product_idArray = vRequest::getInt ('virtuemart_product_id', 0);
 		if (is_array ($virtuemart_product_idArray)) {
@@ -96,7 +96,7 @@ class VirtueMartViewAskquestion extends VmView {
 		}
 
 		// Set the titles
-		$document->setTitle (vmText::sprintf ('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE', $product->product_name . ' - ' . vmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION')));
+		$document->setTitle (tsmText::sprintf ('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE', $product->product_name . ' - ' . tsmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION')));
 
 		$this->assignRef ('product', $product);
 
@@ -120,13 +120,13 @@ class VirtueMartViewAskquestion extends VmView {
 		if ($category_model) {
 			$category = $category_model->getCategory ($virtuemart_category_id);
 			$this->assignRef ('category', $category);
-			$pathway->addItem (vmText::_($category->category_name), JRoute::_ ('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $virtuemart_category_id, FALSE));
+			$pathway->addItem (tsmText::_($category->category_name), JRoute::_ ('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $virtuemart_category_id, FALSE));
 		}
 
 		$pathway->addItem ($product->product_name, JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&virtuemart_category_id=' . $virtuemart_category_id . '&virtuemart_product_id=' . $product->virtuemart_product_id, FALSE));
 
 		// for askquestion
-		$pathway->addItem (vmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
+		$pathway->addItem (tsmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
 
 		$this->user = JFactory::getUser ();
 
@@ -167,15 +167,15 @@ class VirtueMartViewAskquestion extends VmView {
 
 		$virtuemart_product_id = vRequest::getInt ('virtuemart_product_id', 0);
 
-		$productModel = VmModel::getModel ('product');
+		$productModel = tmsModel::getModel ('product');
 		if(empty($this->product)){
 			$this->product =  $productModel->getProduct ($virtuemart_product_id);
 		}
 		$productModel->addImages($this->product);
 
-		$this->subject = vmText::_ ('COM_VIRTUEMART_QUESTION_ABOUT') . $this->product->product_name;
+		$this->subject = tsmText::_ ('COM_VIRTUEMART_QUESTION_ABOUT') . $this->product->product_name;
 
-		$vendorModel = VmModel::getModel ('vendor');
+		$vendorModel = tmsModel::getModel ('vendor');
 
 		$this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
 		//$this->vendor->vendor_store_name = $fromName;

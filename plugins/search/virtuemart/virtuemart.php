@@ -17,7 +17,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 // no direct access
 defined ('_JEXEC') or die('Restricted access');
@@ -30,7 +30,7 @@ class PlgSearchVirtuemart extends JPlugin {
 	function onContentSearchAreas () {
 		$this->loadLanguage();
 		static $areas = array(
-			'virtuemart' => 'PLG_SEARCH_VIRTUEMART_PRODUCTS'
+			'tsmart' => 'PLG_SEARCH_VIRTUEMART_PRODUCTS'
 		);
 		return $areas;
 	}
@@ -158,7 +158,7 @@ class PlgSearchVirtuemart extends JPlugin {
 		}
 
 		$shopper_group_condition="";
-		$currentVMuser = VmModel::getModel('user')->getUser();
+		$currentVMuser = tmsModel::getModel('user')->getUser();
 		$virtuemart_shoppergroup_ids = (array)$currentVMuser->shopper_groups;
 
 		if (is_array($virtuemart_shoppergroup_ids)) {

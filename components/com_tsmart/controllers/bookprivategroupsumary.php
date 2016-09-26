@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -28,9 +28,9 @@ class VirtueMartControllerbookprivategroupsumary extends JControllerLegacy {
     public function ajax_get_coupon(){
        $input=JFactory::getApplication()->input;
         $coupon_code=$input->getString('coupon_code','');
-        $coupon_model=VmModel::getModel('coupon');
+        $coupon_model=tmsModel::getModel('coupon');
         require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcoupon.php';
-        $coupon=vmcoupon::get_coupon_by_coupon_code($coupon_code);
+        $coupon=tsmcoupon::get_coupon_by_coupon_code($coupon_code);
         echo json_encode($coupon);
         die;
 
@@ -42,9 +42,9 @@ class VirtueMartControllerbookprivategroupsumary extends JControllerLegacy {
         $booking_summary=json_decode($booking_summary);
         $contact_data=$booking_summary->contact_data;
         $contact_data=json_decode($contact_data);
-        $bookprivategroupsumary_model=VmModel::getModel('bookprivategroupsumary');
+        $bookprivategroupsumary_model=tmsModel::getModel('bookprivategroupsumary');
         $email_address=$contact_data->email_address;
-        $user_model=VmModel::getModel('user');
+        $user_model=tmsModel::getModel('user');
         $table_user=JTable::getInstance('user');
         $table_user->parent_load(array('email'=>$email_address));
         $send_email=false;

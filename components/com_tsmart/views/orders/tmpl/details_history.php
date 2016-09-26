@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Orders
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 
 <table width="100%" cellspacing="2" cellpadding="4" border="0">
 	<tr align="left" class="sectiontableheader">
-		<th align="left" ><?php echo vmText::_('COM_VIRTUEMART_DATE') ?></th>
-		<th align="left" ><?php echo vmText::_('COM_VIRTUEMART_ORDER_PRINT_PO_STATUS') ?></th>
-		<th align="left" ><?php echo vmText::_('COM_VIRTUEMART_ORDER_COMMENT') ?></th>
+		<th align="left" ><?php echo tsmText::_('COM_VIRTUEMART_DATE') ?></th>
+		<th align="left" ><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PO_STATUS') ?></th>
+		<th align="left" ><?php echo tsmText::_('COM_VIRTUEMART_ORDER_COMMENT') ?></th>
 	</tr>
 <?php
 	foreach($this->orderdetails['history'] as $_hist) {

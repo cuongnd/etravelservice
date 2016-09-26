@@ -7,7 +7,7 @@
 * @subpackage Cart
 * @author Max Milbers, Valerie Isaksen
 *
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -21,10 +21,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-echo vmText::sprintf('COM_VIRTUEMART_CART_NOTIFY_MAIL_RAW', $this->productName,$this->url);
+echo tsmText::sprintf('COM_VIRTUEMART_CART_NOTIFY_MAIL_RAW', $this->productName,$this->url);
 
 
 if(!empty($this->orderDetails['details']['BT']->customer_note)) {
-	echo "\n" . vmText::sprintf('COM_VIRTUEMART_CART_MAIL_VENDOR_SHOPPER_QUESTION', $this->orderDetails['details']['BT']->customer_note);
+	echo "\n" . tsmText::sprintf('COM_VIRTUEMART_CART_MAIL_VENDOR_SHOPPER_QUESTION', $this->orderDetails['details']['BT']->customer_note);
 }
 echo "\n";

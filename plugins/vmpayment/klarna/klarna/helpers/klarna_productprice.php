@@ -138,10 +138,10 @@ class klarna_productPrice {
 				}
 
 				if ($pclass['pclass']->getType () == KlarnaPClass::ACCOUNT) {
-					$pp_title = vmText::_ ('VMPAYMENT_KLARNA_PPBOX_ACCOUNT');
+					$pp_title = tsmText::_ ('VMPAYMENT_KLARNA_PPBOX_ACCOUNT');
 				}
 				else {
-					$pp_title = $pclass['pclass']->getMonths () . " " . vmText::_ ('VMPAYMENT_KLARNA_PPBOX_TH_MONTH');
+					$pp_title = $pclass['pclass']->getMonths () . " " . tsmText::_ ('VMPAYMENT_KLARNA_PPBOX_TH_MONTH');
 				}
 
 				$pp_price = $currency->priceDisplay ($pclass['monthlyCost'], $countryCurrencyId);

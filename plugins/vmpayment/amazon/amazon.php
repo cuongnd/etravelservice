@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * @subpackage vmpayment
  * @version $Id: amazon.php 8585 2014-11-25 11:11:13Z alatak $
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - November 10 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -470,7 +470,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 				$this->ipn();
 				break;
 			default:
-				$this->amazonError(vmText::_('VMPAYMENT_AMAZON_INVALID_NOTIFICATION_TASK'));
+				$this->amazonError(tsmText::_('VMPAYMENT_AMAZON_INVALID_NOTIFICATION_TASK'));
 				return;
 		}
 
@@ -553,7 +553,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 	private function retrieveIPNConfirmOrderReference ($payment) {
 		$this->loadVmClass('VirtueMartModelOrders', JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($payment->virtuemart_order_id);
 		if (!($payments = $this->getDatasByOrderId($payment->virtuemart_order_id))) {
 			// JError::raiseWarning(500, $db->getErrorMsg());
@@ -575,7 +575,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 	private function retrieveIPNRefund ($payment) {
 		$this->loadVmClass('VirtueMartModelOrders', JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($payment->virtuemart_order_id);
 		//Load the payments
 		if (!($payments = $this->getDatasByOrderId($payment->virtuemart_order_id))) {
@@ -627,7 +627,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			// JError::raiseWarning(500, $db->getErrorMsg());
 			return null;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($payment->virtuemart_order_id);
 		if ($payment->amazon_response_state == 'Pending' OR ($payment->amazon_response_state == 'Open' AND $this->getNumberOfDays($payments) > 30)) {
 			$amazonAuthorizationId = $this->getAmazonAuthorizationId($payments);
@@ -676,7 +676,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 	private function retrieveIPNCapture ($payment) {
 		$this->loadVmClass('VirtueMartModelOrders', JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($payment->virtuemart_order_id);
 		//Load the payments
 		if (!($payments = $this->getDatasByOrderId($payment->virtuemart_order_id))) {
@@ -709,7 +709,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		if (!($payments = $this->getDatasByOrderId($virtuemart_order_id))) {
 			return null;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$this->_order_number = $this->getUniqueReferenceId($order['details']['BT']->order_number);
 		$this->_amount = vRequest::getFloat('amount');
@@ -812,7 +812,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 				echo $html;
 				break;
 			default:
-				$this->amazonError(vmText::_('VMPAYMENT_AMAZON_INVALID_NOTIFICATION_TASK'));
+				$this->amazonError(tsmText::_('VMPAYMENT_AMAZON_INVALID_NOTIFICATION_TASK'));
 				return;
 		}
 
@@ -877,7 +877,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			$app = JFactory::getApplication();
 			$leaveAmazonCheckoutLink = $this->getLeaveAmazonCheckoutLink();
 			//$app->enqueueMessage(vmText::sprintf('VMPAYMENT_AMAZON_UPDATECART_DELIVERYCOUNTRYNOTALLOWED', $country, $leaveAmazonCheckoutLink));
-			$app->enqueueMessage(vmText::sprintf('VMPAYMENT_AMAZON_UPDATECART_DELIVERYCOUNTRYNOTALLOWED', $country));
+			$app->enqueueMessage(tsmText::sprintf('VMPAYMENT_AMAZON_UPDATECART_DELIVERYCOUNTRYNOTALLOWED', $country));
 			//$this->leaveAmazonCheckout();
 			return false;
 		}
@@ -908,7 +908,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 
 
 	private function getLeaveAmazonCheckoutLink () {
-		$leaveAmazonCheckoutLink = '<a href="#" class="leaveAmazonCheckout">' . vmText::_('VMPAYMENT_AMAZON_LEAVE_PAY_WITH_AMAZON') . '</a>';
+		$leaveAmazonCheckoutLink = '<a href="#" class="leaveAmazonCheckout">' . tsmText::_('VMPAYMENT_AMAZON_LEAVE_PAY_WITH_AMAZON') . '</a>';
 		return $leaveAmazonCheckoutLink;
 	}
 
@@ -1032,16 +1032,16 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		// if $cart=NULL may be coming from plgVmRetrieveIPN
 		if ($cart) {
 			if (!$this->setOrderReferenceDetails($client, $cart, $order)) {
-				$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+				$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 			}
 		}
 		//confirmOrderReference
 		if (!$this->confirmOrderReference($client, $order)) {
-			$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+			$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 		}
 		// getorderdetails &  address email
 		if (!$this->updateBuyerInOrder($client, $cart, $order)) {
-			$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+			$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 		}
 		/* why do i have that ? */
 		if ($cart) {
@@ -1127,7 +1127,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 // TODO:  address line 3, district
 	private function updateBuyerInOrder ($client, $cart, $order) {
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$BT['virtuemart_order_id'] = $order['details']['BT']->virtuemart_order_id;
 		$order_userinfosTable = $orderModel->getTable('order_userinfos');
 
@@ -1526,7 +1526,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			require(JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'vendor.php');
 		}
 		$virtuemart_vendor_id = 1;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		return $vendor->vendor_store_name;
 
@@ -1548,7 +1548,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 
 	private function onErrorRedirectToCart ($msg = NULL) {
 		if (!$msg) {
-			$msg = vmText::sprintf('VMPAYMENT_AMAZON_ERROR_TRY_AGAIN', $this->getVendorLink());
+			$msg = tsmText::sprintf('VMPAYMENT_AMAZON_ERROR_TRY_AGAIN', $this->getVendorLink());
 		} else {
 		}
 		$this->redirectToCart($msg, true);
@@ -1648,7 +1648,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 					$this->debugLog($msg, __FUNCTION__ . " Exception", 'error');
 
 					$this->amazonError(__FUNCTION__ . ' ' . $msg);
-					$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+					$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 				}
 
 				return false;
@@ -1677,13 +1677,13 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 					} else {
 						$cart->setOutOfCheckout();
 						$this->leaveAmazonCheckout();
-						$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+						$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 					}
 
 				} elseif ($amazonState == 'Declined') {
 					$cart->setOutOfCheckout();
 					$this->leaveAmazonCheckout();
-					$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+					$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 				}elseif ($amazonState == 'Closed' && $reasonCode == 'MaxCapturesProcessed') {
 					$getAuthorizationDetails = $authorizeResponse->getAuthorizeResult()->getAuthorizationDetails();
 					$this->closeAuthorization($getAuthorizationDetails->getAmazonAuthorizationId(), $order);
@@ -1711,7 +1711,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		if ($retryInvalidPaymentMethod > 3) {
 			//echo "TOO MANY RETRIES STOP";
 			$this->leaveAmazonCheckout();
-			$this->redirectToCart(vmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
+			$this->redirectToCart(tsmText::_('VMPAYMENT_AMAZON_SELECT_ANOTHER_PAYMENT'), true);
 			return;
 		}
 		if (!($order_number = vRequest::getWord('order_number'))) {
@@ -1723,7 +1723,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			$this->debugLog('no getOrderIdByOrderNumber: ' . $order_number, __FUNCTION__, 'debug');
 			return true;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$this->_amount = $order['details']['BT']->order_total;
 		$this->_order_number = $this->getUniqueReferenceId($order['details']['BT']->order_number);
@@ -1759,7 +1759,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		$authorizationBillingAddress = $authorizationDetails->getAuthorizationBillingAddress();
 		$BT = $this->getUserInfoFromAmazon($authorizationBillingAddress);
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$BT['virtuemart_order_id'] = $order['details']['BT']->virtuemart_order_id;
 		$order_userinfosTable = $orderModel->getTable('order_userinfos');
 		$BT['address_type'] = 'BT';
@@ -1810,7 +1810,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		}
 		if (!$this->isValidUpdateOrderStatus($order->order_status)) {
 			if (!JFactory::getApplication()->isSite()) {
-				vmError(vmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NO_ACTION'));
+				vmError(tsmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NO_ACTION'));
 			}
 			return;
 		}
@@ -1824,7 +1824,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			// JError::raiseWarning(500, $db->getErrorMsg());
 			return null;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$orderModelData = $orderModel->getOrder($order->virtuemart_order_id);
 		$this->_amount = $orderModelData['details']['BT']->order_total;
 		$this->_order_number = $this->getUniqueReferenceId($orderModelData['details']['BT']->order_number);
@@ -1884,7 +1884,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 			return;
 		}
 		if ($captureState != 'Completed') {
-			vmInfo(vmText::sprintf('VMPAYMENT_AMAZON_UPDATEPAYMENT_CANTDOREFUND', $captureState));
+			vmInfo(tsmText::sprintf('VMPAYMENT_AMAZON_UPDATEPAYMENT_CANTDOREFUND', $captureState));
 			return false;
 		}
 		return true;
@@ -1917,7 +1917,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		$authorizationState = $this->getAuthorizationState($payments, $order);
 if (!$authorizationState) return false;
 		if ($authorizationState != 'Open') {
-			vmInfo(vmText::sprintf('VMPAYMENT_AMAZON_UPDATEPAYMENT_CANTDOCAPTURE', $authorizationState));
+			vmInfo(tsmText::sprintf('VMPAYMENT_AMAZON_UPDATEPAYMENT_CANTDOCAPTURE', $authorizationState));
 			return false;
 		}
 		return true;
@@ -2002,7 +2002,7 @@ if (!$authorizationState) return false;
 
 		$amazonCaptureId = $this->getAmazonCaptureId($payments);
 		if (empty($amazonCaptureId)) {
-			vmError(vmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NOAMAZONCAPTUREID'));
+			vmError(tsmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NOAMAZONCAPTUREID'));
 			return false;
 		}
 
@@ -2081,7 +2081,7 @@ if (!$authorizationState) return false;
 				return $payment;
 			}
 		}
-		vmError(vmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NOAMAZONAUTHORIZATIONID'));
+		vmError(tsmText::_('VMPAYMENT_AMAZON_UPDATEPAYMENT_NOAMAZONAUTHORIZATIONID'));
 		return false;
 	}
 
@@ -2230,7 +2230,7 @@ if (!$authorizationState) return false;
 	private function showActionOrderBEPayment ($virtuemart_order_id, $virtuemart_paymentmethod_id, $payments) {
 		//return;
 		$this->loadVmClass('VirtueMartModelOrders', JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 		$options = array();
@@ -2248,7 +2248,7 @@ if (!$authorizationState) return false;
 		$html .= '<tr ><td >';
 		$html .= $actionList;
 		$html .= ' </td><td>';
-		$html .= '<input type="text" id="amount" name="amount" size="20" value="" class="required" maxlength="25"  placeholder="' . vmText::sprintf('VMPAYMENT_AMAZON_ORDER_BE_AMOUNT', shopFunctions::getCurrencyByID($payments[0]->payment_currency, 'currency_code_3')) . '"/>';
+		$html .= '<input type="text" id="amount" name="amount" size="20" value="" class="required" maxlength="25"  placeholder="' . tsmText::sprintf('VMPAYMENT_AMAZON_ORDER_BE_AMOUNT', shopFunctions::getCurrencyByID($payments[0]->payment_currency, 'currency_code_3')) . '"/>';
 		$html .= '<input type="hidden" name="type" value="vmpayment"/>';
 		$html .= '<input type="hidden" name="name" value="amazon"/>';
 		$html .= '<input type="hidden" name="view" value="plugin"/>';
@@ -2311,7 +2311,7 @@ if (!$authorizationState) return false;
 				$this->loadAmazonClass($payment->amazon_class_notification_type);
 			}
 
-			$html .= '<tr class="row1"><td><strong>' . vmText::_('VMPAYMENT_AMAZON_DATE') . '</strong></td><td align="left"><strong>' . $payment->created_on . '</strong></td></tr>';
+			$html .= '<tr class="row1"><td><strong>' . tsmText::_('VMPAYMENT_AMAZON_DATE') . '</strong></td><td align="left"><strong>' . $payment->created_on . '</strong></td></tr>';
 			// Now only the first entry has this data when creating the order
 			if ($first) {
 				$html .= $this->getHtmlRowBE('AMAZON_PAYMENT_NAME', $payment->payment_name);
@@ -2339,7 +2339,7 @@ if (!$authorizationState) return false;
 				if (!empty($payment->amazon_request)) {
 					$amazon_classes[$payment->amazon_class_request_type] = $payment->amazon_request;
 					$vmClass = $this->getVmClass($payment->amazon_class_request_type);
-					$html .= $this->getHtmlRowBE(vmText::_('VMPAYMENT_AMAZON_REQUEST_TYPE'), vmText::_('VMPAYMENT_AMAZON_REQUEST_TYPE_' . $vmClass));
+					$html .= $this->getHtmlRowBE(tsmText::_('VMPAYMENT_AMAZON_REQUEST_TYPE'), tsmText::_('VMPAYMENT_AMAZON_REQUEST_TYPE_' . $vmClass));
 					$transactionLogContent = $this->getTransactionLogContent($payment->amazon_class_request_type, $payment->amazon_request, $payment);
 					if (empty($transactionLogContent)) {
 						vmError("getTransactionLogContent" . $payment->amazon_class_request_type . ' ');
@@ -2350,13 +2350,13 @@ if (!$authorizationState) return false;
 				if (!empty($payment->amazon_response)) {
 					$vmClass = $this->getVmClass($payment->amazon_class_response_type);
 					$amazon_classes[$payment->amazon_class_response_type] = $payment->amazon_response;
-					$html .= $this->getHtmlRowBE(vmText::_('VMPAYMENT_AMAZON_RESPONSE_TYPE'), vmText::_('VMPAYMENT_AMAZON_RESPONSE_TYPE_' . $vmClass));
+					$html .= $this->getHtmlRowBE(tsmText::_('VMPAYMENT_AMAZON_RESPONSE_TYPE'), tsmText::_('VMPAYMENT_AMAZON_RESPONSE_TYPE_' . $vmClass));
 					$html .= $this->getResponseData($payment);
 					$html .= $this->getTransactionLogContent($payment->amazon_class_response_type, $payment->amazon_response, $payment);
 				} elseif (!empty($payment->amazon_notification)) {
 					$amazon_classes[$payment->amazon_class_notification_type] = $payment->amazon_notification;
 					$vmClass = $this->getVmClass($payment->amazon_class_notification_type);
-					$html .= $this->getHtmlRowBE(vmText::_('VMPAYMENT_AMAZON_NOTIFICATION_TYPE'), vmText::_('VMPAYMENT_AMAZON_NOTIFICATION_TYPE_' . $vmClass));
+					$html .= $this->getHtmlRowBE(tsmText::_('VMPAYMENT_AMAZON_NOTIFICATION_TYPE'), tsmText::_('VMPAYMENT_AMAZON_NOTIFICATION_TYPE_' . $vmClass));
 					$html .= $this->getResponseData($payment);
 					$html .= $this->getTransactionLogContent($payment->amazon_class_notification_type, $payment->amazon_notification, $payment);
 				}
@@ -2425,7 +2425,7 @@ jQuery().ready(function($) {
 				//$html .= '<div style="background-color: white; z-index: 100; right:0; display: none; border:solid 2px; padding:10px;" class="vm-absolute" id="amazonDetails_' . $payment->id . '">';
 				//$html .= ' </div>';
 				$html .= ' <span class="icon-nofloat vmicon vmicon-16-xml"></span>&nbsp;';
-				$html .= vmText::_('VMPAYMENT_AMAZON_VIEW_TRANSACTION_DETAILS');
+				$html .= tsmText::_('VMPAYMENT_AMAZON_VIEW_TRANSACTION_DETAILS');
 				$html .= '  </a>';
 				$html .= '<div  style="display:none;" id="amazonDetails_' . $payment->id . $vmClass . '">';
 				$html .= $contents;
@@ -2448,7 +2448,7 @@ jQuery().ready(function($) {
 
 			$html .= ' </div>
 	<span class="icon-nofloat vmicon vmicon-16-xml"></span>&nbsp;';
-			$html .= vmText::_('VMPAYMENT_AMAZON_VIEW_TRANSACTION_LOG');
+			$html .= tsmText::_('VMPAYMENT_AMAZON_VIEW_TRANSACTION_LOG');
 			$html .= '  </a>';
 
 		}
@@ -2482,10 +2482,10 @@ jQuery().ready(function($) {
 			vmdebug('plgVmOnStoreInstallPaymentPluginTable', $method, $virtuemart_paymentmethod_id);
 
 			if (!extension_loaded('curl')) {
-				vmError(vmText::sprintf('VMPAYMENT_AMAZON_CONF_MANDATORY_PHP_EXTENSION', 'curl'));
+				vmError(tsmText::sprintf('VMPAYMENT_AMAZON_CONF_MANDATORY_PHP_EXTENSION', 'curl'));
 			}
 			if (!extension_loaded('openssl')) {
-				vmError(vmText::sprintf('VMPAYMENT_AMAZON_CONF_MANDATORY_PHP_EXTENSION', 'openssl'));
+				vmError(tsmText::sprintf('VMPAYMENT_AMAZON_CONF_MANDATORY_PHP_EXTENSION', 'openssl'));
 			}
 		}
 
@@ -2705,7 +2705,7 @@ jQuery().ready(function($) {
 			//vmInfo('VMPAYMENT_AMAZON_PAYMENT_NOT_AVAILABLE');
 
 			//$this->unsetCartLayoutAndPaymentMethod($cart);
-			$this->leaveAmazonCheckout(vmText::_('VMPAYMENT_AMAZON_PAYMENT_NOT_AVAILABLE'));
+			$this->leaveAmazonCheckout(tsmText::_('VMPAYMENT_AMAZON_PAYMENT_NOT_AVAILABLE'));
 			return FALSE;
 		}
 		$layout = $cart->layout;
@@ -2740,7 +2740,7 @@ jQuery().ready(function($) {
 		}
 		static $enqueueMessageDone = false;
 		if (!$enqueueMessageDone) {
-			JFactory::getApplication()->enqueueMessage(vmText::_('VMPAYMENT_AMAZON_CLICK_SHOULD_LOGIN_AGAIN'));
+			JFactory::getApplication()->enqueueMessage(tsmText::_('VMPAYMENT_AMAZON_CLICK_SHOULD_LOGIN_AGAIN'));
 			$enqueueMessageDone = true;
 		}
 
@@ -2889,7 +2889,7 @@ jQuery().ready(function($) {
 		$physicalDestination = $this->getPhysicalDestination();
 		if (!$physicalDestination) {
 			$return['error'] = 'NoPhysicalDestination';
-			$return['error_msg'] = vmText::_('VMPAYMENT_AMAZON_UPDATECART_ERROR');
+			$return['error_msg'] = tsmText::_('VMPAYMENT_AMAZON_UPDATECART_ERROR');
 			return $return;
 		}
 
@@ -2901,7 +2901,7 @@ jQuery().ready(function($) {
 			$cart->BT['virtuemart_country_id'] = 0;
 			$cart->setCartIntoSession();
 			$return['error'] = 'deliveryCountryNotAllowed';
-			$return['error_msg'] = vmText::sprintf('VMPAYMENT_AMAZON_UPDATECART_DELIVERYCOUNTRYNOTALLOWED', $country);
+			$return['error_msg'] = tsmText::sprintf('VMPAYMENT_AMAZON_UPDATECART_DELIVERYCOUNTRYNOTALLOWED', $country);
 			return $return;
 
 		}
@@ -2959,7 +2959,7 @@ jQuery().ready(function($) {
 			return FALSE;
 		}
 		$virtuemart_vendor_id = 1;
-		$vendorModel = VmModel::getModel('vendor');
+		$vendorModel = tmsModel::getModel('vendor');
 		$vendorModel->setId($virtuemart_vendor_id);
 		$vendorFields = $vendorModel->getVendorAddressFields($virtuemart_vendor_id);
 		$skips = array('name', 'username', 'agreed');
@@ -3090,7 +3090,7 @@ jQuery().ready(function($) {
 			$this->debugLog('Received a ' . $notificationClass . ' with order number ' . $order_number . ' but no order in DB with that number', $notificationClass, 'error');
 			return true;
 		}
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 
 
@@ -3188,7 +3188,7 @@ jQuery().ready(function($) {
 			$closeAuthorizationRequest = new OffAmazonPaymentsService_Model_CloseAuthorizationRequest();
 			$closeAuthorizationRequest->setSellerId($this->_currentMethod->sellerId);
 			$closeAuthorizationRequest->setAmazonAuthorizationId($amazonAuthorizationId);
-			$closeAuthorizationRequest->setClosureReason(vmText::_($closeReason));
+			$closeAuthorizationRequest->setClosureReason(tsmText::_($closeReason));
 			$closeAuthorizationResponse = $client->closeAuthorization($closeAuthorizationRequest);
 
 		} catch (Exception $e) {

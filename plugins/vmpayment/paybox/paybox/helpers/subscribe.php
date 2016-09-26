@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -29,12 +29,12 @@ class PayboxHelperPayboxSubscribe extends PayboxHelperPaybox {
 
 	function getOrderHistory ($paybox_data, $order, $payments) {
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total, $order['details']['BT']->order_currency);
-		$order_history['comments'] = vmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
+		$order_history['comments'] = tsmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING', $amountInCurrency['display'], $order['details']['BT']->order_number);
 
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($paybox_data['M'] * 0.01, $order['details']['BT']->order_currency);
-		$order_history['comments'] .= "<br />" . vmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
+		$order_history['comments'] .= "<br />" . tsmText::sprintf('VMPAYMENT_'.$this->plugin_name.'_PAYMENT_STATUS_CONFIRMED_RECURRING_2', $amountInCurrency['display']);
 
-		$order_history['comments'] .= "<br />" . vmText::_('VMPAYMENT_'.$this->plugin_name.'_RESPONSE_S') . ' ' . $paybox_data['S'];
+		$order_history['comments'] .= "<br />" . tsmText::_('VMPAYMENT_'.$this->plugin_name.'_RESPONSE_S') . ' ' . $paybox_data['S'];
 		$subscribe_comment = '';
 
 		$order_history['customer_notified'] = true;
@@ -189,7 +189,7 @@ class PayboxHelperPayboxSubscribe extends PayboxHelperPaybox {
 	function getProdCustomFields ($virtuemart_product_id) {
 		$product = new stdClass();
 		$product->virtuemart_product_id = $virtuemart_product_id;
-		$customfields = VmModel::getModel('Customfields');
+		$customfields = tmsModel::getModel('Customfields');
 		$product_customfields = $customfields->getProductCustomsField($product);
 		return $product_customfields;
 	}

@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -58,11 +58,11 @@ class PaypalHelperPayPalExp extends PaypalHelperPaypal {
 			$this->merchant_email = trim($this->_method->paypal_merchant_email);
 		}
 		if ((!$this->ExpCredentialsValid() OR !$this->isAacceleratedOnboardingValid())) {
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_CREDENTIALS_NOT_SET', $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text, $text);
 		}
 		if (empty ($this->_method->expected_maxamount)) {
-			$text = vmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', vmText::_('VMPAYMENT_PAYPAL_EXPECTEDMAXAMOUNT'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
+			$text = tsmText::sprintf('VMPAYMENT_PAYPAL_PARAMETER_REQUIRED', tsmText::_('VMPAYMENT_PAYPAL_EXPECTEDMAXAMOUNT'), $this->_method->payment_name, $this->_method->virtuemart_paymentmethod_id);
 			vmError($text, $text);
 		}
 
@@ -189,7 +189,7 @@ class PaypalHelperPayPalExp extends PaypalHelperPaypal {
 
 		// Handling Coupon (handling must be positive value, add then coupon as a product with negative value
 		if (!empty($this->cart->cartPrices['salesPriceCoupon'])) {
-			$post_variables["L_PAYMENTREQUEST_0_NAME" . $i] = vmText::_('COM_VIRTUEMART_COUPON_DISCOUNT') . ': ' . $this->cart->couponCode;
+			$post_variables["L_PAYMENTREQUEST_0_NAME" . $i] = tsmText::_('COM_VIRTUEMART_COUPON_DISCOUNT') . ': ' . $this->cart->couponCode;
 			$post_variables["L_PAYMENTREQUEST_0_AMT" . $i] = vmPSPlugin::getAmountValueInCurrency($this->cart->cartPrices['salesPriceCoupon'], $this->_method->payment_currency);
 			$post_variables["L_PAYMENTREQUEST_0_QTY" . $i] = 1;
 			$total += $post_variables["L_PAYMENTREQUEST_0_AMT" . $i] * $post_variables["L_PAYMENTREQUEST_0_QTY" . $i];
@@ -309,7 +309,7 @@ class PaypalHelperPayPalExp extends PaypalHelperPaypal {
 		$post_variables['LOCALECODE'] = $this->getLocaleCode();
 
 		if ($this->_method->headerimg) {
-			//$post_variables['HDRIMG'] = JURI::base()  . 'images/stories/virtuemart/payment/' . $this->_method->headerimg;
+			//$post_variables['HDRIMG'] = JURI::base()  . 'images/stories/tsmart/payment/' . $this->_method->headerimg;
 		}
 		if ($this->_method->bordercolor) {
 			$post_variables['CARTBORDERCOLOR'] = str_replace('#', '', strtoupper($this->_method->bordercolor));

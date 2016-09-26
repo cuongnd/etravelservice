@@ -15,7 +15,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -214,7 +214,7 @@ class  PayboxHelperPaybox {
 			return FALSE;
 		}
 
-		$orderModel = VmModel::getModel('orders');
+		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$paybox_data = $this->unsetNonPayboxData($paybox_data);
 		$success = ($paybox_data['E'] == self::RESPONSE_SUCCESS);
@@ -262,7 +262,7 @@ class  PayboxHelperPaybox {
 		$first = TRUE;
 		$lang = JFactory::getLanguage();
 		foreach ($payments as $payment) {
-			$html .= '<tr class="row1"><td>' . vmText::_('VMPAYMENT_' . $this->plugin_name . '_DATE') . '</td><td align="left">' . $payment->created_on . '</td></tr>';
+			$html .= '<tr class="row1"><td>' . tsmText::_('VMPAYMENT_' . $this->plugin_name . '_DATE') . '</td><td align="left">' . $payment->created_on . '</td></tr>';
 			// Now only the first entry has this data when creating the order
 			if ($first) {
 				$html .= $this->plugin->getHtmlRowBE($this->plugin_name . '_PAYMENT_NAME', $payment->payment_name);
@@ -283,8 +283,8 @@ class  PayboxHelperPaybox {
 					for ($i = 1; $i < $payment->recurring_number; $i++) {
 						$index_mont = "PBX_2MONT" . $i;
 						$index_date = "PBX_DATE" . $i;
-						$text_mont = vmText::_('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_RECURRING_2MONT') . " " . $i;
-						$text_date = vmText::_('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_RECURRING_DATE') . " " . $i;
+						$text_mont = tsmText::_('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_RECURRING_2MONT') . " " . $i;
+						$text_date = tsmText::_('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_RECURRING_DATE') . " " . $i;
 						//$recurring_html .= $this->getHtmlRowBE($text_date, $recurring->$index_date);
 						//$recurring_html .= $this->getHtmlRowBE($text_mont, ($recurring->$index_mont * 0.01) . " " . shopFunctions::getCurrencyByID($payment->payment_currency, 'currency_code_3'));
 						$recurring_html .= $this->plugin->getHtmlRowBE($recurring->$index_date, ($recurring->$index_mont * 0.01) . " " . shopFunctions::getCurrencyByID($payment->payment_currency, 'currency_code_3'));
@@ -314,7 +314,7 @@ class  PayboxHelperPaybox {
 					foreach ($paybox_data as $key => $value) {
 						$langKey = 'VMPAYMENT_' . $prefix . $key;
 						if ($lang->hasKey($langKey)) {
-							$label = vmText::_($langKey);
+							$label = tsmText::_($langKey);
 						} else {
 							$label = $key;
 						}
@@ -323,7 +323,7 @@ class  PayboxHelperPaybox {
 
 					$html .= ' </div>
 	<span class="icon-nofloat vmicon vmicon-16-xml"></span>&nbsp;';
-					$html .= vmText::_('VMPAYMENT_' . $this->plugin_name . '_VIEW_TRANSACTION_LOG');
+					$html .= tsmText::_('VMPAYMENT_' . $this->plugin_name . '_VIEW_TRANSACTION_LOG');
 					$html .= '  </a>';
 					$html .= ' </td></tr>';
 				}
@@ -357,7 +357,7 @@ jQuery().ready(function($) {
 			$html .= '<form action="' . $pbxServer . '" method="post" name="vm_paybox_form" target="paybox">';
 		} else {
 			if (vmconfig::get('css')) {
-				$msg = vmText::_('VMPAYMENT_PAYBOX_REDIRECT_MESSAGE', true);
+				$msg = tsmText::_('VMPAYMENT_PAYBOX_REDIRECT_MESSAGE', true);
 			} else {
 				$msg='';
 			}
@@ -387,7 +387,7 @@ jQuery().ready(function($) {
 			$this->plugin->debugLog($post_variables, 'sendPostRequest:', 'debug');
 
 		}else {
-			$html .= '<input type="submit"  value="' . vmText::_('VMPAYMENT_PAYBOX_REDIRECT_MESSAGE') . '" />';
+			$html .= '<input type="submit"  value="' . tsmText::_('VMPAYMENT_PAYBOX_REDIRECT_MESSAGE') . '" />';
 
 		}
 		$html .= '</form>';
@@ -458,7 +458,7 @@ jQuery().ready(function($) {
 			// only send an error message if the error does not come from PBX_EFFECTUE
 			//$msg .= '            ' . 'sig ' . $sig . '<br />';
 			// we cannot send an error at this stage because may be the signature is not valid from the
-			$this->plugin->debugLog(vmText::_('VMPAYMENT_'.$this->plugin_name.'_ERROR_SIGNATURE_INVALID'),'pbxIsValidSignature', 'error');
+			$this->plugin->debugLog(tsmText::_('VMPAYMENT_'.$this->plugin_name.'_ERROR_SIGNATURE_INVALID'),'pbxIsValidSignature', 'error');
 		}
 		$this->plugin->debugLog('pbxIsValidSignature :' . $pbxIsValidSignature,'checkSignature', 'debug');
 		return $pbxIsValidSignature;
@@ -533,7 +533,7 @@ jQuery().ready(function($) {
 			$order_history = $this->getOrderHistory($paybox_data, $order, $payments);
 
 		} else {
-			$order_history['comments'] = vmText::sprintf('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_STATUS_CANCELLED', $order['details']['BT']->order_number);
+			$order_history['comments'] = tsmText::sprintf('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_STATUS_CANCELLED', $order['details']['BT']->order_number);
 			$order_history['order_status'] = $this->_method->status_canceled;
 			$order_history['customer_notified'] = true;
 		}
@@ -561,7 +561,7 @@ jQuery().ready(function($) {
 
 		$this->plugin->storePSPluginInternalData($db_values);
 
-		$modelOrder = VmModel::getModel('orders');
+		$modelOrder = tmsModel::getModel('orders');
 		$modelOrder->updateStatusForOneOrder($order['details']['BT']->virtuemart_order_id, $order_history, TRUE);
 		return $order_history;
 	}
@@ -642,7 +642,7 @@ jQuery().ready(function($) {
 
 	private function redirectToCart () {
 		$app = JFactory::getApplication();
-		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&lg=&Itemid=' . vRequest::getInt('Itemid'), false), vmText::_('VMPAYMENT_PAYBOX_ERROR_TRY_AGAIN'));
+		$app->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart&lg=&Itemid=' . vRequest::getInt('Itemid'), false), tsmText::_('VMPAYMENT_PAYBOX_ERROR_TRY_AGAIN'));
 	}
 
 	public function getReturnFields () {
@@ -979,8 +979,8 @@ jQuery().ready(function($) {
 
 	function getOrderHistory ($paybox_data, $order, $payments) {
 		$amountInCurrency = vmPSPlugin::getAmountInCurrency($paybox_data['M'] * 0.01, $order['details']['BT']->order_currency);
-		$order_history['comments'] = vmText::sprintf('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
-		$order_history['comments'] .= "<br />" . vmText::_('VMPAYMENT_' . $this->plugin_name . '_RESPONSE_S') . ' ' . $paybox_data['S'];
+		$order_history['comments'] = tsmText::sprintf('VMPAYMENT_' . $this->plugin_name . '_PAYMENT_STATUS_CONFIRMED', $amountInCurrency['display'], $order['details']['BT']->order_number);
+		$order_history['comments'] .= "<br />" . tsmText::_('VMPAYMENT_' . $this->plugin_name . '_RESPONSE_S') . ' ' . $paybox_data['S'];
 
 		$order_history['customer_notified'] = true;
 		$status_success = 'status_success_' . $this->_method->debit_type;
