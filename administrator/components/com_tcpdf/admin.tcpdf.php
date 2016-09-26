@@ -19,11 +19,11 @@
 defined('_JEXEC') or die();
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) {
+if (!class_exists('tsmConfig')) {
 	$path = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php';
 	if(file_exists($path)){
 		require($path);
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 	} else {
 		$app = JFactory::getApplication();
 		$app->enqueueMessage('VirtueMart Core is not installed, please install VirtueMart again, or uninstall the AIO component by the joomla extension manager');
@@ -67,8 +67,8 @@ function confirmation(message, destnUrl) {
 		<tr>
 			<td align="center" colspan="4">
 				<?php
-				VmConfig::loadConfig();
-				VmConfig::loadJLang('com_virtuemart');
+				tsmConfig::loadConfig();
+				tsmConfig::loadJLang('com_virtuemart');
 
 				?>
 				<?php $link = JROUTE::_('index.php?option=com_tsmart_allinone&task=updateDatabase&' . JSession::getFormToken() . '=1'); ?>

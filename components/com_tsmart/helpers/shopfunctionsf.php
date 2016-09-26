@@ -29,7 +29,7 @@ class shopFunctionsF {
 		$show = TRUE;
 
 		if($cart) {
-			$show = VmConfig::get( 'oncheckout_show_register', 1 );
+			$show = tsmConfig::get( 'oncheckout_show_register', 1 );
 		}
 		if($show == 1) {
 
@@ -159,9 +159,9 @@ class shopFunctionsF {
 		$attrs['class'] = 'virtuemart_country_id';
 		$attrs['class'] = 'vm-chzn-select';
 		// Load helpers and  languages files
-		if (!class_exists( 'VmConfig' )) require(JPATH_COMPONENT_ADMINISTRATOR .'/helpers/config.php');
-		VmConfig::loadConfig();
-		VmConfig::loadJLang('com_virtuemart_countries');
+		if (!class_exists('tsmConfig')) require(JPATH_COMPONENT_ADMINISTRATOR .'/helpers/config.php');
+		tsmConfig::loadConfig();
+		tsmConfig::loadJLang('com_virtuemart_countries');
 		vmJsApi::jQuery();
 		vmJsApi::chosenDropDowns();
 
@@ -339,8 +339,8 @@ class shopFunctionsF {
 		array_unshift( $products_ids, $productId );
 		$products_ids = array_unique( $products_ids );
 
-		$recent_products_rows = (int)VmConfig::get('recent_products_rows', 1);
-		$products_per_row = (int)VmConfig::get('homepage_products_per_row',3);
+		$recent_products_rows = (int)tsmConfig::get('recent_products_rows', 1);
+		$products_per_row = (int)tsmConfig::get('homepage_products_per_row',3);
 		$maxSize = (int)$products_per_row * $recent_products_rows;
 		if(count( $products_ids )>$maxSize) {
 			array_splice( $products_ids, $maxSize );
@@ -540,7 +540,7 @@ class shopFunctionsF {
 				$user = self::sendVmMail( $view, $recipient, $noVendorMail );
 				vmdebug('renderMail by overwrite');
 			} else {
-				$orderstatusForShopperEmail = VmConfig::get('email_os_s',array('U','C','S','R','X'));
+				$orderstatusForShopperEmail = tsmConfig::get('email_os_s',array('U','C','S','R','X'));
 				if(!is_array($orderstatusForShopperEmail)) $orderstatusForShopperEmail = array($orderstatusForShopperEmail);
 				if ( in_array((string) $vars['orderDetails']['details']['BT']->order_status,$orderstatusForShopperEmail) ){
 					$user = self::sendVmMail( $view, $recipient, $noVendorMail );
@@ -556,7 +556,7 @@ class shopFunctionsF {
 		if(isset($view->doVendor) && !$noVendorMail) {
 			if(isset($vars['orderDetails'])){
 				$order = $vars['orderDetails'];
-				$orderstatusForVendorEmail = VmConfig::get('email_os_v',array('U','C','R','X'));
+				$orderstatusForVendorEmail = tsmConfig::get('email_os_v',array('U','C','R','X'));
 				if(!is_array($orderstatusForVendorEmail)) $orderstatusForVendorEmail = array($orderstatusForVendorEmail);
 				if ( in_array((string)$order['details']['BT']->order_status,$orderstatusForVendorEmail)){
 					self::sendVmMail( $view, $view->vendorEmail, TRUE );
@@ -609,17 +609,17 @@ class shopFunctionsF {
 
 	private static function sendVmMail (&$view, $recipient, $noVendorMail = FALSE) {
 
-		VmConfig::ensureMemoryLimit(96);
+		tsmConfig::ensureMemoryLimit(96);
 
-		VmConfig::loadJLang('com_virtuemart',true);
+		tsmConfig::loadJLang('com_virtuemart',true);
 
 		if($noVendorMail and !empty($view->orderDetails) and !empty($view->orderDetails['details']['BT']->order_language)) {
-			VmConfig::loadJLang('com_virtuemart',true,$view->orderDetails['details']['BT']->order_language);
-			VmConfig::loadJLang('com_virtuemart_shoppers',TRUE,$view->orderDetails['details']['BT']->order_language);
-			VmConfig::loadJLang('com_virtuemart_orders',TRUE,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart',true,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart_orders',TRUE,$view->orderDetails['details']['BT']->order_language);
 		} else {
-			VmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
-			VmConfig::loadJLang('com_virtuemart_orders',TRUE);
+			tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+			tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
 		}
 
 		ob_start();
@@ -632,7 +632,7 @@ class shopFunctionsF {
 		$mailer = JFactory::getMailer();
 		$mailer->addRecipient( $recipient );
 		$mailer->setSubject(  html_entity_decode( $subject , ENT_QUOTES, 'UTF-8') );
-		$mailer->isHTML( VmConfig::get( 'order_mail_html', TRUE ) );
+		$mailer->isHTML( tsmConfig::get( 'order_mail_html', TRUE ) );
 		$mailer->setBody( $body );
 
 		if(!$noVendorMail) {
@@ -664,7 +664,7 @@ class shopFunctionsF {
 
 		// set proper sender
 		$sender = array();
-		if(!empty($view->vendorEmail) and VmConfig::get( 'useVendorEmail', 0 )) {
+		if(!empty($view->vendorEmail) and tsmConfig::get( 'useVendorEmail', 0 )) {
 			$sender[0] = $view->vendorEmail;
 			$sender[1] = $view->vendor->vendor_name;
 		} else {

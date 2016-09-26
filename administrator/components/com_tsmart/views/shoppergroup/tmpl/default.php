@@ -43,7 +43,7 @@ AdminUIHelper::startAdminArea($this);
 			<th width="30px" >
 				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
-			<?php if((Vmconfig::get('multix','none')!='none') && $this->showVendors){ ?>
+			<?php if((tsmConfig::get('multix','none')!='none') && $this->showVendors){ ?>
 			<th>
 				<?php echo tsmText::_('com_tsmart_VENDOR'); ?>
 			</th>
@@ -91,7 +91,7 @@ AdminUIHelper::startAdminArea($this);
 			<td align="center">
 				<?php echo $published; ?>
 			</td>
-			<?php if((Vmconfig::get('multix','none')!='none') && $this->showVendors){ ?>
+			<?php if((tsmConfig::get('multix','none')!='none') && $this->showVendors){ ?>
 			<td align="left">
 				<?php echo $row->tsmart_vendor_id; ?>
 			</td>

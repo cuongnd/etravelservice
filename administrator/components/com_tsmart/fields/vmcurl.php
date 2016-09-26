@@ -30,8 +30,8 @@ class JFormFieldVmCurl extends JFormField {
 	 */
 	protected function getInput() {
 
-		VmConfig::loadConfig();
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadConfig();
+		tsmConfig::loadJLang('com_tsmart');
 
 		$option = vRequest::getCmd('option');
 		if (!function_exists('curl_init') or !function_exists('curl_exec')) {

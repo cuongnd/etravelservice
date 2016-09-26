@@ -43,7 +43,7 @@ $departure->sale_promotion_price_extra_bed=100;*/
 
 
 
-$passenger_config=VmConfig::get_passenger_config();
+$passenger_config=tsmConfig::get_passenger_config();
 
 ?>
 <div class="view-bookprivategroup-default">
@@ -91,7 +91,7 @@ $passenger_config=VmConfig::get_passenger_config();
                                         </div>
                                         <div class="span2 price ">
                                                     <span class="price"
-                                                          data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
+                                                          data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
                                         </div>
                                         <div class="span4 service-class-price hide">
                                             <?php echo JText::_('Deluxe class price') ?>
@@ -112,35 +112,35 @@ $passenger_config=VmConfig::get_passenger_config();
                                         <div class="span2">
                                             <ul class="dl-ve">
                                                 <li><?php echo JText::_('Senior') ?>:<span class="price"
-                                                                                           data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_senior) ?></span>
+                                                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_senior) ?></span>
                                                     <?php if($privategrouptrip->sale_promotion_price_senior): ?><span class="price"
-                                                                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_senior) ?></span><?php endif ?>
+                                                                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_senior) ?></span><?php endif ?>
                                                 </li>
                                                 <li><?php echo JText::_('Adult') ?>:<span class="price"
-                                                                                          data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
+                                                                                          data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
                                                     <?php if($privategrouptrip->sale_promotion_price_adult): ?><span
                                                         class="price"
-                                                        data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_adult) ?></span><?php endif ?>
+                                                        data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_adult) ?></span><?php endif ?>
                                                 </li>
                                                 <li><?php echo JText::_('Teener') ?>:<span class="price"
-                                                                                           data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_teen) ?></span><?php if($privategrouptrip->sale_promotion_price_teen): ?><span
+                                                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_teen) ?></span><?php if($privategrouptrip->sale_promotion_price_teen): ?><span
                                                         class="price"
-                                                        data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_teen) ?></span><?php endif ?>
+                                                        data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_teen) ?></span><?php endif ?>
                                                 </li>
                                                 <li><?php echo JText::_('Child 6-11') ?>:<span class="price"
-                                                                                               data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_children1) ?></span><?php if($privategrouptrip->sale_promotion_price_children1): ?><span
+                                                                                               data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_children1) ?></span><?php if($privategrouptrip->sale_promotion_price_children1): ?><span
                                                         class="price"
-                                                        data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_children1) ?></span><?php endif ?>
+                                                        data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_children1) ?></span><?php endif ?>
                                                 </li>
                                                 <li><?php echo JText::_('Child 2-5') ?>:<span class="price"
-                                                                                              data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_children2) ?></span><?php if($privategrouptrip->sale_promotion_price_children2): ?><span
+                                                                                              data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_children2) ?></span><?php if($privategrouptrip->sale_promotion_price_children2): ?><span
                                                         class="price"
-                                                        data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_children2) ?></span><?php endif ?>
+                                                        data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_children2) ?></span><?php endif ?>
                                                 </li>
                                                 <li><?php echo JText::_('Infant') ?>:<span class="price"
-                                                                                           data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_price_infant) ?></span><?php if($privategrouptrip->sale_promotion_price_infant): ?><span
+                                                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_infant) ?></span><?php if($privategrouptrip->sale_promotion_price_infant): ?><span
                                                         class="price"
-                                                        data-a-sign="US$"><?php echo VmConfig::render_price($privategrouptrip->sale_promotion_price_infant) ?></span><?php endif ?>
+                                                        data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_infant) ?></span><?php endif ?>
                                                 </li>
                                             </ul>
 

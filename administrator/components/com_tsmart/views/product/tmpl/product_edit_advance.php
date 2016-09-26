@@ -127,7 +127,7 @@ $i = 0;
             <td>
                 <?php echo $this->shoppergroupList; ?>
             </td>
-            <?php if (Vmconfig::get('multix', 'none') !== 'none') { ?>
+            <?php if (tsmConfig::get('multix', 'none') !== 'none') { ?>
                 <td>
                     <?php echo tsmText::_('com_tsmart_VENDOR') ?>
                 </td>

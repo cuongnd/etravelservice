@@ -377,7 +377,7 @@ class TsmController extends JControllerLegacy{
 		if (!$model->saveorder($cid, $order)) {
 			$msg = 'error';
 		} else {
-			if(JFactory::getApplication()->isAdmin() and VmConfig::showDebug()){
+			if(JFactory::getApplication()->isAdmin() and tsmConfig::showDebug()){
 				$msg = tsmText::sprintf('com_tsmart_NEW_ORDERING_SAVEDF',$this->mainLangKey);
 			} else {
 				$msg = tsmText::sprintf('com_tsmart_NEW_ORDERING_SAVED');

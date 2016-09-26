@@ -80,11 +80,11 @@ class tsmartModelRatings extends tmsModel {
      */
     public function getRatings() {
 
-     	$tables = ' FROM `#__tsmart_ratings` AS `r` JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `pr`
+     	$tables = ' FROM `#__tsmart_ratings` AS `r` JOIN `#__tsmart_products_'.tsmConfig::$vmlang.'` AS `pr`
      			USING (`tsmart_product_id`) ';
 
 		$whereString = '';
-		if(VmConfig::get('multix','none')!='none'){
+		if(tsmConfig::get('multix','none')!='none'){
 			$tables .= ' LEFT JOIN  `#__tsmart_products` as p USING (`tsmart_product_id`)';
 			$tsmart_vendor_id = vmAccess::getVendorId();
 			if(!empty($tsmart_vendor_id)){
@@ -147,14 +147,14 @@ class tsmartModelRatings extends tmsModel {
 		    return NULL;
 	    }
 		static $reviews = array();
-		$hash = VmConfig::$vmlang.$tsmart_product_id.$this->_selectedOrderingDir.$this->_selectedOrdering;
+		$hash = tsmConfig::$vmlang.$tsmart_product_id.$this->_selectedOrderingDir.$this->_selectedOrdering;
 		if(!isset($reviews[$hash])){
 			$vendorId = '';
 
 			$select = '`u`.*,`pr`.*,`l`.`product_name`,`rv`.`vote`, `u`.`name` AS customer, `pr`.`published`';
 			$tables = ' FROM `#__tsmart_rating_reviews` AS `pr`
 		LEFT JOIN `#__users` AS `u`	ON `pr`.`created_by` = `u`.`id`
-		LEFT JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `l` ON `l`.`tsmart_product_id` = `pr`.`tsmart_product_id` ';
+		LEFT JOIN `#__tsmart_products_'.tsmConfig::$vmlang.'` AS `l` ON `l`.`tsmart_product_id` = `pr`.`tsmart_product_id` ';
 			if(!empty($tsmart_vendor_id)){
 				$tables .= 'LEFT JOIN `#__tsmart_products` AS `p` ON `p`.`tsmart_product_id` = `pr`.`tsmart_product_id` ';
 			}
@@ -182,7 +182,7 @@ class tsmartModelRatings extends tmsModel {
        	$q = 'SELECT `u`.*,`pr`.*,`p`.`product_name`,`rv`.`vote`,CONCAT_WS(" ",`u`.`title`,u.`last_name`,`u`.`first_name`) as customer FROM `#__tsmart_rating_reviews` AS `pr`
 		LEFT JOIN `#__tsmart_userinfos` AS `u`
      	ON `pr`.`created_by` = `u`.`tsmart_user_id`
-		LEFT JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `p`
+		LEFT JOIN `#__tsmart_products_'.tsmConfig::$vmlang.'` AS `p`
      	ON `p`.`tsmart_product_id` = `pr`.`tsmart_product_id`
 		LEFT JOIN `#__tsmart_rating_votes` as `rv` on `rv`.`tsmart_product_id`=`pr`.`tsmart_product_id` and `rv`.`created_by`=`pr`.`created_by`
       WHERE tsmart_rating_review_id="'.(int)$cids[0].'" ' ;
@@ -279,7 +279,7 @@ class tsmartModelRatings extends tmsModel {
     public function saveRating($data=0) {
 
 		//Check user_rating
-		$maxrating = VmConfig::get('vm_maximum_rating_scale',5);
+		$maxrating = tsmConfig::get('vm_maximum_rating_scale',5);
 		$tsmart_product_id = vRequest::getInt('tsmart_product_id',0);
 
 		$app = JFactory::getApplication();
@@ -360,7 +360,7 @@ class tsmartModelRatings extends tmsModel {
 
 			if($allowReview and !empty($data['comment'])){
 				//if(!empty($data['comment'])){
-				$data['comment'] = substr($data['comment'], 0, VmConfig::get('vm_reviews_maximum_comment_length', 2000)) ;
+				$data['comment'] = substr($data['comment'], 0, tsmConfig::get('vm_reviews_maximum_comment_length', 2000)) ;
 
 				// no HTML TAGS but permit all alphabet
 				$value =	preg_replace('@<[\/\!]*?[^<>]*?>@si','',$data['comment']);//remove all html tags
@@ -377,7 +377,7 @@ class tsmartModelRatings extends tmsModel {
 				$app = JFactory::getApplication();
 				if( $app->isSite() ){
 
-					if (VmConfig::get ('reviews_autopublish', 1)) {
+					if (tsmConfig::get ('reviews_autopublish', 1)) {
 						$data['published'] = 1;
 					} else {
 						$model = new tmsModel();
@@ -484,19 +484,19 @@ class tsmartModelRatings extends tmsModel {
 
 	public function showReview($product_id){
 
-		return $this->show($product_id, VmConfig::get('showReviewFor','all'));
+		return $this->show($product_id, tsmConfig::get('showReviewFor','all'));
 	}
 
 	public function showRating($product_id = 0){
-		return $this->show($product_id, VmConfig::get('showRatingFor','all'));
+		return $this->show($product_id, tsmConfig::get('showRatingFor','all'));
 	}
 
 	public function allowReview($product_id){
-		return $this->show($product_id, VmConfig::get('reviewMode','bought'));
+		return $this->show($product_id, tsmConfig::get('reviewMode','bought'));
 	}
 
 	public function allowRating($product_id){
-		return $this->show($product_id, VmConfig::get('ratingMode','bought'));
+		return $this->show($product_id, tsmConfig::get('ratingMode','bought'));
 	}
 
 	/**
@@ -548,7 +548,7 @@ class tsmartModelRatings extends tmsModel {
 						if(!$count){
 							$user = JFactory::getUser ();
 
-							$rr_os=VmConfig::get('rr_os',array('C'));
+							$rr_os=tsmConfig::get('rr_os',array('C'));
 							if(!is_array($rr_os)) $rr_os = array($rr_os);
 
 							$db = JFactory::getDBO ();

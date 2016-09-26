@@ -5,7 +5,7 @@ defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 if (!class_exists('ShopFunctions'))
 require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 
@@ -41,7 +41,7 @@ class JFormFieldProduct extends JFormField
 
 		$key = ($this->element['key_field'] ? $this->element['key_field'] : 'value');
 		$val = ($this->element['value_field'] ? $this->element['value_field'] : $this->name);
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 		return JHtml::_('select.genericlist',  $this->_getProducts(), $this->name, 'class="inputbox"   ', 'value', 'text', $this->value, $this->id);
 	}
 	private function _getProducts() {

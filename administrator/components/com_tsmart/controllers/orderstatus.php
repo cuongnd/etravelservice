@@ -40,7 +40,7 @@ class TsmartControllerOrderstatus extends TsmController {
 	function __construct()
 	{
 		parent::__construct();
-		VmConfig::loadJLang('com_tsmart_orders',TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 	}
 
 

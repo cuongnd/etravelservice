@@ -59,7 +59,7 @@ class TsmartControllerTranslate extends TsmController {
 		}
 
 		$lang = vRequest::getvar('lg');
-		$langs = VmConfig::get('active_languages',array()) ;
+		$langs = tsmConfig::get('active_languages',array()) ;
 		$language=JFactory::getLanguage();
 
 		if (!in_array($lang, $langs) ) {
@@ -73,7 +73,7 @@ class TsmartControllerTranslate extends TsmController {
 		// if ($language->getDefault() == $lang ) $dblang ='';
 
 		$dblang= strtr($lang,'-','_');
-		VmConfig::$vmlang = $dblang;
+		tsmConfig::$vmlang = $dblang;
 		$id = vRequest::getInt('id',0);
 
 		$viewKey = vRequest::getCmd('editView');

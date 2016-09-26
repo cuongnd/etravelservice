@@ -123,7 +123,7 @@ class tsmartModelpromotion extends tmsModel
             ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_promotion_price.tsmart_product_id')
             ->innerJoin('#__tsmart_tour_type AS tour_type ON tour_type.tsmart_tour_type_id=products.tsmart_tour_type_id')
             ->select('tour_type.title AS tour_type_name')
-            ->leftJoin('#__tsmart_products_'.VmConfig::$vmlang.' AS language_products ON language_products.tsmart_product_id=products.tsmart_product_id')
+            ->leftJoin('#__tsmart_products_'.tsmConfig::$vmlang.' AS language_products ON language_products.tsmart_product_id=products.tsmart_product_id')
             ;
         if($tsmart_product_id)
         {
@@ -139,7 +139,7 @@ class tsmartModelpromotion extends tmsModel
 
         static $currencies = array();
         if ($vendorId === 0) {
-            $multix = Vmconfig::get('multix', 'none');
+            $multix = tsmConfig::get('multix', 'none');
             if (strpos($multix, 'payment') !== FALSE) {
                 if (!class_exists('tsmartModelVendor'))
                     require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');

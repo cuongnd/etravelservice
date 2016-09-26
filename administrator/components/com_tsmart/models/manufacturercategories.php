@@ -87,7 +87,7 @@ class tsmartModelManufacturercategories extends tmsModel {
 	function getManufacturerCategories($onlyPublished=false, $noLimit=false)
 	{
 		$this->_noLimit = $noLimit;
-		$select = '* FROM `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'` as l';
+		$select = '* FROM `#__tsmart_manufacturercategories_'.tsmConfig::$vmlang.'` as l';
 		$joinedTables = ' JOIN `#__tsmart_manufacturercategories` as mc using (`tsmart_manufacturercategories_id`)';
 		$where = array();
 		if ($onlyPublished) {
@@ -115,7 +115,7 @@ class tsmartModelManufacturercategories extends tmsModel {
 	function getCategoryFilter(){
 		$db = JFactory::getDBO();
 		$query = 'SELECT `tsmart_manufacturercategories_id` as `value`, `mf_category_name` as text'
-				.' FROM `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'`';
+				.' FROM `#__tsmart_manufacturercategories_'.tsmConfig::$vmlang.'`';
 		$db->setQuery($query);
 
 		$categoryFilter[] = JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER_CATEGORY') .' -' );

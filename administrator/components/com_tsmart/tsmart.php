@@ -19,8 +19,8 @@ $doc=JFactory::getDocument();
 JHtml::_('jquery.framework');
 $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
-VmConfig::loadConfig();
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+tsmConfig::loadConfig();
 
 if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 if (!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
@@ -30,7 +30,7 @@ vmSetStartTime('Start');
 
 $_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
-VmConfig::loadJLang('com_tsmart');
+tsmConfig::loadJLang('com_tsmart');
 
 
 // Require specific controller if requested

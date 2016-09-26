@@ -54,7 +54,7 @@ $departure->sale_promotion_price_extra_bed=100;*/
 
 
 
-$passenger_config=VmConfig::get_passenger_config();
+$passenger_config=tsmConfig::get_passenger_config();
 
 ?>
 <div class="view-bookprivategroupsumary-default">

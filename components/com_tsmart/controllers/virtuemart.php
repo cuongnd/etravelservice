@@ -32,7 +32,7 @@ class VirtueMartControllerVirtuemart extends JControllerLegacy
 
 	function __construct() {
 		parent::__construct();
-		if (VmConfig::get('shop_is_offline') == '1') {
+		if (tsmConfig::get('shop_is_offline') == '1') {
 		    vRequest::setVar( 'layout', 'off_line' );
 	    }
 	    else {

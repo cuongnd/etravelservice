@@ -30,7 +30,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		$doc = JFactory::getDocument ();
 
-		$show_prices = VmConfig::get ('show_prices', 1);
+		$show_prices = tsmConfig::get ('show_prices', 1);
 		if ($show_prices == '1') {
 			if (!class_exists ('calculationHelper')) {
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
@@ -40,28 +40,28 @@ class VirtueMartViewVirtueMart extends VmView {
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 		$productModel = tmsModel::getModel ('product');
-		$feed_show_prices = VmConfig::get ('feed_home_show_prices', 0);
-		$feed_show_images = VmConfig::get ('feed_home_show_images', 0);
-		$feed_show_description = VmConfig::get ('feed_home_show_description', 0);
-		$feed_description_type = VmConfig::get ('feed_home_description_type', 'product_s_desc');
-		$feed_max_text_length = VmConfig::get ('feed_home_max_text_length', 0);
+		$feed_show_prices = tsmConfig::get ('feed_home_show_prices', 0);
+		$feed_show_images = tsmConfig::get ('feed_home_show_images', 0);
+		$feed_show_description = tsmConfig::get ('feed_home_show_description', 0);
+		$feed_description_type = tsmConfig::get ('feed_home_description_type', 'product_s_desc');
+		$feed_max_text_length = tsmConfig::get ('feed_home_max_text_length', 0);
 		$products = array();
 		$featured = array();
 		$latest = array();
 		$topten = array();
 
-		if (VmConfig::get ('feed_featured_published', 1)) {
-			$featured_nb = VmConfig::get('feed_featured_nb',3);
+		if (tsmConfig::get ('feed_featured_published', 1)) {
+			$featured_nb = tsmConfig::get('feed_featured_nb',3);
 			$featured = $productModel->getProductListing ('featured', $featured_nb);
 		}
 
-		if (VmConfig::get ('feed_latest_published', 1)) {
-			$latest_nb = VmConfig::get('feed_latest_nb',3);
+		if (tsmConfig::get ('feed_latest_published', 1)) {
+			$latest_nb = tsmConfig::get('feed_latest_nb',3);
 			$latest = $productModel->getProductListing ('latest', $latest_nb);
 		}
 
-		if ( VmConfig::get ('feed_topten_published', 1)) {
-			$topTen_nb = VmConfig::get('feed_topten_nb',3);
+		if ( tsmConfig::get ('feed_topten_published', 1)) {
+			$topTen_nb = tsmConfig::get('feed_topten_nb',3);
 			$topten = $productModel->getProductListing ('topten',$topTen_nb);
 		}
 

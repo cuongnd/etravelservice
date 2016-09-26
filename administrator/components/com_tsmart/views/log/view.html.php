@@ -42,7 +42,7 @@ class TsmartViewLog extends tsmViewAdmin {
 		$config = JFactory::getConfig();
 		$log_path = $config->get('log_path', VMPATH_ROOT . "/log");
 		$layoutName = vRequest::getCmd('layout', 'default');
-		VmConfig::loadJLang('com_tsmart_log');
+		tsmConfig::loadJLang('com_tsmart_log');
 
 		if ($layoutName == 'edit') {
 			$logFile = basename(vRequest::filterPath(vRequest::getString('logfile', '')));

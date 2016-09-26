@@ -904,9 +904,9 @@ class tmsModel extends JModelList{
 		$limit = (int)$app->getUserStateFromRequest('com_tsmart.'.$view.'.limit', 'limit');
 		if(empty($limit)){
 			if($app->isSite()){
-				$limit = VmConfig::get ('llimit_init_FE',24);
+				$limit = tsmConfig::get ('llimit_init_FE',24);
 			} else {
-				$limit = VmConfig::get ('llimit_init_BE',30);
+				$limit = tsmConfig::get ('llimit_init_BE',30);
 			}
 			if(empty($limit)){
 				$limit = 30;

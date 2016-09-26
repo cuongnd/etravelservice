@@ -156,9 +156,9 @@ $doc->addScriptDeclaration($js_content);
                                                 </div>
                                                 <div class="span2 price ">
                                                     <span class="price"
-                                                          data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_price_adult) ?></span>
+                                                          data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_price_adult) ?></span>
                                                     <span class="price"
-                                                          data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
+                                                          data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
                                                 </div>
                                                 <div class="span4 service-class-price hide">
                                                     <?php echo $trip->service_class_name ?><?php echo JText::_('class price') ?>
@@ -204,34 +204,34 @@ $doc->addScriptDeclaration($js_content);
                                                 <div class="span2">
                                                     <ul class="list">
                                                         <li><?php echo JText::_('Senior') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_senior); ?></span>
+                                                                                                   data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_senior); ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_senior) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_senior) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Adult') ?>:<span class="price"
-                                                                                                  data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_adult) ?></span>
+                                                                                                  data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_adult) ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Teener') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_teen) ?></span>
+                                                                                                   data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_teen) ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_teen) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_teen) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Child 6-11') ?>:<span class="price"
-                                                                                                       data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_children1) ?></span>
+                                                                                                       data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_children1) ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_children1) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_children1) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Child 2-5') ?>:<span class="price"
-                                                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_children2) ?></span>
+                                                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_children2) ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_children2) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_children2) ?></span>
                                                         </li>
                                                         <li><?php echo JText::_('Infant') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo VmConfig::render_price($trip->price_infant) ?></span>
+                                                                                                   data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_infant) ?></span>
                                                                 <span class="price"
-                                                                      data-a-sign="US$"><?php echo VmConfig::render_price($trip->sale_promotion_price_infant) ?></span>
+                                                                      data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_infant) ?></span>
                                                         </li>
                                                     </ul>
 
@@ -242,7 +242,7 @@ $doc->addScriptDeclaration($js_content);
                                                             <?php echo JText::_('total price per person based on passenger age and tour date') ?>
                                                         </div>
                                                         <div class="span6 text-right" style="text-align: center">
-                                                            <?php echo JText::sprintf('Select private room+US$ %s/person', '<span class="price" data-a-sign="US$">' . VmConfig::render_price($trip->price_extra_bed) . '</span><span class="price" data-a-sign="US$">' . VmConfig::render_price($trip->sale_promotion_price_extra_bed) . '</span>') ?>
+                                                            <?php echo JText::sprintf('Select private room+US$ %s/person', '<span class="price" data-a-sign="US$">' . tsmConfig::render_price($trip->price_extra_bed) . '</span><span class="price" data-a-sign="US$">' . tsmConfig::render_price($trip->sale_promotion_price_extra_bed) . '</span>') ?>
                                                         </div>
                                                     </div>
                                                     <div class="row-fluid area-button">

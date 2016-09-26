@@ -3,7 +3,7 @@
 $product = $viewData['product'];
 
 if ($viewData['showRating']) {
-	$maxrating = VmConfig::get('vm_maximum_rating_scale', 5);
+	$maxrating = tsmConfig::get('vm_maximum_rating_scale', 5);
 	if (empty($product->rating)) {
 	?>
 		<div class="ratingbox dummy" title="<?php echo tsmText::_('COM_VIRTUEMART_UNRATED'); ?>" >

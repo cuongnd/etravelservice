@@ -335,7 +335,7 @@ class tsmartModelReport extends tmsModel {
 			$where[] = 'i.tsmart_product_id = "' . $tsmart_product_id . '" ';
 		}
 
-		if (VmConfig::get ('multix', 'none') != 'none') {
+		if (tsmConfig::get ('multix', 'none') != 'none') {
 			if ($vendorId != 0) {
 				$where[] = 'i.tsmart_vendor_id = "' . $vendorId . '" ';
 			}

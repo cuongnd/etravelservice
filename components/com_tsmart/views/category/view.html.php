@@ -34,7 +34,7 @@ class VirtuemartViewCategory extends VmView {
 
 	public function display($tpl = null) {
 
-		$show_prices  = VmConfig::get('show_prices',1);
+		$show_prices  = tsmConfig::get('show_prices',1);
 		if($show_prices == '1'){
 			if(!class_exists('calculationHelper')) require(VMPATH_ADMIN.DS.'helpers'.DS.'calculationh.php');
 		}
@@ -119,7 +119,7 @@ class VirtuemartViewCategory extends VmView {
 				// Load the products in the given category
 				$this->products = $productModel->getItemList ();
 				//$products = $productModel->getProductsInCategory($this->categoryId);
-				$productModel->addImages($this->products, VmConfig::get('prodimg_browse',1) );
+				$productModel->addImages($this->products, tsmConfig::get('prodimg_browse',1) );
 
 
 
@@ -150,7 +150,7 @@ class VirtuemartViewCategory extends VmView {
 					}
 				}
 
-			    if (VmConfig::get('handle_404',1)) {
+			    if (tsmConfig::get('handle_404',1)) {
 					$app->redirect(JRoute::_('index.php?option=com_virtuemart' . $categoryLink . '&error=404', FALSE));
 				} else {
 					JError::raise(E_ERROR,'404','Not found');
@@ -182,7 +182,7 @@ class VirtuemartViewCategory extends VmView {
 				$category->children = false;
 			}
 
-			if (VmConfig::get('enable_content_plugin', 0)) {
+			if (tsmConfig::get('enable_content_plugin', 0)) {
 				shopFunctionsF::triggerContentPlugin($category, 'category','category_description');
 			}
 
@@ -202,7 +202,7 @@ class VirtuemartViewCategory extends VmView {
 			}
 
 			if(empty($category->category_template)){
-				$category->category_template = VmConfig::get('categorytemplate');
+				$category->category_template = tsmConfig::get('categorytemplate');
 			}
 
 			if(!empty($menu->query['categorylayout'])){
@@ -210,7 +210,7 @@ class VirtuemartViewCategory extends VmView {
 				$category->category_layout = $menu->query['categorylayout'];
 			}
 
-			$productsLayout = VmConfig::get('productsublayout','products');
+			$productsLayout = tsmConfig::get('productsublayout','products');
 			if(empty($productsLayout)) $productsLayout = 'products';
 			$this->productsLayout = empty($menu->query['productsublayout'])? $productsLayout:$menu->query['productsublayout'];
 

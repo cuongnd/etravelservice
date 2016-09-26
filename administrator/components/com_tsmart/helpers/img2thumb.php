@@ -57,7 +57,7 @@ class Img2Thumb	{
 	{
 
 		//Some big pictures need that
-		VmConfig::ensureMemoryLimit(128);
+		tsmConfig::ensureMemoryLimit(128);
 
 		//	New modification - checks color int to be sure within range
 		if($thumbMaxSize)
@@ -389,7 +389,7 @@ class Img2Thumb	{
 			case "jpg":
 				if (strtolower(substr($fileout,strlen($fileout)-4,4))!=".jpg")
 					$fileout .= ".jpg";
-				$quality = VmConfig::get('img_quality', 89);
+				$quality = tsmConfig::get('img_quality', 89);
 				return imagejpeg($new_img, $fileout, $quality);
 				break;
 			case "png":

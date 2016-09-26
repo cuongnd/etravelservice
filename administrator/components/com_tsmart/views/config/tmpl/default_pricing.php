@@ -43,11 +43,11 @@ vmJsApi::addJScript('show_prices',$js,true);
 				<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICE_CONFIGURATION'); ?></legend>
 				<table class="admintable">
 					<?php
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_SHOW_TAX','show_tax',VmConfig::get('show_tax',1));
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_ASKPRICE','askprice',VmConfig::get('askprice',1));
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_RAPPENRUNDUNG','rappenrundung',VmConfig::get('rappenrundung',0));
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_ROUNDINDIG','roundindig',VmConfig::get('roundindig',1));
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_CVARSWT','cVarswT',VmConfig::get('cVarswT',1));
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_SHOW_TAX','show_tax',tsmConfig::get('show_tax',1));
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_ASKPRICE','askprice',tsmConfig::get('askprice',1));
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_RAPPENRUNDUNG','rappenrundung',tsmConfig::get('rappenrundung',0));
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_ROUNDINDIG','roundindig',tsmConfig::get('roundindig',1));
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_CVARSWT','cVarswT',tsmConfig::get('cVarswT',1));
 					?>
 				</table>
 			</fieldset>
@@ -57,7 +57,7 @@ vmJsApi::addJScript('show_prices',$js,true);
 				<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES'); ?></legend>
 				<table class="admintable">
 					<?php
-					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SHOW_PRICES','show_prices',VmConfig::get('show_prices',1),1,0,'id="show_prices"');
+					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SHOW_PRICES','show_prices',tsmConfig::get('show_prices',1),1,0,'id="show_prices"');
 					?>
 				</table>
 				<table class="admintable" id="show_hide_prices">

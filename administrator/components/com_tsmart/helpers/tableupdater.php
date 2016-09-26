@@ -33,7 +33,7 @@ class GenericTableUpdater extends tmsModel{
 		// 		$this->_oldToNew = new stdClass();
 		$this->starttime = microtime(true);
 
-		$max_execution_time = VmConfig::getExecutionTime();
+		$max_execution_time = tsmConfig::getExecutionTime();
 		$jrmax_execution_time= vRequest::getInt('max_execution_time',300);
 
 		if(!empty($jrmax_execution_time)){
@@ -41,17 +41,17 @@ class GenericTableUpdater extends tmsModel{
 			if($max_execution_time!==$jrmax_execution_time) @ini_set( 'max_execution_time', $jrmax_execution_time );
 		}
 
-		$this->maxScriptTime = VmConfig::getExecutionTime() * 0.90-1;	//Lets use 10% of the execution time as reserve to store the progress
+		$this->maxScriptTime = tsmConfig::getExecutionTime() * 0.90-1;	//Lets use 10% of the execution time as reserve to store the progress
 
-		VmConfig::ensureMemoryLimit(128);
+		tsmConfig::ensureMemoryLimit(128);
 
 		$this->maxMemoryLimit = $this->return_bytes(ini_get('memory_limit')) * 0.85;
 
 		$config = JFactory::getConfig();
 		$this->_prefix = $config->get('dbprefix');
 
-		$this->reCreaPri = VmConfig::get('reCreaPri',0);
-		$this->reCreaKey = VmConfig::get('reCreaKey',1);
+		$this->reCreaPri = tsmConfig::get('reCreaPri',0);
+		$this->reCreaKey = tsmConfig::get('reCreaKey',1);
 	}
 
 	public function reOrderChilds(){
@@ -77,7 +77,7 @@ class GenericTableUpdater extends tmsModel{
 	public function createLanguageTables($langs=0){
 
 		if(empty($langs)){
-			$langs = VmConfig::get('active_languages');
+			$langs = tsmConfig::get('active_languages');
 			if(empty($langs)){
 				$params = JComponentHelper::getParams('com_languages');
 				$langs = (array)$params->get('site', 'en-GB');
@@ -109,10 +109,10 @@ class GenericTableUpdater extends tmsModel{
 // 			vmdebug('createLanguageTables ',$translatableFields);
 			//set exceptions from normal shema here !
 			//Be aware that you can use this config settings, when declaring them in the tsmart.cfg
-			if(VmConfig::get('dblayoutstrict',true)){
+			if(tsmConfig::get('dblayoutstrict',true)){
 				if($table=='products'){
-					$fields['product_s_desc'] = 'varchar('.VmConfig::get('dbpsdescsize',2000).') '.$linedefault;
-					$fields['product_desc'] = 'varchar('.VmConfig::get('dbpdescsize',18400).') '.$linedefault;
+					$fields['product_s_desc'] = 'varchar('.tsmConfig::get('dbpsdescsize',2000).') '.$linedefault;
+					$fields['product_desc'] = 'varchar('.tsmConfig::get('dbpdescsize',18400).') '.$linedefault;
 
 					$key = array_search('product_desc', $translatableFields);
 					unset($translatableFields[$key]);
@@ -167,23 +167,23 @@ class GenericTableUpdater extends tmsModel{
 // 		vmdebug('createLanguageTables ',$translatableFields);
 			foreach($translatableFields as $k => $name){
 				if(strpos($name,'name') !==false ){
-					$fields[$name] = 'char('.VmConfig::get('dbnamesize',180).') '.$linedefault;
+					$fields[$name] = 'char('.tsmConfig::get('dbnamesize',180).') '.$linedefault;
 				} else if(strpos($name,'metadesc')!==false ){
-					$fields[$name] = 'varchar('.VmConfig::get('dbmetasize',400).') '.$linedefault;
+					$fields[$name] = 'varchar('.tsmConfig::get('dbmetasize',400).') '.$linedefault;
 				} else if(strpos($name,'metatitle')!==false ){
-					$fields[$name] = 'char('.VmConfig::get('dbmetasize',100).') '.$linedefault;
+					$fields[$name] = 'char('.tsmConfig::get('dbmetasize',100).') '.$linedefault;
 				} else if(strpos($name,'metakey')!==false ){
-					$fields[$name] = 'varchar('.VmConfig::get('dbmetasize',400).') '.$linedefault;
+					$fields[$name] = 'varchar('.tsmConfig::get('dbmetasize',400).') '.$linedefault;
 				} else if(strpos($name,'metaauthor')!==false ){
 					$fields[$name] = 'char(64) '.$linedefault;
 				} else if(strpos($name,'slug')!==false ){
-					$fields[$name] = 'char('.VmConfig::get('dbslugsize',192).') '.$linedefault;
+					$fields[$name] = 'char('.tsmConfig::get('dbslugsize',192).') '.$linedefault;
 					$slug = true;
 				}else if(strpos($name,'phone')!==false) {
 					$fields[$name] = 'char(26) '.$linedefault;
 				}else if(strpos($name,'desc')!==false) {
-					if(VmConfig::get('dblayoutstrict',true)){
-						$fields[$name] = 'varchar('.VmConfig::get('dbdescsize',19000).') '.$linedefault;
+					if(tsmConfig::get('dblayoutstrict',true)){
+						$fields[$name] = 'varchar('.tsmConfig::get('dbdescsize',19000).') '.$linedefault;
 					} else {
 						$fields[$name] = 'text '.$linedefaulttext;
 					}
@@ -575,7 +575,7 @@ class GenericTableUpdater extends tmsModel{
 		//vmdebug('alterColumns',$fullColumns);
 		//Attention user_infos is not in here, because it an contain customised fields. #__tsmart_order_userinfos #__tsmart_userinfos
 		//This is currently not working as intended, because the config is not deleted before, it is better to create an extra command for this, when we need it later
-		$upDelCols = (int) VmConfig::get('updelcols',0);
+		$upDelCols = (int) tsmConfig::get('updelcols',0);
 		if($upDelCols==1 and !($tablename==$this->_prefix.'tsmart_userfields' or $tablename==$this->_prefix.'tsmart_userinfos' or $tablename==$this->_prefix.'tsmart_order_userinfos')){
 
 				foreach($columns as $fieldname){
@@ -675,7 +675,7 @@ class GenericTableUpdater extends tmsModel{
 		$this->_db->setQuery($q);
 		$exEngine = $this->_db->loadResult();
 
-		if(VmConfig::get('updEngine',true) and !empty($engine) and strtoupper($exEngine)!=strtoupper($engine)){
+		if(tsmConfig::get('updEngine',true) and !empty($engine) and strtoupper($exEngine)!=strtoupper($engine)){
 			$q = 'ALTER TABLE '.$tablename.' ENGINE='.$engine;
 			$this->_db->setQuery($q);
 			$this->_db->execute();

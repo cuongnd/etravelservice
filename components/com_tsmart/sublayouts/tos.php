@@ -22,7 +22,7 @@ if($app->isSite()){
 	if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
 	$cart = VirtuemartCart::getCart();
 	$cart->prepareVendor();
-	if(empty($tos) and !VmConfig::get ('agree_to_tos_onorder', true)){
+	if(empty($tos) and !tsmConfig::get ('agree_to_tos_onorder', true)){
 		if(is_array($cart->BT) and !empty($cart->BT['tos'])){
 			$tos = $cart->BT['tos'];
 		}

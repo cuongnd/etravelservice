@@ -90,11 +90,11 @@ AdminUIHelper::startAdminArea($this);
                             <td><?php echo $promotion_price->tour_name ?></td>
                             <td class="service_class_name"><?php echo $promotion_price->service_class_name ?></td>
 
-                            <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, VmConfig::$date_format); ?>
-                                -<?php echo JHtml::_('date', $promotion_price->sale_period_to, VmConfig::$date_format); ?></td>
-                            <td><?php echo JHtml::_('date', $promotion_price->created_on, VmConfig::$date_format); ?></td>
+                            <td class="sale_period"><?php echo JHtml::_('date', $promotion_price->sale_period_from, tsmConfig::$date_format); ?>
+                                -<?php echo JHtml::_('date', $promotion_price->sale_period_to, tsmConfig::$date_format); ?></td>
+                            <td><?php echo JHtml::_('date', $promotion_price->created_on, tsmConfig::$date_format); ?></td>
                             <td class="tour_type_name"><?php echo $promotion_price->tour_type_name ?></td>
-                            <td class="modified_on"><?php echo JHtml::_('date', $promotion_price->modified_on, VmConfig::$date_format); ?></td>
+                            <td class="modified_on"><?php echo JHtml::_('date', $promotion_price->modified_on, tsmConfig::$date_format); ?></td>
                             <td>
                                 <a href="#price-form" class=" edit-price">
                                     <span class="icon-eye icon-white"></span>

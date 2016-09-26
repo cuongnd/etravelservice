@@ -75,7 +75,7 @@ class tsmartModelWaitingList extends tmsModel {
 
 		/* Load the product details */
 		$db = JFactory::getDbo ();
-		$q = "SELECT l.product_name,product_in_stock FROM `#__tsmart_products_" . VmConfig::$vmlang . "` l
+		$q = "SELECT l.product_name,product_in_stock FROM `#__tsmart_products_" . tsmConfig::$vmlang . "` l
 				JOIN `#__tsmart_products` p ON p.tsmart_product_id=l.tsmart_product_id
 			   WHERE p.tsmart_product_id = " . $tsmart_product_id;
 		$db->setQuery ($q);

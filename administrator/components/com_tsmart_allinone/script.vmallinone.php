@@ -13,7 +13,7 @@ defined ('_JEXEC') or die('Restricted access');
 
 defined ('DS') or define('DS', DIRECTORY_SEPARATOR);
 //Update Tables
-if (!class_exists ('VmConfig')) {
+if (!class_exists ('tsmConfig')) {
 	if(file_exists(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php')){
 		require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 	} else {
@@ -63,7 +63,7 @@ if (!defined ('_VM_AIO_SCRIPT_INCLUDED')) {
 			jimport ('joomla.filesystem.file');
 			jimport ('joomla.installer.installer');
 
-			VmConfig::loadJLang('com_virtuemart');
+			tsmConfig::loadJLang('com_virtuemart');
 			$this->createIndexFolder (JPATH_ROOT . DS . 'plugins' . DS . 'vmcalculation');
 			$this->createIndexFolder (JPATH_ROOT . DS . 'plugins' . DS . 'vmcustom');
 			$this->createIndexFolder (JPATH_ROOT . DS . 'plugins' . DS . 'vmpayment');
@@ -562,11 +562,11 @@ VALUES (null, \'VIRTUEMART\', \'component\', \'com_virtuemart\', \'\', 1, 1, 1, 
 			$app = JFactory::getApplication ();
 
 			//Update Tables
-			if (!class_exists ('VmConfig')) {
+			if (!class_exists ('tsmConfig')) {
 				require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 			}
 
-			if (class_exists ('VmConfig')) {
+			if (class_exists ('tsmConfig')) {
 				$pluginfilename = $dst . DS . $element . '.php';
 				if(file_exists($pluginfilename)){
 					require_once ($pluginfilename);	//require_once cause is more failproof and is just for install

@@ -22,7 +22,7 @@ defined('_JEXEC') or die();
  */
 
 defined('_JEXEC') or die('Restricted access');
-if (!class_exists( 'VmConfig' )) require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart'.DS.'helpers'.DS.'config.php');
 
 if (!class_exists('vmPSPlugin')) {
 	require(JPATH_VM_PLUGINS . DS . 'vmpsplugin.php');
@@ -150,7 +150,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		$dbValues['tax_id'] = $this->_currentMethod->tax_id;
 		$this->storePSPluginInternalData($dbValues);
 
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		$selectedCCParams = array();
 		if ($this->_currentMethod->integration == 'redirect') {
@@ -326,7 +326,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 		if (!class_exists('VirtueMartModelOrders')) {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'orders.php');
 		}
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		// the payment itself should send the parameter needed.
 		$virtuemart_paymentmethod_id = vRequest::getInt('pm', 0);
@@ -345,7 +345,7 @@ class plgVmPaymentRealex_hpp_api extends vmPSPlugin {
 
 		$payments = $this->getDatasByOrderId($virtuemart_order_id);
 
-		VmConfig::loadJLang('com_virtuemart');
+		tsmConfig::loadJLang('com_virtuemart');
 		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 

@@ -188,7 +188,7 @@ class tsmartModelConfig extends tmsModel {
 		//TODO set config value here
 		$dirs[] = VMPATH_ROOT.DS.'components'.DS.'com_tsmart'.DS.'assets'.DS.'images'.DS.'vmgeneral';
 
-		$tplpath = VmConfig::get('vmtemplate',0);
+		$tplpath = tsmConfig::get('vmtemplate',0);
 		if(!empty($tplpath) and is_numeric($tplpath)){
 			$db = JFactory::getDbo();
 			$query = 'SELECT `template`,`params` FROM `#__template_styles` WHERE `id`="'.$tplpath.'" ';
@@ -290,7 +290,7 @@ class tsmartModelConfig extends tmsModel {
 	 */
 	function getProductFilterFields( $type ) {
 
-		$searchChecked = VmConfig::get($type) ;
+		$searchChecked = tsmConfig::get($type) ;
 
 		if (!is_array($searchChecked)) {
 			$searchChecked = (array)$searchChecked;
@@ -352,7 +352,7 @@ class tsmartModelConfig extends tmsModel {
 		}
 
 		//We create a fresh config
-		$config = VmConfig::loadConfig(false,true);
+		$config = tsmConfig::loadConfig(false,true);
 
 		//We load the config file
 		$_raw = self::readConfigFile(FALSE);
@@ -459,7 +459,7 @@ class tsmartModelConfig extends tmsModel {
 
 		$active_langs = $config->get('active_languages');
 		if(empty($active_langs)){
-			$config->set('active_languages',array(VmConfig::$vmlangTag));
+			$config->set('active_languages',array(tsmConfig::$vmlangTag));
 		}
 
 		//ATM we want to ensure that only one config is used
@@ -470,7 +470,7 @@ class tsmartModelConfig extends tmsModel {
 		$confTable = $this->getTable('configs');
 		$confTable->bindChecknStore($confData);
 
-		VmConfig::loadConfig(true);
+		tsmConfig::loadConfig(true);
 
 		if(!class_exists('GenericTableUpdater')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tableupdater.php');
 		$updater = new GenericTableUpdater();
@@ -664,7 +664,7 @@ class tsmartModelConfig extends tmsModel {
 	 */
 	function deleteConfig(){
 		if($this->remove(1)){
-			return VmConfig::loadConfig(true,true);
+			return tsmConfig::loadConfig(true,true);
 		} else {
 			return false;
 		}

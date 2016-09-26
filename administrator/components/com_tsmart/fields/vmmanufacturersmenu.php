@@ -15,7 +15,7 @@ defined('_JEXEC') or die();
  * @version $Id$
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 if (!class_exists('ShopFunctions'))
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
@@ -35,8 +35,8 @@ class JFormFieldManufacturersmenu extends JFormField {
 
 	function getInput() {
 
-		VmConfig::loadConfig();
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadConfig();
+		tsmConfig::loadJLang('com_tsmart');
 		$model = tmsModel::getModel('Manufacturer');
 		$manufacturers = $model->getManufacturers(true, true, false);
 

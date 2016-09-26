@@ -40,19 +40,19 @@ class VirtueMartViewAskquestion extends VmView {
 	function display ($tpl = NULL) {
 
 		$app = JFactory::getApplication();
-		if(!VmConfig::get('ask_question',false) and !VmConfig::get('askprice',false)){
+		if(!tsmConfig::get('ask_question',false) and !tsmConfig::get('askprice',false)){
 			$app->redirect(JRoute::_('index.php?option=com_virtuemart','Disabled function'));
 		}
 
 		$this->login = '';
-		if(!VmConfig::get('recommend_unauth',false)){
+		if(!tsmConfig::get('recommend_unauth',false)){
 			$user = JFactory::getUser();
 			if($user->guest){
 				$this->login = shopFunctionsF::getLoginForm(false);
 			}
 		}
 
-		$show_prices = VmConfig::get ('show_prices', 1);
+		$show_prices = tsmConfig::get ('show_prices', 1);
 		if ($show_prices == '1') {
 			if (!class_exists ('calculationHelper')) {
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
@@ -187,7 +187,7 @@ class VirtueMartViewAskquestion extends VmView {
 		// in this particular case, overwrite the value for fix the recipient name
 		$this->vendor->vendor_name = $this->user->get('name');
 
-		if (VmConfig::get ('order_mail_html')) {
+		if (tsmConfig::get ('order_mail_html')) {
 			$tpl = 'mail_html_question';
 		} else {
 			$tpl = 'mail_raw_question';

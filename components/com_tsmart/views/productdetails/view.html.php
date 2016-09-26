@@ -65,7 +65,7 @@ class VirtueMartViewProductdetails extends VmView {
             parent::display($tpl);
         }
 	function renderMailLayout ($doVendor, $recipient) {
-		$tpl = VmConfig::get('order_mail_html') ? 'mail_html_notify' : 'mail_raw_notify';
+		$tpl = tsmConfig::get('order_mail_html') ? 'mail_html_notify' : 'mail_raw_notify';
 
 		$this->doVendor=$doVendor;
 		$this->fromPdf=false;

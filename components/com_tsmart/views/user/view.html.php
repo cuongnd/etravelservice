@@ -51,10 +51,10 @@ class VirtuemartViewUser extends VmView {
      */
     function display($tpl = null) {
 
-		$this->useSSL = VmConfig::get('useSSL', 0);
+		$this->useSSL = tsmConfig::get('useSSL', 0);
 		$this->useXHTML = false;
 
-		VmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
 
 		$mainframe = JFactory::getApplication();
 		$pathway = $mainframe->getPathway();
@@ -260,7 +260,7 @@ class VirtuemartViewUser extends VmView {
 	    }
 	}
 		if($this->_orderList){
-			VmConfig::loadJLang('com_virtuemart_orders',TRUE);
+			tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
 		}
 	$this->assignRef('orderlist', $this->_orderList);
     }
@@ -370,7 +370,7 @@ class VirtuemartViewUser extends VmView {
 
     public function renderMailLayout($doVendor, $recipient) {
 
-		$this->useSSL = VmConfig::get('useSSL', 0);
+		$this->useSSL = tsmConfig::get('useSSL', 0);
 		$this->useXHTML = true;
 
 		$userFieldsModel = tmsModel::getModel('UserFields');
@@ -378,7 +378,7 @@ class VirtuemartViewUser extends VmView {
 		$this->userFields = $userFieldsModel->getUserFieldsFilled($userFields, $this->user->userInfo);
 
 
-		if (VmConfig::get('order_mail_html')) {
+		if (tsmConfig::get('order_mail_html')) {
 			$mailFormat = 'html';
 			$lineSeparator="<br />";
 		} else {

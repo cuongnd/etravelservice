@@ -16,7 +16,7 @@
  */
 defined('JPATH_BASE') or die;
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 if (!class_exists('ShopFunctions'))
     require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 if (!class_exists('tsmartModelConfig'))
@@ -43,7 +43,7 @@ class JFormFieldVmproductsublayout extends JFormField
   
 	function getInput() {
 
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadJLang('com_tsmart');
 		$view = substr($this->fieldname,0,-6);
 		$model = tmsModel::getModel('config');
 		$vmLayoutList = $model->getFieldList('products');

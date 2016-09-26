@@ -111,7 +111,7 @@ $productfileslist = $this->files;
 					if(file_exists($fullSizeFilenamePath)){
 						echo $productfile->displayMediaThumb();
 					} else {
-						$file_url = $productfile->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_found');
+						$file_url = $productfile->theme_url.'assets/images/vmgeneral/'.tsmConfig::get('no_image_found');
 						$file_alt = tsmText::_('com_tsmart_NO_IMAGE_SET').' '.$productfile->file_description;
 						vmdebug('check path $file_url',$file_url);
 						echo $productfile->displayIt($file_url, $file_alt,'',false);

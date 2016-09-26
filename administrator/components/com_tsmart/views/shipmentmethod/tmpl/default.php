@@ -56,7 +56,7 @@ AdminUIHelper::startAdminArea($this);
 		</thead>
 		<?php
 		$k = 0;
-		$set_automatic_shipment = VmConfig::get('set_automatic_shipment',false);
+		$set_automatic_shipment = tsmConfig::get('set_automatic_shipment',false);
 		for ($i=0, $n=count( $this->shipments ); $i < $n; $i++) {
 			$row = $this->shipments[$i];
 			$published = $this->gridPublished($row, $i);

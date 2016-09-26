@@ -37,7 +37,7 @@ class TsmartControllerMedia extends TsmController {
 	 * @author
 	 */
 	function __construct() {
-		VmConfig::loadJLang('com_tsmart_media');
+		tsmConfig::loadJLang('com_tsmart_media');
 		parent::__construct('tsmart_media_id');
 
 	}
@@ -91,7 +91,7 @@ class TsmartControllerMedia extends TsmController {
 
 			$configPaths = array('assets_general_path','media_category_path','media_product_path','media_manufacturer_path','media_vendor_path');
 			foreach($configPaths as $path){
-				$this -> renameFileExtension(VMPATH_ROOT.DS.VmConfig::get($path) );
+				$this -> renameFileExtension(VMPATH_ROOT.DS.tsmConfig::get($path) );
 			}
 
 			if(!class_exists('Migrator')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'migrator.php');

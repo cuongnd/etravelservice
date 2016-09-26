@@ -39,7 +39,7 @@ class tsmartModelUpdatesMigration extends tmsModel {
 
     	if(!class_exists('VmConnector')) require(VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'connection.php');
 
-		$url = "http://tsmart.net/index2.php?option=com_versions&catid=1&myVersion={".VmConfig::getInstalledVersion()."}&task=latestversionastext";
+		$url = "http://tsmart.net/index2.php?option=com_versions&catid=1&myVersion={".tsmConfig::getInstalledVersion()."}&task=latestversionastext";
 		$result = VmConnector::handleCommunication($url);
 
 		return $result;
@@ -172,12 +172,12 @@ class tsmartModelUpdatesMigration extends tmsModel {
 	}
 
 	$filename = VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'install'.DS.'install_sample_data.sql';
-	    if(!VmConfig::$vmlang){
+	    if(!tsmConfig::$vmlang){
 		    $params = JComponentHelper::getParams('com_languages');
 		    $lang = $params->get('site', 'en-GB');//use default joomla
 		    $lang = strtolower(strtr($lang,'-','_'));
 	    } else {
-		    $lang = VmConfig::$vmlang;
+		    $lang = tsmConfig::$vmlang;
 	    }
 	if(!$this->execSQLFile($filename)){
 		vmError(tsmText::_('Problems execution of SQL File '.$filename));
@@ -333,17 +333,17 @@ class tsmartModelUpdatesMigration extends tmsModel {
 			return false;
 		}
 
-		if(!class_exists('VmConfig')){
+		if(!class_exists('tsmConfig')){
 			require_once(VMPATH_ADMIN .'/helpers/config.php');
-			VmConfig::loadConfig(false,true);
+			tsmConfig::loadConfig(false,true);
 		}
 
-		if(!VmConfig::$vmlang){
+		if(!tsmConfig::$vmlang){
 			$params = JComponentHelper::getParams('com_languages');
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 		} else {
-			$lang = VmConfig::$vmlang;
+			$lang = tsmConfig::$vmlang;
 		}
 
 		// Create an array of queries from the sql file
@@ -587,16 +587,16 @@ class tsmartModelUpdatesMigration extends tmsModel {
 			vmError('resetThumbs Update entries failed ',$err);
 		}
 		jimport('joomla.filesystem.folder');
-		$tmpimg_resize_enable = VmConfig::get('img_resize_enable',1);
+		$tmpimg_resize_enable = tsmConfig::get('img_resize_enable',1);
 
-		VmConfig::set('img_resize_enable',0);
+		tsmConfig::set('img_resize_enable',0);
 		$this->deleteMediaThumbFolder('media_category_path');
 		$this->deleteMediaThumbFolder('media_product_path');
 		$this->deleteMediaThumbFolder('media_manufacturer_path');
 		$this->deleteMediaThumbFolder('media_vendor_path');
 		$this->deleteMediaThumbFolder('forSale_path_thumb','');
 
-		VmConfig::set('img_resize_enable',$tmpimg_resize_enable);
+		tsmConfig::set('img_resize_enable',$tmpimg_resize_enable);
 		return true;
 
 	}
@@ -611,7 +611,7 @@ class tsmartModelUpdatesMigration extends tmsModel {
 	private function deleteMediaThumbFolder($type,$resized='resized'){
 
 		if(!empty($resized)) $resized = DS.$resized;
-		$typePath = VmConfig::get($type);
+		$typePath = tsmConfig::get($type);
 		if(!empty($typePath)){
 			if(!class_exists('JFolder')) require(VMPATH_LIBS.DS.'joomla'.DS.'filesystem'.DS.'folder.php');
 			$path = VMPATH_ROOT.DS.str_replace('/',DS,$typePath).$resized;

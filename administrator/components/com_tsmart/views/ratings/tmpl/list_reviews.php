@@ -82,7 +82,7 @@ $option = vRequest::getCmd('option');
 				<td align="center">
 					
 					<?php // echo JHtml::_('image', JURI::root().'/components/com_tsmart/assets/images/stars/'.round($review->vote).'.gif',$review->vote,array("title" => (vmText::_('com_tsmart_RATING_TITLE').' : '. $review->vote . ' :: ' . $this->max_rating)));
-					$maxrating = VmConfig::get('vm_maximum_rating_scale', 5);
+					$maxrating = tsmConfig::get('vm_maximum_rating_scale', 5);
 				    $ratingwidth = round($review->review_rating) * 24;
 				    ?>
 	

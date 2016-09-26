@@ -168,7 +168,7 @@ class PaypalHelperPayPalStd extends PaypalHelperPaypal {
 		}
 
 		$url = $this->_getPayPalUrl();
-		if (vmconfig::get('css')) {
+		if (tsmConfig::get('css')) {
 			$msg = tsmText::_('VMPAYMENT_PAYPAL_REDIRECT_MESSAGE', true);
 		} else {
 			$msg='';

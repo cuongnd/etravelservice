@@ -122,12 +122,12 @@ class tsmartModelPaymentmethod extends tmsModel{
 
 		$joins = ' FROM `#__tsmart_paymentmethods` as i ';
 
-		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
+		if(tsmConfig::$defaultLang!=tsmConfig::$vmlang and tsmConfig::$langCount>1){
 			$langFields = array('payment_name','payment_desc');
 
 			$useJLback = false;
-			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$jDefLang.'` as ljd';
+			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
+				$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.tsmConfig::$jDefLang.'` as ljd';
 				$useJLback = true;
 			}
 
@@ -139,11 +139,11 @@ class tsmartModelPaymentmethod extends tmsModel{
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$defaultLang.'` as ld using (`tsmart_paymentmethod_id`)';
-			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$vmlang.'` as l using (`tsmart_paymentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.tsmConfig::$defaultLang.'` as ld using (`tsmart_paymentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.tsmConfig::$vmlang.'` as l using (`tsmart_paymentmethod_id`)';
 		} else {
 			$select = ' * ';
-			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$vmlang.'` as l USING (`tsmart_paymentmethod_id`) ';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.tsmConfig::$vmlang.'` as l USING (`tsmart_paymentmethod_id`) ';
 		}
 
 		$datas =$this->exeSortSearchListQuery(0,$select,$joins,$whereString,' ',$this->_getOrdering() );

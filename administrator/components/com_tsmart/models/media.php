@@ -380,7 +380,7 @@ class tsmartModelMedia extends tmsModel {
 			return false;
 		}
 
-		VmConfig::loadJLang('com_tsmart_media');
+		tsmConfig::loadJLang('com_tsmart_media');
 		if (!class_exists('VmMediaHandler')) require(VMPATH_ADMIN.DS.'helpers'.DS.'mediahandler.php');
 
 		$table = $this->getTable('medias');

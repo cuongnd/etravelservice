@@ -304,7 +304,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			return NULL;
 		}
 
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadJLang('com_tsmart');
 
 		$html = '<table class="admintable">' . "\n"
 			. '	<thead>' . "\n"
@@ -481,17 +481,17 @@ abstract class vmPSPlugin extends vmPlugin {
 		$select .= 'j.`' . $extField1 . '`,j.`name`, j.`type`, j.`element`, j.`folder`, j.`client_id`, j.`enabled`, j.`access`, j.`protected`, j.`manifest_cache`,
 			j.`params`, j.`custom_data`, j.`system_data`, j.`checked_out`, j.`checked_out_time`, j.`state`,  s.tsmart_shoppergroup_id ';
 
-		if(!VmConfig::$vmlang){
-			VmConfig::setdbLanguageTag();
+		if(!tsmConfig::$vmlang){
+			tsmConfig::setdbLanguageTag();
 		}
 
 		$joins = array();
-		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
+		if(tsmConfig::$defaultLang!=tsmConfig::$vmlang and tsmConfig::$langCount>1){
 			$langFields = array($this->_psType.'_name',$this->_psType.'_desc');
 
 			$useJLback = false;
-			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'_'.VmConfig::$jDefLang.'` as ljd';
+			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
+				$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'_'.tsmConfig::$jDefLang.'` as ljd';
 				$useJLback = true;
 			}
 
@@ -502,11 +502,11 @@ abstract class vmPSPlugin extends vmPlugin {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$defaultLang.'` as ld using (`tsmart_'.$this->_psType.'method_id`)';
-			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.tsmConfig::$defaultLang.'` as ld using (`tsmart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.tsmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
 		} else {
 			$select .= ', l.* ';
-			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.tsmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
 		}
 
 		$q = $select . ' FROM   `#__tsmart_' . $this->_psType . 'methods' . '` as i ';
@@ -687,12 +687,12 @@ abstract class vmPSPlugin extends vmPlugin {
 		$vendor = $vendorModel->getVendor($vendorId);
 		$vendorEmail = $vendorModel->getVendorEmail($vendorId);
 		$vendorName = $vendorModel->getVendorName($vendorId);
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadJLang('com_tsmart');
 		if ($subject == NULL) {
 			$subject = tsmText::sprintf('com_tsmart_ERROR_SUBJECT', $this->_name, $vendor->vendor_store_name);
 		}
 		if ($message == NULL) {
-			$message = tsmText::sprintf('com_tsmart_ERROR_BODY', $subject, $this->getLogFilename().VmConfig::LOGFILEEXT);
+			$message = tsmText::sprintf('com_tsmart_ERROR_BODY', $subject, $this->getLogFilename().tsmConfig::LOGFILEEXT);
 		}
 		JFactory::getMailer()->sendMail($vendorEmail, $vendorName, $vendorEmail, $subject, $message);
 
@@ -778,7 +778,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			$costDisplay = '<span class="' . $this->_type . '_cost"> (' . tsmText::_ ('com_tsmart_PLUGIN_COST_DISPLAY') . $costDisplay . ")</span>";
 		}
 		$dynUpdate='';
-		if( VmConfig::get('oncheckout_ajax',false)) {
+		if( tsmConfig::get('oncheckout_ajax',false)) {
 			//$url = JRoute::_('index.php?option=com_tsmart&view=cart&task=updatecart&'. $this->_idName. '='.$plugin->$pluginmethod_id );
 			$dynUpdate=' data-dynamic-update="1" ';
 		}
@@ -1322,13 +1322,13 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * Keep it for compatibilty
 	 */
 	protected function logInfo ($text, $type = 'message', $doLog=false) {
-		if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
-		VmConfig::loadConfig();
+		if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+		tsmConfig::loadConfig();
 		if ((isset($this->_debug) and $this->_debug) OR $doLog) {
-			$oldLogFileName= 	VmConfig::$logFileName;
-			VmConfig::$logFileName =$this->getLogFileName() ;
+			$oldLogFileName= 	tsmConfig::$logFileName;
+			tsmConfig::$logFileName =$this->getLogFileName() ;
 			logInfo($text, $type);
-			VmConfig::$logFileName =$oldLogFileName;
+			tsmConfig::$logFileName =$oldLogFileName;
 		}
 	}
 

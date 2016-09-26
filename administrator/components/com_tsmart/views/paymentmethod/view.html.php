@@ -68,7 +68,7 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 			if (!class_exists('VmImage'))
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
-			VmConfig::loadJLang('plg_vmpsplugin', false);
+			tsmConfig::loadJLang('plg_vmpsplugin', false);
 
 			JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
 
@@ -105,7 +105,7 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 			$this->addStandardDefaultViewLists($model);
 
 			$this->payments = $model->getPayments();
-			VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+			tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
 			foreach ($this->payments as &$data){
 				// Write the first 5 shoppergroups in the list

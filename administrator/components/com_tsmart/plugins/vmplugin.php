@@ -17,7 +17,7 @@ defined ('_JEXEC') or die('Restricted access');
  * @version $Id: vmplugin.php 4599 2011-11-02 18:29:04Z alatak $
  */
 
-if (!class_exists( 'VmConfig' )) {
+if (!class_exists('tsmConfig')) {
 	if(file_exists(VMPATH_ADMIN.DS.'com_tsmart'.DS.'helpers'.DS.'config.php')){
 		require(VMPATH_ADMIN.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 	} else {
@@ -101,7 +101,7 @@ abstract class vmPlugin extends JPlugin {
 
 		$path = $basePath = VMPATH_ROOT .DS. 'plugins' .DS.$type.DS.$name;
 
-		if(VmConfig::get('enableEnglish', true) and $tag!='en-GB'){
+		if(tsmConfig::get('enableEnglish', true) and $tag!='en-GB'){
 			$testpath = $basePath.DS.'language'.DS.'en-GB'.DS.'en-GB.'.$fname.'.ini';
 			if(!file_exists($testpath)){
 				$epath = JPATH_ADMINISTRATOR;

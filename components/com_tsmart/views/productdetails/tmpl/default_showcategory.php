@@ -23,7 +23,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 	if ($this->category->haschildren) {
 	    $iCol = 1;
 	    $iCategory = 1;
-	    $categories_per_row = VmConfig::get('categories_per_row', 3);
+	    $categories_per_row = tsmConfig::get('categories_per_row', 3);
 	    $category_cellwidth = ' width' . floor(100 / $categories_per_row);
 	    $verticalseparator = " vertical-separator";
 	    ?>

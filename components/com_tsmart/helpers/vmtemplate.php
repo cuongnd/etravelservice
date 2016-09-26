@@ -29,7 +29,7 @@ class VmTemplate {
 		static $res = null;
 		if($res !== null) return $res;
 
-		$vmtemplate = VmConfig::get( 'vmtemplate', 0 );
+		$vmtemplate = tsmConfig::get( 'vmtemplate', 0 );
 		if(empty($vmtemplate) or $vmtemplate == 'default') {
 			$res = self::getDefaultTemplate();
 			if(!$res) {
@@ -104,7 +104,7 @@ class VmTemplate {
 	static function setVmTemplate ($view, $catTpl = 0, $prodTpl = 0, $catLayout = 0, $prodLayout = 0) {
 
 		//Lets get here the template set in the shopconfig, if there is nothing set, get the joomla standard
-		$template = VmConfig::get( 'vmtemplate', 0 );
+		$template = tsmConfig::get( 'vmtemplate', 0 );
 		$db = JFactory::getDBO();
 		//Set specific category template
 		if(!empty($catTpl) && empty($prodTpl)) {
@@ -136,12 +136,12 @@ class VmTemplate {
 
 		//Lets get here the layout set in the shopconfig, if there is nothing set, get the joomla standard
 		if(vRequest::getCmd( 'view' ) == 'tsmart') {
-			$layout = VmConfig::get( 'vmlayout', 'default' );
+			$layout = tsmConfig::get( 'vmlayout', 'default' );
 			$view->setLayout( strtolower( $layout ) );
 		} else {
 
 			if(empty($catLayout) and empty($prodLayout)) {
-				$catLayout = VmConfig::get( 'productlayout', 'default' );
+				$catLayout = tsmConfig::get( 'productlayout', 'default' );
 			}
 
 			//Set specific category layout

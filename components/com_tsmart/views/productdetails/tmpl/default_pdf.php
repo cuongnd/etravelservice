@@ -83,7 +83,7 @@ if (empty ( $this->product )) {
 				if ($this->show_prices) { ?>
 				<div class="product-price" id="productPrice<?php echo $this->product->virtuemart_product_id ?>">
 				<?php
-				if ($this->product->product_unit && VmConfig::get ( 'price_show_packaging_pricelabel' )) {
+				if ($this->product->product_unit && tsmConfig::get ( 'price_show_packaging_pricelabel' )) {
 					echo "<strong>" . tsmText::_ ( 'COM_VIRTUEMART_CART_PRICE_PER_UNIT' ) . ' (' . $this->product->product_unit . "):</strong>";
 				} else {
 					echo "<strong>" . tsmText::_ ( 'COM_VIRTUEMART_CART_PRICE' ) . "</strong>";
@@ -103,7 +103,7 @@ if (empty ( $this->product )) {
 				/* TO DO add width and height to the image */
 				if (!empty($this->product->product_availability)) { ?>
 				<div class="availability">
-					<?php echo JHtml::image(JURI::root().VmConfig::get('assets_general_path').'images/availability/'.$this->product->product_availability, $this->product->product_availability, array('class' => 'availability')); ?>
+					<?php echo JHtml::image(JURI::root().tsmConfig::get('assets_general_path').'images/availability/'.$this->product->product_availability, $this->product->product_availability, array('class' => 'availability')); ?>
 				</div>
 				<?php } ?>
 
@@ -114,7 +114,7 @@ if (empty ( $this->product )) {
 				</div>
 
 				<?php // Manufacturer of the Product
-				if(VmConfig::get('show_manufacturers', 1) && !empty($this->product->virtuemart_manufacturer_id[0])) { ?>
+				if(tsmConfig::get('show_manufacturers', 1) && !empty($this->product->virtuemart_manufacturer_id[0])) { ?>
 				<div class="manufacturer">
 				<?php
 					$link = JRoute::_(JURI::root().'index.php?option=com_virtuemart&view=manufacturer&virtuemart_manufacturer_id='.$this->product->virtuemart_manufacturer_id[0].'&tmpl=component');
@@ -191,9 +191,9 @@ if (empty ( $this->product )) {
 
 	<?php // Customer Reviews
 	if($this->allowRating || $this->showReview) {
-		$maxrating = VmConfig::get('vm_maximum_rating_scale',5);
-		$ratingsShow = VmConfig::get('vm_num_ratings_show',3); // TODO add  vm_num_ratings_show in vmConfig
-		$starsPath = JURI::root().VmConfig::get('assets_general_path').'images/stars/';
+		$maxrating = tsmConfig::get('vm_maximum_rating_scale',5);
+		$ratingsShow = tsmConfig::get('vm_num_ratings_show',3); // TODO add  vm_num_ratings_show in vmConfig
+		$starsPath = JURI::root().tsmConfig::get('assets_general_path').'images/stars/';
 		$stars = array();
 		$showall = vRequest::getBool('showall', false);
 		for ($num=0 ; $num <= $maxrating; $num++  ) {

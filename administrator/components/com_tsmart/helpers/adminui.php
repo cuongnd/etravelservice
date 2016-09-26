@@ -113,7 +113,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.admin.com_tsmart').asianventure({
-                show_iframe:<?php echo json_encode(VmConfig::$show_iframe) ?>,
+                show_iframe:<?php echo json_encode(tsmConfig::$show_iframe) ?>,
                 add_new_popup:<?php echo $vmView->add_new_popup==1?1:0 ?>,
                 cid:<?php echo json_encode($cid) ?>,
                 key_string: "<?php echo $str_key ?>",
@@ -263,325 +263,9 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
             $view = $app->input->get('view', 'tsmart', 'string');
 
             ?>
-            <?php if ($view == 'tsmart') { ?>
-                <div class="toolbar-top4 row-fluid">
-                    <div class="span3 dashboard-left">
-                        <div id="vertical_accordian_drop_down_menu_bar">
-                            <div class='menu'>
-                                <ul>
-                                    <li class='active'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Dashboard</a>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Setup system</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=currency'><i
-                                                        class="im-screen"></i>currency</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=paymentmethod'><i
-                                                        class="im-screen"></i>Payment method</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Logistic</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=country'><i
-                                                        class="im-screen"></i>GEO country</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=state'><i
-                                                        class="im-screen"></i>Sate/province</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=cityarea'><i
-                                                        class="im-screen"></i>city/area</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=groupsize'><i
-                                                        class="im-screen"></i>Group size</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=tourclass'><i
-                                                        class="im-screen"></i>tour class</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=activity'><i
-                                                        class="im-screen"></i>Activities</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=tourstyle'><i
-                                                        class="im-screen"></i>Tour style</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=tourtype'><i
-                                                        class="im-screen"></i>Tour type</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=physicalgrade'><i
-                                                        class="im-screen"></i>physical grade</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=hotel'><i
-                                                        class="im-screen"></i>Hotel</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Tour
-                                            build</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Genaral
-                                                    build</a>
-                                            </li>
-                                            <li>
-                                                <a href="index.php?option=com_tsmart&view=highlight&tsmart_product_id=<?php echo $tsmart_product_id ?>"><i
-                                                        class="im-screen"></i>Highlights</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=itinerary&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>itinerary</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=media'><i
-                                                        class="im-screen"></i>Photo</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=document&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>Documents</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=tourprice&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>Tour price</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=relation&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>Relation</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=hotel&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>Hotel</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=faq&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                        class="im-screen"></i>FAQs</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Tour Manager</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=product'><i
-                                                        class="im-screen"></i>Tour listing</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=departure'><i
-                                                        class="im-screen"></i>departure</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=payment'><i
-                                                        class="im-screen"></i>Payment</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=departure'><i
-                                                        class="im-screen"></i>departure</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=discount'><i
-                                                        class="im-screen"></i>Discount</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=hoteladdon'><i
-                                                        class="im-screen"></i>Hotel addon</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=tranferaddon'><i
-                                                        class="im-screen"></i>Tranfer addon</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=excursion'><i
-                                                        class="im-screen"></i>excursion addon</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=asign'><i
-                                                        class="im-screen"></i>Asign</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Sales manager</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=departure'><i
-                                                        class="im-screen"></i>departure</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i
-                                                class="im-screen"></i>Reservation</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=orders'><i
-                                                        class="im-screen"></i>Reservation listing</a>
-                                            </li>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=passenger'><i
-                                                        class="im-screen"></i>Passenger manager</a>
-                                            </li>
-
-                                        </ul>
-                                    </li>
-                                    <li class='sub'>
-                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Customers</a>
-                                        <ul>
-                                            <li>
-                                                <a href='index.php?option=com_tsmart&view=user'><i
-                                                        class="im-screen"></i>Customers</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class='last'>
-                                        <a href='index.php?option=com_tsmart&view=help'><i class="im-screen"></i>Help</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="span9">
-                        <div class="row-fluid dashboard">
-                            <div class="span6"><h1 class="page-header"><i class="im-screen"></i> Dashboard</h1></div>
-                            <div class="span6 option-buttons">
-
-                                <a title="" class="pull-right">
-                                    <i class="ec-help"></i>
-                                </a>
-                                <a title="" class="pull-right">
-                                    <i class="ec-pencil"></i>
-                                </a>
-                                <a title="" class="pull-right">
-                                    <i class="br-grid"></i>
-                                </a>
-                                <a title="" class="pull-right">
-                                    <i class="ec-refresh"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span3">
-                                <div class="tile-content tour">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span3">
-                                <div class="tile-content hotel">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span3">
-                                <div class="tile-content flight">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span3">
-                                <div class="tile-content car">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-
-                            <div class="span6">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div id="container"
-                                             style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="span6">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div id="container"
-                                             style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <div class="tile-content tour">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span2">
-                                <div class="tile-content hotel">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span2">
-                                <div class="tile-content flight">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span2">
-                                <div class="tile-content car">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span2">
-                                <div class="tile-content car">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                            <div class="span2">
-                                <div class="tile-content car">
-                                    <div class="number countTo" data-from="0" data-to="5">5</div>
-                                    <h3>Settings changed</h3>
-                                    <i class="im-screen"></i>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
+            <?php if ($view == 'tsmart') {
+                echo self::show_tab_home_page($tsmart_product_id);
+                ?>
                 <div class="vm_toolbar"></div>
                 <script>
                     jQuery(document).ready(function ($) {
@@ -590,313 +274,31 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                 </script>
             <?php } ?>
             <?php if ($view != 'tsmart') { ?>
+
                 <?php if(!$hide_toolbar){ ?>
-                <div class="header-main-menu">
-
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="index.php?option=com_tsmart">Daskboard</a>
-                        </li>
-                        <li role="presentation"><a href="#setup_system" aria-controls="profile" role="tab"
-                                                   data-toggle="tab">Setup
-                                    system</a></li>
-                        <li role="presentation"><a href="#logistic" aria-controls="messages" role="tab"
-                                                   data-toggle="tab">Logistic</a>
-                        </li>
-                        <li role="presentation"><a href="#tour_build" aria-controls="messages" role="tab"
-                                                   data-toggle="tab">Tour
-                                    buil</a></li>
-                        <li role="presentation"><a href="#tour_manager" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Tour
-                                    Manager</a></li>
-                        <li role="presentation"><a href="#sales_manager" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Sales Manager</a></li>
-                        <li role="presentation"><a href="#reservation" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Reservation</a>
-                        </li>
-                        <li role="presentation"><a href="#customer" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Customer</a>
-                        </li>
-                        <li role="presentation"><a href="#tour_enquiry" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Tour
-                                    Enquiry</a></li>
-                        <li role="presentation"><a href="#report" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Report</a></li>
-                        <li role="presentation"><a href="#suport" aria-controls="settings" role="tab"
-                                                   data-toggle="tab">Suport</a></li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="daskboard">
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="setup_system">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href='index.php?option=com_tsmart&view=general'><i
-                                                    class="im-screen"></i>general setup</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=template"><span
-                                                    class="icon-palette" title=""></span>Template</a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href='index.php?option=com_tsmart&view=apisetting'><i
-                                                    class="im-screen"></i>Api setting</a></li>
-                                        <li><a href='index.php?option=com_tsmart&view=seosetting'><i
-                                                    class="im-screen"></i>Seo setting</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=currency"><span
-                                                    class="icon-palette" title=""></span>Curency</a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=language"><span
-                                                    class="icon-palette" title=""></span>Language</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=module"><span class="icon-palette" title=""></span>Module</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=paymentsetting"><span class="icon-palette" title=""></span>Payment</a>
-                                        </li>
-                                        <li><a href="index.php?option=com_tsmart&view=paymentmethod"><span class="icon-palette" title=""></span>Payment Method</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="logistic">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=country"><span
-                                                    class="icon-palette" title=""></span>GEO contry</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=state"><span
-                                                    class="icon-palette" title=""></span>state/province</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=cityarea"><span
-                                                    class="icon-palette" title=""></span>city/area</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=airport"><span
-                                                    class="icon-palette" title=""></span>airport</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=tourclass"><span
-                                                    class="icon-palette" title=""></span>Tour class</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=activity"><span
-                                                    class="icon-palette" title=""></span>Activities</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=toursection"><span
-                                                    class="icon-palette" title=""></span>tour section</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=tourtype"><span
-                                                    class="icon-palette" title=""></span>Tour type</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=tourstyle"><span
-                                                    class="icon-palette" title=""></span>Tour style</a></li>
-
-                                        <li class="btn-group">
-                                            <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                               aria-expanded="false"><span class="icon-palette" title=""></span>
-                                                Service supplier </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="index.php?option=com_tsmart&view=supplier"></span>supplier manager</a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="index.php?option=com_tsmart&view=servicetype">service field list</a>
-                                                </li>
-                                            </ul>
-
-                                        </li>
-                                        <!-- Single button -->
-
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=hotel"><span
-                                                    class="icon-palette" title=""></span>Hotel</a>
-                                            <ul style="display: no" class="dropdown-menu">
-                                                <li>
-                                                    <a href="index.php?option=com_tsmart&view=room"></span>Room</a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li><a href="index.php?option=com_tsmart&view=groupsize"><span
-                                                    class="icon-palette" title=""></span>Tour group size</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=physicalgrade"><span
-                                                    class="icon-palette" title=""></span>physical grade</a></li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="tour_build">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Tour infomation</a></li>
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=itinerary&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>build itinerary</a></li>
-
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=price&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Build tour price</a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=accommodation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Accommodation</a></li>
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=document&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Add document</a></li>
-
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=media&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>Add photo</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=faq&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>add faqs</a></li>
-                                        <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=relation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
-                                                    class="icon-palette" title=""></span>build relation</a></li>
-                                    </ul>
-                                </div>
+                <?php
+                    if($view=='country'||$view=='state'||$view=='cityarea'){
+                        echo self::show_tab_geo($view,$tsmart_product_id);
+                        ?>
+                        <div class="vm-title tab-geo row-fluid">
+                            <div class="span2 ">
+                                <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="tour_manager">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=product"><span
-                                                    class="icon-palette"
-                                                    title=""></span>Tour
-                                                listing</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=departure"><span
-                                                    class="icon-palette" title=""></span>departure</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=payment"><span
-                                                    class="icon-palette" title=""></span>Payment</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=transferaddon"><span
-                                                    class="icon-palette" title=""></span>Transfer addon</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=excursionaddon"><span
-                                                    class="icon-palette" title=""></span>excursion addon</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=excursionaddon"><span
-                                                    class="icon-palette" title=""></span>excursion addon</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=dateavailability"><span class="icon-palette" title=""></span>set availability</a></li>
-                                        <li><a href="#"><span class="icon-palette" title=""></span>Asign</a></li>
-                                        <li>
-                                            <a href="index.php?option=com_tsmart&view=hoteladdon"><span
-                                                    class="icon-palette" title=""></span>Hotel addon</a></li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="sales_manager">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=promotion"><span
-                                                    class="icon-palette" title=""></span>Promotion</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=coupon"><span
-                                                    class="icon-palette" title=""></span>coupon</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=affiliate"><span
-                                                    class="icon-palette" title=""></span>Affiliate</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=coupon"><span
-                                                    class="icon-palette" title=""></span>Coupons</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=gift"><span
-                                                    class="icon-palette" title=""></span>Gift</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=rewards"><span
-                                                    class="icon-palette" title=""></span>Rewards</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="#"><span class="icon-palette" title=""></span>Tracker</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="reservation">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href="index.php?option=com_tsmart&view=orders"><span
-                                                    class="icon-palette"
-                                                    title=""></span>Reservation
-                                                listing</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=passenger"><span
-                                                    class="icon-palette" title=""></span>Passenger manager</a></li>
-                                        <li><a href="index.php?option=com_tsmart&view=conversition"><span
-                                                    class="icon-palette" title=""></span>Conversition Manager</a></li>
-                                        <li><a href='index.php?option=com_tsmart&view=user'><i
-                                                    class="im-screen"></i>Customers</a></li>
-                                    </ul>
-                                </div>
+                        <div class="vm_toolbar"></div>
+                        <?php
+                        }else{
+                        echo self::show_tab_default($tsmart_product_id);
+                        ?>
+                        <div class="vm-title row-fluid">
+                            <div class="span2 offset8">
+                                <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="customer">
-                            <div class="row-fluid">
-                                <div class="span2">
-                                    <ul class="ul_sub_menu">
-                                        <li><a href='index.php?option=com_tsmart&view=user'><i
-                                                    class="im-screen"></i>Customers listing</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="tour_enquiry">...</div>
-                        <div role="tabpanel" class="tab-pane" id="report">...</div>
-                        <div role="tabpanel" class="tab-pane" id="suport">...</div>
-                    </div>
-
-                </div>
-                <div class="vm-title row-fluid">
-                    <div class="span2 offset8">
-                        <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
-                    </div>
-                </div>
-                <div class="vm_toolbar"></div>
+                        <div class="vm_toolbar"></div>
+                        <?php
+                    }
+                ?>
                     <?php } ?>
             <?php } ?>
 
@@ -1011,10 +413,10 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
      */
     static function showAdminMenu($vmView)
     {
-        if (!isset(VmConfig::$installed)) {
-            VmConfig::$installed = false;
+        if (!isset(tsmConfig::$installed)) {
+            tsmConfig::$installed = false;
         }
-        if (!VmConfig::$installed) return false;
+        if (!tsmConfig::$installed) return false;
 
         $moduleId = vRequest::getInt('module_id', 0);
         $menuItems = AdminUIHelper::_getAdminMenu($moduleId);
@@ -1080,7 +482,709 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
         </div>
         <?php
     }
+    function show_tab_default($tsmart_product_id){
+        ob_start();
+        ?>
+        <div class="header-main-menu">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="index.php?option=com_tsmart">Daskboard</a>
+                </li>
+                <li role="presentation"><a href="#setup_system" aria-controls="profile" role="tab"
+                                           data-toggle="tab">Setup
+                        system</a></li>
+                <li role="presentation"><a href="#logistic" aria-controls="messages" role="tab"
+                                           data-toggle="tab">Logistic</a>
+                </li>
+                <li role="presentation"><a href="#tour_build" aria-controls="messages" role="tab"
+                                           data-toggle="tab">Tour
+                        buil</a></li>
+                <li role="presentation"><a href="#tour_manager" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Tour
+                        Manager</a></li>
+                <li role="presentation"><a href="#sales_manager" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Sales Manager</a></li>
+                <li role="presentation"><a href="#reservation" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Reservation</a>
+                </li>
+                <li role="presentation"><a href="#customer" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Customer</a>
+                </li>
+                <li role="presentation"><a href="#tour_enquiry" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Tour
+                        Enquiry</a></li>
+                <li role="presentation"><a href="#report" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Report</a></li>
+                <li role="presentation"><a href="#suport" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Suport</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="daskboard">
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="setup_system">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href='index.php?option=com_tsmart&view=general'><i
+                                            class="im-screen"></i>general setup</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=template"><span
+                                            class="icon-palette" title=""></span>Template</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href='index.php?option=com_tsmart&view=apisetting'><i
+                                            class="im-screen"></i>Api setting</a></li>
+                                <li><a href='index.php?option=com_tsmart&view=seosetting'><i
+                                            class="im-screen"></i>Seo setting</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=currency"><span
+                                            class="icon-palette" title=""></span>Curency</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=language"><span
+                                            class="icon-palette" title=""></span>Language</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=module"><span class="icon-palette" title=""></span>Module</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=paymentsetting"><span class="icon-palette" title=""></span>Payment</a>
+                                </li>
+                                <li><a href="index.php?option=com_tsmart&view=paymentmethod"><span class="icon-palette" title=""></span>Payment Method</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="logistic">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=country"><span
+                                            class="icon-palette" title=""></span>GEO contry</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=state"><span
+                                            class="icon-palette" title=""></span>state/province</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=cityarea"><span
+                                            class="icon-palette" title=""></span>city/area</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=airport"><span
+                                            class="icon-palette" title=""></span>airport</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=tourclass"><span
+                                            class="icon-palette" title=""></span>Tour class</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=activity"><span
+                                            class="icon-palette" title=""></span>Activities</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=toursection"><span
+                                            class="icon-palette" title=""></span>tour section</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=tourtype"><span
+                                            class="icon-palette" title=""></span>Tour type</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=tourstyle"><span
+                                            class="icon-palette" title=""></span>Tour style</a></li>
+
+                                <li class="btn-group">
+                                    <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false"><span class="icon-palette" title=""></span>
+                                        Service supplier </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="index.php?option=com_tsmart&view=supplier"></span>supplier manager</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="index.php?option=com_tsmart&view=servicetype">service field list</a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <!-- Single button -->
+
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=hotel"><span
+                                            class="icon-palette" title=""></span>Hotel</a>
+                                    <ul style="display: none" class="dropdown-menu">
+                                        <li>
+                                            <a href="index.php?option=com_tsmart&view=room"></span>Room</a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+                                <li><a href="index.php?option=com_tsmart&view=groupsize"><span
+                                            class="icon-palette" title=""></span>Tour group size</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=physicalgrade"><span
+                                            class="icon-palette" title=""></span>physical grade</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tour_build">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>Tour infomation</a></li>
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=itinerary&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>build itinerary</a></li>
+
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=price&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>Build tour price</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=accommodation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>Accommodation</a></li>
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=document&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>Add document</a></li>
+
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=media&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>Add photo</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=faq&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>add faqs</a></li>
+                                <li>
+                                    <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=relation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            class="icon-palette" title=""></span>build relation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tour_manager">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=product"><span
+                                            class="icon-palette"
+                                            title=""></span>Tour
+                                        listing</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=departure"><span
+                                            class="icon-palette" title=""></span>departure</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=payment"><span
+                                            class="icon-palette" title=""></span>Payment</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=transferaddon"><span
+                                            class="icon-palette" title=""></span>Transfer addon</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=excursionaddon"><span
+                                            class="icon-palette" title=""></span>excursion addon</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=excursionaddon"><span
+                                            class="icon-palette" title=""></span>excursion addon</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=dateavailability"><span class="icon-palette" title=""></span>set availability</a></li>
+                                <li><a href="#"><span class="icon-palette" title=""></span>Asign</a></li>
+                                <li>
+                                    <a href="index.php?option=com_tsmart&view=hoteladdon"><span
+                                            class="icon-palette" title=""></span>Hotel addon</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="sales_manager">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=promotion"><span
+                                            class="icon-palette" title=""></span>Promotion</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=coupon"><span
+                                            class="icon-palette" title=""></span>coupon</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=affiliate"><span
+                                            class="icon-palette" title=""></span>Affiliate</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=coupon"><span
+                                            class="icon-palette" title=""></span>Coupons</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=gift"><span
+                                            class="icon-palette" title=""></span>Gift</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=rewards"><span
+                                            class="icon-palette" title=""></span>Rewards</a></li>
+                            </ul>
+                        </div>
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="#"><span class="icon-palette" title=""></span>Tracker</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="reservation">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=orders"><span
+                                            class="icon-palette"
+                                            title=""></span>Reservation
+                                        listing</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=passenger"><span
+                                            class="icon-palette" title=""></span>Passenger manager</a></li>
+                                <li><a href="index.php?option=com_tsmart&view=conversition"><span
+                                            class="icon-palette" title=""></span>Conversition Manager</a></li>
+                                <li><a href='index.php?option=com_tsmart&view=user'><i
+                                            class="im-screen"></i>Customers</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="customer">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <ul class="ul_sub_menu">
+                                <li><a href='index.php?option=com_tsmart&view=user'><i
+                                            class="im-screen"></i>Customers listing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tour_enquiry">...</div>
+                <div role="tabpanel" class="tab-pane" id="report">...</div>
+                <div role="tabpanel" class="tab-pane" id="suport">...</div>
+            </div>
+
+        </div>
+
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+    function show_tab_geo($view,$tsmart_product_id){
+        ob_start();
+        ?>
+        <div class="header-main-menu tab-geo">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ><a href="index.php?option=com_tsmart">Daskboard</a>
+                </li>
+                <li role="presentation" class="<?php echo $view=='country'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=country" aria-controls="geo_country"
+                                           ><?php echo JText::_('GEO_COUNTRY') ?></a></li>
+                <li role="presentation" class="<?php echo $view=='state'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=state" aria-controls="geo_state" role="tab"
+                                           ><?php echo JText::_('GEO_STATE') ?></a></li>
+                <li role="presentation" class="<?php echo $view=='cityarea'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=cityarea" aria-controls="geo_state" role="tab"
+                                           ><?php echo JText::_('GEO_CITY') ?></a></li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="daskboard">
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="geo_country">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul style="display: none" class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=country"><span
+                                            class="icon-palette" title=""></span>GEO country</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="geo_state">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul style="display: none" class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=sate"><span
+                                            class="icon-palette" title=""></span>GEO state</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="geo_cityarea">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul style="display: none" class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=cityarea"><span
+                                            class="icon-palette" title=""></span>GEO City</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+    function show_tab_home_page($tsmart_product_id){
+        ob_start();
+        ?>
+        <div class="toolbar-top4 row-fluid">
+            <div class="span3 dashboard-left">
+                <div id="vertical_accordian_drop_down_menu_bar">
+                    <div class='menu'>
+                        <ul>
+                            <li class='active'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Dashboard</a>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Setup system</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=currency'><i
+                                                class="im-screen"></i>currency</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=paymentmethod'><i
+                                                class="im-screen"></i>Payment method</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Logistic</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=country'><i
+                                                class="im-screen"></i>GEO country</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=state'><i
+                                                class="im-screen"></i>Sate/province</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=cityarea'><i
+                                                class="im-screen"></i>city/area</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=groupsize'><i
+                                                class="im-screen"></i>Group size</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=tourclass'><i
+                                                class="im-screen"></i>tour class</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=activity'><i
+                                                class="im-screen"></i>Activities</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=tourstyle'><i
+                                                class="im-screen"></i>Tour style</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=tourtype'><i
+                                                class="im-screen"></i>Tour type</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=physicalgrade'><i
+                                                class="im-screen"></i>physical grade</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=hotel'><i
+                                                class="im-screen"></i>Hotel</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Tour
+                                    build</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Genaral
+                                            build</a>
+                                    </li>
+                                    <li>
+                                        <a href="index.php?option=com_tsmart&view=highlight&tsmart_product_id=<?php echo $tsmart_product_id ?>"><i
+                                                class="im-screen"></i>Highlights</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=itinerary&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>itinerary</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=media'><i
+                                                class="im-screen"></i>Photo</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=document&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>Documents</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=tourprice&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>Tour price</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=relation&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>Relation</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=hotel&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>Hotel</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=faq&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                class="im-screen"></i>FAQs</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Tour Manager</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=product'><i
+                                                class="im-screen"></i>Tour listing</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=departure'><i
+                                                class="im-screen"></i>departure</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=payment'><i
+                                                class="im-screen"></i>Payment</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=departure'><i
+                                                class="im-screen"></i>departure</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=discount'><i
+                                                class="im-screen"></i>Discount</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=hoteladdon'><i
+                                                class="im-screen"></i>Hotel addon</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=tranferaddon'><i
+                                                class="im-screen"></i>Tranfer addon</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=excursion'><i
+                                                class="im-screen"></i>excursion addon</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=asign'><i
+                                                class="im-screen"></i>Asign</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Sales manager</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=departure'><i
+                                                class="im-screen"></i>departure</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i
+                                        class="im-screen"></i>Reservation</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=orders'><i
+                                                class="im-screen"></i>Reservation listing</a>
+                                    </li>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=passenger'><i
+                                                class="im-screen"></i>Passenger manager</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class='sub'>
+                                <a href='index.php?option=com_tsmart'><i class="im-screen"></i>Customers</a>
+                                <ul>
+                                    <li>
+                                        <a href='index.php?option=com_tsmart&view=user'><i
+                                                class="im-screen"></i>Customers</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class='last'>
+                                <a href='index.php?option=com_tsmart&view=help'><i class="im-screen"></i>Help</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="span9">
+                <div class="row-fluid dashboard">
+                    <div class="span6"><h1 class="page-header"><i class="im-screen"></i> Dashboard</h1></div>
+                    <div class="span6 option-buttons">
+
+                        <a title="" class="pull-right">
+                            <i class="ec-help"></i>
+                        </a>
+                        <a title="" class="pull-right">
+                            <i class="ec-pencil"></i>
+                        </a>
+                        <a title="" class="pull-right">
+                            <i class="br-grid"></i>
+                        </a>
+                        <a title="" class="pull-right">
+                            <i class="ec-refresh"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="tile-content tour">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span3">
+                        <div class="tile-content hotel">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span3">
+                        <div class="tile-content flight">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span3">
+                        <div class="tile-content car">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row-fluid">
+
+                    <div class="span6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="container"
+                                     style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="span6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="container"
+                                     style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div class="tile-content tour">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span2">
+                        <div class="tile-content hotel">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span2">
+                        <div class="tile-content flight">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span2">
+                        <div class="tile-content car">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span2">
+                        <div class="tile-content car">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                    <div class="span2">
+                        <div class="tile-content car">
+                            <div class="number countTo" data-from="0" data-to="5">5</div>
+                            <h3>Settings changed</h3>
+                            <i class="im-screen"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+
 
 }
-
 ?>

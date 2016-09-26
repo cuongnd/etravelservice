@@ -148,7 +148,7 @@ class tsmCrypt {
 				$key = $usedKey['key'];
 				//No key means, we wanna encrypt something, when it has not the new attribute,
 				//it is an old key and must be replaced
-				$ksize = VmConfig::get('keysize',24);
+				$ksize = tsmConfig::get('keysize',24);
 				if(empty($key) or !isset($usedKey['b64']) or !isset($usedKey['size']) or $usedKey['size']!=$ksize){
 					$key = self::_createKeyFile($keyPath,$ksize);
 					$existingKeys[$key['unixtime']] = $key;
@@ -160,7 +160,7 @@ class tsmCrypt {
 			//vmTime('my time','check');
 			return $key;
 		} else {
-			$key = self::_createKeyFile($keyPath,VmConfig::get('keysize',24));
+			$key = self::_createKeyFile($keyPath,tsmConfig::get('keysize',24));
 			$existingKeys[$key['unixtime']] = $key;
 			return $key['key'];
 		}

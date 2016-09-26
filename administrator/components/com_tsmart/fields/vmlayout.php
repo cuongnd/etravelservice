@@ -16,8 +16,8 @@
  */
 defined('JPATH_BASE') or die;
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
-VmConfig::loadConfig();
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+tsmConfig::loadConfig();
 if (!class_exists('ShopFunctions'))
     require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 if (!class_exists('tsmartModelConfig'))
@@ -44,7 +44,7 @@ class JFormFieldVmLayout extends JFormField
   
 	function getInput() {
 
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadJLang('com_tsmart');
 
 		$this->view = (string) $this->element['view'];
 		if(empty($this->view)){

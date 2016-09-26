@@ -19,14 +19,14 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 
 /* Require the config */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 
-VmConfig::loadConfig();
+tsmConfig::loadConfig();
 
 vmRam('Start');
 vmSetStartTime('Start');
 
-VmConfig::loadJLang('com_virtuemart', true);
+tsmConfig::loadJLang('com_virtuemart', true);
 
 $doc=JFactory::getDocument();
 JHtml::_('jquery.framework');
@@ -35,7 +35,7 @@ $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstr
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
 $doc->addLessStyleSheet(JUri::root().'/components/com_virtuemart/assets/less/etravelservice.less');
-if(VmConfig::get('shop_is_offline',0)){
+if(tsmConfig::get('shop_is_offline',0)){
 	//$cache->setCaching (1);
 	$_controller = 'tsmart';
 	require (VMPATH_SITE.DS.'controllers'.DS.'tsmart.php');
@@ -66,11 +66,11 @@ if(VmConfig::get('shop_is_offline',0)){
 			vRequest::setVar('manage','1');
 			vRequest::setVar('tmpl','component') ;
 
-			VmConfig::loadJLang('com_virtuemart');
+			tsmConfig::loadJLang('com_virtuemart');
 			$jlang = JFactory::getLanguage();
 			$tag = $jlang->getTag();
 			$jlang->load('', JPATH_ADMINISTRATOR,$tag,true);
-			VmConfig::loadJLang('com_virtuemart');
+			tsmConfig::loadJLang('com_virtuemart');
 			$basePath = VMPATH_ADMIN;
 			$trigger = 'onVmAdminController';
 
@@ -137,7 +137,7 @@ if (class_exists($_class)) {
     $controller->redirect();
 } else {
     vmDebug('VirtueMart controller not found: '. $_class);
-    if (VmConfig::get('handle_404',1)) {
+    if (tsmConfig::get('handle_404',1)) {
     	$mainframe = Jfactory::getApplication();
     	$mainframe->redirect(JRoute::_ ('index.php?option=com_virtuemart&view=tsmart', FALSE));
     } else {

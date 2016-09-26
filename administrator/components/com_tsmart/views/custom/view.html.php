@@ -61,7 +61,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 			$selected=0;
 			$this->custom->form = false;
 			if(!empty($this->custom->custom_jplugin_id)) {
-				VmConfig::loadJLang('plg_vmpsplugin', false);
+				tsmConfig::loadJLang('plg_vmpsplugin', false);
 				JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
 				$selected = $this->custom->custom_jplugin_id;
 				// Get the payment XML.

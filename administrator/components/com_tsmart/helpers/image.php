@@ -65,7 +65,7 @@ class VmImage extends VmMediaHandler {
 				$rel_path = str_replace('/',DS,$this->file_url_folder);
 				$fullSizeFilenamePath = VMPATH_ROOT.DS.$rel_path.$this->file_name.'.'.$this->file_extension;
 				if (!file_exists($fullSizeFilenamePath)) {
-					$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_found');
+					$file_url = $this->theme_url.'assets/images/vmgeneral/'.tsmConfig::get('no_image_found');
 					$file_alt = tsmText::_('com_tsmart_NO_IMAGE_FOUND').' '.$this->file_description;
 				} else {
 					$file_url = $this->file_url;
@@ -106,8 +106,8 @@ class VmImage extends VmMediaHandler {
 	public function createThumbName($width=0,$height=0){
 
 		if(empty($this->file_name)) return false;
-		if(empty($width)) $width = VmConfig::get('img_width', 90);
-		if(empty($height)) $height = VmConfig::get('img_height', 90);
+		if(empty($width)) $width = tsmConfig::get('img_width', 90);
+		if(empty($height)) $height = tsmConfig::get('img_height', 90);
 
 		$this->file_name_thumb = $this->file_name.'_'.$width.'x'.$height;
 		return $this->file_name_thumb;
@@ -137,10 +137,10 @@ class VmImage extends VmMediaHandler {
 
 		$synchronise = vRequest::getString('synchronise',false);
 
-		if(!VmConfig::get('img_resize_enable') || $synchronise) return;
+		if(!tsmConfig::get('img_resize_enable') || $synchronise) return;
 		//now lets create the thumbnail, saving is done in this function
-		if(empty($width)) $width = VmConfig::get('img_width', 90);
-		if(empty($height)) $height = VmConfig::get('img_height', 90);
+		if(empty($width)) $width = tsmConfig::get('img_width', 90);
+		if(empty($height)) $height = tsmConfig::get('img_height', 90);
 
 		// Don't allow sizes beyond 2000 pixels //I dont think that this is good, should be config
 //		$width = min($width, 2000);

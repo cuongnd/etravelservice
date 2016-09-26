@@ -57,7 +57,7 @@ if (!empty($product->max_order_level)){
 }
 
 $addtoCartButton = '';
-if(!VmConfig::get('use_as_catalog', 0)){
+if(!tsmConfig::get('use_as_catalog', 0)){
 	if(!$product->addToCartButton and $product->addToCartButton!==''){
 		$addtoCartButton = shopFunctionsF::getAddToCartButton ($product->orderable);
 	} else {
@@ -69,17 +69,17 @@ $position = 'addtocart';
 //if (!empty($product->customfieldsSorted[$position]) or !empty($addtoCartButton)) {
 
 
-if (!VmConfig::get('use_as_catalog', 0)  ) { ?>
+if (!tsmConfig::get('use_as_catalog', 0)  ) { ?>
 
 	<div class="addtocart-bar">
 	<?php
 	// Display the quantity box
-	$stockhandle = VmConfig::get ('stockhandle', 'none');
+	$stockhandle = tsmConfig::get ('stockhandle', 'none');
 	if (($stockhandle == 'disableit' or $stockhandle == 'disableadd') and ($product->product_in_stock - $product->product_ordered) < 1) { ?>
 		<a href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $product->virtuemart_product_id); ?>" class="notify"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NOTIFY') ?></a><?php
 	} else {
 		$tmpPrice = (float) $product->prices['costPrice'];
-		if (!( VmConfig::get('askprice', true) and empty($tmpPrice) ) ) { ?>
+		if (!( tsmConfig::get('askprice', true) and empty($tmpPrice) ) ) { ?>
 			<?php if ($product->orderable) { ?>
 				<!-- <label for="quantity<?php echo $product->virtuemart_product_id; ?>" class="quantity_box"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY'); ?>: </label> -->
 				<span class="quantity-box">

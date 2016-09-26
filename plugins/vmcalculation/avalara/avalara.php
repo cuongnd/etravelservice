@@ -1044,7 +1044,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			$this->cancelOrder($data,$old_order_status);
 		}
 
-		$toInvoice = VmConfig::get('inv_os',array('C'));
+		$toInvoice = tsmConfig::get('inv_os',array('C'));
 		if(!is_array($toInvoice)) $toInvoice = (array)$toInvoice;
 		if($data->order_status=='R' or in_array($data->order_status,$toInvoice)){
 			$this->creditMemo($data);
@@ -1093,7 +1093,7 @@ class plgVmCalculationAvalara extends vmCalculationPlugin {
 			self::$vmadd = $orderDetails['details']['BT'];
 		}
 
-		$toInvoice = VmConfig::get('inv_os',array('C'));
+		$toInvoice = tsmConfig::get('inv_os',array('C'));
 		if(!is_array($toInvoice)) $toInvoice = (array)$toInvoice;
 
 		//Lets find first if the committ was already done, the committ was already done, if one of history orderstatuses

@@ -80,7 +80,7 @@ $option = vRequest::getCmd('option');
 				<td align="center">
 					
 					<?php // Rating Stars output
-					$maxrating = VmConfig::get('vm_maximum_rating_scale', 5);
+					$maxrating = tsmConfig::get('vm_maximum_rating_scale', 5);
 				    $ratingwidth = round($review->rating) * 24;
 				    ?>
 	

@@ -232,7 +232,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'orders.php');
 		}
 
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		$po = vRequest::getString('po', '');
 
@@ -834,7 +834,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 	function getConfirmedHtml($post_variables, $interface, $subscribe_id = NULL) {
 		$server = $interface->getKlikandpayServerUrl($subscribe_id);
 		$this->debugLog(var_export($post_variables, true), 'getConfirmedHtml', 'debug', false);
-		if (vmconfig::get('css')) {
+		if (tsmConfig::get('css')) {
 			$msg = tsmText::_('VMPAYMENT_KLIKANDPAY_REDIRECT_MESSAGE', true);
 		} else {
 			$msg='';
@@ -898,7 +898,7 @@ class plgVmpaymentKlikandpay extends vmPSPlugin {
 		}
 
 		$payment_name = $this->renderPluginName($this->_currentMethod);
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		if (!class_exists('VirtueMartCart')) {
 			require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');

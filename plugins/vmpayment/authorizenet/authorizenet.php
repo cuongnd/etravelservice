@@ -134,7 +134,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		$html = array();
 		$method_name = $this->_psType . '_name';
 
-		VmConfig::loadJLang('com_virtuemart', true);
+		tsmConfig::loadJLang('com_virtuemart', true);
 		vmJsApi::jCreditCard();
 		$htmla = '';
 		$html = array();
@@ -466,7 +466,7 @@ class plgVmpaymentAuthorizenet extends vmPSPlugin {
 		if (!($paymentTable = $this->getDataByOrderId($virtuemart_order_id))) {
 			return NULL;
 		}
-		VmConfig::loadJLang('com_virtuemart');
+		tsmConfig::loadJLang('com_virtuemart');
 
 		$html = '<table class="adminlist table">' . "\n";
 		$html .= $this->getHtmlHeaderBE();

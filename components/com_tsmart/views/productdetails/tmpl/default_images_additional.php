@@ -21,13 +21,13 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <div class="additional-images">
 	<?php
-	$start_image = VmConfig::get('add_img_main', 1) ? 0 : 1;
+	$start_image = tsmConfig::get('add_img_main', 1) ? 0 : 1;
 	for ($i = $start_image; $i < count($this->product->images); $i++) {
 		$image = $this->product->images[$i];
 		?>
 		<div class="floatleft">
 			<?php
-			if(VmConfig::get('add_img_main', 1)) {
+			if(tsmConfig::get('add_img_main', 1)) {
 				echo $image->displayMediaThumb('class="product-image" style="cursor: pointer"',false,$image->file_description);
 				echo '<a href="'. $image->file_url .'"  class="product-image image-'. $i .'" style="display:none;" title="'. $image->file_meta .'" rel="vm-additional-images"></a>';
 			} else {

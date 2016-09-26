@@ -22,7 +22,7 @@ defined('_JEXEC') or die();
 jimport('joomla.form.formfield');
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 class JFormFieldVmtitle extends JFormField {
 
@@ -33,7 +33,7 @@ class JFormFieldVmtitle extends JFormField {
 
 		$description = $this->element['description'];
 
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 
 		$html = '';
 		$class = !empty($this->class)? 'class="' .  $this->class . '"' : '';

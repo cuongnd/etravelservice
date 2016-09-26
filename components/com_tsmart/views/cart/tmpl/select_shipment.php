@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-if (VmConfig::get('oncheckout_show_steps', 1)) {
+if (tsmConfig::get('oncheckout_show_steps', 1)) {
 	echo '<div class="checkoutStep" id="checkoutStep2">' . tsmText::_('COM_VIRTUEMART_USER_FORM_CART_STEP2') . '</div>';
 }
 
@@ -50,7 +50,7 @@ if($this->cart->getInCheckOut()){
 
 	<div class="buttonBar-right">
 		<?php $dynUpdate = '';
-		if( VmConfig::get('oncheckout_ajax',false)) {
+		if( tsmConfig::get('oncheckout_ajax',false)) {
 		$dynUpdate=' data-dynamic-update="1" ';
 		} ?>
 		<button name="updatecart" class="<?php echo $buttonclass ?>" type="submit" <?php echo $dynUpdate ?> ><?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?></button>

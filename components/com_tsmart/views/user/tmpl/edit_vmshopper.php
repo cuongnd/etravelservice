@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_FORM_LBL') ?>
 	</span>
 	<table class="adminForm user-details">
-<?php	if(Vmconfig::get('multix','none')!=='none'){ ?>
+<?php	if(tsmConfig::get('multix','none')!=='none'){ ?>
 
 		<tr>
 			<td class="key">

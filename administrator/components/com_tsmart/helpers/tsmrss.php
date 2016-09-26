@@ -76,7 +76,7 @@ class vmRSS{
 	static public function getRssFeed($rssURL, $max, $cache_time) {
 
 		//if (JVM_VERSION < 3){
-			$erRep = VmConfig::setErrorReporting(false,true);
+			$erRep = tsmConfig::setErrorReporting(false,true);
 			jimport('simplepie.simplepie');
 			$rssFeed = new SimplePie($rssURL);
 

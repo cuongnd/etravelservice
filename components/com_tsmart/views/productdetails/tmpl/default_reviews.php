@@ -23,8 +23,8 @@ defined ('_JEXEC') or die ('Restricted access');
 $review_editable = true;
 if ($this->allowRating || $this->allowReview || $this->showRating || $this->showReview) {
 
-	$maxrating = VmConfig::get( 'vm_maximum_rating_scale', 5 );
-	$ratingsShow = VmConfig::get( 'vm_num_ratings_show', 3 ); // TODO add  vm_num_ratings_show in vmConfig
+	$maxrating = tsmConfig::get( 'vm_maximum_rating_scale', 5 );
+	$ratingsShow = tsmConfig::get( 'vm_num_ratings_show', 3 ); // TODO add  vm_num_ratings_show in vmConfig
 	$stars = array();
 	$showall = vRequest::getBool( 'showall', FALSE );
 	$ratingWidth = $maxrating*24;
@@ -109,12 +109,12 @@ function check_reviewform() {
 var form = document.getElementById('reviewform');
 var ausgewaehlt = false;
 
-	if (form.comment.value.length < ".VmConfig::get( 'reviews_minimum_comment_length', 100 ).") {
-		alert('".addslashes( tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_ERR_COMMENT1_JS', VmConfig::get( 'reviews_minimum_comment_length', 100 ) ) )."');
+	if (form.comment.value.length < ".tsmConfig::get( 'reviews_minimum_comment_length', 100 ).") {
+		alert('".addslashes( tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_ERR_COMMENT1_JS', tsmConfig::get( 'reviews_minimum_comment_length', 100 ) ) )."');
 		return false;
 	}
-	else if (form.comment.value.length > ".VmConfig::get( 'reviews_maximum_comment_length', 2000 ).") {
-		alert('".addslashes( tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_ERR_COMMENT2_JS', VmConfig::get( 'reviews_maximum_comment_length', 2000 ) ) )."');
+	else if (form.comment.value.length > ".tsmConfig::get( 'reviews_maximum_comment_length', 2000 ).") {
+		alert('".addslashes( tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_ERR_COMMENT2_JS', tsmConfig::get( 'reviews_maximum_comment_length', 2000 ) ) )."');
 		return false;
 	}
 	else {
@@ -129,7 +129,7 @@ function refresh_counter() {
 ";
 				vmJsApi::addJScript( 'check_reviewform', $reviewJavascript ); ?>
 				<span
-					class="step"><?php echo tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_COMMENT', VmConfig::get( 'reviews_minimum_comment_length', 100 ), VmConfig::get( 'reviews_maximum_comment_length', 2000 ) ); ?></span>
+					class="step"><?php echo tsmText::sprintf( 'COM_VIRTUEMART_REVIEW_COMMENT', tsmConfig::get( 'reviews_minimum_comment_length', 100 ), tsmConfig::get( 'reviews_maximum_comment_length', 2000 ) ); ?></span>
 				<br/>
 				<textarea class="virtuemart" title="<?php echo tsmText::_( 'COM_VIRTUEMART_WRITE_REVIEW' ) ?>"
 						  class="inputbox" id="comment" onblur="refresh_counter();" onfocus="refresh_counter();"

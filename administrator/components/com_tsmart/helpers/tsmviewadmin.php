@@ -589,7 +589,7 @@ class tsmViewAdmin extends JViewLegacy
         }
 
         // only add if ID and view not null
-        if ($editView and $id and (count(vmconfig::get('active_languages')) > 1)) {
+        if ($editView and $id and (count(tsmConfig::get('active_languages')) > 1)) {
 
             if ($editView == 'user') $editView = 'vendor';
 
@@ -597,7 +597,7 @@ class tsmViewAdmin extends JViewLegacy
             $this->lang = vRequest::getVar('vmlang', $this->lang);
             // list of languages installed in #__extensions (may be more than the ones in the Language manager > Content if the user did not added them)
             $languages = JLanguageHelper::createLanguageList($selectedLangue, constant('VMPATH_ROOT'), true);
-            $activeVmLangs = (vmconfig::get('active_languages'));
+            $activeVmLangs = (tsmConfig::get('active_languages'));
             $flagCss = "";
             foreach ($languages as $k => &$joomlaLang) {
                 if (!in_array($joomlaLang['value'], $activeVmLangs)) {
@@ -760,7 +760,7 @@ class tsmViewAdmin extends JViewLegacy
         }
 
         // only add if ID and view not null
-        if ($editView and $id and (count(vmconfig::get('active_languages')) > 1)) {
+        if ($editView and $id and (count(tsmConfig::get('active_languages')) > 1)) {
 
             if ($editView == 'user') $editView = 'vendor';
 
@@ -768,7 +768,7 @@ class tsmViewAdmin extends JViewLegacy
             $this->lang = vRequest::getVar('vmlang', $this->lang);
             // list of languages installed in #__extensions (may be more than the ones in the Language manager > Content if the user did not added them)
             $languages = JLanguageHelper::createLanguageList($selectedLangue, constant('VMPATH_ROOT'), true);
-            $activeVmLangs = (vmconfig::get('active_languages'));
+            $activeVmLangs = (tsmConfig::get('active_languages'));
             $flagCss = "";
             foreach ($languages as $k => &$joomlaLang) {
                 if (!in_array($joomlaLang['value'], $activeVmLangs)) {
@@ -931,7 +931,7 @@ class tsmViewAdmin extends JViewLegacy
         }
 
         // only add if ID and view not null
-        if ($editView and $id and (count(vmconfig::get('active_languages')) > 1)) {
+        if ($editView and $id and (count(tsmConfig::get('active_languages')) > 1)) {
 
             if ($editView == 'user') $editView = 'vendor';
 
@@ -939,7 +939,7 @@ class tsmViewAdmin extends JViewLegacy
             $this->lang = vRequest::getVar('vmlang', $this->lang);
             // list of languages installed in #__extensions (may be more than the ones in the Language manager > Content if the user did not added them)
             $languages = JLanguageHelper::createLanguageList($selectedLangue, constant('VMPATH_ROOT'), true);
-            $activeVmLangs = (vmconfig::get('active_languages'));
+            $activeVmLangs = (tsmConfig::get('active_languages'));
             $flagCss = "";
             foreach ($languages as $k => &$joomlaLang) {
                 if (!in_array($joomlaLang['value'], $activeVmLangs)) {
@@ -1257,9 +1257,9 @@ class tsmViewAdmin extends JViewLegacy
             }
             $task = "_" . $task;
         }
-        if (!class_exists('VmConfig')) require(VMPATH_ADMIN . '/helpers/config.php');
-        VmConfig::loadConfig();
-        VmConfig::loadJLang('com_tsmart_help');
+        if (!class_exists('tsmConfig')) require(VMPATH_ADMIN . '/helpers/config.php');
+        tsmConfig::loadConfig();
+        tsmConfig::loadJLang('com_tsmart_help');
         $lang = JFactory::getLanguage();
         $key = 'com_tsmart_HELP_' . $view . $task;
         if ($lang->hasKey($key)) {
@@ -1294,7 +1294,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
         if ($this->showVendors === null) {
-            if (VmConfig::get('multix', 'none') != 'none' and vmAccess::manager('managevendors')) {
+            if (tsmConfig::get('multix', 'none') != 'none' and vmAccess::manager('managevendors')) {
                 $this->showVendors = true;
             } else {
                 $this->showVendors = false;

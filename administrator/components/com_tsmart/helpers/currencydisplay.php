@@ -53,7 +53,7 @@ class CurrencyDisplay {
 			$this->_vendorCurrency_numeric = $vendorCurrency->currency_numeric_code;
 		}
 
-		$converterFile  = VmConfig::get('currency_converter_module','convertECB.php');
+		$converterFile  = tsmConfig::get('currency_converter_module','convertECB.php');
 
 		if (file_exists( VMPATH_ADMIN.DS.'plugins'.DS.'currency_converter'.DS.$converterFile ) and !is_dir(VMPATH_ADMIN.DS.'plugins'.DS.'currency_converter'.DS.$converterFile)) {
 			$module_filename=substr($converterFile, 0, -4);
@@ -116,7 +116,7 @@ class CurrencyDisplay {
 			if(!empty($style)){
 				self::$_instance[$h]->setCurrencyDisplayToStyleStr($style);
 			} else {
-				VmConfig::loadJLang('com_tsmart');
+				tsmConfig::loadJLang('com_tsmart');
 
 				if(empty(self::$_instance[$h]->_currency_id)){
 					$link = JURI::root().'administrator/index.php?option=com_tsmart&view=user&task=editshop';
@@ -199,11 +199,11 @@ class CurrencyDisplay {
 					}
 				}
 			} else {
-				if(VmConfig::get('show_prices', 1)){
+				if(tsmConfig::get('show_prices', 1)){
 					foreach($priceFieldsRoots as $name){
-						$show = VmConfig::get($name,0);
-						$text = VmConfig::get($name.'Text',0);
-						$round = VmConfig::get($name.'Rounding',$this->_nbDecimal);
+						$show = tsmConfig::get($name,0);
+						$text = tsmConfig::get($name.'Text',0);
+						$round = tsmConfig::get($name.'Rounding',$this->_nbDecimal);
 						if($round==-1){
 							$round = $this->_nbDecimal;
 						}
@@ -265,7 +265,7 @@ class CurrencyDisplay {
 
 		$price = $this->convertCurrencyTo($currencyId,$price,$inToShopCurrency);
 
-		if($this->_numeric_code===756 and VmConfig::get('rappenrundung',FALSE)=="1"){
+		if($this->_numeric_code===756 and tsmConfig::get('rappenrundung',FALSE)=="1"){
 			$price = round((float)$price * 2,1) * 0.5;
 		} else {
 			$price = round($price,$nb);

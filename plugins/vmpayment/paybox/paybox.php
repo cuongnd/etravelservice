@@ -138,7 +138,7 @@ class plgVmpaymentPaybox extends vmPSPlugin {
 		}
 
 
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		$virtuemart_paymentmethod_id = vRequest::getInt('pm', 0);
 
@@ -681,7 +681,7 @@ class plgVmpaymentPaybox extends vmPSPlugin {
 	function getResponseHTML($order, $paybox_data, $success, $extra_comment) {
 
 		$payment_name = $this->renderPluginName($this->_currentMethod);
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 		$q = 'SELECT `currency_code_3` FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id`="' . $order['details']['BT']->order_currency . '" ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);

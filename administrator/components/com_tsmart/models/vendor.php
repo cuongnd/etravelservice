@@ -41,7 +41,7 @@ class tsmartModelVendor extends tmsModel {
 		parent::__construct ();
 
 		//Todo multivendor nasty hack, to get vendor with id 1
-		if (Vmconfig::get ('multix', 'none') == 'none') {
+		if (tsmConfig::get ('multix', 'none') == 'none') {
 			$this->setId (1);
 		}
 
@@ -113,7 +113,7 @@ class tsmartModelVendor extends tmsModel {
 	public function getVendors () {
 
 		$this->setId (0); //This is important ! notice by Max Milbers
-		$query = 'SELECT * FROM `#__tsmart_vendors_' . VmConfig::$vmlang . '` as l JOIN `#__tsmart_vendors` as v using (`tsmart_vendor_id`)';
+		$query = 'SELECT * FROM `#__tsmart_vendors_' . tsmConfig::$vmlang . '` as l JOIN `#__tsmart_vendors` as v using (`tsmart_vendor_id`)';
 		$query .= ' ORDER BY l.`tsmart_vendor_id`';
 		$this->_data = $this->_getList ($query, $this->getState ('limitstart'), $this->getState ('limit'));
 		return $this->_data;
@@ -359,7 +359,7 @@ class tsmartModelVendor extends tmsModel {
 	 */
 	public function getVendorName ($tsmart_vendor_id = 1) {
 		$db = JFactory::getDBO();
-		$query = 'SELECT `vendor_store_name` FROM `#__tsmart_vendors_' . VmConfig::$vmlang . '` WHERE `tsmart_vendor_id` = "' . (int)$tsmart_vendor_id . '" ';
+		$query = 'SELECT `vendor_store_name` FROM `#__tsmart_vendors_' . tsmConfig::$vmlang . '` WHERE `tsmart_vendor_id` = "' . (int)$tsmart_vendor_id . '" ';
 		$db->setQuery ($query);
 		if ($db->execute ()) {
 			return $db->loadResult ();

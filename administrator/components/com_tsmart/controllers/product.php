@@ -121,7 +121,7 @@ class TsmartControllerProduct extends TsmController {
 			}
 
 			//Why we have this?
-			$multix = Vmconfig::get('multix','none');
+			$multix = tsmConfig::get('multix','none');
 			if( $multix != 'none' ){
 				//in fact this shoudl be used, when the mode is administrated and the system is so that
 				//every product must be approved by an admin.
@@ -264,7 +264,7 @@ class TsmartControllerProduct extends TsmController {
 		}
 
 		if(!empty($cids)){
-			$q = 'SELECT `product_name` FROM `#__tsmart_products_' . VmConfig::$vmlang . '` ';
+			$q = 'SELECT `product_name` FROM `#__tsmart_products_' . tsmConfig::$vmlang . '` ';
 			$q .= ' WHERE `tsmart_product_id` IN (' . implode(',', $cids) . ')';
 
 			$db = JFactory::getDbo();

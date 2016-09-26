@@ -59,7 +59,7 @@ class plgVmPaymentKlarnaCheckout extends vmPSPlugin {
 		$varsToPush = $this->getVarsToPush();
 		$this->setConfigParameterable($this->_configTableFieldName, $varsToPush);
 		plgVmPaymentKlarnaCheckout::includeKlarnaFiles();
-		VmConfig::loadJLang('plg_vmpayment_klarna');
+		tsmConfig::loadJLang('plg_vmpayment_klarna');
 
 	}
 
@@ -122,7 +122,7 @@ class plgVmPaymentKlarnaCheckout extends vmPSPlugin {
 		$html = '';
 		$logo = '';
 
-		VmConfig::loadJLang('com_virtuemart');
+		tsmConfig::loadJLang('com_virtuemart');
 		$currency = CurrencyDisplay::getInstance();
 		$showallform = true;
 
@@ -1506,12 +1506,12 @@ jQuery().ready(function($) {
 	}
 
 	private function setCartLayout($cart, $intoSession = true) {
-		if (!class_exists('VmConfig')) {
+		if (!class_exists('tsmConfig')) {
 			require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 		}
-		VmConfig::loadConfig();
-		$olgConfig = VmConfig::get('oncheckout_opc', true);
-		VmConfig::set('oncheckout_opc', true);
+		tsmConfig::loadConfig();
+		$olgConfig = tsmConfig::get('oncheckout_opc', true);
+		tsmConfig::set('oncheckout_opc', true);
 		$cart->layoutPath = vmPlugin::getTemplatePath($this->_name, 'payment', 'cart');
 		$cart->layout = 'cart';
 		if ($intoSession) {

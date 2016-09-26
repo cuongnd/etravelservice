@@ -79,7 +79,7 @@ class TsmartViewcurrency extends tsmViewAdmin {
 			//end get state
 
 			//get country
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcountries.php';
 			$list_country = tsmcountries::get_countries();
 			$this->assignRef('list_country', $list_country);
 			//end get country

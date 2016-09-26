@@ -73,10 +73,10 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
             <div class="product table_product" style="text-align: left;">
                 <?php
                 // $this->productlist
-                $mediaLimit = (int)VmConfig::get('mediaLimit', 20);
+                $mediaLimit = (int)tsmConfig::get('mediaLimit', 20);
                 $totalList = count($this->productlist);
                 if ($this->pagination->limit <= $mediaLimit or $totalList <= $mediaLimit) {
-                    $imgWidth = VmConfig::get('img_width');
+                    $imgWidth = tsmConfig::get('img_width');
                     if (empty($imgWidth)) $imgWidth = 80;
                 } else {
                     $imgWidth = 30;

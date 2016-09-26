@@ -356,7 +356,7 @@ jQuery().ready(function($) {
 		if ($this->_method->debug) {
 			$html .= '<form action="' . $pbxServer . '" method="post" name="vm_paybox_form" target="paybox">';
 		} else {
-			if (vmconfig::get('css')) {
+			if (tsmConfig::get('css')) {
 				$msg = tsmText::_('VMPAYMENT_PAYBOX_REDIRECT_MESSAGE', true);
 			} else {
 				$msg='';

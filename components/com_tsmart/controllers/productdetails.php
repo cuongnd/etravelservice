@@ -66,7 +66,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		JSession::checkToken () or jexit ('Invalid Token');
 
 		$app = JFactory::getApplication ();
-		if(!VmConfig::get('ask_question',false)){
+		if(!tsmConfig::get('ask_question',false)){
 			$app->redirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), 'Function disabled');
 		}
 
@@ -76,8 +76,8 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		}
 
 		$vars = array();
-		$min = VmConfig::get ('asks_minimum_comment_length', 50) + 1;
-		$max = VmConfig::get ('asks_maximum_comment_length', 2000) - 1;
+		$min = tsmConfig::get ('asks_minimum_comment_length', 50) + 1;
+		$max = tsmConfig::get ('asks_maximum_comment_length', 2000) - 1;
 		$commentSize = vRequest::getString ('comment');
 		if (function_exists('mb_strlen')) {
 			$commentSize =  mb_strlen($commentSize);
@@ -108,7 +108,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 			return;
 		}
 
-		if(JFactory::getUser()->guest == 1 and VmConfig::get ('ask_captcha')){
+		if(JFactory::getUser()->guest == 1 and tsmConfig::get ('ask_captcha')){
 			$recaptcha = vRequest::getVar ('recaptcha_response_field');
 			JPluginHelper::importPlugin('captcha');
 			$dispatcher = JDispatcher::getInstance();
@@ -176,11 +176,11 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		JSession::checkToken () or jexit ('Invalid Token');
 
 		$app = JFactory::getApplication ();
-		if(!VmConfig::get('show_emailfriend',false)){
+		if(!tsmConfig::get('show_emailfriend',false)){
 			$app->redirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), 'Function disabled');
 		}
 
-		if(JFactory::getUser()->guest == 1 and VmConfig::get ('ask_captcha')){
+		if(JFactory::getUser()->guest == 1 and tsmConfig::get ('ask_captcha')){
 			$recaptcha = vRequest::getVar ('recaptcha_response_field');
 			JPluginHelper::importPlugin('captcha');
 			$dispatcher = JDispatcher::getInstance();

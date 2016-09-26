@@ -46,7 +46,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		$this->addStandardEditViewCommands();
 
-		$this->config = VmConfig::loadConfig();
+		$this->config = tsmConfig::loadConfig();
 		if(!empty($this->config->_params)){
 			unset ($this->config->_params['pdf_invoice']); // parameter remove and replaced by inv_os
 		}
@@ -85,7 +85,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		$this->currConverterList = $model->getCurrencyConverterList();
 
-		$this->activeLanguages = $model->getActiveLanguages( VmConfig::get('active_languages') );
+		$this->activeLanguages = $model->getActiveLanguages( tsmConfig::get('active_languages') );
 
 		$this->orderByFieldsProduct = $model->getProductFilterFields('browse_orderby_fields');
 
@@ -128,7 +128,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 		$db = JFactory::getDBO();
 		$q = 'SELECT tsmart_'.$ps.'method_id,'.$ps.'_name
 FROM #__tsmart_'.$ps.'methods
-INNER JOIN #__tsmart_'.$ps.'methods_'.VmConfig::$vmlang.' USING (tsmart_'.$ps.'method_id)
+INNER JOIN #__tsmart_'.$ps.'methods_'.tsmConfig::$vmlang.' USING (tsmart_'.$ps.'method_id)
 WHERE published="1"';
 		$db->setQuery($q);
 
@@ -148,7 +148,7 @@ WHERE published="1"';
 	private function checkVmUserVendor(){
 
 		$db = JFactory::getDBO();
-		$multix = Vmconfig::get('multix','none');
+		$multix = tsmConfig::get('multix','none');
 
 		$q = 'select * from #__tsmart_vmusers where user_is_vendor = 1';// and tsmart_vendor_id '.$vendorWhere.' limit 1';
 		$db->setQuery($q);
@@ -176,7 +176,7 @@ WHERE published="1"';
 	}
 
 	private function checkClientIP(){
-		$revproxvar = VmConfig::get('revproxvar','');
+		$revproxvar = tsmConfig::get('revproxvar','');
 		if(!empty($revproxvar)) vmdebug('My server variable ',$_SERVER);
 	}
 }

@@ -39,7 +39,7 @@ class VirtueMartViewVirtueMart extends VmView {
 		$this->vendor = $vendorModel->getVendor();
 
 		if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
-		if (VmConfig::get ('enable_content_plugin', 0)) {
+		if (tsmConfig::get ('enable_content_plugin', 0)) {
 			shopFunctionsF::triggerContentPlugin($this->vendor, 'vendor','vendor_store_desc');
 			shopFunctionsF::triggerContentPlugin($this->vendor, 'vendor','vendor_terms_of_service');
 		}
@@ -56,7 +56,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		$document = JFactory::getDocument();
 
-		if(!VmConfig::get('shop_is_offline',0)){
+		if(!tsmConfig::get('shop_is_offline',0)){
 
 			if( ShopFunctionsF::isFEmanager('product.edit') ){
 				$add_product_link = JURI::root() . 'index.php?option=com_virtuemart&tmpl=component&view=product&task=edit&virtuemart_product_id=0&manage=1' ;
@@ -83,37 +83,37 @@ class VirtueMartViewVirtueMart extends VmView {
 			if(!class_exists('CurrencyDisplay'))require(VMPATH_ADMIN.DS.'helpers'.DS.'currencydisplay.php');
 			$this->currency = CurrencyDisplay::getInstance( );
 			
-			$products_per_row = VmConfig::get('homepage_products_per_row',3);
+			$products_per_row = tsmConfig::get('homepage_products_per_row',3);
 			
-			$featured_products_rows = VmConfig::get('featured_products_rows',1);
+			$featured_products_rows = tsmConfig::get('featured_products_rows',1);
 			$featured_products_count = $products_per_row * $featured_products_rows;
 
-			if (!empty($featured_products_count) and VmConfig::get('show_featured', 1)) {
+			if (!empty($featured_products_count) and tsmConfig::get('show_featured', 1)) {
 				$this->products['featured'] = $productModel->getProductListing('featured', $featured_products_count);
 				$productModel->addImages($this->products['featured'],1);
 			}
 			
-			$latest_products_rows = VmConfig::get('latest_products_rows');
+			$latest_products_rows = tsmConfig::get('latest_products_rows');
 			$latest_products_count = $products_per_row * $latest_products_rows;
 
-			if (!empty($latest_products_count) and VmConfig::get('show_latest', 1)) {
+			if (!empty($latest_products_count) and tsmConfig::get('show_latest', 1)) {
 				$this->products['latest']= $productModel->getProductListing('latest', $latest_products_count);
 				$productModel->addImages($this->products['latest'],1);
 			}
 
-			$topTen_products_rows = VmConfig::get('topTen_products_rows');
+			$topTen_products_rows = tsmConfig::get('topTen_products_rows');
 			$topTen_products_count = $products_per_row * $topTen_products_rows;
 			
-			if (!empty($topTen_products_count) and VmConfig::get('show_topTen', 1)) {
+			if (!empty($topTen_products_count) and tsmConfig::get('show_topTen', 1)) {
 				$this->products['topten']= $productModel->getProductListing('topten', $topTen_products_count);
 				$productModel->addImages($this->products['topten'],1);
 			}
 			
-			$recent_products_rows = VmConfig::get('recent_products_rows');
+			$recent_products_rows = tsmConfig::get('recent_products_rows');
 			$recent_products_count = $products_per_row * $recent_products_rows;
 
 			
-			if (!empty($recent_products_count) and VmConfig::get('show_recent', 1) ) {
+			if (!empty($recent_products_count) and tsmConfig::get('show_recent', 1) ) {
 				$recent_products = $productModel->getProductListing('recent');
 				if(!empty($recent_products)){
 					$this->products['recent']= $productModel->getProductListing('recent', $recent_products_count);
@@ -123,8 +123,8 @@ class VirtueMartViewVirtueMart extends VmView {
 
 			if ($this->products) {
 
-				$display_stock = VmConfig::get('display_stock',1);
-				$showCustoms = VmConfig::get('show_pcustoms',1);
+				$display_stock = tsmConfig::get('display_stock',1);
+				$showCustoms = tsmConfig::get('show_pcustoms',1);
 				if($display_stock or $showCustoms){
 
 					if(!$showCustoms){
@@ -146,15 +146,15 @@ class VirtueMartViewVirtueMart extends VmView {
 
 			$this->showBasePrice = (vmAccess::manager() or vmAccess::isSuperVendor());
 
-			$layout = VmConfig::get('vmlayout','default');
+			$layout = tsmConfig::get('vmlayout','default');
 			$this->setLayout($layout);
 
-			$productsLayout = VmConfig::get('productsublayout','products');
+			$productsLayout = tsmConfig::get('productsublayout','products');
 			if(empty($productsLayout)) $productsLayout = 'products';
 			$this->productsLayout = empty($menu->query['productsublayout'])? $productsLayout:$menu->query['productsublayout'];
 
 			// Add feed links
-			if ($this->products  && (VmConfig::get('feed_featured_published', 0)==1 or VmConfig::get('feed_topten_published', 0)==1 or VmConfig::get('feed_latest_published', 0)==1)) {
+			if ($this->products  && (tsmConfig::get('feed_featured_published', 0)==1 or tsmConfig::get('feed_topten_published', 0)==1 or tsmConfig::get('feed_latest_published', 0)==1)) {
 				$link = '&format=feed&limitstart=';
 				$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 				$document->addHeadLink(JRoute::_($link . '&type=rss', FALSE), 'alternate', 'rel', $attribs);

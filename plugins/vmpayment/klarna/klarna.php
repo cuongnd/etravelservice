@@ -17,7 +17,7 @@ defined ('_JEXEC') or die();
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
-if (!class_exists('VmConfig')) {
+if (!class_exists('tsmConfig')) {
 	require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 }
 
@@ -893,7 +893,7 @@ class plgVmPaymentKlarna extends vmPSPlugin {
 		}
 		foreach ($payments as $payment) {
 			if (!empty($payment->klarna_pdf_invoice)) {
-				$path = VmConfig::get ('forSale_path', 0);
+				$path = tsmConfig::get ('forSale_path', 0);
 				$path .= DS . 'invoices' . DS;
 				$fileName = $path . $payment->klarna_pdf_invoice;
 				break;
@@ -1298,7 +1298,7 @@ class plgVmPaymentKlarna extends vmPSPlugin {
 		} else {
 			VmInfo (tsmText::_ ('VMPAYMENT_KLARNA_REQUIRED_USERFIELDS_OK'));
 		}
-		VmConfig::loadJLang('com_virtuemart_shoppers', true);
+		tsmConfig::loadJLang('com_virtuemart_shoppers', true);
 
 		$klarna_required_not_found = array();
 		// TEST that all required Klarna shopper fields are there, if not create them
@@ -1323,7 +1323,7 @@ class plgVmPaymentKlarna extends vmPSPlugin {
 			$data['shipment'] = 0;
 			$data['vNames'] = array();
 			$data['vValues'] = array();
-			VmConfig::loadJLang('com_virtuemart_shoppers', true);
+			tsmConfig::loadJLang('com_virtuemart_shoppers', true);
 
 			foreach ($klarna_required_not_found as $requiredfield) {
 				$data['name'] = $requiredfield;

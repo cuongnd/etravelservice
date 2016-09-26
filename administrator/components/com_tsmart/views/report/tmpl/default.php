@@ -41,8 +41,8 @@ else $addDateInfo = false;
 
                     echo tsmText::_('com_tsmart_REPORT_FROM_PERIOD') .  vmJsApi::jDate($this->from_period, 'from_period');
                     echo tsmText::_('com_tsmart_REPORT_UNTIL_PERIOD') . vmJsApi::jDate($this->until_period, 'until_period');
-                        if(VmConfig::get('multix','none')!='none'){
-                            $vendorId = vmConfig::isSuperVendor();
+                        if(tsmConfig::get('multix','none')!='none'){
+                            $vendorId = tsmConfig::isSuperVendor();
                             if(vmAccess::manager('managevendors')){
                                 $vendorId = vRequest::getInt('tsmart_vendor_id',$vendorId);
                             }

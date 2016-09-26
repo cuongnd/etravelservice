@@ -23,7 +23,7 @@ $colspan=8;
 
 if ($this->doctype != 'invoice') {
     $colspan -= 4;
-} elseif ( ! VmConfig::get('show_tax')) {
+} elseif ( ! tsmConfig::get('show_tax')) {
     $colspan -= 1;
 }
 
@@ -71,7 +71,7 @@ foreach($this->orderDetails['calc_rules'] as $rule){
 		<?php } ?>
 		<td align="right" width="6%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_QTY') ?></strong></td>
 		<?php if ($this->doctype == 'invoice') { ?>
-		<?php if ( VmConfig::get('show_tax')) { ?>
+		<?php if ( tsmConfig::get('show_tax')) { ?>
 		<td align="right" width="10%" ><strong><?php
 		if(count($taxBill)==1){
 			reset($taxBill);
@@ -130,7 +130,7 @@ foreach($this->orderDetails['calc_rules'] as $rule){
 				<?php echo $qtt; ?>
 			</td>
 		<?php if ($this->doctype == 'invoice') { ?>
-			<?php if ( VmConfig::get('show_tax')) { ?>
+			<?php if ( tsmConfig::get('show_tax')) { ?>
 				<td align="right" class="priceCol"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($item->product_tax ,$this->currency, $qtt)."</span>" ?></td>
                                 <?php } ?>
 			<td align="right" class="priceCol" >
@@ -160,7 +160,7 @@ foreach($this->orderDetails['calc_rules'] as $rule){
  <tr class="sectiontableentry1">
 			<td colspan="6" align="right"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
-                        <?php if ( VmConfig::get('show_tax')) { ?>
+                        <?php if ( tsmConfig::get('show_tax')) { ?>
 			<td align="right"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_tax, $this->currency)."</span>" ?></td>
                         <?php } ?>
 			<td align="right"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_discountAmount, $this->currency)."</span>" ?></td>
@@ -172,7 +172,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 	?>
 	<tr>
 		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('COM_VIRTUEMART_COUPON_DISCOUNT').$coupon_code ?></td>
-		<?php if ( VmConfig::get('show_tax')) { ?>
+		<?php if ( tsmConfig::get('show_tax')) { ?>
 			<td align="right"> </td>
 		<?php } ?>
 		<td align="right"></td>
@@ -186,7 +186,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 		foreach($discountsBill as $rule){ ?>
 			<tr >
 				<td colspan="6" align="right" class="pricePad"><?php echo $rule->calc_rule_name ?> </td>
-				<?php if ( VmConfig::get('show_tax')) { ?>
+				<?php if ( tsmConfig::get('show_tax')) { ?>
 					<td align="right"> </td>
 				<?php } ?>
 				<td align="right"><?php echo $this->currency->priceDisplay($rule->calc_amount, $this->currency); ?></td>
@@ -202,7 +202,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 	<tr>
 		<td align="right" class="pricePad" colspan="6"><?php echo $this->orderDetails['shipmentName'] ?></td>
 
-		<?php if ( VmConfig::get('show_tax')) { ?>
+		<?php if ( tsmConfig::get('show_tax')) { ?>
 		<td align="right"><span class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderDetails['details']['BT']->order_shipment_tax, $this->currency) ?></span> </td>
 		<?php } ?>
 		<td align="right"></td>
@@ -212,7 +212,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 	<tr>
 		<td align="right" class="pricePad" colspan="6"><?php echo $this->orderDetails['paymentName'] ?></td>
 
-		<?php if ( VmConfig::get('show_tax')) { ?>
+		<?php if ( tsmConfig::get('show_tax')) { ?>
 		<td align="right"><span class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderDetails['details']['BT']->order_payment_tax, $this->currency) ?></span> </td>
 		<?php } ?>
 		<td align="right"></td>
@@ -222,7 +222,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 	<tr>
 		<td align="right" class="pricePad" colspan="6"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
 
-		<?php if ( VmConfig::get('show_tax')) { ?>
+		<?php if ( tsmConfig::get('show_tax')) { ?>
 		<td align="right"><span class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderDetails['details']['BT']->order_billTaxAmount, $this->currency); ?></span></td>
 		<?php } ?>
 		<td align="right"><span class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderDetails['details']['BT']->order_billDiscountAmount, $this->currency); ?></span></td>
@@ -240,7 +240,7 @@ if ($this->orderDetails['details']['BT']->coupon_discount <> 0.00) {
 			if ($rule->calc_kind == 'taxRulesBill' or $rule->calc_kind == 'VatTax' ) { ?>
 				<tr >
 					<td colspan="6"  align="right" class="pricePad"><?php echo $rule->label ?> </td>
-					<?php if ( VmConfig::get('show_tax')) {  ?>
+					<?php if ( tsmConfig::get('show_tax')) {  ?>
 						<td align="right"><?php echo $this->currency->priceDisplay($rule->calc_result, $this->currency); ?></td>
 					<?php } ?>
 					<td align="right"></td>

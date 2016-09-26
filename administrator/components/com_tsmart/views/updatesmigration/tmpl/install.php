@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 AdminUIHelper::startAdminArea($this);
-if(!VmConfig::get('dangeroustools', false)){
+if(!tsmConfig::get('dangeroustools', false)){
 	$uri = JFactory::getURI();
 	$link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=config';
 	?>

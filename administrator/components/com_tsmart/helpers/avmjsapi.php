@@ -238,7 +238,7 @@ class vmJsApi{
 		if (strpos($path, 'templates/'. $template ) !== FALSE){
 			// Search in template or fallback
 			if (!file_exists($uri.'/'. $file)) {
-				$assets_path = VmConfig::get('assets_general_path','components/com_tsmart/assets/') ;
+				$assets_path = tsmConfig::get('assets_general_path','components/com_tsmart/assets/') ;
 				$path = str_replace('templates/'. $template.'/',$assets_path, $path);
 			}
 			$file_exit_path = VMPATH_BASE .'/'.$path;
@@ -281,13 +281,13 @@ class vmJsApi{
 
 		if($isSite===-1) $isSite = !self::isAdmin();
 
-		if (!VmConfig::get ('jquery', true) and $isSite) {
+		if (!tsmConfig::get ('jquery', true) and $isSite) {
 			vmdebug('Common jQuery is disabled');
 			return FALSE;
 		}
 
 		if(JVM_VERSION<3){
-			if(VmConfig::get('google_jquery',true)){
+			if(tsmConfig::get('google_jquery',true)){
 				self::addJScript('jquery.min','//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js',false,false, false, '');
 				self::addJScript( 'jquery-migrate.min',false,false,false,'');
 			} else {
@@ -309,7 +309,7 @@ class vmJsApi{
 
 	static function jQueryUi(){
 		return;
-		if(VmConfig::get('google_jquery', false)){
+		if(tsmConfig::get('google_jquery', false)){
 			self::addJScript('jquery-ui.min', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js', false, false, false, '');
 		} else {
 			self::addJScript('jquery-ui.min', false, false, false,'');
@@ -320,7 +320,7 @@ class vmJsApi{
 	// tsmart product and price script
 	static function jPrice() {
 
-		if(!VmConfig::get( 'jprice', TRUE ) and !self::isAdmin()) {
+		if(!tsmConfig::get( 'jprice', TRUE ) and !self::isAdmin()) {
 			return FALSE;
 		}
 		static $jPrice;
@@ -330,7 +330,7 @@ class vmJsApi{
 		}
 		vmJsApi::jQuery();
 
-		VmConfig::loadJLang( 'com_tsmart', true );
+		tsmConfig::loadJLang( 'com_tsmart', true );
 
 		vmJsApi::jSite();
 
@@ -338,8 +338,8 @@ class vmJsApi{
 
 		$jsVars = "";
 		$jsVars .= "vmSiteurl = '".JURI::root()."' ;\n";
-		$jsVars .= 'vmLang = "&lang='.VmConfig::$vmlangSef.'";'."\n";
-		$jsVars .= 'vmLangTag = "'.VmConfig::$vmlangSef.'";'."\n";
+		$jsVars .= 'vmLang = "&lang='.tsmConfig::$vmlangSef.'";'."\n";
+		$jsVars .= 'vmLangTag = "'.tsmConfig::$vmlangSef.'";'."\n";
 
 		$Get = vRequest::getGet();
 		if(!empty($Get['Itemid'])){
@@ -348,9 +348,9 @@ class vmJsApi{
 			$jsVars .= 'Itemid = "";'."\n";
 		}
 
-		if(VmConfig::get('addtocart_popup',1)){
-			$jsVars .= "tsmart.addtocart_popup = '".VmConfig::get('addtocart_popup',1)."' ; \n";
-			if(VmConfig::get('usefancy',1)){
+		if(tsmConfig::get('addtocart_popup',1)){
+			$jsVars .= "tsmart.addtocart_popup = '".tsmConfig::get('addtocart_popup',1)."' ; \n";
+			if(tsmConfig::get('usefancy',1)){
 				$jsVars .= "usefancy = true;";
 				vmJsApi::addJScript( 'fancybox/jquery.fancybox-1.3.4.pack',false);
 				vmJsApi::css('jquery.fancybox-1.3.4');
@@ -386,7 +386,7 @@ class vmJsApi{
 	}
 
 	static function jSite() {
-		if (!VmConfig::get ('jsite', TRUE) and !self::isAdmin()) {
+		if (!tsmConfig::get ('jsite', TRUE) and !self::isAdmin()) {
 			return FALSE;
 		}
 		self::addJScript('vmsite',false,false);
@@ -407,7 +407,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 
 	static function JcountryStateList($stateIds, $prefix='') {
 		static $JcountryStateList = array();
-		if (isset($JcountryStateList[$prefix]) or !VmConfig::get ('jsite', TRUE)) {
+		if (isset($JcountryStateList[$prefix]) or !tsmConfig::get ('jsite', TRUE)) {
 			return;
 		}
 		VmJsApi::jSite();
@@ -426,7 +426,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 	static function popup($container,$activator){
 		static $jspopup;
 		if (!$jspopup) {
-			if(VmConfig::get('usefancy',1)){
+			if(tsmConfig::get('usefancy',1)){
 				vmJsApi::addJScript( 'fancybox/jquery.fancybox-1.3.4.pack',false,false);
 				vmJsApi::css('jquery.fancybox-1.3.4');
 				$box = "
@@ -465,7 +465,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 
 		if(!$chosenDropDowns){
 			$be = self::isAdmin();
-			if(VmConfig::get ('jchosen', 0) or $be){
+			if(tsmConfig::get ('jchosen', 0) or $be){
 				//vmJsApi::addJScript('chosen.jquery.min',false,false);
 				if(!$be) {
 					//vmJsApi::jDynUpdate();
@@ -625,7 +625,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 		if ($jCreditCard) {
 			return;
 		}
-		VmConfig::loadJLang('com_tsmart',true);
+		tsmConfig::loadJLang('com_tsmart',true);
 
 
 		$js = "
@@ -651,7 +651,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 	 */
 	static function cssSite() {
 
-		if (!VmConfig::get ('css', TRUE)) return FALSE;
+		if (!tsmConfig::get ('css', TRUE)) return FALSE;
 
 		static $cssSite;
 		if ($cssSite) return;

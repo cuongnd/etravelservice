@@ -15,10 +15,10 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 
-VmConfig::loadConfig();
-VmConfig::loadJLang('mod_virtuemart_manufacturer', true);
+tsmConfig::loadConfig();
+tsmConfig::loadJLang('mod_virtuemart_manufacturer', true);
 
 $display_style = 	$params->get( 'display_style', "div" ); // Display Style
 $manufacturers_per_row = $params->get( 'manufacturers_per_row', 1 ); // Display X manufacturers per Row

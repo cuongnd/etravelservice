@@ -36,10 +36,10 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 	public function __construct()
 	{
 		parent::__construct();
-		$this->useSSL = VmConfig::get('useSSL',0);
+		$this->useSSL = tsmConfig::get('useSSL',0);
 		$this->useXHTML = false;
-		VmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
-		VmConfig::loadJLang('com_virtuemart_orders',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 			$view->display();
 		} else {
 			//PDF needs more RAM than usual
-			VmConfig::ensureMemoryLimit(96);
+			tsmConfig::ensureMemoryLimit(96);
 
 			//PDF needs xhtml links
 			$this->useXHTML = true;
@@ -197,7 +197,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 	function getInvoicePDF($orderDetails = 0, $viewName='invoice', $layout='invoice', $format='html', $force = false){
 // 		$force = true;
 
-		$path = VmConfig::get('forSale_path',0);
+		$path = tsmConfig::get('forSale_path',0);
 		if(empty($path) ){
 			vmError('No path set to store invoices');
 			return false;
@@ -240,7 +240,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		}
 
 		//We come from the be, so we need to load the FE language
-		VmConfig::loadJLang('com_virtuemart',true);
+		tsmConfig::loadJLang('com_virtuemart',true);
 
 		$this->addViewPath( VMPATH_SITE.DS.'views' );
 		$view = $this->getView($viewName, $format);

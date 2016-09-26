@@ -23,7 +23,7 @@ $ccData = $viewData['ccData'];
 
 JHTML::_('behavior.tooltip');
 JHTML::script('vmcreditcard.js', 'components/com_virtuemart/assets/js/', false);
-VmConfig::loadJLang('com_virtuemart', true);
+tsmConfig::loadJLang('com_virtuemart', true);
 vmJsApi::jCreditCard();
 vmJsApi::jQuery();
 vmJsApi::chosenDropDowns();

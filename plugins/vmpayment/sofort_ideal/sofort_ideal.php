@@ -115,7 +115,7 @@ class plgVmPaymentSofort_Ideal extends vmPSPlugin {
 		$htmla = array();
 		$html = '';
 		vmdebug('methods', $this->methods);
-		VmConfig::loadJLang('com_virtuemart');
+		tsmConfig::loadJLang('com_virtuemart');
 		$currency = CurrencyDisplay::getInstance();
 		foreach ($this->methods as $method) {
 
@@ -326,7 +326,7 @@ class plgVmPaymentSofort_Ideal extends vmPSPlugin {
 	 * @return bool','null','string
 	 */
 	function plgVmOnPaymentResponseReceived(&$html) {
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 		if (!class_exists('CurrencyDisplay')) {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'currencydisplay.php');
 		}
@@ -357,7 +357,7 @@ class plgVmPaymentSofort_Ideal extends vmPSPlugin {
 			// JError::raiseWarning(500, $db->getErrorMsg());
 			return '';
 		}
-		VmConfig::loadJLang('com_virtuemart');
+		tsmConfig::loadJLang('com_virtuemart');
 		$orderModel = tmsModel::getModel('orders');
 		$order = $orderModel->getOrder($virtuemart_order_id);
 		$paymentCurrency = CurrencyDisplay::getInstance($order['details']['BT']->order_currency);
@@ -685,7 +685,7 @@ class plgVmPaymentSofort_Ideal extends vmPSPlugin {
 	 * @return string
 	 */
 	function _getPaymentResponseHtml($method, $order) {
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 		if (!class_exists('CurrencyDisplay')) {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'currencydisplay.php');
 		}

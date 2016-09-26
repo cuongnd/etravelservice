@@ -38,7 +38,7 @@ $departure->sale_promotion_price_private_room=100;
 $departure->sale_promotion_price_extra_bed=100;*/
 
 
-$passenger_config = VmConfig::get_passenger_config();
+$passenger_config = tsmConfig::get_passenger_config();
 
 ?>
     <div class="view-order-default">
@@ -131,7 +131,7 @@ $passenger_config = VmConfig::get_passenger_config();
                                             <div
                                                 class="leader">
                                                 <h4 class="leader-name"><span
-                                                        class="title"><?php echo JText::_('lead passenger') ?></span>:<span><?php echo VmConfig::get_full_name($this->order_data->list_passenger->leader) ?></span>
+                                                        class="title"><?php echo JText::_('lead passenger') ?></span>:<span><?php echo tsmConfig::get_full_name($this->order_data->list_passenger->leader) ?></span>
                                                 </h4>
                                                 <div class="thanks"><?php echo $this->lipsum->words(50) ?></div>
                                             </div>

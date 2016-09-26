@@ -86,7 +86,7 @@ class VirtueMartCustomFieldRenderer {
 					} else {
 						$productSelection = false;
 					}
-					$stockhandle = VmConfig::get('stockhandle', 'none');
+					$stockhandle = tsmConfig::get('stockhandle', 'none');
 
 					$q = 'SELECT `virtuemart_product_id` FROM #__virtuemart_products WHERE product_parent_id = "'.$customfield->virtuemart_product_id.'" and ( published = "0" ';
 					if($stockhandle == 'disableit_children'){
@@ -181,7 +181,7 @@ class VirtueMartCustomFieldRenderer {
 						}
 
 						$attribs = array('class'=>'vm-chzn-select cvselection no-vm-bind','data-dynamic-update'=>'1','style'=>'min-width:70px;');
-						if('productdetails' != vRequest::getCmd('view') or !VmConfig::get ('jdynupdate', TRUE)){
+						if('productdetails' != vRequest::getCmd('view') or !tsmConfig::get ('jdynupdate', TRUE)){
 							$attribs['reload'] = '1';
 						}
 
@@ -260,7 +260,7 @@ class VirtueMartCustomFieldRenderer {
 									continue;
 								}
 								$available = $productChild->product_in_stock - $productChild->product_ordered;
-								if(VmConfig::get('stockhandle','none')=='disableit_children' and $available <= 0){
+								if(tsmConfig::get('stockhandle','none')=='disableit_children' and $available <= 0){
 									continue;
 								}
 								$parentStock += $available;
@@ -501,7 +501,7 @@ class VirtueMartCustomFieldRenderer {
 				case 'Z':
 					if(empty($customfield->customfield_value)) break;
 					$html = '';
-					$q = 'SELECT * FROM `#__virtuemart_categories_' . VmConfig::$vmlang . '` as l INNER JOIN `#__virtuemart_categories` AS c using (`virtuemart_category_id`) WHERE `published`=1 AND l.`virtuemart_category_id`= "' . (int)$customfield->customfield_value . '" ';
+					$q = 'SELECT * FROM `#__virtuemart_categories_' . tsmConfig::$vmlang . '` as l INNER JOIN `#__virtuemart_categories` AS c using (`virtuemart_category_id`) WHERE `published`=1 AND l.`virtuemart_category_id`= "' . (int)$customfield->customfield_value . '" ';
 					$db = JFactory::getDBO();
 					$db->setQuery ($q);
 					if ($category = $db->loadObject ()) {
@@ -619,7 +619,7 @@ class VirtueMartCustomFieldRenderer {
 
 						if (($productCustom->field_type == 'G')) {
 							$db = JFactory::getDBO ();
-							$db->setQuery ('SELECT  `product_name` FROM `#__virtuemart_products_' . VmConfig::$vmlang . '` WHERE virtuemart_product_id=' . (int)$productCustom->customfield_value);
+							$db->setQuery ('SELECT  `product_name` FROM `#__virtuemart_products_' . tsmConfig::$vmlang . '` WHERE virtuemart_product_id=' . (int)$productCustom->customfield_value);
 							$child = $db->loadObject ();
 							$value = $child->product_name;
 						}

@@ -17,7 +17,7 @@ defined('JPATH_PLATFORM') or die;
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 /*
  * This class is used by tsmart Payment or Shipment Plugins
  * So It should be an extension of JFormField
@@ -38,8 +38,8 @@ class JFormFieldVmAcceptedCurrency extends JFormFieldList {
 
 	protected function getOptions() {
 
-		VmConfig::loadConfig();
-		VmConfig::loadJLang('com_tsmart', false);
+		tsmConfig::loadConfig();
+		tsmConfig::loadJLang('com_tsmart', false);
 
 		$cModel = tmsModel::getModel('currency');
 		$values = $cModel->getVendorAcceptedCurrrenciesList();

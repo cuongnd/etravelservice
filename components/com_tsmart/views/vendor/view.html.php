@@ -69,7 +69,7 @@ class VirtuemartViewVendor extends VmView {
 
 			$vendor = $model->getVendor($virtuemart_vendor_id);
 			$model->addImages($vendor);
-			if (VmConfig::get ('enable_content_plugin', 0)) {
+			if (tsmConfig::get ('enable_content_plugin', 0)) {
 				if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
 				shopFunctionsF::triggerContentPlugin($vendor, 'vendor','vendor_store_desc');
 				shopFunctionsF::triggerContentPlugin($vendor, 'vendor','vendor_terms_of_service');
@@ -124,7 +124,7 @@ class VirtuemartViewVendor extends VmView {
 		$this->subject = tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT') .' '.$this->user['name'];
 		$this->vendorEmail= $this->user['email'];
 		//$this->vendorName= $this->user['email'];
-		if (VmConfig::get('order_mail_html')) {
+		if (tsmConfig::get('order_mail_html')) {
 			$tpl = 'mail_html_question';
 		} else {
 			$tpl = 'mail_raw_question';

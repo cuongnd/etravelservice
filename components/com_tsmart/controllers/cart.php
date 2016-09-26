@@ -32,7 +32,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 	public function __construct() {
 		parent::__construct();
-		if (VmConfig::get('use_as_catalog', 0)) {
+		if (tsmConfig::get('use_as_catalog', 0)) {
 			$app = JFactory::getApplication();
 			$app->redirect('index.php');
 		} else {
@@ -41,14 +41,14 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			if (!class_exists('calculationHelper'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
 		}
-		$this->useSSL = VmConfig::get('useSSL', 0);
+		$this->useSSL = tsmConfig::get('useSSL', 0);
 		$this->useXHTML = false;
 
 	}
 
 	public function display($cachable = false, $urlparams = false){
 
-		if(VmConfig::get('use_as_catalog', 0)){
+		if(tsmConfig::get('use_as_catalog', 0)){
 			// Get a continue link
 			$virtuemart_category_id = shopFunctionsF::getLastVisitedCategoryId();
 			$categoryLink = '';
@@ -83,14 +83,14 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		$cart = VirtueMartCart::getCart();
 
 		$cart->order_language = vRequest::getString('order_language', $cart->order_language);
-		if(!isset($force))$force = VmConfig::get('oncheckout_opc',true);
+		if(!isset($force))$force = tsmConfig::get('oncheckout_opc',true);
 		$cart->prepareCartData(false);
 		$html=true;
-		if ($cart->virtuemart_shipmentmethod_id==0 and (($s_id = VmConfig::get('set_automatic_shipment',false)) > 0)){
+		if ($cart->virtuemart_shipmentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_shipment',false)) > 0)){
 			vRequest::setVar('virtuemart_shipmentmethod_id', $s_id);
 			$cart->setShipmentMethod($force, !$html);
 		}
-		if ($cart->virtuemart_paymentmethod_id==0 and (($s_id = VmConfig::get('set_automatic_payment',false)) > 0) and $cart->products){
+		if ($cart->virtuemart_paymentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_payment',false)) > 0) and $cart->products){
 			vRequest::setVar('virtuemart_paymentmethod_id', $s_id);
 			$cart->setPaymentMethod($force, !$html);
 		}
@@ -170,7 +170,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			}
 		}
 
-		if(!isset($force))$force = VmConfig::get('oncheckout_opc',true);
+		if(!isset($force))$force = tsmConfig::get('oncheckout_opc',true);
 
 		$cart->setShipmentMethod($force, !$html);
 		$cart->setPaymentMethod($force, !$html);
@@ -225,7 +225,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	 */
 	public function add() {
 		$mainframe = JFactory::getApplication();
-		if (VmConfig::get('use_as_catalog', 0)) {
+		if (tsmConfig::get('use_as_catalog', 0)) {
 			$msg = tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_ADDED_SUCCESSFULLY');
 			$type = 'error';
 			$mainframe->redirect('index.php', $msg, $type);

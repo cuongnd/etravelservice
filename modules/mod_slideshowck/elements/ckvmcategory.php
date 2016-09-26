@@ -10,7 +10,7 @@ defined('JPATH_BASE') or die;
 jimport('joomla.filesystem.file');
 
 if (JFolder::exists(JPATH_ROOT . '/administrator/components/com_virtuemart')) {
-    if (!class_exists('VmConfig')) {
+    if (!class_exists('tsmConfig')) {
 		if (JFile::exists(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php')) 
 			require(JPATH_ROOT .  '/administrator/components/com_virtuemart/helpers/config.php');
 	}
@@ -31,7 +31,7 @@ class JFormFieldCkvmcategory extends JFormFieldCklist {
     protected $type = 'Ckvmcategory';
 
     protected function getOptions() {
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
         // if VM is not installed
         if (!JFolder::exists(JPATH_ROOT . '/administrator/components/com_virtuemart')
 			OR !class_exists('ShopFunctions')) {

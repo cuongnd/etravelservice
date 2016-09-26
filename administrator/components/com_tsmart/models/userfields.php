@@ -61,7 +61,7 @@ class tsmartModelUserfields extends tmsModel {
 
 		$this->_selectedOrdering = 'ordering';
 		$this->_selectedOrderingDir = 'ASC';
-		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 	}
 
 
@@ -442,7 +442,7 @@ class tsmartModelUserfields extends tmsModel {
  		//vmdebug('getUserFieldsFor '.$layoutName.' '. $type .' ' . $userId);
 		$register = false;
 
-		if(VmConfig::get('oncheckout_show_register',1) and $type=='BT'){
+		if(tsmConfig::get('oncheckout_show_register',1) and $type=='BT'){
 			$user = JFactory::getUser();
 			if(!empty($user)){
 				if(empty($user->id)){
@@ -495,7 +495,7 @@ class tsmartModelUserfields extends tmsModel {
 
 
 		//Small ugly hack to make registering optional //do we still need that? YES !  notice by Max Milbers
-		if($register and $type == 'BT' and VmConfig::get('oncheckout_show_register',1) and !VmConfig::get('oncheckout_only_registered',1) ){
+		if($register and $type == 'BT' and tsmConfig::get('oncheckout_show_register',1) and !tsmConfig::get('oncheckout_only_registered',1) ){
 			vmdebug('Going to set core fields unrequired');
 			foreach($userFields as $field){
 				if(in_array($field->name,$corefields)){

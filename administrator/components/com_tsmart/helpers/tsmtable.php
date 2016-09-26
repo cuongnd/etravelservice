@@ -320,7 +320,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 		$this->_translatableFields['slug'] = 'slug';
 		$this->_translatable = true;
 
-		$this->_langTag = VmConfig::$vmlang;
+		$this->_langTag = tsmConfig::$vmlang;
 		$this->_tbl_lang = $this->_tbl . '_' . $this->_langTag;
 	}
 
@@ -1106,20 +1106,20 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 			}
 		} else {
 
-			if($this->_translatable and VmConfig::$langCount>1 and $this->_ltmp!=VmConfig::$jDefLang ){
+			if($this->_translatable and tsmConfig::$langCount>1 and $this->_ltmp!=tsmConfig::$jDefLang ){
 
-				if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-					if($this->_langTag != VmConfig::$defaultLang ){
+				if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
+					if($this->_langTag != tsmConfig::$defaultLang ){
 						$this->_ltmp = $this->_langTag;
-						$this->_langTag = VmConfig::$defaultLang;
+						$this->_langTag = tsmConfig::$defaultLang;
 						$this->_tempHash = $this->_lhash;
 					} else {
-						$this->_langTag = VmConfig::$jDefLang;
+						$this->_langTag = tsmConfig::$jDefLang;
 					}
 
 				} else {
 					$this->_ltmp = $this->_langTag;
-					$this->_langTag = VmConfig::$defaultLang;
+					$this->_langTag = tsmConfig::$defaultLang;
 					$this->_tempHash = $this->_lhash;
 				}
 
@@ -1591,7 +1591,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 			$this->$slugName = html_entity_decode($this->$slugName,ENT_QUOTES);
 			//$config =& JFactory::getConfig();
 			//$transliterate = $config->get('unicodeslugs');
-			$unicodeslugs = VmConfig::get('transliterateSlugs',false);
+			$unicodeslugs = tsmConfig::get('transliterateSlugs',false);
 			if($unicodeslugs){
 				$lang = JFactory::getLanguage();
 				$this->$slugName = $lang->transliterate($this->$slugName);
@@ -1651,7 +1651,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 				$this->tsmart_vendor_id = $this->_pvalue;
 			}
 
-			$multix = Vmconfig::get('multix', 'none');
+			$multix = tsmConfig::get('multix', 'none');
 			//Lets check if the user is admin or the mainvendor
 			$tsmart_vendor_id = false;
 			//Todo removed Quickn Dirty, use check in derived class
@@ -2392,8 +2392,8 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 		if ($this->_translatable) {
 
-			$langs = VmConfig::get('active_languages', array());
-			if (!$langs) $langs[] = VmConfig::$vmlang;
+			$langs = tsmConfig::get('active_languages', array());
+			if (!$langs) $langs[] = tsmConfig::$vmlang;
 			if (!class_exists('tsmTableData')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtabledata.php');
 			foreach ($langs as $lang) {
 				$lang = strtolower(strtr($lang, '-', '_'));

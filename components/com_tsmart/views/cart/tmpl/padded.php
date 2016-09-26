@@ -36,7 +36,7 @@ if($this->products){
 }
 
 
-if(VmConfig::get('popup_rel',1)){
+if(tsmConfig::get('popup_rel',1)){
 	//VmConfig::$echoDebug=true;
 	if ($this->products and is_array($this->products) and count($this->products)>0 ) {
 

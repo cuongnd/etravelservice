@@ -59,7 +59,7 @@ AdminUIHelper::startAdminArea($this);
 			<th width="25%"><?php echo $this->sort('ju.email', 'com_tsmart_EMAIL'); ?></th>
 <?php	/*	<th><?php echo vmText::_('com_tsmart_USER_GROUP'); ?></th> 	*/ ?>
 			<th width="25%"><?php echo $this->sort('shopper_group_name', 'com_tsmart_SHOPPERGROUP')  ?></th>
-			<?php if(Vmconfig::get('multix','none')!=='none'){ ?>
+			<?php if(tsmConfig::get('multix','none')!=='none'){ ?>
 			<th width="80px"><?php echo tsmText::_('com_tsmart_USER_IS_VENDOR'); ?></th>
 			<?php } ?>
 			<th><?php echo $this->sort('ju.id', 'com_tsmart_ID') ?></th>
@@ -93,7 +93,7 @@ AdminUIHelper::startAdminArea($this);
 					echo tsmText::_($row->shopper_group_name);
 					?>
 				</td>
-				<?php if(Vmconfig::get('multix','none')!=='none'){ ?>
+				<?php if(tsmConfig::get('multix','none')!=='none'){ ?>
 				<td align="center">
 					<?php echo $is_vendor; ?>
 				</td>

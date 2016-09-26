@@ -529,7 +529,7 @@ class tsmartModeldeparture extends tmsModel
 
         static $currencies = array();
         if ($vendorId === 0) {
-            $multix = Vmconfig::get('multix', 'none');
+            $multix = tsmConfig::get('multix', 'none');
             if (strpos($multix, 'payment') !== FALSE) {
                 if (!class_exists('tsmartModelVendor'))
                     require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');

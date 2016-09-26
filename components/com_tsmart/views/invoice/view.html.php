@@ -41,7 +41,7 @@ class VirtuemartViewInvoice extends VmView {
 	{
 
 		$document = JFactory::getDocument();
-		VmConfig::loadJLang('com_virtuemart_shoppers', true);
+		tsmConfig::loadJLang('com_virtuemart_shoppers', true);
 		/* It would be so nice to be able to load the override of the FE additionally from here
 		 * joomlaWantsThisFolder\language\overrides\en-GB.override.ini
 		 * $jlang =JFactory::getLanguage();
@@ -72,7 +72,7 @@ class VirtuemartViewInvoice extends VmView {
 				$title = tsmText::_('COM_VIRTUEMART_CONFIRMATION');
 				break;
 			case 'mail':
-				if (VmConfig::get('order_mail_html')) {
+				if (tsmConfig::get('order_mail_html')) {
 					$layout = 'mail_html';
 				} else {
 					$layout = 'mail_raw';
@@ -117,9 +117,9 @@ class VirtuemartViewInvoice extends VmView {
 			return 0;
 		}
 		if(!empty($orderDetails['details']['BT']->order_language)) {
-			VmConfig::loadJLang('com_virtuemart',true, $orderDetails['details']['BT']->order_language);
-			VmConfig::loadJLang('com_virtuemart_shoppers',true, $orderDetails['details']['BT']->order_language);
-			VmConfig::loadJLang('com_virtuemart_orders',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart_shoppers',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_virtuemart_orders',true, $orderDetails['details']['BT']->order_language);
 		}
 
 		//QuicknDirty, caching of the result VirtueMartModelCustomfields::calculateModificators must be deleted,
@@ -250,7 +250,7 @@ class VirtuemartViewInvoice extends VmView {
 		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
 		$vendorModel->addImages($vendor);
 		$vendor->vendorFields = $vendorModel->getVendorAddressFields($virtuemart_vendor_id);
-		if (VmConfig::get ('enable_content_plugin', 0)) {
+		if (tsmConfig::get ('enable_content_plugin', 0)) {
 			if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
 			shopFunctionsF::triggerContentPlugin($vendor, 'vendor','vendor_store_desc');
 			shopFunctionsF::triggerContentPlugin($vendor, 'vendor','vendor_terms_of_service');
@@ -300,11 +300,11 @@ class VirtuemartViewInvoice extends VmView {
 		$this->frompdf=false;
 		$this->uselayout = 'mail';
 
-		$attach = VmConfig::get('attach',false);
+		$attach = tsmConfig::get('attach',false);
 
 		if(empty($this->recipient)) $this->recipient = $recipient;
-		if(!empty($attach) and !$doVendor and in_array($this->orderDetails['details']['BT']->order_status,VmConfig::get('attach_os',0)) ){
-			$this->mediaToSend = VMPATH_ROOT.DS.'images'.DS.'stories'.DS.'tsmart'.DS.'vendor'.DS.VmConfig::get('attach');
+		if(!empty($attach) and !$doVendor and in_array($this->orderDetails['details']['BT']->order_status,tsmConfig::get('attach_os',0)) ){
+			$this->mediaToSend = VMPATH_ROOT.DS.'images'.DS.'stories'.DS.'tsmart'.DS.'vendor'.DS.tsmConfig::get('attach');
 		}
 		$this->isMail = true;
 		$this->display();

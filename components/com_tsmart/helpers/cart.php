@@ -88,10 +88,10 @@ class VirtueMartCart {
 	var $useSSL = 1;
 
 	public function __construct() {
-		$this->useSSL = VmConfig::get('useSSL',0);
+		$this->useSSL = tsmConfig::get('useSSL',0);
 		$this->useXHTML = false;
 		$this->cartProductsData = array();
-		$this->layout = VmConfig::get('cartlayout','default');
+		$this->layout = tsmConfig::get('cartlayout','default');
 
 		if(empty($this->layout)){
 			$this->layout = 'default';
@@ -178,7 +178,7 @@ class VirtueMartCart {
 				self::$_cart->virtuemart_paymentmethod_id = self::$_cart->user->virtuemart_paymentmethod_id;
 			}
 
-			if((!empty(self::$_cart->user->tos) || !empty(self::$_cart->BT['tos'])) && !VmConfig::get('agree_to_tos_onorder',0) ){
+			if((!empty(self::$_cart->user->tos) || !empty(self::$_cart->BT['tos'])) && !tsmConfig::get('agree_to_tos_onorder',0) ){
 				self::$_cart->BT['tos'] = 1;
 			}
 
@@ -193,7 +193,7 @@ class VirtueMartCart {
 				self::$_cart->customer_number = 'nonreg_'.$firstName.$lastName.$email;
 			}
 
-			$multixcart = VmConfig::get('multixcart',0);
+			$multixcart = tsmConfig::get('multixcart',0);
 			if(!empty($multixcart)){
 				if($multixcart=='byvendor' or self::$_cart->vendorId==1){
 					$vendor = tmsModel::getModel('vendor');
@@ -517,7 +517,7 @@ class VirtueMartCart {
 			$productTemp->modificatorSum = null;
 			$product = clone($productTemp);
 
-			if(VmConfig::get('multixcart',0)=='byproduct'){
+			if(tsmConfig::get('multixcart',0)=='byproduct'){
 				if(empty($this->vendorId)) $this->vendorId = $product->virtuemart_vendor_id;
 				if(!empty($this->vendorId) and $this->vendorId != $product->virtuemart_vendor_id){
 					//Product of another vendor recognised, for now we just return false,
@@ -977,7 +977,7 @@ class VirtueMartCart {
 			}
 		}
 
-		if(VmConfig::get('oncheckout_only_registered',0)) {
+		if(tsmConfig::get('oncheckout_only_registered',0)) {
 
 			if(empty($currentUser->id)){
 				$redirectMsg = tsmText::_('COM_VIRTUEMART_CART_ONLY_REGISTERED');
@@ -1439,7 +1439,7 @@ class VirtueMartCart {
 	function checkAutomaticSelectedPlug($type){
 
 		$vm_method_name = 'virtuemart_'.$type.'method_id';
-		if (count($this->products) == 0  or  VmConfig::get('set_automatic_'.$type,'0')=='-1') {
+		if (count($this->products) == 0  or  tsmConfig::get('set_automatic_'.$type,'0')=='-1') {
 			return false;
 		}
 
@@ -1532,7 +1532,7 @@ class VirtueMartCart {
 			$vendorModel = tmsModel::getModel('vendor');
 			$this->vendor = $vendorModel->getVendor($this->vendorId);
 			$vendorModel->addImages($this->vendor,1);
-			if (VmConfig::get('enable_content_plugin', 0)) {
+			if (tsmConfig::get('enable_content_plugin', 0)) {
 				shopFunctionsF::triggerContentPlugin($this->vendor, 'vendor','vendor_terms_of_service');
 			}
 		}
@@ -1575,7 +1575,7 @@ class VirtueMartCart {
 					$product->url = JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id='.$product->virtuemart_product_id.'&virtuemart_category_id='.$product->virtuemart_category_id);//JHtml::link($url, $product->product_name);
 					$product->cart_item_id = $k ;
 
-					if ( VmConfig::get('oncheckout_show_images')){
+					if ( tsmConfig::get('oncheckout_show_images')){
 						$productsModel->addImages($product,1);
 					}
 
@@ -1644,7 +1644,7 @@ class VirtueMartCart {
 	 */
 	private function checkForQuantities($product, &$quantity=0) {
 
-		$stockhandle = VmConfig::get('stockhandle','none');
+		$stockhandle = tsmConfig::get('stockhandle','none');
 		$mainframe = JFactory::getApplication();
 		// Check for a valid quantity
 		if (!is_numeric( $quantity)) {

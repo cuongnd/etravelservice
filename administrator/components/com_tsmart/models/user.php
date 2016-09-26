@@ -201,7 +201,7 @@ class tsmartModelUser extends tmsModel
         if ($this->_data->user_is_vendor) {
 
             $vendorModel = tmsModel::getModel('vendor');
-            if (Vmconfig::get('multix', 'none') == 'none') {
+            if (tsmConfig::get('multix', 'none') == 'none') {
                 $this->_data->tsmart_vendor_id = 1;
                 //vmdebug('user model, single vendor',$this->_data->tsmart_vendor_id);
             }
@@ -369,7 +369,7 @@ class tsmartModelUser extends tmsModel
 
             $cUser = JFactory::getUser();
             if ($usersConfig->get('allowUserRegistration') == '0' and !(vmAccess::manager('user'))) {
-                VmConfig::loadJLang('com_tsmart');
+                tsmConfig::loadJLang('com_tsmart');
                 vmError(tsmText::_('com_tsmart_ACCESS_FORBIDDEN'));
                 return;
             }
@@ -481,7 +481,7 @@ class tsmartModelUser extends tmsModel
 
     public function activate($token)
     {
-        $company_info = VmConfig::get_company_info();
+        $company_info = tsmConfig::get_company_info();
         $config = JFactory::getConfig();
         $app = JFactory::getApplication();
         $user = JFactory::getUser();
@@ -622,7 +622,7 @@ class tsmartModelUser extends tmsModel
         $user->groups[] = 2;
         $user->activation = $token;
         $user->block = 1;
-        $company_info = VmConfig::get_company_info();
+        $company_info = tsmConfig::get_company_info();
         $user->save();
         if(!$send_email)
         {
@@ -1014,7 +1014,7 @@ class tsmartModelUser extends tmsModel
 
             //TODO Attention this is set now to tsmart_vendor_id=1 in single vendor mode, because using a vendor with different id then 1 is not completly supported and can lead to bugs
             //So we disable the possibility to store vendors not with tsmart_vendor_id = 1
-            if (Vmconfig::get('multix', 'none') == 'none') {
+            if (tsmConfig::get('multix', 'none') == 'none') {
                 $data['tsmart_vendor_id'] = 1;
                 vmdebug('no multivendor, set tsmart_vendor_id = 1');
             }
@@ -1632,7 +1632,7 @@ class tsmartModelUser extends tmsModel
         }
 
         $whereAnd = array();
-        if (VmConfig::get('multixcart', 0) == 'byvendor') {
+        if (tsmConfig::get('multixcart', 0) == 'byvendor') {
             $superVendor = vmAccess::isSuperVendor();
             if ($superVendor > 1) {
                 $joinedTables .= ' LEFT JOIN #__tsmart_vendor_users AS vu ON ju.id = vmu.tsmart_user_id';

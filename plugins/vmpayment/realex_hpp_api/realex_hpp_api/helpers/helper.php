@@ -1148,7 +1148,7 @@ class  RealexHelperRealex {
 				}
 			}
 		}
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		$params=  array(
 			"success"      => $success,

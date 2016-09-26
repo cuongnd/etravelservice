@@ -253,7 +253,7 @@ class PaypalHelperPaypal {
 	 * @param string $certPath - path to client certificate file (PEM formatted file)
 	 */
 	public function getSSLCertificate (&$certifPath, &$passPhrase) {
-		$safePath = VmConfig::get('forSale_path', '');
+		$safePath = tsmConfig::get('forSale_path', '');
 		if ($safePath) {
 			$sslCertifFolder = $safePath . "paypal";
 

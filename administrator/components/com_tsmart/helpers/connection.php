@@ -72,7 +72,7 @@ class VmConnector {
 		if( isset( $urlParts['path'] )) $urlParts['path'] = $urlParts['path'].$urlParts['query'];
 	}
 
-	$vm_proxy_url = VmConfig::get('conf_VM_PROXY_URL','');
+	$vm_proxy_url = tsmConfig::get('conf_VM_PROXY_URL','');
 	// Check proxy
 	if( trim( $vm_proxy_url ) != '') {
 	    if( !stristr($vm_proxy_url, 'http')) {

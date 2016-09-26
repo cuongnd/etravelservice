@@ -46,7 +46,7 @@
  * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 
 define("K_PATH_MAIN", JPATH_VM_LIBRARIES.DS.'tcpdf'.DS);
 

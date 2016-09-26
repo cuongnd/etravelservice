@@ -38,13 +38,13 @@ class virtuemartViewrecommend extends VmView {
 	function display($tpl = null) {
 
 		$app = JFactory::getApplication();
-		if(!VmConfig::get('show_emailfriend',false)){
+		if(!tsmConfig::get('show_emailfriend',false)){
 
 			$app->redirect(JRoute::_('index.php?option=com_virtuemart'));
 		}
 
 		$this->login = '';
-		if(!VmConfig::get('recommend_unauth',false)){
+		if(!tsmConfig::get('recommend_unauth',false)){
 			$user = JFactory::getUser();
 			if($user->guest){
 				$this->login = shopFunctionsF::getLoginForm(false);
@@ -63,7 +63,7 @@ class virtuemartViewrecommend extends VmView {
 			return true;
 		}
 
-		$show_prices  = VmConfig::get('show_prices',1);
+		$show_prices  = tsmConfig::get('show_prices',1);
 		if($show_prices == '1'){
 			if(!class_exists('calculationHelper')) require(VMPATH_ADMIN.DS.'helpers'.DS.'calculationh.php');
 		}
@@ -155,7 +155,7 @@ class virtuemartViewrecommend extends VmView {
 		$this->comment = nl2br(vRequest::getString('comment'));
 		$this->name = vRequest::getString('name');
 
-		if (VmConfig::get ('order_mail_html')) {
+		if (tsmConfig::get ('order_mail_html')) {
 			$tpl = 'mail_html';
 		} else {
 			$tpl = 'mail_raw';

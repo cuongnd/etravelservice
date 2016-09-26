@@ -23,7 +23,7 @@ if ( $viewData['payment_tooltip']) {
 <?php
 }
 $dynUpdate='';
-if( VmConfig::get('oncheckout_ajax',false)) {
+if( tsmConfig::get('oncheckout_ajax',false)) {
 	$dynUpdate=' data-dynamic-update="1" ';
 	$submitForm = '
 	jQuery("#payment_id_'.$viewData['plugin']->virtuemart_paymentmethod_id.'").click(function() {

@@ -33,7 +33,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
-		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 		$option = vRequest::getCmd( 'option');
 		$mainframe = JFactory::getApplication() ;
 
@@ -229,7 +229,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 
 		if(!class_exists('vmUserfieldPlugin')) require(VMPATH_PLUGINLIBS.DS.'vmuserfieldtypeplugin.php');
 
-		VmConfig::loadJLang('plg_vmpsplugin', false);
+		tsmConfig::loadJLang('plg_vmpsplugin', false);
 		JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
 		//$selected = $this->userField->userfield_jplugin_id;
 		//vmdebug('renderUserfieldPlugin $this->userField->element',$this->userField->type,$this->userField->element);

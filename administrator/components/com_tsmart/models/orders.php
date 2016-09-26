@@ -412,7 +412,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 				ON u.tsmart_order_id = o.tsmart_order_id AND u.address_type="BT"
 				LEFT JOIN #__tsmart_order_userinfos as st
 				ON st.tsmart_order_id = o.tsmart_order_id AND st.address_type="ST"
-				LEFT JOIN #__tsmart_paymentmethods_'.VmConfig::$vmlang.' as pm
+				LEFT JOIN #__tsmart_paymentmethods_'.tsmConfig::$vmlang.' as pm
 				ON o.tsmart_paymentmethod_id = pm.tsmart_paymentmethod_id';
 	}
 
@@ -518,7 +518,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 			{
 				//update product identification
 				$db = JFactory::getDBO();
-				$prolang = '#__tsmart_products_' . VmConfig::$vmlang;
+				$prolang = '#__tsmart_products_' . tsmConfig::$vmlang;
 				$oi = " #__tsmart_order_items";
 				$protbl = "#__tsmart_products";
 				$sql = 'UPDATE '.$oi.', '.$protbl.', '.$prolang .
@@ -695,7 +695,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		}
 		$data->bind($inputOrder);
 
-		$cp_rm = VmConfig::get('cp_rm',array('C'));
+		$cp_rm = tsmConfig::get('cp_rm',array('C'));
 		if(!is_array($cp_rm)) $cp_rm = array($cp_rm);
 
 		if ( in_array((string) $data->order_status,$cp_rm) ){
@@ -743,7 +743,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		}
 
 		if(empty($data->delivery_date)){
-			$del_date_type = VmConfig::get('del_date_type','m');
+			$del_date_type = tsmConfig::get('del_date_type','m');
 			if(strpos($del_date_type,'os')!==FALSE){	//for example osS
 				$os = substr($del_date_type,2);
 				if($data->order_status == $os){
@@ -751,7 +751,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 					$data->delivery_date = $date->toSQL();
 				}
 			} else {
-				VmConfig::loadJLang('com_tsmart_orders', true);
+				tsmConfig::loadJLang('com_tsmart_orders', true);
 				$data->delivery_date = tsmText::_('com_tsmart_DELDATE_INV');
 			}
 		}
@@ -812,7 +812,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 			$this->_updateOrderHist($tsmart_order_id, $data->order_status, $inputOrder['customer_notified'], $inputOrder['comments']);
 
 			//We need a new invoice, therefore rename the old one.
-			$inv_os = VmConfig::get('inv_os',array('C'));
+			$inv_os = tsmConfig::get('inv_os',array('C'));
 			if(!is_array($inv_os)) $inv_os = array($inv_os);
 			if($old_order_status!=$data->order_status and in_array($data->order_status,$inv_os)){
 				$this->renameInvoice($data->tsmart_order_id);
@@ -970,7 +970,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		$_orderData->order_language = $_cart->order_language;
 		$_orderData->ip_address = $_SERVER['REMOTE_ADDR'];
 
-		$maskIP = VmConfig::get('maskIP','last');
+		$maskIP = tsmConfig::get('maskIP','last');
 		if($maskIP=='last'){
 			$rpos = strrpos($_orderData->ip_address,'.');
 			$_orderData->ip_address = substr($_orderData->ip_address,0,($rpos+1)).'xx';
@@ -988,7 +988,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 				}
 			}
 
-			if(VmConfig::get('reuseorders',true) and !$order){
+			if(tsmConfig::get('reuseorders',true) and !$order){
 				$jnow = JFactory::getDate();
 				$jnow->sub(new DateInterval('PT1H'));
 				$minushour = $jnow->toSQL();
@@ -1482,7 +1482,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		 $chrs = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 		 $chrs.= "abcdefghijkmnopqrstuvwxyz";
 		 $chrs.= "123456789";
-		return 'p_'.tsmCrypt::getToken(VmConfig::get('randOrderPw',8),$chrs);
+		return 'p_'.tsmCrypt::getToken(tsmConfig::get('randOrderPw',8),$chrs);
 	 }
 
 	static public function genStdCreateInvoicePass(){
@@ -1511,7 +1511,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 
 		if(!class_exists('tsmCrypt'))
 			require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
-		$str = tsmCrypt::getHumanToken(VmConfig::get('randOrderNr',4)).'0'.$c;
+		$str = tsmCrypt::getHumanToken(tsmConfig::get('randOrderNr',4)).'0'.$c;
 
 		return $str;
 	}
@@ -1575,9 +1575,9 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 
 			if(!isset($data['invoice_number']) ) {
 			    // check the default configuration
-			    $orderstatusForInvoice = VmConfig::get('inv_os',array('C'));
+			    $orderstatusForInvoice = tsmConfig::get('inv_os',array('C'));
 				if(!is_array($orderstatusForInvoice)) $orderstatusForInvoice = array($orderstatusForInvoice); //for backward compatibility 2.0.8e
-			    $pdfInvoice = (int)VmConfig::get('pdf_invoice', 0); // backwards compatible
+			    $pdfInvoice = (int)tsmConfig::get('pdf_invoice', 0); // backwards compatible
 			    $force_create_invoice=vRequest::getCmd('create_invoice', -1);
 			    // florian : added if pdf invoice are enabled
 
@@ -1674,9 +1674,9 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 		// florian : added if pdf invoice are enabled
 		$invoiceNumberDate = array();
 		if ($orderModel->createInvoiceNumber($order['details']['BT'], $invoiceNumberDate )) {
-			$orderstatusForInvoice = VmConfig::get('inv_os',array('C'));
+			$orderstatusForInvoice = tsmConfig::get('inv_os',array('C'));
 			if(!is_array($orderstatusForInvoice)) $orderstatusForInvoice = array($orderstatusForInvoice);   // for backward compatibility 2.0.8e
-			$pdfInvoice = (int)VmConfig::get('pdf_invoice', 0); // backwards compatible
+			$pdfInvoice = (int)tsmConfig::get('pdf_invoice', 0); // backwards compatible
 			$force_create_invoice=vRequest::getInt('create_invoice', -1);
 			//TODO we need an array of orderstatus
 			if ( (in_array($order['details']['BT']->order_status,$orderstatusForInvoice))  or $pdfInvoice==1  or $force_create_invoice==1 ){
@@ -2085,7 +2085,7 @@ $q = 'SELECT tsmart_order_item_id, product_quantity, order_item_name,
 			require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
 
 		// rename invoice pdf file
-		$path = shopFunctions::getInvoicePath(VmConfig::get('forSale_path',0));
+		$path = shopFunctions::getInvoicePath(tsmConfig::get('forSale_path',0));
 		$name = shopFunctionsF::getInvoiceName($table->invoice_number);
 		$invoice_name_src = $path.DS.$name.'.pdf';
 

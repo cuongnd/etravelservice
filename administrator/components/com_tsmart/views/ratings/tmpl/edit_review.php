@@ -120,8 +120,8 @@ function submitbutton(pressbutton) {
 		submitform( pressbutton );
 	}
 	else {
-		if (document.adminForm.counter.value > <?php echo VmConfig::get('reviews_maximum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT2_JS',VmConfig::get('reviews_maximum_comment_length')) ); ?>');
-		else if (document.adminForm.counter.value < <?php echo VmConfig::get('reviews_minimum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT1_JS',VmConfig::get('reviews_minimum_comment_length')) ); ?>');
+		if (document.adminForm.counter.value > <?php echo tsmConfig::get('reviews_maximum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT2_JS',tsmConfig::get('reviews_maximum_comment_length')) ); ?>');
+		else if (document.adminForm.counter.value < <?php echo tsmConfig::get('reviews_minimum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT1_JS',tsmConfig::get('reviews_minimum_comment_length')) ); ?>');
 		else submitform( pressbutton );
 	}
 }

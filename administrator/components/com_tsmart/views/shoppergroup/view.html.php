@@ -45,8 +45,8 @@ class TsmartViewShopperGroup extends tsmViewAdmin {
 
 		if ($layoutName == 'edit') {
 			//For shoppergroup specific price display
-			VmConfig::loadJLang('com_tsmart_config');
-			VmConfig::loadJLang('com_tsmart_shoppers',true);
+			tsmConfig::loadJLang('com_tsmart_config');
+			tsmConfig::loadJLang('com_tsmart_shoppers',true);
 			$shoppergroup = $model->getShopperGroup();
 			$this->SetViewTitle('SHOPPERGROUP',$shoppergroup->shopper_group_name);
 

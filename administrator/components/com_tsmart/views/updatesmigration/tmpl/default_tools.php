@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!VmConfig::get('dangeroustools', false)){
+if(!tsmConfig::get('dangeroustools', false)){
 	$uri = JFactory::getURI();
 	$link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=config';
 	?>
@@ -69,7 +69,7 @@ if(!VmConfig::get('dangeroustools', false)){
 	</td>
 
     <td align="left" width="25%" >
-		<?php echo tsmText::sprintf('com_tsmart_TOOLS_SYNC_MEDIAS_EXPLAIN',VmConfig::get('media_product_path') ,VmConfig::get('media_category_path') , VmConfig::get('media_manufacturer_path')); ?>
+		<?php echo tsmText::sprintf('com_tsmart_TOOLS_SYNC_MEDIAS_EXPLAIN',tsmConfig::get('media_product_path') ,tsmConfig::get('media_category_path') , tsmConfig::get('media_manufacturer_path')); ?>
     </td>
 
     </tr>

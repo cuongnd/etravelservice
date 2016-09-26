@@ -96,7 +96,7 @@ class calculationHelper {
 		$this->rules['DATax'] = array();
 
 		//round only with internal digits
-		$this->_roundindig = VmConfig::get('roundindig',FALSE);
+		$this->_roundindig = tsmConfig::get('roundindig',FALSE);
 	}
 
 	static public function getInstance() {
@@ -252,7 +252,7 @@ class calculationHelper {
 			$this->_cart->prepareAddressFieldsInCart();
 		}
 
-		$stBased = VmConfig::get('taxSTbased',TRUE);
+		$stBased = tsmConfig::get('taxSTbased',TRUE);
 		if ($stBased) {
 			$this->_deliveryCountry = (int)$this->_cart->getST('tsmart_country_id');
 		} else if (!empty($this->_cart->BT['tsmart_country_id'])) {
@@ -324,7 +324,7 @@ class calculationHelper {
 			vmError('getProductPrices no object given query time','getProductPrices no object given query time');
 		}
 
-		if(VmConfig::get('multix','none')!='none' and (empty($this->vendorCurrency) or $this->vendorCurrency!=$this->productVendorId)){
+		if(tsmConfig::get('multix','none')!='none' and (empty($this->vendorCurrency) or $this->vendorCurrency!=$this->productVendorId)){
 			static $vendorCurrencies = array();
 			if(!isset($vendorCurrencies[$this->productVendorId])){
 				$this->_db->setQuery('SELECT `vendor_currency` FROM #__tsmart_vendors  WHERE `tsmart_vendor_id`="' . $this->productVendorId . '" ');
@@ -521,7 +521,7 @@ class calculationHelper {
 		$this->_db->setQuery('SELECT `tsmart_category_id` FROM #__tsmart_product_categories  WHERE `tsmart_product_id`="' . $productId . '" ');
 		$this->_cats = $this->_db->loadColumn();
 
-		if(VmConfig::get('multix','none')!='none' and empty($this->vendorCurrency )){
+		if(tsmConfig::get('multix','none')!='none' and empty($this->vendorCurrency )){
 			if(!isset($vendorCurrencies[$this->productVendorId])){
 				$this->_db->setQuery('SELECT `vendor_currency` FROM #__tsmart_vendors  WHERE `tsmart_vendor_id`="' . $this->productVendorId . '" ');
 				$vendorCurrencies[$this->productVendorId] = $this->_db->loadResult();
@@ -1487,7 +1487,7 @@ class calculationHelper {
 
 		$price = $this->_currencyDisplay->convertCurrencyTo((int) $this->productCurrency, $price,true);
 
-		if(VmConfig::get('cVarswT',1)){
+		if(tsmConfig::get('cVarswT',1)){
 			$taxRules = $this->gatherEffectingRulesForProductPrice('Tax', $this->product_tax_id);
 			$vattaxRules = $this->gatherEffectingRulesForProductPrice('VatTax', $this->product_tax_id);
 			$rules = array_merge($taxRules,$vattaxRules);

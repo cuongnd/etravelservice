@@ -32,7 +32,7 @@ class Migrator extends tmsModel{
 		$this->_oldToNew = new stdClass();
 		$this->starttime = microtime(true);
 
-		$max_execution_time = VmConfig::getExecutionTime();
+		$max_execution_time = tsmConfig::getExecutionTime();
 		$jrmax_execution_time= vRequest::getInt('max_execution_time');
 
 		if(!empty($jrmax_execution_time)){
@@ -42,13 +42,13 @@ class Migrator extends tmsModel{
 			@ini_set( 'max_execution_time', 60 );
 		}
 
-		$this->maxScriptTime = VmConfig::getExecutionTime()*0.95-3;	//Lets use 3 seconds of the execution time as reserve to store the progress
+		$this->maxScriptTime = tsmConfig::getExecutionTime()*0.95-3;	//Lets use 3 seconds of the execution time as reserve to store the progress
 
 		$jrmemory_limit= vRequest::getInt('memory_limit');
 		if(!empty($jrmemory_limit)){
 			@ini_set( 'memory_limit', $jrmemory_limit.'M' );
 		} else {
-			VmConfig::ensureMemoryLimit(128);
+			tsmConfig::ensureMemoryLimit(128);
 		}
 
 		$this->maxMemoryLimit = $this->return_bytes(ini_get('memory_limit')) - (14 * 1024 * 1024)  ;		//Lets use 11MB for joomla
@@ -68,7 +68,7 @@ class Migrator extends tmsModel{
 			$this->_app->enqueueMessage('Found prior migration process, resume migration maxScriptTime '.$this->maxScriptTime.' maxMemoryLimit '.$this->maxMemoryLimit/(1024*1024));
 		}
 
-		$this->_keepOldProductIds = VmConfig::get('keepOldProductIds',FALSE);
+		$this->_keepOldProductIds = tsmConfig::get('keepOldProductIds',FALSE);
 	}
 
 	private function return_bytes($val) {
@@ -260,7 +260,7 @@ class Migrator extends tmsModel{
 
 		$countTotal = 0;
 		//We do it per type
-		$url = VmConfig::get('media_product_path');
+		$url = tsmConfig::get('media_product_path');
 		$type = 'product';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
@@ -270,7 +270,7 @@ class Migrator extends tmsModel{
 			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
-		$url = VmConfig::get('media_category_path');
+		$url = tsmConfig::get('media_category_path');
 		$type = 'category';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
@@ -280,7 +280,7 @@ class Migrator extends tmsModel{
 			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
-		$url = VmConfig::get('media_manufacturer_path');
+		$url = tsmConfig::get('media_manufacturer_path');
 		$type = 'manufacturer';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
@@ -290,13 +290,13 @@ class Migrator extends tmsModel{
 			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
-		$url = VmConfig::get('media_vendor_path');
+		$url = tsmConfig::get('media_vendor_path');
 		$type = 'vendor';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
 		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
-		$url = VmConfig::get('forSale_path');
+		$url = tsmConfig::get('forSale_path');
 		$type = 'forSale';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;

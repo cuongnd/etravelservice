@@ -11,7 +11,7 @@
 	<th	class="vm-cart-item-basicprice" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
 	<th	class="vm-cart-item-quantity" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?></th>
 
-	<?php if (VmConfig::get ('show_tax')) {
+	<?php if (tsmConfig::get ('show_tax')) {
 		$tax = tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
 		if(!empty($this->cart->cartData['VatTax'])){
 			if(count($this->cart->cartData['VatTax']) < 2) {
@@ -54,7 +54,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 	<td class="vm-cart-item-sku" ><?php  echo $prow->product_sku ?></td>
 	<td class="vm-cart-item-basicprice" >
 		<?php
-		if (VmConfig::get ('checkout_show_origprice', 1) && $prow->prices['discountedPriceWithoutTax'] != $prow->prices['priceWithoutTax']) {
+		if (tsmConfig::get ('checkout_show_origprice', 1) && $prow->prices['discountedPriceWithoutTax'] != $prow->prices['priceWithoutTax']) {
 			echo '<span class="line-through">' . $this->currencyDisplay->createPriceDiv ('basePriceVariant', '', $prow->prices, TRUE, FALSE) . '</span><br />';
 		}
 
@@ -86,16 +86,16 @@ foreach ($this->cart->products as $pkey => $prow) {
 			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" ></button>
 	</td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td class="vm-cart-item-tax" ><?php echo "<span class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $prow->prices, FALSE, FALSE, $prow->quantity, false, true) . "</span>" ?></td>
 	<?php } ?>
 	<td class="vm-cart-item-discount" ><?php echo "<span class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('discountAmount', '', $prow->prices, FALSE, FALSE, $prow->quantity, false, true) . "</span>" ?></td>
 	<td class="vm-cart-item-total">
 		<?php //vmdebug('hm',$prow->prices,$this->cart->cartPrices[$pkey]);
-		if (VmConfig::get ('checkout_show_origprice', 1) && !empty($prow->prices['basePriceWithTax']) && $prow->prices['basePriceWithTax'] != $prow->prices['salesPrice']) {
+		if (tsmConfig::get ('checkout_show_origprice', 1) && !empty($prow->prices['basePriceWithTax']) && $prow->prices['basePriceWithTax'] != $prow->prices['salesPrice']) {
 			echo '<span class="line-through">' . $this->currencyDisplay->createPriceDiv ('basePriceWithTax', '', $prow->prices, TRUE, FALSE, $prow->quantity) . '</span><br />';
 		}
-		elseif (VmConfig::get ('checkout_show_origprice', 1) && empty($prow->prices['basePriceWithTax']) && $prow->prices['basePriceVariant'] != $prow->prices['salesPrice']) {
+		elseif (tsmConfig::get ('checkout_show_origprice', 1) && empty($prow->prices['basePriceWithTax']) && $prow->prices['basePriceVariant'] != $prow->prices['salesPrice']) {
 			echo '<span class="line-through">' . $this->currencyDisplay->createPriceDiv ('basePriceVariant', '', $prow->prices, TRUE, FALSE, $prow->quantity) . '</span><br />';
 		}
 		echo $this->currencyDisplay->createPriceDiv ('salesPrice', '', $prow->prices, FALSE, FALSE, $prow->quantity) ?></td>
@@ -104,7 +104,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 	$i = ($i==1) ? 2 : 1;
 } ?>
 <!--Begin of SubTotal, Tax, Shipment, Coupon Discount and Total listing -->
-<?php if (VmConfig::get ('show_tax')) {
+<?php if (tsmConfig::get ('show_tax')) {
 	$colspan = 3;
 } else {
 	$colspan = 2;
@@ -119,7 +119,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 <tr class="sectiontableentry1">
 	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $this->cart->cartPrices, FALSE, false, true) . "</span>" ?></td>
 	<?php } ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('discountAmount', '', $this->cart->cartPrices, FALSE) . "</span>" ?></td>
@@ -127,9 +127,9 @@ foreach ($this->cart->products as $pkey => $prow) {
 </tr>
 
 <?php
-if (VmConfig::get ('coupons_enable')) {
+if (tsmConfig::get ('coupons_enable')) {
 	?>
-	<?php if (VmConfig::get ('show_tax')) {
+	<?php if (tsmConfig::get ('show_tax')) {
 		$colspan = 3;
 	} else {
 		$colspan = 2;
@@ -147,7 +147,7 @@ if (VmConfig::get ('coupons_enable')) {
 		?>
 	</td>
 
-		<?php if (VmConfig::get ('show_tax')) { ?>
+		<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ('couponTax', '', $this->cart->cartPrices['couponTax'], FALSE); ?> </td>
 		<?php } ?>
 	<td align="right"> </td>
@@ -165,7 +165,7 @@ foreach ($this->cart->cartData['DBTaxRulesBill'] as $rule) {
 <tr class="sectiontableentry<?php echo $i ?>">
 	<td colspan="4" align="right"><?php echo $rule['calc_name'] ?> </td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
 	<?php } ?>
 	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?></td>
@@ -186,7 +186,7 @@ foreach ($this->cart->cartData['taxRulesBill'] as $rule) {
 	?>
 <tr class="sectiontableentry<?php echo $i ?>">
 	<td colspan="4" align="right"><?php echo $rule['calc_name'] ?> </td>
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?> </td>
 	<?php } ?>
 	<td align="right"><?php ?> </td>
@@ -205,7 +205,7 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 <tr class="sectiontableentry<?php echo $i ?>">
 	<td colspan="4" align="right"><?php echo   $rule['calc_name'] ?> </td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
 
 	<?php } ?>
@@ -220,9 +220,9 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 	}
 }
 
-if ( 	VmConfig::get('oncheckout_opc',true) or
-	!VmConfig::get('oncheckout_show_steps',false) or
-	(!VmConfig::get('oncheckout_opc',true) and VmConfig::get('oncheckout_show_steps',false) and
+if ( 	tsmConfig::get('oncheckout_opc',true) or
+	!tsmConfig::get('oncheckout_show_steps',false) or
+	(!tsmConfig::get('oncheckout_opc',true) and tsmConfig::get('oncheckout_show_steps',false) and
 		!empty($this->cart->virtuemart_shipmentmethod_id) )
 ) { ?>
 <tr class="sectiontableentry1" style="vertical-align:top;">
@@ -233,7 +233,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 				echo $this->cart->cartData['shipmentName'].'<br/>';
 
 		if (!empty($this->layoutName) and $this->layoutName == 'default') {
-			if (VmConfig::get('oncheckout_opc', 0)) {
+			if (tsmConfig::get('oncheckout_opc', 0)) {
 				$previouslayout = $this->setLayout('select');
 				echo $this->loadTemplate('shipment');
 				$this->setLayout($previouslayout);
@@ -252,7 +252,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 	</td>
 	<?php } ?>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('shipmentTax', '', $this->cart->cartPrices['shipmentTax'], FALSE) . "</span>"; ?> </td>
 	<?php } ?>
 	<td align="right"><?php if($this->cart->cartPrices['salesPriceShipment'] < 0) echo $this->currencyDisplay->createPriceDiv ('salesPriceShipment', '', $this->cart->cartPrices['salesPriceShipment'], FALSE); ?></td>
@@ -260,9 +260,9 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 </tr>
 <?php } ?>
 <?php if ($this->cart->pricesUnformatted['salesPrice']>0.0 and
-	( 	VmConfig::get('oncheckout_opc',true) or
-		!VmConfig::get('oncheckout_show_steps',false) or
-		( (!VmConfig::get('oncheckout_opc',true) and VmConfig::get('oncheckout_show_steps',false) ) and !empty($this->cart->virtuemart_paymentmethod_id))
+	( 	tsmConfig::get('oncheckout_opc',true) or
+		!tsmConfig::get('oncheckout_show_steps',false) or
+		( (!tsmConfig::get('oncheckout_opc',true) and tsmConfig::get('oncheckout_show_steps',false) ) and !empty($this->cart->virtuemart_paymentmethod_id))
 	)
 ) { ?>
 <tr class="sectiontableentry1" style="vertical-align:top;">
@@ -273,7 +273,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 				echo $this->cart->cartData['paymentName'].'<br/>';
 
 		if (!empty($this->layoutName) && $this->layoutName == 'default') {
-			if (VmConfig::get('oncheckout_opc', 0)) {
+			if (tsmConfig::get('oncheckout_opc', 0)) {
 				$previouslayout = $this->setLayout('select');
 				echo $this->loadTemplate('payment');
 				$this->setLayout($previouslayout);
@@ -289,7 +289,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 			<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
 			<?php echo $this->cart->cartData['paymentName']; ?> </td>
 	<?php } ?>
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('paymentTax', '', $this->cart->cartPrices['paymentTax'], FALSE) . "</span>"; ?> </td>
 	<?php } ?>
 	<td align="right" ><?php if($this->cart->cartPrices['salesPricePayment'] < 0) echo $this->currencyDisplay->createPriceDiv ('salesPricePayment', '', $this->cart->cartPrices['salesPricePayment'], FALSE); ?></td>
@@ -305,7 +305,7 @@ if ( 	VmConfig::get('oncheckout_opc',true) or
 <tr class="sectiontableentry2">
 	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"> <?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('billTaxAmount', '', $this->cart->cartPrices['billTaxAmount'], FALSE) . "</span>" ?> </td>
 	<?php } ?>
 	<td align="right"> <?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('billDiscountAmount', '', $this->cart->cartPrices['billDiscountAmount'], FALSE) . "</span>" ?> </td>
@@ -318,7 +318,7 @@ if ($this->totalInPaymentCurrency) {
 <tr class="sectiontableentry2">
 	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
 
-	<?php if (VmConfig::get ('show_tax')) { ?>
+	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
 	<?php } ?>
 	<td align="right"></td>
@@ -331,12 +331,12 @@ if ($this->totalInPaymentCurrency) {
 if(!empty($this->cart->cartData)){
 	if(!empty($this->cart->cartData['VatTax'])){
 		$c = count($this->cart->cartData['VatTax']);
-		if (!VmConfig::get ('show_tax') or $c>1) {
+		if (!tsmConfig::get ('show_tax') or $c>1) {
 			if($c>0){
 				?><tr class="sectiontableentry2">
 				<td colspan="5" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_TOTAL_INCL_TAX') ?></td>
 
-				<?php if (VmConfig::get ('show_tax')) { ?>
+				<?php if (tsmConfig::get ('show_tax')) { ?>
 					<td ></td>
 				<?php } ?>
 				<td></td>

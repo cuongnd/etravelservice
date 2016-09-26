@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . 'is not allo
  * other free or open source software licenses.
  *
  */
-if (!class_exists('VmConfig')) {
+if (!class_exists('tsmConfig')) {
 	require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 }
 
@@ -1062,7 +1062,7 @@ class plgVmpaymentAmazon extends vmPSPlugin {
 		if (!class_exists('CurrencyDisplay')) {
 			require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'currencydisplay.php');
 		}
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 		$success = true;
 		$html = $this->renderByLayout('response', array(
 			"success"            => $success,
@@ -2157,7 +2157,7 @@ if (!$authorizationState) return false;
 		$this->loadVmClass('VirtueMartModelOrders', JPATH_VM_ADMINISTRATOR . DS . 'models' . DS . 'orders.php');
 
 
-		VmConfig::loadJLang('com_virtuemart_orders', TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders', TRUE);
 
 		$virtuemart_paymentmethod_id = vRequest::getInt('pm', 0);
 
@@ -2556,7 +2556,7 @@ jQuery().ready(function($) {
 	 * In case OPC is off: the login widget is displayed on the cart, and on the payment list
 	 */
 	function plgVmOnCheckoutAdvertise($cart, &$payment_advertise) {
-		if (vmConfig::get('oncheckout_opc')==0) {
+		if (tsmConfig::get('oncheckout_opc')==0) {
 			$html=NULL;
 			$this->displayListFE($cart, $cart->virtuemart_paymentmethod_id, $html);
 		}
@@ -2618,11 +2618,11 @@ jQuery().ready(function($) {
 	}
 
 	private function unsetCartLayoutAndPaymentMethod ($cart) {
-		if (!class_exists('VmConfig')) {
+		if (!class_exists('tsmConfig')) {
 			require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 		}
-		VmConfig::loadConfig();
-		$cart->layout = VmConfig::get('cartlayout', 'default');
+		tsmConfig::loadConfig();
+		$cart->layout = tsmConfig::get('cartlayout', 'default');
 		$cart->virtuemart_paymentmethod_id = 0;
 		// $cart->prepareAddressDataInCart(); // VM2 function
 		$cart->prepareAddressFieldsInCart(); // empty BT ?
@@ -2634,12 +2634,12 @@ jQuery().ready(function($) {
 	 * reset the cart layout, unset the paymentmethod, put back the storeAddress
 	 */
 	private function leaveAmazonCheckout ($msg = NULL) {
-		if (!class_exists('VmConfig')) {
+		if (!class_exists('tsmConfig')) {
 			require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 		}
 
 		$cart = VirtueMartCart::getCart();
-		$cart->layout = VmConfig::get('cartlayout', 'default');
+		$cart->layout = tsmConfig::get('cartlayout', 'default');
 		$cart->layoutPath = '';
 		$cart->virtuemart_paymentmethod_id = 0;
 		$previousAddress = $this->getBTandSTFromSession();
@@ -2659,10 +2659,10 @@ jQuery().ready(function($) {
 
 
 	private function setCartLayout ($cart, $intoSession = true) {
-		if (!class_exists('VmConfig')) {
+		if (!class_exists('tsmConfig')) {
 			require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 		}
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 
 		$cart->layoutPath = vmPlugin::getTemplatePath($this->_name, 'payment', 'cart');
 		$cart->layout = 'cart';

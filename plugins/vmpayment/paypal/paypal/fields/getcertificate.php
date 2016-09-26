@@ -92,7 +92,7 @@ class JFormFieldGetcertificate extends JFormFieldFileList {
 	protected function getOptions() {
 		$options = array();
 		$folder = $this->directory;
-		$safePath = VmConfig::get('forSale_path', '');
+		$safePath = tsmConfig::get('forSale_path', '');
 
 		$certificatePath = $safePath . $folder;
 		$certificatePath = JPath::clean($certificatePath);

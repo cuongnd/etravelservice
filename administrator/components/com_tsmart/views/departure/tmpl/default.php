@@ -168,18 +168,18 @@ AdminUIHelper::startAdminArea($this);
                             </td>
                             <td>
                                 B(<span class="price"
-                                      data-a-sign="US$"><?php echo VmConfig::render_price($row->sale_price_adult) ?></span>)
+                                      data-a-sign="US$"><?php echo tsmConfig::render_price($row->sale_price_adult) ?></span>)
                                 <?php if($row->promotion_price_adult){ ?>
                                 P(<span class="price"
-                                      data-a-sign="US$"><?php echo VmConfig::render_price($row->sale_promotion_price_adult) ?></span>)
+                                      data-a-sign="US$"><?php echo tsmConfig::render_price($row->sale_promotion_price_adult) ?></span>)
                                 <?php } ?>
 
                             </td>
                             <td>
-                                <?php echo JHtml::_('date', $row->departure_date, VmConfig::$date_format); ?></span>
+                                <?php echo JHtml::_('date', $row->departure_date, tsmConfig::$date_format); ?></span>
                             </td>
-                            <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, VmConfig::$date_format); ?>
-                                -<?php echo JHtml::_('date', $row->sale_period_to, VmConfig::$date_format); ?>
+                            <td class="sale_period"><?php echo JHtml::_('date', $row->sale_period_from, tsmConfig::$date_format); ?>
+                                -<?php echo JHtml::_('date', $row->sale_period_to, tsmConfig::$date_format); ?>
                             <td>
 
                             <td>

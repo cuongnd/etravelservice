@@ -37,7 +37,7 @@ class TsmartControllerConfig extends TsmController {
 	 * @access	public
 	 */
 	function __construct() {
-		VmConfig::loadJLang('com_tsmart_config');
+		tsmConfig::loadJLang('com_tsmart_config');
 		parent::__construct();
 
 	}
@@ -61,7 +61,7 @@ class TsmartControllerConfig extends TsmController {
 		if ($model->store($data)) {
 			$msg = tsmText::_('com_tsmart_CONFIG_SAVED');
 			// Load the newly saved values into the session.
-			VmConfig::loadConfig();
+			tsmConfig::loadConfig();
 		}
 
 		$redir = 'index.php?option=com_tsmart';

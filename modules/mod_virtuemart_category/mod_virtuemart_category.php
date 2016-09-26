@@ -21,10 +21,10 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
 
-VmConfig::loadConfig();
-VmConfig::loadJLang('mod_virtuemart_category', true);
+tsmConfig::loadConfig();
+tsmConfig::loadJLang('mod_virtuemart_category', true);
 vmJsApi::jQuery();
 vmJsApi::cssSite();
 

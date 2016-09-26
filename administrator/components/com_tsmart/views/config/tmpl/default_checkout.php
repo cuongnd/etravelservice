@@ -21,21 +21,21 @@ defined('_JEXEC') or die('Restricted access');
 	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_CHECKOUT_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_ADDTOCART_POPUP','addtocart_popup',VmConfig::get('addtocart_popup',1));
-		echo VmHTML::row('checkbox','com_tsmart_CFG_POPUP_REL','popup_rel',VmConfig::get('popup_rel',1));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CHECKOUT_OPC','oncheckout_opc',VmConfig::get('oncheckout_opc',1));
-		echo VmHTML::row('checkbox','com_tsmart_CFG_OPC_AJAX','oncheckout_ajax',VmConfig::get('oncheckout_ajax',1));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_STEPS','oncheckout_show_steps',VmConfig::get('oncheckout_show_steps',1));
-		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_SHIPMENT',$this->listShipment,'set_automatic_shipment','','tsmart_shipmentmethod_id','shipment_name',VmConfig::get('set_automatic_shipment',0));
-		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_PAYMENT',$this->listPayment,'set_automatic_payment','','tsmart_paymentmethod_id','payment_name',VmConfig::get('set_automatic_payment',0));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_AGREE_TERMS_ONORDER','agree_to_tos_onorder',VmConfig::get('agree_to_tos_onorder',1));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_REGISTER','oncheckout_show_register',VmConfig::get('oncheckout_show_register',1));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_ONLY_REGISTERED','oncheckout_only_registered',VmConfig::get('oncheckout_only_registered',0));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_PRODUCTIMAGES','oncheckout_show_images',VmConfig::get('oncheckout_show_images',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_ADDTOCART_POPUP','addtocart_popup',tsmConfig::get('addtocart_popup',1));
+		echo VmHTML::row('checkbox','com_tsmart_CFG_POPUP_REL','popup_rel',tsmConfig::get('popup_rel',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CHECKOUT_OPC','oncheckout_opc',tsmConfig::get('oncheckout_opc',1));
+		echo VmHTML::row('checkbox','com_tsmart_CFG_OPC_AJAX','oncheckout_ajax',tsmConfig::get('oncheckout_ajax',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_STEPS','oncheckout_show_steps',tsmConfig::get('oncheckout_show_steps',1));
+		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_SHIPMENT',$this->listShipment,'set_automatic_shipment','','tsmart_shipmentmethod_id','shipment_name',tsmConfig::get('set_automatic_shipment',0));
+		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_PAYMENT',$this->listPayment,'set_automatic_payment','','tsmart_paymentmethod_id','payment_name',tsmConfig::get('set_automatic_payment',0));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_AGREE_TERMS_ONORDER','agree_to_tos_onorder',tsmConfig::get('agree_to_tos_onorder',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_REGISTER','oncheckout_show_register',tsmConfig::get('oncheckout_show_register',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_ONLY_REGISTERED','oncheckout_only_registered',tsmConfig::get('oncheckout_only_registered',0));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_PRODUCTIMAGES','oncheckout_show_images',tsmConfig::get('oncheckout_show_images',1));
 
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_CHANGE_SHOPPER','oncheckout_change_shopper',VmConfig::get('oncheckout_change_shopper',1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_CHANGE_SHOPPER','oncheckout_change_shopper',tsmConfig::get('oncheckout_change_shopper',1));
 
-		echo VmHTML::row('genericlist','com_tsmart_CFG_DELDATE_INV',$this->osDel_Options,'del_date_type','class="inputbox"', 'order_status_code', 'order_status_name', VmConfig::get('del_date_type',array('m')), 'del_date_type',true);
+		echo VmHTML::row('genericlist','com_tsmart_CFG_DELDATE_INV',$this->osDel_Options,'del_date_type','class="inputbox"', 'order_status_code', 'order_status_name', tsmConfig::get('del_date_type',array('m')), 'del_date_type',true);
 		?>
 
 	</table>

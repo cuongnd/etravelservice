@@ -45,7 +45,7 @@ class TsmartViewRatings extends tsmViewAdmin {
 		if ($cids && !is_array($cids)) $cids = array($cids);
 
 		// Figure out maximum rating scale (default is 5 stars)
-		$this->max_rating = VmConfig::get('vm_maximum_rating_scale',5);
+		$this->max_rating = tsmConfig::get('vm_maximum_rating_scale',5);
 
 		$model = tmsModel::getModel();
 		$this->SetViewTitle('REVIEW_RATE' );

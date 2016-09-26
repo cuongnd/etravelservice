@@ -5,7 +5,7 @@ defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 if (!class_exists('ShopFunctions'))
 require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
@@ -34,7 +34,7 @@ class JFormFieldManufacturer extends JFormField
 
 	function getInput() {
 
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 		$model = tmsModel::getModel('Manufacturer');
 		$manufacturers = $model->getManufacturers(true, true, false);
 		$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'tsmart_manufacturer_id', 'mf_name');

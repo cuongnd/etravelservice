@@ -34,7 +34,7 @@ class TsmartViewTsmart extends tsmViewAdmin {
 	function display($tpl = null) {
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
-		VmConfig::loadJLang('com_tsmart_orders',TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 
 
 		if(JFactory::getApplication()->isSite()){

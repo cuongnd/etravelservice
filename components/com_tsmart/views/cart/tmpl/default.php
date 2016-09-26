@@ -30,7 +30,7 @@ JHtml::_ ('behavior.formvalidation');
 			<h1><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TITLE'); ?></h1>
 			<div class="payments-signin-button" ></div>
 		</div>
-		<?php if (VmConfig::get ('oncheckout_show_steps', 1) && $this->checkout_task === 'confirm') {
+		<?php if (tsmConfig::get ('oncheckout_show_steps', 1) && $this->checkout_task === 'confirm') {
 			echo '<div class="checkoutStep" id="checkoutStep4">' . tsmText::_ ('COM_VIRTUEMART_USER_FORM_CART_STEP4') . '</div>';
 		} ?>
 		<div class="width50 floatleft right vm-continue-shopping">
@@ -56,7 +56,7 @@ JHtml::_ ('behavior.formvalidation');
 	$taskRoute = '';
 	?><form method="post" id="checkoutForm" name="checkoutForm" action="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=cart' . $taskRoute, $this->useXHTML, $this->useSSL); ?>">
 		<?php
-		if(VmConfig::get('multixcart')=='byselection'){
+		if(tsmConfig::get('multixcart')=='byselection'){
 			if (!class_exists('ShopFunctions')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 			echo shopFunctions::renderVendorFullVendorList($this->cart->vendorId);
 			?><input type="submit" name="updatecart" title="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>"class="button"style="margin-left: 10px;"/><?php
@@ -93,7 +93,7 @@ JHtml::_ ('behavior.formvalidation');
 
 <?php
 
-if(VmConfig::get('oncheckout_ajax',false)){
+if(tsmConfig::get('oncheckout_ajax',false)){
 	vmJsApi::addJScript('updDynamicListeners',"
 if (typeof Virtuemart.containerSelector === 'undefined') Virtuemart.containerSelector = '#cart-view';
 if (typeof Virtuemart.container === 'undefined') Virtuemart.container = jQuery(Virtuemart.containerSelector);
@@ -128,7 +128,7 @@ jQuery(document).ready(function($) {
 });
 	");
 
-if( !VmConfig::get('oncheckout_ajax',false)) {
+if( !tsmConfig::get('oncheckout_ajax',false)) {
 	vmJsApi::addJScript('vm.STisBT',"
 		jQuery(document).ready(function($) {
 

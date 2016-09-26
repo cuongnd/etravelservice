@@ -48,7 +48,7 @@ class TsmartViewShipmentmethod extends tsmViewAdmin {
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			VmConfig::loadJLang('plg_vmpsplugin', false);
+			tsmConfig::loadJLang('plg_vmpsplugin', false);
 
 			JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
 
@@ -92,7 +92,7 @@ class TsmartViewShipmentmethod extends tsmViewAdmin {
 			$this->addStandardDefaultViewLists($model);
 
 			$this->shipments = $model->getShipments();
-			VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+			tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
 			foreach ($this->shipments as &$data){
 				// Write the first 5 shoppergroups in the list

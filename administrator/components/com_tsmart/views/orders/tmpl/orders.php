@@ -194,7 +194,7 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 				var e = name.indexOf("]");
 				var id = name.substring(s,e);
 
-				<?php $orderstatusForShopperEmail = VmConfig::get('email_os_s',array('U','C','S','R','X'));
+				<?php $orderstatusForShopperEmail = tsmConfig::get('email_os_s',array('U','C','S','R','X'));
 					if(!is_array($orderstatusForShopperEmail)) $orderstatusForShopperEmail = array($orderstatusForShopperEmail);
 					$jsOrderStatusShopperEmail = vmJsApi::safe_json_encode($orderstatusForShopperEmail);
 				?>

@@ -49,8 +49,8 @@ class TsmartViewOrders extends tsmViewAdmin {
 
 		$curTask = vRequest::getCmd('task');
 		if ($curTask == 'edit') {
-			VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
-			VmConfig::loadJLang('com_tsmart_orders', true);
+			tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+			tsmConfig::loadJLang('com_tsmart_orders', true);
 
 			//For getOrderStatusName
 			if (!class_exists('ShopFunctions'))	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');

@@ -45,8 +45,8 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			if(empty($this->path)){
 				$this->path = VMPATH_ADMIN;
 			}
-			if(!class_exists('VmConfig')) require_once($this->path .'/helpers/config.php');
-			VmConfig::loadConfig(false,true);
+			if(!class_exists('tsmConfig')) require_once($this->path .'/helpers/config.php');
+			tsmConfig::loadConfig(false,true);
 			if(!class_exists('tsmTable')) require_once($this->path .'/helpers/tsmtable.php');
 			if(!class_exists('tmsModel')) require_once($this->path .'/helpers/tsmmodel.php');
 			tsmTable::addIncludePath($this->path.DS.'tables');
@@ -345,7 +345,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 		private function fixOrdersVendorId(){
 
-			$multix = Vmconfig::get('multix','none');
+			$multix = tsmConfig::get('multix','none');
 
 			if( $multix == 'none'){
 

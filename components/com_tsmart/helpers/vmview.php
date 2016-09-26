@@ -129,8 +129,8 @@ class VmView extends JViewLegacy{
 		}
 
 		$lang = '';
-		if(VmConfig::$langCount>1 and !empty(VmConfig::$vmlangSef)){
-			$lang = '&lang='.VmConfig::$vmlangSef;
+		if(tsmConfig::$langCount>1 and !empty(tsmConfig::$vmlangSef)){
+			$lang = '&lang='.tsmConfig::$vmlangSef;
 		}
 
 		$this->continue_link = JURI::root() .'index.php?option=com_virtuemart&view=category' . $categoryStr.$lang.$ItemidStr;
@@ -143,7 +143,7 @@ class VmView extends JViewLegacy{
 
 	function linkIcon($link,$altText ='',$boutonName,$verifyConfigValue=false, $modal = true, $use_icon=true,$use_text=false,$class = ''){
 		if ($verifyConfigValue) {
-			if ( !VmConfig::get($verifyConfigValue, 0) ) return '';
+			if ( !tsmConfig::get($verifyConfigValue, 0) ) return '';
 		}
 		$folder = 'media/system/images/'; //shouldn't be root slash before media, as it automatically tells to look in root directory, for media/system/ which is wrong it should append to root directory.
 		$text='';

@@ -110,7 +110,7 @@ class tsmartModelManufacturer extends tmsModel {
 	function getManufacturerDropdown() {
 		$db = JFactory::getDBO();
 		$query = "SELECT `tsmart_manufacturer_id` AS `value`, `mf_name` AS text, '' AS disable
-						FROM `#__tsmart_manufacturers_".VmConfig::$vmlang."` ORDER BY `mf_name` ASC";
+						FROM `#__tsmart_manufacturers_".tsmConfig::$vmlang."` ORDER BY `mf_name` ASC";
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
 		array_unshift($options, JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER') .' -' ));
@@ -137,7 +137,7 @@ class tsmartModelManufacturer extends tmsModel {
 
 		static $_manufacturers = array();
 
-		$hash = $search.json_encode($tsmart_manufacturercategories_id).VmConfig::$vmlang.(int)$onlyPublished.(int)$this->_noLimit.(int)$getMedia;
+		$hash = $search.json_encode($tsmart_manufacturercategories_id).tsmConfig::$vmlang.(int)$onlyPublished.(int)$this->_noLimit.(int)$getMedia;
 
 		if (array_key_exists ($hash, $_manufacturers)) {
 			vmdebug('Return cached getManufacturers');
@@ -160,9 +160,9 @@ class tsmartModelManufacturer extends tmsModel {
 
 		$ordering = $this->_getOrdering();
 		//if ( $search && $search != 'true' or strpos($ordering,'mf_')!==FALSE or $ordering == 'm.tsmart_manufacturer_id' ) {
-			$select .= ',`#__tsmart_manufacturers_'.VmConfig::$vmlang.'`.*, mc.`mf_category_name` ';
-			$joinedTables .= ' INNER JOIN `#__tsmart_manufacturers_'.VmConfig::$vmlang.'` USING (`tsmart_manufacturer_id`) ';
-			$joinedTables .= ' LEFT JOIN `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'` AS mc on  mc.`tsmart_manufacturercategories_id`= `m`.`tsmart_manufacturercategories_id` ';
+			$select .= ',`#__tsmart_manufacturers_'.tsmConfig::$vmlang.'`.*, mc.`mf_category_name` ';
+			$joinedTables .= ' INNER JOIN `#__tsmart_manufacturers_'.tsmConfig::$vmlang.'` USING (`tsmart_manufacturer_id`) ';
+			$joinedTables .= ' LEFT JOIN `#__tsmart_manufacturercategories_'.tsmConfig::$vmlang.'` AS mc on  mc.`tsmart_manufacturercategories_id`= `m`.`tsmart_manufacturercategories_id` ';
 		//}
 
 		if ($onlyPublished) {
@@ -188,7 +188,7 @@ class tsmartModelManufacturer extends tmsModel {
 
 		if($mlang){
 			$query = 'SELECT DISTINCT IFNULL(l.`mf_name`,ld.mf_name) as mf_name,IFNULL(l.`tsmart_manufacturer_id`,ld.`tsmart_manufacturer_id`) as tsmart_manufacturer_id
-FROM `#__tsmart_manufacturers_'.VmConfig::$defaultLang.'` as ld
+FROM `#__tsmart_manufacturers_'.tsmConfig::$defaultLang.'` as ld
 LEFT JOIN `#__tsmart_manufacturers_'.$vmlang.'` as l using (`tsmart_manufacturer_id`)';
 			vmdebug('getManufacturersOfProductsInCategory use language fallback');
 		} else {

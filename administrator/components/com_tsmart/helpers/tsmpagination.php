@@ -132,7 +132,7 @@ class VmPagination extends vObject {
 		if($app->isAdmin()) {
 
 			if(empty($sequence)) {
-				$sequence = VmConfig::get( 'pagseq', 0 );
+				$sequence = tsmConfig::get( 'pagseq', 0 );
 			}
 
 			if(!empty($sequence)) {
@@ -189,7 +189,7 @@ class VmPagination extends vObject {
 			$link = 'index.php?'. ltrim( $link, '&' );
 
 			if(empty($sequence)) {
-				$sequence = VmConfig::get( 'pagseq_'.$this->_perRow );
+				$sequence = tsmConfig::get( 'pagseq_'.$this->_perRow );
 			}
 			if(!empty($sequence)) {
 				$sequenceArray = explode( ',', $sequence );

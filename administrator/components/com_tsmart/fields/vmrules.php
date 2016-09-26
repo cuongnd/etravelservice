@@ -12,7 +12,7 @@ defined('JPATH_PLATFORM') or die;
 JFormHelper::loadFieldClass('rules');
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 /**
  * This is an overload of the core Rules form field
@@ -34,7 +34,7 @@ class JFormFieldVmRules extends JFormFieldRules {
 	 */
 	protected function getInput() {
 
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 		JHtml::_('behavior.tooltip');
 		if(JVM_VERSION<3){
 			return $this->vmRulesJ25();

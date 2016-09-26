@@ -46,7 +46,7 @@ class VmMediaHandler {
 
 		$this->tsmart_media_id = $id;
 
-		$this->theme_url = VmConfig::get('vm_themeurl',0);
+		$this->theme_url = tsmConfig::get('vm_themeurl',0);
 		if(empty($this->theme_url)){
 			$this->theme_url = 'components/com_tsmart/';
 		}
@@ -64,23 +64,23 @@ class VmMediaHandler {
 		//But for storing we use the product to build automatically the table out of it (product_medias)
 		$choosed = false;
 		if($type == 'product' || $type == 'products'){
-			$relUrl = VmConfig::get('media_product_path');
+			$relUrl = tsmConfig::get('media_product_path');
 			$choosed = true;
 		}
 		else if($type == 'category' || $type == 'categories'){
-			$relUrl = VmConfig::get('media_category_path');
+			$relUrl = tsmConfig::get('media_category_path');
 			$choosed = true;
 		}
 		else if($type == 'shop'){
-			$relUrl = VmConfig::get('media_path');
+			$relUrl = tsmConfig::get('media_path');
 			$choosed = true;
 		}
 		else if($type == 'vendor' || $type == 'vendors'){
-			$relUrl = VmConfig::get('media_vendor_path');
+			$relUrl = tsmConfig::get('media_vendor_path');
 			$choosed = true;
 		}
 		else if($type == 'manufacturer' || $type == 'manufacturers'){
-			$relUrl = VmConfig::get('media_manufacturer_path');
+			$relUrl = tsmConfig::get('media_manufacturer_path');
 			$choosed = true;
 		}
 		else if($type == 'forSale' || $type== 'file_is_forSale'){
@@ -212,7 +212,7 @@ class VmMediaHandler {
 			}
 			$this->file_path_folder = $safePath;
 			$this->file_url_folder = $this->file_path_folder;//str_replace(DS,'/',$this->file_path_folder);
-			$this->file_url_folder_thumb = VmConfig::get('forSale_path_thumb');
+			$this->file_url_folder_thumb = tsmConfig::get('forSale_path_thumb');
 		}
 
 		//Clean from possible injection
@@ -465,11 +465,11 @@ class VmMediaHandler {
 
 			if($return){
 				if($this->file_is_downloadable){
-					$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('downloadable','zip.png');
+					$file_url = $this->theme_url.'assets/images/vmgeneral/'.tsmConfig::get('downloadable','zip.png');
 					$file_alt = tsmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
 					return $this->displayIt($file_url, $file_alt, '',true,'',$withDescr);
 				} else {
-					$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_set');
+					$file_url = $this->theme_url.'assets/images/vmgeneral/'.tsmConfig::get('no_image_set');
 					$file_alt = tsmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
 					return $this->displayIt($file_url, $file_alt, $imageArgs,$lightbox, $effect);
 				}
@@ -536,7 +536,7 @@ class VmMediaHandler {
 			$file_url = $this->theme_url.'assets/images/vmgeneral/filetype_'.$this->file_extension.'.png';
 			$file_alt = $this->file_description;
 		} else {
-			$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_found');
+			$file_url = $this->theme_url.'assets/images/vmgeneral/'.tsmConfig::get('no_image_found');
 			$file_alt = tsmText::_('com_tsmart_NO_IMAGE_FOUND').' '.$this->file_description;
 		}
 		if($return){
@@ -722,8 +722,8 @@ class VmMediaHandler {
 		else if($data['media_roles'] == 'file_is_forSale'){
 			$this->file_is_downloadable = 0;
 			$this->file_is_forSale = 1;
-			$this->file_url_folder = VmConfig::get('forSale_path');
-			$this->file_url_folder_thumb = VmConfig::get('forSale_path_thumb');
+			$this->file_url_folder = tsmConfig::get('forSale_path');
+			$this->file_url_folder_thumb = tsmConfig::get('forSale_path_thumb');
 
 			$this->setRole = false;
 		}
@@ -863,7 +863,7 @@ class VmMediaHandler {
 	 */
 	public function displayFilesHandler($fileIds,$type,$vendorId = 0){
 
-		VmConfig::loadJLang('com_tsmart_media');
+		tsmConfig::loadJLang('com_tsmart_media');
 		$html = $this->displayFileSelection($fileIds,$type);
 		$html .= $this->displayFileHandler($vendorId);
 
@@ -1063,7 +1063,7 @@ class VmMediaHandler {
 	 */
 	public function displayFileHandler($vendorId = 0){
 
-		VmConfig::loadJLang('com_tsmart_media');
+		tsmConfig::loadJLang('com_tsmart_media');
 
 		$this->addHiddenByType();
 
@@ -1096,21 +1096,21 @@ class VmMediaHandler {
 	//<input type="checkbox" class="inputbox" id="media_published'.$identify.'" name="media_published'.$identify.'" '.$checked.' size="16" value="1" />
 
 $html .='</td>';
-		$imgWidth = VmConfig::get('img_width','');
+		$imgWidth = tsmConfig::get('img_width','');
 		if(!empty($imgWidth)){
-			$imgWidth = 'width:'.VmConfig::get('img_width',90).'px;';
+			$imgWidth = 'width:'.tsmConfig::get('img_width',90).'px;';
 		} else {
 			$imgWidth = 'max-width:200px;width:auto;';
 		}
 
-		$imgHeight = VmConfig::get('img_height','');
+		$imgHeight = tsmConfig::get('img_height','');
 		if(!empty($imgHeight)){
-			$imgHeight = 'height:'.VmConfig::get('img_height',90).'px;';
+			$imgHeight = 'height:'.tsmConfig::get('img_height',90).'px;';
 		} else {
 			$imgHeight = '';
 		}
 
-		$html .= '<td rowspan = "8" min-width = "'.(VmConfig::get('img_width',90)+10).'px" overflow="hidden">';
+		$html .= '<td rowspan = "8" min-width = "'.(tsmConfig::get('img_width',90)+10).'px" overflow="hidden">';
 		$thumbArgs = array('class'=>'vm_thumb_image','style'=>'overflow: auto;'.$imgWidth.$imgHeight);
 		$html .= $this->displayMediaThumb($thumbArgs); //JHTML::image($this->file_url_thumb, 'thumbnail', 'id="vm_thumb_image" style="overflow: auto; float: right;"');
 		// $html .= $this->displayMediaThumb('',false,'id="vm_thumb_image" style="overflow: auto; float: right;"');
@@ -1169,7 +1169,7 @@ $html .='</td>';
 
 
 		// select language for image
-		$active_languages = VmConfig::get('active_languages');
+		$active_languages = tsmConfig::get('active_languages');
 		if (count($active_languages)>1) {
 			$selectedImageLangue = explode(",", $this->file_lang);
 			$configM = tmsModel::getModel('config');
@@ -1180,7 +1180,7 @@ $html .='</td>';
 					</tr>';
 		}
 
-		if(VmConfig::get('multix','none')!='none'){
+		if(tsmConfig::get('multix','none')!='none'){
 			if(empty($this->tsmart_vendor_id) and $vendorId === 0){
 				$vendorId = vmAccess::isSuperVendor();
 			} else if(empty($vendorId)) {

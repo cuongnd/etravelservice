@@ -116,9 +116,9 @@ function vmInfo($publicdescr,$value=NULL){
 	$app = JFactory::getApplication();
 
 	$msg = '';
-	$type = VmConfig::$mType;//'info';
+	$type = tsmConfig::$mType;//'info';
 
-	if(VmConfig::$maxMessageCount<VmConfig::$maxMessage){
+	if(tsmConfig::$maxMessageCount<tsmConfig::$maxMessage){
 		$lang = JFactory::getLanguage();
 		if($value!==NULL){
 
@@ -132,17 +132,17 @@ function vmInfo($publicdescr,$value=NULL){
 		}
 	}
 	else {
-		if (VmConfig::$maxMessageCount == VmConfig::$maxMessage) {
+		if (tsmConfig::$maxMessageCount == tsmConfig::$maxMessage) {
 			$msg = 'Max messages reached';
 			$type = 'warning';
-			VmConfig::$maxMessageCount++;
+			tsmConfig::$maxMessageCount++;
 		} else {
 			return false;
 		}
 	}
 
 	if(!empty($msg)){
-		VmConfig::$maxMessageCount++;
+		tsmConfig::$maxMessageCount++;
 		$app ->enqueueMessage($msg,$type);
 	} else {
 		vmTrace('vmInfo Message empty '.$msg);
@@ -158,30 +158,30 @@ function vmInfo($publicdescr,$value=NULL){
  */
 function vmAdminInfo($publicdescr,$value=NULL){
 
-	if(VmConfig::$echoAdmin){
+	if(tsmConfig::$echoAdmin){
 
 		$app = JFactory::getApplication();
 
-		if(VmConfig::$maxMessageCount<VmConfig::$maxMessage){
+		if(tsmConfig::$maxMessageCount<tsmConfig::$maxMessage){
 			$lang = JFactory::getLanguage();
 			if($value!==NULL){
 
 				$args = func_get_args();
 				if (count($args) > 0) {
 					$args[0] = $lang->_($args[0]);
-					VmConfig::$maxMessageCount++;
+					tsmConfig::$maxMessageCount++;
 					$app ->enqueueMessage(call_user_func_array('sprintf', $args),'info');
 				}
 			}	else {
-				VmConfig::$maxMessageCount++;
+				tsmConfig::$maxMessageCount++;
 				$publicdescr = $lang->_($publicdescr);
 				$app ->enqueueMessage('Info: '.tsmText::_($publicdescr),'info');
 			}
 		}
 		else {
-			if (VmConfig::$maxMessageCount == VmConfig::$maxMessage) {
+			if (tsmConfig::$maxMessageCount == tsmConfig::$maxMessage) {
 				$app->enqueueMessage ('Max messages reached', 'info');
-				VmConfig::$maxMessageCount++;
+				tsmConfig::$maxMessageCount++;
 			}else {
 				return false;
 			}
@@ -195,7 +195,7 @@ function vmWarn($publicdescr,$value=NULL){
 
 	$app = JFactory::getApplication();
 	$msg = '';
-	if(VmConfig::$maxMessageCount<VmConfig::$maxMessage){
+	if(tsmConfig::$maxMessageCount<tsmConfig::$maxMessage){
 		$lang = JFactory::getLanguage();
 		if($value!==NULL){
 
@@ -210,16 +210,16 @@ function vmWarn($publicdescr,$value=NULL){
 		}
 	}
 	else {
-		if (VmConfig::$maxMessageCount == VmConfig::$maxMessage) {
+		if (tsmConfig::$maxMessageCount == tsmConfig::$maxMessage) {
 			$msg = 'Max messages reached';
-			VmConfig::$maxMessageCount++;
+			tsmConfig::$maxMessageCount++;
 		} else {
 			return false;
 		}
 	}
 
 	if(!empty($msg)){
-		VmConfig::$maxMessageCount++;
+		tsmConfig::$maxMessageCount++;
 		$app ->enqueueMessage($msg,'warning');
 		return $msg;
 	} else {
@@ -244,9 +244,9 @@ function vmError($descr,$publicdescr=''){
 		return;
 	}
 	logInfo($adminmsg,'error');
-	if(VmConfig::$maxMessageCount< (VmConfig::$maxMessage+5)){
+	if(tsmConfig::$maxMessageCount< (tsmConfig::$maxMessage+5)){
 
-		if(VmConfig::$echoAdmin){
+		if(tsmConfig::$echoAdmin){
 			$msg = $adminmsg;
 		} else {
 			if(!empty($publicdescr)){
@@ -255,16 +255,16 @@ function vmError($descr,$publicdescr=''){
 		}
 	}
 	else {
-		if (VmConfig::$maxMessageCount == (VmConfig::$maxMessage+5)) {
+		if (tsmConfig::$maxMessageCount == (tsmConfig::$maxMessage+5)) {
 			$msg = 'Max messages reached';
-			VmConfig::$maxMessageCount++;
+			tsmConfig::$maxMessageCount++;
 		} else {
 			return false;
 		}
 	}
 
 	if(!empty($msg)){
-		VmConfig::$maxMessageCount++;
+		tsmConfig::$maxMessageCount++;
 		$app = JFactory::getApplication();
 		$app ->enqueueMessage($msg,'error');
 		return $msg;
@@ -283,10 +283,10 @@ function vmError($descr,$publicdescr=''){
  */
 function vmdebug($debugdescr,$debugvalues=NULL){
 
-	if(VMConfig::showDebug()  ){
+	if(tsmConfig::showDebug()  ){
 		$app = JFactory::getApplication();
 
-		if(VmConfig::$maxMessageCount<VmConfig::$maxMessage){
+		if(tsmConfig::$maxMessageCount<tsmConfig::$maxMessage){
 			if($debugvalues!==NULL){
 				$args = func_get_args();
 				if (count($args) > 1) {
@@ -299,22 +299,22 @@ function vmdebug($debugdescr,$debugvalues=NULL){
 				}
 			}
 
-			if(VmConfig::$echoDebug){
-				VmConfig::$maxMessageCount++;
+			if(tsmConfig::$echoDebug){
+				tsmConfig::$maxMessageCount++;
 				echo $debugdescr."\n";
-			} else if(VmConfig::$logDebug){
+			} else if(tsmConfig::$logDebug){
 				logInfo($debugdescr,'vmdebug');
 			}else {
-				VmConfig::$maxMessageCount++;
+				tsmConfig::$maxMessageCount++;
 				$app = JFactory::getApplication();
 				$app ->enqueueMessage('<span class="vmdebug" >vmdebug '.$debugdescr.'</span>');
 			}
 
 		}
 		else {
-			if (VmConfig::$maxMessageCount == VmConfig::$maxMessage) {
+			if (tsmConfig::$maxMessageCount == tsmConfig::$maxMessage) {
 				$app->enqueueMessage ('Max messages reached', 'info');
-				VmConfig::$maxMessageCount++;
+				tsmConfig::$maxMessageCount++;
 			}
 		}
 
@@ -324,7 +324,7 @@ function vmdebug($debugdescr,$debugvalues=NULL){
 
 function vmTrace($notice,$force=FALSE){
 
-	if($force || (VMConfig::showDebug() ) ){
+	if($force || (tsmConfig::showDebug() ) ){
 		ob_start();
 		echo '<pre>';
 		debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,10);
@@ -332,9 +332,9 @@ function vmTrace($notice,$force=FALSE){
 		echo '</pre>';
 		$body = ob_get_contents();
 		ob_end_clean();
-		if(VmConfig::$echoDebug){
+		if(tsmConfig::$echoDebug){
 			echo $notice.' <pre>'.$body.'</pre>';
-		} else if(VmConfig::$logDebug){
+		} else if(tsmConfig::$logDebug){
 			logInfo($body,$notice);
 		} else {
 			$app = JFactory::getApplication();
@@ -355,7 +355,7 @@ function vmRamPeak($notice,$value=NULL){
 
 
 function vmSetStartTime($name='current'){
-	VmConfig::$_starttime[$name] = microtime(TRUE);
+	tsmConfig::$_starttime[$name] = microtime(TRUE);
 }
 
 function vmTime($descr,$name='current'){
@@ -363,15 +363,15 @@ function vmTime($descr,$name='current'){
 	if (empty($descr)) {
 		$descr = $name;
 	}
-	$starttime = VmConfig::$_starttime ;
+	$starttime = tsmConfig::$_starttime ;
 	if(empty($starttime[$name])){
 		vmdebug('vmTime: '.$descr.' starting '.microtime(TRUE));
-		VmConfig::$_starttime[$name] = microtime(TRUE);
+		tsmConfig::$_starttime[$name] = microtime(TRUE);
 	}
 	else {
 		if ($name == 'current') {
 			vmdebug ('vmTime: ' . $descr . ' time consumed ' . (microtime (TRUE) - $starttime[$name]));
-			VmConfig::$_starttime[$name] = microtime (TRUE);
+			tsmConfig::$_starttime[$name] = microtime (TRUE);
 		}
 		else {
 			if (empty($descr)) {
@@ -399,12 +399,12 @@ function logInfo ($text, $type = 'message') {
 
 		$config = JFactory::getConfig();
 		$log_path = $config->get('log_path', VMPATH_ROOT . "/log" );
-		$file = $log_path . "/" . VmConfig::$logFileName . VmConfig::LOGFILEEXT;
+		$file = $log_path . "/" . tsmConfig::$logFileName . tsmConfig::LOGFILEEXT;
 
 		if (!is_dir($log_path)) {
 			jimport('joomla.filesystem.folder');
 			if (!JFolder::create($log_path)) {
-				if (VmConfig::$echoAdmin){
+				if (tsmConfig::$echoAdmin){
 					$msg = 'Could not create path ' . $log_path . ' to store log information. Check your folder ' . $log_path . ' permissions.';
 					$app = JFactory::getApplication();
 					$app->enqueueMessage($msg, 'error');
@@ -413,7 +413,7 @@ function logInfo ($text, $type = 'message') {
 			}
 		}
 		if (!is_writable($log_path)) {
-			if (VmConfig::$echoAdmin){
+			if (tsmConfig::$echoAdmin){
 				$msg = 'Path ' . $log_path . ' to store log information is not writable. Check your folder ' . $log_path . ' permissions.';
 				$app = JFactory::getApplication();
 				$app->enqueueMessage($msg, 'error');
@@ -449,7 +449,7 @@ function logInfo ($text, $type = 'message') {
 			fwrite ($fp,  " ".strtoupper($type) . ' ' . $text);
 			fclose ($fp);
 		} else {
-			if (VmConfig::$echoAdmin){
+			if (tsmConfig::$echoAdmin){
 				$msg = 'Could not write in file  ' . $file . ' to store log information. Check your file ' . $file . ' permissions.';
 				$app = JFactory::getApplication();
 				$app->enqueueMessage($msg, 'error');
@@ -471,7 +471,7 @@ function logInfo ($text, $type = 'message') {
 /**
  * We use this Class STATIC not dynamically !
  */
-class VmConfig {
+class tsmConfig {
 
 	// instance of class
 	private static $_jpConfig = NULL;
@@ -552,14 +552,14 @@ class VmConfig {
 				$debug = $override;
 				$dev = $override;
 			} else {
-				$debug = VmConfig::get('debug_enable','none');
-				$dev = VmConfig::get('vmdev',0);
+				$debug = tsmConfig::get('debug_enable','none');
+				$dev = tsmConfig::get('vmdev',0);
 			}
 
 			//$debug = 'all';	//this is only needed, when you want to debug THIS file
 			// 1 show debug only to admins
 			if($debug === 'admin' ){
-				if(VmConfig::$echoAdmin){
+				if(tsmConfig::$echoAdmin){
 					self::$_debug = TRUE;
 				} else {
 					self::$_debug = FALSE;
@@ -577,7 +577,7 @@ class VmConfig {
 			}
 
 			if($dev === 'admin' ){
-				if(VmConfig::$echoAdmin){
+				if(tsmConfig::$echoAdmin){
 					$dev = TRUE;
 				} else {
 					$dev = FALSE;
@@ -632,8 +632,8 @@ class VmConfig {
 	 */
 	static function ensureMemoryLimit($minMemory=0){
 
-		if($minMemory === 0) $minMemory = VmConfig::get('minMemory','128M');
-		$memory_limit = VmConfig::getMemoryLimit();
+		if($minMemory === 0) $minMemory = tsmConfig::get('minMemory','128M');
+		$memory_limit = tsmConfig::getMemoryLimit();
 
 		if($memory_limit<$minMemory)  @ini_set( 'memory_limit', $minMemory.'M' );
 	}
@@ -663,7 +663,7 @@ class VmConfig {
 
 	static function ensureExecutionTime($minTime=0){
 
-		if($minTime === 0) $minTime = (int) VmConfig::get('minTime',120);
+		if($minTime === 0) $minTime = (int) tsmConfig::get('minTime',120);
 		$max_execution_time = self::getExecutionTime();
 		if((int)$max_execution_time<$minTime) {
 			@ini_set( 'max_execution_time', $minTime );
@@ -673,7 +673,7 @@ class VmConfig {
 	static function getExecutionTime(){
 		$max_execution_time = (int) ini_get('max_execution_time');
 		if(empty($max_execution_time)){
-			$max_execution_time = (int) VmConfig::get('minTime',120);
+			$max_execution_time = (int) tsmConfig::get('minTime',120);
 		}
 		return $max_execution_time;
 	}
@@ -698,7 +698,7 @@ class VmConfig {
 			$path = $basePath = VMPATH_SITE;
 		}
 
-		if(VmConfig::get('enableEnglish', true) and $tag!='en-GB'){
+		if(tsmConfig::get('enableEnglish', true) and $tag!='en-GB'){
 			$testpath = $basePath.DS.'language'.DS.'en-GB'.DS.'en-GB.'.$name.'.ini';
 			if(!file_exists($testpath)){
 				$epath = JPATH_ADMINISTRATOR;
@@ -708,6 +708,7 @@ class VmConfig {
 			} else {
 				$epath = $path;
 			}
+
 			$jlang->load($name, $epath, 'en-GB');
 		}
 
@@ -735,7 +736,7 @@ class VmConfig {
 		$tag = $jlang->getTag();
 
 		$path = $basePath = JPATH_VM_MODULES.DS.$name;
-		if(VmConfig::get('enableEnglish', true) and $tag!='en-GB'){
+		if(tsmConfig::get('enableEnglish', true) and $tag!='en-GB'){
 			if(!file_exists($basePath.DS.'language'.DS.'en-GB'.DS.'en-GB.'.$name.'.ini')){
 				$path = JPATH_ADMINISTRATOR;
 			}
@@ -781,7 +782,7 @@ class VmConfig {
 	static public function loadConfig($force = FALSE,$fresh = FALSE) {
 
 		if($fresh){
-			self::$_jpConfig = new VmConfig();
+			self::$_jpConfig = new tsmConfig();
 			return self::$_jpConfig;
 		}
 		vmSetStartTime('loadConfig');
@@ -791,7 +792,7 @@ class VmConfig {
 			}
 		}
 
-		self::$_jpConfig = new VmConfig();
+		self::$_jpConfig = new tsmConfig();
 
 		if(!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
 		$configTable  = tsmartModelConfig::checkConfigTableExists();
@@ -882,7 +883,7 @@ class VmConfig {
 		if(!self::$installed){
 			$user = JFactory::getUser();
 			if($user->authorise('core.admin','com_tsmart') and ($install or $redirected)){
-				VmConfig::$_jpConfig->set('dangeroustools',1);
+				tsmConfig::$_jpConfig->set('dangeroustools',1);
 			}
 			if(!empty($msg)) $app->enqueueMessage($msg);
 			if(!empty($link)) $app->redirect($link);
@@ -903,7 +904,7 @@ class VmConfig {
 				$confData = array();
 				$confData['tsmart_config_id'] = 1;
 
-				$confData['config'] = VmConfig::$_jpConfig->toString();
+				$confData['config'] = tsmConfig::$_jpConfig->toString();
 				$confTable = tsmTable::getInstance('configs', 'Table', array());
 
 				if (!$confTable->bindChecknStore($confData)) {

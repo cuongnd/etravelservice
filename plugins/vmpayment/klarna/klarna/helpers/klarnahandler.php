@@ -287,7 +287,7 @@ class KlarnaHandler {
 	 * @return array
 	 */
 	static function getDataFromEditPayment () {
-		VmConfig::loadJLang('com_virtuemart_shoppers', true);
+		tsmConfig::loadJLang('com_virtuemart_shoppers', true);
 
 		$kIndex = 'klarna_';
 		$klarna['klarna_paymentmethod'] = vRequest::getVar($kIndex . 'paymentmethod');
@@ -678,7 +678,7 @@ class KlarnaHandler {
 
 	static function createKlarnaFolder () {
 
-		$safePath = VmConfig::get('forSale_path', '');
+		$safePath = tsmConfig::get('forSale_path', '');
 		if ($safePath) {
 			$exists = JFolder::exists($safePath . 'klarna');
 			if (!$exists) {
@@ -1176,7 +1176,7 @@ class KlarnaHandler {
 	 */
 	static function getKlarna_pc_type () {
 
-		$safePath = VmConfig::get('forSale_path', '');
+		$safePath = tsmConfig::get('forSale_path', '');
 		if ($safePath) {
 			return $safePath . "klarna/klarna.json";
 		} else {

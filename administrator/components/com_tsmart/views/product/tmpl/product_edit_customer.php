@@ -29,7 +29,7 @@ $i = 0;
 				'notify'  => tsmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'),
 			);
 			$mail_default = 'notify';
-			if (VmConfig::get ('stockhandle', 0) != 'disableadd' or empty($this->waitinglist)) {
+			if (tsmConfig::get ('stockhandle', 0) != 'disableadd' or empty($this->waitinglist)) {
 				echo '<input type="hidden" name="customer_email_type" value="customer" id="customer_email_type0">';
 			}
 			else {
@@ -106,7 +106,7 @@ $i = 0;
 
 			<div id="customer-mail-notify-list">
 
-				<?php if (VmConfig::get ('stockhandle', 0) == 'disableadd' && !empty($this->waitinglist)) { ?>
+				<?php if (tsmConfig::get ('stockhandle', 0) == 'disableadd' && !empty($this->waitinglist)) { ?>
 				<div style="font-weight:bold;"><?php echo tsmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'); ?></div>
 				<table class="adminlist table" cellspacing="0" cellpadding="0">
 					<thead>

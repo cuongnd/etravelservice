@@ -162,7 +162,7 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo $published;?>
 				</td>
 				<?php
-				if((Vmconfig::get('multix','none')!='none')) {
+				if((tsmConfig::get('multix','none')!='none')) {
 					?><td align="center">
 						<?php echo $shared; ?>
                     </td>

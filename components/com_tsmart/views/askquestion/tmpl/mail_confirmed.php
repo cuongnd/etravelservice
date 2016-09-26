@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 
-if(VmConfig::get('usefancy',1)){
+if(tsmConfig::get('usefancy',1)){
 	$onclick = 'parent.jQuery.fancybox.close();';
 } else {
 	$onclick = 'parent.jQuery.facebox.close();';

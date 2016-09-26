@@ -46,16 +46,16 @@ function renderControlButtons($view,$rview){
 	}
 
 
-	if (VmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && !VmConfig::get ('oncheckout_only_registered', 0) && $view->address_type == 'BT' and $rview == 'cart') {
+	if (tsmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && !tsmConfig::get ('oncheckout_only_registered', 0) && $view->address_type == 'BT' and $rview == 'cart') {
 		echo '<div id="reg_text">'.tsmText::sprintf ('COM_VIRTUEMART_ONCHECKOUT_DEFAULT_TEXT_REGISTER', tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'), tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST')).'</div>';			}
 	else {
 		//echo vmText::_('COM_VIRTUEMART_REGISTER_ACCOUNT');
 	}
-	if (VmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && $view->address_type == 'BT' and $rview == 'cart') {
+	if (tsmConfig::get ('oncheckout_show_register', 1) && $view->userDetails->JUser->id == 0 && $view->address_type == 'BT' and $rview == 'cart') {
 		?>
 		<button name="register" class="<?php echo $buttonclass ?>" type="submit" onclick="javascript:return myValidator(userForm,true);"
 				title="<?php echo tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?>"><?php echo tsmText::_ ('COM_VIRTUEMART_REGISTER_AND_CHECKOUT'); ?></button>
-		<?php if (!VmConfig::get ('oncheckout_only_registered', 0)) { ?>
+		<?php if (!tsmConfig::get ('oncheckout_only_registered', 0)) { ?>
 			<button name="save" class="<?php echo $buttonclass ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?>" type="submit"
 					onclick="javascript:return myValidator(userForm, false);"><?php echo tsmText::_ ('COM_VIRTUEMART_CHECKOUT_AS_GUEST'); ?></button>
 		<?php } ?>
@@ -105,15 +105,15 @@ echo shopFunctionsF::getLoginForm (TRUE, FALSE, $url);
 	<?php renderControlButtons($this,$rview); ?>
 
 <?php // captcha addition
-	if(VmConfig::get ('reg_captcha')){
+	if(tsmConfig::get ('reg_captcha')){
 		JHTML::_('behavior.framework');
 		JPluginHelper::importPlugin('captcha');
 		$captcha_visible = vRequest::getVar('captcha');
 		$dispatcher = JDispatcher::getInstance(); $dispatcher->trigger('onInit','dynamic_recaptcha_1');
-		$hide_captcha = (VmConfig::get ('oncheckout_only_registered') or $captcha_visible) ? '' : 'style="display: none;"';
+		$hide_captcha = (tsmConfig::get ('oncheckout_only_registered') or $captcha_visible) ? '' : 'style="display: none;"';
 		?>
 		<fieldset id="recaptcha_wrapper" <?php echo $hide_captcha ?>>
-			<?php if(!VmConfig::get ('oncheckout_only_registered')) { ?>
+			<?php if(!tsmConfig::get ('oncheckout_only_registered')) { ?>
 				<span class="userfields_info"><?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_CAPTCHA'); ?></span>
 			<?php } ?>
 			<div id="dynamic_recaptcha_1"></div>

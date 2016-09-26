@@ -28,7 +28,7 @@ class VirtuemartViewCategory extends VmView {
 
 	public function display ($tpl = NULL) {
 
-		$show_prices = VmConfig::get ('show_prices', 1);
+		$show_prices = tsmConfig::get ('show_prices', 1);
 		if ($show_prices == '1') {
 			if (!class_exists ('calculationHelper')) {
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
@@ -41,11 +41,11 @@ class VirtuemartViewCategory extends VmView {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 		$productModel = tmsModel::getModel ('product');
 		$categoryId = vRequest::getInt ('virtuemart_category_id', false);
-		$feed_show_prices = VmConfig::get ('feed_cat_show_prices', 0);
-		$feed_show_images = VmConfig::get ('feed_cat_show_images', 0);
-		$feed_show_description = VmConfig::get ('feed_cat_show_description', 0);
-		$feed_description_type = VmConfig::get ('feed_cat_description_type', 'product_s_desc');
-		$feed_max_text_length = VmConfig::get ('feed_cat_max_text_length', 0);
+		$feed_show_prices = tsmConfig::get ('feed_cat_show_prices', 0);
+		$feed_show_images = tsmConfig::get ('feed_cat_show_images', 0);
+		$feed_show_description = tsmConfig::get ('feed_cat_show_description', 0);
+		$feed_description_type = tsmConfig::get ('feed_cat_description_type', 'product_s_desc');
+		$feed_max_text_length = tsmConfig::get ('feed_cat_max_text_length', 0);
 		// Load the products in the given category
 		$products = $productModel->getProductsInCategory ($categoryId);
 		if ($feed_show_images == 1) {

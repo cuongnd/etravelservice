@@ -722,7 +722,7 @@ class tsmartModelCustomfields extends tmsModel {
 					return '';
 				} // special case it's category ID !
 
-				$q = 'SELECT * FROM `#__tsmart_categories_' . VmConfig::$vmlang . '` INNER JOIN `#__tsmart_categories` AS p using (`tsmart_category_id`) WHERE `tsmart_category_id`= "' . (int)$field->customfield_value . '" ';
+				$q = 'SELECT * FROM `#__tsmart_categories_' . tsmConfig::$vmlang . '` INNER JOIN `#__tsmart_categories` AS p using (`tsmart_category_id`) WHERE `tsmart_category_id`= "' . (int)$field->customfield_value . '" ';
 				$db = JFactory::getDBO();
 				$db->setQuery ($q);
 				//echo $db->_sql;
@@ -862,8 +862,8 @@ class tsmartModelCustomfields extends tmsModel {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'mediahandler.php');
 		$media = VmMediaHandler::createMedia ($data, $table);
 
-		if(!$width) $width = VmConfig::get('img_width',90);
-		if(!$height) $height = VmConfig::get('img_height',90);
+		if(!$width) $width = tsmConfig::get('img_width',90);
+		if(!$height) $height = tsmConfig::get('img_height',90);
 
 		return $media->displayMediaThumb ('', FALSE, '', TRUE, TRUE, $absUrl, $width, $height);
 	}

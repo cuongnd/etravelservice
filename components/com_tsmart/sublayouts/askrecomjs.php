@@ -23,7 +23,7 @@ if($ask_recommened_loaded) return '';
 
 $product = $viewData['product'];
 
-if(VmConfig::get('usefancy',1)){
+if(tsmConfig::get('usefancy',1)){
 	vmJsApi::addJScript( 'fancybox/jquery.fancybox-1.3.4.pack',false);
 	vmJsApi::css('jquery.fancybox-1.3.4');
 	$Modal ="

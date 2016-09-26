@@ -34,7 +34,7 @@ if(isset($viewData['position'])){
 if(!is_array($positions)) $positions = array($positions);
 
 $addtoCartButton = '';
-if(!VmConfig::get('use_as_catalog', 0)){
+if(!tsmConfig::get('use_as_catalog', 0)){
 	if($product->addToCartButton){
 		$addtoCartButton = $product->addToCartButton;
 	} else {
@@ -56,7 +56,7 @@ if(!VmConfig::get('use_as_catalog', 0)){
 				} ?>
 			</div>			
 				<?php
-				if (!VmConfig::get('use_as_catalog', 0)  ) {
+				if (!tsmConfig::get('use_as_catalog', 0)  ) {
 					echo shopFunctionsF::renderVmSubLayout('addtocartbar',array('product'=>$product));
 				} ?>
 			<input type="hidden" name="option" value="com_virtuemart"/>

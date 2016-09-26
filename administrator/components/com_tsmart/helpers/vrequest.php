@@ -76,7 +76,7 @@ class vRequest {
 		// Replace double byte whitespaces by single byte (East Asian languages)
 		$str = preg_replace('/\xE3\x80\x80/', ' ', $str);
 
-		$unicodeslugs = VmConfig::get('transliterateSlugs',false);
+		$unicodeslugs = tsmConfig::get('transliterateSlugs',false);
 		if($unicodeslugs){
 			$lang = JFactory::getLanguage();
 			$str = $lang->transliterate($str);
@@ -356,6 +356,6 @@ class vRequest {
 	}
 
 	public static function getHash($seed) {
-		return md5(VmConfig::getSecret() . $seed);
+		return md5(tsmConfig::getSecret() . $seed);
 	}
 }

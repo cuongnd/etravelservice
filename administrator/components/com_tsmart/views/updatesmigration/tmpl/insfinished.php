@@ -19,11 +19,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
-VmConfig::loadConfig();
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+tsmConfig::loadConfig();
 
-VmConfig::loadJLang('com_tsmart.sys');
-VmConfig::loadJLang('com_tsmart');
+tsmConfig::loadJLang('com_tsmart.sys');
+tsmConfig::loadJLang('com_tsmart');
 
 $update = vRequest::getInt('update',0);
 $option = vRequest::getString('option');

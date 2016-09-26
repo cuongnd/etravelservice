@@ -67,7 +67,7 @@ class RealexHelperRealexRedirect extends RealexHelperRealex {
 		if ($this->_method->debug) {
 			$html .= '<form action="' . $jump_url . '" method="post" name="vm_realex_form" target="realex">';
 		} else {
-			if (VmConfig::get('css')) {
+			if (tsmConfig::get('css')) {
 				$msg = tsmText::_('VMPAYMENT_REALEX_HPP_API_REDIRECT_MESSAGE', true);
 			} else {
 				$msg='';

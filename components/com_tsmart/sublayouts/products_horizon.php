@@ -77,7 +77,7 @@ foreach ($viewData['products'] as $type => $products ) {
 
 			<div class="vm-product-rating-container">
 				<?php echo shopFunctionsF::renderVmSubLayout('rating',array('showRating'=>$showRating, 'product'=>$product));
-				if ( VmConfig::get ('display_stock', 1)) { ?>
+				if ( tsmConfig::get ('display_stock', 1)) { ?>
 					<span class="vmicon vm2-<?php echo $product->stock->stock_level ?>" title="<?php echo $product->stock->stock_tip ?>"></span>
 				<?php }
 				echo shopFunctionsF::renderVmSubLayout('stockhandle',array('product'=>$product));

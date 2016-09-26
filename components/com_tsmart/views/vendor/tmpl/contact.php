@@ -53,8 +53,8 @@ defined('_JEXEC') or die('Restricted access');
 	} */
 
 
-	$min = VmConfig::get('asks_minimum_comment_length', 50);
-	$max = VmConfig::get('asks_maximum_comment_length', 2000) ;
+	$min = tsmConfig::get('asks_minimum_comment_length', 50);
+	$max = tsmConfig::get('asks_maximum_comment_length', 2000) ;
 	vmJsApi::JvalideForm();
 	vmJsApi::addJScript('askform', '
 		jQuery(function($){

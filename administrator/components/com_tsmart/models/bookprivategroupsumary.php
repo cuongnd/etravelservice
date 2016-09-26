@@ -47,7 +47,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
     public function send_bookprivategroupsumary($booking_summary, $email_address,$new_member=true,$order,$user_token='')
     {
 
-        $company_info = VmConfig::get_company_info();
+        $company_info = tsmConfig::get_company_info();
         $tour = $booking_summary->tour;
         $list_passenger = $booking_summary->list_passenger;
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);

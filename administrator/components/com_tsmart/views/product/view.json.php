@@ -57,7 +57,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 		/* Get the task */
 		if ($this->type=='relatedproducts') {
 			$query = "SELECT tsmart_product_id AS id, CONCAT(product_name, '::', product_sku) AS value
-				FROM #__tsmart_products_".VmConfig::$vmlang."
+				FROM #__tsmart_products_".tsmConfig::$vmlang."
 				 JOIN `#__tsmart_products` AS p using (`tsmart_product_id`)";
 			if ($filter) $query .= " WHERE product_name LIKE '%". $this->db->escape( $filter, true ) ."%' or product_sku LIKE '%". $this->db->escape( $filter, true ) ."%' limit 0,10";
 			self::setRelatedHtml($product_id,$query,'R');
@@ -65,7 +65,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 		else if ($this->type=='relatedcategories')
 		{
 			$query = "SELECT tsmart_category_id AS id, CONCAT(category_name, '::', tsmart_category_id) AS value
-				FROM #__tsmart_categories_".VmConfig::$vmlang;
+				FROM #__tsmart_categories_".tsmConfig::$vmlang;
 			if ($filter) $query .= " WHERE category_name LIKE '%". $this->db->escape( $filter, true ) ."%' limit 0,10";
 			self::setRelatedHtml($product_id,$query,'Z');
 		}

@@ -21,10 +21,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SEO_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_DISABLE','seo_disabled', VmConfig::get('seo_disabled', 0));
-		echo VmHTML::row('input','com_tsmart_ADMIN_CFG_SEO_SUFIX','seo_sufix', VmConfig::get('seo_sufix', '-detail'));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_TRANSLATE','seo_translate', VmConfig::get('seo_translate', 1));
-		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_USE_ID','seo_use_id', VmConfig::get('seo_use_id'));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_DISABLE','seo_disabled', tsmConfig::get('seo_disabled', 0));
+		echo VmHTML::row('input','com_tsmart_ADMIN_CFG_SEO_SUFIX','seo_sufix', tsmConfig::get('seo_sufix', '-detail'));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_TRANSLATE','seo_translate', tsmConfig::get('seo_translate', 1));
+		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_USE_ID','seo_use_id', tsmConfig::get('seo_use_id'));
 		?>
 	</table>
 </fieldset>

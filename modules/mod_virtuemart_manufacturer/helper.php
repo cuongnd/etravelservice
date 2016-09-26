@@ -13,8 +13,8 @@ defined('_JEXEC') or  die( 'Direct Access to '.basename(__FILE__).' is not allow
 *
 * www.tsmart.net
 */
-if (!class_exists( 'VmConfig' )) require(JPATH_ADMINISTRATOR .DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
-VmConfig::loadConfig();
+if (!class_exists('tsmConfig')) require(JPATH_ADMINISTRATOR .DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+tsmConfig::loadConfig();
 if (!class_exists( 'VmImage' )) require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart'.DS.'helpers'.DS.'image.php');
 if(!class_exists('TableMedias')) require(JPATH_VM_ADMINISTRATOR.DS.'tables'.DS.'medias.php');
 if(!class_exists('TableManufacturer_medias')) require(JPATH_VM_ADMINISTRATOR.DS.'tables'.DS.'manufacturer_medias.php');

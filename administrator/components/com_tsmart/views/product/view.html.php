@@ -54,8 +54,8 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 //this was in the controller for the edit tasks, we need this for the access by FE
                 //$this->addTemplatePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'views'.DS.'product'.DS.'tmpl');
-                VmConfig::loadJLang('com_tsmart_orders', TRUE);
-                VmConfig::loadJLang('com_tsmart_shoppers', TRUE);
+                tsmConfig::loadJLang('com_tsmart_orders', TRUE);
+                tsmConfig::loadJLang('com_tsmart_shoppers', TRUE);
                 $model_country = tmsModel::getModel('country');
                 $this->countries = $model_country->getItemList();
                 $tsmart_product_id = vRequest::getInt('tsmart_product_id');
@@ -154,7 +154,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 } else if (!empty($product_parent)) {
                     $product_weight_uom = $product_parent->product_weight_uom;
                 } else {
-                    $product_weight_uom = VmConfig::get('weight_unit_default');
+                    $product_weight_uom = tsmConfig::get('weight_unit_default');
                 }
 
                 if (!empty($product->product_lwh_uom)) {
@@ -162,7 +162,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 } else if (!empty($product_parent)) {
                     $product_lwh_uom = $product_parent->product_lwh_uom;
                 } else {
-                    $product_lwh_uom = VmConfig::get('lwh_unit_default');
+                    $product_lwh_uom = tsmConfig::get('lwh_unit_default');
                 }
 
                 if (!empty($product->product_unit)) {
@@ -170,7 +170,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 } else if (!empty($product_parent)) {
                     $product_unit = $product_parent->product_unit;
                 } else {
-                    $product_unit = VmConfig::get('product_unit_default', 'KG');
+                    $product_unit = tsmConfig::get('product_unit_default', 'KG');
                 }
 
                 $lists['product_weight_uom'] = ShopFunctions::renderWeightUnitList('product_weight_uom', $product_weight_uom);
@@ -229,7 +229,7 @@ class TsmartViewProduct extends tsmViewAdmin
                     $delete_message = tsmText::_('com_tsmart_PRODUCT_FORM_DELETE_PRODUCT_MSG');
                 }
                 //get countries
-                require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
+                require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcountries.php';
                 $countries = tsmcountries::get_countries();
                 $this->assignRef('countries', $countries);
                 //end get countries
@@ -288,7 +288,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 //end get list group size
 
                 //get list country
-                require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
+                require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcountries.php';
                 $product->list_tsmart_country_id = tsmcountries::get_list_tsmart_country_id_by_tour_id($product->tsmart_product_id);
                 //end get list group size
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
@@ -577,7 +577,7 @@ class TsmartViewProduct extends tsmViewAdmin
     {
 
         $db = JFactory::getDBO();
-        $db->setQuery(' SELECT * FROM `#__tsmart_products_' . VmConfig::$vmlang . '` as l JOIN `#__tsmart_products` using (`tsmart_product_id`) WHERE `tsmart_product_id` = ' . $product_parent_id);
+        $db->setQuery(' SELECT * FROM `#__tsmart_products_' . tsmConfig::$vmlang . '` as l JOIN `#__tsmart_products` using (`tsmart_product_id`) WHERE `tsmart_product_id` = ' . $product_parent_id);
         if ($parent = $db->loadObject()) {
             $result = tsmText::sprintf('com_tsmart_LIST_CHILDREN_FROM_PARENT', htmlentities($parent->product_name));
             echo JHtml::_('link', JRoute::_('index.php?view=product&product_parent_id=' . $product_parent_id . '&option=com_tsmart'), $parent->product_name, array('title' => $result));

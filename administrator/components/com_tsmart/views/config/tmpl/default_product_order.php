@@ -30,21 +30,21 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								</span>
 						</td>
 						<td>
-							<?php echo JHtml::_('Select.genericlist', $this->orderByFieldsProduct->select, 'browse_orderby_field', 'size=1', 'value', 'text', VmConfig::get('browse_orderby_field', 'product_name'), 'product_name');
+							<?php echo JHtml::_('Select.genericlist', $this->orderByFieldsProduct->select, 'browse_orderby_field', 'size=1', 'value', 'text', tsmConfig::get('browse_orderby_field', 'product_name'), 'product_name');
 							$orderDirs[] = JHtml::_('select.option', 'ASC' , tsmText::_('Ascending')) ;
 							$orderDirs[] = JHtml::_('select.option', 'DESC' , tsmText::_('Descending')) ;
 
-							echo JHtml::_('select.genericlist', $orderDirs, 'prd_brws_orderby_dir', 'size=10', 'value', 'text', VmConfig::get('prd_brws_orderby_dir', 'ASC') ); ?>
+							echo JHtml::_('select.genericlist', $orderDirs, 'prd_brws_orderby_dir', 'size=10', 'value', 'text', tsmConfig::get('prd_brws_orderby_dir', 'ASC') ); ?>
 							<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_BROWSE_CAT_ORDERBY_DEFAULT_FIELD_LBL_TIP'); ?>">
 									<?php echo tsmText::_('com_tsmart_BROWSE_CAT_ORDERBY_DEFAULT_FIELD_LBL'); ?>
 								</span>
 							<?php //Fallback, if someone used an old ordering: "ordering"
-							$ordering = VmConfig::get('browse_cat_orderby_field', 'c.ordering,category_name');
+							$ordering = tsmConfig::get('browse_cat_orderby_field', 'c.ordering,category_name');
 							if(!in_array($ordering,tsmartModelCategory::$_validOrderingFields)){
 								$ordering = 'c.ordering,category_name';
 							}
 							echo JHtml::_('Select.genericlist', $this->orderByFieldsCat, 'browse_cat_orderby_field', 'size=1', 'value', 'text', $ordering, 'category_name');
-							echo JHtml::_('select.genericlist', $orderDirs, 'cat_brws_orderby_dir', 'size=10', 'value', 'text', VmConfig::get('cat_brws_orderby_dir', 'ASC') ); ?>
+							echo JHtml::_('select.genericlist', $orderDirs, 'cat_brws_orderby_dir', 'size=10', 'value', 'text', tsmConfig::get('cat_brws_orderby_dir', 'ASC') ); ?>
 						</td>
 					</tr>
 					<tr>

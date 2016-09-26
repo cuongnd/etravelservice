@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
  */
 
 
-if (!class_exists( 'VmConfig' )) require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart'.DS.'helpers'.DS.'config.php');
 if (!class_exists('ShopFunctions')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
 }

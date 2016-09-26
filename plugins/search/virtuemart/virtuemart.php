@@ -88,10 +88,10 @@ class PlgSearchVirtuemart extends JPlugin {
 
 		}
 
-		if (!class_exists('VmConfig')) {
+		if (!class_exists('tsmConfig')) {
 			require(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_virtuemart' . DS . 'helpers' . DS . 'config.php');
 		}
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 
 		$text = trim($text);
 		if (empty($text))
@@ -170,7 +170,7 @@ class PlgSearchVirtuemart extends JPlugin {
 			$shopper_group_condition = " AND ( " . implode (' OR ', $sgrgroups) . " ) ";
 		}
 
-		$uncategorized_products_condition = VmConfig::get('show_uncat_child_products') ?
+		$uncategorized_products_condition = tsmConfig::get('show_uncat_child_products') ?
 			'' : ' AND b.virtuemart_category_id > 0 ';
 
 		$query = "
@@ -185,11 +185,11 @@ class PlgSearchVirtuemart extends JPlugin {
 					(SELECT pc2.virtuemart_category_id
 						FROM #__virtuemart_product_categories as pc2
 						WHERE pc2.virtuemart_product_id = a.virtuemart_product_id LIMIT 1) AS cat_id
-				FROM `#__virtuemart_products_" . VmConfig::$vmlang . "` AS a
+				FROM `#__virtuemart_products_" . tsmConfig::$vmlang . "` AS a
 				JOIN #__virtuemart_products AS p USING (`virtuemart_product_id`)
 				LEFT JOIN `#__virtuemart_product_categories` AS xref
 						ON xref.`virtuemart_product_id` = a.`virtuemart_product_id`
-				LEFT JOIN `#__virtuemart_categories_" . VmConfig::$vmlang . "` AS b
+				LEFT JOIN `#__virtuemart_categories_" . tsmConfig::$vmlang . "` AS b
 						ON b.`virtuemart_category_id` = xref.`virtuemart_category_id`
 				LEFT JOIN `#__virtuemart_product_shoppergroups` as `psgr`
 						ON (`psgr`.`virtuemart_product_id`=`a`.`virtuemart_product_id`)

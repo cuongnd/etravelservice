@@ -44,8 +44,8 @@ class VirtueMartControllerVendor extends JControllerLegacy
 		$model = tmsModel::getModel('vendor');
 		$mainframe = JFactory::getApplication();
 		$vars = array();
-		$min = VmConfig::get('asks_minimum_comment_length', 50)+1;
-		$max = VmConfig::get('asks_maximum_comment_length', 2000)-1 ;
+		$min = tsmConfig::get('asks_minimum_comment_length', 50)+1;
+		$max = tsmConfig::get('asks_maximum_comment_length', 2000)-1 ;
 		$commentSize = vRequest::getString ('comment');
 		if (function_exists('mb_strlen')) {
 			$commentSize =  mb_strlen($commentSize);

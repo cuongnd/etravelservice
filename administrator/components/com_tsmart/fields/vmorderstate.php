@@ -27,7 +27,7 @@ class JFormFieldVmOrderState extends JFormFieldList {
 	var $type = 'vmOrderState';
 
 	protected function getOptions() {
-		VmConfig::loadJLang('com_tsmart_orders', TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders', TRUE);
 
 		$options = array();
 		$db = JFactory::getDBO();

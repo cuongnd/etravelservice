@@ -41,7 +41,7 @@ class TsmartViewUser extends tsmViewAdmin {
 		$model = tmsModel::getModel();
 		$currentUser = JFactory::getUser();
 
-		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
 		$task = vRequest::getCmd('task', 'edit');
 		if($task == 'editshop'){
@@ -234,7 +234,7 @@ class TsmartViewUser extends tsmViewAdmin {
 
 
 		if(!empty($this->orderlist)){
-			VmConfig::loadJLang('com_tsmart_orders',TRUE);
+			tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 		}
 		parent::display($tpl);
 	}
@@ -260,7 +260,7 @@ class TsmartViewUser extends tsmViewAdmin {
 	private function checkTCPDFinstalled(){
 
 		if(!file_exists(VMPATH_LIBS.DS.'tcpdf'.DS.'tcpdf.php')){
-			VmConfig::loadJLang('com_tsmart_config');
+			tsmConfig::loadJLang('com_tsmart_config');
 			vmWarn('com_tsmart_TCPDF_NINSTALLED');
 		}
 	}

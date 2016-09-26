@@ -24,7 +24,7 @@ JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
-$format_date=VmConfig::$date_format;// 'd-m-Y';
+$format_date=tsmConfig::$date_format;// 'd-m-Y';
 require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 $doc->addScript(JUri::root() . '/media/system/js/datepicker/js/datepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/dateFormat.js');

@@ -53,7 +53,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 				// Get the payment XML.
 				$formFile	= vRequest::filterPath( $path );
 				if (file_exists($formFile)){
-					if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+					if (!class_exists( 'tsmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 					if (!class_exists ('tsmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 
 					$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');

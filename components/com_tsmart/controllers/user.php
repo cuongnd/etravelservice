@@ -33,9 +33,9 @@ class VirtueMartControllerUser extends JControllerLegacy
 	public function __construct()
 	{
 		parent::__construct();
-		$this->useSSL = VmConfig::get('useSSL',0);
+		$this->useSSL = tsmConfig::get('useSSL',0);
 		$this->useXHTML = false;
-		VmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
 	}
 
 	/**
@@ -257,7 +257,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 						'password' => $ret['user']->password_clear
 					);
 					$return = $mainframe->login($credentials);
-				} else if(VmConfig::get('oncheckout_only_registered',0)){
+				} else if(tsmConfig::get('oncheckout_only_registered',0)){
 					$layout = vRequest::getCmd('layout','edit');
 					$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&layout='.$layout, FALSE), $msg );
 				}
@@ -313,7 +313,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 	 * @author Maik Künnemann
 	 */
 	function checkCaptcha($retUrl){
-		if(JFactory::getUser()->guest==1 and VmConfig::get ('reg_captcha')){
+		if(JFactory::getUser()->guest==1 and tsmConfig::get ('reg_captcha')){
 			$recaptcha = vRequest::getVar ('recaptcha_response_field');
 			JPluginHelper::importPlugin('captcha');
 			$dispatcher = JDispatcher::getInstance();

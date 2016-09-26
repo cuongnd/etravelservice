@@ -109,7 +109,7 @@ class TsmartViewCalc extends tsmViewAdmin {
 
 			$search = vRequest::getCmd('search', false);
 			$this->calcs = $model->getCalcs(false, false, $search);
-			VmConfig::loadJLang('com_tsmart_shoppers',true);
+			tsmConfig::loadJLang('com_tsmart_shoppers',true);
 			foreach ($this->calcs as &$data){
 				$data->calcCategoriesList = shopfunctions::renderGuiList($data->tsmart_calc_id,'categories','category_name','category','calc_categories','tsmart_calc_id');
 

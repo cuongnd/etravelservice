@@ -127,7 +127,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 
 			$model = $this->getModel('updatesMigration');
 			$model->restoreSystemDefaults();
@@ -191,7 +191,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$msg = '';
 		$this->checkPermissionForTools();
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 
 			$db = JFactory::getDbo();
 
@@ -269,7 +269,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 		$this->checkPermissionForTools();
 
 		$msg = tsmText::_('com_tsmart_SYSTEM_VMTABLES_DELETED');
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 			$model = $this->getModel('updatesMigration');
 
 			if(!$model->removeAllVMTables()){
@@ -293,7 +293,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 		$this->checkPermissionForTools();
 
 		$msg = tsmText::_('com_tsmart_SYSTEM_VMDATA_DELETED');
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 			$model = $this->getModel('updatesMigration');
 
 			if(!$model->removeAllVMData()){
@@ -312,7 +312,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 		$this->checkPermissionForTools();
 
 		$msg = tsmText::_('com_tsmart_SYSTEM_ALLVMDATA_DELETED');
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 
 			$this->installer->populateVmDatabase("delete_essential.sql");
 			$this->installer->populateVmDatabase("delete_data.sql");
@@ -329,7 +329,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 		$this->checkPermissionForTools();
 
 		$msg = tsmText::_('com_tsmart_SYSTEM_RESTVMDATA_DELETED');
-		if(VmConfig::get('dangeroustools', false)){
+		if(tsmConfig::get('dangeroustools', false)){
 			$this->installer->populateVmDatabase("delete_restoreable.sql");
 			$this->setDangerousToolsOff();
 		}else {
@@ -350,7 +350,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(VmConfig::get('dangeroustools', true)){
+		if(tsmConfig::get('dangeroustools', true)){
 
 			$model = $this->getModel('updatesMigration');
 
@@ -389,7 +389,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(VmConfig::get('dangeroustools', true)){
+		if(tsmConfig::get('dangeroustools', true)){
 
 			if(!class_exists('com_tsmartInstallerScript')) require(VMPATH_ADMIN . DS . 'install' . DS . 'script.tsmart.php');
 			$updater = new com_tsmartInstallerScript();
@@ -406,7 +406,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 			if($sample) $model->installSampleData($sid);
 
-			if(!class_exists('VmConfig')) require_once(VMPATH_ADMIN .'/models/config.php');
+			if(!class_exists('tsmConfig')) require_once(VMPATH_ADMIN .'/models/config.php');
 			tsmartModelConfig::installVMconfigTable();
 
 			//Now lets set some joomla variables
@@ -521,7 +521,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 	 * @author Max Milbers
 	 */
 	function _getMsgDangerousTools(){
-		VmConfig::loadJLang('com_tsmart_config');
+		tsmConfig::loadJLang('com_tsmart_config');
 		$link = JURI::root() . 'administrator/index.php?option=com_tsmart&view=config';
 		$msg = tsmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_DISABLED', tsmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'), $link);
 		return $msg;
@@ -617,7 +617,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(!VmConfig::get('dangeroustools', true)){
+		if(!tsmConfig::get('dangeroustools', true)){
 			$msg = $this->_getMsgDangerousTools();
 			$this->setRedirect($this->redirectPath, $msg);
 			return false;
@@ -639,7 +639,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(!VmConfig::get('dangeroustools', true)){
+		if(!tsmConfig::get('dangeroustools', true)){
 			$msg = $this->_getMsgDangerousTools();
 			$this->setRedirect($this->redirectPath, $msg);
 			return false;
@@ -661,7 +661,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(!VmConfig::get('dangeroustools', true)){
+		if(!tsmConfig::get('dangeroustools', true)){
 			$msg = $this->_getMsgDangerousTools();
 			$this->setRedirect($this->redirectPath, $msg);
 			return false;
@@ -683,7 +683,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(!VmConfig::get('dangeroustools', true)){
+		if(!tsmConfig::get('dangeroustools', true)){
 			$msg = $this->_getMsgDangerousTools();
 			$this->setRedirect($this->redirectPath, $msg);
 			return false;
@@ -711,7 +711,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		if(!VmConfig::get('dangeroustools', true)){
+		if(!tsmConfig::get('dangeroustools', true)){
 			$msg = $this->_getMsgDangerousTools();
 			$this->setRedirect($this->redirectPath, $msg);
 			return false;

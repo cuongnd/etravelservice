@@ -42,12 +42,12 @@ class tsmartModelCategory extends tmsModel {
 
 		$this->addvalidOrderingFieldName(self::$_validOrderingFields);
 
-		$toCheck = VmConfig::get('browse_cat_orderby_field','category_name');
+		$toCheck = tsmConfig::get('browse_cat_orderby_field','category_name');
 		if(!in_array($toCheck, $this->_validOrderingFieldName)){
 			$toCheck = 'category_name';
 		}
 		$this->_selectedOrdering = $toCheck;
-		$this->_selectedOrderingDir = VmConfig::get('cat_brws_orderby_dir', 'ASC');
+		$this->_selectedOrderingDir = tsmConfig::get('cat_brws_orderby_dir', 'ASC');
 		$this->setToggleName('shared');
 	}
 
@@ -73,11 +73,11 @@ class tsmartModelCategory extends tmsModel {
    			$this->_cache[$this->_id][$childs]->tsmart_media_id = $xrefTable->load((int)$this->_id);
 
    			if(empty($this->_cache[$this->_id][$childs]->category_template)){
-   				$this->_cache[$this->_id][$childs]->category_template = VmConfig::get('categorytemplate');
+   				$this->_cache[$this->_id][$childs]->category_template = tsmConfig::get('categorytemplate');
    			}
 
    			if(empty($this->_cache[$this->_id][$childs]->category_layout)){
-   				$this->_cache[$this->_id][$childs]->category_layout = VmConfig::get('categorylayout');
+   				$this->_cache[$this->_id][$childs]->category_layout = tsmConfig::get('categorylayout');
    			}
 
    			if($childs){
@@ -117,7 +117,7 @@ class tsmartModelCategory extends tmsModel {
 			if($useCache){
 				$selectedOrdering = $this->_selectedOrdering;
 			} else {
-				$selectedOrdering = VmConfig::get('browse_cat_orderby_field','category_name');
+				$selectedOrdering = tsmConfig::get('browse_cat_orderby_field','category_name');
 			}
 		}
 
@@ -135,7 +135,7 @@ class tsmartModelCategory extends tmsModel {
 			if($useCache){
 				$orderDir = $this->_selectedOrderingDir;
 			} else {
-				$orderDir = VmConfig::get('cat_brws_orderby_dir', 'ASC');
+				$orderDir = tsmConfig::get('cat_brws_orderby_dir', 'ASC');
 			}
 		}
 
@@ -146,7 +146,7 @@ class tsmartModelCategory extends tmsModel {
 
 		static $_childCategoryList = array ();
 
-		$key = (int)$vendorId.'_'.(int)$tsmart_category_id.$selectedOrdering.$orderDir.VmConfig::$vmlang ;
+		$key = (int)$vendorId.'_'.(int)$tsmart_category_id.$selectedOrdering.$orderDir.tsmConfig::$vmlang ;
 		//We have here our internal key to preven calling of the cache
 		if (! array_key_exists ($key,$_childCategoryList)){
 			vmSetStartTime('com_tsmart_cats');
@@ -155,9 +155,9 @@ class tsmartModelCategory extends tmsModel {
 				$cache = JFactory::getCache('com_tsmart_cats','callback');
 				$cache->setCaching(true);
 				//vmdebug('Calling cache getChildCategoryListObject');
-				$_childCategoryList[$key] = $cache->call( array( 'tsmartModelCategory', 'getChildCategoryListObject' ),$vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = $cache->call( array( 'tsmartModelCategory', 'getChildCategoryListObject' ),$vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,tsmConfig::$vmlang);
 			} else {
-				$_childCategoryList[$key] = tsmartModelCategory::getChildCategoryListObject($vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = tsmartModelCategory::getChildCategoryListObject($vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,tsmConfig::$vmlang);
 			}
 
 			//vmTime('Time to load cats '.(int)$useCache,'com_tsmart_cats');
@@ -181,18 +181,18 @@ class tsmartModelCategory extends tmsModel {
 	static public function getChildCategoryListObject($vendorId, $tsmart_category_id,$selectedOrdering = null, $orderDir = null,$lang=false) {
 
 		if(!$lang){
-			$lang = VmConfig::$vmlang;
+			$lang = tsmConfig::$vmlang;
 		}
 
-		if(VmConfig::$defaultLang!=$lang and VmConfig::$langCount>1){
+		if(tsmConfig::$defaultLang!=$lang and tsmConfig::$langCount>1){
 
 			$langFields = array('category_name','category_description','metadesc','metakey','customtitle','slug');
 
 			$joins = array();
 			$useJLback = false;
 			$method = 'INNER';
-			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.VmConfig::$jDefLang.'` as ljd using (`tsmart_category_id`)';
+			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
+				$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.tsmConfig::$jDefLang.'` as ljd using (`tsmart_category_id`)';
 				$method = 'LEFT';
 				$useJLback = true;
 			}
@@ -207,7 +207,7 @@ class tsmartModelCategory extends tmsModel {
 			$from = ' FROM `#__tsmart_categories` as c';
 
 
-			$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.VmConfig::$defaultLang.'` as ld using (`tsmart_category_id`)';
+			$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.tsmConfig::$defaultLang.'` as ld using (`tsmart_category_id`)';
 			$joins[] = ' LEFT JOIN `#__tsmart_categories_'.$lang.'` as l using (`tsmart_category_id`)';
 			$query = $select.$from.implode(' ',$joins);
 
@@ -220,7 +220,7 @@ class tsmartModelCategory extends tmsModel {
 
 		$query .= ' LEFT JOIN `#__tsmart_category_categories` as cx on c.`tsmart_category_id` = cx.`category_child_id` ';
 		$query .= ' WHERE cx.`category_parent_id` = ' . (int)$tsmart_category_id . ' ';
-		if(empty($vendorId) and VmConfig::get('multix')!='none'){
+		if(empty($vendorId) and tsmConfig::get('multix')!='none'){
 			$query .= ' AND c.`shared` = 1' ;
 		} else if(!empty($vendorId)){
 			$query .= ' AND c.`tsmart_vendor_id` = ' . (int)$vendorId ;
@@ -312,7 +312,7 @@ class tsmartModelCategory extends tmsModel {
 
 		$select = ' c.`tsmart_category_id`, category_description, category_name, c.`ordering`, c.`published`, cx.`category_child_id`, cx.`category_parent_id`, c.`shared` ';
 
-		$joinedTables = ' FROM `#__tsmart_categories_'.VmConfig::$vmlang.'` l
+		$joinedTables = ' FROM `#__tsmart_categories_'.tsmConfig::$vmlang.'` l
 				  JOIN `#__tsmart_categories` AS c using (`tsmart_category_id`)
 				  LEFT JOIN `#__tsmart_category_categories` AS cx
 				  ON l.`tsmart_category_id` = cx.`category_child_id` ';
@@ -359,7 +359,7 @@ class tsmartModelCategory extends tmsModel {
 		}
 		$ordering = $this->_getOrdering();
 
-		$hash = md5($keyword.'.'.(int)$parentId.VmConfig::$vmlang.(int)$childId.$this->_selectedOrderingDir.(int)$vendorId.$this->_selectedOrdering);
+		$hash = md5($keyword.'.'.(int)$parentId.tsmConfig::$vmlang.(int)$childId.$this->_selectedOrderingDir.(int)$vendorId.$this->_selectedOrdering);
 		if(!isset($cats[$hash])){
 			$cats[$hash] = $this->_category_tree = $this->exeSortSearchListQuery(0,$select,$joinedTables,$whereString,'GROUP BY tsmart_category_id',$ordering );
 		}
@@ -526,15 +526,15 @@ class tsmartModelCategory extends tmsModel {
 		if ( !array_key_exists ('category_template' , $data ) ){
 			$data['category_template'] = $data['category_layout'] = $data['category_product_layout'] = 0 ;
 		}
-		if(VmConfig::get('categorytemplate') == $data['category_template'] ){
+		if(tsmConfig::get('categorytemplate') == $data['category_template'] ){
 			$data['category_template'] = 0;
 		}
 
-		if(VmConfig::get('categorylayout') == $data['category_layout']){
+		if(tsmConfig::get('categorylayout') == $data['category_layout']){
 			$data['category_layout'] = 0;
 		}
 
-		if(VmConfig::get('productlayout') == $data['category_product_layout']){
+		if(tsmConfig::get('productlayout') == $data['category_product_layout']){
 			$data['category_product_layout'] = 0;
 		}
 
@@ -694,16 +694,16 @@ class tsmartModelCategory extends tmsModel {
 
 		$select = 'SELECT `tsmart_category_id`, `category_name`';
 		$method = 'FROM';
-		$joins = ' FROM `#__tsmart_categories_'.VmConfig::$vmlang.'` as l';
+		$joins = ' FROM `#__tsmart_categories_'.tsmConfig::$vmlang.'` as l';
 		$where = 'WHERE `tsmart_category_id`= ';
-		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
+		if(tsmConfig::$defaultLang!=tsmConfig::$vmlang and tsmConfig::$langCount>1){
 			$langFields = array('category_name');
 
 			$useJLback = false;
 			$joins = '';
 			$as='as ld';
-			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins = ' FROM `#__tsmart_categories_'.VmConfig::$jDefLang.'` as ljd';
+			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
+				$joins = ' FROM `#__tsmart_categories_'.tsmConfig::$jDefLang.'` as ljd';
 				$method = ' LEFT JOIN';
 				$as .= ' using (`tsmart_category_id`)';
 				$useJLback = true;
@@ -716,8 +716,8 @@ class tsmartModelCategory extends tmsModel {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins .= ' '.$method.' `#__tsmart_categories_'.VmConfig::$defaultLang.'` '.$as;
-			$joins .= ' LEFT JOIN `#__tsmart_categories_'.VmConfig::$vmlang.'` as l using (`tsmart_category_id`)';
+			$joins .= ' '.$method.' `#__tsmart_categories_'.tsmConfig::$defaultLang.'` '.$as;
+			$joins .= ' LEFT JOIN `#__tsmart_categories_'.tsmConfig::$vmlang.'` as l using (`tsmart_category_id`)';
 
 		}
 

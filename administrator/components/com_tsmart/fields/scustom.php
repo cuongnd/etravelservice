@@ -3,7 +3,7 @@ defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 /**
  * Creates dropdown for selecting a string customfield
@@ -13,7 +13,7 @@ class JFormFieldScustom extends JFormField {
 	var $type = 'scustom';
 
 	function getInput() {
-		VmConfig::loadConfig();
+		tsmConfig::loadConfig();
 		return JHtml::_('select.genericlist',  $this->_getStringCustoms(), $this->name, 'class="inputbox"   ', 'value', 'text', $this->value, $this->id);
 	}
 

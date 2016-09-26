@@ -39,8 +39,8 @@ class VirtueMartControllerOrders extends JControllerLegacy
 		$format = vRequest::getCmd('format','html');
 		if  ($format == 'pdf') $viewName= 'pdf';
 		else $viewName='orders';
-		VmConfig::loadJLang('com_virtuemart_orders',TRUE);
-		VmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
+		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
 		$view = $this->getView($viewName, $format);
 
 		// Display it all

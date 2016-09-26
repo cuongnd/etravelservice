@@ -696,7 +696,7 @@ class VmHtml
                             <div class="row-fluid departure-item"
                                  data-tsmart_departure_id="<?php echo $departure->tsmart_departure_id ?>">
                                 <div class="span6">
-                                    <label>Departure:<?php echo JHtml::_('date', $departure->departure_date, VmConfig::$date_format); ?>
+                                    <label>Departure:<?php echo JHtml::_('date', $departure->departure_date, tsmConfig::$date_format); ?>
                                         <input type="checkbox" value="<?php echo $departure->tsmart_departure_id ?>"
                                                name="departure[]"></label></div>
                                 <div class="span2"></div>
@@ -3002,7 +3002,7 @@ XML;
                                                 <div class="span6">
                                                     <div class="row-item-column">
                                                         <div
-                                                            class="tour-detail"><?php echo JText::sprintf("%s Trip from %s to %s. %s include", $tour->product_name, JHtml::_('date', $booking_date, VmConfig::$date_format), $end_date->format(VmConfig::$date_format), $room_type) ?></div>
+                                                            class="tour-detail"><?php echo JText::sprintf("%s Trip from %s to %s. %s include", $tour->product_name, JHtml::_('date', $booking_date, tsmConfig::$date_format), $end_date->format(tsmConfig::$date_format), $room_type) ?></div>
                                                     </div>
                                                 </div>
                                                 <div class="span2">
@@ -3267,7 +3267,7 @@ XML;
                         <div class="row-fluid row-item" data-passenger_id="<?php echo $i ?>">
                             <div class="span1 column id"><?php echo $i + 1 ?></div>
                             <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo VmConfig::get_full_name($passenger) ?></div>
+                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
                             <div class="span1 column"><?php echo $passenger->title ?></div>
                             <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
                             <div class="span1 column"><?php echo $passenger->nationality ?></div>
@@ -3688,7 +3688,7 @@ XML;
                         <div class="row-fluid row-item">
                             <div class="span1 column id"><?php echo $i + 1 ?></div>
                             <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo VmConfig::get_full_name($passenger) ?></div>
+                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
                             <div class="span1 column"><?php echo $passenger->title ?></div>
                             <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
                             <div class="span1 column"><?php echo $passenger->nationality ?></div>
@@ -3868,7 +3868,7 @@ XML;
                         <div class="row-fluid row-item">
                             <div class="span1 column id"><?php echo $i + 1 ?></div>
                             <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo VmConfig::get_full_name($passenger) ?></div>
+                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
                             <div class="span1 column"><?php echo $passenger->title ?></div>
                             <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
                             <div class="span1 column"><?php echo $passenger->nationality ?></div>

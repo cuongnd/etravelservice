@@ -37,7 +37,7 @@ class TsmartControllerPaymentmethod extends TsmController {
 	 * @access	public
 	 */
 	public function __construct() {
-		VmConfig::loadJLang('com_tsmart_orders',TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 		parent::__construct();
 
 	}

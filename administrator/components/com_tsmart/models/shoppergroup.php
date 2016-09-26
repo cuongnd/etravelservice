@@ -64,7 +64,7 @@ class tsmartModelShopperGroup extends tmsModel {
      */
     function getShopperGroups($onlyPublished=false, $noLimit = false) {
 
-		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 	    $query = 'SELECT * FROM `#__tsmart_shoppergroups`  ';
 		if($onlyPublished){
 			$query .= ' WHERE `published` = "1" ';
@@ -124,7 +124,7 @@ class tsmartModelShopperGroup extends tmsModel {
 				if(!$res = $this->getShopperGroup($res->tsmart_shoppergroup_id)){
 
 				}
-				VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+				tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 				$res->shopper_group_name = tsmText::_($res->shopper_group_name);
 				$res->shopper_group_desc = tsmText::_($res->shopper_group_desc);
 				//vmdebug('my default shoppergroup ',$res);

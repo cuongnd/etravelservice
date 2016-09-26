@@ -18,8 +18,8 @@
 
 // Check to ensure this file is included in Joomla!
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
-$min = VmConfig::get('asks_minimum_comment_length', 50);
-$max = VmConfig::get('asks_maximum_comment_length', 2000) ;
+$min = tsmConfig::get('asks_minimum_comment_length', 50);
+$max = tsmConfig::get('asks_maximum_comment_length', 2000) ;
 vmJsApi::JvalideForm();
 vmJsApi::addJScript('askform','
 	jQuery(function($){
@@ -40,7 +40,7 @@ if (empty ( $this->product )) {
 	if(!empty($this->login)){
 		echo $this->login;
 	}
-	if(empty($this->login) or VmConfig::get('recommend_unauth',false)){
+	if(empty($this->login) or tsmConfig::get('recommend_unauth',false)){
 		?>
 		<div class="ask-a-question-view">
 			<h1><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_ASK_QUESTION')  ?></h1>
@@ -89,7 +89,7 @@ if (empty ( $this->product )) {
 
 					<div class="submit">
 						<?php // captcha addition
-						if(VmConfig::get ('ask_captcha') && JFactory::getUser()->guest == 1){
+						if(tsmConfig::get ('ask_captcha') && JFactory::getUser()->guest == 1){
 							JHTML::_('behavior.framework');
 							JPluginHelper::importPlugin('captcha');
 							$dispatcher = JDispatcher::getInstance(); $dispatcher->trigger('onInit','dynamic_recaptcha_1');

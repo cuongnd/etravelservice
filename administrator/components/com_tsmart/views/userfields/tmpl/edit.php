@@ -140,7 +140,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 		<?php echo $this->lists['published']; ?>
 		<?php echo VmHTML::row('input','com_tsmart_USERFIELDS_SIZE','size',$this->userField->size,'class="inputbox"','',5); ?>
 		<?php echo VmHTML::row('raw','com_tsmart_ORDERING',$this->ordering);// VmHTML::row('input','com_tsmart_ORDERING','ordering',$this->userField->ordering,'class="inputbox"','',5); ?>
-		<?php if(Vmconfig::get('multix','none')!=='none'){
+		<?php if(tsmConfig::get('multix','none')!=='none'){
 				echo VmHTML::row('raw','com_tsmart_VENDOR', $this->lists['vendors'] );
 			} ?>
 	</table>

@@ -149,7 +149,7 @@ class ShopFunctions {
 	 * @return string HTML select option list
 	 */
 	static public function renderShopperGroupList ($shopperGroupId = 0, $multiple = TRUE,$name='tsmart_shoppergroup_id', $select_attribute='com_tsmart_DRDOWN_AVA2ALL' ) {
-		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
 		$shopperModel = tmsModel::getModel ('shoppergroup');
 		$shoppergrps = $shopperModel->getShopperGroups (FALSE, TRUE);
@@ -553,7 +553,7 @@ class ShopFunctions {
 			$cache->setCaching (1);
 			$app = JFactory::getApplication ();
 			$vendorId = vmAccess::isSuperVendor();
-			self::$categoryTree[$hash] = $cache->call (array('ShopFunctions', 'categoryListTreeLoop'), $selectedCategories, $cid, $level, $disabledFields,$app->isSite(),$vendorId,VmConfig::$vmlang);
+			self::$categoryTree[$hash] = $cache->call (array('ShopFunctions', 'categoryListTreeLoop'), $selectedCategories, $cid, $level, $disabledFields,$app->isSite(),$vendorId,tsmConfig::$vmlang);
 
 		}
 
@@ -610,7 +610,7 @@ class ShopFunctions {
 					} else {
 						$categoryTree .= '<option ' . $selected . ' ' . $disabled . ' value="' . $childId . '">';
 						$categoryName = $category->category_name;
-						if(VmConfig::get('full_catname_tree',0)) {
+						if(tsmConfig::get('full_catname_tree',0)) {
 							if (!empty($categoryParentName)) {
 								$categoryName =$categoryParentName.' | '.$category->category_name;
 							}
@@ -1049,7 +1049,7 @@ class ShopFunctions {
 		}
 
 		if($sPath==0) {
-			$safePath = VmConfig::get('forSale_path',0);
+			$safePath = tsmConfig::get('forSale_path',0);
 		} else {
 			$safePath = $sPath;
 		}
@@ -1057,7 +1057,7 @@ class ShopFunctions {
 		$warn = false;
 		$uri = JFactory::getURI();
 
-		VmConfig::loadJLang('com_tsmart');
+		tsmConfig::loadJLang('com_tsmart');
 		if(empty($safePath)){
 			$warn = 'com_tsmart_WARN_NO_SAFE_PATH_SET';
 		} else {
@@ -1067,13 +1067,13 @@ class ShopFunctions {
 				$warn = 'com_tsmart_WARN_SAFE_PATH_WRONG';
 			} else{
 				if(!is_writable( $safePath )){
-					VmConfig::loadJLang('com_tsmart_config');
+					tsmConfig::loadJLang('com_tsmart_config');
 					vmdebug('checkSafePath $safePath not writeable '.$safePath);
 					VmError(tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
 						,tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
 				} else {
 					if(!is_writable(self::getInvoicePath($safePath) )){
-						VmConfig::loadJLang('com_tsmart_config');
+						tsmConfig::loadJLang('com_tsmart_config');
 						vmdebug('checkSafePath $safePath/invoice not writeable '.addslashes($safePath));
 						VmError(tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
 						,tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
@@ -1086,7 +1086,7 @@ class ShopFunctions {
 			$safePath = false;
 			$suggestedPath = shopFunctions::getSuggestedSafePath();
 			$suggestedPath2 = VMPATH_ADMIN.DS.self::generateRandomString(12).DS;
-			VmConfig::loadJLang('com_tsmart_config');
+			tsmConfig::loadJLang('com_tsmart_config');
 			$configlink = $uri->root() . 'administrator/index.php?option=com_tsmart&view=config';
 			VmError(tsmText::sprintf($warn,tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$suggestedPath,$configlink,$suggestedPath2));
 		}
@@ -1196,7 +1196,7 @@ class ShopFunctions {
 		if(is_Dir(VMPATH_ROOT.DS.'templates'.DS.$vmtemplate.DS.'images'.DS.'availability'.DS)){
 			return '/templates/'.$vmtemplate.'/images/availability/';
 		} else {
-			return '/'.VmConfig::get('assets_general_path').'images/availability/';
+			return '/'.tsmConfig::get('assets_general_path').'images/availability/';
 		}
 	}
 
@@ -1207,7 +1207,7 @@ class ShopFunctions {
 	 */
 	static function getClientIP() {
 		$ip_keys = array('X_FORWARDED_FOR', 'X-Forwarded-Proto','REMOTE_ADDR');
-		$extra = VmConfig::get('revproxvar','');
+		$extra = tsmConfig::get('revproxvar','');
 		if(!empty($extra)){
 			$extra = explode(',',$extra);
 			$ip_keys = array_merge($extra, $ip_keys);
