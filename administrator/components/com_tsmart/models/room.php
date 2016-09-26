@@ -3,14 +3,14 @@
  *
  * Data module for shop room
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage room
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop room
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage room
  */
-class VirtueMartModelroom extends VmModel {
+class tsmartModelroom extends VmModel {
 
 
 	/**
@@ -68,9 +68,9 @@ class VirtueMartModelroom extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('room.*,hotel.virtuemart_hotel_id,hotel.title AS hotel_name')
-			->from('#__virtuemart_room AS room')
-			->leftJoin('#__virtuemart_hotel AS hotel using (virtuemart_hotel_id)')
+		$query->select('room.*,hotel.tsmart_hotel_id,hotel.title AS hotel_name')
+			->from('#__tsmart_room AS room')
+			->leftJoin('#__tsmart_hotel AS hotel using (tsmart_hotel_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -89,12 +89,12 @@ class VirtueMartModelroom extends VmModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'room.virtuemart_room_id');
+		$orderCol = $this->state->get('list.ordering', 'room.tsmart_room_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'room.ordering')
 		{
-			$orderCol = $db->quoteName('room.virtuemart_room_id') . ' ' . $orderDirn . ', ' . $db->quoteName('room.ordering');
+			$orderCol = $db->quoteName('room.tsmart_room_id') . ' ' . $orderDirn . ', ' . $db->quoteName('room.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

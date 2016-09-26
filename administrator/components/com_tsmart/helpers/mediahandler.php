@@ -2,13 +2,13 @@
 /**
  * Media file handler class
  *
- * This class provides some file handling functions that are used throughout the VirtueMart shop.
+ * This class provides some file handling functions that are used throughout the tsmart shop.
  *  Uploading, moving, deleting
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 VirtueMart Team. All rights reserved by the author.
+ * @copyright Copyright (c) 2011 tsmart Team. All rights reserved by the author.
  */
 
 defined('_JEXEC') or die();
@@ -44,7 +44,7 @@ class VmMediaHandler {
 
 	function __construct($id=0){
 
-		$this->virtuemart_media_id = $id;
+		$this->tsmart_media_id = $id;
 
 		$this->theme_url = VmConfig::get('vm_themeurl',0);
 		if(empty($this->theme_url)){
@@ -105,7 +105,7 @@ class VmMediaHandler {
 		} else if(!$choosed and empty($relUrl) ){
 
 			vmWarn('com_tsmart_MEDIA_CHOOSE_TYPE',$this->file_title );
-			// 	vmError('Ignore this message, when it appears while the media synchronisation process, else report to http://forum.virtuemart.net/index.php?board=127.0 : cant create media of unknown type, a programmers error, used type ',$type);
+			// 	vmError('Ignore this message, when it appears while the media synchronisation process, else report to http://forum.tsmart.net/index.php?board=127.0 : cant create media of unknown type, a programmers error, used type ',$type);
 			$relUrl = 'images/stories/tsmart/typeless/';
 			$this->setRole=true;
 
@@ -655,7 +655,7 @@ class VmMediaHandler {
 
 		if( $data['media_action'] == 'upload' ){
 
-			$this->virtuemart_media_id=0;
+			$this->tsmart_media_id=0;
 			$this->file_url='';
 			$this->file_url_thumb='';
 			$file_name = $this->uploadFile($this->file_url_folder);
@@ -849,7 +849,7 @@ class VmMediaHandler {
 	 */
 	private function addHiddenByType(){
 
-		$this->addHidden('media[active_media_id]',$this->virtuemart_media_id);
+		$this->addHidden('media[active_media_id]',$this->tsmart_media_id);
 		$this->addHidden('option','com_tsmart');
 		//		$this->addHidden('file_mimetype',$this->file_mimetype);
 
@@ -976,8 +976,8 @@ class VmMediaHandler {
 			} else {
 				$file_url_thumb = '';
 			}*/
-			return  '<div  class="vm_thumb_image"><input type="hidden" value="'.$image->virtuemart_media_id.'" name="virtuemart_media_id[]">
-			<input class="ordering" type="hidden" name="mediaordering['.$image->virtuemart_media_id.']" value="'.$key.'">
+			return  '<div  class="vm_thumb_image"><input type="hidden" value="'.$image->tsmart_media_id.'" name="tsmart_media_id[]">
+			<input class="ordering" type="hidden" name="mediaordering['.$image->tsmart_media_id.']" value="'.$key.'">
 		<a class="vm_thumb" rel="group1" title ="'.$image->file_title.'" href="'.JURI::root(true).'/'.$image->file_url.'" >
 		<img src="' . JURI::root(true).'/'.$file_url_thumb . '" alt="' . $image->file_title . '"  />
 		</a><div class="vmicon vmicon-16-remove" title="'.tsmText::_('com_tsmart_IMAGE_REMOVE').'"></div><div class="edit-24-grey" title="'.tsmText::_('com_tsmart_IMAGE_EDIT_INFO').'"></div></div>';
@@ -1006,8 +1006,8 @@ class VmMediaHandler {
 			} else {
 				$htmlImages .=  '<div class="vm_thumb_image">'.tsmText::_('com_tsmart_NO_IMAGE_SET').'<br />'.$image->file_title ;
 			}
-			$Images[$key ]['label'] = $htmlImages.'<input type="hidden" value="'.$image->virtuemart_media_id.'" name="virtuemart_media_id['.$image->virtuemart_media_id.']"><input class="ordering" type="hidden" name="mediaordering['.$image->virtuemart_media_id.']" value=""><div class="vmicon vmicon-16-remove" title="remove"></div><div title="edit image information" class="edit-24-grey"></div></div>';
-			$Images[$key ]['value'] = $image->file_title.' :: '.$image->virtuemart_media_id;
+			$Images[$key ]['label'] = $htmlImages.'<input type="hidden" value="'.$image->tsmart_media_id.'" name="tsmart_media_id['.$image->tsmart_media_id.']"><input class="ordering" type="hidden" name="mediaordering['.$image->tsmart_media_id.']" value=""><div class="vmicon vmicon-16-remove" title="remove"></div><div title="edit image information" class="edit-24-grey"></div></div>';
+			$Images[$key ]['value'] = $image->file_title.' :: '.$image->tsmart_media_id;
 		}
 		//$list['htmlImages'] = $htmlImages;
 		return $Images;
@@ -1027,8 +1027,8 @@ class VmMediaHandler {
 		$db = JFactory::getDBO();
 		$list = array();
 		$vendorId = vmAccess::isSuperVendor();
-		$q='SELECT SQL_CALC_FOUND_ROWS `virtuemart_media_id` FROM `#__virtuemart_medias` WHERE `published`=1
-	AND (`virtuemart_vendor_id`= "'.(int)$vendorId.'" OR `shared` = "1")';
+		$q='SELECT SQL_CALC_FOUND_ROWS `tsmart_media_id` FROM `#__tsmart_medias` WHERE `published`=1
+	AND (`tsmart_vendor_id`= "'.(int)$vendorId.'" OR `shared` = "1")';
 		if(!empty($type)){
 			$q .= ' AND `file_type` = "'.$type.'" ';
 		}
@@ -1078,7 +1078,7 @@ class VmMediaHandler {
 
 		$html .= ' <table class="adminform"> ';
 
-		if ($this->published || $this->virtuemart_media_id === 0){
+		if ($this->published || $this->tsmart_media_id === 0){
 			$checked = 1;
 		} else {
 			$checked = 0;
@@ -1181,14 +1181,14 @@ $html .='</td>';
 		}
 
 		if(VmConfig::get('multix','none')!='none'){
-			if(empty($this->virtuemart_vendor_id) and $vendorId === 0){
+			if(empty($this->tsmart_vendor_id) and $vendorId === 0){
 				$vendorId = vmAccess::isSuperVendor();
 			} else if(empty($vendorId)) {
-				$vendorId = $this->virtuemart_vendor_id;
+				$vendorId = $this->tsmart_vendor_id;
 			}
 			if (!class_exists('ShopFunctions'))
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'shopfunctions.php');
-			$vendorList = ShopFunctions::renderVendorList($vendorId, 'media[virtuemart_vendor_id]');
+			$vendorList = ShopFunctions::renderVendorList($vendorId, 'media[tsmart_vendor_id]');
 			$html .=  VmHTML::row('raw','com_tsmart_VENDOR', $vendorList );
 		}
 

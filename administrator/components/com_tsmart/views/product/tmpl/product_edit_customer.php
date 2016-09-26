@@ -3,13 +3,13 @@
  *
  * Handle the waitinglist, and the send an email to shoppers who bought this product
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Product
  * @author Seyi, Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -121,7 +121,7 @@ $i = 0;
 						if (isset($this->waitinglist) && count ($this->waitinglist) > 0) {
 							$i=0;
 							foreach ($this->waitinglist as $key => $wait) {
-								if ($wait->virtuemart_user_id == 0) {
+								if ($wait->tsmart_user_id == 0) {
 									$row = '<tr class="row'.$i.'"><td></td><td></td><td><a href="mailto:' . $wait->notify_email . '">' .
 									$wait->notify_email . '</a></td></tr>';
 								}
@@ -163,10 +163,10 @@ $i = 0;
 </table>
 <script type="text/javascript">
 
-	var $customerMailLink = '<?php echo JURI::root () . '/index.php?option=com_tsmart&view=productdetails&task=sentproductemailtoshoppers&virtuemart_product_id=' . $this->product->virtuemart_product_id ?>';
-	var $customerMailNotifyLink = '<?php echo 'index.php?option=com_tsmart&view=product&task=ajax_notifyUsers&virtuemart_product_id=' . $this->product->virtuemart_product_id ?>';
-	var $customerListLink = '<?php echo 'index.php?option=com_tsmart&view=product&format=json&type=userlist&virtuemart_product_id=' . $this->product->virtuemart_product_id ?>';
-	var $customerListNotifyLink = '<?php echo 'index.php?option=com_tsmart&view=product&task=ajax_waitinglist&virtuemart_product_id=' . $this->product->virtuemart_product_id ?>';
+	var $customerMailLink = '<?php echo JURI::root () . '/index.php?option=com_tsmart&view=productdetails&task=sentproductemailtoshoppers&tsmart_product_id=' . $this->product->tsmart_product_id ?>';
+	var $customerMailNotifyLink = '<?php echo 'index.php?option=com_tsmart&view=product&task=ajax_notifyUsers&tsmart_product_id=' . $this->product->tsmart_product_id ?>';
+	var $customerListLink = '<?php echo 'index.php?option=com_tsmart&view=product&format=json&type=userlist&tsmart_product_id=' . $this->product->tsmart_product_id ?>';
+	var $customerListNotifyLink = '<?php echo 'index.php?option=com_tsmart&view=product&task=ajax_waitinglist&tsmart_product_id=' . $this->product->tsmart_product_id ?>';
 	var $customerListtype = 'reserved';
 
 	jQuery(document).ready(function () {
@@ -200,7 +200,7 @@ $i = 0;
 								//			jQuery("#customers-list").html(data.value);
 								$html = '';
 								jQuery.each(data, function (key, val) {
-									if (val.virtuemart_user_id == 0) {
+									if (val.tsmart_user_id == 0) {
 										$html += '<tr><td></td><td></td><td><a href="mailto:' + val.notify_email + '">' + val.notify_email + '</a></td></tr>';
 									}
 									else {

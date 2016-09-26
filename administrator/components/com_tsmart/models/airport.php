@@ -3,14 +3,14 @@
  *
  * Data module for shop airport
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage airport
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop airport
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage airport
  */
-class VirtueMartModelairport extends VmModel {
+class tsmartModelairport extends VmModel {
 
 
 	/**
@@ -68,11 +68,11 @@ class VirtueMartModelairport extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('airport.*,cityarea.city_area_name,states.virtuemart_state_id,states.state_name,countries.virtuemart_country_id,countries.flag AS country_flag,countries.country_name,countries.flag')
-			->from('#__virtuemart_airport AS airport')
-			->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_cityarea_id)')
-			->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
-			->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+		$query->select('airport.*,cityarea.city_area_name,states.tsmart_state_id,states.state_name,countries.tsmart_country_id,countries.flag AS country_flag,countries.country_name,countries.flag')
+			->from('#__tsmart_airport AS airport')
+			->leftJoin('#__tsmart_cityarea AS cityarea using (tsmart_cityarea_id)')
+			->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+			->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -91,12 +91,12 @@ class VirtueMartModelairport extends VmModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'airport.virtuemart_airport_id');
+		$orderCol = $this->state->get('list.ordering', 'airport.tsmart_airport_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'airport.ordering')
 		{
-			$orderCol = $db->quoteName('airport.virtuemart_airport_id') . ' ' . $orderDirn . ', ' . $db->quoteName('airport.ordering');
+			$orderCol = $db->quoteName('airport.tsmart_airport_id') . ' ' . $orderDirn . ', ' . $db->quoteName('airport.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

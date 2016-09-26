@@ -3,14 +3,14 @@
  *
  * Main product information
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Product
  * @author Max Milbers
  * @todo Price update calculations
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -30,8 +30,8 @@ $i = 0;
 	<tr class="row<?php echo $i?>">
 		<td width="50%">
 			<?php
-			if ($this->product->virtuemart_product_id) {
-				$link=JROUTE::_('index.php?option=com_tsmart&view=product&task=createChild&virtuemart_product_id='.$this->product->virtuemart_product_id.'&'.JSession::getFormToken().'=1' );
+			if ($this->product->tsmart_product_id) {
+				$link=JROUTE::_('index.php?option=com_tsmart&view=product&task=createChild&tsmart_product_id='.$this->product->tsmart_product_id.'&'.JSession::getFormToken().'=1' );
 				$add_child_button="";
 			} else {
 				$link="";
@@ -60,11 +60,11 @@ $i = 0;
 		<legend><?php
 			$parentRel = '';
 			if ($this->product->product_parent_id) {
-				$parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT',JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$this->product->product_parent_id),
+				$parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT',JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id='.$this->product->product_parent_id),
 						$this->product_parent->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($this->product_parent->product_name))).' =&gt; ');
 			}
 			echo tsmText::sprintf('com_tsmart_PRODUCT_INFORMATION',$parentRel);
-			echo ' id: '.$this->product->virtuemart_product_id ?>
+			echo ' id: '.$this->product->tsmart_product_id ?>
 		</legend>
 	</tr>
 	<?php $i = 1 - $i; ?>
@@ -121,13 +121,13 @@ $i = 0;
 						$i = 1 - $i; ?>
 						<tr class="row<?php echo $i ?>">
 							<td>
-								<?php echo JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($child->product_name),'target' => '_blank')) ?>
-								<!--input type="hidden" name="childs[<?php echo $child->virtuemart_product_id ?>][slug]" id="child<?php echo $child->virtuemart_product_id ?>slug" value="<?php echo $child->slug ?>" /-->
+								<?php echo JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id='.$child->tsmart_product_id), $child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($child->product_name),'target' => '_blank')) ?>
+								<!--input type="hidden" name="childs[<?php echo $child->tsmart_product_id ?>][slug]" id="child<?php echo $child->tsmart_product_id ?>slug" value="<?php echo $child->slug ?>" /-->
 							</td>
-							<td><input type="text" class="inputbox productname" name="childs[<?php echo $child->virtuemart_product_id ?>][product_name]" id="child<?php echo $child->virtuemart_product_id ?>product_name" size="32" value="<?php echo $child->product_name ?>" /></td>
-							<td><input type="text" class="inputbox" name="childs[<?php echo $child->virtuemart_product_id ?>][product_gtin]" id="child<?php echo $child->virtuemart_product_id ?>product_gtin" size="32" maxlength="64"value="<?php echo $child->product_gtin ?>" /></td>
+							<td><input type="text" class="inputbox productname" name="childs[<?php echo $child->tsmart_product_id ?>][product_name]" id="child<?php echo $child->tsmart_product_id ?>product_name" size="32" value="<?php echo $child->product_name ?>" /></td>
+							<td><input type="text" class="inputbox" name="childs[<?php echo $child->tsmart_product_id ?>][product_gtin]" id="child<?php echo $child->tsmart_product_id ?>product_gtin" size="32" maxlength="64"value="<?php echo $child->product_gtin ?>" /></td>
 
-							<td><input type="text" class="inputbox" name="childs[<?php echo $child->virtuemart_product_id ?>][mprices][product_price][]" size="10" value="<?php echo $child->allPrices[$child->selectedPrice]['product_price'] ?>" /><input type="hidden" name="childs[<?php echo $child->virtuemart_product_id ?>][mprices][virtuemart_product_price_id][]" value="<?php echo $child->allPrices[$child->selectedPrice]['virtuemart_product_price_id'] ?>"  ></td>
+							<td><input type="text" class="inputbox" name="childs[<?php echo $child->tsmart_product_id ?>][mprices][product_price][]" size="10" value="<?php echo $child->allPrices[$child->selectedPrice]['product_price'] ?>" /><input type="hidden" name="childs[<?php echo $child->tsmart_product_id ?>][mprices][tsmart_product_price_id][]" value="<?php echo $child->allPrices[$child->selectedPrice]['tsmart_product_price_id'] ?>"  ></td>
 							<td><?php echo $child->product_in_stock ?></td>
 							<td><?php echo $child->product_ordered ?></td>
 							<?php foreach($customs as $custom){
@@ -143,19 +143,19 @@ $i = 0;
 								$id = '';
 								if($attrib == 'product_name'){
 									$disabled='disabled="disabled"';
-									$id = ' id="child'.$child->virtuemart_product_id.'product_name1"';
+									$id = ' id="child'.$child->tsmart_product_id.'product_name1"';
 								}
 								//vmdebug(' $attrib '.$attrib,$child,$childAttrib);
 								?>
-								<td><input type="text" class="inputbox" name="childs[<?php echo $child->virtuemart_product_id ?>][<?php echo $attrib ?>]" size="20" value="<?php echo $childAttrib ?>" <?php echo $disabled.$id ?>/></td>
+								<td><input type="text" class="inputbox" name="childs[<?php echo $child->tsmart_product_id ?>][<?php echo $attrib ?>]" size="20" value="<?php echo $childAttrib ?>" <?php echo $disabled.$id ?>/></td>
 							<?php
 							}
 							?>
 							<td>
-								<input type="text" class="inputbox" name="childs[<?php echo $child->virtuemart_product_id ?>][pordering]" size="2" value="<?php echo $child->pordering ?>" /></td>
+								<input type="text" class="inputbox" name="childs[<?php echo $child->tsmart_product_id ?>][pordering]" size="2" value="<?php echo $child->pordering ?>" /></td>
 							</td>
 							<td>
-								<?php echo VmHTML::checkbox('childs['.$child->virtuemart_product_id.'][published]', $child->published) ?>
+								<?php echo VmHTML::checkbox('childs['.$child->tsmart_product_id.'][published]', $child->published) ?>
 							</td>
 						</tr>
 					<?php } ?>

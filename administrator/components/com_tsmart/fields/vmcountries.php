@@ -3,13 +3,13 @@ defined('_JEXEC') or die();
 
 /**
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins  - Elements
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -36,7 +36,7 @@ class JFormFieldVmCountries extends JFormFieldList {
 		$options = array();
 		$this->multiple=true;
 
-		$query = 'SELECT `virtuemart_country_id` AS value, `country_name` AS text FROM `#__virtuemart_countries`
+		$query = 'SELECT `tsmart_country_id` AS value, `country_name` AS text FROM `#__tsmart_countries`
                		WHERE `published` = 1 ORDER BY `country_name` ASC ';
 		$db = JFactory::getDBO();
 		$db->setQuery($query);

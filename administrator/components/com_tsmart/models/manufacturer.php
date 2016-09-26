@@ -3,13 +3,13 @@
 *
 * Manufacturer Model
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer
 * @author Patrick Kohl, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,14 +22,14 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
- * Model class for VirtueMart Manufacturers
+ * Model class for tsmart Manufacturers
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage Manufacturer
  * @author Max Milbers
- * @todo Replace getOrderUp and getOrderDown with JTable move function. This requires the virtuemart_product_category_xref table to replace the ordering with the ordering column
+ * @todo Replace getOrderUp and getOrderDown with JTable move function. This requires the tsmart_product_category_xref table to replace the ordering with the ordering column
  */
-class VirtueMartModelManufacturer extends VmModel {
+class tsmartModelManufacturer extends VmModel {
 
 	/**
 	 * constructs a VmModel
@@ -37,10 +37,10 @@ class VirtueMartModelManufacturer extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_manufacturer_id');
+		parent::__construct('tsmart_manufacturer_id');
 		$this->setMainTable('manufacturers');
-		$this->addvalidOrderingFieldName(array('m.virtuemart_manufacturer_id','mf_name','mf_desc','mf_category_name','mf_url'));
-		$this->removevalidOrderingFieldName('virtuemart_manufacturer_id');
+		$this->addvalidOrderingFieldName(array('m.tsmart_manufacturer_id','mf_name','mf_desc','mf_category_name','mf_url'));
+		$this->removevalidOrderingFieldName('tsmart_manufacturer_id');
 		$this->_selectedOrdering = 'mf_name';
 		$this->_selectedOrderingDir = 'ASC';
 	}
@@ -58,7 +58,7 @@ class VirtueMartModelManufacturer extends VmModel {
 			$this->_cache[$this->_id]->load($this->_id);
 
 			$xrefTable = $this->getTable('manufacturer_medias');
-			$this->_cache[$this->_id]->virtuemart_media_id = $xrefTable->load($this->_id);
+			$this->_cache[$this->_id]->tsmart_media_id = $xrefTable->load($this->_id);
 		}
 
 		return $this->_cache[$this->_id];
@@ -75,7 +75,7 @@ class VirtueMartModelManufacturer extends VmModel {
 		if(!vmAccess::manager('manufacturer.edit')){
 			vmWarn('Insufficient permission to store manufacturer');
 			return false;
-		} else if( empty($data['virtuemart_manufacturer_id']) and !vmAccess::manager('manufacturer.create')){
+		} else if( empty($data['tsmart_manufacturer_id']) and !vmAccess::manager('manufacturer.create')){
 			vmWarn('Insufficient permission to create manufacturer');
 			return false;
 		}
@@ -90,7 +90,7 @@ class VirtueMartModelManufacturer extends VmModel {
 
 		$cache = JFactory::getCache('com_tsmart_cat_manus','callback');
 		$cache->clean();
-		return $table->virtuemart_manufacturer_id;
+		return $table->tsmart_manufacturer_id;
 	}
 
 	function remove($ids){
@@ -109,8 +109,8 @@ class VirtueMartModelManufacturer extends VmModel {
 	 */
 	function getManufacturerDropdown() {
 		$db = JFactory::getDBO();
-		$query = "SELECT `virtuemart_manufacturer_id` AS `value`, `mf_name` AS text, '' AS disable
-						FROM `#__virtuemart_manufacturers_".VmConfig::$vmlang."` ORDER BY `mf_name` ASC";
+		$query = "SELECT `tsmart_manufacturer_id` AS `value`, `mf_name` AS text, '' AS disable
+						FROM `#__tsmart_manufacturers_".VmConfig::$vmlang."` ORDER BY `mf_name` ASC";
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
 		array_unshift($options, JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER') .' -' ));
@@ -132,7 +132,7 @@ class VirtueMartModelManufacturer extends VmModel {
 		$option	= 'com_tsmart';
 
 		$view = vRequest::getCmd('view','');
-		$tsmart_manufacturercategories_id	= $app->getUserStateFromRequest( $option.'.'.$view.'.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
+		$tsmart_manufacturercategories_id	= $app->getUserStateFromRequest( $option.'.'.$view.'.tsmart_manufacturercategories_id', 'tsmart_manufacturercategories_id', 0, 'int' );
 		$search = $app->getUserStateFromRequest( $option.'.'.$view.'.search', 'search', '', 'string' );
 
 		static $_manufacturers = array();
@@ -146,10 +146,10 @@ class VirtueMartModelManufacturer extends VmModel {
 
 		$where = array();
 		if ($tsmart_manufacturercategories_id > 0) {
-			$where[] .= ' `m`.`virtuemart_manufacturercategories_id` = '. $tsmart_manufacturercategories_id;
+			$where[] .= ' `m`.`tsmart_manufacturercategories_id` = '. $tsmart_manufacturercategories_id;
 		}
 
-		$joinedTables = ' FROM `#__virtuemart_manufacturers` as m';
+		$joinedTables = ' FROM `#__tsmart_manufacturers` as m';
 		$select = ' `m`.*';
 		if ( $search && $search != 'true') {
 			$db = JFactory::getDBO();
@@ -159,10 +159,10 @@ class VirtueMartModelManufacturer extends VmModel {
 		}
 
 		$ordering = $this->_getOrdering();
-		//if ( $search && $search != 'true' or strpos($ordering,'mf_')!==FALSE or $ordering == 'm.virtuemart_manufacturer_id' ) {
-			$select .= ',`#__virtuemart_manufacturers_'.VmConfig::$vmlang.'`.*, mc.`mf_category_name` ';
-			$joinedTables .= ' INNER JOIN `#__virtuemart_manufacturers_'.VmConfig::$vmlang.'` USING (`virtuemart_manufacturer_id`) ';
-			$joinedTables .= ' LEFT JOIN `#__virtuemart_manufacturercategories_'.VmConfig::$vmlang.'` AS mc on  mc.`virtuemart_manufacturercategories_id`= `m`.`virtuemart_manufacturercategories_id` ';
+		//if ( $search && $search != 'true' or strpos($ordering,'mf_')!==FALSE or $ordering == 'm.tsmart_manufacturer_id' ) {
+			$select .= ',`#__tsmart_manufacturers_'.VmConfig::$vmlang.'`.*, mc.`mf_category_name` ';
+			$joinedTables .= ' INNER JOIN `#__tsmart_manufacturers_'.VmConfig::$vmlang.'` USING (`tsmart_manufacturer_id`) ';
+			$joinedTables .= ' LEFT JOIN `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'` AS mc on  mc.`tsmart_manufacturercategories_id`= `m`.`tsmart_manufacturercategories_id` ';
 		//}
 
 		if ($onlyPublished) {
@@ -171,9 +171,9 @@ class VirtueMartModelManufacturer extends VmModel {
 
 		$groupBy=' ';
 		if($getMedia){
-			$select .= ',mmex.virtuemart_media_id ';
-			$joinedTables .= 'LEFT JOIN `#__virtuemart_manufacturer_medias` as mmex ON `m`.`virtuemart_manufacturer_id`= mmex.`virtuemart_manufacturer_id` ';
-			$groupBy=' GROUP BY `m`.`virtuemart_manufacturer_id` ';
+			$select .= ',mmex.tsmart_media_id ';
+			$joinedTables .= 'LEFT JOIN `#__tsmart_manufacturer_medias` as mmex ON `m`.`tsmart_manufacturer_id`= mmex.`tsmart_manufacturer_id` ';
+			$groupBy=' GROUP BY `m`.`tsmart_manufacturer_id` ';
 
 		}
 		$whereString = ' ';
@@ -187,23 +187,23 @@ class VirtueMartModelManufacturer extends VmModel {
 	static function getManufacturersOfProductsInCategory($tsmart_category_id,$vmlang,$mlang = false){
 
 		if($mlang){
-			$query = 'SELECT DISTINCT IFNULL(l.`mf_name`,ld.mf_name) as mf_name,IFNULL(l.`virtuemart_manufacturer_id`,ld.`virtuemart_manufacturer_id`) as virtuemart_manufacturer_id
-FROM `#__virtuemart_manufacturers_'.VmConfig::$defaultLang.'` as ld
-LEFT JOIN `#__virtuemart_manufacturers_'.$vmlang.'` as l using (`virtuemart_manufacturer_id`)';
+			$query = 'SELECT DISTINCT IFNULL(l.`mf_name`,ld.mf_name) as mf_name,IFNULL(l.`tsmart_manufacturer_id`,ld.`tsmart_manufacturer_id`) as tsmart_manufacturer_id
+FROM `#__tsmart_manufacturers_'.VmConfig::$defaultLang.'` as ld
+LEFT JOIN `#__tsmart_manufacturers_'.$vmlang.'` as l using (`tsmart_manufacturer_id`)';
 			vmdebug('getManufacturersOfProductsInCategory use language fallback');
 		} else {
-			$query = 'SELECT DISTINCT l.`mf_name`,l.`virtuemart_manufacturer_id` FROM `#__virtuemart_manufacturers_' . $vmlang . '` as l';
+			$query = 'SELECT DISTINCT l.`mf_name`,l.`tsmart_manufacturer_id` FROM `#__tsmart_manufacturers_' . $vmlang . '` as l';
 		}
-		// if ($mf_virtuemart_product_ids) {
+		// if ($mf_tsmart_product_ids) {
 
-		$query .= ' INNER JOIN `#__virtuemart_product_manufacturers` AS pm using (`virtuemart_manufacturer_id`)';
-		$query .= ' INNER JOIN `#__virtuemart_products` as p ON p.`virtuemart_product_id` = pm.`virtuemart_product_id` ';
+		$query .= ' INNER JOIN `#__tsmart_product_manufacturers` AS pm using (`tsmart_manufacturer_id`)';
+		$query .= ' INNER JOIN `#__tsmart_products` as p ON p.`tsmart_product_id` = pm.`tsmart_product_id` ';
 		if ($tsmart_category_id) {
-			$query .= ' INNER JOIN `#__virtuemart_product_categories` as c ON c.`virtuemart_product_id` = pm.`virtuemart_product_id` ';
+			$query .= ' INNER JOIN `#__tsmart_product_categories` as c ON c.`tsmart_product_id` = pm.`tsmart_product_id` ';
 		}
 		$query .= ' WHERE p.`published` =1';
 		if ($tsmart_category_id) {
-			$query .= ' AND c.`virtuemart_category_id` =' . (int)$tsmart_category_id;
+			$query .= ' AND c.`tsmart_category_id` =' . (int)$tsmart_category_id;
 		}
 		$query .= ' ORDER BY `mf_name`';
 		$db = JFactory::getDBO();

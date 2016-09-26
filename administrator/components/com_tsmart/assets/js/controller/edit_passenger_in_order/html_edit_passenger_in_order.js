@@ -78,7 +78,7 @@
             });
             $edit_passenger.find('.save-passenger').click(function(){
                 var order=plugin.settings.order;
-                var virtuemart_order_id=order.virtuemart_order_id;
+                var tsmart_order_id=order.tsmart_order_id;
                 var data=$edit_passenger.find(':input').serializeObject();
                 $.ajax({
                     type: "GET",
@@ -90,7 +90,7 @@
                             option: 'com_tsmart',
                             controller: 'order',
                             task: 'ajax_save_passenger',
-                            virtuemart_order_id: virtuemart_order_id,
+                            tsmart_order_id: tsmart_order_id,
                             passenger_id: plugin.settings.editing_passenger_id,
                             data:data
                         };

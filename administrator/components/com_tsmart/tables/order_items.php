@@ -3,13 +3,13 @@
 *
 * Order item table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Orders
 * @author RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Order item table class
  * The class is is used to manage the order items in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author RolandD
  */
 class TableOrder_items extends tsmTable {
@@ -72,7 +72,7 @@ class TableOrder_items extends tsmTable {
 	 * @param $db Class constructor; connect to the database
 	 */
 	function __construct($db) {
-		parent::__construct('#__virtuemart_order_items', 'virtuemart_order_item_id', $db);
+		parent::__construct('#__tsmart_order_items', 'tsmart_order_item_id', $db);
 
 		$this->setLoggable();
 	}

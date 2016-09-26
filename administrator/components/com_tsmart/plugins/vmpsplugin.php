@@ -4,14 +4,14 @@ defined ('_JEXEC') or die('Restricted access');
 /**
  * abstract class for payment/shipment plugins
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins
  * @author Max Milbers
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (C) 2004-2014 Virtuemart Team. All rights reserved.
+ * @copyright Copyright (C) 2004-2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,9 +27,9 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		parent::__construct ($subject, $config);
 
-		$this->_tablepkey = 'id'; //virtuemart_order_id';
-		$this->_idName = 'virtuemart_' . $this->_psType . 'method_id';
-		$this->_configTable = '#__virtuemart_' . $this->_psType . 'methods';
+		$this->_tablepkey = 'id'; //tsmart_order_id';
+		$this->_idName = 'tsmart_' . $this->_psType . 'method_id';
+		$this->_configTable = '#__tsmart_' . $this->_psType . 'methods';
 		$this->_configTableFieldName = $this->_psType . '_params';
 		$this->_configTableFileName = $this->_psType . 'methods';
 		$this->_configTableClassName = 'Table' . ucfirst ($this->_psType) . 'methods'; //TablePaymentmethods
@@ -84,11 +84,11 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * @author Max Milbers
 	 * @author Valérie isaksen
 	 *
-	 * @param VirtueMartCart $cart: the actual cart
+	 * @param tsmartCart $cart: the actual cart
 	 * @return null if the payment was not selected, true if the data is valid, error message if the data is not vlaid
 	 *
 	 */
-	public function onSelectCheck (VirtueMartCart $cart) {
+	public function onSelectCheck (tsmartCart $cart) {
 
 		$idName = $this->_idName;
 		if (!$this->selectedThisByMethodId ($cart->$idName)) {
@@ -109,7 +109,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * @author Valerie Isaksen
 	 * @author Max Milbers
 	 */
-	public function displayListFE (VirtueMartCart $cart, $selected = 0, &$htmlIn) {
+	public function displayListFE (tsmartCart $cart, $selected = 0, &$htmlIn) {
 
 		if ($this->getPluginMethods ($cart->vendorId) === 0) {
 			if (empty($this->_name)) {
@@ -151,13 +151,13 @@ abstract class vmPSPlugin extends vmPlugin {
 	* It is called by the calculator
 	* This function does NOT to be reimplemented. If not reimplemented, then the default values from this function are taken.
 	* @author Valerie Isaksen
-	* @cart: VirtueMartCart the current cart
+	* @cart: tsmartCart the current cart
 	* @cart_prices: array the new cart prices
 	* @return null if the method was not selected, false if the shipping rate is not valid any more, true otherwise
 	*
 	*/
 
-	public function onSelectedCalculatePrice (VirtueMartCart $cart, array &$cart_prices, &$cart_prices_name) {
+	public function onSelectedCalculatePrice (tsmartCart $cart, array &$cart_prices, &$cart_prices_name) {
 
 		$idName = $this->_idName;
 
@@ -189,11 +189,11 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * The plugin must check first if it is the correct type
 	 *
 	 * @author Valerie Isaksen
-	 * @param VirtueMartCart cart: the cart object
-	 * @return null if no plugin was found, 0 if more then one plugin was found,  virtuemart_xxx_id if only one plugin is found
+	 * @param tsmartCart cart: the cart object
+	 * @return null if no plugin was found, 0 if more then one plugin was found,  tsmart_xxx_id if only one plugin is found
 	 *
 	 */
-	function onCheckAutomaticSelected (VirtueMartCart $cart, array $cart_prices = array(), &$methodCounter = 0) {
+	function onCheckAutomaticSelected (tsmartCart $cart, array $cart_prices = array(), &$methodCounter = 0) {
 
 		$tsmart_pluginmethod_id = 0;
 
@@ -239,7 +239,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		$db = JFactory::getDBO ();
 		$q = 'SELECT * FROM `' . $this->_tablename . '` '
-			. 'WHERE `virtuemart_order_id` = ' . $tsmart_order_id;
+			. 'WHERE `tsmart_order_id` = ' . $tsmart_order_id;
 		$db->setQuery ($q);
 		$err =$db->getErrorMsg ();
 		if (!($pluginInfo = $db->loadObject ())) {
@@ -276,13 +276,13 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * It displays the the payment method-specific data.
 	 * All plugins *must* reimplement this method.
 	 *
-	 * @param integer $_virtuemart_order_id The order ID
+	 * @param integer $_tsmart_order_id The order ID
 	 * @param integer $_paymethod_id Payment method used for this order
 	 * @return mixed Null when for payment methods that were not selected, text (HTML) otherwise
 	 * @author Max Milbers
 	 * @author Valerie Isaksen
 	 */
-	function onShowOrderBE ($_virtuemart_order_id, $_method_id) {
+	function onShowOrderBE ($_tsmart_order_id, $_method_id) {
 		return NULL;
 	}
 
@@ -290,7 +290,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * This method is fired when showing when priting an Order
 	 * It displays the the payment method-specific data.
 	 *
-	 * @param integer $_virtuemart_order_id The order ID
+	 * @param integer $_tsmart_order_id The order ID
 	 * @param integer $method_id  method used for this order
 	 * @return mixed Null when for payment methods that were not selected, text (HTML) otherwise
 	 * @author Valerie Isaksen
@@ -416,7 +416,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * NOTE for Plugin developers:
 	 *  If the plugin is NOT actually executed (not the selected payment method), this method must return NULL
 	 *
-	 * @param int  $tsmart_order_id : should return the virtuemart_order_id
+	 * @param int  $tsmart_order_id : should return the tsmart_order_id
 	 * @param text $html: the html to display
 	 * @return mixed Null when this method was not selected, otherwise the true or false
 	 *
@@ -462,7 +462,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 */
 	protected function getPluginMethods ($vendorId) {
 
-		if (!class_exists ('VirtueMartModelUser')) {
+		if (!class_exists ('tsmartModelUser')) {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'user.php');
 		}
 
@@ -479,7 +479,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		$extField2 = 'element';
 
 		$select .= 'j.`' . $extField1 . '`,j.`name`, j.`type`, j.`element`, j.`folder`, j.`client_id`, j.`enabled`, j.`access`, j.`protected`, j.`manifest_cache`,
-			j.`params`, j.`custom_data`, j.`system_data`, j.`checked_out`, j.`checked_out_time`, j.`state`,  s.virtuemart_shoppergroup_id ';
+			j.`params`, j.`custom_data`, j.`system_data`, j.`checked_out`, j.`checked_out_time`, j.`state`,  s.tsmart_shoppergroup_id ';
 
 		if(!VmConfig::$vmlang){
 			VmConfig::setdbLanguageTag();
@@ -491,7 +491,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 			$useJLback = false;
 			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins[] = ' LEFT JOIN `#__virtuemart_'.$this->_psType.'_'.VmConfig::$jDefLang.'` as ljd';
+				$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'_'.VmConfig::$jDefLang.'` as ljd';
 				$useJLback = true;
 			}
 
@@ -502,28 +502,28 @@ abstract class vmPSPlugin extends vmPlugin {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins[] = ' LEFT JOIN `#__virtuemart_'.$this->_psType.'methods_'.VmConfig::$defaultLang.'` as ld using (`virtuemart_'.$this->_psType.'method_id`)';
-			$joins[] = ' LEFT JOIN `#__virtuemart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`virtuemart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$defaultLang.'` as ld using (`tsmart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
 		} else {
 			$select .= ', l.* ';
-			$joins[] = ' LEFT JOIN `#__virtuemart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`virtuemart_'.$this->_psType.'method_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_'.$this->_psType.'methods_'.VmConfig::$vmlang.'` as l using (`tsmart_'.$this->_psType.'method_id`)';
 		}
 
-		$q = $select . ' FROM   `#__virtuemart_' . $this->_psType . 'methods' . '` as i ';
+		$q = $select . ' FROM   `#__tsmart_' . $this->_psType . 'methods' . '` as i ';
 
-		//$joins[] = ' JOIN `#__virtuemart_' . $this->_psType . 'methods` AS i USING (`virtuemart_' . $this->_psType . 'method_id`) ';
+		//$joins[] = ' JOIN `#__tsmart_' . $this->_psType . 'methods` AS i USING (`tsmart_' . $this->_psType . 'method_id`) ';
 		$joins[]= ' LEFT JOIN `' . $extPlgTable . '` as j ON j.`' . $extField1 . '` =  i.`' . $this->_psType . '_jplugin_id` ';
-		$joins[]= ' LEFT OUTER JOIN `#__virtuemart_' . $this->_psType . 'method_shoppergroups` AS s ON i.`virtuemart_' . $this->_psType . 'method_id` = s.`virtuemart_' . $this->_psType . 'method_id` ';
+		$joins[]= ' LEFT OUTER JOIN `#__tsmart_' . $this->_psType . 'method_shoppergroups` AS s ON i.`tsmart_' . $this->_psType . 'method_id` = s.`tsmart_' . $this->_psType . 'method_id` ';
 
 		$q .= implode(' '."\n",$joins);
 		$q .= ' WHERE i.`published` = "1" AND j.`' . $extField2 . '` = "' . $this->_name . '"
-	    						AND  (i.`virtuemart_vendor_id` = "' . $vendorId . '" OR i.`virtuemart_vendor_id` = "0" OR i.`shared` = "1")
+	    						AND  (i.`tsmart_vendor_id` = "' . $vendorId . '" OR i.`tsmart_vendor_id` = "0" OR i.`shared` = "1")
 	    						AND  (';
 
 		foreach ($user->shopper_groups as $groups) {
-			$q .= ' s.`virtuemart_shoppergroup_id`= "' . (int)$groups . '" OR';
+			$q .= ' s.`tsmart_shoppergroup_id`= "' . (int)$groups . '" OR';
 		}
-		$q .= ' (s.`virtuemart_shoppergroup_id`) IS NULL ) GROUP BY i.`virtuemart_' . $this->_psType . 'method_id` ORDER BY i.`ordering`';
+		$q .= ' (s.`tsmart_shoppergroup_id`) IS NULL ) GROUP BY i.`tsmart_' . $this->_psType . 'method_id` ORDER BY i.`ordering`';
 
 		$db->setQuery ($q);
 
@@ -550,7 +550,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		$db = JFactory::getDBO ();
 		$q = 'SELECT * FROM `' . $this->_tablename . '` '
-			. 'WHERE `virtuemart_order_id` = ' . $tsmart_order_id;
+			. 'WHERE `tsmart_order_id` = ' . $tsmart_order_id;
 
 		$db->setQuery ($q);
 		$methodData = $db->loadObject ();
@@ -569,7 +569,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		$db = JFactory::getDBO ();
 		$q = 'SELECT * FROM `' . $this->_tablename . '` '
-			. 'WHERE `virtuemart_order_id` = "' . $tsmart_order_id. '" '
+			. 'WHERE `tsmart_order_id` = "' . $tsmart_order_id. '" '
 			. 'ORDER BY `id` ASC';
 
 		$db->setQuery ($q);
@@ -622,7 +622,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * @param object $cart Cart object
 	 * @return float Total weight for the order
 	 */
-	protected function getOrderWeight (VirtueMartCart $cart, $to_weight_unit) {
+	protected function getOrderWeight (tsmartCart $cart, $to_weight_unit) {
 
 		static $weight = array();
 		if(!isset($weight[$to_weight_unit])) $weight[$to_weight_unit] = 0.0;
@@ -647,7 +647,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		$db = JFactory::getDBO ();
 		$q = 'SELECT `' . $this->_psType . '_name` '
-			. 'FROM #__virtuemart_' . $this->_psType . 'methods '
+			. 'FROM #__tsmart_' . $this->_psType . 'methods '
 			. 'WHERE ' . $this->_idName . ' = "' . $tsmart_method_id . '" ';
 		$db->setQuery ($q);
 		return $db->loadResult (); // TODO Error check
@@ -655,7 +655,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 
 	/**
-	 * Extends the standard function in vmplugin. Extendst the input data by virtuemart_order_id
+	 * Extends the standard function in vmplugin. Extendst the input data by tsmart_order_id
 	 * Calls the parent to execute the write operation
 	 *
 	 * @author Max Milbers
@@ -664,11 +664,11 @@ abstract class vmPSPlugin extends vmPlugin {
 	 */
 	protected function storePSPluginInternalData ($values, $primaryKey = 0, $preload = FALSE) {
 
-		if (!class_exists ('VirtueMartModelOrders')) {
+		if (!class_exists ('tsmartModelOrders')) {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'orders.php');
 		}
-		if (!isset($values['virtuemart_order_id'])) {
-			$values['virtuemart_order_id'] = VirtueMartModelOrders::getOrderIdByOrderNumber ($values['order_number']);
+		if (!isset($values['tsmart_order_id'])) {
+			$values['tsmart_order_id'] = tsmartModelOrders::getOrderIdByOrderNumber ($values['order_number']);
 		}
 		return $this->storePluginInternalData ($values, $primaryKey, 0, $preload);
 	}
@@ -714,7 +714,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	}
 
 	/**
-	 * displays the logos of a VirtueMart plugin
+	 * displays the logos of a tsmart plugin
 	 *
 	 * @author Valerie Isaksen
 	 * @author Max Milbers
@@ -828,11 +828,11 @@ abstract class vmPSPlugin extends vmPlugin {
 	 * getSelectable
 	 * This method returns the number of valid methods
 	 *
-	 * @param VirtueMartCart cart: the cart object
+	 * @param tsmartCart cart: the cart object
 	 * @param $method_id eg $tsmart_shipmentmethod_id
 	 *
 	 */
-	function getSelectable (VirtueMartCart $cart, &$method_id, $cart_prices) {
+	function getSelectable (tsmartCart $cart, &$method_id, $cart_prices) {
 
 		$nbMethod = 0;
 
@@ -856,7 +856,7 @@ abstract class vmPSPlugin extends vmPlugin {
 	 *
 	 * @author Valerie Isaksen
 	 * @author Max Milbers
-	 * @param VirtueMartCart $cart
+	 * @param tsmartCart $cart
 	 * @param int            $method
 	 * @param array          $cart_prices
 	 */
@@ -881,22 +881,22 @@ abstract class vmPSPlugin extends vmPlugin {
 	static function getPaymentCurrency (&$method, $getCurrency = FALSE) {
 
 		if (!isset($method->payment_currency) or empty($method->payment_currency) or !$method->payment_currency or $getCurrency) {
-			// 	    if (!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-			$vendorId = 1; //VirtueMartModelVendor::getLoggedVendor();
+			// 	    if (!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
+			$vendorId = 1; //tsmartModelVendor::getLoggedVendor();
 			$db = JFactory::getDBO ();
 
-			$q = 'SELECT   `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
+			$q = 'SELECT   `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id`=' . $vendorId;
 			$db->setQuery ($q);
 			$method->payment_currency = $db->loadResult ();
 		} elseif (isset($method->payment_currency) and $method->payment_currency== -1) {
 			$vendorId = 1;
 			$db = JFactory::getDBO();
 // the select list should include the vendor currency which is the currency in which the product prices are displayed by default.
-			$q  = 'SELECT CONCAT(`vendor_accepted_currencies`, ",",`vendor_currency`) AS all_currencies, `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`='.$vendorId;
+			$q  = 'SELECT CONCAT(`vendor_accepted_currencies`, ",",`vendor_currency`) AS all_currencies, `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id`='.$vendorId;
 			$db->setQuery($q);
 			$vendor_currency = $db->loadAssoc();
 			$mainframe = Jfactory::getApplication();
-			$method->payment_currency = $mainframe->getUserStateFromRequest( "virtuemart_currency_id", 'virtuemart_currency_id',JRequest::getInt('virtuemart_currency_id', $vendor_currency['vendor_currency']) );
+			$method->payment_currency = $mainframe->getUserStateFromRequest( "tsmart_currency_id", 'tsmart_currency_id',JRequest::getInt('tsmart_currency_id', $vendor_currency['vendor_currency']) );
 		}
 
 
@@ -905,11 +905,11 @@ abstract class vmPSPlugin extends vmPlugin {
 	function getEmailCurrency (&$method) {
 
 		if (!isset($method->email_currency)  or $method->email_currency=='vendor') {
-			// 	    if (!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-			$vendorId = 1; //VirtueMartModelVendor::getLoggedVendor();
+			// 	    if (!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
+			$vendorId = 1; //tsmartModelVendor::getLoggedVendor();
 			$db = JFactory::getDBO ();
 
-			$q = 'SELECT   `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
+			$q = 'SELECT   `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id`=' . $vendorId;
 			$db->setQuery ($q);
 			return $db->loadResult ();
 		} else {
@@ -928,7 +928,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		$html = '';
 		$db = JFactory::getDBO ();
 		if (!empty($tax_id)) {
-			$q = 'SELECT * FROM #__virtuemart_calcs WHERE `virtuemart_calc_id`="' . $tax_id . '" ';
+			$q = 'SELECT * FROM #__tsmart_calcs WHERE `tsmart_calc_id`="' . $tax_id . '" ';
 			$db->setQuery ($q);
 			$taxrule = $db->loadObject ();
 
@@ -937,7 +937,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		return $html;
 	}
 
-	function getCosts (VirtueMartCart $cart, $method, $cart_prices) {
+	function getCosts (tsmartCart $cart, $method, $cart_prices) {
 
 		if (preg_match ('/%$/', $method->cost_percent_total)) {
 			$method->cost_percent_total = substr ($method->cost_percent_total, 0, -1);
@@ -973,17 +973,17 @@ abstract class vmPSPlugin extends vmPlugin {
 	}
 
 	/**
-	 * @param VirtueMartCart $cart
+	 * @param tsmartCart $cart
 	 * @param $cart_prices
 	 * @param $method
 	 * @param bool $progressive
 	 * @return mixed
 	 */
 
-	function setCartPrices (VirtueMartCart $cart, &$cart_prices, $method, $progressive = true) {
+	function setCartPrices (tsmartCart $cart, &$cart_prices, $method, $progressive = true) {
 
 		static $c = array();
-		$idN = 'virtuemart_'.$this->_psType.'method_id';
+		$idN = 'tsmart_'.$this->_psType.'method_id';
 
 		$_psType = ucfirst ($this->_psType);
 
@@ -1033,7 +1033,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			$cart_prices[$this->_psType . '_calc_id'] = $method->tax_id;
 
 			$db = JFactory::getDBO ();
-			$q = 'SELECT * FROM #__virtuemart_calcs WHERE `virtuemart_calc_id`="' . $method->tax_id . '" ';
+			$q = 'SELECT * FROM #__tsmart_calcs WHERE `tsmart_calc_id`="' . $method->tax_id . '" ';
 			$db->setQuery ($q);
 			$taxrules = $db->loadAssocList ();
 
@@ -1045,8 +1045,8 @@ abstract class vmPSPlugin extends vmPlugin {
 					$rule['taxAmountOld'] = $rule['taxAmount'];
 					$rule['taxAmount'] = 0;
 					$rule['subTotal'] = $cart_prices[$this->_psType . 'Value'];
-					$cart_prices[$this->_psType . 'TaxPerID'][$rule['virtuemart_calc_id']] = $calculator->roundInternal($calculator->roundInternal($calculator->interpreteMathOp($rule, $rule['subTotal'])) - $rule['subTotal'], 'salesPrice');
-					$cart_prices[$this->_psType . 'Tax'] += $cart_prices[$this->_psType . 'TaxPerID'][$rule['virtuemart_calc_id']];
+					$cart_prices[$this->_psType . 'TaxPerID'][$rule['tsmart_calc_id']] = $calculator->roundInternal($calculator->roundInternal($calculator->interpreteMathOp($rule, $rule['subTotal'])) - $rule['subTotal'], 'salesPrice');
+					$cart_prices[$this->_psType . 'Tax'] += $cart_prices[$this->_psType . 'TaxPerID'][$rule['tsmart_calc_id']];
 				}
 			}
 		} else {
@@ -1058,7 +1058,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 				foreach($taxrules as &$rule){
 					//Quickn dirty
-					if(!isset($rule['calc_kind'])) $rule = (array)VmModel::getModel('calc')->getCalc($rule['virtuemart_calc_id']);
+					if(!isset($rule['calc_kind'])) $rule = (array)VmModel::getModel('calc')->getCalc($rule['tsmart_calc_id']);
 
 					if(!isset($rule['subTotal'])) $rule['subTotal'] = 0;
 					if(!isset($rule['taxAmount'])) $rule['taxAmount'] = 0;
@@ -1078,8 +1078,8 @@ abstract class vmPSPlugin extends vmPlugin {
 					$rule['subTotal'] = $cart_prices[$this->_psType . 'Value'] * $rule['percentage'];
 
 					if(!isset($cart_prices[$this->_psType . 'Tax'])) $cart_prices[$this->_psType . 'Tax'] = 0.0;
-					$cart_prices[$this->_psType . 'TaxPerID'][$rule['virtuemart_calc_id']] = $calculator->roundInternal($calculator->roundInternal($calculator->interpreteMathOp($rule, $rule['subTotal'])) - $rule['subTotal'], 'salesPrice');
-					$cart_prices[$this->_psType . 'Tax'] += $cart_prices[$this->_psType . 'TaxPerID'][$rule['virtuemart_calc_id']];
+					$cart_prices[$this->_psType . 'TaxPerID'][$rule['tsmart_calc_id']] = $calculator->roundInternal($calculator->roundInternal($calculator->interpreteMathOp($rule, $rule['subTotal'])) - $rule['subTotal'], 'salesPrice');
+					$cart_prices[$this->_psType . 'Tax'] += $cart_prices[$this->_psType . 'TaxPerID'][$rule['tsmart_calc_id']];
 
 				}
 			}
@@ -1097,7 +1097,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 			foreach($taxrules as &$rule){
 				if(!isset($cart_prices[$this->_psType . '_calc_id']) or !is_array($cart_prices[$this->_psType . '_calc_id'])) $cart_prices[$this->_psType . '_calc_id'] = array();
-				$cart_prices[$this->_psType . '_calc_id'][] = $rule['virtuemart_calc_id'];
+				$cart_prices[$this->_psType . '_calc_id'][] = $rule['tsmart_calc_id'];
 
 				if(isset($rule['subTotalOld'])) $rule['subTotal'] += $rule['subTotalOld'];
 				if(isset($rule['taxAmountOld'])) $rule['taxAmount'] += $rule['taxAmountOld'];
@@ -1152,7 +1152,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			$order['order_status'] = $new_status;
 			$order['customer_notified'] = 1;
 			$order['comments'] = '';
-			$modelOrder->updateStatusForOneOrder ($order['details']['BT']->virtuemart_order_id, $order, TRUE);
+			$modelOrder->updateStatusForOneOrder ($order['details']['BT']->tsmart_order_id, $order, TRUE);
 
 			$order['paymentName'] = $payment_name;
 			//if(!class_exists('shopFunctionsF')) require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
@@ -1204,7 +1204,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 	function emptyCart ($session_id = NULL, $order_number = NULL) {
 
-		if (!class_exists ('VirtueMartCart')) {
+		if (!class_exists ('tsmartCart')) {
 			require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
 		}
 		$this->logInfo ('Notification: emptyCart ' . $session_id, 'message');
@@ -1213,7 +1213,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			$this->emptyCartFromStorageSession ($session_id, $order_number);
 		} else {
 
-			$cart = VirtueMartCart::getCart ();
+			$cart = tsmartCart::getCart ();
 			$cart->emptyCart ();
 		}
 		return TRUE;
@@ -1302,17 +1302,17 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		if ($tsmart_order_id) {
 			// set the order to cancel , to handle the stock correctly
-			if (!class_exists ('VirtueMartModelOrders')) {
+			if (!class_exists ('tsmartModelOrders')) {
 				require(VMPATH_ADMIN . DS . 'models' . DS . 'orders.php');
 			}
 
 			$modelOrder = VmModel::getModel ('orders');
 			$order['order_status'] = 'X';
-			$order['virtuemart_order_id'] = $tsmart_order_id;
+			$order['tsmart_order_id'] = $tsmart_order_id;
 			$order['customer_notified'] = 0;
 			$order['comments'] = tsmText::_ ('com_tsmart_PAYMENT_CANCELLED_BY_SHOPPER');
 			$modelOrder->updateStatusForOneOrder ($tsmart_order_id, $order, TRUE);
-			//$modelOrder->remove (array('virtuemart_order_id' => $tsmart_order_id));
+			//$modelOrder->remove (array('tsmart_order_id' => $tsmart_order_id));
 		}
 	}
 

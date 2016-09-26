@@ -2,13 +2,13 @@
 defined('_JEXEC') or die();
 /**
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins  - Elements
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (C) 2004-2015 Virtuemart Team. All rights reserved.
+ * @copyright Copyright (C) 2004-2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -33,8 +33,8 @@ class JFormFieldVmOrderState extends JFormFieldList {
 		$db = JFactory::getDBO();
 
 		$query = 'SELECT `order_status_code` AS value, `order_status_name` AS text
-                 FROM `#__virtuemart_orderstates`
-                 WHERE `virtuemart_vendor_id` = 1
+                 FROM `#__tsmart_orderstates`
+                 WHERE `tsmart_vendor_id` = 1
                  ORDER BY `ordering` ASC ';
 
 		$db->setQuery($query);

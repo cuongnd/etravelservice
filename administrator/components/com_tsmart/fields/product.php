@@ -54,7 +54,7 @@ class JFormFieldProduct extends JFormField
 		$i = 0;
 		$list = array();
 		foreach ($products as $product) {
-			$list[$i]['value'] = $product->virtuemart_product_id;
+			$list[$i]['value'] = $product->tsmart_product_id;
 			$list[$i]['text'] = $product->product_name. " (". $product->product_sku.")";
 			$i++;
 		}

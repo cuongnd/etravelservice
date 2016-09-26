@@ -20,8 +20,8 @@
         plugin.format_selected = function () {
             var list_selected=plugin.settings.list_selected;
             console.log(list_selected);
-            $.each(list_selected,function(index,virtuemart_group_size_id){
-                $('input[name="list_group_size_id[]"][value="'+virtuemart_group_size_id+'"]').trigger('change');
+            $.each(list_selected,function(index,tsmart_group_size_id){
+                $('input[name="list_group_size_id[]"][value="'+tsmart_group_size_id+'"]').trigger('change');
             })
         };
         plugin.init = function () {

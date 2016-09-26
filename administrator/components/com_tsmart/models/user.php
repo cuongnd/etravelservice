@@ -3,15 +3,15 @@
  *
  * Data module for shop users
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @author Max Milbers
  * @author    RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -30,12 +30,12 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop users
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage    User
  * @author    RickG
  * @author Max Milbers
  */
-class VirtueMartModelUser extends VmModel
+class tsmartModelUser extends VmModel
 {
 
 
@@ -47,12 +47,12 @@ class VirtueMartModelUser extends VmModel
     function __construct()
     {
 
-        parent::__construct('virtuemart_user_id');
+        parent::__construct('tsmart_user_id');
 
         $this->setToggleName('user_is_vendor');
-        $this->addvalidOrderingFieldName(array('ju.username', 'ju.name', 'ju.email', 'sg.virtuemart_shoppergroup_id', 'shopper_group_name', 'shopper_group_desc', 'vmu.virtuemart_user_id'));
+        $this->addvalidOrderingFieldName(array('ju.username', 'ju.name', 'ju.email', 'sg.tsmart_shoppergroup_id', 'shopper_group_name', 'shopper_group_desc', 'vmu.tsmart_user_id'));
         $this->setMainTable('vmusers');
-        $this->removevalidOrderingFieldName('virtuemart_user_id');
+        $this->removevalidOrderingFieldName('tsmart_user_id');
         array_unshift($this->_validOrderingFieldName, 'ju.id');
     }
 
@@ -130,7 +130,7 @@ class VirtueMartModelUser extends VmModel
     function getVendor($vendorId = 1, $return = TRUE)
     {
         $vendorModel = VmModel::getModel('vendor');
-        $userId = VirtueMartModelVendor::getUserIdByVendorId($vendorId);
+        $userId = tsmartModelVendor::getUserIdByVendorId($vendorId);
         if ($userId) {
             $this->setUserId($userId);
             if ($return) {
@@ -157,7 +157,7 @@ class VirtueMartModelUser extends VmModel
         $this->_data->load((int)$this->_id);
         $this->_data->JUser = JUser::getInstance($this->_id);
 
-        // Add the virtuemart_shoppergroup_ids
+        // Add the tsmart_shoppergroup_ids
         if (!empty($this->_id)) {
             $xrefTable = $this->getTable('vmuser_shoppergroups');
             $this->_data->shopper_groups = $xrefTable->load($this->_id);
@@ -171,7 +171,7 @@ class VirtueMartModelUser extends VmModel
         }
 
         if (!empty($this->_id)) {
-            $q = 'SELECT `virtuemart_userinfo_id` FROM `#__virtuemart_userinfos` WHERE `virtuemart_user_id` = "' . (int)$this->_id . '" ORDER BY `address_type` ASC';
+            $q = 'SELECT `tsmart_userinfo_id` FROM `#__tsmart_userinfos` WHERE `tsmart_user_id` = "' . (int)$this->_id . '" ORDER BY `address_type` ASC';
             $db->setQuery($q);
             $userInfo_ids = $db->loadColumn(0);
         } else {
@@ -202,11 +202,11 @@ class VirtueMartModelUser extends VmModel
 
             $vendorModel = VmModel::getModel('vendor');
             if (Vmconfig::get('multix', 'none') == 'none') {
-                $this->_data->virtuemart_vendor_id = 1;
-                //vmdebug('user model, single vendor',$this->_data->virtuemart_vendor_id);
+                $this->_data->tsmart_vendor_id = 1;
+                //vmdebug('user model, single vendor',$this->_data->tsmart_vendor_id);
             }
 
-            $vendorModel->setId($this->_data->virtuemart_vendor_id);
+            $vendorModel->setId($this->_data->tsmart_vendor_id);
             $this->_data->vendor = $vendorModel->getVendor();
         }
 
@@ -258,7 +258,7 @@ class VirtueMartModelUser extends VmModel
         $new = false;
         if (empty($this->_id) or $this->_id < 1) {
             $new = true;
-            $user = new JUser();    //thealmega http://forum.virtuemart.net/index.php?topic=99755.msg393758#msg393758
+            $user = new JUser();    //thealmega http://forum.tsmart.net/index.php?topic=99755.msg393758#msg393758
         } else {
             $cUser = JFactory::getUser();
             if (!vmAccess::manager('user.edit') and $cUser->id != $this->_id) {
@@ -429,7 +429,7 @@ class VirtueMartModelUser extends VmModel
         }
 
         $newId = $user->get('id');
-        $data['virtuemart_user_id'] = $newId;    //We need this in that case, because data is bound to table later
+        $data['tsmart_user_id'] = $newId;    //We need this in that case, because data is bound to table later
         $this->setUserId($newId);
 
         //Save the VM user stuff
@@ -461,7 +461,7 @@ class VirtueMartModelUser extends VmModel
 
         //The extra check for isset vendor_name prevents storing of the vendor if there is no form (edit address cart)
         if ((int)$data['user_is_vendor'] == 1 and isset($data['vendor_currency'])) {
-            vmdebug('vendor recognised ' . $data['virtuemart_vendor_id']);
+            vmdebug('vendor recognised ' . $data['tsmart_vendor_id']);
             if ($this->storeVendorData($data)) {
                 if ($new) {
                     if ($doUserActivation) {
@@ -892,7 +892,7 @@ class VirtueMartModelUser extends VmModel
      * that gets fired by the onAfterStoreUser. I'll built that (OvE)
      *
      * Notice:
-     * As long we do not have the silent registration, an anonymous does not get registered. It is enough to send the virtuemart_order_id
+     * As long we do not have the silent registration, an anonymous does not get registered. It is enough to send the tsmart_order_id
      * with the email. The order is saved with all information in an extra table, so there is
      * no need for a silent registration. We may think about if we actually need/want the feature silent registration
      * The information of anonymous is stored in the order table and has nothing todo with the usermodel!
@@ -916,14 +916,14 @@ class VirtueMartModelUser extends VmModel
         $alreadyStoredUserData = $usertable->load($this->_id);
 
         if (!vmAccess::manager('core')) {
-            unset($data['virtuemart_vendor_id']);
+            unset($data['tsmart_vendor_id']);
             unset($data['user_is_vendor']);
         } else {
             if (!isset($data['user_is_vendor']) and !empty($alreadyStoredUserData->user_is_vendor)) {
                 $data['user_is_vendor'] = $alreadyStoredUserData->user_is_vendor;
             }
-            if (!isset($data['virtuemart_vendor_id']) and !empty($alreadyStoredUserData->virtuemart_vendor_id)) {
-                $data['virtuemart_vendor_id'] = $alreadyStoredUserData->virtuemart_vendor_id;
+            if (!isset($data['tsmart_vendor_id']) and !empty($alreadyStoredUserData->tsmart_vendor_id)) {
+                $data['tsmart_vendor_id'] = $alreadyStoredUserData->tsmart_vendor_id;
             }
         }
 
@@ -963,15 +963,15 @@ class VirtueMartModelUser extends VmModel
                 $this->_defaultShopperGroup = $shoppergroupmodel->getDefault(0);
             }
 
-            if (empty($data['virtuemart_shoppergroup_id']) or $data['virtuemart_shoppergroup_id'] == $this->_defaultShopperGroup->virtuemart_shoppergroup_id) {
-                $data['virtuemart_shoppergroup_id'] = array();
+            if (empty($data['tsmart_shoppergroup_id']) or $data['tsmart_shoppergroup_id'] == $this->_defaultShopperGroup->tsmart_shoppergroup_id) {
+                $data['tsmart_shoppergroup_id'] = array();
             }
 
             // Bind the form fields to the table
-            if (!isset($data['virtuemart_shoppergroup_id'])) {
-                $data['virtuemart_shoppergroup_id'] = array();
+            if (!isset($data['tsmart_shoppergroup_id'])) {
+                $data['tsmart_shoppergroup_id'] = array();
             }
-            $shoppergroupData = array('virtuemart_user_id' => $this->_id, 'virtuemart_shoppergroup_id' => $data['virtuemart_shoppergroup_id']);
+            $shoppergroupData = array('tsmart_user_id' => $this->_id, 'tsmart_shoppergroup_id' => $data['tsmart_shoppergroup_id']);
             $user_shoppergroups_table = $this->getTable('vmuser_shoppergroups');
             $res = $user_shoppergroups_table->bindChecknStore($shoppergroupData);
             if (!$res) {
@@ -989,14 +989,14 @@ class VirtueMartModelUser extends VmModel
         }
 
         if (!empty($data['vendorId']) and $data['vendorId'] > 1) {
-            //$vUserD = array('virtuemart_user_id' => $data['virtuemart_user_id'],'virtuemart_vendor_id' => $data['vendorId']);
+            //$vUserD = array('tsmart_user_id' => $data['tsmart_user_id'],'tsmart_vendor_id' => $data['vendorId']);
             $vUser = $this->getTable('vendor_users');
             $vUser->load((int)$data['vendorId']);
-            if (!$vUser->virtuemart_user_id) {
-                $vUser->bind(array('virtuemart_vendor_id' => (int)$data['vendorId'], 'virtuemart_user_id' => $data['virtuemart_user_id']));
-            } else if (!in_array((int)$data['virtuemart_user_id'], $vUser->virtuemart_user_id)) {
-                $arr = array_merge($vUser->virtuemart_user_id, (array)$data['virtuemart_user_id']);
-                $vUser->bind(array('virtuemart_vendor_id' => (int)$data['vendorId'], 'virtuemart_user_id' => $arr));
+            if (!$vUser->tsmart_user_id) {
+                $vUser->bind(array('tsmart_vendor_id' => (int)$data['vendorId'], 'tsmart_user_id' => $data['tsmart_user_id']));
+            } else if (!in_array((int)$data['tsmart_user_id'], $vUser->tsmart_user_id)) {
+                $arr = array_merge($vUser->tsmart_user_id, (array)$data['tsmart_user_id']);
+                $vUser->bind(array('tsmart_vendor_id' => (int)$data['vendorId'], 'tsmart_user_id' => $arr));
             }
             $vUser->store();
 
@@ -1012,13 +1012,13 @@ class VirtueMartModelUser extends VmModel
 
             $vendorModel = VmModel::getModel('vendor');
 
-            //TODO Attention this is set now to virtuemart_vendor_id=1 in single vendor mode, because using a vendor with different id then 1 is not completly supported and can lead to bugs
-            //So we disable the possibility to store vendors not with virtuemart_vendor_id = 1
+            //TODO Attention this is set now to tsmart_vendor_id=1 in single vendor mode, because using a vendor with different id then 1 is not completly supported and can lead to bugs
+            //So we disable the possibility to store vendors not with tsmart_vendor_id = 1
             if (Vmconfig::get('multix', 'none') == 'none') {
-                $data['virtuemart_vendor_id'] = 1;
-                vmdebug('no multivendor, set virtuemart_vendor_id = 1');
+                $data['tsmart_vendor_id'] = 1;
+                vmdebug('no multivendor, set tsmart_vendor_id = 1');
             }
-            $vendorModel->setId($data['virtuemart_vendor_id']);
+            $vendorModel->setId($data['tsmart_vendor_id']);
 
             if (!$vendorModel->store($data)) {
                 vmdebug('Error storing vendor', $vendorModel);
@@ -1048,13 +1048,13 @@ class VirtueMartModelUser extends VmModel
         $manager = vmAccess::manager();
         if ($data['address_type'] == 'BT') {
 
-            if (isset($data['virtuemart_userinfo_id']) and $data['virtuemart_userinfo_id'] != 0) {
+            if (isset($data['tsmart_userinfo_id']) and $data['tsmart_userinfo_id'] != 0) {
 
                 if (!$manager) {
 
-                    $userinfo->load($data['virtuemart_userinfo_id']);
+                    $userinfo->load($data['tsmart_userinfo_id']);
 
-                    if ($userinfo->virtuemart_user_id != $user->id) {
+                    if ($userinfo->tsmart_user_id != $user->id) {
                         vmError('Hacking attempt as admin?', 'Hacking attempt storeAddress');
                         return false;
                     }
@@ -1064,10 +1064,10 @@ class VirtueMartModelUser extends VmModel
                 if (!$manager) {
                     $userId = $user->id;
                 } else {
-                    $userId = (int)$data['virtuemart_user_id'];
+                    $userId = (int)$data['tsmart_user_id'];
                 }
-                $q = 'SELECT `virtuemart_userinfo_id` FROM #__virtuemart_userinfos
-				WHERE `virtuemart_user_id` = ' . $userId . '
+                $q = 'SELECT `tsmart_userinfo_id` FROM #__tsmart_userinfos
+				WHERE `tsmart_user_id` = ' . $userId . '
 				AND `address_type` = "BT"';
 
                 $db = JFactory::getDbo();
@@ -1075,12 +1075,12 @@ class VirtueMartModelUser extends VmModel
                 $total = $db->loadColumn();
 
                 if (count($total) > 0) {
-                    $data['virtuemart_userinfo_id'] = (int)$total[0];
+                    $data['tsmart_userinfo_id'] = (int)$total[0];
                 } else {
-                    $data['virtuemart_userinfo_id'] = 0;//md5(uniqid($this->virtuemart_user_id));
+                    $data['tsmart_userinfo_id'] = 0;//md5(uniqid($this->tsmart_user_id));
                 }
-                $userinfo->load($data['virtuemart_userinfo_id']);
-                //unset($data['virtuemart_userinfo_id']);
+                $userinfo->load($data['tsmart_userinfo_id']);
+                //unset($data['tsmart_userinfo_id']);
             }
             $data = (array)$data;
             if (!$this->validateUserData($data, 'BT')) {
@@ -1105,30 +1105,30 @@ class VirtueMartModelUser extends VmModel
             }
 
             $userinfo = $this->getTable('userinfos');
-            if (isset($dataST['virtuemart_userinfo_id']) and $dataST['virtuemart_userinfo_id'] != 0) {
-                $dataST['virtuemart_userinfo_id'] = (int)$dataST['virtuemart_userinfo_id'];
+            if (isset($dataST['tsmart_userinfo_id']) and $dataST['tsmart_userinfo_id'] != 0) {
+                $dataST['tsmart_userinfo_id'] = (int)$dataST['tsmart_userinfo_id'];
 
                 if (!$manager) {
 
-                    $userinfo->load($dataST['virtuemart_userinfo_id']);
+                    $userinfo->load($dataST['tsmart_userinfo_id']);
 
                     $user = JFactory::getUser();
-                    if ($userinfo->virtuemart_user_id != $user->id) {
+                    if ($userinfo->tsmart_user_id != $user->id) {
                         vmError('Hacking attempt as admin?', 'Hacking attempt store address');
                         return false;
                     }
                 }
             }
 
-            if (empty($userinfo->virtuemart_user_id)) {
+            if (empty($userinfo->tsmart_user_id)) {
                 if (!$manager) {
-                    $dataST['virtuemart_user_id'] = $user->id;
+                    $dataST['tsmart_user_id'] = $user->id;
                 } else {
-                    if (isset($data['virtuemart_user_id'])) {
-                        $dataST['virtuemart_user_id'] = (int)$data['virtuemart_user_id'];
+                    if (isset($data['tsmart_user_id'])) {
+                        $dataST['tsmart_user_id'] = (int)$data['tsmart_user_id'];
                     } else {
                         //Disadvantage is that admins should not change the ST address in the FE (what should never happen anyway.)
-                        $dataST['virtuemart_user_id'] = $user->id;
+                        $dataST['tsmart_user_id'] = $user->id;
                     }
                 }
             }
@@ -1144,16 +1144,16 @@ class VirtueMartModelUser extends VmModel
 
             $app = JFactory::getApplication();
             if ($app->isSite()) {
-                if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-                $cart = VirtuemartCart::getCart();
+                if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+                $cart = tsmartCart::getCart();
                 if ($cart) {
-                    $cart->selected_shipto = $userinfo->virtuemart_userinfo_id;
+                    $cart->selected_shipto = $userinfo->tsmart_userinfo_id;
                 }
             }
         }
 
 
-        return $userinfo->virtuemart_userinfo_id;
+        return $userinfo->tsmart_userinfo_id;
     }
 
     /**
@@ -1167,7 +1167,7 @@ class VirtueMartModelUser extends VmModel
     public function validateUserData(&$data, $type = 'BT', $showInfo = false)
     {
 
-        if (!class_exists('VirtueMartModelUserfields'))
+        if (!class_exists('tsmartModelUserfields'))
             require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
         $userFieldsModel = VmModel::getModel('userfields');
 
@@ -1193,21 +1193,21 @@ class VirtueMartModelUser extends VmModel
         $lang = JFactory::getLanguage();
         foreach ($neededFields as $field) {
 
-            //This is a special test for the virtuemart_state_id. There is the speciality that the virtuemart_state_id could be 0 but is valid.
-            if ($field->name == 'virtuemart_state_id') {
-                if (!class_exists('VirtueMartModelState')) require(VMPATH_ADMIN . DS . 'models' . DS . 'state.php');
-                if (!empty($data['virtuemart_country_id'])) {
-                    if (!isset($data['virtuemart_state_id'])) $data['virtuemart_state_id'] = 0;
+            //This is a special test for the tsmart_state_id. There is the speciality that the tsmart_state_id could be 0 but is valid.
+            if ($field->name == 'tsmart_state_id') {
+                if (!class_exists('tsmartModelState')) require(VMPATH_ADMIN . DS . 'models' . DS . 'state.php');
+                if (!empty($data['tsmart_country_id'])) {
+                    if (!isset($data['tsmart_state_id'])) $data['tsmart_state_id'] = 0;
 
-                    if (!$msg = VirtueMartModelState::testStateCountry($data['virtuemart_country_id'], $data['virtuemart_state_id'])) {
+                    if (!$msg = tsmartModelState::testStateCountry($data['tsmart_country_id'], $data['tsmart_state_id'])) {
                         //The state is invalid, so we set the state 0 here.
-                        $data['virtuemart_state_id'] = 0;
-                        vmdebug('State was not fitting to country, set virtuemart_state_id to 0');
-                    } else if (empty($data['virtuemart_state_id'])) {
-                        vmdebug('virtuemart_state_id is empty, but valid (country has not states, set to unrequired');
+                        $data['tsmart_state_id'] = 0;
+                        vmdebug('State was not fitting to country, set tsmart_state_id to 0');
+                    } else if (empty($data['tsmart_state_id'])) {
+                        vmdebug('tsmart_state_id is empty, but valid (country has not states, set to unrequired');
                         $field->required = false;
                     } else {
-                        //vmdebug('validateUserData my country '.$data['virtuemart_country_id'].' my state '.$data['virtuemart_state_id']);
+                        //vmdebug('validateUserData my country '.$data['tsmart_country_id'].' my state '.$data['tsmart_state_id']);
                     }
                 }
             }
@@ -1251,7 +1251,7 @@ class VirtueMartModelUser extends VmModel
 
     function _prepareUserFields(&$data, $type, $userinfo = 0)
     {
-        if (!class_exists('VirtueMartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
+        if (!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
         $userFieldsModel = VmModel::getModel('userfields');
 
         if ($type == 'ST') {
@@ -1303,7 +1303,7 @@ class VirtueMartModelUser extends VmModel
             vmdebug('getBTuserinfo_id is ' . $this->_id);
         }
 
-        $q = 'SELECT `virtuemart_userinfo_id` FROM `#__virtuemart_userinfos` WHERE `virtuemart_user_id` = "' . (int)$id . '" AND `address_type`="BT" ';
+        $q = 'SELECT `tsmart_userinfo_id` FROM `#__tsmart_userinfos` WHERE `tsmart_user_id` = "' . (int)$id . '" AND `address_type`="BT" ';
         $db->setQuery($q);
         return $db->loadResult();
     }
@@ -1315,8 +1315,8 @@ class VirtueMartModelUser extends VmModel
     function getUserInfoInUserFields($layoutName, $type, $uid, $cart = true, $isVendor = false)
     {
 
-        // 		if(!class_exists('VirtueMartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php' );
-        // 		$userFieldsModel = new VirtuemartModelUserfields();
+        // 		if(!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN.DS.'models'.DS.'userfields.php' );
+        // 		$userFieldsModel = new tsmartModelUserfields();
         $userFieldsModel = VmModel::getModel('userfields');
         $prepareUserFields = $userFieldsModel->getUserFieldsFor($layoutName, $type);
 
@@ -1342,11 +1342,11 @@ class VirtueMartModelUser extends VmModel
             $dataT = $this->getTable('userinfos');
             $data = $dataT->load($uid);
 
-            if ($data->virtuemart_user_id !== 0 and !$isVendor) {
+            if ($data->tsmart_user_id !== 0 and !$isVendor) {
 
                 $user = JFactory::getUser();
                 if (!vmAccess::manager()) {
-                    if ($data->virtuemart_user_id != $this->_id) {
+                    if ($data->tsmart_user_id != $this->_id) {
                         vmError('Blocked attempt loading userinfo, you got logged');
                         echo 'Hacking attempt loading userinfo, you got logged';
                         return false;
@@ -1368,9 +1368,9 @@ class VirtueMartModelUser extends VmModel
             //New Address is filled here with the data of the cart (we are in the userview)
             if ($cart) {
 
-                if (!class_exists('VirtueMartCart'))
+                if (!class_exists('tsmartCart'))
                     require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-                $cart = VirtueMartCart::getCart();
+                $cart = tsmartCart::getCart();
                 $adType = $type . 'address';
 
                 if (empty($cart->$adType)) {
@@ -1387,8 +1387,8 @@ class VirtueMartModelUser extends VmModel
                         if (empty($data['username'])) {
                             $data['username'] = $JUser->username;
                         }
-                        if (empty($data['virtuemart_user_id'])) {
-                            $data['virtuemart_user_id'] = $JUser->id;
+                        if (empty($data['tsmart_user_id'])) {
+                            $data['tsmart_user_id'] = $JUser->id;
                         }
                     }
                     $data = (object)$data;
@@ -1406,8 +1406,8 @@ class VirtueMartModelUser extends VmModel
                     if (empty($data['username'])) {
                         $data['username'] = $JUser->username;
                     }
-                    if (empty($data['virtuemart_user_id'])) {
-                        $data['virtuemart_user_id'] = $JUser->id;
+                    if (empty($data['tsmart_user_id'])) {
+                        $data['tsmart_user_id'] = $JUser->id;
                     }
                     $data = (object)$data;
                 }
@@ -1416,7 +1416,7 @@ class VirtueMartModelUser extends VmModel
 
         if (empty($data)) {
             vmdebug('getUserInfoInUserFields $data empty', $uid, $data);
-            $cart = VirtueMartCart::getCart();
+            $cart = tsmartCart::getCart();
             $data = $cart->BT;
         }
 
@@ -1438,7 +1438,7 @@ class VirtueMartModelUser extends VmModel
     function storeUserDataByFields($data, $type, $toggles, $skips)
     {
 
-        if (!class_exists('VirtueMartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
+        if (!class_exists('tsmartModelUserfields')) require(VMPATH_ADMIN . DS . 'models' . DS . 'userfields.php');
         $userFieldsModel = VmModel::getModel('userfields');
 
         $prepareUserFields = $userFieldsModel->getUserFields(
@@ -1551,7 +1551,7 @@ class VirtueMartModelUser extends VmModel
 
         if (isset($tsmart_userinfo_id) and $this->_id != 0) {
             //$userModel -> deleteAddressST();
-            $q = 'DELETE FROM #__virtuemart_userinfos  WHERE virtuemart_user_id="' . $this->_id . '" AND virtuemart_userinfo_id="' . (int)$tsmart_userinfo_id . '"';
+            $q = 'DELETE FROM #__tsmart_userinfos  WHERE tsmart_user_id="' . $this->_id . '" AND tsmart_userinfo_id="' . (int)$tsmart_userinfo_id . '"';
             $db->setQuery($q);
             if ($db->execute()) {
                 vmInfo('Address has been successfully deleted.');
@@ -1571,7 +1571,7 @@ class VirtueMartModelUser extends VmModel
     {
 
         //$select = ' * ';
-        //$joinedTables = ' FROM #__users AS ju LEFT JOIN #__virtuemart_vmusers AS vmu ON ju.id = vmu.virtuemart_user_id';
+        //$joinedTables = ' FROM #__users AS ju LEFT JOIN #__tsmart_vmusers AS vmu ON ju.id = vmu.tsmart_user_id';
         $search = vRequest::getString('search', false);
         $tableToUse = vRequest::getString('searchTable', 'juser');
 
@@ -1624,19 +1624,19 @@ class VirtueMartModelUser extends VmModel
         }
 
         $joinedTables = ' FROM #__users AS ju
-			LEFT JOIN #__virtuemart_vmusers AS vmu ON ju.id = vmu.virtuemart_user_id
-			LEFT JOIN #__virtuemart_vmuser_shoppergroups AS vx ON ju.id = vx.virtuemart_user_id
-			LEFT JOIN #__virtuemart_shoppergroups AS sg ON vx.virtuemart_shoppergroup_id = sg.virtuemart_shoppergroup_id ';
+			LEFT JOIN #__tsmart_vmusers AS vmu ON ju.id = vmu.tsmart_user_id
+			LEFT JOIN #__tsmart_vmuser_shoppergroups AS vx ON ju.id = vx.tsmart_user_id
+			LEFT JOIN #__tsmart_shoppergroups AS sg ON vx.tsmart_shoppergroup_id = sg.tsmart_shoppergroup_id ';
         if ($search and $tableToUse != 'juser') {
-            $joinedTables .= ' LEFT JOIN #__virtuemart_userinfos AS ui ON ui.virtuemart_user_id = vmu.virtuemart_user_id';
+            $joinedTables .= ' LEFT JOIN #__tsmart_userinfos AS ui ON ui.tsmart_user_id = vmu.tsmart_user_id';
         }
 
         $whereAnd = array();
         if (VmConfig::get('multixcart', 0) == 'byvendor') {
             $superVendor = vmAccess::isSuperVendor();
             if ($superVendor > 1) {
-                $joinedTables .= ' LEFT JOIN #__virtuemart_vendor_users AS vu ON ju.id = vmu.virtuemart_user_id';
-                $whereAnd[] = ' vu.virtuemart_vendor_id = ' . $superVendor . ' ';
+                $joinedTables .= ' LEFT JOIN #__tsmart_vendor_users AS vu ON ju.id = vmu.tsmart_user_id';
+                $whereAnd[] = ' vu.tsmart_vendor_id = ' . $superVendor . ' ';
             }
         }
 
@@ -1665,16 +1665,16 @@ class VirtueMartModelUser extends VmModel
             if (!empty($search)) {
                 $search = ' WHERE (`name` LIKE "%' . $search . '%" OR `username` LIKE "%' . $search . '%" OR `customer_number` LIKE "%' . $search . '%")';
             } else if ($superVendor != 1) {
-                $search = ' WHERE vu.virtuemart_vendor_id = ' . $superVendor . ' ';
+                $search = ' WHERE vu.tsmart_vendor_id = ' . $superVendor . ' ';
             }
 
             $q = 'SELECT ju.`id`,`name`,`username` FROM `#__users` as ju';
 
             if ($superVendor != 1 or !empty($search)) {
-                $q .= ' LEFT JOIN #__virtuemart_vmusers AS vmu ON vmu.virtuemart_user_id = ju.id';
+                $q .= ' LEFT JOIN #__tsmart_vmusers AS vmu ON vmu.tsmart_user_id = ju.id';
                 if ($superVendor != 1) {
-                    $q .= ' LEFT JOIN #__virtuemart_vendor_users AS vu ON vu.virtuemart_user_id = ju.id';
-                    $search .= ' AND ( vmu.user_is_vendor = 0 OR (vmu.virtuemart_vendor_id) IS NULL)';
+                    $q .= ' LEFT JOIN #__tsmart_vendor_users AS vu ON vu.tsmart_user_id = ju.id';
+                    $search .= ' AND ( vmu.user_is_vendor = 0 OR (vmu.tsmart_vendor_id) IS NULL)';
                 }
             }
             $current = JFactory::getUser();
@@ -1749,19 +1749,19 @@ class VirtueMartModelUser extends VmModel
      * Retrieve a single address for a user
      *
      * @param $_uid int User ID
-     * @param $_virtuemart_userinfo_id string Optional User Info ID
+     * @param $_tsmart_userinfo_id string Optional User Info ID
      * @param $_type string, addess- type, ST (ShipTo, default) or BT (BillTo). Empty string to ignore
      */
-    function getUserAddressList($_uid = 0, $_type = 'ST', $_virtuemart_userinfo_id = -1)
+    function getUserAddressList($_uid = 0, $_type = 'ST', $_tsmart_userinfo_id = -1)
     {
 
         //Todo, add perms, allow admin to see 0 entries.
         if ($_uid == 0 and $this->_id == 0) {
             return array();
         }
-        $_q = 'SELECT * FROM #__virtuemart_userinfos  WHERE virtuemart_user_id="' . (($_uid == 0) ? $this->_id : (int)$_uid) . '"';
-        if ($_virtuemart_userinfo_id !== -1) {
-            $_q .= ' AND virtuemart_userinfo_id="' . (int)$_virtuemart_userinfo_id . '"';
+        $_q = 'SELECT * FROM #__tsmart_userinfos  WHERE tsmart_user_id="' . (($_uid == 0) ? $this->_id : (int)$_uid) . '"';
+        if ($_tsmart_userinfo_id !== -1) {
+            $_q .= ' AND tsmart_userinfo_id="' . (int)$_tsmart_userinfo_id . '"';
         } else {
             if ($_type !== '') {
                 $_q .= ' AND address_type="' . $_type . '"';
@@ -1782,8 +1782,8 @@ class VirtueMartModelUser extends VmModel
     public function getCustomerNumberById()
     {
         if ($this->customer_number === 0) {
-            $_q = "SELECT `customer_number` FROM `#__virtuemart_vmusers` "
-                . "WHERE `virtuemart_user_id`='" . $this->_id . "' ";
+            $_q = "SELECT `customer_number` FROM `#__tsmart_vmusers` "
+                . "WHERE `tsmart_user_id`='" . $this->_id . "' ";
             $_r = $this->_getList($_q);
 
             if (!empty($_r[0])) {

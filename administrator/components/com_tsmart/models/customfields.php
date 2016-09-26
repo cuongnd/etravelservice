@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved by the author.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,11 +24,11 @@ if (!class_exists ('VmModel')) {
 }
 
 /**
- * Model for VirtueMart Customs Fields
+ * Model for tsmart Customs Fields
  *
- * @package        VirtueMart
+ * @package        tsmart
  */
-class VirtueMartModelCustomfields extends VmModel {
+class tsmartModelCustomfields extends VmModel {
 
 	/** @var array For roundable values */
 	static $dimensions = array('product_length','product_width','product_height','product_weight');
@@ -41,12 +41,12 @@ class VirtueMartModelCustomfields extends VmModel {
 	 */
 	function __construct () {
 
-		parent::__construct ('virtuemart_customfield_id');
+		parent::__construct ('tsmart_customfield_id');
 		$this->setMainTable ('product_customfields');
 	}
 
 	/**
-	 * Gets a single custom by virtuemart_customfield_id
+	 * Gets a single custom by tsmart_customfield_id
 	 *
 	 * @param string $type
 	 * @param string $mime mime type of custom, use for exampel image
@@ -60,11 +60,11 @@ class VirtueMartModelCustomfields extends VmModel {
 
 	public static function getProductCustomSelectFieldList(){
 
-		$q = 'SELECT c.`virtuemart_custom_id`, c.`custom_parent_id`, c.`virtuemart_vendor_id`, c.`custom_jplugin_id`, c.`custom_element`, c.`admin_only`, c.`custom_title`, c.`show_title` , c.`custom_tip`,
+		$q = 'SELECT c.`tsmart_custom_id`, c.`custom_parent_id`, c.`tsmart_vendor_id`, c.`custom_jplugin_id`, c.`custom_element`, c.`admin_only`, c.`custom_title`, c.`show_title` , c.`custom_tip`,
 		c.`custom_value`, c.`custom_desc`, c.`field_type`, c.`is_list`, c.`is_hidden`, c.`is_cart_attribute`, c.`is_input`, c.`layout_pos`, c.`custom_params`, c.`shared`, c.`published`, c.`ordering`, ';
-		$q .= 'field.`virtuemart_customfield_id`, field.`virtuemart_product_id`, field.`customfield_value`, field.`customfield_price`,
+		$q .= 'field.`tsmart_customfield_id`, field.`tsmart_product_id`, field.`customfield_value`, field.`customfield_price`,
 		field.`customfield_params`, field.`published` as fpublished, field.`override`, field.`disabler`, field.`ordering`
-		FROM `#__virtuemart_customs` AS c LEFT JOIN `#__virtuemart_product_customfields` AS field ON c.`virtuemart_custom_id` = field.`virtuemart_custom_id` ';
+		FROM `#__tsmart_customs` AS c LEFT JOIN `#__tsmart_product_customfields` AS field ON c.`tsmart_custom_id` = field.`tsmart_custom_id` ';
 		return $q;
 	}
 
@@ -75,14 +75,14 @@ class VirtueMartModelCustomfields extends VmModel {
 
 		if(!isset($_customFieldById[$tsmart_customfield_id])){
 			$db= JFactory::getDBO ();
-			$q = VirtueMartModelCustomfields::getProductCustomSelectFieldList();
+			$q = tsmartModelCustomfields::getProductCustomSelectFieldList();
 			if($tsmart_customfield_id){
-				$q .= ' WHERE `virtuemart_customfield_id` ="' . (int)$tsmart_customfield_id . '"';
+				$q .= ' WHERE `tsmart_customfield_id` ="' . (int)$tsmart_customfield_id . '"';
 			}
 			$db->setQuery ($q);
 			$_customFieldById[$tsmart_customfield_id] = $db->loadObject ();
 			if($_customFieldById[$tsmart_customfield_id]){
-				VirtueMartModelCustomfields::bindCustomEmbeddedFieldParams($_customFieldById[$tsmart_customfield_id],$_customFieldById[$tsmart_customfield_id]->field_type);
+				tsmartModelCustomfields::bindCustomEmbeddedFieldParams($_customFieldById[$tsmart_customfield_id],$_customFieldById[$tsmart_customfield_id]->field_type);
 			}
 		}
 
@@ -93,7 +93,7 @@ class VirtueMartModelCustomfields extends VmModel {
 
 		$app = JFactory::getApplication();
 		$db= JFactory::getDBO ();
-		$q = VirtueMartModelCustomfields::getProductCustomSelectFieldList();
+		$q = tsmartModelCustomfields::getProductCustomSelectFieldList();
 
 		static $_customFieldByProductId = array();
 
@@ -110,15 +110,15 @@ class VirtueMartModelCustomfields extends VmModel {
 		}
 
 		if(is_array($productIds) and count($productIds)>0){
-			$q .= 'WHERE `virtuemart_product_id` IN ('.implode(',', $productIds).')';
+			$q .= 'WHERE `tsmart_product_id` IN ('.implode(',', $productIds).')';
 		} else if(!empty($productIds)){
-			$q .= 'WHERE `virtuemart_product_id` = "'.$productIds.'" ';
+			$q .= 'WHERE `tsmart_product_id` = "'.$productIds.'" ';
 		} else {
 			return $productCustomsCached;
 		}
 		if(!empty($tsmart_custom_id)){
 			if(is_numeric($tsmart_custom_id)){
-				$q .= ' AND c.`virtuemart_custom_id`= "' . (int)$tsmart_custom_id.'" ';
+				$q .= ' AND c.`tsmart_custom_id`= "' . (int)$tsmart_custom_id.'" ';
 			} else {
 				$tsmart_custom_id = substr($tsmart_custom_id,0,1); //just in case
 				$q .= ' AND c.`field_type`= "' .$tsmart_custom_id.'" ';
@@ -136,10 +136,10 @@ class VirtueMartModelCustomfields extends VmModel {
 			$q .= ' ORDER BY field.`ordering` ASC';
 		} else {
 			if($forcefront or $app->isSite()){
-				//$q .= ' GROUP BY c.`virtuemart_custom_id`';
+				//$q .= ' GROUP BY c.`tsmart_custom_id`';
 			}
 
-			$q .= ' ORDER BY field.`ordering`,`virtuemart_custom_id` ASC';
+			$q .= ' ORDER BY field.`ordering`,`tsmart_custom_id` ASC';
 		}
 
 		$db->setQuery ($q);
@@ -150,7 +150,7 @@ class VirtueMartModelCustomfields extends VmModel {
 		}
 
 		foreach($productCustoms as $customfield){
-			$hkey = (int)$customfield->virtuemart_product_id.$hashCwAttribute;
+			$hkey = (int)$customfield->tsmart_product_id.$hashCwAttribute;
 			$_customFieldByProductId[$hkey][] = $customfield;
 		}
 
@@ -167,17 +167,17 @@ class VirtueMartModelCustomfields extends VmModel {
 					$customfield_override_ids[] = $field->disabler;
 				}
 
-				$customfield_ids[] = $field->virtuemart_customfield_id;
+				$customfield_ids[] = $field->tsmart_customfield_id;
 			}
 			$tsmart_customfield_ids = array_unique( array_diff($customfield_ids,$customfield_override_ids));
 
 			foreach ($productCustoms as $k =>$field) {
-				if(in_array($field->virtuemart_customfield_id,$tsmart_customfield_ids)){
+				if(in_array($field->tsmart_customfield_id,$tsmart_customfield_ids)){
 
 					if($forcefront and $field->disabler){
 						unset($productCustoms[$k]);
 					} else {
-						VirtueMartModelCustomfields::bindCustomEmbeddedFieldParams($field,$field->field_type);
+						tsmartModelCustomfields::bindCustomEmbeddedFieldParams($field,$field->field_type);
 					}
 
 				} else{
@@ -194,7 +194,7 @@ class VirtueMartModelCustomfields extends VmModel {
 	static function bindCustomEmbeddedFieldParams(&$obj,$fieldtype){
 
 		//vmdebug('bindCustomEmbeddedFieldParams begin',$obj);
-		if(!class_exists('VirtueMartModelCustom')) require(VMPATH_ADMIN.DS.'models'.DS.'custom.php');
+		if(!class_exists('tsmartModelCustom')) require(VMPATH_ADMIN.DS.'models'.DS.'custom.php');
 
 		if ($obj->field_type == 'E') {
 			JPluginHelper::importPlugin ('vmcustom');
@@ -205,7 +205,7 @@ class VirtueMartModelCustomfields extends VmModel {
 				if(empty($obj->_varsToPushParamCustomField)) $obj->_varsToPushParamCustomField = $obj->_varsToPushParam;
 			}
 		} else {
-			$obj->_varsToPushParamCustom = VirtueMartModelCustom::getVarsToPush($fieldtype);
+			$obj->_varsToPushParamCustom = tsmartModelCustom::getVarsToPush($fieldtype);
 			$obj->_varsToPushParam = $obj->_varsToPushParamCustomField = $obj->_varsToPushParamCustom;
 			//vmdebug('my $obj->_varsToPushParamCustom',$obj->_varsToPushParamCustomField);
 		}
@@ -250,21 +250,21 @@ class VirtueMartModelCustomfields extends VmModel {
 		}
 		$linkLabel = $line['parent_id'] .'->'. $line['vm_product_id'].' ';
 		$html = '<tr class="row'.(($i+1)%2).'">';
-		$html .= '<td>'.JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $linkLabel.$child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.$child->slug)).'</td>';
-		if($showSku) $html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->virtuemart_product_id.'][product_sku]" id="child'.$child->virtuemart_product_id.'product_sku" size="20" maxlength="64" value="'.$child->product_sku .'" /></td>';
-		$html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->virtuemart_product_id.'][product_gtin]" id="child'.$child->virtuemart_product_id.'product_gtin" size="13" maxlength="13" value="'.$child->product_gtin .'" /></td>';
-		/*$html .= 	'<input type="hidden" name="childs['.$child->virtuemart_product_id .'][product_name]" id="child'.$child->virtuemart_product_id .'product_name" value="'.$child->product_name .'" />
-					<input type="hidden" name="childs['.$child->virtuemart_product_id .'][slug]" id="child'.$child->virtuemart_product_id .'slug" value="'.$child->slug .'" />
-					<input type="hidden" name="childs['.$child->virtuemart_product_id .'][product_parent_id]" id="child'.$child->virtuemart_product_id .'parent" value="'.$child->product_parent_id .'" />';
+		$html .= '<td>'.JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id='.$child->tsmart_product_id), $linkLabel.$child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.$child->slug)).'</td>';
+		if($showSku) $html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->tsmart_product_id.'][product_sku]" id="child'.$child->tsmart_product_id.'product_sku" size="20" maxlength="64" value="'.$child->product_sku .'" /></td>';
+		$html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->tsmart_product_id.'][product_gtin]" id="child'.$child->tsmart_product_id.'product_gtin" size="13" maxlength="13" value="'.$child->product_gtin .'" /></td>';
+		/*$html .= 	'<input type="hidden" name="childs['.$child->tsmart_product_id .'][product_name]" id="child'.$child->tsmart_product_id .'product_name" value="'.$child->product_name .'" />
+					<input type="hidden" name="childs['.$child->tsmart_product_id .'][slug]" id="child'.$child->tsmart_product_id .'slug" value="'.$child->slug .'" />
+					<input type="hidden" name="childs['.$child->tsmart_product_id .'][product_parent_id]" id="child'.$child->tsmart_product_id .'parent" value="'.$child->product_parent_id .'" />';
 		*/
 		//$html .= 	$child->product_name .'</td>';
 		//$html .=	'<td>'.$child->allPrices[$child->selectedPrice]['product_price'] .'</td>';
-		$html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->virtuemart_product_id.'][mprices][product_price][]" size="8" value="'. $child->allPrices[$child->selectedPrice]['product_price'] .'" />
-		<input type="hidden" name="childs['. $child->virtuemart_product_id .'][mprices][virtuemart_product_price_id][]" value="'. $child->allPrices[$child->selectedPrice]['virtuemart_product_price_id'] .'"  ></td>';
+		$html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->tsmart_product_id.'][mprices][product_price][]" size="8" value="'. $child->allPrices[$child->selectedPrice]['product_price'] .'" />
+		<input type="hidden" name="childs['. $child->tsmart_product_id .'][mprices][tsmart_product_price_id][]" value="'. $child->allPrices[$child->selectedPrice]['tsmart_product_price_id'] .'"  ></td>';
 
 		//We dont want to update always the stock, this would lead to wrong stocks, if the store has activity, while the vendor is editing the product
-		//$html .= '<td><input '.$readonly.' '.$class.' type="text" name="childs['.$child->virtuemart_product_id.'][product_in_stock]" id="child'.$child->virtuemart_product_id.'product_in_stock" size="3" maxlength="6" value="'.$child->product_in_stock .'" /></td>';
-		//$html .= '<td><input '.$readonly.' '.$class.' type="text" name="childs['.$child->virtuemart_product_id.'][product_in_stock]" id="child'.$child->virtuemart_product_id.'product_in_stock" size="3" maxlength="6" value="'.$child->product_in_stock .'" /></td>';
+		//$html .= '<td><input '.$readonly.' '.$class.' type="text" name="childs['.$child->tsmart_product_id.'][product_in_stock]" id="child'.$child->tsmart_product_id.'product_in_stock" size="3" maxlength="6" value="'.$child->product_in_stock .'" /></td>';
+		//$html .= '<td><input '.$readonly.' '.$class.' type="text" name="childs['.$child->tsmart_product_id.'][product_in_stock]" id="child'.$child->tsmart_product_id.'product_in_stock" size="3" maxlength="6" value="'.$child->product_in_stock .'" /></td>';
 		$html .= '<td>'.$child->product_in_stock .'</td>';
 		$html .= '<td>'.$child->product_ordered.'</td>';
 
@@ -321,8 +321,8 @@ class VirtueMartModelCustomfields extends VmModel {
 		$field->customfield_price = empty($field->customfield_price) ? 0 : $field->customfield_price;
 
 		if(is_object($product)){
-			$product_id = $product->virtuemart_product_id;
-			$tsmart_vendor_id = $product->virtuemart_vendor_id;
+			$product_id = $product->tsmart_product_id;
+			$tsmart_vendor_id = $product->tsmart_vendor_id;
 		} else {
 
 			$product_id = $product;
@@ -333,8 +333,8 @@ class VirtueMartModelCustomfields extends VmModel {
 		//the option "is_cart_attribute" gives the possibility to set a price, there is no sense to set a price,
 		//if the custom is not stored in the order.
 		if ($field->is_input) {
-			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-			if(!class_exists('VirtueMartModelCurrency')) require(VMPATH_ADMIN.DS.'models'.DS.'currency.php');
+			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			if(!class_exists('tsmartModelCurrency')) require(VMPATH_ADMIN.DS.'models'.DS.'currency.php');
 			$vendor_model = VmModel::getModel('vendor');
 			//$tsmart_vendor_id = 1;
 			$vendor = $vendor_model->getVendor($tsmart_vendor_id);
@@ -355,7 +355,7 @@ class VirtueMartModelCustomfields extends VmModel {
 				//if(!isset($field->parentOrderable)) $field->parentOrderable = 0;
 				//vmdebug('displayProductCustomfieldBE',$field,$product);
 
-				if(!empty($product->product_parent_id) and $product->product_parent_id==$field->virtuemart_product_id){
+				if(!empty($product->product_parent_id) and $product->product_parent_id==$field->tsmart_product_id){
 					return 'controlled by parent';
 				}
 
@@ -528,7 +528,7 @@ class VirtueMartModelCustomfields extends VmModel {
 	");
 
 				if ($product_id) {
-					$link=JRoute::_('index.php?option=com_tsmart&view=product&task=createChild&virtuemart_product_id='.$product_id.'&'.JSession::getFormToken().'=1&target=parent' );
+					$link=JRoute::_('index.php?option=com_tsmart&view=product&task=createChild&tsmart_product_id='.$product_id.'&'.JSession::getFormToken().'=1&target=parent' );
 					$add_child_button="";
 				} else {
 					$link="";
@@ -654,8 +654,8 @@ class VirtueMartModelCustomfields extends VmModel {
 					return $html;
 				} else {
 					if(empty($field->custom_value)){
-						$q = 'SELECT `virtuemart_media_id` as value,`file_title` as text FROM `#__virtuemart_medias` WHERE `published`=1
-					AND (`virtuemart_vendor_id`= "' . $tsmart_vendor_id . '" OR `shared` = "1")';
+						$q = 'SELECT `tsmart_media_id` as value,`file_title` as text FROM `#__tsmart_medias` WHERE `published`=1
+					AND (`tsmart_vendor_id`= "' . $tsmart_vendor_id . '" OR `shared` = "1")';
 						$db = JFactory::getDBO();
 						$db->setQuery ($q);
 						$options = $db->loadObjectList ();
@@ -722,12 +722,12 @@ class VirtueMartModelCustomfields extends VmModel {
 					return '';
 				} // special case it's category ID !
 
-				$q = 'SELECT * FROM `#__virtuemart_categories_' . VmConfig::$vmlang . '` INNER JOIN `#__virtuemart_categories` AS p using (`virtuemart_category_id`) WHERE `virtuemart_category_id`= "' . (int)$field->customfield_value . '" ';
+				$q = 'SELECT * FROM `#__tsmart_categories_' . VmConfig::$vmlang . '` INNER JOIN `#__tsmart_categories` AS p using (`tsmart_category_id`) WHERE `tsmart_category_id`= "' . (int)$field->customfield_value . '" ';
 				$db = JFactory::getDBO();
 				$db->setQuery ($q);
 				//echo $db->_sql;
 				if ($category = $db->loadObject ()) {
-					$q = 'SELECT `virtuemart_media_id` FROM `#__virtuemart_category_medias` WHERE `virtuemart_category_id`= "' . (int)$field->customfield_value . '" ';
+					$q = 'SELECT `tsmart_media_id` FROM `#__tsmart_category_medias` WHERE `tsmart_category_id`= "' . (int)$field->customfield_value . '" ';
 					$db->setQuery ($q);
 					$thumb = '';
 					if ($media_id = $db->loadResult ()) {
@@ -750,14 +750,14 @@ class VirtueMartModelCustomfields extends VmModel {
 
 				$pModel = VmModel::getModel('product');
 				$related = $pModel->getProduct((int)$field->customfield_value,TRUE,FALSE,FALSE,1);
-				if (!empty($related->virtuemart_media_id[0])) {
-					$thumb = $this->displayCustomMedia ($related->virtuemart_media_id[0]).' ';
+				if (!empty($related->tsmart_media_id[0])) {
+					$thumb = $this->displayCustomMedia ($related->tsmart_media_id[0]).' ';
 				} else {
 					$thumb = $this->displayCustomMedia (0).' ';
 				}
 				$display = '<input type="hidden" value="' . $field->customfield_value . '" name="field[' . $row . '][customfield_value]" />';
 				$display .= '<span class="custom_related_image">'.$thumb.'</span><span class="custom_related_title">';
-				$display .= JHtml::link ('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $related->virtuemart_product_id , $related->product_name, array('title' => $related->product_name,'target'=>'blank')).'</span>';
+				$display .= JHtml::link ('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $related->tsmart_product_id , $related->product_name, array('title' => $related->product_name,'target'=>'blank')).'</span>';
 				return $display;
 
 		}
@@ -791,9 +791,9 @@ class VirtueMartModelCustomfields extends VmModel {
 			}
 		}
 
-		VirtueMartCustomFieldRenderer::renderCustomfieldsFE($product, $customfields, $tsmart_category_id);
+		tsmartCustomFieldRenderer::renderCustomfieldsFE($product, $customfields, $tsmart_category_id);
 		//renderCustomfieldsFE($product, $customfields, $tsmart_category_id);
-		//shopFunctionsF::renderVmSubLayout('customfield',array('product' => &$product, 'customfields' => &$customfields, 'virtuemart_category_id' => $tsmart_category_id,'dimensions' => self::$dimensions));
+		//shopFunctionsF::renderVmSubLayout('customfield',array('product' => &$product, 'customfields' => &$customfields, 'tsmart_category_id' => $tsmart_category_id,'dimensions' => self::$dimensions));
 	}
 	/**
 	 * There are too many functions doing almost the same for my taste
@@ -816,7 +816,7 @@ class VirtueMartModelCustomfields extends VmModel {
 			}
 		}
 
-		return VirtueMartCustomFieldRenderer::renderCustomfieldsCart($product, $html, $trigger);
+		return tsmartCustomFieldRenderer::renderCustomfieldsCart($product, $html, $trigger);
 	}
 
 
@@ -839,7 +839,7 @@ class VirtueMartModelCustomfields extends VmModel {
 	 * render custom fields display order BE/FE
 	 */
 	static public function CustomsFieldOrderDisplay ($item, $view = 'FE', $absUrl = FALSE) {
-		if(empty($item->virtuemart_product_id)) return false;
+		if(empty($item->tsmart_product_id)) return false;
 		if (!empty($item->product_attribute)) {
 			$item->customProductData = json_decode ($item->product_attribute, TRUE);
 		}
@@ -895,21 +895,21 @@ class VirtueMartModelCustomfields extends VmModel {
 					$selected = -1;
 
 					if(isset($product->cart_item_id)) {
-						if(!class_exists( 'VirtueMartCart' ))
+						if(!class_exists( 'tsmartCart' ))
 							require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
-						$cart = VirtueMartCart::getCart();
+						$cart = tsmartCart::getCart();
 
-						//vmdebug('my $productCustom->customfield_price '.$productCustom->virtuemart_customfield_id,$cart->cartProductsData,$cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->virtuemart_custom_id]);
-						if(isset($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->virtuemart_custom_id][$productCustom->virtuemart_customfield_id])) {
-							$selected = $cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->virtuemart_custom_id][$productCustom->virtuemart_customfield_id];
+						//vmdebug('my $productCustom->customfield_price '.$productCustom->tsmart_customfield_id,$cart->cartProductsData,$cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->tsmart_custom_id]);
+						if(isset($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->tsmart_custom_id][$productCustom->tsmart_customfield_id])) {
+							$selected = $cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->tsmart_custom_id][$productCustom->tsmart_customfield_id];
 
-						} else if(isset($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->virtuemart_custom_id])) {
-							if($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->virtuemart_custom_id] == $productCustom->virtuemart_customfield_id) {
-								$selected = $productCustom->virtuemart_customfield_id;    //= 1;
+						} else if(isset($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->tsmart_custom_id])) {
+							if($cart->cartProductsData[$product->cart_item_id]['customProductData'][$productCustom->tsmart_custom_id] == $productCustom->tsmart_customfield_id) {
+								$selected = $productCustom->tsmart_customfield_id;    //= 1;
 
 							}
 						}
-						//vmdebug('my $productCustom->customfield_price',$selected,$productCustom->virtuemart_custom_id,$productCustom->virtuemart_customfield_id,$cart->cartProductsData[$product->cart_item_id]['customProductData']);
+						//vmdebug('my $productCustom->customfield_price',$selected,$productCustom->tsmart_custom_id,$productCustom->tsmart_customfield_id,$cart->cartProductsData[$product->cart_item_id]['customProductData']);
 					} else {
 
 						$pluginFields = vRequest::getVar( 'customProductData', NULL );
@@ -918,10 +918,10 @@ class VirtueMartModelCustomfields extends VmModel {
 							$pluginFields = json_decode( $product->customPlugin, TRUE );
 						}
 
-						if(isset($pluginFields[$product->virtuemart_product_id][$productCustom->virtuemart_custom_id][$productCustom->virtuemart_customfield_id])) {
-							$selected = $pluginFields[$product->virtuemart_product_id][$productCustom->virtuemart_custom_id][$productCustom->virtuemart_customfield_id];
-						} else if(isset($pluginFields[$product->virtuemart_product_id][$productCustom->virtuemart_custom_id])) {
-							if($pluginFields[$product->virtuemart_product_id][$productCustom->virtuemart_custom_id] == $productCustom->virtuemart_customfield_id) {
+						if(isset($pluginFields[$product->tsmart_product_id][$productCustom->tsmart_custom_id][$productCustom->tsmart_customfield_id])) {
+							$selected = $pluginFields[$product->tsmart_product_id][$productCustom->tsmart_custom_id][$productCustom->tsmart_customfield_id];
+						} else if(isset($pluginFields[$product->tsmart_product_id][$productCustom->tsmart_custom_id])) {
+							if($pluginFields[$product->tsmart_product_id][$productCustom->tsmart_custom_id] == $productCustom->tsmart_customfield_id) {
 								$selected = 1;
 							}
 						}
@@ -970,29 +970,29 @@ class VirtueMartModelCustomfields extends VmModel {
 
 		// Get old IDS
 		$db = JFactory::getDBO();
-		$db->setQuery( 'SELECT `virtuemart_customfield_id` FROM `#__virtuemart_'.$table.'_customfields` as `PC` WHERE `PC`.virtuemart_'.$table.'_id ='.$id );
+		$db->setQuery( 'SELECT `tsmart_customfield_id` FROM `#__tsmart_'.$table.'_customfields` as `PC` WHERE `PC`.tsmart_'.$table.'_id ='.$id );
 		$old_customfield_ids = $db->loadColumn();
 		if (array_key_exists('field', $datas)) {
 
 			foreach($datas['field'] as $key => $fields){
 
-				if(!empty($datas['field'][$key]['virtuemart_product_id']) and (int)$datas['field'][$key]['virtuemart_product_id']!=$id){
+				if(!empty($datas['field'][$key]['tsmart_product_id']) and (int)$datas['field'][$key]['tsmart_product_id']!=$id){
 					//aha the field is from the parent, what we do with it?
 					$fields['override'] = (int)$fields['override'];
 					$fields['disabler'] = (int)$fields['disabler'];
 					if($fields['override']!=0 or $fields['disabler']!=0){
-						//If it is set now as override, store it as clone, therefore set the virtuemart_customfield_id = 0
+						//If it is set now as override, store it as clone, therefore set the tsmart_customfield_id = 0
 						if($fields['override']!=0){
-							$fields['override'] = $fields['virtuemart_customfield_id'];
+							$fields['override'] = $fields['tsmart_customfield_id'];
 						}
 						if($fields['disabler']!=0){
-							$fields['disabler'] = $fields['virtuemart_customfield_id'];
+							$fields['disabler'] = $fields['tsmart_customfield_id'];
 						}
-						$fields['virtuemart_customfield_id'] = 0;
+						$fields['tsmart_customfield_id'] = 0;
 					}
 					else {
 						//we do not store customfields inherited by the parent, therefore
-						$key = array_search($fields['virtuemart_customfield_id'], $old_customfield_ids );
+						$key = array_search($fields['tsmart_customfield_id'], $old_customfield_ids );
 						if ($key !== false ){
 							unset( $old_customfield_ids[ $key ] );
 						}
@@ -1002,7 +1002,7 @@ class VirtueMartModelCustomfields extends VmModel {
 
 				if($fields['field_type']=='C'){
 					$cM = VmModel::getModel('custom');
-					$c = $cM->getCustom($fields['virtuemart_custom_id'],'');
+					$c = $cM->getCustom($fields['tsmart_custom_id'],'');
 
 					if(!empty($c->sCustomId)){
 
@@ -1017,7 +1017,7 @@ class VirtueMartModelCustomfields extends VmModel {
 						//for testing
 						foreach($fields['options'] as $prodId => $lvalue){
 							if($prodId == $id) continue;
-							$db->setQuery( 'SELECT `virtuemart_customfield_id` FROM `#__virtuemart_'.$table.'_customfields` as `PC` WHERE `PC`.virtuemart_'.$table.'_id ="'.$prodId.'" AND `virtuemart_custom_id`="'.$sCustId.'" '  );
+							$db->setQuery( 'SELECT `tsmart_customfield_id` FROM `#__tsmart_'.$table.'_customfields` as `PC` WHERE `PC`.tsmart_'.$table.'_id ="'.$prodId.'" AND `tsmart_custom_id`="'.$sCustId.'" '  );
 							$strIds = $db->loadColumn();
 							$i=0;
 							foreach($lvalue as $k=>$value) {
@@ -1025,10 +1025,10 @@ class VirtueMartModelCustomfields extends VmModel {
 								if(!empty($labels[$k])) {
 									$ts = array();
 									$ts['field_type'] = 'S';
-									$ts['virtuemart_product_id'] = $prodId;
-									$ts['virtuemart_custom_id'] = $sCustId;
+									$ts['tsmart_product_id'] = $prodId;
+									$ts['tsmart_custom_id'] = $sCustId;
 									if(isset($strIds[$i])){
-										$ts['virtuemart_customfield_id'] = $strIds[$i];
+										$ts['tsmart_customfield_id'] = $strIds[$i];
 										unset( $strIds[$i++] );
 									}
 									$ts['customfield_value'] = $value;
@@ -1040,28 +1040,28 @@ class VirtueMartModelCustomfields extends VmModel {
 
 							if(count($strIds)>0){
 								// delete old unused Customfields
-								$db->setQuery( 'DELETE FROM `#__virtuemart_'.$table.'_customfields` WHERE `virtuemart_customfield_id` in ("'.implode('","', $strIds ).'") ');
+								$db->setQuery( 'DELETE FROM `#__tsmart_'.$table.'_customfields` WHERE `tsmart_customfield_id` in ("'.implode('","', $strIds ).'") ');
 								$db->execute();
 							}
 						}
 					}
 				}
 
-				$fields['virtuemart_'.$table.'_id'] = $id;
+				$fields['tsmart_'.$table.'_id'] = $id;
 				$tableCustomfields = $this->getTable($table.'_customfields');
-				$tableCustomfields->setPrimaryKey('virtuemart_product_id');
+				$tableCustomfields->setPrimaryKey('tsmart_product_id');
 				if (!empty($datas['customfield_params'][$key]) and !isset($datas['clone']) ) {
 					if (array_key_exists( $key,$datas['customfield_params'])) {
 						$fields = array_merge ((array)$fields, (array)$datas['customfield_params'][$key]);
 					}
 				}
 				$tableCustomfields->_xParams = 'customfield_params';
-				if(!class_exists('VirtueMartModelCustom')) require(VMPATH_ADMIN.DS.'models'.DS.'custom.php');
-				VirtueMartModelCustom::setParameterableByFieldType($tableCustomfields,$fields['field_type'],$fields['custom_element'],$fields['custom_jplugin_id']);
+				if(!class_exists('tsmartModelCustom')) require(VMPATH_ADMIN.DS.'models'.DS.'custom.php');
+				tsmartModelCustom::setParameterableByFieldType($tableCustomfields,$fields['field_type'],$fields['custom_element'],$fields['custom_jplugin_id']);
 
 				$tableCustomfields->bindChecknStore($fields);
 
-				$key = array_search($fields['virtuemart_customfield_id'], $old_customfield_ids );
+				$key = array_search($fields['tsmart_customfield_id'], $old_customfield_ids );
 				if ($key !== false ) unset( $old_customfield_ids[ $key ] );
 
 			}
@@ -1071,7 +1071,7 @@ class VirtueMartModelCustomfields extends VmModel {
 		vmdebug('Delete $old_customfield_ids',$old_customfield_ids);
 		if ( count($old_customfield_ids) ) {
 			// delete old unused Customfields
-			$db->setQuery( 'DELETE FROM `#__virtuemart_'.$table.'_customfields` WHERE `virtuemart_customfield_id` in ("'.implode('","', $old_customfield_ids ).'") ');
+			$db->setQuery( 'DELETE FROM `#__tsmart_'.$table.'_customfields` WHERE `tsmart_customfield_id` in ("'.implode('","', $old_customfield_ids ).'") ');
 			$db->execute();
 			vmdebug('Deleted $old_customfield_ids',$old_customfield_ids);
 		}
@@ -1089,17 +1089,17 @@ class VirtueMartModelCustomfields extends VmModel {
 
 	static public function setEditCustomHidden ($customfield, $i) {
 
-		if (!isset($customfield->virtuemart_customfield_id))
-			$customfield->virtuemart_customfield_id = '0';
-		if (!isset($customfield->virtuemart_product_id))
-			$customfield->virtuemart_product_id = '';
+		if (!isset($customfield->tsmart_customfield_id))
+			$customfield->tsmart_customfield_id = '0';
+		if (!isset($customfield->tsmart_product_id))
+			$customfield->tsmart_product_id = '';
 		$html = '
 			<input type="hidden" value="' . $customfield->field_type . '" name="field[' . $i . '][field_type]" />
 			<input type="hidden" value="' . $customfield->custom_element . '" name="field[' . $i . '][custom_element]" />
 			<input type="hidden" value="' . $customfield->custom_jplugin_id . '" name="field[' . $i . '][custom_jplugin_id]" />
-			<input type="hidden" value="' . $customfield->virtuemart_custom_id . '" name="field[' . $i . '][virtuemart_custom_id]" />
-			<input type="hidden" value="' . $customfield->virtuemart_product_id . '" name="field[' . $i . '][virtuemart_product_id]" />
-			<input type="hidden" value="' . $customfield->virtuemart_customfield_id . '" name="field[' . $i . '][virtuemart_customfield_id]" />';
+			<input type="hidden" value="' . $customfield->tsmart_custom_id . '" name="field[' . $i . '][tsmart_custom_id]" />
+			<input type="hidden" value="' . $customfield->tsmart_product_id . '" name="field[' . $i . '][tsmart_product_id]" />
+			<input type="hidden" value="' . $customfield->tsmart_customfield_id . '" name="field[' . $i . '][tsmart_customfield_id]" />';
 			$html .= '<input class="ordering" type="hidden" value="'.$customfield->ordering.'" name="field['.$i .'][ordering]" />';
 		return $html;
 

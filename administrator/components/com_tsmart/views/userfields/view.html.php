@@ -3,13 +3,13 @@
 *
 * List/add/edit/remove Userfields
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Userfields
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of order types
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Userfields
  * @author Oscar van Eijk
  */
@@ -61,7 +61,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 
 			$this->ordering = ShopFunctions::renderOrderingList('userfields','name',$this->userField->ordering);
 
-			if ($this->userField->virtuemart_userfield_id < 1) { // Insert new userfield
+			if ($this->userField->tsmart_userfield_id < 1) { // Insert new userfield
 
 				$userFieldValues = array();
 				$attribs = '';
@@ -90,14 +90,14 @@ class TsmartViewUserfields extends tsmViewAdmin {
 			// Vendor selection
 			$this->lists['vendors'] = '';
 			if($this->showVendors()){
-				$lists['vendors']= ShopFunctions::renderVendorList($this->userField->virtuemart_vendor_id);
+				$lists['vendors']= ShopFunctions::renderVendorList($this->userField->tsmart_vendor_id);
 			}
 
 			// Shopper groups for EU VAT Id
 			$shoppergroup_model = VmModel::getModel('shoppergroup');
 			$shoppergroup_list = $shoppergroup_model->getShopperGroups(true);
 			array_unshift($shoppergroup_list,'0');
-			$lists['shoppergroups'] = JHtml::_('select.genericlist', $shoppergroup_list, 'virtuemart_shoppergroup_id', '', 'virtuemart_shoppergroup_id', 'shopper_group_name', $this->userField->get('virtuemart_shoppergroup_id'));
+			$lists['shoppergroups'] = JHtml::_('select.genericlist', $shoppergroup_list, 'tsmart_shoppergroup_id', '', 'tsmart_shoppergroup_id', 'shopper_group_name', $this->userField->get('tsmart_shoppergroup_id'));
 
 			// Minimum age select
 			$ages = array();

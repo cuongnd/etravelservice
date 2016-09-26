@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -20,8 +20,8 @@
 defined('_JEXEC') or die('Restricted access');
 $app=JFactory::getApplication();
 $input=$app->input;
-$tsmart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
-$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+$tsmart_itinerary_id=$input->getInt('tsmart_itinerary_id',0);
+$tsmart_product_id=$input->getInt('tsmart_product_id',0);
 ?>
 <div class="view-accommodation-edit">
     <form action="index.php" method="post" class="form-horizontal"  name="adminForm" id="adminForm">
@@ -37,7 +37,7 @@ $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
                     <div class="row-fluid">
                         <div class="span12">
                             <h4 class="pull-right"><?php echo $service_class->service_class_name ?></h4>
-                            <input type="hidden" name="virtuemart_service_class_id" value="<?php echo $service_class->virtuemart_service_class_id; ?>"/>
+                            <input type="hidden" name="tsmart_service_class_id" value="<?php echo $service_class->tsmart_service_class_id; ?>"/>
                         </div>
                     </div>
                     <div class="row-fluid">
@@ -47,7 +47,7 @@ $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
                             for($i=0;$i<2;$i++){
                                 $hotel_service_class=$list_hotel[$i];
                             ?>
-                            <?php echo VmHTML::select('list_hotel_service_class['.$service_class->virtuemart_service_class_id.']['.($hotel_service_class->id?"id:$hotel_service_class->id":'').']', $this->list_hotel,$hotel_service_class->virtuemart_hotel_id,'', 'virtuemart_hotel_id','hotel_name'); ?>
+                            <?php echo VmHTML::select('list_hotel_service_class['.$service_class->tsmart_service_class_id.']['.($hotel_service_class->id?"id:$hotel_service_class->id":'').']', $this->list_hotel,$hotel_service_class->tsmart_hotel_id,'', 'tsmart_hotel_id','hotel_name'); ?>
                                 <br/>
                             <?php } ?>
                         </div>
@@ -59,10 +59,10 @@ $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
             </div>
         </div>
 
-        <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-        <input type="hidden" name="virtuemart_itinerary_id" value="<?php echo $tsmart_itinerary_id; ?>"/>
-        <input type="hidden" name="virtuemart_accommodation_id" value="<?php echo $this->item->virtuemart_accommodation_id; ?>"/>
-        <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $tsmart_product_id; ?>"/>
+        <input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
+        <input type="hidden" name="tsmart_itinerary_id" value="<?php echo $tsmart_itinerary_id; ?>"/>
+        <input type="hidden" name="tsmart_accommodation_id" value="<?php echo $this->item->tsmart_accommodation_id; ?>"/>
+        <input type="hidden" name="key[tsmart_product_id]" value="<?php echo $tsmart_product_id; ?>"/>
 
         <input type="hidden" value="1" name="published">
         <input type="hidden" value="com_tsmart" name="option">

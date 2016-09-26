@@ -32,21 +32,21 @@
             var tour_id = 0;
             $(".dateavailability-edit-form").dialog("open");
             $('.' + plugin.settings.dialog_class).find('input.number').val(0);
-            $('#virtuemart_dateavailability_id').val(dateavailability_id);
+            $('#tsmart_dateavailability_id').val(dateavailability_id);
         };
         plugin.update_select_service_class = function () {
             var date_availability_item=plugin.settings.date_availability_item;
             var list_service_class=plugin.settings.list_tour;
-            $dialog_dateavailability_edit_form.find('#virtuemart_service_class_id').empty();
+            $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').empty();
             var $option = '<option value="0">Please select service class</option>';
-            $dialog_dateavailability_edit_form.find('#virtuemart_service_class_id').append($option);
+            $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').append($option);
             for(var i=0;i<list_service_class.length;i++){
                 var item_service_class=list_service_class[i];
-                var $option = '<option  '+(item_service_class.virtuemart_product_id==date_availability_item.virtuemart_product_id?' selected ':'') +' value="' + item_service_class.virtuemart_product_id + '">' + item_service_class.service_class_name + '</option>';
-                $dialog_dateavailability_edit_form.find('#virtuemart_service_class_id').append($option);
+                var $option = '<option  '+(item_service_class.tsmart_product_id==date_availability_item.tsmart_product_id?' selected ':'') +' value="' + item_service_class.tsmart_product_id + '">' + item_service_class.service_class_name + '</option>';
+                $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').append($option);
 
             }
-            $dialog_dateavailability_edit_form.find('#virtuemart_service_class_id').trigger('change');
+            $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').trigger('change');
 
 
 
@@ -211,9 +211,9 @@
                 max_date:max_date
             });
 
-            $element.find('#virtuemart_service_class_id').change(function(){
-                var virtuemart_service_class_id=$(this).val();
-                var virtuemart_product_id=$('#virtuemart_product_id').val();
+            $element.find('#tsmart_service_class_id').change(function(){
+                var tsmart_service_class_id=$(this).val();
+                var tsmart_product_id=$('#tsmart_product_id').val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -224,8 +224,8 @@
                             option: 'com_tsmart',
                             controller: 'dateavailability',
                             task: 'ajax_get_dateavailability_item',
-                            virtuemart_product_id: virtuemart_product_id,
-                            virtuemart_product_id: virtuemart_service_class_id
+                            tsmart_product_id: tsmart_product_id,
+                            tsmart_product_id: tsmart_service_class_id
                         };
                         return dataPost;
                     })(),
@@ -325,20 +325,20 @@
             $element.find('.edit-dateavailability').click(function () {
                 var self = $(this);
                 var $row = self.closest('tr[role="row"]');
-                var virtuemart_date_availability_id = $row.data('virtuemart_date_availability_id');
-                var virtuemart_service_class_id = $row.data('virtuemart_service_class_id');
-                var virtuemart_product_id = $row.data('virtuemart_product_id');
+                var tsmart_date_availability_id = $row.data('tsmart_date_availability_id');
+                var tsmart_service_class_id = $row.data('tsmart_service_class_id');
+                var tsmart_product_id = $row.data('tsmart_product_id');
                 $(".dateavailability-edit-form").dialog("open");
-                $('#virtuemart_product_id').val(virtuemart_product_id).trigger('change');
-                plugin.settings.date_availability_item.virtuemart_product_id=virtuemart_service_class_id;
+                $('#tsmart_product_id').val(tsmart_product_id).trigger('change');
+                plugin.settings.date_availability_item.tsmart_product_id=tsmart_service_class_id;
 
 
 
             });
 
-            $dialog_dateavailability_edit_form.find('#virtuemart_product_id').change(function () {
-                var virtuemart_product_id = $(this).val();
-                if(virtuemart_product_id==0){
+            $dialog_dateavailability_edit_form.find('#tsmart_product_id').change(function () {
+                var tsmart_product_id = $(this).val();
+                if(tsmart_product_id==0){
                     return;
                 }
                 $.ajax({
@@ -351,7 +351,7 @@
                             option: 'com_tsmart',
                             controller: 'dateavailability',
                             task: 'ajax_get_list_service_class_by_tour_id',
-                            virtuemart_product_id: virtuemart_product_id
+                            tsmart_product_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -387,7 +387,7 @@
                 var sale_period_open_before = $('#sale_period_open_before').val();
                 var daterange_vail_period_from_to = $('#daterange_vail_period_from_to').val();
                 var tour_id = $('#tour_id').val();
-                var virtuemart_dateavailability_id = $('#virtuemart_dateavailability_id').val();
+                var tsmart_dateavailability_id = $('#tsmart_dateavailability_id').val();
                 var $row = self.closest('tr[role="row"]');
                 var tour_class_ids = [];
                 var tour_service_class_id = $('#tour_service_class_id').val();
@@ -407,7 +407,7 @@
                             option: 'com_tsmart',
                             controller: 'dateavailability',
                             task: 'ajax_get_dateavailability_item',
-                            dateavailability_id: virtuemart_dateavailability_id,
+                            dateavailability_id: tsmart_dateavailability_id,
                             min_max_space: min_max_space,
                             sale_period_open_before: sale_period_open_before,
                             daterange_vail_period_from_to: daterange_vail_period_from_to,
@@ -505,7 +505,7 @@
                 if (confirm('Are you sure you want delete this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var virtuemart_dateavailability_id = $row.data('virtuemart_dateavailability_id');
+                    var tsmart_dateavailability_id = $row.data('tsmart_dateavailability_id');
                     var tour_id = $row.data('tour_id');
                     $.ajax({
                         type: "GET",
@@ -516,7 +516,7 @@
                                 option: 'com_tsmart',
                                 controller: 'dateavailability',
                                 task: 'ajax_remove_item',
-                                virtuemart_dateavailability_id: virtuemart_dateavailability_id,
+                                tsmart_dateavailability_id: tsmart_dateavailability_id,
                                 tour_id: tour_id
                             };
                             return dataPost;
@@ -554,7 +554,7 @@
                 if (confirm('Are you sure you want publish this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var virtuemart_dateavailability_id = $row.data('virtuemart_dateavailability_id');
+                    var tsmart_dateavailability_id = $row.data('tsmart_dateavailability_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -564,7 +564,7 @@
                                 option: 'com_tsmart',
                                 controller: 'dateavailability',
                                 task: 'ajax_publish_item',
-                                virtuemart_dateavailability_id: virtuemart_dateavailability_id
+                                tsmart_dateavailability_id: tsmart_dateavailability_id
                             };
                             return dataPost;
                         })(),

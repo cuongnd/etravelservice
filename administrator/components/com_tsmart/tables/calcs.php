@@ -3,13 +3,13 @@
 *
 * Calc table ( for calculations)
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Calculation tool
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2011- 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2011- 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -23,7 +23,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * The class is is used to manage the calculation in the shop.
  *
  * @author Max Milbers
- * @package		VirtueMart
+ * @package		tsmart
  */
 class TableCalcs extends tsmTable
 {
@@ -64,7 +64,7 @@ class TableCalcs extends tsmTable
 
 
 	function __construct(&$db){
-		parent::__construct('#__virtuemart_calcs', 'virtuemart_calc_id', $db);
+		parent::__construct('#__tsmart_calcs', 'tsmart_calc_id', $db);
 
 		$this->setObligatoryKeys('calc_name');
 		$this->setObligatoryKeys('calc_kind');

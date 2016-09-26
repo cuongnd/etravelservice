@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -30,7 +30,7 @@ $keyword = vRequest::getCmd('keyword', null);
 <div id="header">
 	<div>
 		<?php
-			if (vRequest::getInt('virtuemart_product_id', false)) echo JHtml::_('link', JRoute::_('index.php?option='.$option.'&view=custom',FALSE), tsmText::_('com_tsmart_PRODUCT_FILES_LIST_RETURN'));
+			if (vRequest::getInt('tsmart_product_id', false)) echo JHtml::_('link', JRoute::_('index.php?option='.$option.'&view=custom',FALSE), tsmText::_('com_tsmart_PRODUCT_FILES_LIST_RETURN'));
 		echo $this->customsSelect ;
 		echo tsmText::_('com_tsmart_SEARCH_LBL') .' '.tsmText::_('com_tsmart_TITLE') ?>&nbsp;
 		<input type="text" value="<?php echo $keyword; ?>" name="keyword" size="25" class="inputbox" />
@@ -63,7 +63,7 @@ $customs = $this->customs->items;
 		}
 		?>
 		<th style="max-width:80px;align:center;" ><?php echo tsmText::_('com_tsmart_PUBLISHED'); ?></th>
-		  <th min-width="8px"><?php echo $this->sort('virtuemart_custom_id', 'com_tsmart_ID')  ?></th>
+		  <th min-width="8px"><?php echo $this->sort('tsmart_custom_id', 'com_tsmart_ID')  ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -74,8 +74,8 @@ $customs = $this->customs->items;
 		$k = 0;
 		foreach ($customs as $key => $custom) {
 
-			$checked = JHtml::_('grid.id', $i , $custom->virtuemart_custom_id,false,'virtuemart_custom_id');
-			if (!is_null($custom->virtuemart_custom_id))
+			$checked = JHtml::_('grid.id', $i , $custom->tsmart_custom_id,false,'tsmart_custom_id');
+			if (!is_null($custom->tsmart_custom_id))
 			{
 				$published = $this->gridPublished( $custom, $i );
 			}
@@ -96,7 +96,7 @@ $customs = $this->customs->items;
 
 				<!-- Product name -->
 				<?php
-				$link = "index.php?option=com_tsmart&view=custom&task=edit&virtuemart_custom_id=".$custom->virtuemart_custom_id;
+				$link = "index.php?option=com_tsmart&view=custom&task=edit&tsmart_custom_id=".$custom->tsmart_custom_id;
 				if ($custom->is_cart_attribute) $cartIcon=  'default';
 							 else  $cartIcon= 'default-off';
 				?>
@@ -125,7 +125,7 @@ $customs = $this->customs->items;
 
 
 				<td style="align:center;" ><?php echo $published; ?></td>
-				<td><?php echo $custom->virtuemart_custom_id; ?></td>
+				<td><?php echo $custom->tsmart_custom_id; ?></td>
 			</tr>
 		<?php
 			$k = 1 - $k;
@@ -144,8 +144,8 @@ $customs = $this->customs->items;
 	</table>
 <!-- Hidden Fields -->
 <input type="hidden" name="task" value="" />
-<?php if (vRequest::getInt('virtuemart_product_id', false)) { ?>
-	<input type="hidden" name="virtuemart_product_id" value="<?php echo vRequest::getInt('virtuemart_product_id',0); ?>" />
+<?php if (vRequest::getInt('tsmart_product_id', false)) { ?>
+	<input type="hidden" name="tsmart_product_id" value="<?php echo vRequest::getInt('tsmart_product_id',0); ?>" />
 <?php } ?>
 <input type="hidden" name="option" value="com_tsmart" />
 <input type="hidden" name="view" value="custom" />

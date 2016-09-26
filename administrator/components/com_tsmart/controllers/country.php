@@ -3,13 +3,13 @@
 *
 * Country controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Country
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2, see COPYRIGHT.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Country Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Country
  */
 class TsmartControllerCountry extends TsmController {

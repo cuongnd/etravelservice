@@ -3,13 +3,13 @@
 *
 * User Info Table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author 	RickG, RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * User Info table class
  * The class is is used to manage the user_info table.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author 	RickG, RolandD, Max Milbers
  */
 class TableUserinfos extends tsmTableData {
@@ -65,11 +65,11 @@ class TableUserinfos extends tsmTableData {
 	function __construct($db) {
 
 		/* Make sure the custom fields are added */
-		parent::__construct('#__virtuemart_userinfos', 'virtuemart_userinfo_id', $db);
+		parent::__construct('#__tsmart_userinfos', 'tsmart_userinfo_id', $db);
 		parent::showFullColumns();
-		$this->setPrimaryKey('virtuemart_userinfo_id');
+		$this->setPrimaryKey('tsmart_userinfo_id');
 		$this->setObligatoryKeys('address_type');
-		$this->setObligatoryKeys('virtuemart_user_id');
+		$this->setObligatoryKeys('tsmart_user_id');
 
 		$this->setLoggable();
 
@@ -92,17 +92,17 @@ class TableUserinfos extends tsmTableData {
 			}
 		} else {
 			vmError('Table userinfos check failed: Unknown address_type '.$this->address_type,'check failed: Unknown address_type ');
-			vmdebug('Table userinfos check failed: Unknown address_type '.$this->address_type.' virtuemart_user_id '.$this->virtuemart_user_id.' name '.$this->name);
+			vmdebug('Table userinfos check failed: Unknown address_type '.$this->address_type.' tsmart_user_id '.$this->tsmart_user_id.' name '.$this->name);
 			return false;
 		}
 
-		if (!empty($this->virtuemart_userinfo_id)) {
-			$this->virtuemart_userinfo_id = (int)$this->virtuemart_userinfo_id;
+		if (!empty($this->tsmart_userinfo_id)) {
+			$this->tsmart_userinfo_id = (int)$this->tsmart_userinfo_id;
 
 			if(!vmAccess::manager('user.edit')){
-				$q = "SELECT virtuemart_user_id
-										FROM #__virtuemart_userinfos
-										WHERE virtuemart_userinfo_id = ".$this->virtuemart_userinfo_id;
+				$q = "SELECT tsmart_user_id
+										FROM #__tsmart_userinfos
+										WHERE tsmart_userinfo_id = ".$this->tsmart_userinfo_id;
 				$this->_db->setQuery($q);
 				$total = $this->_db->loadColumn();
 
@@ -121,9 +121,9 @@ class TableUserinfos extends tsmTableData {
 		} else {
 			if(empty($this->address_type)) $this->address_type = 'BT';
 			/* Check if a record exists */
-			$q = "SELECT virtuemart_userinfo_id
-			FROM #__virtuemart_userinfos
-			WHERE virtuemart_user_id = ".$this->virtuemart_user_id."
+			$q = "SELECT tsmart_userinfo_id
+			FROM #__tsmart_userinfos
+			WHERE tsmart_user_id = ".$this->tsmart_user_id."
 			AND address_type = ".$this->_db->Quote($this->address_type);
 			if($this->address_type!='BT'){
 				$q .= " AND address_type_name = ".$this->_db->Quote($this->address_type_name);
@@ -133,16 +133,16 @@ class TableUserinfos extends tsmTableData {
 			$total = $this->_db->loadColumn();
 
 			if (count($total) > 0) {
-				$this->virtuemart_userinfo_id = (int)$total[0];
+				$this->tsmart_userinfo_id = (int)$total[0];
 			} else {
-				$this->virtuemart_userinfo_id = 0;//md5(uniqid($this->virtuemart_user_id));
+				$this->tsmart_userinfo_id = 0;//md5(uniqid($this->tsmart_user_id));
 			}
 		}
 
-		if(empty($this->virtuemart_user_id)){
+		if(empty($this->tsmart_user_id)){
 			$user = JFactory::getUser();
 			if(!empty($user->id)){
-				$this->virtuemart_user_id = $user->id;
+				$this->tsmart_user_id = $user->id;
 			}
 		}
 
@@ -150,18 +150,18 @@ class TableUserinfos extends tsmTableData {
 	}
 
 	/**
-	 * Overloaded delete() to delete a list of virtuemart_userinfo_id's based on the user id
+	 * Overloaded delete() to delete a list of tsmart_userinfo_id's based on the user id
 	 * @var mixed id
 	 * @return boolean True on success
 	 * @author Oscar van Eijk
 	 */
 	function delete( $id=null , $where = 0 ){
-		// TODO If $id is not numeric, assume it's a virtuemart_userinfo_id. Validate if this is safe enough
+		// TODO If $id is not numeric, assume it's a tsmart_userinfo_id. Validate if this is safe enough
 		if (!is_numeric($id)) {
 			return (parent::delete($id));
 		}
 		// Implicit else
-		$this->_db->setQuery('DELETE from `#__virtuemart_userinfos` WHERE `virtuemart_user_id` = ' . $id);
+		$this->_db->setQuery('DELETE from `#__tsmart_userinfos` WHERE `tsmart_user_id` = ' . $id);
 		if ($this->_db->execute() === false) {
 			vmError($this->_db->getError());
 			return false;

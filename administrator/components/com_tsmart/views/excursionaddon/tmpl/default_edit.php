@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -46,7 +46,7 @@ $doc->addScriptDeclaration($js_content);
             <div class="span8">
                 <?php echo VmHTML::input( 'excursion_addon_name', $this->item->excursion_addon_name, 'class="required" placeholder="excursion name" '); ?>
                 <br/>
-                <?php echo VmHTML::location_city('virtuemart_cityarea_id', $this->list_cityarea, $this->item->virtuemart_cityarea_id, '', 'virtuemart_cityarea_id', 'full_city'); ?>
+                <?php echo VmHTML::location_city('tsmart_cityarea_id', $this->list_cityarea, $this->item->tsmart_cityarea_id, '', 'tsmart_cityarea_id', 'full_city'); ?>
                 <h3>Edit term</h3>
                 <div class="row-fluid">
                     <div class="span12">
@@ -85,12 +85,12 @@ $doc->addScriptDeclaration($js_content);
         </div>
         <div class="row-fluid">
             <div class="span12">
-                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'virtuemart_product_id', 'product_name', false); ?>
+                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'tsmart_product_id', 'product_name', false); ?>
             </div>
         </div>
 
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
-        <?php echo VmHTML::inputHidden(array(virtuemart_excursion_addon_id => $this->item->virtuemart_excursion_addon_id)); ?>
+        <?php echo VmHTML::inputHidden(array(tsmart_excursion_addon_id => $this->item->tsmart_excursion_addon_id)); ?>
         <input type="hidden" value="1" name="published">
         <input type="hidden" value="com_tsmart" name="option">
         <input type="hidden" value="excursionaddon" name="controller">

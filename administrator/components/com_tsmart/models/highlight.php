@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop Currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  */
-class VirtueMartModelHighlight extends VmModel {
+class tsmartModelHighlight extends VmModel {
 
 
 	/**
@@ -80,7 +80,7 @@ class VirtueMartModelHighlight extends VmModel {
 		$whereString='';
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
 
-		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_highlight`',$whereString,'',$this->_getOrdering());
+		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__tsmart_highlight`',$whereString,'',$this->_getOrdering());
 
 		return $data;
 	}

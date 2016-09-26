@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Userfields
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -147,7 +147,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 	</fieldset>
 </div>
 
-<input type="hidden" name="virtuemart_userfield_id" value="<?php echo $this->userField->virtuemart_userfield_id; ?>" />
+<input type="hidden" name="tsmart_userfield_id" value="<?php echo $this->userField->tsmart_userfield_id; ?>" />
 <input type="hidden" name="valueCount" value="<?php echo $this->valueCount; ?>" />
 <?php echo $this->addStandardHiddenToForm(); ?>
 </form>
@@ -227,7 +227,7 @@ function toggleType( sType ) {
 		break;
 		default:
 			//pluginistraxx_euvatchecker
-<?php if(!$this->userField->virtuemart_userfield_id) : ?>
+<?php if(!$this->userField->tsmart_userfield_id) : ?>
 			jQuery('#fieldPluginBody').load( 'index.php?option=com_tsmart&view=userfields&task=viewJson&format=json&field='+sType , function() { jQuery(this).find("[title]").vm2admin('tips',tip_image) });
 <?php endif; ?>
 			if (sType.substring(0,6) == "plugin") jQuery('#divPlugin').slideDown();
@@ -236,7 +236,7 @@ function toggleType( sType ) {
 
 	}
 }
-<?php if (! $this->userField->virtuemart_userfield_id ) { ?>
+<?php if (! $this->userField->tsmart_userfield_id ) { ?>
 function checkName(field, rules, i, options){
 	name = field.val();
 	field.val(name.replace(/[^0-9a-zA-Z\_]+/g,''));
@@ -260,7 +260,7 @@ function prep4SQL(o){
 		o.value=o.value.replace(/[^0-9a-zA-Z\_]+/g,'');
 	}
 }
-<?php if($this->userField->virtuemart_userfield_id > 0) { ?>
+<?php if($this->userField->tsmart_userfield_id > 0) { ?>
 document.adminForm.name.readOnly = true;
 toggleType(jQuery('#type').val()) ;
 <?php } else { ?>

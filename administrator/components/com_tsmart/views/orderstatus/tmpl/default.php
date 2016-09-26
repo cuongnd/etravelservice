@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage OrderStatus
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -50,7 +50,7 @@ AdminUIHelper::startAdminArea($this);
 			<th width="20">
 				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
-			<th><?php echo $this->sort('virtuemart_orderstate_id', 'com_tsmart_ID')  ?></th>
+			<th><?php echo $this->sort('tsmart_orderstate_id', 'com_tsmart_ID')  ?></th>
 		</tr>
 		</thead>
 		<?php
@@ -60,17 +60,17 @@ AdminUIHelper::startAdminArea($this);
 			$row = $this->orderStatusList[$i];
 			$published = $this->gridPublished( $row, $i );
 
-			$checked = JHtml::_('grid.id', $i, $row->virtuemart_orderstate_id);
+			$checked = JHtml::_('grid.id', $i, $row->tsmart_orderstate_id);
 
 			$coreStatus = (in_array($row->order_status_code, $this->lists['vmCoreStatusCode']));
 			$image = 'admin/checked_out.png';
 			$image = JHtml::_('image', $image, tsmText::_('com_tsmart_ORDER_STATUS_CODE_CORE'),'',true);
 			$checked = ($coreStatus) ?
 				'<span class="hasTip" title="'. tsmText::_('com_tsmart_ORDER_STATUS_CODE_CORE').'">'. $image .'</span>' :
-				JHtml::_('grid.id', $i, $row->virtuemart_orderstate_id);
+				JHtml::_('grid.id', $i, $row->tsmart_orderstate_id);
 
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=orderstatus&task=edit&cid[]=' . $row->virtuemart_orderstate_id);
-			$deletelink	= JROUTE::_('index.php?option=com_tsmart&view=orderstatus&task=remove&cid[]=' . $row->virtuemart_orderstate_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=orderstatus&task=edit&cid[]=' . $row->tsmart_orderstate_id);
+			$deletelink	= JROUTE::_('index.php?option=com_tsmart&view=orderstatus&task=remove&cid[]=' . $row->tsmart_orderstate_id);
 			$ordering = $row->ordering ;
 		?>
 			<tr class="row<?php echo $k ; ?>">
@@ -103,7 +103,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<td align="center"><?php echo $published; ?></td>
 				<td width="10">
-					<?php echo $row->virtuemart_orderstate_id; ?>
+					<?php echo $row->tsmart_orderstate_id; ?>
 				</td>
 			</tr>
 			<?php

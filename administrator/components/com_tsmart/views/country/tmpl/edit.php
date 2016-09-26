@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Country
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -45,7 +45,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_COUNTRY_DETAILS');
 				</label>
 			</td>
 			<td>
-				<?php echo JHtml::_('Select.genericlist', $this->worldZones, 'virtuemart_worldzone_id', '', 'virtuemart_worldzone_id', 'zone_name', $this->country->virtuemart_worldzone_id); ?>
+				<?php echo JHtml::_('Select.genericlist', $this->worldZones, 'tsmart_worldzone_id', '', 'tsmart_worldzone_id', 'zone_name', $this->country->tsmart_worldzone_id); ?>
 			</td>
 		</tr>*/ ?>
 		<?php echo VmHTML::row('input','com_tsmart_COUNTRY_3_CODE','country_3_code',$this->country->country_3_code,'class="required"'); ?>
@@ -54,7 +54,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_COUNTRY_DETAILS');
 	</fieldset>
 </div>
 
-	<input type="hidden" name="virtuemart_country_id" value="<?php echo $this->country->virtuemart_country_id; ?>" />
+	<input type="hidden" name="tsmart_country_id" value="<?php echo $this->country->tsmart_country_id; ?>" />
 
 	<?php echo $this->addStandardHiddenToForm(); ?>
 </form>

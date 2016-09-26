@@ -1,6 +1,6 @@
-/* VirtueMart Admin Area */
+/* tsmart Admin Area */
 
-.virtuemart-admin-area {
+.tsmart-admin-area {
     position: relative;
     border: hidden #b4b4b4 1px;
     -moz-border-radius-bottomleft: 6px;
@@ -13,26 +13,26 @@
     min-height: 540px;
 }
 
-.virtuemart-admin-area .menu-wrapper {
+.tsmart-admin-area .menu-wrapper {
     min-width: 200px;
     width: 220px;
     border-right: solid #b4b4b4 1px;
 }
 
-.virtuemart-admin-area.menu-collapsed .menu-wrapper {
+.tsmart-admin-area.menu-collapsed .menu-wrapper {
     position: relative;
     width: 31px;
     min-width: 31px;
     z-index: 10;
 }
 
-.virtuemart-admin-area .admin-content {
+.tsmart-admin-area .admin-content {
     margin: 0;
     -webkit-flex-basis: 100%;
     flex-basis: 100%;
 }
 
-.virtuemart-admin-area .btn.btn-small {
+.tsmart-admin-area .btn.btn-small {
     margin-bottom: 5px;
 }
 
@@ -272,7 +272,7 @@ dl#system-message dd .vmdebug {
 }
 
 /* Fieldset */
-.virtuemart-admin-area fieldset {
+.tsmart-admin-area fieldset {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -282,24 +282,24 @@ dl#system-message dd .vmdebug {
     text-align: left;
 }
 
-.virtuemart-admin-area fieldset legend {
+.tsmart-admin-area fieldset legend {
     padding: 0px 10px;
     width: inherit;
     border-bottom: 0px
 }
 
 /* Inputs */
-.virtuemart-admin-area fieldset input {
+.tsmart-admin-area fieldset input {
     float: none !important;
     clear: none;
     display: inline-block;
 }
 
-.virtuemart-admin-area fieldset #custom_fields .key {
+.tsmart-admin-area fieldset #custom_fields .key {
     width: 96%;
 }
 
-.virtuemart-admin-area fieldset label, .virtuemart-admin-area fieldset.adminform label, .virtuemart-admin-area fieldset.adminform span.faux-label {
+.tsmart-admin-area fieldset label, .tsmart-admin-area fieldset.adminform label, .tsmart-admin-area fieldset.adminform span.faux-label {
     float: none;
     clear: none;
     display: inline-block;
@@ -1101,7 +1101,7 @@ ul.newsfeed li {
     background: #fff
 }
 
-.virtuemart-admin-area input.ordering {
+.tsmart-admin-area input.ordering {
     max-width: 30px;
 }
 
@@ -1117,17 +1117,17 @@ a:hover.signin-button-link {
     background: #D7D7D7;
 }
 
-.virtuemart-admin-area #menu-wrapper > a {
+.tsmart-admin-area #menu-wrapper > a {
     display: block;
     height: 40px;
 }
 
-.virtuemart-admin-area #menu-wrapper.menu-collapsed > a {
+.tsmart-admin-area #menu-wrapper.menu-collapsed > a {
     opacity: 0;
     visibility: hidden;
 }
 
-.virtuemart-admin-area #menu-wrapper > a img {
+.tsmart-admin-area #menu-wrapper > a img {
     padding: 0;
     height: 100%;
     margin-left: 30px
@@ -1154,7 +1154,7 @@ a:hover.signin-button-link {
     border: 1px solid #17508C;
 }
 
-.virtuemart-admin-area .menu-wrapper, .virtuemart-admin-area .toggler, .virtuemart-admin-area #menu-wrapper.menu-collapsed > a,
+.tsmart-admin-area .menu-wrapper, .tsmart-admin-area .toggler, .tsmart-admin-area #menu-wrapper.menu-collapsed > a,
 .menu-collapsed #admin-ui-menu h3.menu-title, .menu-collapsed #admin-ui-menu .menu-list ul li a,
 .menu-title-wrapper .menu-title-content, .menu-collapsed .menu-subtitle {
     -webkit-transition: all 400ms;

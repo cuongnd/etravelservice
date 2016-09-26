@@ -47,11 +47,11 @@
 
 
             $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
-            $element.find('select[name="virtuemart_hotel_id"]').change(function(){
+            $element.find('select[name="tsmart_hotel_id"]').change(function(){
                 $element.find('input[name="hotel_addon_type"]').prop('checked', false);
                 $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
-                var virtuemart_hotel_id=$(this).val();
-                if(virtuemart_hotel_id==0||virtuemart_hotel_id==""||typeof virtuemart_hotel_id=="undefined")
+                var tsmart_hotel_id=$(this).val();
+                if(tsmart_hotel_id==0||tsmart_hotel_id==""||typeof tsmart_hotel_id=="undefined")
                 {
                     $element.find('input[name="location"]').val();
                     return;
@@ -59,7 +59,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=get_detail_hotel&virtuemart_hotel_id='+virtuemart_hotel_id,
+                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=get_detail_hotel&tsmart_hotel_id='+tsmart_hotel_id,
                     dataType: "json",
                     data: (function () {
 
@@ -91,21 +91,21 @@
             });
             $element.find('input[name="list_tour_id[]"]').click(function(){
                 var self=$(this);
-                var virtuemart_product_id=$(this).val();
+                var tsmart_product_id=$(this).val();
                 var vail_from=$element.find('input[name="vail_from"]').val();
                 var vail_to=$element.find('input[name="vail_to"]').val();
-                var virtuemart_hotel_addon_id=$element.find('input[name="virtuemart_hotel_addon_id"]').val();
+                var tsmart_hotel_addon_id=$element.find('input[name="tsmart_hotel_addon_id"]').val();
                 var hotel_addon_type=$element.find('input[name="hotel_addon_type"]').val();
                 $.ajax({
                     type: "GET",
-                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=check_tour&virtuemart_product_id='+virtuemart_product_id,
+                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=check_tour&tsmart_product_id='+tsmart_product_id,
                     dataType: "json",
                     data: (function () {
 
                         dataPost = {
                             vail_from:vail_from,
                             vail_to:vail_to,
-                            virtuemart_hotel_addon_id:virtuemart_hotel_addon_id,
+                            tsmart_hotel_addon_id:tsmart_hotel_addon_id,
                             hotel_addon_type:hotel_addon_type
                         };
                         return dataPost;
@@ -134,10 +134,10 @@
 
             });
             $element.find('input[name="hotel_addon_type"]').change(function(){
-                var virtuemart_hotel_id=$element.find('select[name="virtuemart_hotel_id"]').val();
+                var tsmart_hotel_id=$element.find('select[name="tsmart_hotel_id"]').val();
                 var vail_from=$element.find('input[name="vail_from"]').val();
                 var vail_to=$element.find('input[name="vail_to"]').val();
-                if(virtuemart_hotel_id==0||virtuemart_hotel_id==""||typeof virtuemart_hotel_id=="undefined")
+                if(tsmart_hotel_id==0||tsmart_hotel_id==""||typeof tsmart_hotel_id=="undefined")
                 {
                     alert('please select hotel');
                     $(this).prop('checked', false);
@@ -155,7 +155,7 @@
                 var hotel_addon_type=$(this).val();
                 $.ajax({
                     type: "GET",
-                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=get_tour_avail_by_hotel_id_first_itinerary&virtuemart_hotel_id='+virtuemart_hotel_id,
+                    url: 'index.php?option=com_tsmart&controller=hoteladdon&task=get_tour_avail_by_hotel_id_first_itinerary&tsmart_hotel_id='+tsmart_hotel_id,
                     dataType: "json",
                     data: (function () {
 
@@ -174,8 +174,8 @@
                         $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
                         $element.find('input[name="list_tour_id[]"]').prop('checked', false);
 
-                        $.each(response,function(index,virtuemart_product_id){
-                            $element.find('input[name="list_tour_id[]"][value="'+virtuemart_product_id+'"]').prop('disabled', false).show().closest('.checkbox').show();
+                        $.each(response,function(index,tsmart_product_id){
+                            $element.find('input[name="list_tour_id[]"][value="'+tsmart_product_id+'"]').prop('disabled', false).show().closest('.checkbox').show();
                         });
                         $('textarea[name="hotel_overview"]').html( plugin.settings.hotel.description);
 

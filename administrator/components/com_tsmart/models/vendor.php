@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author RolandD, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,11 +24,11 @@ if (!class_exists ('VmModel')) {
 }
 
 /**
- * Model for VirtueMart Vendors
+ * Model for tsmart Vendors
  *
- * @package        VirtueMart
+ * @package        tsmart
  */
-class VirtueMartModelVendor extends VmModel {
+class tsmartModelVendor extends VmModel {
 
 	/**
 	 * constructs a VmModel
@@ -94,7 +94,7 @@ class VirtueMartModelVendor extends VmModel {
 
 			//Todo, check this construction
 			$xrefTable = $this->getTable ('vendor_medias');
-			$this->_cache[$this->_id]->virtuemart_media_id = $xrefTable->load ($this->_id);
+			$this->_cache[$this->_id]->tsmart_media_id = $xrefTable->load ($this->_id);
 
 		}
 
@@ -113,8 +113,8 @@ class VirtueMartModelVendor extends VmModel {
 	public function getVendors () {
 
 		$this->setId (0); //This is important ! notice by Max Milbers
-		$query = 'SELECT * FROM `#__virtuemart_vendors_' . VmConfig::$vmlang . '` as l JOIN `#__virtuemart_vendors` as v using (`virtuemart_vendor_id`)';
-		$query .= ' ORDER BY l.`virtuemart_vendor_id`';
+		$query = 'SELECT * FROM `#__tsmart_vendors_' . VmConfig::$vmlang . '` as l JOIN `#__tsmart_vendors` as v using (`tsmart_vendor_id`)';
+		$query .= ' ORDER BY l.`tsmart_vendor_id`';
 		$this->_data = $this->_getList ($query, $this->getState ('limitstart'), $this->getState ('limit'));
 		return $this->_data;
 	}
@@ -133,7 +133,7 @@ class VirtueMartModelVendor extends VmModel {
 			return;
 		} else {
 			$db = JFactory::getDBO ();
-			$query = 'SELECT `virtuemart_user_id` FROM `#__virtuemart_vmusers` WHERE `virtuemart_vendor_id`=' . (int)$vendorId;
+			$query = 'SELECT `tsmart_user_id` FROM `#__tsmart_vmusers` WHERE `tsmart_vendor_id`=' . (int)$vendorId;
 			$db->setQuery ($query);
 			$result = $db->loadResult ();
 			$err = $db->getErrorMsg ();
@@ -163,7 +163,7 @@ class VirtueMartModelVendor extends VmModel {
 			$data = array_merge ($plg_data);
 		}
 
-		$oldVendorId = $data['virtuemart_vendor_id'];
+		$oldVendorId = $data['tsmart_vendor_id'];
 
 		$table = $this->getTable ('vendors');
 
@@ -205,9 +205,9 @@ class VirtueMartModelVendor extends VmModel {
 
 		//set vendormodel id to the lastinserted one
 		if (empty($this->_id)) {
-			$data['virtuemart_vendor_id'] = $this->_id = $table->virtuemart_vendor_id;
+			$data['tsmart_vendor_id'] = $this->_id = $table->tsmart_vendor_id;
 		} else {
-			$data['virtuemart_vendor_id'] = $table->virtuemart_vendor_id;
+			$data['tsmart_vendor_id'] = $table->tsmart_vendor_id;
 		}
 
 		if ($this->_id != $oldVendorId) {
@@ -216,9 +216,9 @@ class VirtueMartModelVendor extends VmModel {
 
 			//update user table
 			$usertable = $this->getTable ('vmusers');
-			$usertable->load($data['virtuemart_user_id']);
+			$usertable->load($data['tsmart_user_id']);
 
-			$usertable->virtuemart_vendor_id = $this->_id;
+			$usertable->tsmart_vendor_id = $this->_id;
 			$usertable->store();
 		}
 		// Process the images
@@ -248,10 +248,10 @@ class VirtueMartModelVendor extends VmModel {
 		if(!isset(self::$_vendorCurrencies[$_vendorId])){
 			$db = JFactory::getDBO ();
 
-			$q = 'SELECT *  FROM `#__virtuemart_currencies` AS c
-			, `#__virtuemart_vendors` AS v
-			WHERE v.virtuemart_vendor_id = ' . (int)$_vendorId . '
-			AND   v.vendor_currency = c.virtuemart_currency_id';
+			$q = 'SELECT *  FROM `#__tsmart_currencies` AS c
+			, `#__tsmart_vendors` AS v
+			WHERE v.tsmart_vendor_id = ' . (int)$_vendorId . '
+			AND   v.vendor_currency = c.tsmart_currency_id';
 			$db->setQuery ($q);
 			self::$_vendorCurrencies[$_vendorId] = $db->loadObject ();
 		}
@@ -279,16 +279,16 @@ class VirtueMartModelVendor extends VmModel {
 			return 0;
 		}
 		$tsmart_order_id = (int)$tsmart_order_id;
-		$q = "SELECT `virtuemart_user_id` FROM `#__virtuemart_orders` WHERE `virtuemart_order_id`='.$tsmart_order_id'";
+		$q = "SELECT `tsmart_user_id` FROM `#__tsmart_orders` WHERE `tsmart_order_id`='.$tsmart_order_id'";
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);
 
 //		if($db->next_record()){
 		if ($db->execute ()) {
-//			$tsmart_user_id = $db->f('virtuemart_user_id');
+//			$tsmart_user_id = $db->f('tsmart_user_id');
 			return $db->loadResult ();
 		} else {
-			JError::raiseNotice (1, 'Error in DB $tsmart_order_id ' . $tsmart_order_id . ' dont have a virtuemart_user_id');
+			JError::raiseNotice (1, 'Error in DB $tsmart_order_id ' . $tsmart_order_id . ' dont have a tsmart_user_id');
 			return 0;
 		}
 	}
@@ -320,21 +320,21 @@ class VirtueMartModelVendor extends VmModel {
 		$db = JFactory::getDBO ();
 		switch ($type) {
 			case 'order':
-				$q = 'SELECT virtuemart_vendor_id FROM #__virtuemart_order_items WHERE virtuemart_order_id=' . $value;
+				$q = 'SELECT tsmart_vendor_id FROM #__tsmart_order_items WHERE tsmart_order_id=' . $value;
 				break;
 			case 'user':
 				if ($ownerOnly) {
-					$q = 'SELECT `virtuemart_vendor_id`
-						FROM `#__virtuemart_vmusers` as `au`
-						LEFT JOIN `#__virtuemart_userinfos` as `u`
-						ON (au.virtuemart_user_id = u.virtuemart_user_id)
-						WHERE `u`.`virtuemart_user_id`=' . $value;
+					$q = 'SELECT `tsmart_vendor_id`
+						FROM `#__tsmart_vmusers` as `au`
+						LEFT JOIN `#__tsmart_userinfos` as `u`
+						ON (au.tsmart_user_id = u.tsmart_user_id)
+						WHERE `u`.`tsmart_user_id`=' . $value;
 				} else {
-					$q = 'SELECT `virtuemart_vendor_id` FROM `#__virtuemart_vmusers` WHERE `virtuemart_user_id`= "' . $value . '" ';
+					$q = 'SELECT `tsmart_vendor_id` FROM `#__tsmart_vmusers` WHERE `tsmart_user_id`= "' . $value . '" ';
 				}
 				break;
 			case 'product':
-				$q = 'SELECT virtuemart_vendor_id FROM #__virtuemart_products WHERE virtuemart_product_id=' . $value;
+				$q = 'SELECT tsmart_vendor_id FROM #__tsmart_products WHERE tsmart_product_id=' . $value;
 				break;
 		}
 		$db->setQuery ($q);
@@ -346,7 +346,7 @@ class VirtueMartModelVendor extends VmModel {
 //			if($type!='user'){
 //				return 0;
 //			} else {
-//				JError::raiseNotice(1, 'No virtuemart_vendor_id found for '.$value.' on '.$type.' check.');
+//				JError::raiseNotice(1, 'No tsmart_vendor_id found for '.$value.' on '.$type.' check.');
 //				return 0;
 //			}
 		}
@@ -359,7 +359,7 @@ class VirtueMartModelVendor extends VmModel {
 	 */
 	public function getVendorName ($tsmart_vendor_id = 1) {
 		$db = JFactory::getDBO();
-		$query = 'SELECT `vendor_store_name` FROM `#__virtuemart_vendors_' . VmConfig::$vmlang . '` WHERE `virtuemart_vendor_id` = "' . (int)$tsmart_vendor_id . '" ';
+		$query = 'SELECT `vendor_store_name` FROM `#__tsmart_vendors_' . VmConfig::$vmlang . '` WHERE `tsmart_vendor_id` = "' . (int)$tsmart_vendor_id . '" ';
 		$db->setQuery ($query);
 		if ($db->execute ()) {
 			return $db->loadResult ();
@@ -405,7 +405,7 @@ class VirtueMartModelVendor extends VmModel {
 	public function getVendorAddressFields($vendorId=0){
 		if($vendorId!=0) $this->_id = (int)$vendorId;
 		if(!$this->_vendorFields){
-			$userId = VirtueMartModelVendor::getUserIdByVendorId ($this->_id);
+			$userId = tsmartModelVendor::getUserIdByVendorId ($this->_id);
 			$userModel = VmModel::getModel ('user');
 			$tsmart_userinfo_id = $userModel->getBTuserinfo_id ($userId);
 

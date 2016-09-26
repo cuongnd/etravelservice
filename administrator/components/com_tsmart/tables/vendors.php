@@ -3,13 +3,13 @@
 *
 * Vendor Table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Vendor
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2009 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2009 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -52,8 +52,8 @@ class TableVendors extends tsmTableData {
 	var $vendor_mail_css = '';
 
     function __construct(&$db) {
-		parent::__construct('#__virtuemart_vendors', 'virtuemart_vendor_id', $db);
-		$this->setPrimaryKey('virtuemart_vendor_id');
+		parent::__construct('#__tsmart_vendors', 'tsmart_vendor_id', $db);
+		$this->setPrimaryKey('tsmart_vendor_id');
 		$this->setUniqueName('vendor_name');
 		$this->setSlug('vendor_store_name'); //Attention the slug autoname MUST be also in the translatable, if existing
 		$this->setLoggable();

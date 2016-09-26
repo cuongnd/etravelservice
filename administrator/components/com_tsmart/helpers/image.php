@@ -3,12 +3,12 @@
  * Image helper class
  *
  * This class was derived from the show_image_in_imgtag.php and imageTools.class.php files in VM.  It provides some
- * image functions that are used throughout the VirtueMart shop.
+ * image functions that are used throughout the tsmart shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 tsmart Team. All rights reserved.
  */
 
 defined('_JEXEC') or die();

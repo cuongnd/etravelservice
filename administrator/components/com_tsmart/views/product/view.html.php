@@ -3,13 +3,13 @@
  *
  * View class for the product
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -20,9 +20,9 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package        VirtueMart
+ * @package        tsmart
  * @author RolandD,Max Milbers
  */
 if (!class_exists('tsmViewAdmin')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmviewadmin.php');
@@ -58,7 +58,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 VmConfig::loadJLang('com_tsmart_shoppers', TRUE);
                 $model_country = VmModel::getModel('country');
                 $this->countries = $model_country->getItemList();
-                $tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+                $tsmart_product_id = vRequest::getInt('tsmart_product_id');
 
                 if (is_array($tsmart_product_id) && count($tsmart_product_id) > 0) {
                     $tsmart_product_id = (int)$tsmart_product_id[0];
@@ -68,13 +68,13 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $product = $model->getItem($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                $product->virtuemart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
+                $product->tsmart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-                $product->virtuemart_group_size_ids = tsmGroupSize::get_list_group_size_ids_by_tour_id($tsmart_product_id);
+                $product->tsmart_group_size_ids = tsmGroupSize::get_list_group_size_ids_by_tour_id($tsmart_product_id);
                 //$user = JFactory::getUser();
                 $superVendor = vmAccess::isSuperVendor();
-                if ($superVendor != 1 and $superVendor != $product->virtuemart_vendor_id) {
-                    vmdebug('Product view.html.php ' . $superVendor, $product->virtuemart_vendor_id);
+                if ($superVendor != 1 and $superVendor != $product->tsmart_vendor_id) {
+                    vmdebug('Product view.html.php ' . $superVendor, $product->tsmart_vendor_id);
                     JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=tsmart', tsmText::_('com_tsmart_ALERTNOTAUTHOR'), 'error');
                 }
                 if (!empty($product->product_parent_id)) {
@@ -85,7 +85,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $customfields = VmModel::getModel('Customfields');
 
-                $product->allIds[] = $product->virtuemart_product_id;
+                $product->allIds[] = $product->tsmart_product_id;
                 if (!empty($product->product_parent_id)) $product->allIds[] = $product->product_parent_id;
 
                 $product->customfields = $customfields->getCustomEmbeddedProductCustomFields($product->allIds);
@@ -110,15 +110,15 @@ class TsmartViewProduct extends tsmViewAdmin
                 //Do we need the children? If there is a C customfield, we dont want them
                 $isCustomVariant = false;
                 foreach ($product->customfields as $custom) {
-                    if ($custom->field_type == 'C' and $custom->virtuemart_product_id == $tsmart_product_id) {
+                    if ($custom->field_type == 'C' and $custom->tsmart_product_id == $tsmart_product_id) {
                         $isCustomVariant = true;
                         break;
                     }
                 }
 
 
-                if (!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN . '/models/config.php');
-                $productLayouts = VirtueMartModelConfig::getLayoutList('productdetails');
+                if (!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN . '/models/config.php');
+                $productLayouts = tsmartModelConfig::getLayoutList('productdetails');
                 $this->productLayouts = $productLayouts;
 
                 // Load Images
@@ -134,7 +134,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $lists['vendors'] = '';
                 if ($this->showVendors()) {
-                    $lists['vendors'] = Shopfunctions::renderVendorList($product->virtuemart_vendor_id);
+                    $lists['vendors'] = Shopfunctions::renderVendorList($product->tsmart_vendor_id);
                 }
                 // Load the currencies
                 $currency_model = VmModel::getModel('currency');
@@ -146,7 +146,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 $this->vendor_currency_symb = $currency->currency_symbol;
 
 
-                $lists['manufacturers'] = shopFunctions::renderManufacturerList($product->virtuemart_manufacturer_id, true);
+                $lists['manufacturers'] = shopFunctions::renderManufacturerList($product->tsmart_manufacturer_id, true);
 
 
                 if (!empty($product->product_weight_uom)) {
@@ -182,18 +182,18 @@ class TsmartViewProduct extends tsmViewAdmin
                 }
                 $waitinglistmodel = VmModel::getModel('waitinglist');
                 /* Load waiting list */
-                if ($product->virtuemart_product_id) {
+                if ($product->tsmart_product_id) {
                     //$waitinglist = $this->get('waitingusers', 'waitinglist');
-                    $waitinglist = $waitinglistmodel->getWaitingusers($product->virtuemart_product_id);
+                    $waitinglist = $waitinglistmodel->getWaitingusers($product->tsmart_product_id);
                     $this->assignRef('waitinglist', $waitinglist);
                 }
                 $orderstatusModel = VmModel::getModel('orderstatus');
                 $lists['OrderStatus'] = $orderstatusModel->renderOSList(array(), 'order_status', TRUE);
 
-                // Add the virtuemart_shoppergroup_ids
+                // Add the tsmart_shoppergroup_ids
                 $cid = JFactory::getUser()->id;
 
-                $this->activeShoppergroups = shopfunctions::renderGuiList($cid, 'shoppergroups', 'shopper_group_name', 'category', 'vmuser_shoppergroups', 'virtuemart_user_id');
+                $this->activeShoppergroups = shopfunctions::renderGuiList($cid, 'shoppergroups', 'shopper_group_name', 'category', 'vmuser_shoppergroups', 'tsmart_user_id');
                 if (!empty($this->activeShoppergroups)) {
                     $shoppergroupModel = VmModel::getModel('shoppergroup');
                     $this->activeShoppergroups = tsmText::_($shoppergroupModel->getDefault(0)->shopper_group_name);
@@ -202,7 +202,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 // Load protocustom lists
                 $customModel = VmModel::getModel('custom');
 
-                $this->fieldTypes = VirtueMartModelCustom::getCustomTypes();
+                $this->fieldTypes = tsmartModelCustom::getCustomTypes();
 
                 $customsList = $customModel->getCustomsList();
                 $attribs = 'style= "width: 300px;"';
@@ -268,13 +268,13 @@ class TsmartViewProduct extends tsmViewAdmin
                 //get tour_type
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
                 $list_tour_service_class = vmServiceclass::get_list_tour_service_class();
-                $product->list_tour_service_class_id = vmServiceclass::get_list_service_class_ids_by_tour_id($product->virtuemart_product_id);
+                $product->list_tour_service_class_id = vmServiceclass::get_list_service_class_ids_by_tour_id($product->tsmart_product_id);
                 $this->assignRef('list_tour_service_class', $list_tour_service_class);
                 //end get tour_type
 
                 //get activities
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmactivities.php';
-                $product->list_activity_id = tsmactivities::get_list_activity_id_by_tour_id($product->virtuemart_product_id);
+                $product->list_activity_id = tsmactivities::get_list_activity_id_by_tour_id($product->tsmart_product_id);
                 $activities = tsmactivities::get_activities();
                 $this->assignRef('activities', $activities);
                 //end get activities
@@ -282,14 +282,14 @@ class TsmartViewProduct extends tsmViewAdmin
                 //get list group size
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
                 $list_group_size = tsmGroupSize::get_list_group_size();
-                $product->list_group_size_id = tsmGroupSize::get_list_group_size_ids_by_tour_id($product->virtuemart_product_id);
+                $product->list_group_size_id = tsmGroupSize::get_list_group_size_ids_by_tour_id($product->tsmart_product_id);
 
                 $this->assignRef('list_group_size', $list_group_size);
                 //end get list group size
 
                 //get list country
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
-                $product->list_virtuemart_country_id = tsmcountries::get_list_virtuemart_country_id_by_tour_id($product->virtuemart_product_id);
+                $product->list_tsmart_country_id = tsmcountries::get_list_tsmart_country_id_by_tour_id($product->tsmart_product_id);
                 //end get list group size
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
                 $this->list_price_type = vmprice::get_list_price_type();
@@ -310,24 +310,24 @@ class TsmartViewProduct extends tsmViewAdmin
                 $this->assignRef('lists', $lists);
                 // Toolbar
                 if ($product->product_sku) $sku = ' (' . $product->product_sku . ')'; else $sku = "";
-                //if (!empty($product->canonCatLink)) $canonLink = '&virtuemart_category_id=' . $product->canonCatLink; else $canonLink = '';
-                if (!empty($product->virtuemart_product_id)) {
+                //if (!empty($product->canonCatLink)) $canonLink = '&tsmart_category_id=' . $product->canonCatLink; else $canonLink = '';
+                if (!empty($product->tsmart_product_id)) {
                     if (!class_exists('shopFunctionsF')) require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
                     $menuItemID = shopFunctionsF::getMenuItemId(JFactory::getLanguage()->getTag());
                     $canonLink = '';
-                    if ($product->canonCatId) $canonLink = '&virtuemart_category_id=' . $product->canonCatId;
+                    if ($product->canonCatId) $canonLink = '&tsmart_category_id=' . $product->canonCatId;
 
-                    $text = '<a href="' . juri::root() . 'index.php?option=com_tsmart&view=productdetails&virtuemart_product_id=' . $product->virtuemart_product_id . $canonLink . '&Itemid=' . $menuItemID . '" target="_blank" >' . $product->product_name . $sku . '<span class="vm2-modallink"></span></a>';
+                    $text = '<a href="' . juri::root() . 'index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $product->tsmart_product_id . $canonLink . '&Itemid=' . $menuItemID . '" target="_blank" >' . $product->product_name . $sku . '<span class="vm2-modallink"></span></a>';
                     if (JFactory::getApplication()->isSite()) {
                         $bar = JToolBar::getInstance('toolbar');
-                        $bar->appendButton('Link', 'back', 'com_tsmart_LEAVE_TO_PRODUCT', juri::root() . 'index.php?option=com_tsmart&view=productdetails&virtuemart_product_id=' . $product->virtuemart_product_id . $canonLink . '&Itemid=' . $menuItemID);
+                        $bar->appendButton('Link', 'back', 'com_tsmart_LEAVE_TO_PRODUCT', juri::root() . 'index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $product->tsmart_product_id . $canonLink . '&Itemid=' . $menuItemID);
                     }
                 } else {
                     $text = $product->product_name . $sku;
                 }
                 $this->SetViewTitle('PRODUCT', $text);
 
-                $this->addStandardEditViewCommandsNoValidate($product->virtuemart_product_id);
+                $this->addStandardEditViewCommandsNoValidate($product->tsmart_product_id);
 
 
                 break;
@@ -386,7 +386,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
                     if ($product_parent) {
                         $title = 'PRODUCT_CHILDREN_LIST';
-                        $link_to_parent = JHtml::_('link', JRoute::_('index.php?view=product&task=edit&virtuemart_product_id=' . $product_parent->virtuemart_product_id . '&option=com_tsmart'), $product_parent->product_name, array('title' => tsmText::_('com_tsmart_EDIT_PARENT') . ' ' . $product_parent->product_name));
+                        $link_to_parent = JHtml::_('link', JRoute::_('index.php?view=product&task=edit&tsmart_product_id=' . $product_parent->tsmart_product_id . '&option=com_tsmart'), $product_parent->product_name, array('title' => tsmText::_('com_tsmart_EDIT_PARENT') . ' ' . $product_parent->product_name));
                         $msg = tsmText::_('com_tsmart_PRODUCT_OF') . " " . $link_to_parent;
                     } else {
                         $title = 'PRODUCT_CHILDREN_LIST';
@@ -402,14 +402,14 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $this->addStandardDefaultViewLists($model, 'created_on');
 
-                if ($cI = vRequest::getInt('virtuemart_category_id', false)) {
+                if ($cI = vRequest::getInt('tsmart_category_id', false)) {
                     $app = JFactory::getApplication();
-                    //$old_state = $app->getUserState('virtuemart_category_id');
-                    $old_state = $app->getUserState('virtuemart_category_id');
+                    //$old_state = $app->getUserState('tsmart_category_id');
+                    $old_state = $app->getUserState('tsmart_category_id');
                     if (empty($old_state) or $old_state != $cI) {
                         vRequest::setVar('com_tsmart.product.filter_order', 'pc.ordering');
                         $model->filter_order = 'pc.ordering';
-                        $old_state = $app->setUserState('virtuemart_category_id', $cI);
+                        $old_state = $app->setUserState('tsmart_category_id', $cI);
                     }
                 }
 
@@ -420,7 +420,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 $this->pagination = $model->getPagination();
 
                 //Get the category tree
-                $categoryId = $model->virtuemart_category_id; //OSP switched to filter in model, was vRequest::getInt('virtuemart_category_id');
+                $categoryId = $model->tsmart_category_id; //OSP switched to filter in model, was vRequest::getInt('tsmart_category_id');
                 $category_tree = ShopFunctions::categoryListTree(array($categoryId));
                 $this->assignRef('category_tree', $category_tree);
                 //load service class
@@ -443,13 +443,13 @@ class TsmartViewProduct extends tsmViewAdmin
 
 
                 foreach ($productlist as $tsmart_product_id => $product) {
-                    $product->mediaitems = count($product->virtuemart_media_id);
-                    $product->reviews = $productreviews->countReviewsForProduct($product->virtuemart_product_id);
+                    $product->mediaitems = count($product->tsmart_media_id);
+                    $product->reviews = $productreviews->countReviewsForProduct($product->tsmart_product_id);
 
-                    $vendor_model->setId($product->virtuemart_vendor_id);
+                    $vendor_model->setId($product->tsmart_vendor_id);
                     $vendor = $vendor_model->getVendor();
 
-                    $currencyDisplay = CurrencyDisplay::getInstance($vendor->vendor_currency, $vendor->virtuemart_vendor_id);
+                    $currencyDisplay = CurrencyDisplay::getInstance($vendor->vendor_currency, $vendor->tsmart_vendor_id);
 
                     if (!empty($product->allPrices[$product->selectedPrice]['product_price']) && !empty($product->allPrices[$product->selectedPrice]['product_currency'])) {
                         $product->product_price_display = $currencyDisplay->priceDisplay($product->allPrices[$product->selectedPrice]['product_price'], (int)$product->allPrices[$product->selectedPrice]['product_currency'], 1, true);
@@ -467,8 +467,8 @@ class TsmartViewProduct extends tsmViewAdmin
 
                     // Write the first 5 manufacturers in the list
                     $product->manuList = '';
-                    if (!empty($product->virtuemart_manufacturer_id[0])) {
-                        $product->manuList = shopfunctions::renderGuiList($product->virtuemart_manufacturer_id, 'manufacturers', 'mf_name', 'manufacturer');
+                    if (!empty($product->tsmart_manufacturer_id[0])) {
+                        $product->manuList = shopfunctions::renderGuiList($product->tsmart_manufacturer_id, 'manufacturers', 'mf_name', 'manufacturer');
                     }
                 }
 
@@ -516,7 +516,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
 
                 $this->assignRef('productlist', $productlist);
-                $this->assignRef('virtuemart_category_id', $categoryId);
+                $this->assignRef('tsmart_category_id', $categoryId);
                 $this->assignRef('model', $model);
 
                 break;
@@ -547,15 +547,15 @@ class TsmartViewProduct extends tsmViewAdmin
     function renderDiscountList($selected, $name = 'product_discount_id')
     {
 
-        if (!class_exists('VirtueMartModelCalc')) require(VMPATH_ADMIN . DS . 'models' . DS . 'calc.php');
-        $discounts = VirtueMartModelCalc::getDiscounts();
+        if (!class_exists('tsmartModelCalc')) require(VMPATH_ADMIN . DS . 'models' . DS . 'calc.php');
+        $discounts = tsmartModelCalc::getDiscounts();
 
         $discountrates = array();
         $discountrates[] = JHtml::_('select.option', '-1', tsmText::_('com_tsmart_PRODUCT_DISCOUNT_NONE'), 'product_discount_id');
         $discountrates[] = JHtml::_('select.option', '0', tsmText::_('com_tsmart_PRODUCT_DISCOUNT_NO_SPECIAL'), 'product_discount_id');
         //		$discountrates[] = JHtml::_('select.option', 'override', vmText::_('com_tsmart_PRODUCT_DISCOUNT_OVERRIDE'), 'product_discount_id');
         foreach ($discounts as $discount) {
-            $discountrates[] = JHtml::_('select.option', $discount->virtuemart_calc_id, $discount->calc_name, 'product_discount_id');
+            $discountrates[] = JHtml::_('select.option', $discount->tsmart_calc_id, $discount->calc_name, 'product_discount_id');
         }
         $listHTML = JHtml::_('Select.genericlist', $discountrates, $name, '', 'product_discount_id', 'text', $selected);
         return $listHTML;
@@ -566,7 +566,7 @@ class TsmartViewProduct extends tsmViewAdmin
     {
 
         $db = JFactory::getDBO();
-        $db->setQuery(' SELECT COUNT( * ) FROM `#__virtuemart_products` WHERE `product_parent_id` =' . $product_id);
+        $db->setQuery(' SELECT COUNT( * ) FROM `#__tsmart_products` WHERE `product_parent_id` =' . $product_id);
         if ($result = $db->loadResult()) {
             $result = tsmText::sprintf('com_tsmart_X_CHILD_PRODUCT', $result);
             echo JHtml::_('link', JRoute::_('index.php?view=product&product_parent_id=' . $product_id . '&option=com_tsmart'), $result, array('title' => tsmText::sprintf('com_tsmart_PRODUCT_LIST_X_CHILDREN', htmlentities($product_name))));
@@ -577,7 +577,7 @@ class TsmartViewProduct extends tsmViewAdmin
     {
 
         $db = JFactory::getDBO();
-        $db->setQuery(' SELECT * FROM `#__virtuemart_products_' . VmConfig::$vmlang . '` as l JOIN `#__virtuemart_products` using (`virtuemart_product_id`) WHERE `virtuemart_product_id` = ' . $product_parent_id);
+        $db->setQuery(' SELECT * FROM `#__tsmart_products_' . VmConfig::$vmlang . '` as l JOIN `#__tsmart_products` using (`tsmart_product_id`) WHERE `tsmart_product_id` = ' . $product_parent_id);
         if ($parent = $db->loadObject()) {
             $result = tsmText::sprintf('com_tsmart_LIST_CHILDREN_FROM_PARENT', htmlentities($parent->product_name));
             echo JHtml::_('link', JRoute::_('index.php?view=product&product_parent_id=' . $product_parent_id . '&option=com_tsmart'), $parent->product_name, array('title' => $result));

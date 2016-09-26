@@ -5,12 +5,12 @@
  *
  * This class provides the functions for the calculatoins
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -39,7 +39,7 @@ class TsmController extends JControllerLegacy{
 		$this->registerTask( 'add',  'edit' );
 		$this->registerTask('apply','save');
 
-		//VirtuemartController
+		//tsmartController
 		$this->_cname = strtolower(substr(get_class( $this ), 20));
 		$this->mainLangKey = tsmText::_('com_tsmart_'.strtoupper($this->_cname));
 		$this->redirectPath = 'index.php?option=com_tsmart&view='.$this->_cname;

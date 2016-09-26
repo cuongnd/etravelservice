@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop Currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  */
-class VirtueMartModelAccommodation extends VmModel {
+class tsmartModelAccommodation extends VmModel {
 
 
 	/**
@@ -68,15 +68,15 @@ class VirtueMartModelAccommodation extends VmModel {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+		$tsmart_product_id=$input->getInt('tsmart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('itinerary.*,cityarea.city_area_name,accommodation.virtuemart_accommodation_id')
-			->from('#__virtuemart_itinerary AS itinerary')
-			->where('itinerary.virtuemart_product_id='.(int)$tsmart_product_id)
-			->leftJoin('#__virtuemart_accommodation AS accommodation USING(virtuemart_itinerary_id)')
-			->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
-			->group('itinerary.virtuemart_itinerary_id')
+		$query->select('itinerary.*,cityarea.city_area_name,accommodation.tsmart_accommodation_id')
+			->from('#__tsmart_itinerary AS itinerary')
+			->where('itinerary.tsmart_product_id='.(int)$tsmart_product_id)
+			->leftJoin('#__tsmart_accommodation AS accommodation USING(tsmart_itinerary_id)')
+			->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
+			->group('itinerary.tsmart_itinerary_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -128,9 +128,9 @@ class VirtueMartModelAccommodation extends VmModel {
 
 			foreach($list_hotel_service_class as $tsmart_service_class_id=>$list_hotel){
                 $query=$this->_db->getQuery(true);
-                $query->delete('#__virtuemart_hotel_id_service_class_id_accommodation_id')
-                    ->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-                    ->where('virtuemart_accommodation_id='.(int)$tsmart_accommodation_id)
+                $query->delete('#__tsmart_hotel_id_service_class_id_accommodation_id')
+                    ->where('tsmart_service_class_id='.(int)$tsmart_service_class_id)
+                    ->where('tsmart_accommodation_id='.(int)$tsmart_accommodation_id)
                     ;
                 $this->_db->setQuery($query);
                 $ok=$this->_db->execute();
@@ -149,9 +149,9 @@ class VirtueMartModelAccommodation extends VmModel {
                     $tsmart_service_class_id=$tsmart_service_class_id?$tsmart_service_class_id:0;
                     $tsmart_hotel_id=$tsmart_hotel_id?$tsmart_hotel_id:0;
 					$table_hotel_id_service_class_id_accommodation_id=$this->getTable('hotel_id_service_class_id_accommodation_id');
-					$table_hotel_id_service_class_id_accommodation_id->virtuemart_service_class_id=$tsmart_service_class_id;
-					$table_hotel_id_service_class_id_accommodation_id->virtuemart_hotel_id=$tsmart_hotel_id;
-					$table_hotel_id_service_class_id_accommodation_id->virtuemart_accommodation_id=$tsmart_accommodation_id;
+					$table_hotel_id_service_class_id_accommodation_id->tsmart_service_class_id=$tsmart_service_class_id;
+					$table_hotel_id_service_class_id_accommodation_id->tsmart_hotel_id=$tsmart_hotel_id;
+					$table_hotel_id_service_class_id_accommodation_id->tsmart_accommodation_id=$tsmart_accommodation_id;
                     if($tsmart_hotel_id&&$tsmart_service_class_id&&$tsmart_accommodation_id)
                     {
                         $table_hotel_id_service_class_id_accommodation_id->store(true);

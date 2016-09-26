@@ -3,13 +3,13 @@
 *
 * Currency controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Currency Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
@@ -62,7 +62,7 @@ class TsmartControllerDeparture extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-        $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
+        $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
 		$list_service_class=vmServiceclass::get_list_service_class_by_tour_id($tsmart_product_id);
 		echo json_encode($list_service_class);
@@ -76,7 +76,7 @@ class TsmartControllerDeparture extends TsmController {
 		$app=JFactory::getApplication();
 		$departure_model=$this->getModel('departure');
 		$input=$app->input;
-        $tsmart_departure_id=$input->getInt('virtuemart_departure_id',0);
+        $tsmart_departure_id=$input->getInt('tsmart_departure_id',0);
         $item=$departure_model->getdeparture($tsmart_departure_id);
         echo json_encode($item);
 		die;
@@ -96,7 +96,7 @@ class TsmartControllerDeparture extends TsmController {
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
         $data['days_seleted']=implode(',',$days_seleted);
-        if(!$data['virtuemart_departure_id'])
+        if(!$data['tsmart_departure_id'])
         {
             $data['departure_code']=JUserHelper::genRandomPassword();
         }
@@ -108,7 +108,7 @@ class TsmartControllerDeparture extends TsmController {
         }
 
         $item=$departure_model->getdeparture($tsmart_departure_id);
-        if(!$item->virtuemart_departure_parent_id) {
+        if(!$item->tsmart_departure_parent_id) {
             $departure_model->create_children_departure($tsmart_departure_id);
         }
         echo json_encode($item);
@@ -118,7 +118,7 @@ class TsmartControllerDeparture extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tsmart_departure_id=$input->get('virtuemart_departure_id',0,'int');
+		$tsmart_departure_id=$input->get('tsmart_departure_id',0,'int');
 		$tour_id=$input->get('tour_id',0,'int');
 		$model_departure = VmModel::getModel('departure');
 		if(!$model_departure->remove(array($tsmart_departure_id)))
@@ -135,7 +135,7 @@ class TsmartControllerDeparture extends TsmController {
 		$app=JFactory::getApplication();
 		$input=$app->input;
 		$model_departure = VmModel::getModel('departure');
-		if(!$model_departure->toggle('published',null,'virtuemart_departure_id','departure'))
+		if(!$model_departure->toggle('published',null,'tsmart_departure_id','departure'))
 		{
 			echo 'cannot published item';
 			die;

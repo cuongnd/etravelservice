@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -123,14 +123,14 @@ AdminUIHelper::startAdminArea($this);
                     for ($i = 0, $n = count($this->list_date_availability); $i < $n; $i++) {
 
                         $row = $this->list_date_availability[$i];
-                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_dateavailability_id);
+                        $checked = JHtml::_('grid.id', $i, $row->tsmart_dateavailability_id);
                         $published = $this->gridPublished($row, $i);
 
-                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=dateavailability&task=edit&cid[]=' . $row->virtuemart_dateavailability_id);
+                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=dateavailability&task=edit&cid[]=' . $row->tsmart_dateavailability_id);
                         ?>
                         <tr role="row" class="row<?php echo $k; ?>"
-                            data-virtuemart_dateavailability_id="<?php echo $row->virtuemart_date_availability_id ?>"
-                            data-virtuemart_product_id="<?php echo $row->virtuemart_product_id ?>" data-virtuemart_service_class_id="<?php echo $row->virtuemart_service_class_id ?>">
+                            data-tsmart_dateavailability_id="<?php echo $row->tsmart_date_availability_id ?>"
+                            data-tsmart_product_id="<?php echo $row->tsmart_product_id ?>" data-tsmart_service_class_id="<?php echo $row->tsmart_service_class_id ?>">
                             <td class="admin-checkbox">
                                 <?php echo $checked; ?>
                             </td>
@@ -198,22 +198,22 @@ AdminUIHelper::startAdminArea($this);
                     <div class="span12 ">
 
                         <label>Select tour name</label>
-                        <select id="virtuemart_product_id" name="virtuemart_product_id" disable_chosen="true" required
+                        <select id="tsmart_product_id" name="tsmart_product_id" disable_chosen="true" required
                                 style="width: 300px">
                             <option value="">select tour</option>
                             <?php foreach ($this->list_tour as $tour) { ?>
                                 <option
-                                    value="<?php echo $tour->virtuemart_product_id ?>"><?php echo $tour->product_name ?></option>
+                                    value="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?></option>
                             <?php } ?>
                         </select>
 
                         <label>Select Service Class</label>
-                        <select id="virtuemart_service_class_id" disable_chosen="true" required
-                                name="virtuemart_service_class_id" style="width: 300px">
+                        <select id="tsmart_service_class_id" disable_chosen="true" required
+                                name="tsmart_service_class_id" style="width: 300px">
                             <option value="">select service</option>
                             <?php foreach ($this->list_tour_class as $tour_service_class) { ?>
                                 <option
-                                    value="<?php echo $tour_service_class->virtuemart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
+                                    value="<?php echo $tour_service_class->tsmart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -262,7 +262,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="virtuemart_dateavailability_id" name="virtuemart_dateavailability_id"
+            <input type="hidden" id="tsmart_dateavailability_id" name="tsmart_dateavailability_id"
                    value="0"/>
             <input type="hidden" id="published" name="published"
                    value="1"/>

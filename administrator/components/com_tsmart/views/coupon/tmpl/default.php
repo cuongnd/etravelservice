@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -49,7 +49,7 @@ $js_content = ob_get_clean();
 $js_content = JUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 $option=array(
-    'virtuemart_product_id'=>'',
+    'tsmart_product_id'=>'',
     'product_name'=>'Please select tour'
 );
 array_unshift($this->list_tour,$option);
@@ -60,8 +60,8 @@ array_unshift($this->list_tour,$option);
         <div class="row-fluid filter">
             <div class="control-group btn_search"><?php echo VmHTML::input_button('','Reset'); ?></div>
             <?php echo VmHTML::row_control('input', 'Hotel name or rule code','filter_search',$this->escape($this->state->get('filter.search'))); ?>
-            <?php echo VmHTML::row_control('location_city', 'Location', 'filter_location_city', $this->state->get('filter.location_city'), 'virtuemart_cityarea_id', 'full_city'); ?>
-            <?php echo VmHTML::row_control('select', 'Tour name', 'filter_virtuemart_product_id', $this->list_tour, $this->state->get('filter.virtuemart_product_id'),'', 'virtuemart_product_id', 'product_name', false); ?>
+            <?php echo VmHTML::row_control('location_city', 'Location', 'filter_location_city', $this->state->get('filter.location_city'), 'tsmart_cityarea_id', 'full_city'); ?>
+            <?php echo VmHTML::row_control('select', 'Tour name', 'filter_tsmart_product_id', $this->list_tour, $this->state->get('filter.tsmart_product_id'),'', 'tsmart_product_id', 'product_name', false); ?>
             <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'filter_vail_from', 'filter_vail_to', $this->state->get('filter.vail_from'),$this->state->get('filter.vail_to')); ?>
             <?php echo VmHTML::row_control('select_state', 'Status', 'filter_state',$this->state->get('filter.state'),''); ?>
             <div class="control-group btn_search"><?php echo VmHTML::input_button('','Search'); ?></div>
@@ -76,7 +76,7 @@ array_unshift($this->list_tour,$option);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_coupon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_coupon_id', 'Id'); ?>
                         </label>
 
                     </th>
@@ -114,11 +114,11 @@ array_unshift($this->list_tour,$option);
                     for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                         $row = $this->items[$i];
 
-                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_coupon_id);
+                        $checked = JHtml::_('grid.id', $i, $row->tsmart_coupon_id);
                         $published = $this->gridPublished($row, $i);
-                        $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_coupon_id');
-                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=coupon&task=edit_item&cid[]=' . $row->virtuemart_coupon_id);
-                        $edit = $this->gridEdit($row, $i, 'virtuemart_coupon_id', $editlink);
+                        $delete = $this->grid_delete_in_line($row, $i, 'tsmart_coupon_id');
+                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=coupon&task=edit_item&cid[]=' . $row->tsmart_coupon_id);
+                        $edit = $this->gridEdit($row, $i, 'tsmart_coupon_id', $editlink);
                         ?>
                         <tr class="row<?php echo $k; ?>">
                             <td class="admin-checkbox">
@@ -131,7 +131,7 @@ array_unshift($this->list_tour,$option);
                                 <?php echo JHtml::_('date', $row->created_on, 'd M. Y'); ?>
                             </td>
                             <td align="left">
-                                <a href="/administrator/index.php?option=com_tsmart&view=cityarea&task=edit_item&cid[]=<?php echo $row->virtuemart_cityarea_id; ?>"><?php echo $row->city_area_name; ?></a>
+                                <a href="/administrator/index.php?option=com_tsmart&view=cityarea&task=edit_item&cid[]=<?php echo $row->tsmart_cityarea_id; ?>"><?php echo $row->city_area_name; ?></a>
                             </td>
                             <td align="left">
                                 <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>

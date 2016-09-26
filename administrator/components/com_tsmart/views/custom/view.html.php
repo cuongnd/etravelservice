@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -23,9 +23,9 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 class TsmartViewCustom extends tsmViewAdmin {
@@ -48,13 +48,13 @@ class TsmartViewCustom extends tsmViewAdmin {
 			$this->customPlugin = '';
 
 			$this->custom = $model->getCustom();
-			$this->fieldTypes = VirtueMartModelCustom::getCustomTypes();
+			$this->fieldTypes = tsmartModelCustom::getCustomTypes();
 
 			$this->customfields = VmModel::getModel('customfields');
  			//vmdebug('TsmartViewCustom',$this->custom);
 			JPluginHelper::importPlugin('vmcustom');
 			$dispatcher = JDispatcher::getInstance();
-			$retValue = $dispatcher->trigger('plgVmOnDisplayEdit',array($this->custom->virtuemart_custom_id,&$this->customPlugin));
+			$retValue = $dispatcher->trigger('plgVmOnDisplayEdit',array($this->custom->tsmart_custom_id,&$this->customPlugin));
 
 			$this->SetViewTitle('PRODUCT_CUSTOM_FIELD', $this->custom->custom_title);
 
@@ -76,7 +76,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 
 				}
 			} else {
-				$varsToPush = VirtueMartModelCustom::getVarsToPush($this->custom->field_type);
+				$varsToPush = tsmartModelCustom::getVarsToPush($this->custom->field_type);
 
 				if(!empty($varsToPush)){
 					JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
@@ -179,7 +179,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 	 */
 	public function displayCustomFields ($datas) {
 
-		$identify = ''; // ':'.$this->virtuemart_custom_id;
+		$identify = ''; // ':'.$this->tsmart_custom_id;
 		if (!class_exists ('VmHTML')) {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		}
@@ -204,7 +204,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 		$html .= VmHTML::row ('input', 'com_tsmart_TITLE', 'custom_title', $datas->custom_title,'class="required"');
 		$html .= VmHTML::row ('booleanlist', 'com_tsmart_SHOW_TITLE', 'show_title', $datas->show_title);
 		$html .= VmHTML::row ('booleanlist', 'com_tsmart_PUBLISHED', 'published', $datas->published);
-		$html .= VmHTML::row ('select', 'com_tsmart_CUSTOM_GROUP', 'custom_parent_id', $model->getParentList ($datas->virtuemart_custom_id), $datas->custom_parent_id, '');
+		$html .= VmHTML::row ('select', 'com_tsmart_CUSTOM_GROUP', 'custom_parent_id', $model->getParentList ($datas->tsmart_custom_id), $datas->custom_parent_id, '');
 		$html .= VmHTML::row ('booleanlist', 'com_tsmart_CUSTOM_IS_CART_ATTRIBUTE', 'is_cart_attribute', $datas->is_cart_attribute);
 		$html .= VmHTML::row ('booleanlist', 'com_tsmart_CUSTOM_IS_CART_INPUT', 'is_input', $datas->is_input);
 		$html .= VmHTML::row ('input', 'com_tsmart_DESCRIPTION', 'custom_desc', $datas->custom_desc);
@@ -261,7 +261,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 	 */
 	private function addHiddenByType ($datas) {
 
-		$this->addHidden ('virtuemart_custom_id', $datas->virtuemart_custom_id);
+		$this->addHidden ('tsmart_custom_id', $datas->tsmart_custom_id);
 		$this->addHidden ('option', 'com_tsmart');
 
 	}

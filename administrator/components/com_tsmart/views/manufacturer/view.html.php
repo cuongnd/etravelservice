@@ -3,13 +3,13 @@
  *
  * Manufacturer View
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Manufacturer
  * @author Patrick Kohl
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of manufacturers
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Manufacturer
  * @author Patrick Kohl
  */
@@ -52,21 +52,21 @@ class TsmartViewManufacturer extends tsmViewAdmin {
 
 			$this->manufacturer = $model->getManufacturer();
 
-			$isNew = ($this->manufacturer->virtuemart_manufacturer_id < 1);
+			$isNew = ($this->manufacturer->tsmart_manufacturer_id < 1);
 
 			$model->addImages($this->manufacturer);
 
 			/* Process the images */
 			$mediaModel = VmModel::getModel('media');
-			$mediaModel -> setId($this->manufacturer->virtuemart_media_id);
+			$mediaModel -> setId($this->manufacturer->tsmart_media_id);
 			$image = $mediaModel->getFile('manufacturer','image');
 
 			$this->manufacturerCategories = $categoryModel->getManufacturerCategories(false,true);
 
-			$this->addStandardEditViewCommands($this->manufacturer->virtuemart_manufacturer_id);
+			$this->addStandardEditViewCommands($this->manufacturer->tsmart_manufacturer_id);
 
-			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-			$this->virtuemart_vendor_id = VirtueMartModelVendor::getLoggedVendor();
+			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			$this->tsmart_vendor_id = tsmartModelVendor::getLoggedVendor();
 
 		}
 		else {
@@ -81,8 +81,8 @@ class TsmartViewManufacturer extends tsmViewAdmin {
 			$this->manufacturers = $model->getManufacturers();
 			$this->pagination = $model->getPagination();
 
-			$tsmart_manufacturercategories_id	= $mainframe->getUserStateFromRequest( 'com_tsmart.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
-			$this->lists['virtuemart_manufacturercategories_id'] =  JHtml::_('select.genericlist',   $categoryFilter, 'virtuemart_manufacturercategories_id', 'class="inputbox" onchange="this.form.submit()"', 'value', 'text', $tsmart_manufacturercategories_id );
+			$tsmart_manufacturercategories_id	= $mainframe->getUserStateFromRequest( 'com_tsmart.tsmart_manufacturercategories_id', 'tsmart_manufacturercategories_id', 0, 'int' );
+			$this->lists['tsmart_manufacturercategories_id'] =  JHtml::_('select.genericlist',   $categoryFilter, 'tsmart_manufacturercategories_id', 'class="inputbox" onchange="this.form.submit()"', 'value', 'text', $tsmart_manufacturercategories_id );
 
 		}
 

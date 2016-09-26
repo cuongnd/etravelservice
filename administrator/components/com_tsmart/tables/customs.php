@@ -3,13 +3,13 @@
 *
 * Media table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Media
 * @author  Patrick Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -26,7 +26,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * The class is to manage description of custom fields in the shop.
  *
  * @author Patrick Kohl
- * @package		VirtueMart
+ * @package		tsmart
  */
 class TableCustoms extends tsmTable {
 
@@ -83,9 +83,9 @@ class TableCustoms extends tsmTable {
 	 * @param JDataBase $db
 	 */
 	function __construct(&$db) {
-		parent::__construct('#__virtuemart_customs', 'virtuemart_custom_id', $db);
+		parent::__construct('#__tsmart_customs', 'tsmart_custom_id', $db);
 
-		$this->_cidName = 'virtuemart_custom_id';
+		$this->_cidName = 'tsmart_custom_id';
 
 		$this->setUniqueName('custom_title');
 		$this->setObligatoryKeys('field_type');
@@ -97,13 +97,13 @@ class TableCustoms extends tsmTable {
 
 	/*
 	* field from 3 table have to be checked at delete
-	* #__vm_custom_field,#__virtuemart_customs,#__virtuemart_product_customfields
+	* #__vm_custom_field,#__tsmart_customs,#__tsmart_product_customfields
 	*/
 	function delete( $id=null , $where = 0 ){
 
-		$this->_db->setQuery('DELETE X,C FROM `#__virtuemart_customs` AS C
-			LEFT JOIN  `#__virtuemart_product_customfields` AS X ON  X.`virtuemart_custom_id` = C.`virtuemart_custom_id`
-			WHERE C.`virtuemart_custom_id`=' . $id);
+		$this->_db->setQuery('DELETE X,C FROM `#__tsmart_customs` AS C
+			LEFT JOIN  `#__tsmart_product_customfields` AS X ON  X.`tsmart_custom_id` = C.`tsmart_custom_id`
+			WHERE C.`tsmart_custom_id`=' . $id);
 		if ($this->_db->execute() === false) {
 			vmError($this->_db->getError());
 			return false;

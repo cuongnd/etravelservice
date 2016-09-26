@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -54,7 +54,7 @@ AdminUIHelper::startAdminArea($this);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_transfer_addon_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_transfer_addon_id','Id') ; ?></label>
                     </th>
                     <th>
                         <?php echo $this->sort('city_area_name', 'City area name'); ?>
@@ -107,22 +107,22 @@ AdminUIHelper::startAdminArea($this);
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_cityarea_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_cityarea_id);
                     $published = $this->gridPublished($row, $i);
 
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=cityarea&task=edit_in_line&cid[]=' . $row->virtuemart_cityarea_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_cityarea_id', $editlink);
-                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=cityarea&task=save_in_line&cid[]=' . $row->virtuemart_cityarea_id);
-                    $save = $this->grid_save_in_line($row, $i, 'virtuemart_cityarea_id', $save_link);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_cityarea_id');
-                    $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_cityarea_id');
-                    $show_edit = ($show_edit_in_line == 1 && in_array($row->virtuemart_cityarea_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=cityarea&task=edit_in_line&cid[]=' . $row->tsmart_cityarea_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_cityarea_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=cityarea&task=save_in_line&cid[]=' . $row->tsmart_cityarea_id);
+                    $save = $this->grid_save_in_line($row, $i, 'tsmart_cityarea_id', $save_link);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_cityarea_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_cityarea_id');
+                    $show_edit = ($show_edit_in_line == 1 && in_array($row->tsmart_cityarea_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_cityarea_id => $row->virtuemart_cityarea_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_cityarea_id => $row->tsmart_cityarea_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>
@@ -160,7 +160,7 @@ AdminUIHelper::startAdminArea($this);
                         <td align="left">
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
-                                <?php echo VmHTML::select('virtuemart_country_id', $this->list_country, $row->virtuemart_country_id, '', 'virtuemart_country_id', 'country_name'); ?>
+                                <?php echo VmHTML::select('tsmart_country_id', $this->list_country, $row->tsmart_country_id, '', 'tsmart_country_id', 'country_name'); ?>
                             <?php } else { ?>
                                 <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo $row->country_name ?>
@@ -168,7 +168,7 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::select_state_province('virtuemart_state_id', $this->list_state, $row->virtuemart_state_id, '', 'virtuemart_state_id', 'state_name','select[name="virtuemart_country_id"]'); ?>
+                                <?php echo VmHTML::select_state_province('tsmart_state_id', $this->list_state, $row->tsmart_state_id, '', 'tsmart_state_id', 'state_name','select[name="tsmart_country_id"]'); ?>
                             <?php } else { ?>
                                 <?php echo $row->state_name ?>
                             <?php } ?>

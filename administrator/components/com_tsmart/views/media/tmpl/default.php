@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -59,7 +59,7 @@ $productfileslist = $this->files;
 		<th style="min-width:120px;width:15%;"><?php echo tsmText::_('com_tsmart_FILES_LIST_FILENAME'); ?></th>
 		<th style="min-width:30px;width:1%;max-width:40px;"><?php echo tsmText::_('com_tsmart_FILES_LIST_FILETYPE'); ?></th>
 		<th><?php echo $this->sort('published', 'com_tsmart_PUBLISHED'); ?></th>
-	  <th><?php echo $this->sort('virtuemart_media_id', 'com_tsmart_ID')  ?></th>
+	  <th><?php echo $this->sort('tsmart_media_id', 'com_tsmart_ID')  ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -77,8 +77,8 @@ $productfileslist = $this->files;
 					continue;
 				}
 			}
-			$checked = JHtml::_('grid.id', $i , $productfile->virtuemart_media_id,null,'virtuemart_media_id');
-			if (!is_null($productfile->virtuemart_media_id)) 	$published = $this->gridPublished( $productfile, $i );
+			$checked = JHtml::_('grid.id', $i , $productfile->tsmart_media_id,null,'tsmart_media_id');
+			if (!is_null($productfile->tsmart_media_id)) 	$published = $this->gridPublished( $productfile, $i );
 			else $published = '';
 			?>
 			<tr class="row<?php echo $k ; ?>">
@@ -91,7 +91,7 @@ $productfileslist = $this->files;
 				<td><?php echo JHtml::_('link', JRoute::_($link, FALSE), empty($productfile->product_name)? '': htmlentities($productfile->product_name)); ?></td>
 				<!-- File name -->
 				<?php */
-				$link = 'index.php?option='.$option.'&view=media&task=edit&virtuemart_media_id[]='.$productfile->virtuemart_media_id;
+				$link = 'index.php?option='.$option.'&view=media&task=edit&tsmart_media_id[]='.$productfile->tsmart_media_id;
 				?>
 				<td><?php echo JHtml::_('link', JRoute::_($link, FALSE), $productfile->file_title, array('title' => tsmText::_('com_tsmart_EDIT').' '.$productfile->file_title)); ?></td>
 				<!-- File role -->
@@ -126,7 +126,7 @@ $productfileslist = $this->files;
 				<td style="overflow:hidden;"><span class="vmicon vmicon-16-ext_<?php echo $productfile->file_extension; ?>"></span><?php echo $productfile->file_extension; ?></td>
 				<!-- published -->
 				<td><?php echo $published; ?></td>
-				<td><?php echo $productfile->virtuemart_media_id; ?></td>
+				<td><?php echo $productfile->tsmart_media_id; ?></td>
 			</tr>
 		<?php
 			$k = 1 - $k;
@@ -144,8 +144,8 @@ $productfileslist = $this->files;
 	</tfoot>
 	</table>
 <!-- Hidden Fields -->
-<?php if (vRequest::getInt('virtuemart_product_id', false)) { ?>
-	<input type="hidden" name="virtuemart_product_id" value="<?php echo vRequest::getInt('virtuemart_product_id',0); ?>" />
+<?php if (vRequest::getInt('tsmart_product_id', false)) { ?>
+	<input type="hidden" name="tsmart_product_id" value="<?php echo vRequest::getInt('tsmart_product_id',0); ?>" />
 <?php } ?>
 	<?php echo $this->addStandardHiddenToForm(); ?>
 </form>

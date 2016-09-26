@@ -3,13 +3,13 @@
 *
 * Handle the Product Custom Fields
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Product
 * @author RolandD, Patrick khol, Valérie Isaksen
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -46,7 +46,7 @@ defined('_JEXEC') or die('Restricted access');
 								<span class="vmicon vmicon-16-move"></span>
 								<div class="vmicon vmicon-16-remove"></div>
 								<span>'.$customfield->display.'</span>
-								'.VirtueMartModelCustomfields::setEditCustomHidden($customfield, $i)
+								'.tsmartModelCustomfields::setEditCustomHidden($customfield, $i)
 							  .'</div>';
 
 					} elseif ($customfield->field_type == 'R') {
@@ -56,12 +56,12 @@ defined('_JEXEC') or die('Restricted access');
 								<span class="vmicon vmicon-16-move"></span>
 								<div class="vmicon vmicon-16-remove"></div>
 								<span>'.$customfield->display.'</span>
-								'.VirtueMartModelCustomfields::setEditCustomHidden($customfield, $i)
+								'.tsmartModelCustomfields::setEditCustomHidden($customfield, $i)
 							  .'</div>';
 
 					} else {
 
-						$checkValue = $customfield->virtuemart_customfield_id;
+						$checkValue = $customfield->tsmart_customfield_id;
 						$title = '';
 						$text = '';
 						if(isset($this->fieldTypes[$customfield->field_type])){
@@ -87,7 +87,7 @@ defined('_JEXEC') or die('Restricted access');
 								$title = tsmText::sprintf('com_tsmart_CUSTOM_OVERRIDE',$checkValue).'</br>';
 							}
 
-						} else if($customfield->virtuemart_product_id==$this->product->product_parent_id){
+						} else if($customfield->tsmart_product_id==$this->product->product_parent_id){
 							$title = tsmText::_('com_tsmart_CUSTOM_INHERITED').'</br>';
 						}
 
@@ -101,11 +101,11 @@ defined('_JEXEC') or die('Restricted access');
 							<b>'.tsmText::_($type).'</b> '.tsmText::_($customfield->custom_title).'</span><br/>
 								'.$title.' '.$text.'
 								<span class="vmicon vmicon-16-'.$cartIcone.'"></span>';
-						if($customfield->virtuemart_product_id==$this->product->virtuemart_product_id or $customfield->override!=0){
+						if($customfield->tsmart_product_id==$this->product->tsmart_product_id or $customfield->override!=0){
 							$tables['fields'] .= '<span class="vmicon vmicon-16-move"></span>
 							<span class="vmicon vmicon-16-remove"></span>';
 						}
-						$tables['fields'] .= VirtueMartModelCustomfields::setEditCustomHidden($customfield, $i)
+						$tables['fields'] .= tsmartModelCustomfields::setEditCustomHidden($customfield, $i)
 						.'</td>
 							<td '.$colspan.'>'.$customfield->display.'</td>
 						 </tr>';
@@ -176,7 +176,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php
 $admin = '';
 $app = JFactory::getApplication();
-$l = 'index.php?option=com_tsmart&view=product&task=getData&format=json&virtuemart_product_id='.$this->product->virtuemart_product_id;
+$l = 'index.php?option=com_tsmart&view=product&task=getData&format=json&tsmart_product_id='.$this->product->tsmart_product_id;
 if($app->isAdmin()){
 	$jsonLink = JURI::root(false).'administrator/'.$l;
 } else {

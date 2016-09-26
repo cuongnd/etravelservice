@@ -17,7 +17,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
-        plugin.set_list_state_province = function (virtuemart_country_id) {
+        plugin.set_list_state_province = function (tsmart_country_id) {
             $.ajax({
                 type: "GET",
                 url: 'index.php',
@@ -28,7 +28,7 @@
                         option: 'com_tsmart',
                         controller: 'state',
                         task: 'ajax_get_list_state_by_country_id',
-                        virtuemart_country_id:virtuemart_country_id
+                        tsmart_country_id:tsmart_country_id
                     };
                     return dataPost;
                 })(),
@@ -46,11 +46,11 @@
 
                     });
                     var item={};
-                    item.virtuemart_state_id=0;
+                    item.tsmart_state_id=0;
                     item.state_name='Select state';
                     response.unshift(item);
-                    var virtuemart_state_id=plugin.settings.virtuemart_state_id;
-                    $.set_date_selected(response,'virtuemart_state_id','state_name',$element,virtuemart_state_id);
+                    var tsmart_state_id=plugin.settings.tsmart_state_id;
+                    $.set_date_selected(response,'tsmart_state_id','state_name',$element,tsmart_state_id);
 
                     $element.trigger("liszt:updated");
                 }
@@ -60,14 +60,14 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
-            plugin.settings.virtuemart_state_id=$element.val();
+            plugin.settings.tsmart_state_id=$element.val();
             var country_element=plugin.settings.country_element;
             $(country_element).change(function(){
-                var virtuemart_country_id=$(this).val();
-                plugin.set_list_state_province(virtuemart_country_id);
+                var tsmart_country_id=$(this).val();
+                plugin.set_list_state_province(tsmart_country_id);
             });
-            var virtuemart_country_id=$(country_element).val();
-            plugin.set_list_state_province(virtuemart_country_id);
+            var tsmart_country_id=$(country_element).val();
+            plugin.set_list_state_province(tsmart_country_id);
 
         }
 

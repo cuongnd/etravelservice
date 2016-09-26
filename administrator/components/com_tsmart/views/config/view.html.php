@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Config
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for the configuration maintenance
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @subpackage 	Config
  * @author 		RickG
  */
@@ -91,7 +91,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		VmModel::getModel('category');
 
-		foreach (VirtueMartModelCategory::$_validOrderingFields as $key => $field ) {
+		foreach (tsmartModelCategory::$_validOrderingFields as $key => $field ) {
 			if($field=='c.category_shared') continue;
 			$fieldWithoutPrefix = $field;
 			$dotps = strrpos($fieldWithoutPrefix, '.');
@@ -126,9 +126,9 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 	private function listIt($ps){
 		$db = JFactory::getDBO();
-		$q = 'SELECT virtuemart_'.$ps.'method_id,'.$ps.'_name
-FROM #__virtuemart_'.$ps.'methods
-INNER JOIN #__virtuemart_'.$ps.'methods_'.VmConfig::$vmlang.' USING (virtuemart_'.$ps.'method_id)
+		$q = 'SELECT tsmart_'.$ps.'method_id,'.$ps.'_name
+FROM #__tsmart_'.$ps.'methods
+INNER JOIN #__tsmart_'.$ps.'methods_'.VmConfig::$vmlang.' USING (tsmart_'.$ps.'method_id)
 WHERE published="1"';
 		$db->setQuery($q);
 
@@ -138,9 +138,9 @@ WHERE published="1"';
 			return array();
 		}
 		if(empty($options)) $options = array();
-		$emptyOption = JHtml::_('select.option', '0', tsmText::_('com_tsmart_NOPREF'),'virtuemart_'.$ps.'method_id',$ps.'_name');
+		$emptyOption = JHtml::_('select.option', '0', tsmText::_('com_tsmart_NOPREF'),'tsmart_'.$ps.'method_id',$ps.'_name');
 		array_unshift($options,$emptyOption);
-		$emptyOption = JHtml::_('select.option', '-1', tsmText::_('com_tsmart_NONE'),'virtuemart_'.$ps.'method_id',$ps.'_name');
+		$emptyOption = JHtml::_('select.option', '-1', tsmText::_('com_tsmart_NONE'),'tsmart_'.$ps.'method_id',$ps.'_name');
 		array_unshift($options,$emptyOption);
 		return $options;
 	}
@@ -150,19 +150,19 @@ WHERE published="1"';
 		$db = JFactory::getDBO();
 		$multix = Vmconfig::get('multix','none');
 
-		$q = 'select * from #__virtuemart_vmusers where user_is_vendor = 1';// and virtuemart_vendor_id '.$vendorWhere.' limit 1';
+		$q = 'select * from #__tsmart_vmusers where user_is_vendor = 1';// and tsmart_vendor_id '.$vendorWhere.' limit 1';
 		$db->setQuery($q);
 		$r = $db->loadAssocList();
 
 		if (empty($r)){
-			vmWarn('Your Virtuemart installation contains an error: No user as marked as vendor. Please fix this in your phpMyAdmin and set #__virtuemart_vmusers.user_is_vendor = 1 and #__virtuemart_vmusers.virtuemart_vendor_id = 1 to one of your administrator users. Please update all users to be associated with virtuemart_vendor_id 1.');
+			vmWarn('Your tsmart installation contains an error: No user as marked as vendor. Please fix this in your phpMyAdmin and set #__tsmart_vmusers.user_is_vendor = 1 and #__tsmart_vmusers.tsmart_vendor_id = 1 to one of your administrator users. Please update all users to be associated with tsmart_vendor_id 1.');
 		} else {
 			if($multix=='none' and count($r)!=1){
 				vmWarn('You are using single vendor mode, but it seems more than one user is set as vendor');
 			}
 			foreach($r as $entry){
-				if(empty($entry['virtuemart_vendor_id'])){
-					vmWarn('The user with virtuemart_user_id = '.$entry['virtuemart_user_id'].' is set as vendor, but has no referencing vendorId.');
+				if(empty($entry['tsmart_vendor_id'])){
+					vmWarn('The user with tsmart_user_id = '.$entry['tsmart_user_id'].' is set as vendor, but has no referencing vendorId.');
 				}
 			}
 		}

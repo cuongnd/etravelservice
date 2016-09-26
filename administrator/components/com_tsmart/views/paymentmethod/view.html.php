@@ -3,14 +3,14 @@
  *
  * Calc View
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Payment Method
  * @author Max Milbers
  * @author valérie isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,10 +26,10 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * Description
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author valérie isaksen
  */
-if (!class_exists('VirtueMartModelCurrency'))
+if (!class_exists('tsmartModelCurrency'))
 require(VMPATH_ADMIN . DS . 'models' . DS . 'currency.php');
 
 class TsmartViewPaymentMethod extends tsmViewAdmin {
@@ -90,14 +90,14 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 
 			$this->assignRef('payment',	$payment);
 			$this->vmPPaymentList = self::renderInstalledPaymentPlugins($payment->payment_jplugin_id);
-			$this->shopperGroupList = ShopFunctions::renderShopperGroupList($payment->virtuemart_shoppergroup_ids, true);
+			$this->shopperGroupList = ShopFunctions::renderShopperGroupList($payment->tsmart_shoppergroup_ids, true);
 
 			if($this->showVendors()){
-				$vendorList= ShopFunctions::renderVendorList($payment->virtuemart_vendor_id);
+				$vendorList= ShopFunctions::renderVendorList($payment->tsmart_vendor_id);
 				$this->assignRef('vendorList', $vendorList);
 			}
 
-			$this->addStandardEditViewCommandsPopup( $payment->virtuemart_paymentmethod_id);
+			$this->addStandardEditViewCommandsPopup( $payment->tsmart_paymentmethod_id);
 		} else {
 			JToolBarHelper::custom('clonepayment', 'copy', 'copy', tsmText::_('com_tsmart_PAYMENT_CLONE'), true);
 
@@ -109,7 +109,7 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 
 			foreach ($this->payments as &$data){
 				// Write the first 5 shoppergroups in the list
-				$data->paymShoppersList = shopfunctions::renderGuiList($data->virtuemart_shoppergroup_ids,'shoppergroups','shopper_group_name','payment' );
+				$data->paymShoppersList = shopfunctions::renderGuiList($data->tsmart_shoppergroup_ids,'shoppergroups','shopper_group_name','payment' );
 			}
 
 			$this->pagination = $model->getPagination();

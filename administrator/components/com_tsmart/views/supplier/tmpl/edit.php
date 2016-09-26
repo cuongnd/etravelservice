@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -54,7 +54,7 @@ AdminUIHelper::imitateTabs('start', "supplier");
                                             <?php
                                             $iframe_link=JUri::base().'/index.php?option=com_tsmart&view=servicetype&task=edit&cid[]=0';
                                             ?>
-                                            <?php echo VmHTML::row_control('select_add_on', 'Service type', 'service_type_id',$this->list_service_type, $this->item->service_type_id,'','virtuemart_service_type_id','title',$iframe_link); ?>
+                                            <?php echo VmHTML::row_control('select_add_on', 'Service type', 'service_type_id',$this->list_service_type, $this->item->service_type_id,'','tsmart_service_type_id','title',$iframe_link); ?>
                                             <?php echo VmHTML::row_control('input', 'Bank name', 'bank_name', $this->item->bank_name, ''); ?>
                                             <?php echo VmHTML::row_control('input', 'Bank account', 'bank_account', $this->item->bank_account, ''); ?>
                                             <?php echo VmHTML::row_control('input', 'Swift code', 'Swift_code', $this->item->Swift_code, ''); ?>
@@ -75,9 +75,9 @@ AdminUIHelper::imitateTabs('start', "supplier");
                             </div>
                             <div class="row-fluid">
                                 <div class="span6">
-                                    <?php echo VmHTML::row_control('select', 'Country', 'virtuemart_country_id', $this->list_country,$this->item->country_id,'', 'virtuemart_country_id','country_name'); ?>
-                                    <?php echo VmHTML::row_control('select_state_province', 'state/province', 'virtuemart_state_id', $this->list_state_province,$this->item->virtuemart_state_id,'', 'virtuemart_state_id','state_name','select[name="virtuemart_country_id"]'); ?>
-                                    <?php echo VmHTML::row_control('select', 'City name', 'virtuemart_cityarea_id', $this->list_city_area,$this->item->virtuemart_cityarea_id,'', 'virtuemart_cityarea_id','city_area_name'); ?>
+                                    <?php echo VmHTML::row_control('select', 'Country', 'tsmart_country_id', $this->list_country,$this->item->country_id,'', 'tsmart_country_id','country_name'); ?>
+                                    <?php echo VmHTML::row_control('select_state_province', 'state/province', 'tsmart_state_id', $this->list_state_province,$this->item->tsmart_state_id,'', 'tsmart_state_id','state_name','select[name="tsmart_country_id"]'); ?>
+                                    <?php echo VmHTML::row_control('select', 'City name', 'tsmart_cityarea_id', $this->list_city_area,$this->item->tsmart_cityarea_id,'', 'tsmart_cityarea_id','city_area_name'); ?>
                                     <?php echo VmHTML::row_control('input', 'Address', 'address', $this->item->address, ''); ?>
                                     <?php echo VmHTML::row_control('input', 'website', 'website', $this->item->website, ''); ?>
                                 </div>
@@ -108,11 +108,11 @@ AdminUIHelper::imitateTabs('start', "supplier");
 
 
             </div>
-            <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-            <input type="hidden" name="virtuemart_supplier_id"
-                   value="<?php echo $this->item->virtuemart_supplier_id; ?>"/>
+            <input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
+            <input type="hidden" name="tsmart_supplier_id"
+                   value="<?php echo $this->item->tsmart_supplier_id; ?>"/>
             <?php echo VmHTML::inputHidden(array(
-                'key[virtuemart_product_id]' => $this->virtuemart_product_id
+                'key[tsmart_product_id]' => $this->tsmart_product_id
             )); ?>
 
             <?php echo $this->addStandardHiddenToForm(); ?>

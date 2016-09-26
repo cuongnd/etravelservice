@@ -3,13 +3,13 @@
 *
 * Manufacturer category model
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer category
 * @author Patrick Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,11 +24,11 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for manufacturer category
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Manufacturer category
  * @author
  */
-class VirtuemartModelManufacturercategories extends VmModel {
+class tsmartModelManufacturercategories extends VmModel {
 
 
 	/**
@@ -37,7 +37,7 @@ class VirtuemartModelManufacturercategories extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_manufacturercategories_id');
+		parent::__construct('tsmart_manufacturercategories_id');
 		$this->setMainTable('manufacturercategories');
 		$this->addvalidOrderingFieldName(array('mf_category_name'));
 	}
@@ -87,14 +87,14 @@ class VirtuemartModelManufacturercategories extends VmModel {
 	function getManufacturerCategories($onlyPublished=false, $noLimit=false)
 	{
 		$this->_noLimit = $noLimit;
-		$select = '* FROM `#__virtuemart_manufacturercategories_'.VmConfig::$vmlang.'` as l';
-		$joinedTables = ' JOIN `#__virtuemart_manufacturercategories` as mc using (`virtuemart_manufacturercategories_id`)';
+		$select = '* FROM `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'` as l';
+		$joinedTables = ' JOIN `#__tsmart_manufacturercategories` as mc using (`tsmart_manufacturercategories_id`)';
 		$where = array();
 		if ($onlyPublished) {
-			$where[] = ' `#__virtuemart_manufacturercategories`.`published` = 1';
+			$where[] = ' `#__tsmart_manufacturercategories`.`published` = 1';
 		}
 
-//		$query .= ' ORDER BY `#__virtuemart_manufacturercategories`.`mf_category_name`';
+//		$query .= ' ORDER BY `#__tsmart_manufacturercategories`.`mf_category_name`';
 
 		$whereString = '';
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
@@ -114,8 +114,8 @@ class VirtuemartModelManufacturercategories extends VmModel {
 	 */
 	function getCategoryFilter(){
 		$db = JFactory::getDBO();
-		$query = 'SELECT `virtuemart_manufacturercategories_id` as `value`, `mf_category_name` as text'
-				.' FROM `#__virtuemart_manufacturercategories_'.VmConfig::$vmlang.'`';
+		$query = 'SELECT `tsmart_manufacturercategories_id` as `value`, `mf_category_name` as text'
+				.' FROM `#__tsmart_manufacturercategories_'.VmConfig::$vmlang.'`';
 		$db->setQuery($query);
 
 		$categoryFilter[] = JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER_CATEGORY') .' -' );

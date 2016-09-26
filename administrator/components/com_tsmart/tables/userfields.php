@@ -3,13 +3,13 @@
 *
 * Userfield table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Userfields
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Userfields table class
  * The class is used to manage the userfields in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author Oscar van Eijk
  */
 class TableUserfields extends tsmTable {
@@ -39,9 +39,9 @@ class TableUserfields extends tsmTable {
 	function __construct(&$db)
 	{
 
-		parent::__construct('#__virtuemart_userfields', 'virtuemart_userfield_id', $db);
+		parent::__construct('#__tsmart_userfields', 'tsmart_userfield_id', $db);
 		parent::showFullColumns();
-		$this->setPrimaryKey('virtuemart_userfield_id');
+		$this->setPrimaryKey('tsmart_userfield_id');
 		$this->setUniqueName('name');
 		$this->setObligatoryKeys('title');
 
@@ -64,7 +64,7 @@ class TableUserfields extends tsmTable {
 			vmError(tsmText::_('com_tsmart_NAME_OF_USERFIELD_CONTAINS_INVALID_CHARACTERS'));
 			return false;
 		}
-		if($this->name !='virtuemart_country_id' and $this->name !='virtuemart_state_id'){
+		if($this->name !='tsmart_country_id' and $this->name !='tsmart_state_id'){
 			$reqValues = array('select', 'multiselect', 'radio', 'multicheckbox');
 			if (in_array($this->type, $reqValues) and $this->_nrOfValues == 0 ) {
 				vmError(tsmText::_('com_tsmart_VALUES_ARE_REQUIRED_FOR_THIS_TYPE'));
@@ -115,12 +115,12 @@ class TableUserfields extends tsmTable {
 	 */
 	public function store($updateNulls = false)
 	{
-		$isNew = ($this->virtuemart_userfield_id == 0);
+		$isNew = ($this->tsmart_userfield_id == 0);
 		if (!parent::store($updateNulls)) { // Write data to the DB
 			vmError($this->_db->getError());
 			return false;
 		} else {
-			return $this->virtuemart_userfield_id;
+			return $this->tsmart_userfield_id;
 		}
 	}
 	

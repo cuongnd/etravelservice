@@ -3,13 +3,13 @@
 *
 * Model paymentmethod
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage  Payment
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
-class VirtueMartModelPaymentmethod extends VmModel{
+class tsmartModelPaymentmethod extends VmModel{
 
 	function __construct() {
 		parent::__construct();
@@ -31,13 +31,13 @@ class VirtueMartModelPaymentmethod extends VmModel{
 	}
 
 	/**
-	 * Gets the virtuemart_paymentmethod_id with a plugin and vendorId
+	 * Gets the tsmart_paymentmethod_id with a plugin and vendorId
 	 *
 	 * @author Max Milbers
 	 */
 	public function getIdbyCodeAndVendorId($jpluginId,$vendorId=1){
 	 	if(!$jpluginId) return 0;
-	 	$q = 'SELECT `virtuemart_paymentmethod_id` FROM #__virtuemart_paymentmethods WHERE `payment_jplugin_id` = "'.$jpluginId.'" AND `virtuemart_vendor_id` = "'.$vendorId.'" ';
+	 	$q = 'SELECT `tsmart_paymentmethod_id` FROM #__tsmart_paymentmethods WHERE `payment_jplugin_id` = "'.$jpluginId.'" AND `tsmart_vendor_id` = "'.$vendorId.'" ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		return $db->loadResult();
@@ -56,9 +56,9 @@ class VirtueMartModelPaymentmethod extends VmModel{
 			$this->_cache[$this->_id] = $this->getTable('paymentmethods');
 			$this->_cache[$this->_id]->load((int)$this->_id);
 
-			if(empty($this->_cache->virtuemart_vendor_id)){
-				if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-				$this->_cache[$this->_id]->virtuemart_vendor_id = VirtueMartModelVendor::getLoggedVendor();
+			if(empty($this->_cache->tsmart_vendor_id)){
+				if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+				$this->_cache[$this->_id]->tsmart_vendor_id = tsmartModelVendor::getLoggedVendor();
 			}
 
 			if($this->_cache[$this->_id]->payment_jplugin_id){
@@ -91,10 +91,10 @@ class VirtueMartModelPaymentmethod extends VmModel{
 				}
 			}
 
-			$q = 'SELECT `virtuemart_shoppergroup_id` FROM #__virtuemart_paymentmethod_shoppergroups WHERE `virtuemart_paymentmethod_id` = "'.$this->_id.'"';
+			$q = 'SELECT `tsmart_shoppergroup_id` FROM #__tsmart_paymentmethod_shoppergroups WHERE `tsmart_paymentmethod_id` = "'.$this->_id.'"';
 			$this->_db->setQuery($q);
-			$this->_cache[$this->_id]->virtuemart_shoppergroup_ids = $this->_db->loadColumn();
-			if(empty($this->_cache[$this->_id]->virtuemart_shoppergroup_ids)) $this->_cache[$this->_id]->virtuemart_shoppergroup_ids = 0;
+			$this->_cache[$this->_id]->tsmart_shoppergroup_ids = $this->_db->loadColumn();
+			if(empty($this->_cache[$this->_id]->tsmart_shoppergroup_ids)) $this->_cache[$this->_id]->tsmart_shoppergroup_ids = 0;
 
 		}
 
@@ -120,14 +120,14 @@ class VirtueMartModelPaymentmethod extends VmModel{
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
 
 
-		$joins = ' FROM `#__virtuemart_paymentmethods` as i ';
+		$joins = ' FROM `#__tsmart_paymentmethods` as i ';
 
 		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
 			$langFields = array('payment_name','payment_desc');
 
 			$useJLback = false;
 			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins .= ' LEFT JOIN `#__virtuemart_paymentmethods_'.VmConfig::$jDefLang.'` as ljd';
+				$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$jDefLang.'` as ljd';
 				$useJLback = true;
 			}
 
@@ -139,11 +139,11 @@ class VirtueMartModelPaymentmethod extends VmModel{
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins .= ' LEFT JOIN `#__virtuemart_paymentmethods_'.VmConfig::$defaultLang.'` as ld using (`virtuemart_paymentmethod_id`)';
-			$joins .= ' LEFT JOIN `#__virtuemart_paymentmethods_'.VmConfig::$vmlang.'` as l using (`virtuemart_paymentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$defaultLang.'` as ld using (`tsmart_paymentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$vmlang.'` as l using (`tsmart_paymentmethod_id`)';
 		} else {
 			$select = ' * ';
-			$joins .= ' LEFT JOIN `#__virtuemart_paymentmethods_'.VmConfig::$vmlang.'` as l USING (`virtuemart_paymentmethod_id`) ';
+			$joins .= ' LEFT JOIN `#__tsmart_paymentmethods_'.VmConfig::$vmlang.'` as l USING (`tsmart_paymentmethod_id`) ';
 		}
 
 		$datas =$this->exeSortSearchListQuery(0,$select,$joins,$whereString,' ',$this->_getOrdering() );
@@ -153,10 +153,10 @@ class VirtueMartModelPaymentmethod extends VmModel{
 			if(!class_exists('shopfunctions')) require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
 			foreach ($datas as &$data){
 				/* Add the paymentmethod shoppergroups */
-				$q = 'SELECT `virtuemart_shoppergroup_id` FROM #__virtuemart_paymentmethod_shoppergroups WHERE `virtuemart_paymentmethod_id` = "'.$data->virtuemart_paymentmethod_id.'"';
+				$q = 'SELECT `tsmart_shoppergroup_id` FROM #__tsmart_paymentmethod_shoppergroups WHERE `tsmart_paymentmethod_id` = "'.$data->tsmart_paymentmethod_id.'"';
 				$db = JFactory::getDBO();
 				$db->setQuery($q);
-				$data->virtuemart_shoppergroup_ids = $db->loadColumn();
+				$data->tsmart_shoppergroup_ids = $db->loadColumn();
 
 			}
 
@@ -180,7 +180,7 @@ class VirtueMartModelPaymentmethod extends VmModel{
 		if(!vmAccess::manager('paymentmethod.edit')){
 			vmWarn('Insufficient permissions to store paymentmethod');
 			return false;
-		} else if( empty($data['virtuemart_payment_id']) and !vmAccess::manager('paymentmethod.create')){
+		} else if( empty($data['tsmart_payment_id']) and !vmAccess::manager('paymentmethod.create')){
 			vmWarn('Insufficient permission to create paymentmethod');
 			return false;
 		}
@@ -191,9 +191,9 @@ class VirtueMartModelPaymentmethod extends VmModel{
 			}
 		}
 
-	  	if(empty($data['virtuemart_vendor_id'])){
-	  	   	if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-	   		$data['virtuemart_vendor_id'] = VirtueMartModelVendor::getLoggedVendor();
+	  	if(empty($data['tsmart_vendor_id'])){
+	  	   	if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+	   		$data['tsmart_vendor_id'] = tsmartModelVendor::getLoggedVendor();
 	  	}
 
 		$table = $this->getTable('paymentmethods');
@@ -227,7 +227,7 @@ class VirtueMartModelPaymentmethod extends VmModel{
 			$dispatcher = JDispatcher::getInstance();
 			$retValues = $dispatcher->trigger('plgVmOnStoreInstallPaymentPluginTable', array(  $data['payment_jplugin_id']));
 
-		return $table->virtuemart_paymentmethod_id;
+		return $table->tsmart_paymentmethod_id;
 	}
 
 
@@ -247,10 +247,10 @@ class VirtueMartModelPaymentmethod extends VmModel{
 		$listHTML='';
 		foreach($payms as $item){
 			$checked='';
-			if($item->virtuemart_paymentmethod_id==$selectedPaym){
+			if($item->tsmart_paymentmethod_id==$selectedPaym){
 				$checked='"checked"';
 			}
-			$listHTML .= '<input type="radio" name="virtuemart_paymentmethod_id" value="'.$item->virtuemart_paymentmethod_id.'" '.$checked.'>'.$item->payment_name.' <br />';
+			$listHTML .= '<input type="radio" name="tsmart_paymentmethod_id" value="'.$item->tsmart_paymentmethod_id.'" '.$checked.'>'.$item->payment_name.' <br />';
 			$listHTML .= ' <br />';
 		}
 
@@ -267,7 +267,7 @@ class VirtueMartModelPaymentmethod extends VmModel{
 
 		$this->setId ($id);
 		$payment = $this->getPayment();
-		$payment->virtuemart_paymentmethod_id = 0;
+		$payment->tsmart_paymentmethod_id = 0;
 		$payment->payment_name = $payment->payment_name.' Copy';
 		if (!$clone = $this->store($payment)) {
 			JError::raiseError(500, 'createClone '. $payment->getError() );

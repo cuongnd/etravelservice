@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved by the author.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -22,11 +22,11 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
- * Model for VirtueMart Product Files
+ * Model for tsmart Product Files
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartModelMedia extends VmModel {
+class tsmartModelMedia extends VmModel {
 
 	/**
 	 * constructs a VmModel
@@ -34,7 +34,7 @@ class VirtueMartModelMedia extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_media_id');
+		parent::__construct('tsmart_media_id');
 		$this->setMainTable('medias');
 		$this->addvalidOrderingFieldName(array('ordering'));
 		$this->_selectedOrdering = 'created_on';
@@ -42,7 +42,7 @@ class VirtueMartModelMedia extends VmModel {
 	}
 
 	/**
-	 * Gets a single media by virtuemart_media_id
+	 * Gets a single media by tsmart_media_id
 	 * @Todo must be adjusted to new pattern, using first param as id to get
 	 * @param string $type
 	 * @param string $mime mime type of file, use for exampel image
@@ -65,7 +65,7 @@ class VirtueMartModelMedia extends VmModel {
 	}
 
 	/**
-	 * Kind of getFiles, it creates a bunch of image objects by an array of virtuemart_media_id
+	 * Kind of getFiles, it creates a bunch of image objects by an array of tsmart_media_id
 	 *
 	 * @author Max Milbers
 	 * @param int $tsmart_media_id
@@ -89,7 +89,7 @@ class VirtueMartModelMedia extends VmModel {
 			foreach($tsmart_media_ids as $k => $tsmart_media_id){
 				if($limit!==0 and $k==$limit and !empty($medias)) break; // never break if $limit = 0
 				if(is_object($tsmart_media_id)){
-					$id = $tsmart_media_id->virtuemart_media_id;
+					$id = $tsmart_media_id->tsmart_media_id;
 				} else {
 					$id = $tsmart_media_id;
 				}
@@ -137,8 +137,8 @@ class VirtueMartModelMedia extends VmModel {
 			$data = $this->getTable('medias');
 
 			//Create empty data
-			$data->virtuemart_media_id = 0;
-			$data->virtuemart_vendor_id = 0;
+			$data->tsmart_media_id = 0;
+			$data->tsmart_vendor_id = 0;
 			$data->file_title = '';
 			$data->file_description = '';
 			$data->file_meta = '';
@@ -186,44 +186,44 @@ class VirtueMartModelMedia extends VmModel {
 		$orderByTable = '';
 
 		if(!empty($tsmart_product_id)){
-			$mainTable = '`#__virtuemart_product_medias`';
-			$selectFields[] = ' `#__virtuemart_medias`.`virtuemart_media_id` as virtuemart_media_id ';
-			$joinTables[] = ' LEFT JOIN `#__virtuemart_medias` ON `#__virtuemart_medias`.`virtuemart_media_id`=`#__virtuemart_product_medias`.`virtuemart_media_id` and `virtuemart_product_id` = "'.$tsmart_product_id.'"';
-			$whereItems[] = '`virtuemart_product_id` = "'.$tsmart_product_id.'"';
+			$mainTable = '`#__tsmart_product_medias`';
+			$selectFields[] = ' `#__tsmart_medias`.`tsmart_media_id` as tsmart_media_id ';
+			$joinTables[] = ' LEFT JOIN `#__tsmart_medias` ON `#__tsmart_medias`.`tsmart_media_id`=`#__tsmart_product_medias`.`tsmart_media_id` and `tsmart_product_id` = "'.$tsmart_product_id.'"';
+			$whereItems[] = '`tsmart_product_id` = "'.$tsmart_product_id.'"';
 
 			if($this->_selectedOrdering=='ordering'){
-				$orderByTable = '`#__virtuemart_product_medias`.';
+				$orderByTable = '`#__tsmart_product_medias`.';
 			} else{
-				$orderByTable = '`#__virtuemart_medias`.';
+				$orderByTable = '`#__tsmart_medias`.';
 			}
 		}
 
 		else if(!empty($cat_id)){
-			$mainTable = '`#__virtuemart_category_medias`';
-			$selectFields[] = ' `#__virtuemart_medias`.`virtuemart_media_id` as virtuemart_media_id';
-			$joinTables[] = ' LEFT JOIN `#__virtuemart_medias` ON `#__virtuemart_medias`.`virtuemart_media_id`=`#__virtuemart_category_medias`.`virtuemart_media_id` and `virtuemart_category_id` = "'.$cat_id.'"';
-			$whereItems[] = '`virtuemart_category_id` = "'.$cat_id.'"';
+			$mainTable = '`#__tsmart_category_medias`';
+			$selectFields[] = ' `#__tsmart_medias`.`tsmart_media_id` as tsmart_media_id';
+			$joinTables[] = ' LEFT JOIN `#__tsmart_medias` ON `#__tsmart_medias`.`tsmart_media_id`=`#__tsmart_category_medias`.`tsmart_media_id` and `tsmart_category_id` = "'.$cat_id.'"';
+			$whereItems[] = '`tsmart_category_id` = "'.$cat_id.'"';
 			if($this->_selectedOrdering=='ordering'){
-				$orderByTable = '`#__virtuemart_category_medias`.';
+				$orderByTable = '`#__tsmart_category_medias`.';
 			} else{
-				$orderByTable = '`#__virtuemart_medias`.';
+				$orderByTable = '`#__tsmart_medias`.';
 			}
 		}
 
 		else {
-			$mainTable = '`#__virtuemart_medias`';
-			$selectFields[] = ' `virtuemart_media_id` ';
+			$mainTable = '`#__tsmart_medias`';
+			$selectFields[] = ' `tsmart_media_id` ';
 
 
 			if(!vmAccess::manager('managevendors')){
 				$vendorId = vmAccess::isSuperVendor();
-				$whereItems[] = '(`virtuemart_vendor_id` = "'.$vendorId.'" OR `shared`="1")';
+				$whereItems[] = '(`tsmart_vendor_id` = "'.$vendorId.'" OR `shared`="1")';
 			}
 
 		}
 
 		if ($onlyPublished) {
-			$whereItems[] = '`#__virtuemart_medias`.`published` = 1';
+			$whereItems[] = '`#__tsmart_medias`.`published` = 1';
 		}
 
 		if ($search = vRequest::getString('searchMedia', false)){
@@ -315,9 +315,9 @@ class VirtueMartModelMedia extends VmModel {
 		}
 
 		//the active media id is not empty, so there should be something done with it
-		if( (!empty($data['active_media_id']) and isset($data['virtuemart_media_id']) ) || $data['media_action']=='upload'){
+		if( (!empty($data['active_media_id']) and isset($data['tsmart_media_id']) ) || $data['media_action']=='upload'){
 
-			$oldIds = $data['virtuemart_media_id'];
+			$oldIds = $data['tsmart_media_id'];
 
 			$data['file_type'] = $type;
 
@@ -336,9 +336,9 @@ class VirtueMartModelMedia extends VmModel {
 						$data['mediaordering'][$tsmart_media_id] = count($data['mediaordering']);
 					}
 					$tsmart_media_ids = array_merge( (array)$tsmart_media_id,$oldIds);
-					$data['virtuemart_media_id'] = array_unique($tsmart_media_ids);
+					$data['tsmart_media_id'] = array_unique($tsmart_media_ids);
 				} else {
-					$data['virtuemart_media_id'] = $tsmart_media_id;
+					$data['tsmart_media_id'] = $tsmart_media_id;
 				}
 			}
 
@@ -350,7 +350,7 @@ class VirtueMartModelMedia extends VmModel {
 			foreach($data['mediaordering'] as $k=>$v){
 				$sortedMediaIds[] = $k;
 			}
-			$data['virtuemart_media_id'] = $sortedMediaIds;
+			$data['tsmart_media_id'] = $sortedMediaIds;
 		}
 
 		//set the relations
@@ -359,7 +359,7 @@ class VirtueMartModelMedia extends VmModel {
 		// Bind the form fields to the country table
 		$table->bindChecknStore($data);
 
-		return $table->virtuemart_media_id;
+		return $table->tsmart_media_id;
 
 	}
 
@@ -371,11 +371,11 @@ class VirtueMartModelMedia extends VmModel {
 	 */
 	public function store(&$data) {
 
-		$data['virtuemart_media_id'] = $this->getId();
+		$data['tsmart_media_id'] = $this->getId();
 		if(!vmAccess::manager('media.edit')){
 			vmWarn('Insufficient permission to store media');
 			return false;
-		} else if( empty($data['virtuemart_media_id']) and !vmAccess::manager('media.create')){
+		} else if( empty($data['tsmart_media_id']) and !vmAccess::manager('media.create')){
 			vmWarn('Insufficient permission to create media');
 			return false;
 		}
@@ -387,7 +387,7 @@ class VirtueMartModelMedia extends VmModel {
 
 		$table->bind($data);
 		$data = VmMediaHandler::prepareStoreMedia($table,$data,$data['file_type']); //this does not store the media, it process the actions and prepares data
-		if($data===false) return $table->virtuemart_media_id;
+		if($data===false) return $table->tsmart_media_id;
 		// workarround for media published and product published two fields in one form.
 		$tmpPublished = false;
 		if (isset($data['media_published'])){
@@ -400,7 +400,7 @@ class VirtueMartModelMedia extends VmModel {
 		if($tmpPublished){
 			$data['published'] = $tmpPublished;
 		}
-		return $table->virtuemart_media_id;
+		return $table->tsmart_media_id;
 	}
 
 	public function attachImages($objects,$type,$mime='',$limit=0){
@@ -411,7 +411,7 @@ class VirtueMartModelMedia extends VmModel {
 					$object = $this->createVoidMedia($type,$mime);
 				}
 
-				if(empty($object->virtuemart_media_id)) $tsmart_media_id = null; else $tsmart_media_id = $object->virtuemart_media_id;
+				if(empty($object->tsmart_media_id)) $tsmart_media_id = null; else $tsmart_media_id = $object->tsmart_media_id;
 				$object->images = $this->createMediaByIds($tsmart_media_id,$type,$mime,$limit);
 
 				//This should not be used in fact. It is for legacy reasons there.

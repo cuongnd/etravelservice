@@ -3,12 +3,12 @@
  * abstract model class containing some standards
  *  get,store,delete,publish and pagination
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -75,7 +75,7 @@ class VmModel extends JModelList{
 	var $_pagination 	= 0;
 	var $_limit			= 0;
 	var $_limitStart	= 0;
-	var $_maintable 	= '';	// something like #__virtuemart_calcs
+	var $_maintable 	= '';	// something like #__tsmart_calcs
 	var $_maintablename = '';
 	var $_idName		= '';
 	var $_cidName		= 'cid';
@@ -705,7 +705,7 @@ class VmModel extends JModelList{
 // 			vmdebug('Get standard model of the view');
 		}
 		$name = strtolower($name);
-		$className = 'VirtueMartModel'.ucfirst($name);
+		$className = 'tsmartModel'.ucfirst($name);
 
 
 		if(empty(self::$_vmmodels[strtolower($className)])){
@@ -767,7 +767,7 @@ class VmModel extends JModelList{
 
 		$this->_maintablename = $maintablename;
 		if(empty($maintable)){
-			$this->_maintable = '#__virtuemart_'.$maintablename;
+			$this->_maintable = '#__tsmart_'.$maintablename;
 		} else {
 			$this->_maintable = $maintable;
 		}
@@ -1069,9 +1069,9 @@ class VmModel extends JModelList{
 			$this->_cache[$this->_id]->load($this->_id);
 
 			//just an idea
-			if(isset($this->_cache[$this->_id]->virtuemart_vendor_id) && empty($this->_data->virtuemart_vendor_id)){
-				if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-				$this->_cache[$this->_id]->virtuemart_vendor_id = VirtueMartModelVendor::getLoggedVendor();
+			if(isset($this->_cache[$this->_id]->tsmart_vendor_id) && empty($this->_data->tsmart_vendor_id)){
+				if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+				$this->_cache[$this->_id]->tsmart_vendor_id = tsmartModelVendor::getLoggedVendor();
 			}
 		}
 

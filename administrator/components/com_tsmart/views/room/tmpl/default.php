@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -82,7 +82,7 @@ if ($saveOrder) {
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_transfer_addon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_transfer_addon_id', 'Id'); ?>
                         </label>
                     </th>
                     <th>
@@ -117,11 +117,11 @@ if ($saveOrder) {
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_room_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_room_id);
                     $published = $this->gridPublished($row, $i);
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=room&task=show_parent_popup&cid[]=' . $row->virtuemart_room_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_room_id', $editlink);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_room_id');
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=room&task=show_parent_popup&cid[]=' . $row->tsmart_room_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_room_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_room_id');
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">

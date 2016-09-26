@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,9 +24,9 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 class TsmartViewTsmart extends tsmViewAdmin {
@@ -71,10 +71,10 @@ class TsmartViewTsmart extends tsmViewAdmin {
 			foreach ($recentOrders as $tsmart_order_id => $order) {
 
 				//This is really interesting for multi-X, but I avoid to support it now already, lets stay it in the code
-				if (!array_key_exists('v'.$order->virtuemart_vendor_id, $_currencies)) {
-					$_currencies['v'.$order->virtuemart_vendor_id] = CurrencyDisplay::getInstance('',$order->virtuemart_vendor_id);
+				if (!array_key_exists('v'.$order->tsmart_vendor_id, $_currencies)) {
+					$_currencies['v'.$order->tsmart_vendor_id] = CurrencyDisplay::getInstance('',$order->tsmart_vendor_id);
 				}
-				$order->order_total = $_currencies['v'.$order->virtuemart_vendor_id]->priceDisplay($order->order_total);
+				$order->order_total = $_currencies['v'.$order->tsmart_vendor_id]->priceDisplay($order->order_total);
 			}
 			$this->recentOrders= $recentOrders;
 			$recentCustomers = $model->getRecentCustomers();

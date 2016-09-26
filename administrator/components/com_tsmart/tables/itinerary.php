@@ -3,13 +3,13 @@
 *
 * Currency table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * Currency table class
  * The class is is used to manage the currencies in the shop.
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author RickG, Max Milbers
  */
 class Tableitinerary extends tsmTableData {
@@ -50,7 +50,7 @@ class Tableitinerary extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_itinerary', 'virtuemart_itinerary_id', $db);
+		parent::__construct('#__tsmart_itinerary', 'tsmart_itinerary_id', $db);
 
 
 		$this->setLoggable();
@@ -62,10 +62,10 @@ class Tableitinerary extends tsmTableData {
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('itinerary.virtuemart_itinerary_id')
-            ->from('#__virtuemart_itinerary AS itinerary')
-            ->where('itinerary.virtuemart_itinerary_id!='.(int)$data['virtuemart_itinerary_id'])
-            ->where('itinerary.virtuemart_product_id='.(int)$data['virtuemart_product_id'])
+        $query->select('itinerary.tsmart_itinerary_id')
+            ->from('#__tsmart_itinerary AS itinerary')
+            ->where('itinerary.tsmart_itinerary_id!='.(int)$data['tsmart_itinerary_id'])
+            ->where('itinerary.tsmart_product_id='.(int)$data['tsmart_product_id'])
             ->where('itinerary.title = '.$query->q("{$data['title']}"))
         ;
         $db->setQuery($query);

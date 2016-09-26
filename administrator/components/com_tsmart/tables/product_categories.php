@@ -1,13 +1,13 @@
 <?php
 /**
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage product
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2011 - 2014 VirtueMart Team and authors. All rights reserved.
+* @copyright Copyright (c) 2011 - 2014 tsmart Team and authors. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -21,10 +21,10 @@ if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabl
 class TableProduct_categories extends tsmTableXarray {
 
 	function __construct(&$db){
-		parent::__construct('#__virtuemart_product_categories', 'id', $db);
+		parent::__construct('#__tsmart_product_categories', 'id', $db);
 
-		$this->setPrimaryKey('virtuemart_product_id');
-		$this->setSecondaryKey('virtuemart_category_id');
+		$this->setPrimaryKey('tsmart_product_id');
+		$this->setSecondaryKey('tsmart_category_id');
 		$this->setOrderable('ordering',false);
 	}
 

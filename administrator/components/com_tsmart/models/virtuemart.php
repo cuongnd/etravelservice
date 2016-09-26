@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Model for Macola
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartModelVirtueMart extends VmModel {
+class tsmartModeltsmart extends VmModel {
 
 
 
@@ -35,7 +35,7 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return int Total number of customers in the database
 	 */
 	function getTotalCustomers() {
-		$query = 'SELECT `virtuemart_user_id`  FROM `#__virtuemart_userinfos` WHERE `address_type` = "BT"';
+		$query = 'SELECT `tsmart_user_id`  FROM `#__tsmart_userinfos` WHERE `address_type` = "BT"';
         return $this->_getListCount($query);
     }
 
@@ -46,7 +46,7 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return int Total number of active products in the database
 	 */
 	function getTotalActiveProducts() {
-		$query = 'SELECT `virtuemart_product_id` FROM `#__virtuemart_products` WHERE `published`="1"';
+		$query = 'SELECT `tsmart_product_id` FROM `#__tsmart_products` WHERE `published`="1"';
         return $this->_getListCount($query);
     }
 
@@ -57,7 +57,7 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return int Total number of inactive products in the database
 	 */
 	function getTotalInActiveProducts() {
-		$query = 'SELECT `virtuemart_product_id` FROM `#__virtuemart_products` WHERE  `published`="0"';
+		$query = 'SELECT `tsmart_product_id` FROM `#__tsmart_products` WHERE  `published`="0"';
         return $this->_getListCount($query);
     }
 
@@ -68,7 +68,7 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return int Total number of featured products in the database
 	 */
 	function getTotalFeaturedProducts() {
-		$query = 'SELECT `virtuemart_product_id` FROM `#__virtuemart_products` WHERE `product_special`="1"';
+		$query = 'SELECT `tsmart_product_id` FROM `#__tsmart_products` WHERE `product_special`="1"';
         return $this->_getListCount($query);
     }
 
@@ -80,9 +80,9 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return int Total number of orders with the given status
 	 */
 	function getTotalOrdersByStatus() {
-		$query = 'SELECT `#__virtuemart_orderstates`.`order_status_name`, `#__virtuemart_orderstates`.`order_status_code`, ';
-		$query .= '(SELECT count(virtuemart_order_id) FROM `#__virtuemart_orders` WHERE `#__virtuemart_orders`.`order_status` = `#__virtuemart_orderstates`.`order_status_code`) as order_count ';
- 		$query .= 'FROM `#__virtuemart_orderstates`';
+		$query = 'SELECT `#__tsmart_orderstates`.`order_status_name`, `#__tsmart_orderstates`.`order_status_code`, ';
+		$query .= '(SELECT count(tsmart_order_id) FROM `#__tsmart_orders` WHERE `#__tsmart_orders`.`order_status` = `#__tsmart_orderstates`.`order_status_code`) as order_count ';
+ 		$query .= 'FROM `#__tsmart_orderstates`';
         return $this->_getList($query);
     }
 
@@ -94,7 +94,7 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return ObjectList List of recent orders.
 	 */
 	function getRecentOrders($nbrOrders=5) {
-		$query = 'SELECT * FROM `#__virtuemart_orders` ORDER BY `created_on` desc';
+		$query = 'SELECT * FROM `#__tsmart_orders` ORDER BY `created_on` desc';
         return $this->_getList($query, 0, $nbrOrders);
     }
 
@@ -106,10 +106,10 @@ class VirtueMartModelVirtueMart extends VmModel {
 	 * @return ObjectList List of recent orders.
 	 */
 	function getRecentCustomers($nbrCusts=5) {
-		$query = 'SELECT `id` as `virtuemart_user_id`, `first_name`, `last_name`, `order_number` FROM `#__users` as `u` ';
-		$query .= 'JOIN `#__virtuemart_vmusers` as uv ON u.id = uv.virtuemart_user_id ';
-		$query .= 'JOIN `#__virtuemart_userinfos` as ui ON u.id = ui.virtuemart_user_id ';
-		$query .= 'JOIN `#__virtuemart_orders` as uo ON u.id = uo.virtuemart_user_id ';
+		$query = 'SELECT `id` as `tsmart_user_id`, `first_name`, `last_name`, `order_number` FROM `#__users` as `u` ';
+		$query .= 'JOIN `#__tsmart_vmusers` as uv ON u.id = uv.tsmart_user_id ';
+		$query .= 'JOIN `#__tsmart_userinfos` as ui ON u.id = ui.tsmart_user_id ';
+		$query .= 'JOIN `#__tsmart_orders` as uo ON u.id = uo.tsmart_user_id ';
 
 		//todo write a replacement
 		//$query .= 'WHERE `perms` <> "admin" ';

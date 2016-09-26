@@ -3,13 +3,13 @@
 *
 * custom controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Product Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @author Max Milbers
  */
 class TsmartControllerCustom extends TsmController {
@@ -37,7 +37,7 @@ class TsmartControllerCustom extends TsmController {
 	 * @author
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_custom_id');
+		parent::__construct('tsmart_custom_id');
 
 	}
 
@@ -77,7 +77,7 @@ class TsmartControllerCustom extends TsmController {
 
 		$model = VmModel::getModel('custom');
 		$msgtype = '';
-		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('virtuemart_custom_id'));
+		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('tsmart_custom_id'));
 
 		foreach ($cids as $custom_id) {
 			if ($model->createClone($custom_id)) $msg = tsmText::_('com_tsmart_CUSTOM_CLONED_SUCCESSFULLY');

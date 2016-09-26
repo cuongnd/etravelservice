@@ -3,13 +3,13 @@
 *
 * Manufacturer Category table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer category
 * @author Patrick Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Manufacturer category table class
  * The class is used to manage the manufacturer category in the shop.
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author Patrick Kohl
  */
 class TableManufacturercategories extends tsmTable {
@@ -45,7 +45,7 @@ class TableManufacturercategories extends tsmTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_manufacturercategories', 'virtuemart_manufacturercategories_id', $db);
+		parent::__construct('#__tsmart_manufacturercategories', 'tsmart_manufacturercategories_id', $db);
 
 		$this->setUniqueName('mf_category_name');
 
@@ -66,8 +66,8 @@ class TableManufacturercategories extends tsmTable {
 			$db = JFactory::getDBO();
 
 			$q = 'SELECT count(*)'
-				.' FROM #__virtuemart_manufacturers'
-				.' WHERE virtuemart_manufacturercategories_id = '.$categoryId;
+				.' FROM #__tsmart_manufacturers'
+				.' WHERE tsmart_manufacturercategories_id = '.$categoryId;
 			$db->setQuery($q);
 			$mCount = $db->loadResult();
 

@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelPayment extends VmModel
+class tsmartModelPayment extends VmModel
 {
 
 
@@ -70,16 +70,16 @@ class VirtueMartModelPayment extends VmModel
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->select('payment.*')
-			->from('#__virtuemart_payment AS payment')
-			->leftJoin('#__virtuemart_currencies AS currencies USING(virtuemart_currency_id)')
+			->from('#__tsmart_payment AS payment')
+			->leftJoin('#__tsmart_currencies AS currencies USING(tsmart_currency_id)')
 			->select('CONCAT(currencies.currency_code_3," ",currencies.currency_symbol) AS currency_symbol')
 		;
 		//get list tour apply
 		$query1=$db->getQuery(true);
 		$query1->select('GROUP_CONCAT(products_en_gb.product_name)')
-			->from('#__virtuemart_tour_id_payment_id AS tour_id_payment_id')
-			->leftJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
-			->where('tour_id_payment_id.virtuemart_payment_id=payment.virtuemart_payment_id')
+			->from('#__tsmart_tour_id_payment_id AS tour_id_payment_id')
+			->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+			->where('tour_id_payment_id.tsmart_payment_id=payment.tsmart_payment_id')
 		;
 		$query->select("($query1) AS list_tour");
 		//end get list tour apply
@@ -125,8 +125,8 @@ class VirtueMartModelPayment extends VmModel
 		if($tsmart_payment_id) {
 			//insert to tour in payment
 			$query = $db->getQuery(true);
-			$query->delete('#__virtuemart_tour_id_payment_id')
-				->where('virtuemart_payment_id=' . (int)$tsmart_payment_id);
+			$query->delete('#__tsmart_tour_id_payment_id')
+				->where('tsmart_payment_id=' . (int)$tsmart_payment_id);
 			$db->setQuery($query)->execute();
 			$err = $db->getErrorMsg();
 			if (!empty($err)) {
@@ -135,9 +135,9 @@ class VirtueMartModelPayment extends VmModel
 			$list_tour_id = $data['list_tour_id'];
 			foreach ($list_tour_id as $tsmart_product_id) {
 				$query->clear()
-					->insert('#__virtuemart_tour_id_payment_id')
-					->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-					->set('virtuemart_payment_id=' . (int)$tsmart_payment_id);
+					->insert('#__tsmart_tour_id_payment_id')
+					->set('tsmart_product_id=' . (int)$tsmart_product_id)
+					->set('tsmart_payment_id=' . (int)$tsmart_payment_id);
 				$db->setQuery($query)->execute();
 				$err = $db->getErrorMsg();
 				if (!empty($err)) {
@@ -148,8 +148,8 @@ class VirtueMartModelPayment extends VmModel
 
 			//insert to payment method in payment
 			$query = $db->getQuery(true);
-			$query->delete('#__virtuemart_payment_id_payment_method_id')
-				->where('virtuemart_payment_id=' . (int)$tsmart_payment_id);
+			$query->delete('#__tsmart_payment_id_payment_method_id')
+				->where('tsmart_payment_id=' . (int)$tsmart_payment_id);
 			$db->setQuery($query)->execute();
 			$err = $db->getErrorMsg();
 			if (!empty($err)) {
@@ -158,9 +158,9 @@ class VirtueMartModelPayment extends VmModel
 			$list_payment_method_id = $data['list_payment_method_id'];
 			foreach ($list_payment_method_id as $tsmart_payment_method_id) {
 				$query->clear()
-					->insert('#__virtuemart_payment_id_payment_method_id')
-					->set('virtuemart_payment_method_id=' . (int)$tsmart_payment_method_id)
-					->set('virtuemart_payment_id=' . (int)$tsmart_payment_id);
+					->insert('#__tsmart_payment_id_payment_method_id')
+					->set('tsmart_payment_method_id=' . (int)$tsmart_payment_method_id)
+					->set('tsmart_payment_id=' . (int)$tsmart_payment_id);
 				$db->setQuery($query)->execute();
 				$err = $db->getErrorMsg();
 				if (!empty($err)) {

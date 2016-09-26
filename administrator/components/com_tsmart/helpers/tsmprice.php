@@ -2,13 +2,13 @@
 /**
  * Class for getting with language keys translated text. The original code was written by joomla Platform 11.1
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -55,11 +55,11 @@ class vmprice
 		{
 			$db=JFactory::getDbo();
 			$query=$db->getQuery(true);
-			$query->select('group_size.virtuemart_group_size_id,CONCAT(group_size.group_name,"(",group_size.from,"-",group_size.to,")") AS group_name,group_size.type AS group_type')
-				->from('#__virtuemart_tour_id_group_size_id AS tour_id_group_size_id')
-				->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=tour_id_group_size_id.virtuemart_group_size_id')
-				->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tsmart_product_id)
-				->where('group_size.virtuemart_group_size_id!=0')
+			$query->select('group_size.tsmart_group_size_id,CONCAT(group_size.group_name,"(",group_size.from,"-",group_size.to,")") AS group_name,group_size.type AS group_type')
+				->from('#__tsmart_tour_id_group_size_id AS tour_id_group_size_id')
+				->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=tour_id_group_size_id.tsmart_group_size_id')
+				->where('tour_id_group_size_id.tsmart_product_id='.(int)$tsmart_product_id)
+				->where('group_size.tsmart_group_size_id!=0')
 				->order('group_size.from')
 
 			;
@@ -77,8 +77,8 @@ class vmprice
 			$db=JFactory::getDbo();
 			$query=$db->getQuery(true);
 			$query->select('group_size_id_tour_price_id.*')
-				->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-				->where('group_size_id_tour_price_id.virtuemart_price_id='.(int)$tour_price_id);
+				->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
+				->where('group_size_id_tour_price_id.tsmart_price_id='.(int)$tour_price_id);
 			return $db->setQuery($query)->loadObjectList();
 		}
 		public static function get_list_tour_price_by_tour_price_id_for_price($tour_price_id)
@@ -86,8 +86,8 @@ class vmprice
 			$db=JFactory::getDbo();
 			$query=$db->getQuery(true);
 			$query->select('group_size_id_tour_price_id.*')
-				->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-				->where('group_size_id_tour_price_id.virtuemart_price_id='.(int)$tour_price_id)
+				->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
+				->where('group_size_id_tour_price_id.tsmart_price_id='.(int)$tour_price_id)
 			;
 			return $db->setQuery($query)->loadObject();
 		}
@@ -96,8 +96,8 @@ class vmprice
 			$db=JFactory::getDbo();
 			$query=$db->getQuery(true);
 			$query->select('mark_up_tour_price_id.*')
-				->from('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id')
-				->where('mark_up_tour_price_id.virtuemart_price_id='.(int)$tour_price_id);
+				->from('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id')
+				->where('mark_up_tour_price_id.tsmart_price_id='.(int)$tour_price_id);
 			return $db->setQuery($query)->loadObjectList();
 		}
 
@@ -133,9 +133,9 @@ class vmprice
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('tour_price.*')
-            ->from('#__virtuemart_tour_price AS tour_price')
-            ->where('tour_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
+            ->from('#__tsmart_tour_price AS tour_price')
+            ->where('tour_price.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('tour_price.tsmart_product_id='.(int)$tour_id)
             ;
         $db->setQuery($query);
         $list=$db->loadObjectList();

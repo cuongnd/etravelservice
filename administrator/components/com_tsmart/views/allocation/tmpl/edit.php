@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -96,12 +96,12 @@ $list_data = (array)up_json_decode($list_data, false, 512, JSON_PARSE_JAVASCRIPT
 				<div class="span6">
 					<select multiple>
 						<?php foreach($this->list_tour as $tour){ ?>
-						<option value="<?php echo $tour->virtuemart_product_id ?>"><?php echo $tour->product_name ?></option>
+						<option value="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?></option>
 						<?php } ?>
 					</select>
 					<select multiple>
 						<?php foreach($this->list_tour_class as $tour_class){ ?>
-						<option value="<?php echo $tour_class->virtuemart_tour_class_id ?>">sdsds<?php echo $tour_class->tour_class_name ?></option>
+						<option value="<?php echo $tour_class->tsmart_tour_class_id ?>">sdsds<?php echo $tour_class->tour_class_name ?></option>
 						<?php } ?>
 					</select>
 					<div class="row-fluid">
@@ -163,7 +163,7 @@ $list_data = (array)up_json_decode($list_data, false, 512, JSON_PARSE_JAVASCRIPT
 
 
 		</div>
-		<input type="hidden" name="virtuemart_departure_id" value="<?php echo $this->departure->virtuemart_departure_id; ?>" />
+		<input type="hidden" name="tsmart_departure_id" value="<?php echo $this->departure->tsmart_departure_id; ?>" />
 		<?php echo $this->addStandardHiddenToForm(); ?>
 	</form>
 

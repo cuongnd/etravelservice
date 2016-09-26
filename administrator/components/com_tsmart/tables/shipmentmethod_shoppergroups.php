@@ -3,13 +3,13 @@
 *
 * shipment_shoppergroups table ( for media)
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Shipmentmethod_shoppergraoups
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabl
  * The class is is used to manage the shopper groups with shipment.
  *
  * @author Max Milbers
- * @package		VirtueMart
+ * @package		tsmart
  */
 class TableShipmentmethod_shoppergroups extends tsmTableXarray {
 
@@ -35,10 +35,10 @@ class TableShipmentmethod_shoppergroups extends tsmTableXarray {
 	 * @param JDataBase $db
 	 */
 	function __construct(&$db){
-		parent::__construct('#__virtuemart_shipmentmethod_shoppergroups', 'id', $db);
+		parent::__construct('#__tsmart_shipmentmethod_shoppergroups', 'id', $db);
 
-		$this->setPrimaryKey('virtuemart_shipmentmethod_id');
-		$this->setSecondaryKey('virtuemart_shoppergroup_id');
+		$this->setPrimaryKey('tsmart_shipmentmethod_id');
+		$this->setSecondaryKey('tsmart_shoppergroup_id');
 
 	}
 

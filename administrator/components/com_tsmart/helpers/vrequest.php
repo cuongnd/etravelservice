@@ -3,7 +3,7 @@
  * Class vRequest
  * Gets filtered request values.
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (c) 2014 iStraxx UG (haftungsbeschränkt). All rights reserved.

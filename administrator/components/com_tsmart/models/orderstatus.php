@@ -3,14 +3,14 @@
  *
  * Data module for the order status
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage OrderStatus
  * @author Oscar van Eijk
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,10 +26,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for the order status
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage OrderStatus
  */
-class VirtueMartModelOrderstatus extends VmModel {
+class tsmartModelOrderstatus extends VmModel {
 
 	private $_renderStatusList = array();
 	/**
@@ -62,7 +62,7 @@ class VirtueMartModelOrderstatus extends VmModel {
 		} else {
 			$published = '';
 		}
-		$this->_data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_orderstates`',$published,'',$ordering);
+		$this->_data = $this->exeSortSearchListQuery(0,'*',' FROM `#__tsmart_orderstates`',$published,'',$ordering);
 		// 		vmdebug('order data',$this->_data);
 		return $this->_data ;
 	}
@@ -83,7 +83,7 @@ class VirtueMartModelOrderstatus extends VmModel {
 			} else {
 				$published = '';
 			}
-			$q = 'SELECT `order_status_name`,`order_status_code` FROM `#__virtuemart_orderstates` '.$published.'order by `ordering` ';
+			$q = 'SELECT `order_status_name`,`order_status_code` FROM `#__tsmart_orderstates` '.$published.'order by `ordering` ';
 			$db = JFactory::getDBO();
 			$db->setQuery($q);
 			$orderStatusNames = $db->loadAssocList('order_status_code');

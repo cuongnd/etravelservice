@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage 	ratings
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -66,17 +66,17 @@ $option = vRequest::getCmd('option');
 		$keyword = vRequest::getCmd('keyword');
 		foreach ($this->reviewslist as $key => $review) {
 
-			$checked = JHtml::_('grid.id', $i , $review->virtuemart_rating_review_id ,null, 'virtuemart_rating_review_id');
+			$checked = JHtml::_('grid.id', $i , $review->tsmart_rating_review_id ,null, 'tsmart_rating_review_id');
 			$published = JHtml::_('grid.published', $review, $i);
 			?>
 			<tr class="row<?php echo ($i)%2 ; ?>">
 				<!-- Checkbox -->
 				<td><?php echo $checked; ?></td>
 				<!-- Username + time -->
-				<?php $link = 'index.php?option='.$option.'&view=ratings&task=edit_review&virtuemart_rating_review_id='.$review->virtuemart_rating_review_id; ?>
+				<?php $link = 'index.php?option='.$option.'&view=ratings&task=edit_review&tsmart_rating_review_id='.$review->tsmart_rating_review_id; ?>
 				<td><?php echo JHtml::_('link', $link, $review->customer.' ('.vmJsApi::date($review->created_on,'LC2',true).')', array("title" => tsmText::_('com_tsmart_RATING_EDIT_TITLE'))); ?></td>
 				<!-- Product name TODO Add paren_id in LINK ? not existing here -->
-				<?php $link = 'index.php?option='.$option.'&view=product&task=edit&virtuemart_product_id='.$review->virtuemart_product_id ?>
+				<?php $link = 'index.php?option='.$option.'&view=product&task=edit&tsmart_product_id='.$review->tsmart_product_id ?>
 				<td><?php echo JHtml::_('link', JRoute::_($link), $review->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($review->product_name))); ?></td>
 				<!-- Stars rating -->
 				<td align="center">
@@ -113,7 +113,7 @@ $option = vRequest::getCmd('option');
 </div>
 <!-- Hidden Fields -->
 	<input type="hidden" name="layout" value="list_reviews" />
-	<input type="hidden" name="virtuemart_product_id" value="<?php echo vRequest::getVar('virtuemart_product_id', 0); ?>" />
+	<input type="hidden" name="tsmart_product_id" value="<?php echo vRequest::getVar('tsmart_product_id', 0); ?>" />
 	<?php echo $this->addStandardHiddenToForm(null,'listreviews'); ?>
 </form>
 <?php AdminUIHelper::endAdminArea(); ?>

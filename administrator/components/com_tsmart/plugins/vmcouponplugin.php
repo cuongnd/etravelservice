@@ -4,11 +4,11 @@
  * Abstract plugin class to extend the coupons
  *
  * @version $Id: vmcalculationplugin.php 4634 2011-11-09 21:07:44Z Milbo $
- * @package VirtueMart
+ * @package tsmart
  * @subpackage vmplugins
- * @copyright Copyright (C) 2011-2011 VirtueMart Team - All rights reserved.
+ * @copyright Copyright (C) 2011-2011 tsmart Team - All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2,
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -29,7 +29,7 @@ abstract class vmCouponPlugin extends vmPlugin {
 
 		parent::__construct($subject, $config);
 
-		$this->_tablename = '#__virtuemart_coupon_' . $this->_name;
+		$this->_tablename = '#__tsmart_coupon_' . $this->_name;
 
 	}
 

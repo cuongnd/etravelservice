@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Calculation tool
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -44,7 +44,7 @@ vmJsApi::jDate();
 		<?php echo VmHTML::row('raw','com_tsmart_CALC_KIND', $this->entryPointsList ); ?>
 		<?php echo VmHTML::row('raw','com_tsmart_CALC_VALUE_MATHOP', $this->mathOpList ); ?>
 		<?php echo VmHTML::row('input','com_tsmart_VALUE','calc_value',$this->calc->calc_value); ?>
-		<?php echo VmHTML::row('select','com_tsmart_CURRENCY', 'calc_currency', $this->currencies ,$this->calc->calc_currency,'','virtuemart_currency_id', 'currency_name',false) ; ?>
+		<?php echo VmHTML::row('select','com_tsmart_CURRENCY', 'calc_currency', $this->currencies ,$this->calc->calc_currency,'','tsmart_currency_id', 'currency_name',false) ; ?>
 
 		<tr>
 			<td width="110" class="key">
@@ -88,7 +88,7 @@ vmJsApi::jDate();
 
 </div>
 
-	<input type="hidden" name="virtuemart_calc_id" value="<?php echo $this->calc->virtuemart_calc_id; ?>" />
+	<input type="hidden" name="tsmart_calc_id" value="<?php echo $this->calc->tsmart_calc_id; ?>" />
 
 	<?php echo $this->addStandardHiddenToForm(); ?>
 

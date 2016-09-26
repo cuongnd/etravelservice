@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved by the author.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,11 +22,11 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
- * Model for VirtueMart Customs Fields
+ * Model for tsmart Customs Fields
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartModelCustom extends VmModel {
+class tsmartModelCustom extends VmModel {
 
 
 	/**
@@ -35,7 +35,7 @@ class VirtueMartModelCustom extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_custom_id');
+		parent::__construct('tsmart_custom_id');
 		$this->setMainTable('customs');
 		$this->setToggleName('admin_only');
 		$this->setToggleName('is_hidden');
@@ -67,7 +67,7 @@ class VirtueMartModelCustom extends VmModel {
 	}
 
     /**
-     * Gets a single custom by virtuemart_custom_id
+     * Gets a single custom by tsmart_custom_id
      * .
      * @param string $type
      * @param string $mime mime type of custom, use for exampel image
@@ -112,7 +112,7 @@ class VirtueMartModelCustom extends VmModel {
 	 */
     function getCustoms($custom_parent_id,$search = false){
 
-	    $query='* FROM `#__virtuemart_customs` ';
+	    $query='* FROM `#__tsmart_customs` ';
 
 		$where = array();
 		if($custom_parent_id){
@@ -150,7 +150,7 @@ class VirtueMartModelCustom extends VmModel {
 				$data->field_type_display = tsmText::_( $field_types[$data->field_type ] );
 			} else {
 				$data->field_type_display = 'not valid, delete this line';
-				vmError('The field with id '.$data->virtuemart_custom_id.' and title '.$data->custom_title.' is not longer valid, please delete it from the list');
+				vmError('The field with id '.$data->tsmart_custom_id.' and title '.$data->custom_title.' is not longer valid, please delete it from the list');
 			}
 
 		}
@@ -168,8 +168,8 @@ class VirtueMartModelCustom extends VmModel {
 	public function displayCustomSelection () {
 
 		$customslist = $this->getParentList ();
-		if (isset($this->virtuemart_custom_id)) {
-			$value = $this->virtuemart_custom_id;
+		if (isset($this->tsmart_custom_id)) {
+			$value = $this->tsmart_custom_id;
 		}
 		else {
 			$value = vRequest::getInt ('custom_parent_id', 0);
@@ -189,12 +189,12 @@ class VirtueMartModelCustom extends VmModel {
 	function getCustomsList ($publishedOnly = FALSE) {
 
 		// get custom parents
-		$q = 'SELECT `virtuemart_custom_id` AS value ,custom_title AS text FROM `#__virtuemart_customs` WHERE custom_parent_id="0" AND field_type <> "R" AND field_type <> "Z" ';
+		$q = 'SELECT `tsmart_custom_id` AS value ,custom_title AS text FROM `#__tsmart_customs` WHERE custom_parent_id="0" AND field_type <> "R" AND field_type <> "Z" ';
 		if ($publishedOnly) {
 			$q .= 'AND `published`=1';
 		}
-		if ($ID = vRequest::getInt ('virtuemart_custom_id', 0)) {
-			$q .= ' AND `virtuemart_custom_id`!=' . (int)$ID;
+		if ($ID = vRequest::getInt ('tsmart_custom_id', 0)) {
+			$q .= ' AND `tsmart_custom_id`!=' . (int)$ID;
 		}
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);
@@ -213,7 +213,7 @@ class VirtueMartModelCustom extends VmModel {
 	 */
 	function getParentList ($excludedId = 0) {
 		$db = JFactory::getDBO();
-		$db->setQuery (' SELECT virtuemart_custom_id as value,custom_title as text FROM `#__virtuemart_customs` WHERE `field_type` ="G" and virtuemart_custom_id!=' . $excludedId);
+		$db->setQuery (' SELECT tsmart_custom_id as value,custom_title as text FROM `#__tsmart_customs` WHERE `field_type` ="G" and tsmart_custom_id!=' . $excludedId);
 		return $db->loadObjectList ();
 	}
 
@@ -226,10 +226,10 @@ class VirtueMartModelCustom extends VmModel {
 	 */
 
 	public function createClone($id){
-		$this->virtuemart_custom_id = $id;
+		$this->tsmart_custom_id = $id;
 		$row = $this->getTable('customs');
 		$row->load( $id );
-		$row->virtuemart_custom_id = 0;
+		$row->tsmart_custom_id = 0;
 		$row->custom_title = $row->custom_title.' Copy';
 
 		if (!$clone = $row->store()) {
@@ -255,8 +255,8 @@ class VirtueMartModelCustom extends VmModel {
 		$db = JFactory::getDBO();
 		// delete existings from modelXref and table customfields
 		foreach ($datas as $child_id =>$fields) {
-			$fields['virtuemart_'.$table.'_id']=$child_id;
-			$db->setQuery( 'DELETE PC FROM `#__virtuemart_'.$table.'_customfields` as `PC`, `#__virtuemart_customs` as `C` WHERE `PC`.`virtuemart_custom_id` = `C`.`virtuemart_custom_id` AND field_type="C" and virtuemart_'.$table.'_id ='.$child_id );
+			$fields['tsmart_'.$table.'_id']=$child_id;
+			$db->setQuery( 'DELETE PC FROM `#__tsmart_'.$table.'_customfields` as `PC`, `#__tsmart_customs` as `C` WHERE `PC`.`tsmart_custom_id` = `C`.`tsmart_custom_id` AND field_type="C" and tsmart_'.$table.'_id ='.$child_id );
 			if(!$db->execute()){
 				vmError('Error in deleting child relation '); //.$db->getQuery()); Dont give hackers too much info
 			}
@@ -283,11 +283,11 @@ class VirtueMartModelCustom extends VmModel {
 		}
 
 		//I think this is obsolete, note by Max
-		if(empty($data['virtuemart_vendor_id'])){
-			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-			$data['virtuemart_vendor_id'] = VirtueMartModelVendor::getLoggedVendor();
+		if(empty($data['tsmart_vendor_id'])){
+			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			$data['tsmart_vendor_id'] = tsmartModelVendor::getLoggedVendor();
 		} else {
-			$data['virtuemart_vendor_id'] = (int) $data['virtuemart_vendor_id'];
+			$data['tsmart_vendor_id'] = (int) $data['tsmart_vendor_id'];
 		}
 
 		$table = $this->getTable('customs');
@@ -304,8 +304,8 @@ class VirtueMartModelCustom extends VmModel {
 			$cElement = $db->loadResult();
 			if(empty($cElement)){
 
-				if(!empty($data['virtuemart_custom_id'])){
-					$table->load($data['virtuemart_custom_id']);
+				if(!empty($data['tsmart_custom_id'])){
+					$table->load($data['tsmart_custom_id']);
 					$cElement = $table->custom_element;
 				} else if(!empty($data['custom_element'])){
 					$cElement = $data['custom_element'];
@@ -324,7 +324,7 @@ class VirtueMartModelCustom extends VmModel {
 					}
 					vmdebug('Available entries ',$newJid,$jids);
 					if(!empty($newJid)){
-						$q = 'UPDATE `#__virtuemart_customs` SET `custom_jplugin_id`="'.$jid.'" WHERE `custom_jplugin_id` = "'.$data['custom_jplugin_id'].'"';
+						$q = 'UPDATE `#__tsmart_customs` SET `custom_jplugin_id`="'.$jid.'" WHERE `custom_jplugin_id` = "'.$data['custom_jplugin_id'].'"';
 						$db->setQuery($q);
 						$db->execute();
 						$data['custom_jplugin_id'] = $newJid;
@@ -358,7 +358,7 @@ class VirtueMartModelCustom extends VmModel {
 
 		//We are in the custom and so the table contains the field_type, else not!!
 		self::setParameterableByFieldType($table,$table->field_type);
-		if(empty($data['virtuemart_custom_id']) and !vmAccess::manager('custom.create')){
+		if(empty($data['tsmart_custom_id']) and !vmAccess::manager('custom.create')){
 			vmWarn('Insufficient permission to create custom');
 			return false;
 		}
@@ -368,7 +368,7 @@ class VirtueMartModelCustom extends VmModel {
 		$dispatcher = JDispatcher::getInstance();
 		$error = $dispatcher->trigger('plgVmOnStoreInstallPluginTable', array('custom' , $data, $table));
 
-		return $table->virtuemart_custom_id ;
+		return $table->tsmart_custom_id ;
 
 	}
 
@@ -484,7 +484,7 @@ class VirtueMartModelCustom extends VmModel {
 				return false;
 			} else {
 				//Delete this customfield also in all product_customfield tables
-				if (!$customfields->delete ($id, 'virtuemart_custom_id')) {
+				if (!$customfields->delete ($id, 'tsmart_custom_id')) {
 					vmError ('Custom delete Productcustomfield delete failed');
 					$ok = FALSE;
 				}

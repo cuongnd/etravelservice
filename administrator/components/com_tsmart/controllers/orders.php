@@ -3,13 +3,13 @@
  *
  * Orders controller
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Max Milbers, Valerie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Orders Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @author
  */
 class TsmartControllerOrders extends TsmController {
@@ -52,7 +52,7 @@ class TsmartControllerOrders extends TsmController {
 
 	public function updateCustomsOrderItems(){
 
-		$q = 'SELECT `product_attribute` FROM `#__virtuemart_order_items` LIMIT ';
+		$q = 'SELECT `product_attribute` FROM `#__tsmart_order_items` LIMIT ';
 		$do = true;
 		$db = JFactory::getDbo();
 		$start = 0;
@@ -66,7 +66,7 @@ class TsmartControllerOrders extends TsmController {
 			}
 			//The stored result in vm2.0.14 looks like this {"48":{"textinput":{"comment":"test"}}}
 			//{"96":"18"} download plugin
-			// 46 is virtuemart_customfield_id
+			// 46 is tsmart_customfield_id
 			//{"46":" <span class=\"costumTitle\">Cap Size<\/span><span class=\"costumValue\" >S<\/span>","110":{"istraxx_customsize":{"invala":"10","invalb":"10"}}}
 			//and now {"32":[{"invala":"100"}]}
 			foreach($items as $field){
@@ -127,14 +127,14 @@ class TsmartControllerOrders extends TsmController {
 	 */
 	public function nextItem($dir = 'ASC'){
 		$model = VmModel::getModel('orders');
-		$id = vRequest::getInt('virtuemart_order_id');
+		$id = vRequest::getInt('tsmart_order_id');
 		if (!$order_id = $model->getOrderId($id, $dir)) {
 			$order_id  = $id;
 			$msg = tsmText::_('com_tsmart_NO_MORE_ORDERS');
 		} else {
 			$msg ='';
 		}
-		$this->setRedirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$order_id ,$msg );
+		$this->setRedirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$order_id ,$msg );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class TsmartControllerOrders extends TsmController {
 		if ($lastTask == 'updatestatus') {
 			// single order is in POST but we need an array
 			$order = array() ;
-			$tsmart_order_id = vRequest::getInt('virtuemart_order_id');
+			$tsmart_order_id = vRequest::getInt('tsmart_order_id');
 			$order[$tsmart_order_id] = (vRequest::getRequest());
 
 			$result = $model->updateOrderStatus($order);
@@ -223,7 +223,7 @@ class TsmartControllerOrders extends TsmController {
 		if ($result['error'] > 0)
 		$msg .= tsmText::sprintf('com_tsmart_ORDER_NOT_UPDATED_SUCCESSFULLY', $result['error'] , $result['total']);
 		if ('updatestatus'== $lastTask ) {
-			$app->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$tsmart_order_id , $msg);
+			$app->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$tsmart_order_id , $msg);
 		}
 		else {
 			$app->redirect('index.php?option=com_tsmart&view=orders', $msg);
@@ -243,7 +243,7 @@ class TsmartControllerOrders extends TsmController {
 		$model = VmModel::getModel();
 		$model->updateItemStatus(JArrayHelper::toObject($data), $data['new_status']);
 
-		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$data['virtuemart_order_id']);
+		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$data['tsmart_order_id']);
 	}
 
 
@@ -285,11 +285,11 @@ class TsmartControllerOrders extends TsmController {
 
 		$_items = vRequest::getVar('item_id',  0, '', 'array');
 
-		$_orderID = vRequest::getInt('virtuemart_order_id', false);
+		$_orderID = vRequest::getInt('tsmart_order_id', false);
 		$model->updateStatusForOneOrder($_orderID,$_items,true);
 
 		$model->deleteInvoice($_orderID);
-		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$_orderID);
+		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$_orderID);
 	}
 
 	public function updateOrderHead()
@@ -297,10 +297,10 @@ class TsmartControllerOrders extends TsmController {
 		$mainframe = Jfactory::getApplication();
 		$model = VmModel::getModel();
 		$_items = vRequest::getVar('item_id',  0, '', 'array');
-		$_orderID = vRequest::getInt('virtuemart_order_id', '');
+		$_orderID = vRequest::getInt('tsmart_order_id', '');
 		$model->UpdateOrderHead((int)$_orderID, vRequest::getRequest());
 		$model->deleteInvoice($_orderID);
-		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$_orderID);
+		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$_orderID);
 	}
 
 	public function CreateOrderHead()
@@ -308,18 +308,18 @@ class TsmartControllerOrders extends TsmController {
 		$mainframe = Jfactory::getApplication();
 		$model = VmModel::getModel();
 		$orderid = $model->CreateOrderHead();
-		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$orderid );
+		$mainframe->redirect('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$orderid );
 	}
 
 	public function newOrderItem() {
 
-		$orderId = vRequest::getInt('virtuemart_order_id', '');
+		$orderId = vRequest::getInt('tsmart_order_id', '');
 		$model = VmModel::getModel();
 		$msg = '';
 		$data = vRequest::getRequest();
 		$model->saveOrderLineItem($data);
 		$model->deleteInvoice($orderId);
-		$editLink = 'index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id=' . $orderId;
+		$editLink = 'index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id=' . $orderId;
 		$this->setRedirect($editLink, $msg);
 	}
 
@@ -337,7 +337,7 @@ class TsmartControllerOrders extends TsmController {
 		$model->removeOrderLineItem($orderLineItem);
 
 		$model->deleteInvoice($orderId);
-		$editLink = 'index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id=' . $orderId;
+		$editLink = 'index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id=' . $orderId;
 		$this->setRedirect($editLink, $msg);
 	}
 

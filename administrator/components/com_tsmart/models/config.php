@@ -3,14 +3,14 @@
  *
  * Data module for shop configuration
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Config
  * @author Max Milbers
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,10 +23,10 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Model class for shop configuration
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Config
  */
-class VirtueMartModelConfig extends VmModel {
+class tsmartModelConfig extends VmModel {
 
 	function __construct() {
 		parent::__construct();
@@ -464,7 +464,7 @@ class VirtueMartModelConfig extends VmModel {
 
 		//ATM we want to ensure that only one config is used
 		$confData = array();
-		$confData['virtuemart_config_id'] = 1;
+		$confData['tsmart_config_id'] = 1;
 		$confData['config'] = $config->toString();
 
 		$confTable = $this->getTable('configs');
@@ -478,12 +478,12 @@ class VirtueMartModelConfig extends VmModel {
 
 		$cache = JFactory::getCache();
 		$cache->clean('com_tsmart_cats');
-		$cache->clean('mod_virtuemart_product');
-		$cache->clean('mod_virtuemart_category');
+		$cache->clean('mod_tsmart_product');
+		$cache->clean('mod_tsmart_category');
 		$cache->clean('com_tsmart_rss');
 		$cache->clean('com_tsmart_cat_manus');
 		$cache->clean('convertECB');
-		$cache->clean('_virtuemart');
+		$cache->clean('_tsmart');
 		$cache->clean('com_plugins');
 		$cache->clean('_system');
 		$cache->clean('page');
@@ -494,7 +494,7 @@ class VirtueMartModelConfig extends VmModel {
 	static public function checkConfigTableExists(){
 
 		$db = JFactory::getDBO();
-		$query = 'SHOW TABLES LIKE "'.$db->getPrefix().'virtuemart_configs"';
+		$query = 'SHOW TABLES LIKE "'.$db->getPrefix().'tsmart_configs"';
 		$db->setQuery($query);
 		$configTable = $db->loadResult();
 
@@ -505,7 +505,7 @@ class VirtueMartModelConfig extends VmModel {
 		}
 	}
 
-	static public function checkVirtuemartInstalled(){
+	static public function checktsmartInstalled(){
 
 		$db = JFactory::getDBO();
 		$query = 'SHOW TABLES LIKE "'.$db->getPrefix().'tsmart%"';
@@ -523,7 +523,7 @@ class VirtueMartModelConfig extends VmModel {
 	/**
 	 * Creates the config table, if it does not exist
 	 *
-	 * @param $_section Section from the virtuemart_defaults.cfg file to be parsed. Currently, only 'config' is implemented
+	 * @param $_section Section from the tsmart_defaults.cfg file to be parsed. Currently, only 'config' is implemented
 	 * @return Boolean; true on success, false otherwise
 	 * @author Oscar van Eijk
 	 */
@@ -537,8 +537,8 @@ class VirtueMartModelConfig extends VmModel {
 
 	static public function getCreateConfigTableQuery(){
 
-		return "CREATE TABLE IF NOT EXISTS `#__virtuemart_configs` (
-  `virtuemart_config_id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
+		return "CREATE TABLE IF NOT EXISTS `#__tsmart_configs` (
+  `tsmart_config_id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
   `config` text,
   `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL DEFAULT 0,
@@ -546,7 +546,7 @@ class VirtueMartModelConfig extends VmModel {
   `modified_by` int(11) NOT NULL DEFAULT 0,
   `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `locked_by` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`virtuemart_config_id`)
+  PRIMARY KEY (`tsmart_config_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='Holds configuration settings' AUTO_INCREMENT=1 ;";
 	}
 
@@ -559,9 +559,9 @@ class VirtueMartModelConfig extends VmModel {
 
 		$_datafile = VMPATH_ADMIN.DS.'tsmart.cfg';
 		if (!file_exists($_datafile)) {
-			if (file_exists(VMPATH_ADMIN.DS.'virtuemart_defaults.cfg-dist')) {
+			if (file_exists(VMPATH_ADMIN.DS.'tsmart_defaults.cfg-dist')) {
 				if(!class_exists('JFile')) require(VMPATH_LIBS.DS.'joomla'.DS.'filesystem'.DS.'file.php');
-				JFile::copy('virtuemart_defaults.cfg-dist','tsmart.cfg',VMPATH_ADMIN);
+				JFile::copy('tsmart_defaults.cfg-dist','tsmart.cfg',VMPATH_ADMIN);
 			} else {
 				vmWarn('The data file with the default configuration could not be found. You must configure the shop manually.');
 				return FALSE;
@@ -630,7 +630,7 @@ class VirtueMartModelConfig extends VmModel {
 	 */
 	function setDangerousToolsOff(){
 
-		$dangerousTools = VirtueMartModelConfig::readConfigFile(true);
+		$dangerousTools = tsmartModelConfig::readConfigFile(true);
 
 		if( $dangerousTools){
 			$link = JURI::root() . 'administrator/index.php?option=com_tsmart&view=config';
@@ -640,7 +640,7 @@ class VirtueMartModelConfig extends VmModel {
 		else {
 			if(self::checkConfigTableExists()){
 				$data['dangeroustools'] = 0;
-				$data['virtuemart_config_id'] = 1;
+				$data['tsmart_config_id'] = 1;
 				$this->store($data);
 			}
 		}

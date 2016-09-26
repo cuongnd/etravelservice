@@ -1,5 +1,5 @@
- -- VirtueMart table data SQL script
--- This will insert all essential data into the VirtueMart tables
+ -- tsmart table data SQL script
+-- This will insert all essential data into the tsmart tables
 
 
 --
@@ -7,9 +7,9 @@
 --
 
 --
--- Dumping data for table `#__virtuemart_adminmenuentries`
+-- Dumping data for table `#__tsmart_adminmenuentries`
 --
-INSERT INTO `#__virtuemart_adminmenuentries` (`id`, `module_id`, `parent_id`, `name`, `link`, `depends`, `icon_class`, `ordering`, `published`, `tooltip`, `view`, `task`) VALUES
+INSERT INTO `#__tsmart_adminmenuentries` (`id`, `module_id`, `parent_id`, `name`, `link`, `depends`, `icon_class`, `ordering`, `published`, `tooltip`, `view`, `task`) VALUES
 (null , 1, 0, 'com_tsmart_CATEGORY_S', '', '', 'vmicon vmicon-16-folder_camera', 1, 1, '', 'category', ''),
 (null, 1, 0, 'com_tsmart_PRODUCT_S', '', '', 'vmicon vmicon-16-camera', 2, 1, '', 'product', ''),
 (null, 1, 0, 'com_tsmart_PRODUCT_CUSTOM_FIELD_S', '', '', 'vmicon vmicon-16-document_move', 5, 1, '', 'custom', ''),
@@ -34,23 +34,23 @@ INSERT INTO `#__virtuemart_adminmenuentries` (`id`, `module_id`, `parent_id`, `n
 (null, 5, 0, 'com_tsmart_COUNTRY_S', '', '', 'vmicon vmicon-16-globe', 6, 1, '', 'country', ''),
 (null, 11, 0, 'com_tsmart_MIGRATION_UPDATE', '', '', 'vmicon vmicon-16-installer_box', 0, 1, '', 'updatesmigration', ''),
 (null, 11, 0, 'com_tsmart_ABOUT', '', '', 'vmicon vmicon-16-info', 10, 1, '', 'about', ''),
-(null, 11, 0, 'com_tsmart_HELP_TOPICS', 'http://docs.virtuemart.net/', '', 'vmicon vmicon-16-help', 5, 1, '', '', ''),
-(null, 11, 0, 'com_tsmart_COMMUNITY_FORUM', 'http://forum.virtuemart.net/', '', 'vmicon vmicon-16-reseller_programm', 7, 1, '', '', ''),
-(null, 11, 0, 'com_tsmart_STATISTIC_SUMMARY', '', '', 'vmicon vmicon-16-info', 1, 1, '', 'virtuemart', ''),
+(null, 11, 0, 'com_tsmart_HELP_TOPICS', 'http://docs.tsmart.net/', '', 'vmicon vmicon-16-help', 5, 1, '', '', ''),
+(null, 11, 0, 'com_tsmart_COMMUNITY_FORUM', 'http://forum.tsmart.net/', '', 'vmicon vmicon-16-reseller_programm', 7, 1, '', '', ''),
+(null, 11, 0, 'com_tsmart_STATISTIC_SUMMARY', '', '', 'vmicon vmicon-16-info', 1, 1, '', 'tsmart', ''),
 (null, 11, 0, 'com_tsmart_LOG', '', '', 'vmicon vmicon-16-info', 2, 1, '', 'log', ''),
 (null, 11, 0, 'com_tsmart_SUPPORT', '', '', 'vmicon vmicon-16-help', 3, 1, '', 'support', '');
 --
--- Dumping data for table `#__virtuemart_modules`
+-- Dumping data for table `#__tsmart_modules`
 --
 
-INSERT IGNORE INTO `#__virtuemart_modules` (`module_id`, `module_name`, `module_description`, `module_perms`, `published`, `is_admin`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_modules` (`module_id`, `module_name`, `module_description`, `module_perms`, `published`, `is_admin`, `ordering`) VALUES
 (1, 'product', 'Here you can administer your online catalog of products.  Categories , Products (view=product), Attributes, Product Types, Product Files (view=media), Inventory, Calculation Rules, Customer Reviews  ', 'storeadmin,admin', 1, 0, 1),
 (2, 'order', 'View Order and Update Order Status:    Orders , Coupons , Revenue Report ,Shopper , Shopper Groups ', 'admin,storeadmin', 1, 0, 2),
 (3, 'manufacturer', 'Manage the manufacturers of products in your store.', 'storeadmin,admin', 1, 0, 3),
 (4, 'store', 'Store Configuration: Store Information, Payment Methods , Shipment, Shipment Rates', 'storeadmin,admin', 1, 0, 4),
 (5, 'configuration', 'Configuration: shop configuration , currencies (view=currency), Credit Card List, Countries, userfields, order status  ', 'admin,storeadmin', 1, 1, 5),
 (6, 'msgs', 'This module is unprotected an used for displaying system messages to users.  We need to have an area that does not require authorization when things go wrong.', 'none', 0, 0, 99),
-(7, 'shop', 'This is the Washupito store module.  This is the demo store included with the VirtueMart distribution.', 'none', 1, 0, 99),
+(7, 'shop', 'This is the Washupito store module.  This is the demo store included with the tsmart distribution.', 'none', 1, 0, 99),
 (8, 'store', 'Store Configuration: Store Information, Payment Methods , Shipment, Shipment Rates', 'storeadmin,admin', 1, 0, 4),
 (9, 'account', 'This module allows shoppers to update their account information and view previously placed orders.', 'shopper,storeadmin,admin,demo', 1,0, 99),
 (10, 'checkout', '', 'none', 0, 0, 99),
@@ -58,10 +58,10 @@ INSERT IGNORE INTO `#__virtuemart_modules` (`module_id`, `module_name`, `module_
 (13, 'zone', 'This is the zone-shipment module. Here you can manage your shipment costs according to Zones.', 'admin,storeadmin', 0, 0, 11);
 
 --
--- Dumping data for table `#__virtuemart_orderstates`
+-- Dumping data for table `#__tsmart_orderstates`
 --
 
-INSERT INTO `#__virtuemart_orderstates` (`virtuemart_orderstate_id`, `order_status_code`, `order_status_name`, `order_status_description`, `order_stock_handle`, `ordering`, `virtuemart_vendor_id`) VALUES
+INSERT INTO `#__tsmart_orderstates` (`tsmart_orderstate_id`, `order_status_code`, `order_status_name`, `order_status_description`, `order_stock_handle`, `ordering`, `tsmart_vendor_id`) VALUES
 (null, 'P', 'com_tsmart_ORDER_STATUS_PENDING', '', 'R',1, 1),
 (null, 'U', 'com_tsmart_ORDER_STATUS_CONFIRMED_BY_SHOPPER', '', 'R',2, 1),
 (null, 'C', 'com_tsmart_ORDER_STATUS_CONFIRMED', '', 'R', 3, 1),
@@ -73,12 +73,12 @@ INSERT INTO `#__virtuemart_orderstates` (`virtuemart_orderstate_id`, `order_stat
 
 -- --------------------------------------------------------
 --
--- Table structure for table `#__virtuemart_userinfos`
+-- Table structure for table `#__tsmart_userinfos`
 --
 
-CREATE TABLE IF NOT EXISTS `#__virtuemart_userinfos` (
-  `virtuemart_userinfo_id` int(1) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `virtuemart_user_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `#__tsmart_userinfos` (
+  `tsmart_userinfo_id` int(1) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tsmart_user_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
   `address_type` char(2) NOT NULL DEFAULT '',
   `address_type_name` varchar(32) NOT NULL DEFAULT '',
   `company` varchar(64),
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS `#__virtuemart_userinfos` (
   `address_1` varchar(96) NOT NULL DEFAULT '',
   `address_2` varchar(64),
   `city` varchar(96) NOT NULL DEFAULT '',
-  `virtuemart_state_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `virtuemart_country_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `tsmart_state_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `tsmart_country_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
   `zip` varchar(32) NOT NULL DEFAULT '',
   `agreed` tinyint(1) NOT NULL DEFAULT '0',
   `tos` tinyint(1) NOT NULL DEFAULT '0',
@@ -104,22 +104,22 @@ CREATE TABLE IF NOT EXISTS `#__virtuemart_userinfos` (
   `modified_by` int(1) NOT NULL DEFAULT '0',
   `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `locked_by` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`virtuemart_userinfo_id`),
-  KEY `i_virtuemart_user_id` (`virtuemart_userinfo_id`,`virtuemart_user_id`),
-  KEY `virtuemart_user_id` (`virtuemart_user_id`,`address_type`),
+  PRIMARY KEY (`tsmart_userinfo_id`),
+  KEY `i_tsmart_user_id` (`tsmart_userinfo_id`,`tsmart_user_id`),
+  KEY `tsmart_user_id` (`tsmart_user_id`,`address_type`),
   KEY `address_type` (`address_type`),
   KEY `address_type_name` (`address_type_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='Customer Information, BT = BillTo and ST = ShipTo';
 
 -- --------------------------------------------------------
 --
--- Table structure for table `#__virtuemart_order_userinfos`
+-- Table structure for table `#__tsmart_order_userinfos`
 --
 
-CREATE TABLE IF NOT EXISTS `#__virtuemart_order_userinfos` (
-  `virtuemart_order_userinfo_id` INT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `virtuemart_order_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
-  `virtuemart_user_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `#__tsmart_order_userinfos` (
+  `tsmart_order_userinfo_id` INT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tsmart_order_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
+  `tsmart_user_id` int(1) UNSIGNED NOT NULL DEFAULT '0',
   `address_type` char(2),
   `address_type_name` varchar(32),
   `company` varchar(64),
@@ -133,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `#__virtuemart_order_userinfos` (
   `address_1` varchar(96) NOT NULL DEFAULT '',
   `address_2` varchar(64) ,
   `city` varchar(96) NOT NULL DEFAULT '',
-  `virtuemart_state_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `virtuemart_country_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `tsmart_state_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `tsmart_country_id` smallint(1) UNSIGNED NOT NULL DEFAULT '0',
   `zip` varchar(32) NOT NULL DEFAULT '',
   `email` varchar(128),
   `agreed` tinyint(1) NOT NULL DEFAULT '0',
@@ -146,9 +146,9 @@ CREATE TABLE IF NOT EXISTS `#__virtuemart_order_userinfos` (
   `modified_by` int(1) NOT NULL DEFAULT '0',
   `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `locked_by` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`virtuemart_order_userinfo_id`),
-  KEY `virtuemart_order_id` (`virtuemart_order_id`),
-  KEY `virtuemart_user_id` (`virtuemart_user_id`,`address_type`),
+  PRIMARY KEY (`tsmart_order_userinfo_id`),
+  KEY `tsmart_order_id` (`tsmart_order_id`),
+  KEY `tsmart_user_id` (`tsmart_user_id`,`address_type`),
   KEY `address_type` (`address_type`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores the BillTo and ShipTo Information at order time' AUTO_INCREMENT=1 ;
 
@@ -156,10 +156,10 @@ CREATE TABLE IF NOT EXISTS `#__virtuemart_order_userinfos` (
 
 
 --
--- Dumping data for table `#__virtuemart_userfields`
+-- Dumping data for table `#__tsmart_userfields`
 --
 
-INSERT INTO `#__virtuemart_userfields` (`virtuemart_userfield_id`, `virtuemart_vendor_id`, `userfield_jplugin_id`, `name`, `title`, `description`, `type`, `maxlength`, `size`, `required`, `cols`, `rows`, `value`, `default`, `registration`, `shipment`, `account`, `cart`, `readonly`, `calculated`, `sys`, `userfield_params`, `ordering`, `shared`, `published`) VALUES
+INSERT INTO `#__tsmart_userfields` (`tsmart_userfield_id`, `tsmart_vendor_id`, `userfield_jplugin_id`, `name`, `title`, `description`, `type`, `maxlength`, `size`, `required`, `cols`, `rows`, `value`, `default`, `registration`, `shipment`, `account`, `cart`, `readonly`, `calculated`, `sys`, `userfield_params`, `ordering`, `shared`, `published`) VALUES
 	(5, 0, 0, 'email', 'com_tsmart_REGISTER_EMAIL', '', 'emailaddress', 100, 30, 1, NULL, NULL, NULL, NULL, 1, 0, 1, 0,0,  0, 1, NULL, 4, 0, 1),
 	(6, 0, 0, 'name', 'com_tsmart_USER_DISPLAYED_NAME', '', 'text', 25, 30, 1, 0, 0, '', NULL, 1, 0, 1, 0, 0, 0, 1, '', 8, 0, 1),
 	(7, 0, 0, 'username', 'com_tsmart_USERNAME', '', 'text', 25, 30, 1, 0, 0, '', NULL, 1, 0, 1, 0, 0, 0, 1, '', 6, 0, 1),
@@ -179,8 +179,8 @@ INSERT INTO `#__virtuemart_userfields` (`virtuemart_userfield_id`, `virtuemart_v
 	(28, 0, 0, 'address_2', 'com_tsmart_SHOPPER_FORM_ADDRESS_2', '', 'text', 64, 30, 0, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 32, 0, 1),
 	(29, 0, 0, 'zip', 'com_tsmart_SHOPPER_FORM_ZIP', '', 'text', 32, 30, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 34, 0, 1),
 	(35, 0, 0, 'city', 'com_tsmart_SHOPPER_FORM_CITY', '', 'text', 32, 30, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 36, 0, 1),
-	(36, 0, 0, 'virtuemart_country_id', 'com_tsmart_SHOPPER_FORM_COUNTRY', '', 'select', 0, 210, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 38, 0, 1),
-	(37, 0, 0, 'virtuemart_state_id', 'com_tsmart_SHOPPER_FORM_STATE', '', 'select', 0, 210, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 40, 0, 1),
+	(36, 0, 0, 'tsmart_country_id', 'com_tsmart_SHOPPER_FORM_COUNTRY', '', 'select', 0, 210, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 38, 0, 1),
+	(37, 0, 0, 'tsmart_state_id', 'com_tsmart_SHOPPER_FORM_STATE', '', 'select', 0, 210, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 40, 0, 1),
 	(38, 0, 0, 'phone_1', 'com_tsmart_SHOPPER_FORM_PHONE', '', 'text', 32, 30, 0, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 42, 0, 1),
 	(39, 0, 0, 'phone_2', 'com_tsmart_SHOPPER_FORM_PHONE2', '', 'text', 32, 30, 0, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 44, 0, 1),
 	(40, 0, 0, 'fax', 'com_tsmart_SHOPPER_FORM_FAX', '', 'text', 32, 30, 0, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, 0, 1, NULL, 46, 0, 1),

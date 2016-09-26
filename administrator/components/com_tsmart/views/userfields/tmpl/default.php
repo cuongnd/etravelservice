@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Userfields
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -77,7 +77,7 @@ AdminUIHelper::startAdminArea($this);
 			<?php echo $this->sort('ordering','com_tsmart_FIELDMANAGER_REORDER') ?>
 			<?php echo JHtml::_('grid.order',  $this->userfieldsList ); ?>
 			</th>
-			 <th><?php echo $this->sort('virtuemart_userfield_id', 'com_tsmart_ID')  ?></th>
+			 <th><?php echo $this->sort('tsmart_userfield_id', 'com_tsmart_ID')  ?></th>
 		</tr>
 		</thead>
 		<?php
@@ -88,8 +88,8 @@ AdminUIHelper::startAdminArea($this);
 			$coreField = (in_array($row->name, $this->lists['coreFields']));
 			$image = 'admin/checked_out.png';
 			$image = JHtml::_('image', $image, tsmText::_('com_tsmart_FIELDMANAGER_COREFIELD'),null,true);
-			//$checked = '<div style="position: relative;">'.JHtml::_('grid.id', $i, null,$row->virtuemart_userfield_id);
-			$checked = JHtml::_('grid.id', $i ,$row->virtuemart_userfield_id,null,'virtuemart_userfield_id');
+			//$checked = '<div style="position: relative;">'.JHtml::_('grid.id', $i, null,$row->tsmart_userfield_id);
+			$checked = JHtml::_('grid.id', $i ,$row->tsmart_userfield_id,null,'tsmart_userfield_id');
 			if ($coreField) $checked.='<span class="hasTip" style="position: absolute; margin-left:-3px;" title="'. tsmText::_('com_tsmart_FIELDMANAGER_COREFIELD').'">'. $image .'</span>';
 			$checked .= '</div>';
 			$checked_out = $coreField ? 'style="position: relative;"' : '';
@@ -97,7 +97,7 @@ AdminUIHelper::startAdminArea($this);
 			// ($coreField) ?
 			// 	'<span class="hasTip" title="'. vmText::_('com_tsmart_FIELDMANAGER_COREFIELD').'">'. $image .'</span>' :
 				
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=userfields&task=edit&virtuemart_userfield_id=' . $row->virtuemart_userfield_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=userfields&task=edit&tsmart_userfield_id=' . $row->tsmart_userfield_id);
 			$required = $this->toggle($row->required, $i, 'toggle.required','tick.png','publish_x.png',$coreField );
 //			$published = JHtml::_('grid.published', $row, $i);
 			$published = $this->toggle($row->published, $i, 'toggle.published','tick.png','publish_x.png', $coreField);
@@ -142,7 +142,7 @@ AdminUIHelper::startAdminArea($this);
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering;?>" <?php echo $disabled ?> class="ordering" style="text-align: center" />
 			</td>
 			<td width="10">
-					<?php echo $row->virtuemart_userfield_id; ?>
+					<?php echo $row->tsmart_userfield_id; ?>
 				</td>
 			</tr>
 			<?php

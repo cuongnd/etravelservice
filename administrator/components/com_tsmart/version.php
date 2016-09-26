@@ -3,11 +3,11 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 /**
 *
 * @version $Id: version.php 8508 2014-10-22 18:57:14Z Milbo $
-* @package VirtueMart
+* @package tsmart
 * @subpackage core
-* @copyright Copyright (C) 2005-2011 VirtueMart Team - All rights reserved.
+* @copyright Copyright (C) 2005-2011 tsmart Team - All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -21,7 +21,7 @@ if( !class_exists( 'vmVersion' ) ) {
 	/** Version information */
 	class vmVersion {
 		/** @var string Product */
-		static $PRODUCT = 'VirtueMart';
+		static $PRODUCT = 'tsmart';
 		/** @var int Release Number */
 		static $RELEASE = '3.0.12';
 		/** @var string Development Status */
@@ -37,9 +37,9 @@ if( !class_exists( 'vmVersion' ) ) {
 		/** @var string Revision */
 		static $REVISION = '9058';
 		/** @var string Copyright Text */
-		static $COPYRIGHT = 'Copyright (C) 2005-2014 VirtueMart Development Team  - All rights reserved.';
+		static $COPYRIGHT = 'Copyright (C) 2005-2014 tsmart Development Team  - All rights reserved.';
 		/** @var string URL */
-		static $URL = '<a href="http://tsmart.net">VirtueMart</a> is a Free ecommerce framework released under the GNU/GPL2 License.';
+		static $URL = '<a href="http://tsmart.net">tsmart</a> is a Free ecommerce framework released under the GNU/GPL2 License.';
 
 		static $shortversion = '';
 		static $myVersion = '';

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension method="upgrade" type="component" version="2.5">
-    <name>VIRTUEMART</name>
+    <name>tsmart</name>
     <creationDate>November 10 2015</creationDate>
-    <author>The VirtueMart Development Team</author>
-    <authorEmail>max|at|virtuemart.net</authorEmail>
-    <authorUrl>http://www.virtuemart.net</authorUrl>
-    <copyright>Copyright (C) 2004-2015 Virtuemart Team. All rights reserved.</copyright>
+    <author>The tsmart Development Team</author>
+    <authorEmail>max|at|tsmart.net</authorEmail>
+    <authorUrl>http://www.tsmart.net</authorUrl>
+    <copyright>Copyright (C) 2004-2015 tsmart Team. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <version status="MINOR">3.0.12</version>
     <description></description>
 
-    <scriptfile>install/script.virtuemart.php</scriptfile>
-    <installfile>install/script.virtuemart.php</installfile>
-    <uninstallfile>install/script.virtuemart.php</uninstallfile>
+    <scriptfile>install/script.tsmart.php</scriptfile>
+    <installfile>install/script.tsmart.php</installfile>
+    <uninstallfile>install/script.tsmart.php</uninstallfile>
 
     <!-- Site Main File Copy Section -->
     <files folder="components/com_tsmart">
         <filename>router.php</filename>
-        <filename>virtuemart.php</filename>
+        <filename>tsmart.php</filename>
         <folder>assets</folder>
         <folder>controllers</folder>
         <folder>sublayouts</folder>
@@ -43,12 +43,12 @@
         </submenu>
         <!-- Administration Main File Copy Section -->
         <files folder="administrator/components/com_tsmart">
-            <filename>virtuemart.php</filename>
-            <filename>admin.virtuemart.php</filename>
+            <filename>tsmart.php</filename>
+            <filename>admin.tsmart.php</filename>
             <filename>changelog.php</filename>
             <filename>COPYRIGHT.php</filename>
             <filename>version.php</filename>
-            <filename>virtuemart_defaults.cfg-dist</filename>
+            <filename>tsmart_defaults.cfg-dist</filename>
             <filename>config.xml</filename>
             <filename>access.xml</filename>
             <folder>assets</folder>
@@ -65,6 +65,6 @@
     </administration>
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
-        <server type="extension" name="VirtueMart3 Update Site"><![CDATA[http://virtuemart.net/releases/vm3/virtuemart_update.xml]]></server>
+        <server type="extension" name="tsmart3 Update Site"><![CDATA[http://tsmart.net/releases/vm3/tsmart_update.xml]]></server>
     </updateservers>
 </extension>

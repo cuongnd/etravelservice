@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage State
  * @author RickG, Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -46,7 +46,7 @@ AdminUIHelper::startAdminArea($this);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('states.virtuemart_state_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('states.tsmart_state_id','Id') ; ?></label>
 
                     </th>
                     <th>
@@ -83,22 +83,22 @@ AdminUIHelper::startAdminArea($this);
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_state_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_state_id);
                     $published = $this->gridPublished($row, $i);
 
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=state&task=edit_in_line&cid[]=' . $row->virtuemart_state_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_state_id', $editlink);
-                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=state&task=save_in_line&cid[]=' . $row->virtuemart_cstate_id);
-                    $save = $this->grid_save_in_line($row, $i, 'virtuemart_state_id', $save_link);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_state_id');
-                    $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_state_id');
-                    $show_edit = ($show_edit_in_line == 1 && in_array($row->virtuemart_state_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=state&task=edit_in_line&cid[]=' . $row->tsmart_state_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_state_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=state&task=save_in_line&cid[]=' . $row->tsmart_cstate_id);
+                    $save = $this->grid_save_in_line($row, $i, 'tsmart_state_id', $save_link);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_state_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_state_id');
+                    $show_edit = ($show_edit_in_line == 1 && in_array($row->tsmart_state_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_state_id => $row->virtuemart_state_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_state_id => $row->tsmart_state_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>
@@ -120,7 +120,7 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?><?php echo VmHTML::select('virtuemart_country_id', $this->list_country, $row->virtuemart_country_id, '', 'virtuemart_country_id', 'country_name'); ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?><?php echo VmHTML::select('tsmart_country_id', $this->list_country, $row->tsmart_country_id, '', 'tsmart_country_id', 'country_name'); ?>
                             <?php } else { ?>
                                 <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo $row->country_name; ?>

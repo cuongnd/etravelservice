@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author  Patrick Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -23,9 +23,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport( 'joomla.application.component.view');
 
 /**
- * Json View class for the VirtueMart Component
+ * Json View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author  Patrick Kohl
  */
 class TsmartViewCustom extends JViewLegacy {
@@ -36,9 +36,9 @@ class TsmartViewCustom extends JViewLegacy {
 	function display($tpl = null) {
 
 		$db = JFactory::getDBO();
-		if ( $tsmart_media_id = vRequest::getInt('virtuemart_media_id') ) {
+		if ( $tsmart_media_id = vRequest::getInt('tsmart_media_id') ) {
 			//$db = JFactory::getDBO();
-			$query='SELECT `file_url`,`file_title` FROM `#__virtuemart_medias` where `virtuemart_media_id`='.$tsmart_media_id;
+			$query='SELECT `file_url`,`file_title` FROM `#__tsmart_medias` where `tsmart_media_id`='.$tsmart_media_id;
 			$db->setQuery( $query );
 			$json = $db->loadObject();
 			if (isset($json->file_url)) {

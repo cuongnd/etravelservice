@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Category
  * @author RickG, jseros
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -56,7 +56,7 @@ $mainframe = JFactory::getApplication();
 			<fieldset>
 				<legend><?php echo tsmText::_('com_tsmart_DETAILS'); ?></legend>
 				<table>
-					<?php echo VmHTML::row('raw','com_tsmart_CATEGORY_ORDERING', ShopFunctions::getEnumeratedCategories(true, true, $this->parent->virtuemart_category_id, 'ordering', '', 'ordering', 'category_name', $this->category->ordering) ); ?>
+					<?php echo VmHTML::row('raw','com_tsmart_CATEGORY_ORDERING', ShopFunctions::getEnumeratedCategories(true, true, $this->parent->tsmart_category_id, 'ordering', '', 'ordering', 'category_name', $this->category->ordering) ); ?>
 					<?php $categorylist = '
 						<select name="category_parent_id" id="category_parent_id" class="inputbox">
 							<option value="">'.tsmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL').'</option>

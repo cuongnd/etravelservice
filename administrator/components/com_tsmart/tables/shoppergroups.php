@@ -2,11 +2,11 @@
 /**
  * Shopper group data access object.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage ShopperGroup
  * @author Max Milbers
  * @author Markus Öhler
- * @copyright Copyright (c) 2011 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 - 2014 tsmart Team. All rights reserved.
  */
 
 
@@ -35,7 +35,7 @@ class TableShoppergroups extends tsmTable
 
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_shoppergroups', 'virtuemart_shoppergroup_id', $db);
+		parent::__construct('#__tsmart_shoppergroups', 'tsmart_shoppergroup_id', $db);
 
 		$this->setUniqueName('shopper_group_name');
 
@@ -75,11 +75,11 @@ class TableShoppergroups extends tsmTable
 			}
 		}
 
-		if($this->virtuemart_shoppergroup_id==1){
+		if($this->tsmart_shoppergroup_id==1){
 			$this->default=2;
 			$this->sgrp_additional = 0;
 		}
-		if($this->virtuemart_shoppergroup_id==2){
+		if($this->tsmart_shoppergroup_id==2){
 			$this->default=1;
 			$this->sgrp_additional = 0;
 		}

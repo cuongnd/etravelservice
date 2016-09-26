@@ -5,7 +5,7 @@ defined('_JEXEC') or die('');
 OOP code, 5 April 2012
 Copyright Santosh Patnaik
 Dual LGPL v3 and GPL v2+ license
-Modified for Virtuemart 2 by vm2 dev team(Patrick Kohl)
+Modified for tsmart 2 by vm2 dev team(Patrick Kohl)
 A PHP Labware internal utility; www.bioinformatics.org/phplabware/internal_utilities/htmLawed
 $out = vmFilter::hl($in, array('safe'=>1, 'elements'=>'a, b, strong, i, em, li, ol, ul'));
 See htmLawed_README.txt/htm

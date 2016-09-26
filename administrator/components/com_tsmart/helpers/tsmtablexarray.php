@@ -6,12 +6,12 @@
  * the skey is the select key in the load function
  *
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -70,7 +70,7 @@ class tsmTableXarray extends tsmTable {
 		$order	= vRequest::getInt( 'order' ); //I found now two times "order" instead of ordering.
 
 		//This sql is broken
-		$query = 'SELECT `id` FROM `' . $this->_tbl . '` WHERE '.$this->_pkey.' = '.(int)$cid[0].' AND `virtuemart_category_id` = '.(int)$skeyId ;
+		$query = 'SELECT `id` FROM `' . $this->_tbl . '` WHERE '.$this->_pkey.' = '.(int)$cid[0].' AND `tsmart_category_id` = '.(int)$skeyId ;
 		$db->setQuery( $query );
 		$id = $db->loadResult();
 		$keys = array_keys($order);

@@ -3,13 +3,13 @@
 *
 * Calc controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Calc
 * @author Max Milbers, jseros
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Calculator Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Calculation tool
  * @author Max Milbers
  */
@@ -76,7 +76,7 @@ class TsmartControllerPaymentmethod extends TsmController {
 		$model = VmModel::getModel('paymentmethod');
 		$msgtype = '';
 
-		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('virtuemart_payment_id'));
+		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('tsmart_payment_id'));
 		if(!is_array($cids)) $cids = array($cids);
 
 		foreach($cids as $cid){

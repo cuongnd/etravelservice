@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,7 +27,7 @@ $now = getdate();
 $nowstring = $now["hours"] . ":" . substr('0' . $now["minutes"], -2) . ' ' . $now["mday"] . "." . $now["mon"] . "." . $now["year"];
 $search_order = vRequest::getVar('search_order', '>');
 $search_type = vRequest::getVar('search_type', 'product');
-// OSP in view.html.php $tsmart_category_id = vRequest::getInt('virtuemart_category_id', false);
+// OSP in view.html.php $tsmart_category_id = vRequest::getInt('tsmart_category_id', false);
 if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_product_name = 'com_tsmart_PRODUCT_CHILDREN_LIST'; else $col_product_name = 'com_tsmart_PRODUCT_NAME';
 
 ?>
@@ -39,7 +39,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                         <tr>
                             <td align="left">
                                 <?php echo tsmText::_('com_tsmart_FILTER') ?>:
-                                <select class="inputbox" id="virtuemart_category_id" name="virtuemart_category_id"
+                                <select class="inputbox" id="tsmart_category_id" name="tsmart_category_id"
                                         onchange="this.form.submit(); return false;">
                                     <option
                                         value=""><?php echo tsmText::sprintf('com_tsmart_SELECT', tsmText::_('com_tsmart_CATEGORY')); ?></option>
@@ -105,7 +105,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                         <th style="min-width:40px;"><?php echo tsmText::_('assigns'); ?></th>
                         <th width="40px"><?php echo $this->sort('product_special', 'com_tsmart_PRODUCT_FORM_SPECIAL'); ?> </th>
                         <th width="40px"><?php echo $this->sort('published'); ?></th>
-                        <th><?php echo $this->sort('p.virtuemart_product_id', 'com_tsmart_ID') ?></th>
+                        <th><?php echo $this->sort('p.tsmart_product_id', 'com_tsmart_ID') ?></th>
                         <th align="right"><?php echo JText::_('Action') ?></th>
                     </tr>
                     </thead>
@@ -118,12 +118,12 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                         $k = 0;
                         $keyword = vRequest::getCmd('keyword');
                         foreach ($this->productlist as $key => $product) {
-                            $checked = JHtml::_('grid.id', $i, $product->virtuemart_product_id, null, 'virtuemart_product_id');
+                            $checked = JHtml::_('grid.id', $i, $product->tsmart_product_id, null, 'tsmart_product_id');
                             $published = JHtml::_('grid.published', $product, $i);
                             $published = $this->gridPublished($product, $i);
 
                             $is_featured = $this->toggle($product->product_special, $i, 'toggle.product_special');
-                            $link = 'index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $product->virtuemart_product_id;
+                            $link = 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $product->tsmart_product_id;
                             ?>
                             <tr class="row<?php echo $k; ?>">
                                 <!-- Checkbox -->
@@ -133,7 +133,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <!--<span style="float:left; clear:left"> -->
                                     <?php
                                     if (empty($product->product_name)) {
-                                        $product->product_name = 'Language Missing id ' . $product->virtuemart_product_id;
+                                        $product->product_name = 'Language Missing id ' . $product->tsmart_product_id;
                                     }
                                     echo JHtml::_('link', JRoute::_($link), $product->product_name, array('title' => tsmText::_('com_tsmart_EDIT') . ' ' . htmlentities($product->product_name))); ?>
                                     <!-- </span>  -->
@@ -148,28 +148,28 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                 <td>
                                     <?php echo $product->start_end_cicty ?></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=price&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=price&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=hotel&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=hotel&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=addons&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=addons&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=payment&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=payment&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=discount&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=discount&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=asign&virtuemart_product_id=' . $product->virtuemart_product_id) ?>"><span
+                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=asign&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
                                             class="icon-edit"></span></a><span class="icon-eye"></span></td>
 
 
@@ -204,7 +204,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
 
 // DONE BY stephanbais
 /// DRAG AND DROP PRODUCT ORDER HACK
-if ($this->virtuemart_category_id) { ?>
+if ($this->tsmart_category_id) { ?>
     <script>
         jQuery(function () {
 

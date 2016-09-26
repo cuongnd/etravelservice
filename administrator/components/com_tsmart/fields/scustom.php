@@ -22,7 +22,7 @@ class JFormFieldScustom extends JFormField {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 		$cModel = VmModel::getModel('custom');
 		$cModel->_noLimit = true;
-		$q = 'SELECT `virtuemart_custom_id` AS value, custom_title AS text FROM `#__virtuemart_customs` WHERE custom_parent_id="0" AND field_type = "S" ';
+		$q = 'SELECT `tsmart_custom_id` AS value, custom_title AS text FROM `#__tsmart_customs` WHERE custom_parent_id="0" AND field_type = "S" ';
 		$q .= ' AND `published`=1';
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);

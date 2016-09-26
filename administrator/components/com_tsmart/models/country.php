@@ -3,14 +3,14 @@
  *
  * Data module for shop country
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage country
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop country
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage country
  */
-class VirtueMartModelcountry extends VmModel {
+class tsmartModelcountry extends VmModel {
 
 
 	/**
@@ -68,10 +68,10 @@ class VirtueMartModelcountry extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('country.*,COUNT(states.virtuemart_state_id) AS total_state')
-			->from('#__virtuemart_countries AS country')
-			->leftJoin('#__virtuemart_states AS states using (virtuemart_country_id)')
-			->group('country.virtuemart_country_id')
+		$query->select('country.*,COUNT(states.tsmart_state_id) AS total_state')
+			->from('#__tsmart_countries AS country')
+			->leftJoin('#__tsmart_states AS states using (tsmart_country_id)')
+			->group('country.tsmart_country_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -90,12 +90,12 @@ class VirtueMartModelcountry extends VmModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'country.virtuemart_country_id');
+		$orderCol = $this->state->get('list.ordering', 'country.tsmart_country_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'country.ordering')
 		{
-			$orderCol = $db->quoteName('country.virtuemart_country_id') . ' ' . $orderDirn . ', ' . $db->quoteName('country.ordering');
+			$orderCol = $db->quoteName('country.tsmart_country_id') . ' ' . $orderDirn . ', ' . $db->quoteName('country.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

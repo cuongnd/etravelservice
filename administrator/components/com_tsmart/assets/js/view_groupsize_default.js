@@ -20,7 +20,7 @@
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var list_group_size=plugin.settings.list_group_size;
-            var virtuemart_group_size_id=parseInt($('input[name="virtuemart_group_size_id"]').val());
+            var tsmart_group_size_id=parseInt($('input[name="tsmart_group_size_id"]').val());
             $element.find('input[name="from"]').change(function(){
 
                 $('.input_number_to').autoNumeric('set', '');
@@ -30,7 +30,7 @@
             });
             $element.find('input[name="to"]').change(function(){
                 var to=parseInt($(this).val());
-                var virtuemart_group_size_id=$('input[name="virtuemart_group_size_id"]').val();
+                var tsmart_group_size_id=$('input[name="tsmart_group_size_id"]').val();
                 var from=parseInt($('input[name="from"]').val());
                 if(to<from)
                 {
@@ -44,7 +44,7 @@
                 for(var i=0;i<list_group_size.length;i++)
                 {
                     var group_size=list_group_size[i];
-                    if(group_size.type!=='flat_price' && group_size.virtuemart_group_size_id!=virtuemart_group_size_id)
+                    if(group_size.type!=='flat_price' && group_size.tsmart_group_size_id!=tsmart_group_size_id)
                     {
                         if(from==parseInt(group_size.from)&&to==parseInt(group_size.to)){
                             alert('group size exists, please select other');

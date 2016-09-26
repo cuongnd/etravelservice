@@ -3,13 +3,13 @@
 *
 * User listing view
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -70,7 +70,7 @@ AdminUIHelper::startAdminArea($this);
 		for ($i = 0, $n = count($this->userList); $i < $n; $i++) {
 			$row = $this->userList[$i];
 			$checked = JHtml::_('grid.id', $i, $row->id);
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]=' . $row->id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=user&task=edit&tsmart_user_id[]=' . $row->id);
 			$is_vendor = $this->toggle($row->is_vendor, $i, 'toggle.user_is_vendor');
 		?>
 			<tr class="row<?php echo $k ; ?>">

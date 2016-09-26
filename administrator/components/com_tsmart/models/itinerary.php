@@ -3,14 +3,14 @@
  *
  * Data module for shop airport
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage airport
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop airport
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage airport
  */
-class VirtueMartModelItinerary extends VmModel {
+class tsmartModelItinerary extends VmModel {
 
 
 	/**
@@ -67,14 +67,14 @@ class VirtueMartModelItinerary extends VmModel {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+		$tsmart_product_id=$input->getInt('tsmart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
 		$query->select('itinerary.*,cityarea.city_area_name')
-			->from('#__virtuemart_itinerary AS itinerary')
-			->where('itinerary.virtuemart_product_id='.(int)$tsmart_product_id)
-            ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
+			->from('#__tsmart_itinerary AS itinerary')
+			->where('itinerary.tsmart_product_id='.(int)$tsmart_product_id)
+            ->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -93,12 +93,12 @@ class VirtueMartModelItinerary extends VmModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'itinerary.virtuemart_itinerary_id');
+		$orderCol = $this->state->get('list.ordering', 'itinerary.tsmart_itinerary_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'airport.ordering')
 		{
-			$orderCol = $db->quoteName('itinerary.virtuemart_itinerary_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
+			$orderCol = $db->quoteName('itinerary.tsmart_itinerary_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

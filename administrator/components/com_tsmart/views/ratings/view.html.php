@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage	ratings
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -40,8 +40,8 @@ class TsmartViewRatings extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		/* Get the review IDs to retrieve (input variable may be cid, cid[] or virtuemart_rating_review_id */
-		$cids = vRequest::getInt('cid', vRequest::getVar('virtuemart_rating_review_id',0));
+		/* Get the review IDs to retrieve (input variable may be cid, cid[] or tsmart_rating_review_id */
+		$cids = vRequest::getInt('cid', vRequest::getVar('tsmart_rating_review_id',0));
 		if ($cids && !is_array($cids)) $cids = array($cids);
 
 		// Figure out maximum rating scale (default is 5 stars)
@@ -63,7 +63,7 @@ class TsmartViewRatings extends tsmViewAdmin {
 			case 'listreviews':
 				/* Get the data */
 				$this->addStandardDefaultViewLists($model);
-				$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+				$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 				if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 					$tsmart_product_id = (int)$tsmart_product_id[0];
 				} else {

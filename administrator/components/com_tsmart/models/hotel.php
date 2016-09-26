@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop Currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  */
-class VirtueMartModelhotel extends VmModel {
+class tsmartModelhotel extends VmModel {
 
 
 	/**
@@ -69,10 +69,10 @@ class VirtueMartModelhotel extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->select('hotel.*')
-			->from('#__virtuemart_hotel AS hotel')
-            ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
-            ->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
-            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+			->from('#__tsmart_hotel AS hotel')
+            ->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
+            ->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+            ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
             ->select('CONCAT(cityarea.city_area_name,",",states.state_name,",",countries.country_name) AS location')
 		;
 		$user = JFactory::getUser();

@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage ShopperGroup
 * @author Markus �hler
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -52,7 +52,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo tsmText::_('com_tsmart_ADDITIONAL'); ?>
 			</th>
 			<th>
-				<?php echo $this->sort('virtuemart_shoppergroup_id', 'com_tsmart_ID')  ?>
+				<?php echo $this->sort('tsmart_shoppergroup_id', 'com_tsmart_ID')  ?>
 			</th>
 		  </tr>
 		</thead><?php
@@ -64,10 +64,10 @@ AdminUIHelper::startAdminArea($this);
 
 			$checked = '';
 			if ($row->default == 0) {
-				$checked = JHtml::_('grid.id', $i, $row->virtuemart_shoppergroup_id,null,'virtuemart_shoppergroup_id');
+				$checked = JHtml::_('grid.id', $i, $row->tsmart_shoppergroup_id,null,'tsmart_shoppergroup_id');
 			}
 
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=shoppergroup&task=edit&virtuemart_shoppergroup_id[]=' . $row->virtuemart_shoppergroup_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=shoppergroup&task=edit&tsmart_shoppergroup_id[]=' . $row->tsmart_shoppergroup_id);
 
 			?>
 
@@ -93,7 +93,7 @@ AdminUIHelper::startAdminArea($this);
 			</td>
 			<?php if((Vmconfig::get('multix','none')!='none') && $this->showVendors){ ?>
 			<td align="left">
-				<?php echo $row->virtuemart_vendor_id; ?>
+				<?php echo $row->tsmart_vendor_id; ?>
 			</td>
 			<?php } ?>
 			<td align="center">
@@ -104,7 +104,7 @@ AdminUIHelper::startAdminArea($this);
 				?>
 			</td>
 			<td align="left">
-				<?php echo $row->virtuemart_shoppergroup_id; ?>
+				<?php echo $row->tsmart_shoppergroup_id; ?>
 			</td>
 		  </tr><?php
 			$k = 1 - $k;

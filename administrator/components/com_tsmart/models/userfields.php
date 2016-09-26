@@ -3,14 +3,14 @@
  *
  * Data module for user fields
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Userfields
  * @author Max Milbers
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,11 +26,11 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for user fields
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Userfields
  * @author RolandD
  */
-class VirtueMartModelUserfields extends VmModel {
+class tsmartModelUserfields extends VmModel {
 
 	// stAn, this variable is a cached result of  getUserFields
 	// where array key is $cache_hash = md5($sec.serialize($_switches).serialize($_skip).$this->_selectedOrdering.$this->_selectedOrderingDir);
@@ -47,7 +47,7 @@ class VirtueMartModelUserfields extends VmModel {
 	 * @author Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_userfield_id');
+		parent::__construct('tsmart_userfield_id');
 		$this->setMainTable('userfields');
 
 		$this->setToggleName('required');
@@ -199,7 +199,7 @@ class VirtueMartModelUserfields extends VmModel {
 	    if (empty($id)) $id = $this->_id;
 		//$this->_data = $this->getTable('userfield_values');
 		if ($id > 0) {
-			$query = 'SELECT * FROM `#__virtuemart_userfield_values` WHERE `virtuemart_userfield_id` = ' . (int)$id
+			$query = 'SELECT * FROM `#__tsmart_userfield_values` WHERE `tsmart_userfield_id` = ' . (int)$id
 			. ' ORDER BY `ordering`';
 			$_userFieldValues = $this->_getList($query);
 			return $_userFieldValues;
@@ -230,11 +230,11 @@ class VirtueMartModelUserfields extends VmModel {
 		$userinfo   = $this->getTable('userinfos');
 		$orderinfo  = $this->getTable('order_userinfos');
 
-		$isNew = ($data['virtuemart_userfield_id'] < 1) ? true : false;
+		$isNew = ($data['tsmart_userfield_id'] < 1) ? true : false;
 
 		$coreFields = $this->getCoreFields();
 		if(in_array($data['name'],$coreFields)){
-			$field->load($data['virtuemart_userfield_id']);
+			$field->load($data['tsmart_userfield_id']);
 			//vmError('Cant store/update core field. They belong to joomla');
 			//return false;
 		} else {
@@ -242,7 +242,7 @@ class VirtueMartModelUserfields extends VmModel {
 				$reorderRequired = false;
 				$_action = 'ADD';
 			} else {
-				$field->load($data['virtuemart_userfield_id']);
+				$field->load($data['tsmart_userfield_id']);
 				$_action = 'CHANGE';
 
 				if ($field->ordering == $data['ordering']) {
@@ -254,7 +254,7 @@ class VirtueMartModelUserfields extends VmModel {
 		}
 
 		// Store the fieldvalues, if any, in a correct array
-		$fieldValues = $this->postData2FieldValues($data['vNames'], $data['vValues'], $data['virtuemart_userfield_id'] );
+		$fieldValues = $this->postData2FieldValues($data['vNames'], $data['vValues'], $data['tsmart_userfield_id'] );
 
 		if(strpos($data['type'],'plugin')!==false){
 
@@ -338,7 +338,7 @@ class VirtueMartModelUserfields extends VmModel {
 	 * Bind and write all value records
 	 *
 	 * @param array $_values
-	 * @param mixed $_id If a new record is being inserted, it contains the virtuemart_userfield_id, otherwise the value true
+	 * @param mixed $_id If a new record is being inserted, it contains the tsmart_userfield_id, otherwise the value true
 	 * @return boolean
 	 */
 	private function storeFieldValues($_values, $_id)
@@ -360,7 +360,7 @@ class VirtueMartModelUserfields extends VmModel {
 			{
 			if (!($_id === true)) {
 				// If $_id is true, it was not a new record
-				$_values[$i]['virtuemart_userfield_id'] = $_id;
+				$_values[$i]['tsmart_userfield_id'] = $_id;
 			}
 			if (!$fieldvalue->bind($_values[$i])) {
 				// Bind data
@@ -385,10 +385,10 @@ class VirtueMartModelUserfields extends VmModel {
 
 			  // the field was deleted
 
-			  // stAn, next line doesn't work, because it tries to delete by the virtuemart_userfield_id instead of virtuemart_userfield_value_id
-			  // $msg = $fieldvalue->delete($originalvalues->virtuemart_userfield_value_id);
+			  // stAn, next line doesn't work, because it tries to delete by the tsmart_userfield_id instead of tsmart_userfield_value_id
+			  // $msg = $fieldvalue->delete($originalvalues->tsmart_userfield_value_id);
 			  $db = JFactory::getDBO();
-			  $q = 'DELETE from `#__virtuemart_userfield_values` WHERE `virtuemart_userfield_value_id` = ' . (int)$originalvalues[$i]->virtuemart_userfield_value_id.' and `virtuemart_userfield_id` = '.(int)$_id;
+			  $q = 'DELETE from `#__tsmart_userfield_values` WHERE `tsmart_userfield_value_id` = ' . (int)$originalvalues[$i]->tsmart_userfield_value_id.' and `tsmart_userfield_id` = '.(int)$_id;
 
 			  $db->setQuery($q);
 		      if ($db->execute() === false) {
@@ -406,7 +406,7 @@ class VirtueMartModelUserfields extends VmModel {
 			{
 			if (!($_id === true)) {
 				// If $_id is true, it was not a new record
-				$_values[$i]['virtuemart_userfield_id'] = $_id;
+				$_values[$i]['tsmart_userfield_id'] = $_id;
 			}
 			if (!$fieldvalue->bind($_values[$i])) {
 				// Bind data
@@ -543,7 +543,7 @@ class VirtueMartModelUserfields extends VmModel {
 		$cache_hash = md5($_sec.json_encode($_switches).json_encode($_skip).$this->_selectedOrdering.$this->_selectedOrderingDir);
 		if (isset(self::$_cache_ordered[$cache_hash])) return self::$_cache_ordered[$cache_hash];
 
-		$_q = 'SELECT * FROM `#__virtuemart_userfields` WHERE 1 = 1 ';
+		$_q = 'SELECT * FROM `#__tsmart_userfields` WHERE 1 = 1 ';
 
 		if( !empty($_sec)) {
 			$_q .= 'AND `'.$_sec.'`=1 ';
@@ -588,7 +588,7 @@ class VirtueMartModelUserfields extends VmModel {
 		// We need some extra fields that are not in the userfields table. They will be hidden on the details form
 		if (!in_array('address_type', $_skip)) {
 			$_address_type = new stdClass();
-			$_address_type->virtuemart_userfield_id = 0;
+			$_address_type->tsmart_userfield_id = 0;
 			$_address_type->name = 'address_type';
 			$_address_type->title = '';
 			$_address_type->description = '' ;
@@ -608,7 +608,7 @@ class VirtueMartModelUserfields extends VmModel {
 			$_address_type->readonly = 0;
 			$_address_type->calculated = 0; // what is this???
 			$_address_type->sys = 0;
-			$_address_type->virtuemart_vendor_id = 1;
+			$_address_type->tsmart_vendor_id = 1;
 			$_address_type->userfield_params = '';
 			$_fields[] = $_address_type;
 		}
@@ -800,7 +800,7 @@ class VirtueMartModelUserfields extends VmModel {
 					// 				case 'email':
 					// 					$_return['fields'][$_fld->name]['formcode'] = $_userData->email;
 					// 					break;
-					case 'virtuemart_country_id':
+					case 'tsmart_country_id':
 
 						if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
 						$attrib = array();
@@ -812,9 +812,9 @@ class VirtueMartModelUserfields extends VmModel {
 
 						if(!empty($_return['fields'][$_fld->name]['value'])){
 							// Translate the value from ID to name
-							$_return['fields'][$_fld->name]['virtuemart_country_id'] = (int)$_return['fields'][$_fld->name]['value'];
+							$_return['fields'][$_fld->name]['tsmart_country_id'] = (int)$_return['fields'][$_fld->name]['value'];
 							$db = JFactory::getDBO ();
-							$q = 'SELECT * FROM `#__virtuemart_countries` WHERE virtuemart_country_id = "' . (int)$_return['fields'][$_fld->name]['value'] . '"';
+							$q = 'SELECT * FROM `#__tsmart_countries` WHERE tsmart_country_id = "' . (int)$_return['fields'][$_fld->name]['value'] . '"';
 							$db->setQuery ($q);
 							$r = $db->loadAssoc();
 							if($r){
@@ -834,7 +834,7 @@ class VirtueMartModelUserfields extends VmModel {
 						//$_return['fields'][$_fld->name]['state_2_code'] = vmText::_(shopFunctions::getCountryByID($_return['fields'][$_fld->name]['value']));
 						break;
 
-					case 'virtuemart_state_id':
+					case 'tsmart_state_id':
 						if (!class_exists ('shopFunctionsF'))
 							require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
 						$attrib = array();
@@ -852,9 +852,9 @@ class VirtueMartModelUserfields extends VmModel {
 
 						if(!empty($_return['fields'][$_fld->name]['value'])){
 							// Translate the value from ID to name
-							$_return['fields'][$_fld->name]['virtuemart_state_id'] = (int)$_return['fields'][$_fld->name]['value'];
+							$_return['fields'][$_fld->name]['tsmart_state_id'] = (int)$_return['fields'][$_fld->name]['value'];
 							$db = JFactory::getDBO ();
-							$q = 'SELECT * FROM `#__virtuemart_states` WHERE virtuemart_state_id = "' . (int)$_return['fields'][$_fld->name]['value'] . '"';
+							$q = 'SELECT * FROM `#__tsmart_states` WHERE tsmart_state_id = "' . (int)$_return['fields'][$_fld->name]['value'] . '"';
 							$db->setQuery ($q);
 							$r = $db->loadAssoc();
 							if($r){
@@ -895,7 +895,7 @@ class VirtueMartModelUserfields extends VmModel {
 
 							JPluginHelper::importPlugin('vmuserfield');
 							$dispatcher = JDispatcher::getInstance();
-							$dispatcher->trigger('plgVmOnUserfieldDisplay',array($_prefix, $_fld,isset($_userData['virtuemart_user_id'])?$_userData['virtuemart_user_id']:0,  &$_return) );
+							$dispatcher->trigger('plgVmOnUserfieldDisplay',array($_prefix, $_fld,isset($_userData['tsmart_user_id'])?$_userData['tsmart_user_id']:0,  &$_return) );
 							break;
 						}
 					switch( $_fld->type ) {
@@ -975,8 +975,8 @@ class VirtueMartModelUserfields extends VmModel {
 						case 'select':
 						case 'radio':
 							$_qry = 'SELECT fieldtitle, fieldvalue '
-							. 'FROM #__virtuemart_userfield_values '
-							. 'WHERE virtuemart_userfield_id = ' . $_fld->virtuemart_userfield_id
+							. 'FROM #__tsmart_userfield_values '
+							. 'WHERE tsmart_userfield_id = ' . $_fld->tsmart_userfield_id
 							. ' ORDER BY ordering ';
 							$_values = $this->_getList($_qry);
 							// We need an extra lok here, especially for the Bank info; the values
@@ -1104,7 +1104,7 @@ class VirtueMartModelUserfields extends VmModel {
 	 */
 	function getIfRequired($fieldname) {
 
-		$q = 'SELECT `required` FROM #__virtuemart_userfields WHERE `name` = "'.$fieldname.'" ';
+		$q = 'SELECT `required` FROM #__tsmart_userfields WHERE `name` = "'.$fieldname.'" ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		$result = $db->loadResult();
@@ -1134,7 +1134,7 @@ class VirtueMartModelUserfields extends VmModel {
 			foreach ($values as $i=>$val)
 			 {
 				$_values[$i] = array(
-					 'virtuemart_userfield_id'    => $tsmart_userfield_id
+					 'tsmart_userfield_id'    => $tsmart_userfield_id
 				,'fieldtitle' => $titles[$i]
 				,'fieldvalue' => $values[$i]
 				,'ordering'   => $i
@@ -1227,7 +1227,7 @@ class VirtueMartModelUserfields extends VmModel {
 			$whereString = $this->_getFilter();
 
 			$ordering = $this->_getOrdering();
-			$this->_data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_userfields`',$whereString,'',$ordering);
+			$this->_data = $this->exeSortSearchListQuery(0,'*',' FROM `#__tsmart_userfields`',$whereString,'',$ordering);
 
 		}
 
@@ -1258,7 +1258,7 @@ class VirtueMartModelUserfields extends VmModel {
 	 */
 	function _getListQuery ()
 	{
-		$query = 'SELECT * FROM `#__virtuemart_userfields` ';
+		$query = 'SELECT * FROM `#__tsmart_userfields` ';
 		$query .= $this->_getFilter();
 		$query .= $this->_getOrdering();
 		return ($query);

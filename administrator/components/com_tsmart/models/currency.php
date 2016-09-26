@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop Currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  */
-class VirtueMartModelCurrency extends VmModel {
+class tsmartModelCurrency extends VmModel {
 
 
 	/**
@@ -68,9 +68,9 @@ class VirtueMartModelCurrency extends VmModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('currencies.*,countries.country_name,countries.iso2,countries.iso3,countries.virtuemart_country_id AS virtuemart_country_id,countries.flag')
-			->from('#__virtuemart_countries AS countries')
-			->leftJoin('#__virtuemart_currencies AS currencies using (virtuemart_country_id)')
+		$query->select('currencies.*,countries.country_name,countries.iso2,countries.iso3,countries.tsmart_country_id AS tsmart_country_id,countries.flag')
+			->from('#__tsmart_countries AS countries')
+			->leftJoin('#__tsmart_currencies AS currencies using (tsmart_country_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';

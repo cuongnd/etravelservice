@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Config
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -86,7 +86,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php
 		for ($i=0, $n=count($this->recentOrders); $i < $n; $i++) {
 			$row = $this->recentOrders[$i];
-			$link = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$row->virtuemart_order_id);
+			$link = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id='.$row->tsmart_order_id);
 			?>
 		  	<tr>
 				<td width="50%">
@@ -104,7 +104,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php
 		for ($i=0, $n=count($this->recentCustomers); $i < $n; $i++) {
 			$row = $this->recentCustomers[$i];
-			$link = JROUTE::_('index.php?option=com_tsmart&view=user&virtuemart_user_id='.$row->virtuemart_user_id);
+			$link = JROUTE::_('index.php?option=com_tsmart&view=user&tsmart_user_id='.$row->tsmart_user_id);
 			?>
 			<tr>
 		  		<td colspan="2">

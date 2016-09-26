@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,12 +27,12 @@ $tabarray = array();
 $tabarray['edit'] = 'com_tsmart_ADMIN_SHIPMENT_FORM';
 $tabarray['config'] = 'com_tsmart_ADMIN_SHIPMENT_CONFIGURATION';
 
-AdminUIHelper::buildTabs ( $this, $tabarray , $this->shipment->virtuemart_shipmentmethod_id );
+AdminUIHelper::buildTabs ( $this, $tabarray , $this->shipment->tsmart_shipmentmethod_id );
 // Loading Templates in Tabs END ?>
 
     <!-- Hidden Fields -->
 	<?php echo $this->addStandardHiddenToForm(); ?>
-<input type="hidden" name="virtuemart_shipmentmethod_id" value="<?php echo $this->shipment->virtuemart_shipmentmethod_id; ?>" />
+<input type="hidden" name="tsmart_shipmentmethod_id" value="<?php echo $this->shipment->tsmart_shipmentmethod_id; ?>" />
 <input type="hidden" name="xxcontroller" value="shipmentmethod" />
 
 </form>

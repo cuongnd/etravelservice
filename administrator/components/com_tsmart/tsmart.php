@@ -3,11 +3,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
 *
 * @version $Id: admin.tsmart.php 7256 2013-09-29 18:42:44Z Milbo $
-* @package VirtueMart
+* @package tsmart
 * @subpackage core
-* @copyright Copyright (C) VirtueMart Team - All rights reserved.
+* @copyright Copyright (C) tsmart Team - All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.

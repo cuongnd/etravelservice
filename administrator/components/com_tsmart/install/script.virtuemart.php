@@ -1,11 +1,11 @@
 <?php
 /**
- * VirtueMart script file
+ * tsmart script file
  *
  * This file is executed during install/upgrade and uninstall
  *
  * @author Max Milbers, RickG, impleri
- * @package VirtueMart
+ * @package tsmart
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -30,7 +30,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 
 	/**
-	 * VirtueMart custom installer class
+	 * tsmart custom installer class
 	 */
 	class com_tsmartInstallerScript {
 
@@ -58,11 +58,11 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 			$update = false;
 			$this->_db = JFactory::getDBO();
-			$q = 'SHOW TABLES LIKE "'.$this->_db->getPrefix().'virtuemart_adminmenuentries"'; //=>jos_virtuemart_shipment_plg_weight_countries
+			$q = 'SHOW TABLES LIKE "'.$this->_db->getPrefix().'tsmart_adminmenuentries"'; //=>jos_tsmart_shipment_plg_weight_countries
 			$this->_db->setQuery($q);
 			if($this->_db->loadResult()){
 
-				$q = "SELECT count(id) AS idCount FROM `#__virtuemart_adminmenuentries`";
+				$q = "SELECT count(id) AS idCount FROM `#__tsmart_adminmenuentries`";
 				$this->_db->setQuery($q);
 				$result = $this->_db->loadResult();
 
@@ -133,14 +133,14 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 			// install essential and required data
 			// should this be covered in install.sql (or 1.6's JInstaller::parseSchemaUpdates)?
-			//			if(!class_exists('VirtueMartModelUpdatesMigration')) require(VMPATH_ADMIN.DS.'models'.DS.'updatesMigration.php');
+			//			if(!class_exists('tsmartModelUpdatesMigration')) require(VMPATH_ADMIN.DS.'models'.DS.'updatesMigration.php');
 			$params = JComponentHelper::getParams('com_languages');
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 
 			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
 
-			if(!class_exists('VirtueMartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
+			if(!class_exists('tsmartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
 			$model = VmModel::getModel('updatesmigration');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install.sql');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install_essential_data.sql');
@@ -241,9 +241,9 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$lang = strtolower(strtr($lang,'-','_'));
 
 			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
-			if(!class_exists('VirtueMartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
+			if(!class_exists('tsmartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
 			$model = VmModel::getModel('updatesmigration');
-			//$model = new VirtueMartModelUpdatesMigration(); //JModel::getInstance('updatesmigration', 'VirtueMartModel');
+			//$model = new tsmartModelUpdatesMigration(); //JModel::getInstance('updatesmigration', 'tsmartModel');
 			$model->execSQLFile($this->path.DS.'install'.DS.'install.sql');
 
 			$this -> joomlaSessionDBToMediumText();
@@ -251,15 +251,15 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$this->updateToVm3 = $this->isUpdateToVm3();
 
 
-			$this->alterTable('#__virtuemart_product_prices',
+			$this->alterTable('#__tsmart_product_prices',
 				array(
 				'product_price_vdate' => '`product_price_publish_up` DATETIME NULL DEFAULT NULL AFTER `product_currency`',
 				'product_price_edate' => '`product_price_publish_down` DATETIME NULL DEFAULT NULL AFTER `product_price_publish_up`'
 			));
-			$this->alterTable('#__virtuemart_customs',array(
+			$this->alterTable('#__tsmart_customs',array(
 				'custom_field_desc' => '`custom_desc` char(255) COMMENT \'description or unit\'',
 			));
-			$this->alterTable('#__virtuemart_product_customfields',array(
+			$this->alterTable('#__tsmart_product_customfields',array(
 				'custom_value' => ' `customfield_value` varchar(2500) COMMENT \'field value\'',
 				'custom_price' => ' `customfield_price` DECIMAL(15,6) COMMENT \'price\'',
 				'custom_param' => ' `customfield_params` varchar(17000) NULL DEFAULT NULL',
@@ -267,11 +267,11 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			));
 
 
-			$this->alterTable('#__virtuemart_userfields',array(
+			$this->alterTable('#__tsmart_userfields',array(
 				'params' => '`userfield_params` varchar(17500) NOT NULL DEFAULT "" COMMENT \'userfield params\'',
 			));
 
-			$this->alterTable('#__virtuemart_orders',array(
+			$this->alterTable('#__tsmart_orders',array(
 				'customer_note' => '`oc_note` varchar(20000) NOT NULL DEFAULT "" COMMENT \'old customer notes\'',
 			));
 
@@ -329,7 +329,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				$this->_db = JFactory::getDBO();
 			}
 
-			$tablename = '#__virtuemart_product_customfields';
+			$tablename = '#__tsmart_product_customfields';
 			$this->_db->setQuery('SHOW FULL COLUMNS  FROM `'.$tablename.'` ');
 			//$fullColumns = $this->_db->loadObjectList();
 			$columns = $this->_db->loadColumn(0);
@@ -353,20 +353,20 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 					$this->_db = JFactory::getDBO();
 				}
 
-				$q = 'SELECT `virtuemart_user_id` FROM #__virtuemart_orders WHERE virtuemart_vendor_id = "0" ';
+				$q = 'SELECT `tsmart_user_id` FROM #__tsmart_orders WHERE tsmart_vendor_id = "0" ';
 				$this->_db->setQuery($q);
 				$res = $this->_db->loadResult();
 
 				if($res){
 					//vmdebug('fixOrdersVendorId ',$res);
-					$q = 'UPDATE #__virtuemart_orders SET `virtuemart_vendor_id`=1 WHERE virtuemart_vendor_id = "0" ';
+					$q = 'UPDATE #__tsmart_orders SET `tsmart_vendor_id`=1 WHERE tsmart_vendor_id = "0" ';
 					$this->_db->setQuery($q);
 					$res = $this->_db->execute();
 					$err = $this->_db->getErrorMsg();
 					if(!empty($err)){
 						vmError('fixOrdersVendorId update orders '.$err);
 					}
-					$q = 'UPDATE #__virtuemart_order_items SET `virtuemart_vendor_id`=1 WHERE virtuemart_vendor_id = "0" ';
+					$q = 'UPDATE #__tsmart_order_items SET `tsmart_vendor_id`=1 WHERE tsmart_vendor_id = "0" ';
 					$this->_db->setQuery($q);
 					$res = $this->_db->execute();
 					$err = $this->_db->getErrorMsg();
@@ -389,12 +389,12 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 			foreach($order_stock_handles as $k=>$v){
 
-				$q = 'SELECT `order_stock_handle` FROM `#__virtuemart_orderstates`';
+				$q = 'SELECT `order_stock_handle` FROM `#__tsmart_orderstates`';
 				$this->_db->setQuery($q);
 				$res = $this->_db->execute();
 				$err = $this->_db->getErrorMsg();
 				if(empty($res) and empty($err) ){
-					$q = 'UPDATE `#__virtuemart_orderstates` SET `order_stock_handle`="'.$v.'" WHERE  `order_status_code`="'.$k.'" ;';
+					$q = 'UPDATE `#__tsmart_orderstates` SET `order_stock_handle`="'.$v.'" WHERE  `order_status_code`="'.$k.'" ;';
 					$this->_db->setQuery($q);
 
 					if(!$this->_db->execute()){
@@ -420,7 +420,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			}
 			$query = trim($queries[0]);
 
-			$q = 'SELECT * FROM `#__virtuemart_adminmenuentries` ';
+			$q = 'SELECT * FROM `#__tsmart_adminmenuentries` ';
 			$db->setQuery($q);
 			$existing = $db->loadAssocList();
 
@@ -472,7 +472,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 				if(count($oldIds)>0){
 
-					$updateBase = 'UPDATE `#__virtuemart_adminmenuentries` SET ';
+					$updateBase = 'UPDATE `#__tsmart_adminmenuentries` SET ';
 					foreach($oldIds as $id=>$values){
 						$updateQuery = '';
 						foreach($keys as $index => $key){
@@ -528,7 +528,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			, 'published' => 1
 			);
 
-			if(!empty($field->virtuemart_userfield_id)) {
+			if(!empty($field->tsmart_userfield_id)) {
 				if($field->published){
 					$field->cart = 1;
 					$id = $model->store((array)$field);
@@ -554,7 +554,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			, 'published' => 1
 			);
 
-			if(!empty($field->virtuemart_userfield_id)) {
+			if(!empty($field->tsmart_userfield_id)) {
 				if($field->published){
 					$field->cart = 1;
 					$field->required = 1;
@@ -578,7 +578,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 		private function migrateCustoms(){
 
 			$db = JFactory::getDBO();
-			$q = 'UPDATE `#__virtuemart_product_customfields` SET `published`= "1"  WHERE `published`="0" ';
+			$q = 'UPDATE `#__tsmart_product_customfields` SET `published`= "1"  WHERE `published`="0" ';
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -586,7 +586,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished update published '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `field_type`='S',`is_cart_attribute`=1,`is_input`=1,`is_list`='0' WHERE `field_type`='V'";
+			$q = "UPDATE `#__tsmart_customs` SET `field_type`='S',`is_cart_attribute`=1,`is_input`=1,`is_list`='0' WHERE `field_type`='V'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -594,7 +594,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `is_input`=1 WHERE `field_type`='M' AND `is_cart_attribute`=1";
+			$q = "UPDATE `#__tsmart_customs` SET `is_input`=1 WHERE `field_type`='M' AND `is_cart_attribute`=1";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -602,7 +602,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `field_type`='S' WHERE `field_type`='I'";
+			$q = "UPDATE `#__tsmart_customs` SET `field_type`='S' WHERE `field_type`='I'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -610,7 +610,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `field_type`='S', `custom_value`='JYES;JNO',`is_list`='1' WHERE `field_type`='B'";
+			$q = "UPDATE `#__tsmart_customs` SET `field_type`='S', `custom_value`='JYES;JNO',`is_list`='1' WHERE `field_type`='B'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -618,7 +618,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `layout_pos`='addtocart' WHERE `is_input`='1'";
+			$q = "UPDATE `#__tsmart_customs` SET `layout_pos`='addtocart' WHERE `is_input`='1'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -626,7 +626,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `layout_pos`='ontop',`is_cart_attribute`=1 WHERE `field_type`='A'";
+			$q = "UPDATE `#__tsmart_customs` SET `layout_pos`='ontop',`is_cart_attribute`=1 WHERE `field_type`='A'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -634,7 +634,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `layout_pos`='related_products' WHERE `field_type`='R'";
+			$q = "UPDATE `#__tsmart_customs` SET `layout_pos`='related_products' WHERE `field_type`='R'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -642,7 +642,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `layout_pos`='related_categories' WHERE `field_type`='Z'";
+			$q = "UPDATE `#__tsmart_customs` SET `layout_pos`='related_categories' WHERE `field_type`='Z'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -650,7 +650,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				vmError('updateCustomfieldsPublished migrateCustoms '.$err);
 			}
 
-			$q = "UPDATE `#__virtuemart_customs` SET `field_type`='G' WHERE `field_type`='P'";
+			$q = "UPDATE `#__tsmart_customs` SET `field_type`='G' WHERE `field_type`='P'";
 			$db->setQuery($q);
 			$db->execute();
 			$err = $db->getErrorMsg();
@@ -732,26 +732,26 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 		private function checkAddDefaultShoppergroups(){
 
-			$q = 'SELECT `virtuemart_shoppergroup_id` FROM `#__virtuemart_shoppergroups` WHERE `default` = "1" ';
+			$q = 'SELECT `tsmart_shoppergroup_id` FROM `#__tsmart_shoppergroups` WHERE `default` = "1" ';
 
 			$this->_db = JFactory::getDbo();
 			$this->_db->setQuery($q);
 			$res = $this->_db ->loadResult();
 
 			if(empty($res)){
-				$q = "INSERT INTO `#__virtuemart_shoppergroups` (`virtuemart_shoppergroup_id`, `virtuemart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`) VALUES
+				$q = "INSERT INTO `#__tsmart_shoppergroups` (`tsmart_shoppergroup_id`, `tsmart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`) VALUES
 								(NULL, 1, '-default-', 'This is the default shopper group.', 1, 1);";
 				$this->_db->setQuery($q);
 				$this->_db->execute();
 			}
 
-			$q = 'SELECT `virtuemart_shoppergroup_id` FROM `#__virtuemart_shoppergroups` WHERE `default` = "2" ';
+			$q = 'SELECT `tsmart_shoppergroup_id` FROM `#__tsmart_shoppergroups` WHERE `default` = "2" ';
 
 			$this->_db->setQuery($q);
 			$res = $this->_db ->loadResult();
 
 			if(empty($res)){
-				$q = "INSERT INTO `#__virtuemart_shoppergroups` (`virtuemart_shoppergroup_id`, `virtuemart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`) VALUES
+				$q = "INSERT INTO `#__tsmart_shoppergroups` (`tsmart_shoppergroup_id`, `tsmart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`) VALUES
 								(NULL, 1, '-anonymous-', 'Shopper group for anonymous shoppers', 2, 1);";
 				$this->_db->setQuery($q);
 				$this->_db->execute();
@@ -802,8 +802,8 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 
 				// 				VmConfig::loadConfig(true);
-				if(!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
-				$res  = VirtueMartModelConfig::checkConfigTableExists();
+				if(!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
+				$res  = tsmartModelConfig::checkConfigTableExists();
 
 				if(!empty($res)){
 					vRequest::setVar(JSession::getFormToken(), '1');

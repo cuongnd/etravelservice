@@ -3,14 +3,14 @@
  *
  * Data module for shop product
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage product
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop product
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage product
  */
-class VirtueMartModelPrivategrouptrip extends VmModel {
+class tsmartModelPrivategrouptrip extends VmModel {
 
     protected $context = 'privategrouptrip';
 
@@ -153,24 +153,24 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
 	{
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-        $query->select('service_class.service_class_name,tour_price.virtuemart_product_id')
-            ->from('#__virtuemart_service_class AS service_class')
-            ->innerJoin('#__virtuemart_tour_price AS tour_price ON tour_price.virtuemart_service_class_id=service_class.virtuemart_service_class_id')
-            ->where('tour_price.virtuemart_product_id='.(int)$tsmart_product_id)
-            ->leftJoin('#__virtuemart_itinerary AS itinerary ON itinerary.virtuemart_product_id=tour_price.virtuemart_product_id')
-            ->select('count(distinct itinerary.virtuemart_itinerary_id) AS total_day ')
-            ->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=itinerary.virtuemart_cityarea_id')
-            ->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
-            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
+        $query->select('service_class.service_class_name,tour_price.tsmart_product_id')
+            ->from('#__tsmart_service_class AS service_class')
+            ->innerJoin('#__tsmart_tour_price AS tour_price ON tour_price.tsmart_service_class_id=service_class.tsmart_service_class_id')
+            ->where('tour_price.tsmart_product_id='.(int)$tsmart_product_id)
+            ->leftJoin('#__tsmart_itinerary AS itinerary ON itinerary.tsmart_product_id=tour_price.tsmart_product_id')
+            ->select('count(distinct itinerary.tsmart_itinerary_id) AS total_day ')
+            ->leftJoin('#__tsmart_cityarea AS cityarea ON cityarea.tsmart_cityarea_id=itinerary.tsmart_cityarea_id')
+            ->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+            ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
             ->select('GROUP_CONCAT(
                     CONCAT(states.state_name,",",countries.country_name) SEPARATOR ";"
             ) AS list_destination')
             ->select('group_size_id_tour_price_id.*')
             ->select('tour_price.tax')
-            ->group('service_class.virtuemart_service_class_id')
+            ->group('service_class.tsmart_service_class_id')
             ->order('service_class.ordering')
 
             //->where('')
@@ -179,7 +179,7 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
         if ($start_date = $this->getState('filter.start_date'))
         {
             $start_date=JFactory::getDate($start_date);
-            $query->leftJoin('#__virtuemart_date_availability AS date_availability ON date_availability.virtuemart_service_class_id=tour_price.virtuemart_service_class_id AND date_availability.virtuemart_product_id=tour_price.virtuemart_product_id');
+            $query->leftJoin('#__tsmart_date_availability AS date_availability ON date_availability.tsmart_service_class_id=tour_price.tsmart_service_class_id AND date_availability.tsmart_product_id=tour_price.tsmart_product_id');
             $query->select('case when date_availability.date= '.$query->quote($start_date->toSql()).' OR CURDATE()='.$query->quote($start_date->toSql()).' then 0 else 1 END AS tour_state');
 
 
@@ -187,9 +187,9 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
         }
         $query2=$db->getQuery(true);
         $query2->select('MIN(group_size_id_tour_price_id2.price_adult)')
-            ->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id2')
-            ->leftJoin('#__virtuemart_tour_price AS tour_price2 ON tour_price2.virtuemart_price_id=group_size_id_tour_price_id2.virtuemart_price_id')
-            ->where('(tour_price2.virtuemart_product_id ='.(int)$tsmart_product_id.' AND tour_price2.virtuemart_service_class_id=service_class.virtuemart_service_class_id)')
+            ->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id2')
+            ->leftJoin('#__tsmart_tour_price AS tour_price2 ON tour_price2.tsmart_price_id=group_size_id_tour_price_id2.tsmart_price_id')
+            ->where('(tour_price2.tsmart_product_id ='.(int)$tsmart_product_id.' AND tour_price2.tsmart_service_class_id=service_class.tsmart_service_class_id)')
         ;
         if ($start_date = $this->getState('filter.start_date'))
         {
@@ -202,15 +202,15 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
         }
         if ($total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old'))
         {
-            $query2->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id2.virtuemart_group_size_id')
+            $query2->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id2.tsmart_group_size_id')
             ->where('(group_size.from<='.(int)$total_passenger_from_12_years_old.' AND group_size.to>='.(int)$total_passenger_from_12_years_old.')')
             ;
 
         }
 
-        $query->innerJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.price_adult=('.$query2.')')
+        $query->innerJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.price_adult=('.$query2.')')
         ;
-        $query->innerJoin('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id ON mark_up_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+        $query->innerJoin('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id ON mark_up_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id')
             ->select('
             mark_up_tour_price_id.price_senior AS mark_up_price_senior,
             mark_up_tour_price_id.price_adult AS mark_up_price_adult,

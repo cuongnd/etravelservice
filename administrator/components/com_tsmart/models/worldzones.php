@@ -3,13 +3,13 @@
 *
 * Data module for the shipment zones
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Shipment
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,11 +24,11 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shipment zone
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG, Max Milbers
  */
-class VirtueMartModelWorldzones extends VmModel {
+class tsmartModelWorldzones extends VmModel {
 
 
 	/**
@@ -52,8 +52,8 @@ class VirtueMartModelWorldzones extends VmModel {
 
 		if (empty($this->_data)) {
 			$query = 'SELECT * ';
-			$query .= 'FROM `#__virtuemart_worldzones` ';
-			$query .= 'WHERE `virtuemart_worldzone_id` = ' . (int)$this->_id;
+			$query .= 'FROM `#__tsmart_worldzones` ';
+			$query .= 'WHERE `tsmart_worldzone_id` = ' . (int)$this->_id;
 			$db->setQuery($query);
 			$this->_data = $db->loadObject();
 		}
@@ -77,8 +77,8 @@ class VirtueMartModelWorldzones extends VmModel {
     {
     	$db = JFactory::getDBO();
 
-    	$query = 'SELECT `virtuemart_worldzone_id`, `zone_name` ';
-		$query .= 'FROM `#__virtuemart_worldzones`';
+    	$query = 'SELECT `tsmart_worldzone_id`, `zone_name` ';
+		$query .= 'FROM `#__tsmart_worldzones`';
 		$db->setQuery($query);
 
 		return $db->loadObjectList();

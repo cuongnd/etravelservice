@@ -3,13 +3,13 @@
 *
 * Currency View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
@@ -59,7 +59,7 @@ class TsmartViewpayment extends tsmViewAdmin {
 			$this->item = $model->getItem();
 			//get list tour
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmpayment.php';
-			$this->item->list_tour_id = vmPayment::get_list_tour_id_by_payment_id($this->item->virtuemart_payment_id);
+			$this->item->list_tour_id = vmPayment::get_list_tour_id_by_payment_id($this->item->tsmart_payment_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$this->list_tour = vmproduct::get_list_product();
 			//end get list tour
@@ -71,7 +71,7 @@ class TsmartViewpayment extends tsmViewAdmin {
 			$list_payment_method = vmpaymentmethod::get_list_payment_method();
 			$this->assignRef('list_payment_method', $list_payment_method);
 
-			$this->item->list_payment_method_id = vmpaymentmethod::get_list_payment_method_id_by_payment_id($this->item->virtuemart_payment_id);
+			$this->item->list_payment_method_id = vmpaymentmethod::get_list_payment_method_id_by_payment_id($this->item->tsmart_payment_id);
 
 			//end get list payment method
 

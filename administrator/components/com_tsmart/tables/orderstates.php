@@ -3,13 +3,13 @@
 *
 * Order status table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Order status
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Order status table class
  * The class is is used to manage the order statuses in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author Oscar van Eijk
  * @author Max Milbers
  */
@@ -57,7 +57,7 @@ class TableOrderstates extends tsmTable {
 	 */
 	function __construct(&$db){
 
-		parent::__construct('#__virtuemart_orderstates', 'virtuemart_orderstate_id', $db);
+		parent::__construct('#__tsmart_orderstates', 'tsmart_orderstate_id', $db);
 
 		$this->setObligatoryKeys('order_status_code');
 		$this->setObligatoryKeys('order_status_name');
@@ -73,14 +73,14 @@ class TableOrderstates extends tsmTable {
 	function check(){
 
 		$db = JFactory::getDBO();
-		$q = 'SELECT count(*),virtuemart_orderstate_id FROM `#__virtuemart_orderstates` ';
+		$q = 'SELECT count(*),tsmart_orderstate_id FROM `#__tsmart_orderstates` ';
 		$q .= 'WHERE `order_status_code`="' .  $this->order_status_code . '"';
 		$db->setQuery($q);
 
 		$row = $db->loadRow();
 		if(is_array($row)){
 			if($row[0]>0){
-				if($row[1] != $this->virtuemart_orderstate_id){
+				if($row[1] != $this->tsmart_orderstate_id){
 					vmError(tsmText::_('com_tsmart_ORDER_STATUS_CODE_EXISTS'));
 					return false;
 				}

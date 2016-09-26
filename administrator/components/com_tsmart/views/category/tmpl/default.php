@@ -3,13 +3,13 @@
 *
 * Lists all the categories in the shop
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Category
 * @author RickG, jseros, RolandD, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -79,7 +79,7 @@ AdminUIHelper::startAdminArea($this);
 					</th>
 			<?php } ?>
 
-			<th><?php echo $this->sort('virtuemart_category_id', 'com_tsmart_ID')  ?></th>
+			<th><?php echo $this->sort('tsmart_category_id', 'com_tsmart_ID')  ?></th>
 			<!--th></th-->
 		</tr>
 		</thead>
@@ -98,12 +98,12 @@ AdminUIHelper::startAdminArea($this);
 
 		foreach($this->categories as $i=>$cat){
 
-			$checked = JHtml::_('grid.id', $i, $cat->virtuemart_category_id);
+			$checked = JHtml::_('grid.id', $i, $cat->tsmart_category_id);
 			$published = $this->gridPublished( $cat, $i );
 
-			$editlink = JRoute::_('index.php?option=com_tsmart&view=category&task=edit&cid=' . $cat->virtuemart_category_id, FALSE);
-// 			$statelink	= JRoute::_('index.php?option=com_tsmart&view=category&virtuemart_category_id=' . $cat->virtuemart_category_id);
-			$showProductsLink = JRoute::_('index.php?option=com_tsmart&view=product&virtuemart_category_id=' . $cat->virtuemart_category_id, FALSE);
+			$editlink = JRoute::_('index.php?option=com_tsmart&view=category&task=edit&cid=' . $cat->tsmart_category_id, FALSE);
+// 			$statelink	= JRoute::_('index.php?option=com_tsmart&view=category&tsmart_category_id=' . $cat->tsmart_category_id);
+			$showProductsLink = JRoute::_('index.php?option=com_tsmart&view=product&tsmart_category_id=' . $cat->tsmart_category_id, FALSE);
 			$shared = $this->toggle($cat->shared, $i, 'toggle.shared');
 
 			$categoryLevel = '';
@@ -136,7 +136,7 @@ AdminUIHelper::startAdminArea($this);
 					echo shopFunctionsF::limitStringByWord(JFilterOutput::cleanText($cat->category_description),200); ?>
 				</td>
 				<td>
-					<?php echo  $this->catmodel->countProducts($cat->virtuemart_category_id);//ShopFunctions::countProductsByCategory($row->virtuemart_category_id);?>
+					<?php echo  $this->catmodel->countProducts($cat->tsmart_category_id);//ShopFunctions::countProductsByCategory($row->tsmart_category_id);?>
 					&nbsp;<a href="<?php echo $showProductsLink; ?>">[ <?php echo tsmText::_('com_tsmart_SHOW');?> ]</a>
 				</td>
 				<td align="center" class="vm-order">
@@ -169,7 +169,7 @@ AdminUIHelper::startAdminArea($this);
 					<?php
 				}
 				?>
-				<td><?php echo $cat->virtuemart_category_id; // echo $product->vendor_name; ?></td>
+				<td><?php echo $cat->tsmart_category_id; // echo $product->vendor_name; ?></td>
 				<!--td >
 					<span class="vmicon vmicon-16-move"></span>
 				</td-->
@@ -199,7 +199,7 @@ AdminUIHelper::startAdminArea($this);
 <?php
 // Removed for the moment,categories can only be drag and drop within their sublevel
 //DragnDrop by StephanBais
-	//if ($this->virtuemart_category_id ) { ?>
+	//if ($this->tsmart_category_id ) { ?>
 	<!--script>
 
 		jQuery(function() {

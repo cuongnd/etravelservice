@@ -2,12 +2,12 @@
 defined('_JEXEC') or die('Restricted access');
 /**
  * @version $Id: tableupdater.php 4657 2011-11-10 12:06:03Z Milbo $
- * @package VirtueMart
+ * @package tsmart
  * @subpackage core
  * @author Max Milbers
  * @copyright Copyright (C) 2014 by the tsmart team - All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2, see COPYRIGHT.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -59,14 +59,14 @@ class GenericTableUpdater extends VmModel{
 		vmdebug('I am in reOrderChilds');
 	}
 
-	var $tables = array( 	'products'=>'virtuemart_product_id',
-									'vendors'=>'virtuemart_vendor_id',
-									'categories'=>'virtuemart_category_id',
-									'manufacturers'=>'virtuemart_manufacturer_id',
-									'manufacturercategories'=>'virtuemart_manufacturercategories_id',
+	var $tables = array( 	'products'=>'tsmart_product_id',
+									'vendors'=>'tsmart_vendor_id',
+									'categories'=>'tsmart_category_id',
+									'manufacturers'=>'tsmart_manufacturer_id',
+									'manufacturercategories'=>'tsmart_manufacturercategories_id',
 
-									'paymentmethods'=>'virtuemart_paymentmethod_id',
-									'shipmentmethods'=>'virtuemart_shipmentmethod_id');
+									'paymentmethods'=>'tsmart_paymentmethod_id',
+									'shipmentmethods'=>'tsmart_shipmentmethod_id');
 
 	/**
 	 *
@@ -93,7 +93,7 @@ class GenericTableUpdater extends VmModel{
 // 			if($i>1) continue;
 			$className = 'Table'.ucfirst ($table);
 			if(!class_exists($className)) require(VMPATH_ADMIN.DS.'tables'.DS.$table.'.php');
-			$tableName = '#__virtuemart_'.$table;
+			$tableName = '#__tsmart_'.$table;
 
 			$langTable = $this->getTable($table);
 			$translatableFields = $langTable->getTranslatableFields();
@@ -307,7 +307,7 @@ class GenericTableUpdater extends VmModel{
 		return $tables;
 	}
 
-	public function updateMyVmTables($file = 0, $like ='_virtuemart_'){
+	public function updateMyVmTables($file = 0, $like ='_tsmart_'){
 
 		if(empty($file)){
 			$file = VMPATH_ADMIN.DS.'install'.DS.'install.sql';
@@ -377,10 +377,10 @@ class GenericTableUpdater extends VmModel{
 // 		if(empty($alangs)) $alangs = array(VmConfig::setdbLanguageTag());
 // 		foreach($alangs as $lang){
 // 			foreach($tablesWithLang as $tablewithlang){
-// 				$demandedTables[] = $this->_prefix.'virtuemart_'.$tablewithlang.'_'.$lang;
+// 				$demandedTables[] = $this->_prefix.'tsmart_'.$tablewithlang.'_'.$lang;
 // 			}
 // 		}
-// 		$demandedTables[] = $this->_prefix.'virtuemart_configs';
+// 		$demandedTables[] = $this->_prefix.'tsmart_configs';
 
 
 // 		$todelete = array();
@@ -573,10 +573,10 @@ class GenericTableUpdater extends VmModel{
 		$fullColumns = $this->_db->loadObjectList();
 		$columns = $this->_db->loadColumn(0);
 		//vmdebug('alterColumns',$fullColumns);
-		//Attention user_infos is not in here, because it an contain customised fields. #__virtuemart_order_userinfos #__virtuemart_userinfos
+		//Attention user_infos is not in here, because it an contain customised fields. #__tsmart_order_userinfos #__tsmart_userinfos
 		//This is currently not working as intended, because the config is not deleted before, it is better to create an extra command for this, when we need it later
 		$upDelCols = (int) VmConfig::get('updelcols',0);
-		if($upDelCols==1 and !($tablename==$this->_prefix.'virtuemart_userfields' or $tablename==$this->_prefix.'virtuemart_userinfos' or $tablename==$this->_prefix.'virtuemart_order_userinfos')){
+		if($upDelCols==1 and !($tablename==$this->_prefix.'tsmart_userfields' or $tablename==$this->_prefix.'tsmart_userinfos' or $tablename==$this->_prefix.'tsmart_order_userinfos')){
 
 				foreach($columns as $fieldname){
 

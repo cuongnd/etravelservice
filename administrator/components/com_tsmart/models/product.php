@@ -3,14 +3,14 @@
  *
  * Data module for shop product
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage product
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop product
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage product
  */
-class VirtueMartModelproduct extends VmModel {
+class tsmartModelproduct extends VmModel {
 
 
 	/**
@@ -70,13 +70,13 @@ class VirtueMartModelproduct extends VmModel {
 		$query=$db->getQuery(true);
 
 		$query->select('product.*,products_en_gb.product_name,tour_type.title AS tour_type,tour_style.title AS tour_style_name')
-			->from('#__virtuemart_products AS product')
-            ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
-			//->leftJoin('#__virtuemart_cityarea AS cityarea using (virtuemart_city_area_id)')
-			//->leftJoin('#__virtuemart_states AS states ON states.virtuemart_state_id=cityarea.virtuemart_state_id')
-			//->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
-            ->leftJoin('#__virtuemart_tour_type AS tour_type USING(virtuemart_tour_type_id)')
-            ->leftJoin('#__virtuemart_tour_style AS tour_style USING(virtuemart_tour_style_id)')
+			->from('#__tsmart_products AS product')
+            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+			//->leftJoin('#__tsmart_cityarea AS cityarea using (tsmart_city_area_id)')
+			//->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+			//->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
+            ->leftJoin('#__tsmart_tour_type AS tour_type USING(tsmart_tour_type_id)')
+            ->leftJoin('#__tsmart_tour_style AS tour_style USING(tsmart_tour_style_id)')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -95,12 +95,12 @@ class VirtueMartModelproduct extends VmModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'product.virtuemart_product_id');
+		$orderCol = $this->state->get('list.ordering', 'product.tsmart_product_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'product.ordering')
 		{
-			$orderCol = $db->quoteName('product.virtuemart_product_id') . ' ' . $orderDirn . ', ' . $db->quoteName('product.ordering');
+			$orderCol = $db->quoteName('product.tsmart_product_id') . ' ' . $orderDirn . ', ' . $db->quoteName('product.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -121,10 +121,10 @@ class VirtueMartModelproduct extends VmModel {
 			return false;
 		}
         $table_product = $this->getTable ('products');
-        if(!empty($data['virtuemart_product_id'])){
-            $table_product -> load($data['virtuemart_product_id']);
+        if(!empty($data['tsmart_product_id'])){
+            $table_product -> load($data['tsmart_product_id']);
         }
-        if(!$table_product->virtuemart_product_id || $table_product->product_code=='' ||$table_product->product_code==0)
+        if(!$table_product->tsmart_product_id || $table_product->product_code=='' ||$table_product->product_code==0)
         {
             $data['product_code']= strtolower(JUtility::random_code(6));
         }
@@ -140,8 +140,8 @@ class VirtueMartModelproduct extends VmModel {
             }
             return FALSE;
         }
-        $tsmart_product_id=$this->virtuemart_product_id = $data['virtuemart_product_id'] = (int)$table_product->virtuemart_product_id;
-        if (empty($this->virtuemart_product_id)) {
+        $tsmart_product_id=$this->tsmart_product_id = $data['tsmart_product_id'] = (int)$table_product->tsmart_product_id;
+        if (empty($this->tsmart_product_id)) {
             vmError('Product not stored, no id');
             return FALSE;
         }
@@ -150,8 +150,8 @@ class VirtueMartModelproduct extends VmModel {
             $db = JFactory::getDbo();
             //inser to activity
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_activity_id')
-                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
+            $query->delete('#__tsmart_tour_id_activity_id')
+                ->where('tsmart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -160,9 +160,9 @@ class VirtueMartModelproduct extends VmModel {
             $list_activity_id = $data['list_activity_id'];
             foreach ($list_activity_id as $tsmart_activity_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_activity_id')
-                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-                    ->set('virtuemart_activity_id=' . (int)$tsmart_activity_id);
+                    ->insert('#__tsmart_tour_id_activity_id')
+                    ->set('tsmart_product_id=' . (int)$tsmart_product_id)
+                    ->set('tsmart_activity_id=' . (int)$tsmart_activity_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -173,19 +173,19 @@ class VirtueMartModelproduct extends VmModel {
 
             //inser to countries
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_country_id')
-                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
+            $query->delete('#__tsmart_tour_id_country_id')
+                ->where('tsmart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete country in this tour', $err);
             }
-            $list_virtuemart_country_id = $data['list_virtuemart_country_id'];
-            foreach ($list_virtuemart_country_id as $tsmart_country_id) {
+            $list_tsmart_country_id = $data['list_tsmart_country_id'];
+            foreach ($list_tsmart_country_id as $tsmart_country_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_country_id')
-                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-                    ->set('virtuemart_country_id=' . (int)$tsmart_country_id);
+                    ->insert('#__tsmart_tour_id_country_id')
+                    ->set('tsmart_product_id=' . (int)$tsmart_product_id)
+                    ->set('tsmart_country_id=' . (int)$tsmart_country_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -194,8 +194,8 @@ class VirtueMartModelproduct extends VmModel {
             }
             //inser to tour class
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_service_class_id')
-                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
+            $query->delete('#__tsmart_tour_id_service_class_id')
+                ->where('tsmart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -204,9 +204,9 @@ class VirtueMartModelproduct extends VmModel {
             $list_tour_service_class_id = $data['list_tour_service_class_id'];
             foreach ($list_tour_service_class_id as $tsmart_service_class_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_service_class_id')
-                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-                    ->set('virtuemart_service_class_id=' . (int)$tsmart_service_class_id);
+                    ->insert('#__tsmart_tour_id_service_class_id')
+                    ->set('tsmart_product_id=' . (int)$tsmart_product_id)
+                    ->set('tsmart_service_class_id=' . (int)$tsmart_service_class_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -215,8 +215,8 @@ class VirtueMartModelproduct extends VmModel {
             }
             //inser to tour group size
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_group_size_id')
-                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
+            $query->delete('#__tsmart_tour_id_group_size_id')
+                ->where('tsmart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -233,9 +233,9 @@ class VirtueMartModelproduct extends VmModel {
             }
             foreach ($list_group_size_id as $tsmart_group_size_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_group_size_id')
-                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-                    ->set('virtuemart_group_size_id=' . (int)$tsmart_group_size_id);
+                    ->insert('#__tsmart_tour_id_group_size_id')
+                    ->set('tsmart_product_id=' . (int)$tsmart_product_id)
+                    ->set('tsmart_group_size_id=' . (int)$tsmart_group_size_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {

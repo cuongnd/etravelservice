@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Shipment
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -51,7 +51,7 @@ AdminUIHelper::startAdminArea($this);
 				<th width="20">
 				<?php echo tsmText::_( 'com_tsmart_SHARED')  ?>
 				</th><?php }  ?>
-			 <th><?php echo $this->sort('virtuemart_shipmentmethod_id', 'com_tsmart_ID')  ?></th>
+			 <th><?php echo $this->sort('tsmart_shipmentmethod_id', 'com_tsmart_ID')  ?></th>
 		</tr>
 		</thead>
 		<?php
@@ -61,11 +61,11 @@ AdminUIHelper::startAdminArea($this);
 			$row = $this->shipments[$i];
 			$published = $this->gridPublished($row, $i);
 			//$row->published = 1;
-			$checked = JHtml::_('grid.id', $i, $row->virtuemart_shipmentmethod_id);
+			$checked = JHtml::_('grid.id', $i, $row->tsmart_shipmentmethod_id);
 			if ($this->showVendors) {
 				$shared = $this->toggle($row->shared, $i, 'toggle.shared');
 			}
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=shipmentmethod&task=edit&cid[]='.$row->virtuemart_shipmentmethod_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=shipmentmethod&task=edit&cid[]='.$row->tsmart_shipmentmethod_id);
 	?>
 			<tr class="row<?php echo $k; ?>">
 				<td class="admin-checkbox">
@@ -73,7 +73,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<td align="left">
 					<?php echo JHtml::_('link', $editlink, tsmText::_($row->shipment_name)); ?>
-					<?php if ($set_automatic_shipment == $row->virtuemart_shipmentmethod_id) {
+					<?php if ($set_automatic_shipment == $row->tsmart_shipmentmethod_id) {
 						?><i class="icon-featured"></i><?php
 					}
 					?>
@@ -98,7 +98,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<?php }?>
 				<td align="center">
-					<?php echo $row->virtuemart_shipmentmethod_id; ?>
+					<?php echo $row->tsmart_shipmentmethod_id; ?>
 				</td>
 
 

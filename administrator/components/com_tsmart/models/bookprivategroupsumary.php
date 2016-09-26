@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,19 +25,19 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelbookprivategroupsumary extends VmModel
+class tsmartModelbookprivategroupsumary extends VmModel
 {
 
     public function save_order($booking_summary,$user_id){
         $_orderData=array();
         $orderTable =  $this->getTable('orders');
-        $_orderData['virtuemart_user_id']=$user_id;
-        $_orderData['virtuemart_vendor_id']=1;
+        $_orderData['tsmart_user_id']=$user_id;
+        $_orderData['tsmart_vendor_id']=1;
         $_orderData['order_total']=$user_id;
-        $_orderData['virtuemart_user_id']=$booking_summary->total_price;
+        $_orderData['tsmart_user_id']=$booking_summary->total_price;
         $_orderData['coupon_code']='';
         $_orderData['coupon_code']='';
         $_orderData['order_data']=json_encode($booking_summary);
@@ -197,7 +197,7 @@ class VirtueMartModelbookprivategroupsumary extends VmModel
                                                         <tbody>
                                                         <tr>
                                                             <td bgcolor="#003366" style="font-family:HelveticaNeueLight,HelveticaNeue-Light,'Helvetica Neue Light',HelveticaNeue,Helvetica,Arial,sans-serif;font-weight:300;font-stretch:normal;text-align:center;color:#fff;font-size:15px;background:#0079C1;;border-radius:7px!important; -moz-border-radius: 7px !important; -o-border-radius: 7px !important; -ms-border-radius: 7px !important;line-height:1.45em;padding:7px 15px 8px;margin:0 auto 16px;font-size:1em;padding-bottom:7px;" >
-                                                                <a href="<?php echo JUri::root() ?><?php echo $new_member?'/index.php?option=com_tsmart&controller=user&task=activate&token='.$user_token.'&go_to=last_booking':'index.php?option=com_tsmart&view=order&id='.$order->virtuemart_order_id.'&Itemid=140' ?>" style="color:#ffffff; text-decoration:none; display:block; font-family:Arial,sans-serif; font-weight:bold; font-size:15px; line-height:15px;text-transform: uppercase" target="_blank"><?php echo JText::_('View booking') ?></a></td>
+                                                                <a href="<?php echo JUri::root() ?><?php echo $new_member?'/index.php?option=com_tsmart&controller=user&task=activate&token='.$user_token.'&go_to=last_booking':'index.php?option=com_tsmart&view=order&id='.$order->tsmart_order_id.'&Itemid=140' ?>" style="color:#ffffff; text-decoration:none; display:block; font-family:Arial,sans-serif; font-weight:bold; font-size:15px; line-height:15px;text-transform: uppercase" target="_blank"><?php echo JText::_('View booking') ?></a></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer
 * @author Patrick Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -63,7 +63,7 @@ AdminUIHelper::startAdminArea($this);
 		    <th width="20px">
 				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 		    </th>
-		      <th><?php echo $this->sort('m.virtuemart_manufacturer_id', 'com_tsmart_ID')  ?></th>
+		      <th><?php echo $this->sort('m.tsmart_manufacturer_id', 'com_tsmart_ID')  ?></th>
 		</tr>
 	    </thead>
 	    <?php
@@ -71,9 +71,9 @@ AdminUIHelper::startAdminArea($this);
 	    for ($i=0, $n=count( $this->manufacturers ); $i < $n; $i++) {
 		$row = $this->manufacturers[$i];
 
-		$checked = JHtml::_('grid.id', $i, $row->virtuemart_manufacturer_id,null,'virtuemart_manufacturer_id');
+		$checked = JHtml::_('grid.id', $i, $row->tsmart_manufacturer_id,null,'tsmart_manufacturer_id');
 		$published = $this->gridPublished( $row, $i );
-		$editlink = JROUTE::_('index.php?option=com_tsmart&view=manufacturer&task=edit&virtuemart_manufacturer_id=' . $row->virtuemart_manufacturer_id);
+		$editlink = JROUTE::_('index.php?option=com_tsmart&view=manufacturer&task=edit&tsmart_manufacturer_id=' . $row->tsmart_manufacturer_id);
 		?>
 	    <tr class="row<?php echo $k ; ?>">
 		<td class="admin-checkbox">
@@ -82,7 +82,7 @@ AdminUIHelper::startAdminArea($this);
 		<td align="left">
 			<?php
 			if(empty($row->mf_name)){
-				$row->mf_name = 'Language Missing id '.$row->virtuemart_manufacturer_id;
+				$row->mf_name = 'Language Missing id '.$row->tsmart_manufacturer_id;
 			}
 			?>
 		    <a href="<?php echo $editlink; ?>"><?php echo $row->mf_name; ?></a>
@@ -104,7 +104,7 @@ AdminUIHelper::startAdminArea($this);
 			<?php echo $published; ?>
 		</td>
 		<td align="right">
-		    <?php echo $row->virtuemart_manufacturer_id; ?>
+		    <?php echo $row->tsmart_manufacturer_id; ?>
 		</td>
 	    </tr>
 		<?php

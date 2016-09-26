@@ -3,13 +3,13 @@
 *
 * Currency table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * Currency table class
  * The class is is used to manage the currencies in the shop.
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author RickG, Max Milbers
  */
 class Tablepromotion extends tsmTableData {
@@ -49,7 +49,7 @@ class Tablepromotion extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_tour_promotion_price', 'virtuemart_promotion_price_id', $db);
+		parent::__construct('#__tsmart_tour_promotion_price', 'tsmart_promotion_price_id', $db);
 
 
 
@@ -59,18 +59,18 @@ class Tablepromotion extends tsmTableData {
 	}
     public function bindChecknStore(&$data, $preload = false)
     {
-        $tsmart_product_id=$data['virtuemart_product_id'];
-        $tsmart_service_class_id=$data['virtuemart_service_class_id'];
-        $tsmart_promotion_price_id=$data['virtuemart_promotion_price_id'];
+        $tsmart_product_id=$data['tsmart_product_id'];
+        $tsmart_service_class_id=$data['tsmart_service_class_id'];
+        $tsmart_promotion_price_id=$data['tsmart_promotion_price_id'];
         $sale_period_from=JFactory::getDate($data['sale_period_from']);
         $sale_period_to=JFactory::getDate($data['sale_period_to']);
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('COUNT(*)')
-            ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
-            ->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
-            ->where('virtuemart_promotion_price_id<>'.(int)$tsmart_promotion_price_id)
+            ->from('#__tsmart_tour_promotion_price AS tour_promotion_price')
+            ->where('tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
+            ->where('tsmart_promotion_price_id<>'.(int)$tsmart_promotion_price_id)
             ->where(
                 '((sale_period_from<='.$query->q($sale_period_from->toSql()).' AND sale_period_to>= '.$query->q($sale_period_from->toSql()).') OR (sale_period_from<='.$query->q($sale_period_to->toSql()).' AND sale_period_to>= '.$query->q($sale_period_to->toSql()).'))'
 

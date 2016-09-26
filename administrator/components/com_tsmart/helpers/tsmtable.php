@@ -5,13 +5,13 @@
  * derived from JTable Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  *
  * @version $Id$
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (C) 2014 Open Source Matters, Inc. All rights reserved.
- * @copyright Copyright (c) 2011 -2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 -2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -1042,7 +1042,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 			}
 		}
 
-		//the cast to int here destroyed the query for keys like virtuemart_userinfo_id, so no cast on $oid
+		//the cast to int here destroyed the query for keys like tsmart_userinfo_id, so no cast on $oid
 		// $query = $select.$from.' WHERE '. $mainTable .'.`'.$this->_tbl_key.'` = "'.$oid.'"';
 		if ($andWhere === 0) $andWhere = '';
 		$query = $select . $from . ' WHERE `' . $mainTable . '`.`' . $k . '` = "' . $oid . '" ' . $andWhere;
@@ -1645,10 +1645,10 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 		}
 
 
-		if (property_exists($this,'virtuemart_vendor_id') ) {
+		if (property_exists($this,'tsmart_vendor_id') ) {
 
-			if(empty($this->virtuemart_vendor_id) and $this->_pkey=='virtuemart_vendor_id'){
-				$this->virtuemart_vendor_id = $this->_pvalue;
+			if(empty($this->tsmart_vendor_id) and $this->_pkey=='tsmart_vendor_id'){
+				$this->tsmart_vendor_id = $this->_pvalue;
 			}
 
 			$multix = Vmconfig::get('multix', 'none');
@@ -1657,7 +1657,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 			//Todo removed Quickn Dirty, use check in derived class
 			if ($multix == 'none' and get_class($this) !== 'TableVmusers') {
 
-				$this->virtuemart_vendor_id = 1;
+				$this->tsmart_vendor_id = 1;
 				return true;
 			} else {
 				$loggedVendorId = vmAccess::isSuperVendor();
@@ -1668,14 +1668,14 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 				$admin = vmAccess::manager('managevendors');
 				//Todo removed Quickn Dirty, use check in derived class
-				if (strpos($this->_tbl,'virtuemart_vmusers')===FALSE) {
-					$q = 'SELECT `virtuemart_vendor_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
+				if (strpos($this->_tbl,'tsmart_vmusers')===FALSE) {
+					$q = 'SELECT `tsmart_vendor_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
 					if (!isset(self::$_cache[md5($q)])) {
 						$this->_db->setQuery($q);
 						self::$_cache[md5($q)] = $tsmart_vendor_id = $this->_db->loadResult();
 					} else $tsmart_vendor_id = self::$_cache[md5($q)];
 				} else {
-					$q = 'SELECT `virtuemart_vendor_id`,`user_is_vendor` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
+					$q = 'SELECT `tsmart_vendor_id`,`user_is_vendor` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
 					if (!isset(self::$_cache[md5($q)])) {
 						$this->_db->setQuery($q);
 						$vmuser = $this->_db->loadRow();
@@ -1688,41 +1688,41 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 						if ($multix == 'none') {
 							if (empty($user_is_vendor)) {
-								$this->virtuemart_vendor_id = 0;
+								$this->tsmart_vendor_id = 0;
 							} else {
-								$this->virtuemart_vendor_id = 1;
+								$this->tsmart_vendor_id = 1;
 							}
 							return true;
 						} else {
 							if (!$admin) {
 								$rVendorId = vmAccess::isSuperVendor($user->id);
-								$this->virtuemart_vendor_id = $rVendorId;
+								$this->tsmart_vendor_id = $rVendorId;
 								return true;
 							}
 						}
 					} else {
 						//New User
-						//vmInfo('We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);//, Set to mainvendor '.$this->virtuemart_vendor_id
+						//vmInfo('We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);//, Set to mainvendor '.$this->tsmart_vendor_id
 					}
 				}
 
 				if (!$admin and !empty($tsmart_vendor_id) and !empty($loggedVendorId) and $loggedVendorId != $tsmart_vendor_id) {
 					//Todo removed Quickn Dirty, use check in derived class
 					//This is the case when a vendor buys products of vendor1
-					if (strpos($this->_tbl,'virtuemart_order_items')===FALSE and strpos($this->_tbl,'virtuemart_carts')===FALSE) {
+					if (strpos($this->_tbl,'tsmart_order_items')===FALSE and strpos($this->_tbl,'tsmart_carts')===FALSE) {
 						vmdebug('Blocked storing, logged vendor ' . $loggedVendorId . ' but data belongs to ' . $tsmart_vendor_id,$this->_tbl);
 						return false;
 					} else {
-						$this->virtuemart_vendor_id = $tsmart_vendor_id;
+						$this->tsmart_vendor_id = $tsmart_vendor_id;
 					}
 
 				} else if (!$admin) {
 					if ($tsmart_vendor_id) {
-						$this->virtuemart_vendor_id = $tsmart_vendor_id;
+						$this->tsmart_vendor_id = $tsmart_vendor_id;
 						vmdebug('Non admin is storing using loaded vendor_id');
 					} else {
-						if(empty($this->virtuemart_vendor_id)){
-							$this->virtuemart_vendor_id = $loggedVendorId;
+						if(empty($this->tsmart_vendor_id)){
+							$this->tsmart_vendor_id = $loggedVendorId;
 						}
 						//No id is stored, even users are allowed to use for the storage and vendorId, no change
 					}
@@ -1730,12 +1730,12 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 				} else {
 					//Admins are allowed to do anything. We just trhow some messages
 					if (!empty($tsmart_vendor_id) and $loggedVendorId != $tsmart_vendor_id) {
-						vmdebug('Admin with vendor id ' . $loggedVendorId . ' is using for storing vendor id ' . $this->virtuemart_vendor_id);
+						vmdebug('Admin with vendor id ' . $loggedVendorId . ' is using for storing vendor id ' . $this->tsmart_vendor_id);
 					}
-					else if (empty($tsmart_vendor_id) and empty($this->virtuemart_vendor_id)) {
-						if(strpos($this->_tbl,'virtuemart_vendors')===FALSE and strpos($this->_tbl,'virtuemart_vmusers')===FALSE){
-							$this->virtuemart_vendor_id = $loggedVendorId;
-							vmdebug('Fallback to '.$this->virtuemart_vendor_id.' for $loggedVendorId '.$loggedVendorId.': We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);
+					else if (empty($tsmart_vendor_id) and empty($this->tsmart_vendor_id)) {
+						if(strpos($this->_tbl,'tsmart_vendors')===FALSE and strpos($this->_tbl,'tsmart_vmusers')===FALSE){
+							$this->tsmart_vendor_id = $loggedVendorId;
+							vmdebug('Fallback to '.$this->tsmart_vendor_id.' for $loggedVendorId '.$loggedVendorId.': We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);
 						}
 					}
 				}
@@ -2044,7 +2044,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 		} else {
 				vmError(get_class($this) . ' is missing cid information !');
 				return false;
-		}		// stAn: if somebody knows how to get current `ordering` of selected cid (i.e. virtuemart_userinfo_id or virtuemart_category_id from defined vars, you can review the code below)
+		}		// stAn: if somebody knows how to get current `ordering` of selected cid (i.e. tsmart_userinfo_id or tsmart_category_id from defined vars, you can review the code below)
 		$q = "SELECT `" . $this->_orderingKey . '` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . "` = '" . (int)$cid . "' limit 0,1";
 
 		if (!isset(self::$_cache[md5($q)])) {
@@ -2074,7 +2074,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 			return false;
 		}
 
-		$k = $this->_tbl_key; // virtuemart_userfield_id column name
+		$k = $this->_tbl_key; // tsmart_userfield_id column name
 
 		$orderingKey = $this->_orderingKey; // ordering column name
 

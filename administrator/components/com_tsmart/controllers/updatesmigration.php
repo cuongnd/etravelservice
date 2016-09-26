@@ -4,13 +4,13 @@
  *
  * updatesMigration controller
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage updatesMigration
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,7 +25,7 @@ require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmController.php');
 /**
  * updatesMigration Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage updatesMigration
  * @author Max Milbers
  */
@@ -144,8 +144,8 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 	public function fixCustomsParams(){
 		$this->checkPermissionForTools();
-		$q = 'SELECT `virtuemart_customfield_id` FROM `#__virtuemart_product_customfields` LEFT JOIN `#__virtuemart_customs` USING (`virtuemart_custom_id`) ';
-		$q = 'SELECT `virtuemart_customfield_id`,`customfield_params` FROM `#__virtuemart_product_customfields` ';
+		$q = 'SELECT `tsmart_customfield_id` FROM `#__tsmart_product_customfields` LEFT JOIN `#__tsmart_customs` USING (`tsmart_custom_id`) ';
+		$q = 'SELECT `tsmart_customfield_id`,`customfield_params` FROM `#__tsmart_product_customfields` ';
 		$q .= ' WHERE `customfield_params`!="" ';
 		$db = JFactory::getDbo();
 		$db->setQuery($q);
@@ -170,7 +170,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 				}
 
 				if(!empty($store)){
-					$q = 'UPDATE `#__virtuemart_product_customfields` SET `customfield_params` = "'.$db->escape($store).'" WHERE `virtuemart_customfield_id` = "'.$fields['virtuemart_customfield_id'].'" ';
+					$q = 'UPDATE `#__tsmart_product_customfields` SET `customfield_params` = "'.$db->escape($store).'" WHERE `tsmart_customfield_id` = "'.$fields['tsmart_customfield_id'].'" ';
 					$db->setQuery($q);
 					$db->execute();
 
@@ -196,11 +196,11 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			$db = JFactory::getDbo();
 
 			/*$q = 'SELECT customfield_id ';
-			$q .= 'FROM `#__virtuemart_product_customfields` as pc WHERE
-					LEFT JOIN `#__virtuemart_products` as c using (`virtuemart_product_id`) ';
+			$q .= 'FROM `#__tsmart_product_customfields` as pc WHERE
+					LEFT JOIN `#__tsmart_products` as c using (`tsmart_product_id`) ';
 			$q .= 'WHERE c.product_parent_id =';*/
-			$q = ' SELECT `product_parent_id` FROM `#__virtuemart_products`
-					INNER JOIN `#__virtuemart_product_customfields` as pc using (`virtuemart_product_id`)
+			$q = ' SELECT `product_parent_id` FROM `#__tsmart_products`
+					INNER JOIN `#__tsmart_product_customfields` as pc using (`tsmart_product_id`)
 					WHERE `product_parent_id` != "0" GROUP BY `product_parent_id` ';
 			$db->setQuery($q);
 			$childs = $db->loadColumn();
@@ -208,18 +208,18 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			$toDelete = array();
 			foreach($childs as $child_id){
 
-				$q = ' SELECT pc.virtuemart_customfield_id,pc.virtuemart_custom_id,pc.customfield_value,pc.customfield_price,pc.customfield_params
-					FROM `#__virtuemart_product_customfields` as pc
-					LEFT JOIN `#__virtuemart_products` as c using (`virtuemart_product_id`) ';
-				$q .= ' WHERE c.virtuemart_product_id = "'.$child_id.'" ';
+				$q = ' SELECT pc.tsmart_customfield_id,pc.tsmart_custom_id,pc.customfield_value,pc.customfield_price,pc.customfield_params
+					FROM `#__tsmart_product_customfields` as pc
+					LEFT JOIN `#__tsmart_products` as c using (`tsmart_product_id`) ';
+				$q .= ' WHERE c.tsmart_product_id = "'.$child_id.'" ';
 				$db->setQuery($q);
 				$pcfs = $db->loadAssocList();
 				vmdebug('load PCFS '.$q);
 				if($pcfs){
 					vmdebug('There are PCFS');
-					$q = ' SELECT pc.virtuemart_customfield_id,pc.virtuemart_custom_id,pc.customfield_value,pc.customfield_price,pc.customfield_params
-					FROM `#__virtuemart_product_customfields` as pc
-					LEFT JOIN `#__virtuemart_products` as c using (`virtuemart_product_id`) ';
+					$q = ' SELECT pc.tsmart_customfield_id,pc.tsmart_custom_id,pc.customfield_value,pc.customfield_price,pc.customfield_params
+					FROM `#__tsmart_product_customfields` as pc
+					LEFT JOIN `#__tsmart_products` as c using (`tsmart_product_id`) ';
 					$q .= ' WHERE c.product_parent_id = "'.$child_id.'" ';
 
 					$db->setQuery($q);
@@ -227,12 +227,12 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 					foreach($cfs as $cf){
 						foreach($pcfs as $pcf){
-							if($cf['virtuemart_custom_id'] == $pcf['virtuemart_custom_id']){
-									vmdebug('virtuemart_custom_id same');
+							if($cf['tsmart_custom_id'] == $pcf['tsmart_custom_id']){
+									vmdebug('tsmart_custom_id same');
 								if($cf['customfield_value'] == $pcf['customfield_value'] and
 								$cf['customfield_price'] == $pcf['customfield_price'] and
 								$cf['customfield_params'] == $pcf['customfield_params']){
-									$toDelete[] = $cf['virtuemart_customfield_id'];
+									$toDelete[] = $cf['tsmart_customfield_id'];
 								}
 							}
 						}
@@ -244,14 +244,14 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			if(count($toDelete)>0){
 				$toDelete = array_unique($toDelete,SORT_NUMERIC);
 				$toDeleteString = implode(',',$toDelete);
-				$q = 'DELETE FROM `#__virtuemart_product_customfields` WHERE virtuemart_customfield_id IN ('.$toDeleteString.') ';
+				$q = 'DELETE FROM `#__tsmart_product_customfields` WHERE tsmart_customfield_id IN ('.$toDeleteString.') ';
 				$db->setQuery($q);
 				$db->execute();
 			}
 
-			/*$q = 'SELECT `virtuemart_customfield_id`
-					FROM `#__virtuemart_product_customfields` as pc
-					LEFT JOIN `#__virtuemart_products` as c using (`virtuemart_product_id`)';
+			/*$q = 'SELECT `tsmart_customfield_id`
+					FROM `#__tsmart_product_customfields` as pc
+					LEFT JOIN `#__tsmart_products` as c using (`tsmart_product_id`)';
 			$q .= ' WHERE c.product_parent_id != "0" AND ';*/
 		} else {
 			$msg = $this->_getMsgDangerousTools();
@@ -260,7 +260,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 	}
 
 	/**
-	 * Remove all the Virtuemart tables from the database.
+	 * Remove all the tsmart tables from the database.
 	 *
 	 * @author Max Milbers
 	 */
@@ -407,7 +407,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			if($sample) $model->installSampleData($sid);
 
 			if(!class_exists('VmConfig')) require_once(VMPATH_ADMIN .'/models/config.php');
-			VirtueMartModelConfig::installVMconfigTable();
+			tsmartModelConfig::installVMconfigTable();
 
 			//Now lets set some joomla variables
 			//Caching should be enabled, set to files and for 15 minutes
@@ -425,7 +425,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			$jConfig['caching'] = 0;
 			$jConfig['lifetime'] = 60;
 			$jConfig['list_limit'] = 25;
-			$jConfig['MetaDesc'] = 'VirtueMart works with Joomla! - the dynamic portal engine and content management system';
+			$jConfig['MetaDesc'] = 'tsmart works with Joomla! - the dynamic portal engine and content management system';
 			$jConfig['MetaKeys'] = 'tsmart, vm2, joomla, Joomla';
 
 			$app = JFactory::getApplication();
@@ -506,8 +506,8 @@ class TsmartControllerUpdatesMigration extends TsmController{
 	 */
 	function setDangerousToolsOff(){
 
-		if(!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
-		$res  = VirtueMartModelConfig::checkConfigTableExists();
+		if(!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
+		$res  = tsmartModelConfig::checkConfigTableExists();
 		if(!empty($res)){
 			$model = $this->getModel('config');
 			$model->setDangerousToolsOff();

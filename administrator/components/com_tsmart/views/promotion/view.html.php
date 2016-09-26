@@ -3,13 +3,13 @@
 *
 * Currency View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
@@ -57,8 +57,8 @@ class TsmartViewpromotion extends tsmViewAdmin {
 
         $layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
-			$this->virtuemart_product_id=$tsmart_product_id;
+			$tsmart_product_id=$input->get('tsmart_product_id',0,'int');
+			$this->tsmart_product_id=$tsmart_product_id;
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 
@@ -67,7 +67,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 
 			$cid	= vRequest::getInt( 'cid' );
 			$model_product = VmModel::getModel('product');
-			$this->product=$model_product->getProduct($this->virtuemart_product_id,false,false,false);
+			$this->product=$model_product->getProduct($this->tsmart_product_id,false,false,false);
 			if($this->product->tour_methor=='tour_group')
 			{
 				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($cid[0]);
@@ -93,14 +93,14 @@ class TsmartViewpromotion extends tsmViewAdmin {
 		} else {
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
-            $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
-            $this->virtuemart_product_id=$tsmart_product_id;
+            $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
+            $this->tsmart_product_id=$tsmart_product_id;
 
             $model_product = VmModel::getModel('product');
 			$this->list_tour = $model_product->getItems();
 
-            $this->product=$model_product->getItem($this->virtuemart_product_id);
-            $tsmart_price_id=$input->get('virtuemart_price_id',0,'int');
+            $this->product=$model_product->getItem($this->tsmart_product_id);
+            $tsmart_price_id=$input->get('tsmart_price_id',0,'int');
 			$model_promotion_price->setId($tsmart_price_id);
             $this->price = $model_promotion_price->get_promotion_price();
 

@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Config
  * @author RickG
- * @link http://www.virtuemart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @link http://www.tsmart.net
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -40,7 +40,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								</span>
 							<?php //Fallback, if someone used an old ordering: "ordering"
 							$ordering = VmConfig::get('browse_cat_orderby_field', 'c.ordering,category_name');
-							if(!in_array($ordering,VirtueMartModelCategory::$_validOrderingFields)){
+							if(!in_array($ordering,tsmartModelCategory::$_validOrderingFields)){
 								$ordering = 'c.ordering,category_name';
 							}
 							echo JHtml::_('Select.genericlist', $this->orderByFieldsCat, 'browse_cat_orderby_field', 'size=1', 'value', 'text', $ordering, 'category_name');

@@ -3,12 +3,12 @@
 /**
  * Media file uploader class
  *
- * This class provides a uploader functions that are used throughout the VirtueMart shop.
+ * This class provides a uploader functions that are used throughout the tsmart shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2015 VirtueMart Team. All rights reserved by the author.
+ * @copyright Copyright (c) 2015 tsmart Team. All rights reserved by the author.
  */
 
 

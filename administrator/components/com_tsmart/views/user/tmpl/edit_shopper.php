@@ -3,13 +3,13 @@
  *
  * Modify user form view, User info
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access');
 	<table class="adminform">
 		<tr>
 			<td class="key">
-				<label for="virtuemart_vendor_id">
+				<label for="tsmart_vendor_id">
 					<?php echo tsmText::_('com_tsmart_VENDOR') ?>:
 				</label>
 			</td>
@@ -49,7 +49,7 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td class="key">
-				<label for="virtuemart_shoppergroup_id">
+				<label for="tsmart_shoppergroup_id">
 					<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?>:
 				</label>
 			</td>
@@ -141,7 +141,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 	echo $_hiddenFields;
 ?>
-<input type="hidden" name="virtuemart_userinfo_id" value="<?php echo $this->userInfoID; ?>" />
+<input type="hidden" name="tsmart_userinfo_id" value="<?php echo $this->userInfoID; ?>" />
 <input type="hidden" name="address_type" value="BT" />
 </fieldset>
 
@@ -305,8 +305,8 @@ function gotocontact(id) {
 	<?php } ?>
 </fieldset>
 
-<input type="hidden" name="virtuemart_user_id" value="<?php echo $this->userDetails->JUser->get('id'); ?>" />
-<input type="hidden" name="virtuemart_user_id[]" value="<?php echo $this->userDetails->JUser->get('id'); ?>" />
+<input type="hidden" name="tsmart_user_id" value="<?php echo $this->userDetails->JUser->get('id'); ?>" />
+<input type="hidden" name="tsmart_user_id[]" value="<?php echo $this->userDetails->JUser->get('id'); ?>" />
 <input type="hidden" name="contact_id" value="" />
 <input type="hidden" name="layout" value="<?php echo $this->_layout; ?>" />
 

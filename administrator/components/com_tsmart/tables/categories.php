@@ -3,13 +3,13 @@
 *
 * Product table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Category
 * @author jseros
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,7 +24,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Category table class
  * The class is is used to table-level abstraction for Categories.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Category
  * @author jseros
  */
@@ -78,10 +78,10 @@ class TableCategories extends tsmTable {
 	 * @param $db database connector object
 	 */
 	public function __construct($db) {
-		parent::__construct('#__virtuemart_categories', 'virtuemart_category_id', $db);
+		parent::__construct('#__tsmart_categories', 'tsmart_category_id', $db);
 
 		//In a VmTable the primary key is the same as the _tbl_key and therefore not needed
-// 		$this->setPrimaryKey('virtuemart_category_id');
+// 		$this->setPrimaryKey('tsmart_category_id');
 		$this->setObligatoryKeys('category_name');
 		$this->setLoggable();
 		$this->setTranslatable(array('category_name','category_description','metadesc','metakey','customtitle'));
@@ -122,8 +122,8 @@ class TableCategories extends tsmTable {
 		$k = $this->_tbl_key;
 
 		$sql = "SELECT c.".$this->_tbl_key.", c.ordering FROM ".$this->_tbl." c
-				LEFT JOIN #__virtuemart_category_categories cx
-				ON c.virtuemart_category_id = cx.category_child_id";
+				LEFT JOIN #__tsmart_category_categories cx
+				ON c.tsmart_category_id = cx.category_child_id";
 
 		$condition = 'cx.category_parent_id = '. $this->_db->Quote($parent_id);
 		$where = ($where ? ' AND '.$condition : $condition);
@@ -218,8 +218,8 @@ class TableCategories extends tsmTable {
 		$order2 = '';
 		$query = 'SELECT c.'.$this->_tbl_key.', c.ordering'
 		. ' FROM '. $this->_tbl . ' c'
-		. ' LEFT JOIN #__virtuemart_category_categories cx'
-		. ' ON c.virtuemart_category_id = cx.category_child_id'
+		. ' LEFT JOIN #__tsmart_category_categories cx'
+		. ' ON c.tsmart_category_id = cx.category_child_id'
 		. ' WHERE c.ordering >= 0' . ( $where ? ' AND '. $where : '' )
 		. ' AND cx.category_parent_id = '. $parent_id
 		. ' ORDER BY c.ordering'.$order2;

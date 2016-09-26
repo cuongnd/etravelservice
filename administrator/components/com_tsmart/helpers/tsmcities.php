@@ -2,13 +2,13 @@
 /**
  * Class for getting with language keys translated text. The original code was written by joomla Platform 11.1
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -39,9 +39,9 @@ class tsmcities
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name) AS full_city,states.state_name,countries.country_name')
-            ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
-            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
-            ->from('#__virtuemart_cityarea AS cityarea')
+            ->leftJoin('#__tsmart_states AS states USING(tsmart_state_id)')
+            ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
+            ->from('#__tsmart_cityarea AS cityarea')
         ;
         $list = $db->setQuery($query)->loadObjectList();
         if (!$list) {
@@ -55,9 +55,9 @@ class tsmcities
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
-            ->from('#__virtuemart_cityarea')
-            ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
-            ->where('states.virtuemart_state_id='.(int)$tsmart_state_id)
+            ->from('#__tsmart_cityarea')
+            ->leftJoin('#__tsmart_states AS states USING(tsmart_state_id)')
+            ->where('states.tsmart_state_id='.(int)$tsmart_state_id)
         ;
         return $db->setQuery($query)->loadObjectList();
     }
@@ -67,9 +67,9 @@ class tsmcities
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name) AS full_city')
-            ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
-            ->leftJoin('#__virtuemart_countries AS countries ON countries.virtuemart_country_id=states.virtuemart_country_id')
-            ->from('#__virtuemart_cityarea AS cityarea')
+            ->leftJoin('#__tsmart_states AS states USING(tsmart_state_id)')
+            ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
+            ->from('#__tsmart_cityarea AS cityarea')
         ;
         $list = $db->setQuery($query)->loadAssocList();
         if (!$list) {

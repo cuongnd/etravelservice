@@ -3,13 +3,13 @@
 *
 * Calc View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Calculation tool
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * Description
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 
@@ -50,16 +50,16 @@ class TsmartViewCalc extends tsmViewAdmin {
 			
 			$this->assignRef('calc',	$calc);
 
-			$isNew = ($calc->virtuemart_calc_id < 1);
+			$isNew = ($calc->tsmart_calc_id < 1);
 			if ($isNew) {
-				$calc->virtuemart_vendor_id = $this->vendorId;
+				$calc->tsmart_vendor_id = $this->vendorId;
 				$db = JFactory::getDBO();
 				//get default currency of the vendor, if not set get default of the shop
-				$q = 'SELECT `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id` = "'.$this->vendorId.'"';
+				$q = 'SELECT `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id` = "'.$this->vendorId.'"';
 				$db->setQuery($q);
 				$currency= $db->loadResult();
 				if(empty($currency)){
-					$q = 'SELECT `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id` = "1" ';
+					$q = 'SELECT `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id` = "1" ';
 					$db->setQuery($q);
 					$currency= $db->loadResult();
 					$calc->calc_currency = $currency;
@@ -82,18 +82,18 @@ class TsmartViewCalc extends tsmViewAdmin {
 			$currencyModel = VmModel::getModel('currency');
 			$this->currencies = $currencyModel->getCurrencies();
 
-			$this->shopperGroupList= ShopFunctions::renderShopperGroupList($calc->virtuemart_shoppergroup_ids,True);
+			$this->shopperGroupList= ShopFunctions::renderShopperGroupList($calc->tsmart_shoppergroup_ids,True);
 
 			if (!class_exists ('ShopFunctionsF')) {
 				require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
 			}
 
 			$this->countriesList = ShopFunctionsF::renderCountryList($calc->calc_countries,True);
-			$this->statesList = ShopFunctionsF::renderStateList($calc->virtuemart_state_ids,'', True);
-			$this->manufacturerList= ShopFunctions::renderManufacturerList($calc->virtuemart_manufacturers,true);
+			$this->statesList = ShopFunctionsF::renderStateList($calc->tsmart_state_ids,'', True);
+			$this->manufacturerList= ShopFunctions::renderManufacturerList($calc->tsmart_manufacturers,true);
 
 			if($this->showVendors()){
-				$this->vendorList= ShopFunctions::renderVendorList($calc->virtuemart_vendor_id);
+				$this->vendorList= ShopFunctions::renderVendorList($calc->tsmart_vendor_id);
 			}
 
 			$this->addStandardEditViewCommands();
@@ -111,15 +111,15 @@ class TsmartViewCalc extends tsmViewAdmin {
 			$this->calcs = $model->getCalcs(false, false, $search);
 			VmConfig::loadJLang('com_tsmart_shoppers',true);
 			foreach ($this->calcs as &$data){
-				$data->calcCategoriesList = shopfunctions::renderGuiList($data->virtuemart_calc_id,'categories','category_name','category','calc_categories','virtuemart_calc_id');
+				$data->calcCategoriesList = shopfunctions::renderGuiList($data->tsmart_calc_id,'categories','category_name','category','calc_categories','tsmart_calc_id');
 
-				$data->calcShoppersList = shopfunctions::renderGuiList($data->virtuemart_calc_id,'shoppergroups','shopper_group_name','shoppergroup','calc_shoppergroups','virtuemart_calc_id');
+				$data->calcShoppersList = shopfunctions::renderGuiList($data->tsmart_calc_id,'shoppergroups','shopper_group_name','shoppergroup','calc_shoppergroups','tsmart_calc_id');
 
-				$data->calcCountriesList = shopfunctions::renderGuiList($data->virtuemart_calc_id,'countries','country_name','country','calc_countries','virtuemart_calc_id');
+				$data->calcCountriesList = shopfunctions::renderGuiList($data->tsmart_calc_id,'countries','country_name','country','calc_countries','tsmart_calc_id');
 
-				$data->calcStatesList = shopfunctions::renderGuiList($data->virtuemart_calc_id,'states','state_name','states','calc_states','virtuemart_calc_id');
+				$data->calcStatesList = shopfunctions::renderGuiList($data->tsmart_calc_id,'states','state_name','states','calc_states','tsmart_calc_id');
 
-				$data->calcManufacturersList = shopfunctions::renderGuiList($data->virtuemart_calc_id,'manufacturers','mf_name','manufacturer','calc_manufacturers','virtuemart_calc_id');
+				$data->calcManufacturersList = shopfunctions::renderGuiList($data->tsmart_calc_id,'manufacturers','mf_name','manufacturer','calc_manufacturers','tsmart_calc_id');
 			}
 
 			$this->pagination = $model->getPagination();
@@ -135,7 +135,7 @@ class TsmartViewCalc extends tsmViewAdmin {
 	 * When you want to add extra Entrypoints, look in helpers/calculationh.php for mor information
 	 *
 	 *
-	 * @copyright Copyright (c) 2009 VirtueMart Team. All rights reserved.
+	 * @copyright Copyright (c) 2009 tsmart Team. All rights reserved.
 	 * @author Max Milbers
 	 * @param 	$selected 	the selected values, may be single data or array
 	 * @return 	$list 		list of the Entrypoints
@@ -164,7 +164,7 @@ class TsmartViewCalc extends tsmViewAdmin {
 	 * Builds a list to choose the mathematical operations
 	 * When you want to add extra operations, look in helpers/calculationh.php for more information
 	 *
-	 * @copyright 	Copyright (c) 2009 VirtueMart Team. All rights reserved.
+	 * @copyright 	Copyright (c) 2009 tsmart Team. All rights reserved.
 	 * @author 		Max Milbers
 	 * @param 	$selected 	the selected values, may be single data or array
 	 * @return 	$list 		list of the Entrypoints

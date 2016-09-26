@@ -3,13 +3,13 @@
 *
 * Currency controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Currency Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
@@ -55,7 +55,7 @@ class TsmartControllerItinerary extends TsmController {
         $model = VmModel::getModel($this->_cname);
 
         $id = $model->store($data);
-        $tsmart_product_id=$data['virtuemart_product_id'];
+        $tsmart_product_id=$data['tsmart_product_id'];
         $msg = 'failed';
         if(!empty($id)) {
             $msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
@@ -63,7 +63,7 @@ class TsmartControllerItinerary extends TsmController {
         }
         else $type = 'error';
 
-        $redir = 'index.php?option=com_tsmart&view=itinerary&virtuemart_product_id='.$tsmart_product_id;
+        $redir = 'index.php?option=com_tsmart&view=itinerary&tsmart_product_id='.$tsmart_product_id;
         $this->setRedirect($redir, $msg,$type);
 	}
 }

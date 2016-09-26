@@ -9,11 +9,11 @@ if (!defined ('_JEXEC')) {
  *
  * @author Max Milbers, Wicksj
  * @version $Id: report.php 8947 2015-08-06 20:23:30Z Milbo $
- * @package VirtueMart
+ * @package tsmart
  * @subpackage Report
- * @copyright Copyright (C) 2011 - 2014VirtueMart Team - All rights reserved.
+ * @copyright Copyright (C) 2011 - 2014tsmart Team - All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,7 +26,7 @@ if (!class_exists ('VmModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
-class VirtuemartModelReport extends VmModel {
+class tsmartModelReport extends VmModel {
 
 	var $from_period = '';
 	var $until_period = '';
@@ -52,8 +52,8 @@ class VirtuemartModelReport extends VmModel {
 			$this->setPeriod ();
 		}
 
-		$this->removevalidOrderingFieldName ('virtuemart_order_id');
-		$this->addvalidOrderingFieldName (array('product_quantity', 'o.virtuemart_order_id'));
+		$this->removevalidOrderingFieldName ('tsmart_order_id');
+		$this->addvalidOrderingFieldName (array('product_quantity', 'o.tsmart_order_id'));
 		$this->_selectedOrdering = 'created_on';
 
 	}
@@ -105,7 +105,7 @@ class VirtuemartModelReport extends VmModel {
 
 	function  getItemsByRevenue ($revenue) {
 
-		$q = 'select SUM(`product_quantity`) as product_quantity from `#__virtuemart_order_items` as i LEFT JOIN #__virtuemart_orders as o ON o.virtuemart_order_id=i.virtuemart_order_id ' . $this->whereItem . ' CAST(' . $this->intervals . ' AS DATE) = CAST("' . $revenue['intervals'] . '" AS DATE) ';
+		$q = 'select SUM(`product_quantity`) as product_quantity from `#__tsmart_order_items` as i LEFT JOIN #__tsmart_orders as o ON o.tsmart_order_id=i.tsmart_order_id ' . $this->whereItem . ' CAST(' . $this->intervals . ' AS DATE) = CAST("' . $revenue['intervals'] . '" AS DATE) ';
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);
 
@@ -127,20 +127,20 @@ class VirtuemartModelReport extends VmModel {
 
 		$vendorId = vmAccess::isSuperVendor();
 		if(vmAccess::manager('managevendors')){
-			$vendorId = vRequest::getInt('virtuemart_vendor_id',$vendorId);
+			$vendorId = vRequest::getInt('tsmart_vendor_id',$vendorId);
 		}
 
 		$orderstates = vRequest::getVar ('order_status_code', array('C','S'));
 		$intervals = vRequest::getCmd ('intervals', 'day');
 		$filterorders = vRequest::getvar ('filter_order', 'intervals');
 		$orderdir = (vRequest::getCmd ('filter_order_Dir', NULL) == 'desc') ? 'desc' : '';
-		$tsmart_product_id = vRequest::getInt ('virtuemart_product_id', FALSE);
+		$tsmart_product_id = vRequest::getInt ('tsmart_product_id', FALSE);
 
 		if($cache){
 			$c = JFactory::getCache ('com_tsmart_revenue');
 			$c->setCaching (1);
 			$c->setLifeTime($cache);
-			return $c->call (array('VirtuemartModelReport', 'getRevenueDiag'),$vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id,$this->from_period,$this->until_period);
+			return $c->call (array('tsmartModelReport', 'getRevenueDiag'),$vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id,$this->from_period,$this->until_period);
 		} else {
 			return $this->getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id);
 		}
@@ -241,13 +241,13 @@ class VirtuemartModelReport extends VmModel {
 		if($intervals=='product_s'){
 
 			$selectFields[] = '`order_item_name`';
-			$selectFields[] = '`virtuemart_product_id`';
-			$groupBy = 'GROUP BY `virtuemart_product_id` ';
+			$selectFields[] = '`tsmart_product_id`';
+			$groupBy = 'GROUP BY `tsmart_product_id` ';
 		} else {
 			$groupBy = 'GROUP BY intervals ';
 		}
 
-		//$selectFields[] = 'COUNT(virtuemart_order_id) as number_of_orders';
+		//$selectFields[] = 'COUNT(tsmart_order_id) as number_of_orders';
 		//with tax => brutto
 		//$selectFields[] = 'SUM(product_subtotal_with_tax) as order_total';
 
@@ -262,7 +262,7 @@ class VirtuemartModelReport extends VmModel {
 		// Filter by status
 		if ($orderstates) {
 			$query = 'SELECT `order_status_code`
-				FROM `#__virtuemart_orderstates`
+				FROM `#__tsmart_orderstates`
 				WHERE published=1 ';
 			$db = JFactory::getDBO();
 			$db->setQuery ($query);
@@ -281,7 +281,7 @@ class VirtuemartModelReport extends VmModel {
 
 		switch ($filterorders) {
 
-			case 'o.virtuemart_order_id':
+			case 'o.tsmart_order_id':
 				$orderBy = ' ORDER BY count_order_id ' . $orderdir;
 				$groupBy = 'GROUP BY intervals ';
 				break;
@@ -308,12 +308,12 @@ class VirtuemartModelReport extends VmModel {
 				break;
 		}
 
-		$selectFields[] = 'COUNT(DISTINCT o.virtuemart_order_id) as count_order_id';
+		$selectFields[] = 'COUNT(DISTINCT o.tsmart_order_id) as count_order_id';
 		$selectFields[] = 'SUM(product_quantity) as product_quantity';
 
-		$mainTable = '`#__virtuemart_order_items` as i';
+		$mainTable = '`#__tsmart_order_items` as i';
 
-		$joinTables['orders'] = ' LEFT JOIN `#__virtuemart_orders` as o ON o.virtuemart_order_id=i.virtuemart_order_id ';
+		$joinTables['orders'] = ' LEFT JOIN `#__tsmart_orders` as o ON o.tsmart_order_id=i.tsmart_order_id ';
 
 		if (count ($selectFields) > 0) {
 
@@ -332,12 +332,12 @@ class VirtuemartModelReport extends VmModel {
 
 
 		if ($tsmart_product_id) {
-			$where[] = 'i.virtuemart_product_id = "' . $tsmart_product_id . '" ';
+			$where[] = 'i.tsmart_product_id = "' . $tsmart_product_id . '" ';
 		}
 
 		if (VmConfig::get ('multix', 'none') != 'none') {
 			if ($vendorId != 0) {
-				$where[] = 'i.virtuemart_vendor_id = "' . $vendorId . '" ';
+				$where[] = 'i.tsmart_vendor_id = "' . $vendorId . '" ';
 			}
 		}
 		if (count ($where) > 0) {
@@ -373,10 +373,10 @@ class VirtuemartModelReport extends VmModel {
 		$query = "SELECT `product_name`, `product_sku`, ";
 		$query .= "i.created_on as order_date, ";
 		$query .= "SUM(product_quantity) as product_quantity ";
-		$query .= "FROM #__virtuemart_order_items i, #__virtuemart_orders o, #__virtuemart_products p ";
+		$query .= "FROM #__tsmart_order_items i, #__tsmart_orders o, #__tsmart_products p ";
 		$query .= "WHERE i.created_on BETWEEN '{$this->start_date} 00:00:00' AND '{$this->until_period} 23:59:59' ";
-		$query .= "AND o.virtuemart_order_id=i.virtuemart_order_id ";
-		$query .= "AND i.virtuemart_product_id=p.virtuemart_product_id ";
+		$query .= "AND o.tsmart_order_id=i.tsmart_order_id ";
+		$query .= "AND i.tsmart_product_id=p.tsmart_product_id ";
 		$query .= "GROUP BY product_sku, product_name, order_date ";
 		$query .= " ORDER BY order_date, product_name ASC";
 
@@ -470,7 +470,7 @@ class VirtuemartModelReport extends VmModel {
 	}
 
 	public function updateOrderItems () {
-		$q = 'UPDATE #__virtuemart_order_items SET `product_discountedPriceWithoutTax`=( (IF(product_final_price is NULL, 0.00,product_final_price)   - IF(product_tax is NULL, 0.00,product_tax)  )) WHERE `product_discountedPriceWithoutTax` IS NULL';
+		$q = 'UPDATE #__tsmart_order_items SET `product_discountedPriceWithoutTax`=( (IF(product_final_price is NULL, 0.00,product_final_price)   - IF(product_tax is NULL, 0.00,product_tax)  )) WHERE `product_discountedPriceWithoutTax` IS NULL';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		$db->execute();

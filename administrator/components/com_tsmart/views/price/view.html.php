@@ -3,13 +3,13 @@
 *
 * Currency View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
@@ -45,7 +45,7 @@ class TsmartViewPrice extends tsmViewAdmin {
 		$input=$app->input;
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-		$tsmart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+		$tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
 		$this->product=$model_product->getItem($tsmart_product_id);
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
@@ -79,8 +79,8 @@ class TsmartViewPrice extends tsmViewAdmin {
 		} else {
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
-            $tour_id=$input->get('virtuemart_product_id',0,'int');
-            $this->virtuemart_product_id=$tour_id;
+            $tour_id=$input->get('tsmart_product_id',0,'int');
+            $this->tsmart_product_id=$tour_id;
 
             $this->product=$model_product->getItem($tsmart_product_id);
             $this->price = $model->getPrice();

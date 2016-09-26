@@ -6,13 +6,13 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 /**
  *
  * @version $Id: currencydisplay.php 8941 2015-08-03 15:52:38Z Milbo $
- * @package VirtueMart
+ * @package tsmart
  * @subpackage classes
  *
  * @author Max Milbers
- * @copyright Copyright (C) 2004-2008 Soeren Eberhardt-Biermann, 2011-2014 The Virtuemart Team and Author - All rights reserved.
+ * @copyright Copyright (C) 2004-2008 Soeren Eberhardt-Biermann, 2011-2014 The tsmart Team and Author - All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -100,7 +100,7 @@ class CurrencyDisplay {
 			if(empty($currencyId)){
 
 				if(self::$_instance[$h]->_app->isSite()){
-					self::$_instance[$h]->_currency_id = self::$_instance[$h]->_app->getUserStateFromRequest( "virtuemart_currency_id", 'virtuemart_currency_id',vRequest::getInt('virtuemart_currency_id', 0));
+					self::$_instance[$h]->_currency_id = self::$_instance[$h]->_app->getUserStateFromRequest( "tsmart_currency_id", 'tsmart_currency_id',vRequest::getInt('tsmart_currency_id', 0));
 				}
 				if(empty(self::$_instance[$h]->_currency_id)){
 					self::$_instance[$h]->_currency_id = self::$_instance[$h]->_vendorCurrency;
@@ -146,7 +146,7 @@ class CurrencyDisplay {
 	 */
 	private function setCurrencyDisplayToStyleStr($style) {
 		//vmdebug('setCurrencyDisplayToStyleStr ',$style);
-		$this->_currency_id = $style->virtuemart_currency_id;
+		$this->_currency_id = $style->tsmart_currency_id;
 		$this->_symbol = $style->currency_symbol;
 		$this->_nbDecimal = $style->currency_decimal_place;
 		$this->_decimal = $style->currency_decimal_symbol;
@@ -231,7 +231,7 @@ class CurrencyDisplay {
 	public function getCurrencyForDisplay( $currencyId=0 ){
 
 		if(empty($currencyId)){
-			$currencyId = (int)$this->_app->getUserStateFromRequest( 'virtuemart_currency_id', 'virtuemart_currency_id',$this->_vendorCurrency );
+			$currencyId = (int)$this->_app->getUserStateFromRequest( 'tsmart_currency_id', 'tsmart_currency_id',$this->_vendorCurrency );
 			if(empty($currencyId)){
 				$currencyId = $this->_vendorCurrency;
 			}
@@ -379,7 +379,7 @@ class CurrencyDisplay {
 			static $currency_exchange_rate = array();
 			if(!isset($currency_exchange_rate[$currency])){
 				$db = JFactory::getDBO();
-				$q = 'SELECT `currency_exchange_rate` FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id` ="'.(int)$currency.'" ';
+				$q = 'SELECT `currency_exchange_rate` FROM `#__tsmart_currencies` WHERE `tsmart_currency_id` ="'.(int)$currency.'" ';
 				$db->setQuery($q);
 				$currency_exchange_rate[$currency] = (float)$db->loadResult();
 			}
@@ -415,7 +415,7 @@ class CurrencyDisplay {
 
 
 	/**
-	 * Changes the virtuemart_currency_id into the right currency_code
+	 * Changes the tsmart_currency_id into the right currency_code
 	 * For exampel 47 => EUR
 	 *
 	 * @author Max Milbers
@@ -432,7 +432,7 @@ class CurrencyDisplay {
 	}
 
 	/**
-	 * Changes the currency_code into the right virtuemart_currency_id
+	 * Changes the currency_code into the right tsmart_currency_id
 	 * For exampel 'currency_code_3' : EUR => 47
 	 *
 	 * @author Max Milbers

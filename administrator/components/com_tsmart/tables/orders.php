@@ -3,13 +3,13 @@
 *
 * Orders table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Orders
 * @author RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * Orders table class
  * The class is is used to manage the orders in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author Max Milbers
  */
 class TableOrders extends tsmTableData {
@@ -99,7 +99,7 @@ class TableOrders extends tsmTableData {
 	 *
 	 */
 	function __construct($db) {
-		parent::__construct('#__virtuemart_orders', 'virtuemart_order_id', $db);
+		parent::__construct('#__tsmart_orders', 'tsmart_order_id', $db);
 
 		$this->setUniqueName('order_number');
 		$this->setLoggable();
@@ -110,13 +110,13 @@ class TableOrders extends tsmTableData {
 	function check(){
 
 		if(empty($this->order_number)){
-			if(!class_exists('VirtueMartModelOrders')) VmModel::getModel('orders');
-			$this->order_number = VirtueMartModelOrders::genStdOrderNumber($this->virtuemart_vendor_id);
+			if(!class_exists('tsmartModelOrders')) VmModel::getModel('orders');
+			$this->order_number = tsmartModelOrders::genStdOrderNumber($this->tsmart_vendor_id);
 		}
 
 		if(empty($this->order_pass)){
-			if(!class_exists('VirtueMartModelOrders')) VmModel::getModel('orders');
-			$this->order_pass = VirtueMartModelOrders::genStdOrderPass();
+			if(!class_exists('tsmartModelOrders')) VmModel::getModel('orders');
+			$this->order_pass = tsmartModelOrders::genStdOrderPass();
 		}
 
 		if($adminID = vmAccess::getBgManagerId()){
@@ -143,40 +143,40 @@ class TableOrders extends tsmTableData {
 			$id = $this->$k;
 		}
 
-		$this->_db->setQuery('DELETE from `#__virtuemart_order_userinfos` WHERE `virtuemart_order_id` = ' . (int)$id);
+		$this->_db->setQuery('DELETE from `#__tsmart_order_userinfos` WHERE `tsmart_order_id` = ' . (int)$id);
 		if ($this->_db->execute() === false) {
 			vmError($this->_db->getError());
 			return false;
 		}
 		/*vm_order_payment NOT EXIST  have to find the table name*/
-		$this->_db->setQuery( 'SELECT `payment_element` FROM `#__virtuemart_paymentmethods` , `#__virtuemart_orders`
-			WHERE `#__virtuemart_paymentmethods`.`virtuemart_paymentmethod_id` = `#__virtuemart_orders`.`virtuemart_paymentmethod_id` AND `virtuemart_order_id` = ' . $id );
+		$this->_db->setQuery( 'SELECT `payment_element` FROM `#__tsmart_paymentmethods` , `#__tsmart_orders`
+			WHERE `#__tsmart_paymentmethods`.`tsmart_paymentmethod_id` = `#__tsmart_orders`.`tsmart_paymentmethod_id` AND `tsmart_order_id` = ' . $id );
 		$payment_element = $this->_db->loadResult();
 		if(!empty($payment_element)){
-			$paymentTable = '#__virtuemart_payment_plg_'.$payment_element ;
-			$this->_db->setQuery('DELETE from `'.$paymentTable.'` WHERE `virtuemart_order_id` = ' . $id);
+			$paymentTable = '#__tsmart_payment_plg_'.$payment_element ;
+			$this->_db->setQuery('DELETE from `'.$paymentTable.'` WHERE `tsmart_order_id` = ' . $id);
 			if ($this->_db->execute() === false) {
 				vmError($this->_db->getError());
 				return false;
 			}
 		}
 				/*vm_order_shipment NOT EXIST  have to find the table name*/
-		$this->_db->setQuery( 'SELECT `shipment_element` FROM `#__virtuemart_shipmentmethods` , `#__virtuemart_orders`
-			WHERE `#__virtuemart_shipmentmethods`.`virtuemart_shipmentmethod_id` = `#__virtuemart_orders`.`virtuemart_shipmentmethod_id` AND `virtuemart_order_id` = ' . $id );
+		$this->_db->setQuery( 'SELECT `shipment_element` FROM `#__tsmart_shipmentmethods` , `#__tsmart_orders`
+			WHERE `#__tsmart_shipmentmethods`.`tsmart_shipmentmethod_id` = `#__tsmart_orders`.`tsmart_shipmentmethod_id` AND `tsmart_order_id` = ' . $id );
 		$shipmentName = $this->_db->loadResult();
 
 		if(!empty($shipmentName)){
-			$shipmentTable = '#__virtuemart_shipment_plg_'. $shipmentName;
-			$this->_db->setQuery('DELETE from `'.$shipmentTable.'` WHERE `virtuemart_order_id` = ' . $id);
+			$shipmentTable = '#__tsmart_shipment_plg_'. $shipmentName;
+			$this->_db->setQuery('DELETE from `'.$shipmentTable.'` WHERE `tsmart_order_id` = ' . $id);
 			if ($this->_db->execute() === false) {
-				vmError('TableOrders delete Order shipmentTable = '.$shipmentTable.' `virtuemart_order_id` = '.$id.' dbErrorMsg '.$this->_db->getError());
+				vmError('TableOrders delete Order shipmentTable = '.$shipmentTable.' `tsmart_order_id` = '.$id.' dbErrorMsg '.$this->_db->getError());
 				return false;
 			}
 		}
 
-		$_q = 'INSERT INTO `#__virtuemart_order_histories` ('
-				.	' virtuemart_order_history_id'
-				.	',virtuemart_order_id'
+		$_q = 'INSERT INTO `#__tsmart_order_histories` ('
+				.	' tsmart_order_history_id'
+				.	',tsmart_order_id'
 				.	',order_status_code'
 				.	',created_on'
 				.	',customer_notified'

@@ -3,14 +3,14 @@
  *
  * Main product information
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Product
  * @author Max Milbers
  * @todo Price update calculations
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -30,7 +30,7 @@ $i = 0;
                 <legend>General</legend>
                 <?php echo VmHTML::row_control('input', 'write name', 'product_name', $this->product->product_name, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('input', 'Select length', 'tour_length', $this->product->tour_length, 'class="required"'); ?>
-                <?php echo VmHTML::row_control('select', 'Add country', 'list_virtuemart_country_id[]', $this->countries, $this->product->list_virtuemart_country_id, 'multiple', 'virtuemart_country_id', 'country_name', false); ?>
+                <?php echo VmHTML::row_control('select', 'Add country', 'list_tsmart_country_id[]', $this->countries, $this->product->list_tsmart_country_id, 'multiple', 'tsmart_country_id', 'country_name', false); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add start city', 'start_city', $this->product->start_city, ''); ?>
                 <?php echo VmHTML::row_control('location_city', 'Add end city', 'end_city', $this->product->start_city, ''); ?>
                 <?php echo VmHTML::row_control('select', 'Tour method', 'price_type', $this->list_tour_method, $this->product->tour_method, '', 'value', 'text', false); ?>
@@ -41,9 +41,9 @@ $i = 0;
             <fieldset>
                 <legend>Particularity</legend>
 
-                <?php echo VmHTML::row_control('select_tour_type', 'Tour type', 'virtuemart_tour_type_id', $this->product->virtuemart_tour_type_id, '', false); ?>
-                <?php echo VmHTML::row_control('select', 'tour style', 'virtuemart_tour_style_id', $this->list_tour_style, $this->product->virtuemart_tour_style_id, '', 'virtuemart_tour_style_id', 'title', false); ?>
-                <?php echo VmHTML::row_control('select', 'physical grade', 'virtuemart_physicalgrade_id', $this->list_physical_grade, $this->product->virtuemart_physicalgrade_id, '', 'virtuemart_physicalgrade_id', 'title', false); ?>
+                <?php echo VmHTML::row_control('select_tour_type', 'Tour type', 'tsmart_tour_type_id', $this->product->tsmart_tour_type_id, '', false); ?>
+                <?php echo VmHTML::row_control('select', 'tour style', 'tsmart_tour_style_id', $this->list_tour_style, $this->product->tsmart_tour_style_id, '', 'tsmart_tour_style_id', 'title', false); ?>
+                <?php echo VmHTML::row_control('select', 'physical grade', 'tsmart_physicalgrade_id', $this->list_physical_grade, $this->product->tsmart_physicalgrade_id, '', 'tsmart_physicalgrade_id', 'title', false); ?>
 
                 <div class="control-group min-max-pers"><label class="control-label">Min Max pers</label>
                     <div class="controls">
@@ -82,11 +82,11 @@ $i = 0;
         <div class="span4">
             <fieldset >
                 <legend>Tour Section</legend>
-                <?php echo VmHTML::list_radio('virtuemart_tour_section_id', $this->list_tour_section, $this->product->virtuemart_tour_section_id, '', 'virtuemart_tour_section_id', 'tour_section_name', false,true,true,2); ?>
+                <?php echo VmHTML::list_radio('tsmart_tour_section_id', $this->list_tour_section, $this->product->tsmart_tour_section_id, '', 'tsmart_tour_section_id', 'tour_section_name', false,true,true,2); ?>
             </fieldset>
             <fieldset class="list_tour_service_class">
                 <legend>Service class</legend>
-                <?php echo VmHTML::list_checkbox( 'list_tour_service_class_id', $this->list_tour_service_class, $this->product->list_tour_service_class_id, '', 'virtuemart_service_class_id', 'service_class_name', false); ?>
+                <?php echo VmHTML::list_checkbox( 'list_tour_service_class_id', $this->list_tour_service_class, $this->product->list_tour_service_class_id, '', 'tsmart_service_class_id', 'service_class_name', false); ?>
             </fieldset>
         </div>
     </div>
@@ -106,7 +106,7 @@ $i = 0;
             <div class="panel panel-default">
                 <div class="panel-heading">Activities</div>
                 <div class="panel-body">
-                    <?php echo VmHTML::list_checkbox( 'list_activity_id', $this->activities, $this->product->list_activity_id, '', 'virtuemart_activity_id', 'title', false); ?>
+                    <?php echo VmHTML::list_checkbox( 'list_activity_id', $this->activities, $this->product->list_activity_id, '', 'tsmart_activity_id', 'title', false); ?>
                 </div>
             </div>
 

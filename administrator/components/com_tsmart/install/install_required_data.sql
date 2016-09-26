@@ -1,11 +1,11 @@
--- VirtueMart table data SQL script
--- This will insert all sample data into the VirtueMart tables
+-- tsmart table data SQL script
+-- This will insert all sample data into the tsmart tables
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
-INSERT IGNORE INTO `#__virtuemart_userfield_values` ( `virtuemart_userfield_id`, `fieldtitle`, `fieldvalue`, `sys`, `ordering`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
+INSERT IGNORE INTO `#__tsmart_userfield_values` ( `tsmart_userfield_id`, `fieldtitle`, `fieldvalue`, `sys`, `ordering`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
 	( 23, 'com_tsmart_SHOPPER_TITLE_MR', 'Mr', 0, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 	( 23, 'com_tsmart_SHOPPER_TITLE_MRS', 'Mrs', 0, 1, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 	( 51, 'None', '', 0, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
@@ -27,23 +27,23 @@ INSERT IGNORE INTO `#__virtuemart_userfield_values` ( `virtuemart_userfield_id`,
 	( 51, 'Commercial Fishery (Canada)', 'Q', 0, 15, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
 
 --
--- Dumping data for table `#__virtuemart_customs`
+-- Dumping data for table `#__tsmart_customs`
 --
 
-INSERT IGNORE INTO `#__virtuemart_customs` ( `virtuemart_custom_id`, `custom_parent_id`, `virtuemart_vendor_id`, `custom_jplugin_id`, `custom_element`, `admin_only`, `custom_title`, `show_title`, `custom_tip`, `custom_value`, `custom_desc`, `field_type`, `is_list`, `is_hidden`, `is_cart_attribute`, `is_input`, `layout_pos`, `custom_params`, `shared`, `published`, `created_on`, `created_by`, `ordering`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
+INSERT IGNORE INTO `#__tsmart_customs` ( `tsmart_custom_id`, `custom_parent_id`, `tsmart_vendor_id`, `custom_jplugin_id`, `custom_element`, `admin_only`, `custom_title`, `show_title`, `custom_tip`, `custom_value`, `custom_desc`, `field_type`, `is_list`, `is_hidden`, `is_cart_attribute`, `is_input`, `layout_pos`, `custom_params`, `shared`, `published`, `created_on`, `created_by`, `ordering`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
 (1,0, 0, 0, '0', 0, 'com_tsmart_RELATED_PRODUCTS', 1, 'com_tsmart_RELATED_PRODUCTS_TIP', 'related_products', 'com_tsmart_RELATED_PRODUCTS_DESC', 'R', 0, 0, 0, 0, 'related_products', 'wPrice="1"|wImage="1"|wDescr="1"|', 0, 1, '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 (2,0, 0, 0, '0', 0, 'com_tsmart_RELATED_CATEGORIES', 1, 'com_tsmart_RELATED_CATEGORIES_TIP', 'related_categories', 'com_tsmart_RELATED_CATEGORIES_DESC', 'Z', 0, 0, 0, 0, 'related_categories', 'wImage="1"|wDescr="1"|', 0, 1, '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
 
-INSERT IGNORE INTO `#__virtuemart_shoppergroups` (`virtuemart_shoppergroup_id`, `virtuemart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_shoppergroups` (`tsmart_shoppergroup_id`, `tsmart_vendor_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`, `published`) VALUES
 (2, 1, 'com_tsmart_SHOPPERGROUP_DEFAULT', 'com_tsmart_SHOPPERGROUP_DEFAULT_TIP', 1, 1, 1),
 (1, 1, 'com_tsmart_SHOPPERGROUP_GUEST', 'com_tsmart_SHOPPERGROUP_GUEST_TIP', 2, 1, 1);
 
 
 --
--- Dumping data for table `#__virtuemart_countries`
+-- Dumping data for table `#__tsmart_countries`
 --
-/*!40000 ALTER TABLE `#__virtuemart_countries` DISABLE KEYS */;
-INSERT IGNORE INTO `#__virtuemart_countries` (`virtuemart_country_id`, `virtuemart_worldzone_id`, `country_name`, `country_3_code`, `country_2_code`) VALUES
+/*!40000 ALTER TABLE `#__tsmart_countries` DISABLE KEYS */;
+INSERT IGNORE INTO `#__tsmart_countries` (`tsmart_country_id`, `tsmart_worldzone_id`, `country_name`, `country_3_code`, `country_2_code`) VALUES
 (1, 1, 'Afghanistan', 'AFG', 'AF'),
 (2, 1, 'Albania', 'ALB', 'AL'),
 (3, 1, 'Algeria', 'DZA', 'DZ'),
@@ -290,12 +290,12 @@ INSERT IGNORE INTO `#__virtuemart_countries` (`virtuemart_country_id`, `virtuema
 (247, 1, 'Sint Maarten (Netherlands Antilles)', 'SXM', 'SX'),
 (248, 1, 'Palestinian Territory, occupied','PSE','PS');
 
-/*!40000 ALTER TABLE `#__virtuemart_countries` ENABLE KEYS */;
+/*!40000 ALTER TABLE `#__tsmart_countries` ENABLE KEYS */;
 
 
--- Dumping data for table #__virtuemart_currencies:
-/*!40000 ALTER TABLE `#__virtuemart_currencies` DISABLE KEYS */;
-INSERT IGNORE INTO `#__virtuemart_currencies` (`virtuemart_currency_id`, `virtuemart_vendor_id`, `currency_name`, `currency_code_2`, `currency_code_3`, `currency_numeric_code`, `currency_exchange_rate`, `currency_symbol`, `currency_decimal_place`, `currency_decimal_symbol`, `currency_thousands`, `currency_positive_style`, `currency_negative_style`) VALUES
+-- Dumping data for table #__tsmart_currencies:
+/*!40000 ALTER TABLE `#__tsmart_currencies` DISABLE KEYS */;
+INSERT IGNORE INTO `#__tsmart_currencies` (`tsmart_currency_id`, `tsmart_vendor_id`, `currency_name`, `currency_code_2`, `currency_code_3`, `currency_numeric_code`, `currency_exchange_rate`, `currency_symbol`, `currency_decimal_place`, `currency_decimal_symbol`, `currency_thousands`, `currency_positive_style`, `currency_negative_style`) VALUES
 	(2, 1, 'United Arab Emirates dirham', '', 'AED', 784, 0.00000, 'د.إ', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}'),
 	(4, 1, 'Albanian lek', '', 'ALL', 8, 0.00000, 'Lek', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}'),
 	(5, 1, 'Netherlands Antillean gulden', '', 'ANG', 532, 0.00000, 'ƒ', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}'),
@@ -459,15 +459,15 @@ INSERT IGNORE INTO `#__virtuemart_currencies` (`virtuemart_currency_id`, `virtue
 	(199, 1, 'Ukrainian hryvnia', '', 'UAH', 980, 0.00000, '₴', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}'),
 	(200, 1, 'Georgian lari', '', 'GEL', 981, 0.00000, 'ლ', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}'),
 	(201, 1, 'Mvdol', '', 'BOV', 984, 0.00000, 'BOV', '2', ',', '', '{number} {symbol}', '{sign}{number} {symbol}');
-/*!40000 ALTER TABLE `#__virtuemart_currencies` ENABLE KEYS */;
+/*!40000 ALTER TABLE `#__tsmart_currencies` ENABLE KEYS */;
 
 
 
 
--- Dumping data for table #__virtuemart_states: 801 rows
-/*!40000 ALTER TABLE `#__virtuemart_states` DISABLE KEYS */;
+-- Dumping data for table #__tsmart_states: 801 rows
+/*!40000 ALTER TABLE `#__tsmart_states` DISABLE KEYS */;
 
-INSERT IGNORE INTO `#__virtuemart_states` (`virtuemart_state_id`, `virtuemart_country_id`, `virtuemart_worldzone_id`, `state_name`, `state_3_code`, `state_2_code`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_states` (`tsmart_state_id`, `tsmart_country_id`, `tsmart_worldzone_id`, `state_name`, `state_3_code`, `state_2_code`, `published`) VALUES
 	(1, 223, 0, 'Alabama', 'ALA', 'AL', 1),
 	(2, 223, 0, 'Alaska', 'ALK', 'AK', 1),
 	(3, 223, 0, 'Arizona', 'ARZ', 'AZ', 1),
@@ -1269,7 +1269,7 @@ INSERT IGNORE INTO `#__virtuemart_states` (`virtuemart_state_id`, `virtuemart_co
 	(829, 215, 0, 'Kilis', 'KLS', '79', 1),
 	(830, 215, 0, 'Osmaniye', 'OSM', '80', 1),
 	(831, 215, 0, 'Düzce', 'DZC', '81', 1);
-/*!40000 ALTER TABLE `#__virtuemart_states` ENABLE KEYS */;
+/*!40000 ALTER TABLE `#__tsmart_states` ENABLE KEYS */;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

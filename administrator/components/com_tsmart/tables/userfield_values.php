@@ -3,13 +3,13 @@
 *
 * Userfield Values table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Userfields
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Userfields table class
  * The class is used to manage the values for select-type userfields in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author Oscar van Eijk
  */
 class TableUserfield_values extends tsmTable {
@@ -40,7 +40,7 @@ class TableUserfield_values extends tsmTable {
 	var $fieldvalue		= null;
 	/** @var int Value ordering */
 	var $ordering		= 0;
-	/** @var boolean True if part of the VirtueMart installation; False for User specified*/
+	/** @var boolean True if part of the tsmart installation; False for User specified*/
 	var $sys			= 0;
          /** @var boolean */
 	var $locked_on	= 0;
@@ -51,8 +51,8 @@ class TableUserfield_values extends tsmTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_userfield_values', 'virtuemart_userfield_value_id', $db);
-		$this->setPrimaryKey('virtuemart_userfield_id');
+		parent::__construct('#__tsmart_userfield_values', 'tsmart_userfield_value_id', $db);
+		$this->setPrimaryKey('tsmart_userfield_id');
 
 	}
 
@@ -70,15 +70,15 @@ class TableUserfield_values extends tsmTable {
 		}
 
 		$db = JFactory::getDBO();
-		$q = 'SELECT `virtuemart_userfield_value_id` FROM `#__virtuemart_userfield_values` '
+		$q = 'SELECT `tsmart_userfield_value_id` FROM `#__tsmart_userfield_values` '
 			. 'WHERE `fieldvalue`="' . $this->fieldvalue . '" '
-			. 'AND   `virtuemart_userfield_id`=' . $this->virtuemart_userfield_id;
+			. 'AND   `tsmart_userfield_id`=' . $this->tsmart_userfield_id;
 		$db->setQuery($q);
 		$_id = $db->loadResult();
 		if ($_id === null) {
-			$this->virtuemart_userfield_value_id = null;
+			$this->tsmart_userfield_value_id = null;
 		} else {
-			$this->virtuemart_userfield_value_id = $_id;
+			$this->tsmart_userfield_value_id = $_id;
 		}
 		return true;
 	}
@@ -91,7 +91,7 @@ class TableUserfield_values extends tsmTable {
 	function delete( $tsmart_userfield_id=null , $where = 0 ){
 
 		$db = JFactory::getDBO();
-		$db->setQuery('DELETE from `#__virtuemart_userfield_values` WHERE `virtuemart_userfield_id` = ' . $tsmart_userfield_id);
+		$db->setQuery('DELETE from `#__tsmart_userfield_values` WHERE `tsmart_userfield_id` = ' . $tsmart_userfield_id);
 		if ($db->execute() === false) {
 			vmError($db->getError());
 			return false;

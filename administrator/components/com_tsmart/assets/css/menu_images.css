@@ -109,8 +109,8 @@
 .vmicon-16-user{ background: url(../images/icone16.png) -132px -82px; }
 .vmicon-16-xml{ background: url(../images/icone16.png) -132px -148px; }
 /*menu wrapper toggler */
-.virtuemart-admin-area .toggler {outline: 0 none; padding: 0; position: absolute; width: 20px; height: 40px; top: 20px; background: url('../images/show.png') no-repeat; cursor: pointer; margin: 0; z-index: 100;}
-.virtuemart-admin-area.menu-collapsed .toggler { top: 0;}
+.tsmart-admin-area .toggler {outline: 0 none; padding: 0; position: absolute; width: 20px; height: 40px; top: 20px; background: url('../images/show.png') no-repeat; cursor: pointer; margin: 0; z-index: 100;}
+.tsmart-admin-area.menu-collapsed .toggler { top: 0;}
 .vmicon-wrapper, #admin-ui-menu .menu-title-wrapper > span.vmicon-wrapper { height: 16px; display: inline-block; padding: 7px; left: 0; top: 4px; position: absolute;}
 .menu-collapsed .vmicon-wrapper, .menu-collapsed #admin-ui-menu .menu-title-wrapper > span.vmicon-wrapper { top: 0px;}
 #admin-ui-menu .menu-title-wrapper > span.vmicon-wrapper {top: 0;}

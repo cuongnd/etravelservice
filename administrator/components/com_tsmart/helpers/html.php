@@ -4,10 +4,10 @@
  *
  * This class was developed to provide some standard HTML functions.
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author RickG
- * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 tsmart Team. All rights reserved.
  */
 
 // Check to ensure this file is included in Joomla!
@@ -16,7 +16,7 @@ defined('_JEXEC') or die();
 /**
  * HTML Helper
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage Helpers
  * @author RickG
  */
@@ -419,7 +419,7 @@ class VmHtml
         $cities = tsmcities::get_cities();
         $option = array('id' => '', 'text' => 'Please select location');
         foreach ($cities as &$city) {
-            $city->id = $city->virtuemart_cityarea_id;
+            $city->id = $city->tsmart_cityarea_id;
             $city->text = $city->city_area_name;
         }
         array_unshift($cities, $option);
@@ -478,7 +478,7 @@ class VmHtml
                 $('#<?php  echo $id_element ?>').html_select_tour_type({
                     list_tour_type:<?php echo json_encode($list_tour_type) ?>,
                     select_name: "<?php echo $name ?>",
-                    virtuemart_tour_type_id:<?php echo $default ? $default : 0 ?>
+                    tsmart_tour_type_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -493,8 +493,8 @@ class VmHtml
             <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select tour type') ?></option>
                 <?php foreach ($list_tour_type as $tour_type) { ?>
-                    <option <?php echo $tour_type->virtuemart_tour_type_id == $default ? ' selected ' : '' ?>
-                        value="<?php echo $tour_type->virtuemart_tour_type_id ?>"
+                    <option <?php echo $tour_type->tsmart_tour_type_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $tour_type->tsmart_tour_type_id ?>"
                         data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->title ?></option>
                 <?php } ?>
             </select>
@@ -560,7 +560,7 @@ class VmHtml
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
         $list_products = vmproduct::get_list_product();
         foreach ($list_products as &$tour) {
-            $tour->id = $tour->virtuemart_product_id;
+            $tour->id = $tour->tsmart_product_id;
             $tour->text = $tour->product_name;
         }
         ob_start();
@@ -583,7 +583,7 @@ class VmHtml
             $attrib .= '  disable_chosen="true"';
 
         }
-        $html = VmHtml::genericlist($list_products, $name, $attrib, 'virtuemart_product_id', 'product_name', $default, false, $tranlsate);
+        $html = VmHtml::genericlist($list_products, $name, $attrib, 'tsmart_product_id', 'product_name', $default, false, $tranlsate);
         ob_start();
         ?>
         <div class="html_select_tour">
@@ -647,7 +647,7 @@ class VmHtml
                         <?php foreach ($list_tour_type as $tour_type) {
                             ?>
                             <option
-                                value="<?php echo $tour_type->virtuemart_tour_type_id ?>"><?php echo $tour_type->title ?></option>
+                                value="<?php echo $tour_type->tsmart_tour_type_id ?>"><?php echo $tour_type->title ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -661,9 +661,9 @@ class VmHtml
                         <?php foreach ($list_products as $tour) {
                             ?>
                             <label class="checked"
-                                   data-virtuemart_product_id="<?php echo $tour->virtuemart_product_id ?>"><?php echo $tour->product_name ?>
-                                <input name="tour[]" class="checkbox virtuemart_product_id" type="checkbox"
-                                       value="<?php echo $tour->virtuemart_product_id ?>"/></label>
+                                   data-tsmart_product_id="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?>
+                                <input name="tour[]" class="checkbox tsmart_product_id" type="checkbox"
+                                       value="<?php echo $tour->tsmart_product_id ?>"/></label>
                         <?php } ?>
                     </div>
                 </div>
@@ -677,9 +677,9 @@ class VmHtml
                         <?php foreach ($list_service_class as $service_class) {
                             ?>
                             <label class="checked"
-                                   data-virtuemart_service_class_id="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?>
+                                   data-tsmart_service_class_id="<?php echo $service_class->tsmart_service_class_id ?>"><?php echo $service_class->service_class_name ?>
                                 <input name="service_class[]" type="checkbox"
-                                       value="<?php echo $service_class->virtuemart_service_class_id ?>"/></label>
+                                       value="<?php echo $service_class->tsmart_service_class_id ?>"/></label>
                         <?php } ?>
                     </div>
                 </div>
@@ -694,10 +694,10 @@ class VmHtml
                         <?php foreach ($list_departure as $departure) {
                             ?>
                             <div class="row-fluid departure-item"
-                                 data-virtuemart_departure_id="<?php echo $departure->virtuemart_departure_id ?>">
+                                 data-tsmart_departure_id="<?php echo $departure->tsmart_departure_id ?>">
                                 <div class="span6">
                                     <label>Departure:<?php echo JHtml::_('date', $departure->departure_date, VmConfig::$date_format); ?>
-                                        <input type="checkbox" value="<?php echo $departure->virtuemart_departure_id ?>"
+                                        <input type="checkbox" value="<?php echo $departure->tsmart_departure_id ?>"
                                                name="departure[]"></label></div>
                                 <div class="span2"></div>
                                 <div class="span4">Code:<?php echo $departure->departure_code ?></div>
@@ -1343,8 +1343,8 @@ class VmHtml
                             <label class="checkbox">
                                 <input
                                     name="<?php echo $name ?>[]" data-from="<?php echo $group_size->from ?>"
-                                    data-to="<?php echo $group_size->to ?>" <?php echo in_array($group_size->virtuemart_group_size_id, $list_selected) ? 'checked' : '' ?>
-                                    value="<?php echo $group_size->virtuemart_group_size_id ?>"
+                                    data-to="<?php echo $group_size->to ?>" <?php echo in_array($group_size->tsmart_group_size_id, $list_selected) ? 'checked' : '' ?>
+                                    value="<?php echo $group_size->tsmart_group_size_id ?>"
                                     type="checkbox"> <?php echo $group_size->group_name ?>
                             </label>
                         </div>
@@ -2200,7 +2200,7 @@ XML;
                 $('#<?php  echo $id_element ?>').html_select_service_class({
                     list_tour:<?php echo json_encode($list_service_class) ?>,
                     select_name: "<?php echo $name ?>",
-                    virtuemart_product_id:<?php echo $default ? $default : 0 ?>
+                    tsmart_product_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -2215,8 +2215,8 @@ XML;
             <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select Service class') ?></option>
                 <?php foreach ($list_service_class as $service_class) { ?>
-                    <option <?php echo $service_class->virtuemart_service_class_id == $default ? ' selected ' : '' ?>
-                        value="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
+                    <option <?php echo $service_class->tsmart_service_class_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $service_class->tsmart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -2370,7 +2370,7 @@ XML;
 
         $list_country = $model->getItemList();
         foreach ($list_country AS &$country) {
-            $country->id = $country->virtuemart_country_id;
+            $country->id = $country->tsmart_country_id;
             $country->text = $country->country_name;
         }
         $input = JFactory::getApplication()->input;

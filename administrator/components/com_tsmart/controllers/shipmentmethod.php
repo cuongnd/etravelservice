@@ -3,13 +3,13 @@
 *
 * Shipment  controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Shipment
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Shipment  Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Shipment
  * @author RickG, Max Milbers
  */
@@ -81,7 +81,7 @@ class TsmartControllerShipmentmethod extends TsmController {
 		$model = VmModel::getModel('shipmentmethod');
 		$msgtype = '';
 
-		$cids = vRequest::getVar($this->_cidName, vRequest::getInt('virtuemart_shipment_id'));
+		$cids = vRequest::getVar($this->_cidName, vRequest::getInt('tsmart_shipment_id'));
 
 		foreach($cids as $cid){
 			if ($model->createClone($cid)) $msg = tsmText::_('com_tsmart_SHIPMENT_CLONED_SUCCESSFULLY');

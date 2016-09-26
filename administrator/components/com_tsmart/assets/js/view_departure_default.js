@@ -32,27 +32,27 @@
             var tour_id = 0;
             $(".departure-edit-form").dialog("open");
             $('.' + plugin.settings.dialog_class).find('input.number').val(0);
-            $('#virtuemart_departure_id').val(departure_id);
+            $('#tsmart_departure_id').val(departure_id);
         };
         plugin.update_select_service_class = function () {
             var departure_item=plugin.settings.departure_item;
             var list_service_class=plugin.settings.list_tour;
             var promotion_price=plugin.settings.promotion_price;
-            $dialog_departure_edit_form.find('#virtuemart_service_class_id').empty();
+            $dialog_departure_edit_form.find('#tsmart_service_class_id').empty();
             var $option = '<option value="0">Please select service class</option>';
-            $dialog_departure_edit_form.find('#virtuemart_service_class_id').append($option);
+            $dialog_departure_edit_form.find('#tsmart_service_class_id').append($option);
             $.each(list_service_class, function (index, item_service_class) {
-                var $option = '<option  '+(item_service_class.virtuemart_product_id==departure_item.virtuemart_product_id?' selected ':'') +' value="' + item_service_class.virtuemart_product_id + '">' + item_service_class.service_class_name + '</option>';
-                $dialog_departure_edit_form.find('#virtuemart_service_class_id').append($option);
+                var $option = '<option  '+(item_service_class.tsmart_product_id==departure_item.tsmart_product_id?' selected ':'') +' value="' + item_service_class.tsmart_product_id + '">' + item_service_class.service_class_name + '</option>';
+                $dialog_departure_edit_form.find('#tsmart_service_class_id').append($option);
             });
-            $dialog_departure_edit_form.find('#virtuemart_service_class_id').trigger('change');
+            $dialog_departure_edit_form.find('#tsmart_service_class_id').trigger('change');
 
 
 
         };
         plugin.update_layout_departure = function () {
             departure_item=plugin.settings.departure_item;
-            if(departure_item.virtuemart_departure_parent_id>0)
+            if(departure_item.tsmart_departure_parent_id>0)
             {
                 $('.range-of-date').hide();
                 $('.area-select-date').hide();
@@ -303,7 +303,7 @@
             $element.find('.edit-departure').click(function () {
                 var self = $(this);
                 var $row = self.closest('tr[role="row"]');
-                var virtuemart_departure_id = $row.data('virtuemart_departure_id');
+                var tsmart_departure_id = $row.data('tsmart_departure_id');
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -314,7 +314,7 @@
                             option: 'com_tsmart',
                             controller: 'departure',
                             task: 'ajax_get_departure_item',
-                            virtuemart_departure_id: virtuemart_departure_id
+                            tsmart_departure_id: tsmart_departure_id
                         };
                         return dataPost;
                     })(),
@@ -335,7 +335,7 @@
                         $(".departure-edit-form").dialog("open");
                         plugin.settings.is_load_ajax_get_departure=0;
                         $('.' + plugin.settings.dialog_class).find('input.number').val(0);
-                        $('#virtuemart_departure_id').val(virtuemart_departure_id);
+                        $('#tsmart_departure_id').val(tsmart_departure_id);
                         plugin.settings.departure_item=departure_item;
                         plugin.fill_data();
                         plugin.update_layout_departure();
@@ -346,9 +346,9 @@
 
             });
 
-            $dialog_departure_edit_form.find('#virtuemart_product_id').change(function () {
-                var virtuemart_product_id = $(this).val();
-                if(virtuemart_product_id==0){
+            $dialog_departure_edit_form.find('#tsmart_product_id').change(function () {
+                var tsmart_product_id = $(this).val();
+                if(tsmart_product_id==0){
                     return;
                 }
                 $.ajax({
@@ -361,7 +361,7 @@
                             option: 'com_tsmart',
                             controller: 'departure',
                             task: 'ajax_get_list_service_class_by_tour_id',
-                            virtuemart_product_id: virtuemart_product_id
+                            tsmart_product_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -397,7 +397,7 @@
                 var sale_period_open_before = $('#sale_period_open_before').val();
                 var daterange_vail_period_from_to = $('#daterange_vail_period_from_to').val();
                 var tour_id = $('#tour_id').val();
-                var virtuemart_departure_id = $('#virtuemart_departure_id').val();
+                var tsmart_departure_id = $('#tsmart_departure_id').val();
                 var $row = self.closest('tr[role="row"]');
                 var tour_class_ids = [];
                 var tour_service_class_id = $('#tour_service_class_id').val();
@@ -417,7 +417,7 @@
                             option: 'com_tsmart',
                             controller: 'departure',
                             task: 'ajax_get_departure_item',
-                            departure_id: virtuemart_departure_id,
+                            departure_id: tsmart_departure_id,
                             min_max_space: min_max_space,
                             sale_period_open_before: sale_period_open_before,
                             daterange_vail_period_from_to: daterange_vail_period_from_to,
@@ -516,7 +516,7 @@
                 if (confirm('Are you sure you want delete this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var virtuemart_departure_id = $row.data('virtuemart_departure_id');
+                    var tsmart_departure_id = $row.data('tsmart_departure_id');
                     var tour_id = $row.data('tour_id');
                     $.ajax({
                         type: "GET",
@@ -527,7 +527,7 @@
                                 option: 'com_tsmart',
                                 controller: 'departure',
                                 task: 'ajax_remove_item',
-                                virtuemart_departure_id: virtuemart_departure_id,
+                                tsmart_departure_id: tsmart_departure_id,
                                 tour_id: tour_id
                             };
                             return dataPost;
@@ -565,7 +565,7 @@
                 if (confirm('Are you sure you want publish this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var virtuemart_departure_id = $row.data('virtuemart_departure_id');
+                    var tsmart_departure_id = $row.data('tsmart_departure_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -575,7 +575,7 @@
                                 option: 'com_tsmart',
                                 controller: 'departure',
                                 task: 'ajax_publish_item',
-                                virtuemart_departure_id: virtuemart_departure_id
+                                tsmart_departure_id: tsmart_departure_id
                             };
                             return dataPost;
                         })(),
@@ -617,8 +617,8 @@
         };
         plugin.fill_data = function () {
             var departure_item=plugin.settings.departure_item;
-            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').val(departure_item.virtuemart_product_id);
-            $dialog_departure_edit_form.find('select[name="virtuemart_product_id"]').trigger('change');
+            $dialog_departure_edit_form.find('select[name="tsmart_product_id"]').val(departure_item.tsmart_product_id);
+            $dialog_departure_edit_form.find('select[name="tsmart_product_id"]').trigger('change');
             $dialog_departure_edit_form.find('input[name="departure_name"]').val(departure_item.departure_name);
             $dialog_departure_edit_form.find('textarea[name="note"]').val(departure_item.note);
             var min_max_space_slider = $dialog_departure_edit_form.find('input[name="min_max_space"]').data("ionRangeSlider");

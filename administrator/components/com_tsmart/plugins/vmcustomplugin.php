@@ -4,14 +4,14 @@ defined ('_JEXEC') or die('Direct Access to ' . basename (__FILE__) . ' is not a
 /**
  * Abstract class for shipment plugins
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins
  * @author Oscar van Eijk
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -30,7 +30,7 @@ if (!class_exists ('vmPlugin')) {
 }
 
 /**
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins
  * @author Oscar van Eijk
  * @author Patrick Kohl
@@ -49,13 +49,13 @@ abstract class vmCustomPlugin extends vmPlugin {
 
 		parent::__construct ($subject, $config);
 
-		$this->_tablepkey = 'virtuemart_product_id';
-		$this->_tablename = '#__virtuemart_product_' . $this->_psType . '_plg_' . $this->_name;
-		$this->_idName = 'virtuemart_custom_id';
+		$this->_tablepkey = 'tsmart_product_id';
+		$this->_tablename = '#__tsmart_product_' . $this->_psType . '_plg_' . $this->_name;
+		$this->_idName = 'tsmart_custom_id';
 		$this->_configTableFileName = $this->_psType . 's';
 		$this->_configTableFieldName = 'custom_params';
 		$this->_configTableClassName = 'Table' . ucfirst ($this->_psType) . 's'; //TablePaymentmethods
-		$this->_configTable = '#__virtuemart_customs';
+		$this->_configTable = '#__tsmart_customs';
 
 	}
 
@@ -70,13 +70,13 @@ abstract class vmCustomPlugin extends vmPlugin {
 			}
 
 			//Must use here the table to get valid params
-			$this->plugin = $this->getVmPluginMethod ($this->plugin->virtuemart_custom_id);
+			$this->plugin = $this->getVmPluginMethod ($this->plugin->tsmart_custom_id);
 
-			if (empty($this->plugin->virtuemart_vendor_id)) {
-				if (!class_exists ('VirtueMartModelVendor')) {
+			if (empty($this->plugin->tsmart_vendor_id)) {
+				if (!class_exists ('tsmartModelVendor')) {
 					require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
 				}
-				$this->plugin->virtuemart_vendor_id = VirtueMartModelVendor::getLoggedVendor ();
+				$this->plugin->tsmart_vendor_id = tsmartModelVendor::getLoggedVendor ();
 			}
 			$customPlugin = $this->plugin;
 			//   		return $this->plugin;
@@ -128,7 +128,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 			}
 			// vmdebug('fields org '.$this->_name,$this->params);
 		}
-		$this->virtuemart_custom_id = $field->virtuemart_custom_id;
+		$this->tsmart_custom_id = $field->tsmart_custom_id;
 		if (!empty($field->custom_params) && is_string ($field->custom_params)) {
 			$this->params = json_decode ($field->custom_params);
 		}
@@ -154,7 +154,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 */
 	protected function getPluginProductDataCustom (&$field, $product_id) {
 
-		$id = $this->getIdForCustomIdProduct ($product_id, $field->virtuemart_custom_id);
+		$id = $this->getIdForCustomIdProduct ($product_id, $field->tsmart_custom_id);
 
 		$datas = $this->getPluginInternalData ($id);
 		if ($datas) {
@@ -182,7 +182,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 */
 	protected function getPluginCustomData (&$field, $product_id) {
 
-		$id = $this->getIdForCustomIdProduct ($product_id, $field->virtuemart_custom_id);
+		$id = $this->getIdForCustomIdProduct ($product_id, $field->tsmart_custom_id);
 
 		$datas = $this->getPluginInternalData ($id);
 		if ($datas) {
@@ -204,7 +204,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 *
 	 * @param string $type atm valid 'product'
 	 * @param array  $data form data
-	 * @param int    $id virtuemart_product_id
+	 * @param int    $id tsmart_product_id
 	 */
 	function OnStoreProduct ($data, $plugin_param) {
 
@@ -214,10 +214,10 @@ abstract class vmCustomPlugin extends vmPlugin {
 		}
 
 		$key = key ($plugin_param);
-		$plugin_param[$key]['virtuemart_product_id'] = $data['virtuemart_product_id'];
+		$plugin_param[$key]['tsmart_product_id'] = $data['tsmart_product_id'];
 		//vmdebug ('plgData', $plugin_param[$key]);
-		// $this->id = $this->getIdForCustomIdProduct($data['virtuemart_product_id'],$plugin_param[$key]['virtuemart_custom_id']);
-		$this->storePluginInternalDataProduct ($plugin_param[$key], 'id', $data['virtuemart_product_id']);
+		// $this->id = $this->getIdForCustomIdProduct($data['tsmart_product_id'],$plugin_param[$key]['tsmart_custom_id']);
+		$this->storePluginInternalDataProduct ($plugin_param[$key], 'id', $data['tsmart_product_id']);
 	}
 
 	/**
@@ -230,10 +230,10 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 * @param string $tableKey an additionally unique key
 	 */
 	protected function storePluginInternalDataProduct (&$values, $primaryKey = 0, $product_id = 0) {
-		$custom_id = $values['virtuemart_custom_id'];
+		$custom_id = $values['tsmart_custom_id'];
 		$db = JFactory::getDBO ();
 		if (!empty($custom_id) && !empty($product_id)) {
-			$_qry = 'SELECT `id` FROM `#__virtuemart_product_custom_plg_' . $this->_name . '` WHERE `virtuemart_product_id`=' . (int)$product_id . ' and `virtuemart_custom_id`=' . (int)$custom_id;
+			$_qry = 'SELECT `id` FROM `#__tsmart_product_custom_plg_' . $this->_name . '` WHERE `tsmart_product_id`=' . (int)$product_id . ' and `tsmart_custom_id`=' . (int)$custom_id;
 			$db->setQuery ($_qry);
 			$id = $db->loadResult ();
 		}
@@ -305,7 +305,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 			return $custom_element;
 		}
 		$db = JFactory::getDBO ();
-		$q = 'SELECT `custom_element` FROM `#__virtuemart_customs` WHERE `virtuemart_custom_id`=' . (int)$custom_id;
+		$q = 'SELECT `custom_element` FROM `#__tsmart_customs` WHERE `tsmart_custom_id`=' . (int)$custom_id;
 		$db->setQuery ($q);
 		$custom_element = $db->loadResult ();
 		return $custom_element;
@@ -319,7 +319,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 */
 	public function getIdForCustomIdProduct ($product_id, $custom_id) {
 		$db = JFactory::getDBO ();
-		$q = 'SELECT `id` FROM `#__virtuemart_product_custom_plg_' . $this->_name . '` WHERE `virtuemart_product_id`=' . (int)$product_id . ' and `virtuemart_custom_id`=' . (int)$custom_id;
+		$q = 'SELECT `id` FROM `#__tsmart_product_custom_plg_' . $this->_name . '` WHERE `tsmart_product_id`=' . (int)$product_id . ' and `tsmart_custom_id`=' . (int)$custom_id;
 		$db->setQuery ($q);
 		return $db->loadResult ();
 	}

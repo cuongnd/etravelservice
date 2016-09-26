@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -68,7 +68,7 @@ $doc->addScriptDeclaration($js_content);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('virtuemart_excursion_addon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_excursion_addon_id', 'Id'); ?>
                         </label>
 
                     </th>
@@ -103,11 +103,11 @@ $doc->addScriptDeclaration($js_content);
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_excursion_addon_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_excursion_addon_id);
                     $published = $this->gridPublished($row, $i);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_excursion_addon_id');
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=excursionaddon&task=edit_item&cid[]=' . $row->virtuemart_excursion_addon_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_excursion_addon_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_excursion_addon_id');
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=excursionaddon&task=edit_item&cid[]=' . $row->tsmart_excursion_addon_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_excursion_addon_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">

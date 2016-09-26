@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -43,9 +43,9 @@ AdminUIHelper::imitateTabs('start', "tourstyle");
             </fieldset>
 
         </div>
-        <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-        <input type="hidden" name="virtuemart_tour_style_id"
-               value="<?php echo $this->item->virtuemart_tour_style_id; ?>"/>
+        <input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
+        <input type="hidden" name="tsmart_tour_style_id"
+               value="<?php echo $this->item->tsmart_tour_style_id; ?>"/>
         <?php echo $this->addStandardHiddenToForm(); ?>
     </form>
 

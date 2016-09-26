@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelDeparture extends VmModel
+class tsmartModelDeparture extends VmModel
 {
 
 
@@ -89,46 +89,46 @@ class VirtueMartModelDeparture extends VmModel
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
-        $tsmart_departure_id=$this->getState('filter.virtuemart_departure_id');
+        $tsmart_departure_id=$this->getState('filter.tsmart_departure_id');
 
-        $query->select('departure.virtuemart_departure_id,departure.departure_name,departure.departure_code,departure.departure_date,departure.sale_period_from,departure.sale_period_to,departure.published,products_en_gb.product_name,service_class.service_class_name')
+        $query->select('departure.tsmart_departure_id,departure.departure_name,departure.departure_code,departure.departure_date,departure.sale_period_from,departure.sale_period_to,departure.published,products_en_gb.product_name,service_class.service_class_name')
             ->select('departure.min_space,departure.max_space')
-            ->from('#__virtuemart_departure AS departure')
-            ->leftJoin('#__virtuemart_products AS products USING(virtuemart_product_id)')
-            ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
-            ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
-            ->where('departure.virtuemart_departure_parent_id IS NOT NULL')
+            ->from('#__tsmart_departure AS departure')
+            ->leftJoin('#__tsmart_products AS products USING(tsmart_product_id)')
+            ->innerJoin('#__tsmart_products_en_gb AS products_en_gb ON products_en_gb.tsmart_product_id=products.tsmart_product_id')
+            ->leftJoin('#__tsmart_service_class AS service_class USING(tsmart_service_class_id)')
+            ->where('departure.tsmart_departure_parent_id IS NOT NULL')
 
-            ->leftJoin('#__virtuemart_tour_price AS tour_price ON departure.departure_date>= tour_price.sale_period_from AND departure.departure_date<=tour_price.sale_period_to')
-            ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->leftJoin('#__tsmart_tour_price AS tour_price ON departure.departure_date>= tour_price.sale_period_from AND departure.departure_date<=tour_price.sale_period_to')
+            ->leftJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id')
             ->select('tour_price.tax')
-            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
+            ->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id.tsmart_group_size_id')
             ->where('group_size.type='.$query->q(tsmGroupSize::FLAT_PRICE))
 
-            ->where('tour_price.virtuemart_product_id=departure.virtuemart_product_id')
-            ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
+            ->where('tour_price.tsmart_product_id=departure.tsmart_product_id')
+            ->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id')
             ->select('group_size_id_tour_price_id.price_adult')
-            ->leftJoin('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id ON  mark_up_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
+            ->leftJoin('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id ON  mark_up_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id')
             ->select('
                     mark_up_tour_price_id.price_adult AS mark_up_price_adult,
                     mark_up_tour_price_id.adult AS mark_up_adult,
                     mark_up_tour_price_id.type AS mark_up_type
             ')
-            ->leftJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to AND tour_promotion_price.virtuemart_product_id=departure.virtuemart_product_id AND tour_promotion_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
+            ->leftJoin('#__tsmart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to AND tour_promotion_price.tsmart_product_id=departure.tsmart_product_id AND tour_promotion_price.tsmart_service_class_id=departure.tsmart_service_class_id')
             ->select('tour_promotion_price.tax AS promotion_tax')
-            ->leftJoin('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->leftJoin('#__tsmart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
             ->select('group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult')
-            ->leftJoin('#__virtuemart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id ON mark_up_tour_promotion_net_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->leftJoin('#__tsmart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id ON mark_up_tour_promotion_net_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
             ->select('
                     mark_up_tour_promotion_net_price_id.price_adult AS mark_up_promotion_net_price_adult,
                     mark_up_tour_promotion_net_price_id.adult AS mark_up_promotion_net_adult,
                     mark_up_tour_promotion_net_price_id.type AS mark_up_promotion_net_type
             ')
 
-            ->leftJoin('#__virtuemart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id ON mark_up_tour_promotion_price_id.virtuemart_promotion_price_id=tour_promotion_price.virtuemart_promotion_price_id')
+            ->leftJoin('#__tsmart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id ON mark_up_tour_promotion_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
             ->select('
                     mark_up_tour_promotion_price_id.price_adult AS mark_up_promotion_price_adult,
                     mark_up_tour_promotion_price_id.adult AS mark_up_promotion_adult,
@@ -136,17 +136,17 @@ class VirtueMartModelDeparture extends VmModel
             ')
 
 
-            ->group('departure.virtuemart_departure_id')
+            ->group('departure.tsmart_departure_id')
 
 
         ;
         if($tsmart_departure_id)
         {
-            $query->where('departure.virtuemart_departure_id='.(int)$tsmart_departure_id);
+            $query->where('departure.tsmart_departure_id='.(int)$tsmart_departure_id);
         }
         if($tsmart_product_id)
         {
-            $query->where('departure.virtuemart_product_id='.(int)$tsmart_product_id);
+            $query->where('departure.tsmart_product_id='.(int)$tsmart_product_id);
         }
         $user = JFactory::getUser();
         $shared = '';
@@ -165,16 +165,16 @@ class VirtueMartModelDeparture extends VmModel
         }
 
         // Add the list ordering clause.
-        $orderCol = $this->state->get('list.ordering', 'departure.virtuemart_departure_id');
+        $orderCol = $this->state->get('list.ordering', 'departure.tsmart_departure_id');
         $orderDirn = $this->state->get('list.direction', 'asc');
 
         if ($orderCol == 'airport.ordering')
         {
-            $orderCol = $db->quoteName('departure.virtuemart_departure_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
+            $orderCol = $db->quoteName('departure.tsmart_departure_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
         }
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
-        $query->group('departure.virtuemart_departure_id');
+        $query->group('departure.tsmart_departure_id');
         return $query;
     }
 
@@ -205,20 +205,20 @@ class VirtueMartModelDeparture extends VmModel
             }
         }
         //lấy ra group_size_id từ bản ghi đầu tiên
-        $tsmart_group_size_id=reset($list_basic_available2)->virtuemart_group_size_id;
+        $tsmart_group_size_id=reset($list_basic_available2)->tsmart_group_size_id;
         $list_date_available='"'.implode('","',$list_date_available).'"';
         //check exists data
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('virtuemart_departure_id')
-            ->from('#__virtuemart_departure')
+        $query->select('tsmart_departure_id')
+            ->from('#__tsmart_departure')
             ->where('departure_date IN('.$list_date_available.')')
-            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
-            ->where('virtuemart_service_class_id='.(int)$tour_service_class_id)
-            ->where('virtuemart_group_size_id='.(int)$tsmart_group_size_id)
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
+            ->where('tsmart_service_class_id='.(int)$tour_service_class_id)
+            ->where('tsmart_group_size_id='.(int)$tsmart_group_size_id)
             ;
-        $list_virtuemart_departure_id=$db->setQuery($query)->loadObjectList();
-        if(count($list_virtuemart_departure_id)>1)
+        $list_tsmart_departure_id=$db->setQuery($query)->loadObjectList();
+        if(count($list_tsmart_departure_id)>1)
         {
             vmError('there are some departure exists');
             return false;
@@ -236,17 +236,17 @@ class VirtueMartModelDeparture extends VmModel
         $table_departure->bind($data);
 
         $table_departure->store();
-        $tsmart_departure_id=$table_departure->virtuemart_departure_id;
+        $tsmart_departure_id=$table_departure->tsmart_departure_id;
         //inser to group size
         foreach($list_basic_available2 as $item)
         {
-            $table_departure->virtuemart_departure_id=0;
+            $table_departure->tsmart_departure_id=0;
             $table_departure->published=1;
-            $table_departure->virtuemart_departure_id=$tsmart_departure_id;
-            $table_departure->virtuemart_product_id=$tsmart_product_id;
+            $table_departure->tsmart_departure_id=$tsmart_departure_id;
+            $table_departure->tsmart_product_id=$tsmart_product_id;
             $table_departure->departure_date=JFactory::getDate($item->date_select)->toSql();
-            $table_departure->virtuemart_service_class_id=$item->service_class_id;
-            $table_departure->virtuemart_group_size_id=$item->virtuemart_group_size_id;
+            $table_departure->tsmart_service_class_id=$item->service_class_id;
+            $table_departure->tsmart_group_size_id=$item->tsmart_group_size_id;
             $table_departure->senior_price=$item->senior_price;
             $table_departure->adult_price=$item->price_adult;
             $table_departure->teen_price=$item->price_teen;
@@ -352,9 +352,9 @@ class VirtueMartModelDeparture extends VmModel
 
         //get list group size by tour id
         $query->select('group_size.*')
-            ->from('#__virtuemart_tour_id_group_size_id AS tour_id_group_size_id')
-            ->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tour_id)
-            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=tour_id_group_size_id.virtuemart_group_size_id')
+            ->from('#__tsmart_tour_id_group_size_id AS tour_id_group_size_id')
+            ->where('tour_id_group_size_id.tsmart_product_id='.(int)$tour_id)
+            ->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=tour_id_group_size_id.tsmart_group_size_id')
             ->order('group_size.from')
             ->where('group_size.from>='.(int)$min_space.' OR (group_size.from<='.(int)$min_space.' AND group_size.to>='.(int)$min_space.')')
             ;
@@ -367,13 +367,13 @@ class VirtueMartModelDeparture extends VmModel
 
         $query->clear()
             ->select('group_size_id_tour_departure_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_departure_price_id AS group_size_id_tour_departure_price_id')
-            ->leftJoin('#__virtuemart_tour_departure_price AS departure_price
-			ON departure_price.virtuemart_departure_price_id=group_size_id_tour_departure_price_id.virtuemart_tour_departure_price_id')
+            ->from('#__tsmart_group_size_id_tour_departure_price_id AS group_size_id_tour_departure_price_id')
+            ->leftJoin('#__tsmart_tour_departure_price AS departure_price
+			ON departure_price.tsmart_departure_price_id=group_size_id_tour_departure_price_id.tsmart_tour_departure_price_id')
             ->select('departure_price.*')
-            ->where('departure_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('departure_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('group_size_id_tour_departure_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
+            ->where('departure_price.tsmart_product_id='.(int)$tour_id)
+            ->where('departure_price.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('group_size_id_tour_departure_price_id.tsmart_group_size_id='.(int)$group_size->tsmart_group_size_id)
         ;
 
         $list_departure_price=$db->setQuery($query)->loadObjectList();
@@ -402,19 +402,19 @@ class VirtueMartModelDeparture extends VmModel
         }
         //lấy ra giá có markup (giá trị departure) theo tour có net departure price
         $list_mark_up_tour_departure_net_price=array();
-        $list_virtuemart_departure_price_id=array();
+        $list_tsmart_departure_price_id=array();
         foreach($list_departure_price as $item_departure_price)
         {
-            if(!in_array($item_departure_price->virtuemart_departure_price_id,$list_virtuemart_departure_price_id))
+            if(!in_array($item_departure_price->tsmart_departure_price_id,$list_tsmart_departure_price_id))
             {
-                $list_virtuemart_departure_price_id[]=$item_departure_price->virtuemart_departure_price_id;
+                $list_tsmart_departure_price_id[]=$item_departure_price->tsmart_departure_price_id;
             }
         }
-        if(count($list_virtuemart_departure_price_id)>=1) {
+        if(count($list_tsmart_departure_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_departure_net_price_id AS mark_up_tour_departure_net_price_id')
+                ->from('#__tsmart_mark_up_tour_departure_net_price_id AS mark_up_tour_departure_net_price_id')
                 ->select('mark_up_tour_departure_net_price_id.*')
-                ->where('mark_up_tour_departure_net_price_id.virtuemart_tour_departure_price_id IN ('.implode(',', $list_virtuemart_departure_price_id).')')
+                ->where('mark_up_tour_departure_net_price_id.tsmart_tour_departure_price_id IN ('.implode(',', $list_tsmart_departure_price_id).')')
             ;
 
             $list_mark_up_tour_departure_net_price=$db->setQuery($query)->loadObjectList();
@@ -422,7 +422,7 @@ class VirtueMartModelDeparture extends VmModel
         $list_mark_up_tour_departure_net_price2=array();
         foreach($list_mark_up_tour_departure_net_price as $mark_up_tour_departure_net_price)
         {
-            $tsmart_tour_departure_price_id=$mark_up_tour_departure_net_price->virtuemart_tour_departure_price_id;
+            $tsmart_tour_departure_price_id=$mark_up_tour_departure_net_price->tsmart_tour_departure_price_id;
             $list_mark_up_tour_departure_net_price2[$tsmart_tour_departure_price_id][$mark_up_tour_departure_net_price->type]=$mark_up_tour_departure_net_price;
         }
         if(count($list_departure_available)==0)
@@ -433,7 +433,7 @@ class VirtueMartModelDeparture extends VmModel
         //1.tính giá thực sau khi departure
         foreach($list_departure_available as $key=> $departure_available)
         {
-            $tsmart_departure_price_id=$departure_available->virtuemart_departure_price_id;
+            $tsmart_departure_price_id=$departure_available->tsmart_departure_price_id;
 
             $percent_price=$list_mark_up_tour_departure_net_price2[$tsmart_departure_price_id]['percent'];
             if(
@@ -512,18 +512,18 @@ class VirtueMartModelDeparture extends VmModel
 
         }
 
-        if(count($list_virtuemart_departure_price_id)==0)
+        if(count($list_tsmart_departure_price_id)==0)
         {
             vmWarn('there are no departure price ');
         }
 
         //lấy ra các giá markup (giá trị có lãi) theo tour có net departure price
         $list_mark_up_tour_departure_price=array();
-        if(count($list_virtuemart_departure_price_id)>=1) {
+        if(count($list_tsmart_departure_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_departure_price_id AS mark_up_tour_departure_price_id')
+                ->from('#__tsmart_mark_up_tour_departure_price_id AS mark_up_tour_departure_price_id')
                 ->select('mark_up_tour_departure_price_id.*')
-                ->where('mark_up_tour_departure_price_id.virtuemart_tour_departure_price_id IN ('.implode(',', $list_virtuemart_departure_price_id).')')
+                ->where('mark_up_tour_departure_price_id.tsmart_tour_departure_price_id IN ('.implode(',', $list_tsmart_departure_price_id).')')
             ;
             $list_mark_up_tour_departure_price=$db->setQuery($query)->loadObjectList();
         }
@@ -531,14 +531,14 @@ class VirtueMartModelDeparture extends VmModel
         $list_mark_up_tour_departure_price2=array();
         foreach($list_mark_up_tour_departure_price as $mark_up_tour_departure_price)
         {
-            $tsmart_tour_departure_price_id=$mark_up_tour_departure_price->virtuemart_tour_departure_price_id;
+            $tsmart_tour_departure_price_id=$mark_up_tour_departure_price->tsmart_tour_departure_price_id;
             $list_mark_up_tour_departure_price2[$tsmart_tour_departure_price_id][$mark_up_tour_departure_price->type]=$mark_up_tour_departure_price;
         }
         //2.tính giá thực sau khi khi có markup (có phần lãi)
 
         foreach($list_departure_available as $key=> $departure_available)
         {
-            $tsmart_departure_price_id=$departure_available->virtuemart_departure_price_id;
+            $tsmart_departure_price_id=$departure_available->tsmart_departure_price_id;
 
             $percent_price=$list_mark_up_tour_departure_price2[$tsmart_departure_price_id]['percent'];
             if(
@@ -619,7 +619,7 @@ class VirtueMartModelDeparture extends VmModel
         $list_departure_available2=array();
         foreach($list_departure_available as $departure_available)
         {
-            $list_departure_available2[$departure_available->virtuemart_product_id.'-'.$departure_available->service_class_id.'-'.$departure_available->virtuemart_group_size_id.'-'.$departure_available->date_select]=$departure_available;
+            $list_departure_available2[$departure_available->tsmart_product_id.'-'.$departure_available->service_class_id.'-'.$departure_available->tsmart_group_size_id.'-'.$departure_available->date_select]=$departure_available;
         }
         //tính giá bán sau thuế
         foreach($list_departure_available as $key=> $departure_available)
@@ -656,13 +656,13 @@ class VirtueMartModelDeparture extends VmModel
 
         $query->clear()
             ->select('group_size_id_tour_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-            ->leftJoin('#__virtuemart_tour_price AS tour_price
-			ON tour_price.virtuemart_price_id=group_size_id_tour_price_id.virtuemart_price_id')
+            ->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
+            ->leftJoin('#__tsmart_tour_price AS tour_price
+			ON tour_price.tsmart_price_id=group_size_id_tour_price_id.tsmart_price_id')
             ->select('tour_price.*')
-            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('tour_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('group_size_id_tour_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
+            ->where('tour_price.tsmart_product_id='.(int)$tour_id)
+            ->where('tour_price.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('group_size_id_tour_price_id.tsmart_group_size_id='.(int)$group_size->tsmart_group_size_id)
         ;
 
 
@@ -697,22 +697,22 @@ class VirtueMartModelDeparture extends VmModel
         //lấy ra các giá markup (giá trị có lãi) theo tour có net  price
 
 
-        $list_virtuemart_price_id=array();
+        $list_tsmart_price_id=array();
         foreach($list_price as $item_price)
         {
-            if(!in_array($item_price->virtuemart_price_id,$list_virtuemart_price_id))
+            if(!in_array($item_price->tsmart_price_id,$list_tsmart_price_id))
             {
-                $list_virtuemart_price_id[]=$item_price->virtuemart_price_id;
+                $list_tsmart_price_id[]=$item_price->tsmart_price_id;
             }
         }
 
 
         $list_mark_up_tour_price=array();
-        if(count($list_virtuemart_price_id)>=1) {
+        if(count($list_tsmart_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id')
+                ->from('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id')
                 ->select('mark_up_tour_price_id.*')
-                ->where('mark_up_tour_price_id.virtuemart_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
+                ->where('mark_up_tour_price_id.tsmart_price_id IN ('.implode(',', $list_tsmart_price_id).')')
             ;
             $list_mark_up_tour_price=$db->setQuery($query)->loadObjectList();
         }
@@ -720,14 +720,14 @@ class VirtueMartModelDeparture extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $tsmart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $tsmart_price_id=$mark_up_tour_price->tsmart_price_id;
             $list_mark_up_tour_price2[$tsmart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.tính giá thực sau khi khi có markup basic (có phần lãi)
 
         foreach($list_price_available as $key=> $price_available)
         {
-            $tsmart_price_id=$price_available->virtuemart_price_id;
+            $tsmart_price_id=$price_available->tsmart_price_id;
 
             $percent_price=$list_mark_up_tour_price2[$tsmart_price_id]['percent'];
             if(
@@ -812,7 +812,7 @@ class VirtueMartModelDeparture extends VmModel
         $list_price_available2=array();
         foreach($list_price_available as $price_available)
         {
-            $list_price_available2[$price_available->virtuemart_product_id.'-'.$price_available->service_class_id.'-'.$price_available->virtuemart_group_size_id.'-'.$price_available->date_select]=$price_available;
+            $list_price_available2[$price_available->tsmart_product_id.'-'.$price_available->service_class_id.'-'.$price_available->tsmart_group_size_id.'-'.$price_available->date_select]=$price_available;
         }
         //tính giá bán sau thuế
         foreach($list_price_available as $key=> $price_available)
@@ -873,8 +873,8 @@ class VirtueMartModelDeparture extends VmModel
     public function create_children_departure($tsmart_departure_id)
     {
         $query=$this->_db->getQuery(true);
-        $query->delete('#__virtuemart_departure')
-            ->where('virtuemart_departure_parent_id='.(int)$tsmart_departure_id);
+        $query->delete('#__tsmart_departure')
+            ->where('tsmart_departure_parent_id='.(int)$tsmart_departure_id);
         $this->_db->setQuery($query);
         $ok = $this->_db->execute();
         if (!$ok) {
@@ -907,9 +907,9 @@ class VirtueMartModelDeparture extends VmModel
         foreach($days_seleted as $day) {
             $table_departure->departure_date = $day;
             $day=JFactory::getDate($day);
-            $table_departure->virtuemart_departure_id = 0;
+            $table_departure->tsmart_departure_id = 0;
             $table_departure->departure_code =tsmDeparture::get_format_departure_code($tsmart_departure_id,$day);
-            $table_departure->virtuemart_departure_parent_id = $tsmart_departure_id;
+            $table_departure->tsmart_departure_parent_id = $tsmart_departure_id;
             $ok = $table_departure->store();
             if (!$ok) {
                 $this->setError($table_departure->getErrors());

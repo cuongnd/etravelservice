@@ -4,11 +4,11 @@ if( !defined( '_JEXEC' ) ) die('Restricted access');
 /**
 *
 * @version $Id: view.html.php 8724 2015-02-18 14:03:29Z Milbo $
-* @package VirtueMart
+* @package tsmart
 * @subpackage Report
-* @copyright Copyright (C) VirtueMart Team - All rights reserved.
+* @copyright Copyright (C) tsmart Team - All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,7 +22,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * Report View class
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Report
  * @author Wicksj
  */
@@ -48,7 +48,7 @@ class TsmartViewReport extends tsmViewAdmin {
 		$myCurrencyDisplay = CurrencyDisplay::getInstance();
 
 		//update order items button
-		/*$q = 'SELECT * FROM #__virtuemart_order_items WHERE `product_discountedPriceWithoutTax` IS NULL ';
+		/*$q = 'SELECT * FROM #__tsmart_order_items WHERE `product_discountedPriceWithoutTax` IS NULL ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		$res = $db->loadRow();

@@ -7,7 +7,7 @@
         var defaults = {
             list_tour:[],
             select_name:"",
-            virtuemart_product_id:0
+            tsmart_product_id:0
         }
 
         // current instance of the object
@@ -23,11 +23,11 @@
             plugin.settings = $.extend({}, defaults, options);
             var list_service_class=plugin.settings.list_tour;
             var select_name=plugin.settings.select_name;
-            var virtuemart_service_class_id=plugin.settings.virtuemart_product_id;
+            var tsmart_service_class_id=plugin.settings.tsmart_product_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
             });
-            plugin.select2.val(virtuemart_service_class_id).trigger("change")
+            plugin.select2.val(tsmart_service_class_id).trigger("change")
         };
         plugin.init();
 

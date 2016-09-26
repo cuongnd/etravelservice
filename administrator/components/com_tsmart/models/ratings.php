@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author RolandD, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,12 +24,12 @@ if (!class_exists ('VmModel')){
 }
 
 /**
- * Model for VirtueMart Products
+ * Model for tsmart Products
  *
- * @package VirtueMart
+ * @package tsmart
  * @author RolandD
  */
-class VirtueMartModelRatings extends VmModel {
+class tsmartModelRatings extends VmModel {
 
 	var $_productBought = array();
 
@@ -49,25 +49,25 @@ class VirtueMartModelRatings extends VmModel {
 		if($layout == 'list_reviews' or $task == 'listreviews'){
 			vmdebug('in review list');
 			if($task == 'add'){
-				$myarray = array('r.created_on','virtuemart_rating_review_id','vote');
+				$myarray = array('r.created_on','tsmart_rating_review_id','vote');
 				$this->removevalidOrderingFieldName('created_on');
 				$this->removevalidOrderingFieldName('product_name');
-				$this->removevalidOrderingFieldName('virtuemart_rating_id');
+				$this->removevalidOrderingFieldName('tsmart_rating_id');
 				$this->removevalidOrderingFieldName('rating');
 				$this->_selectedOrdering = 'r.created_on';
 			} else {
-				$myarray = array('pr.created_on','virtuemart_rating_review_id','vote');
+				$myarray = array('pr.created_on','tsmart_rating_review_id','vote');
 				$this->removevalidOrderingFieldName('created_on');
 				$this->removevalidOrderingFieldName('product_name');
-				$this->removevalidOrderingFieldName('virtuemart_rating_id');
+				$this->removevalidOrderingFieldName('tsmart_rating_id');
 				$this->removevalidOrderingFieldName('rating');
 				$this->_selectedOrdering = 'pr.created_on';
 			}
 
 		} else {
-			$myarray = array('created_on','product_name','virtuemart_rating_id');
+			$myarray = array('created_on','product_name','tsmart_rating_id');
 			$this->removevalidOrderingFieldName('pr.created_on');
-			$this->removevalidOrderingFieldName('virtuemart_rating_review_id');
+			$this->removevalidOrderingFieldName('tsmart_rating_review_id');
 			$this->removevalidOrderingFieldName('vote');
 			$this->_selectedOrdering = 'created_on';
 		}
@@ -80,15 +80,15 @@ class VirtueMartModelRatings extends VmModel {
      */
     public function getRatings() {
 
-     	$tables = ' FROM `#__virtuemart_ratings` AS `r` JOIN `#__virtuemart_products_'.VmConfig::$vmlang.'` AS `pr`
-     			USING (`virtuemart_product_id`) ';
+     	$tables = ' FROM `#__tsmart_ratings` AS `r` JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `pr`
+     			USING (`tsmart_product_id`) ';
 
 		$whereString = '';
 		if(VmConfig::get('multix','none')!='none'){
-			$tables .= ' LEFT JOIN  `#__virtuemart_products` as p USING (`virtuemart_product_id`)';
+			$tables .= ' LEFT JOIN  `#__tsmart_products` as p USING (`tsmart_product_id`)';
 			$tsmart_vendor_id = vmAccess::getVendorId();
 			if(!empty($tsmart_vendor_id)){
-				$whereString = ' WHERE virtuemart_vendor_id="'.$tsmart_vendor_id.'"';
+				$whereString = ' WHERE tsmart_vendor_id="'.$tsmart_vendor_id.'"';
 			}
 		}
 
@@ -112,25 +112,25 @@ class VirtueMartModelRatings extends VmModel {
 		$ratings_data = $this->getTable('ratings');
 
 		/* Load the rating */
-		$joinValue = array('product_name' =>'#__virtuemart_products');
+		$joinValue = array('product_name' =>'#__tsmart_products');
 
 	    if ($cids) {
-		    $ratings_data->load ($cids[0], $joinValue, 'virtuemart_product_id');
+		    $ratings_data->load ($cids[0], $joinValue, 'tsmart_product_id');
 	    }
 
 		/* Add some variables for a new rating */
 		if (vRequest::getCmd('task') == 'add') {
-			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
 				$tsmart_product_id = (int)$tsmart_product_id;
 			}
-			$ratings_data->virtuemart_product_id = $tsmart_product_id;
+			$ratings_data->tsmart_product_id = $tsmart_product_id;
 
 			/* User ID */
 			$user = JFactory::getUser();
-			$ratings_data->virtuemart_user_id = $user->id;
+			$ratings_data->tsmart_user_id = $user->id;
 		}
 
 		return $ratings_data;
@@ -152,18 +152,18 @@ class VirtueMartModelRatings extends VmModel {
 			$vendorId = '';
 
 			$select = '`u`.*,`pr`.*,`l`.`product_name`,`rv`.`vote`, `u`.`name` AS customer, `pr`.`published`';
-			$tables = ' FROM `#__virtuemart_rating_reviews` AS `pr`
+			$tables = ' FROM `#__tsmart_rating_reviews` AS `pr`
 		LEFT JOIN `#__users` AS `u`	ON `pr`.`created_by` = `u`.`id`
-		LEFT JOIN `#__virtuemart_products_'.VmConfig::$vmlang.'` AS `l` ON `l`.`virtuemart_product_id` = `pr`.`virtuemart_product_id` ';
+		LEFT JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `l` ON `l`.`tsmart_product_id` = `pr`.`tsmart_product_id` ';
 			if(!empty($tsmart_vendor_id)){
-				$tables .= 'LEFT JOIN `#__virtuemart_products` AS `p` ON `p`.`virtuemart_product_id` = `pr`.`virtuemart_product_id` ';
+				$tables .= 'LEFT JOIN `#__tsmart_products` AS `p` ON `p`.`tsmart_product_id` = `pr`.`tsmart_product_id` ';
 			}
 			$tables .= '
-		LEFT JOIN `#__virtuemart_rating_votes` AS `rv` on `rv`.`virtuemart_product_id`=`pr`.`virtuemart_product_id` and `rv`.`created_by`=`u`.`id`';
+		LEFT JOIN `#__tsmart_rating_votes` AS `rv` on `rv`.`tsmart_product_id`=`pr`.`tsmart_product_id` and `rv`.`created_by`=`u`.`id`';
 
-			$whereString = ' WHERE  `l`.`virtuemart_product_id` = "'.$tsmart_product_id.'" ';
+			$whereString = ' WHERE  `l`.`tsmart_product_id` = "'.$tsmart_product_id.'" ';
 			if(!empty($tsmart_vendor_id)){
-				$whereString .= ' AND `p`.virtuemart_vendor_id="'.$tsmart_vendor_id.'"';
+				$whereString .= ' AND `p`.tsmart_vendor_id="'.$tsmart_vendor_id.'"';
 			}
 			$reviews[$hash] = $this->exeSortSearchListQuery(0,$select,$tables,$whereString,'',$this->_getOrdering());
 		}
@@ -179,13 +179,13 @@ class VirtueMartModelRatings extends VmModel {
 	 */
 	function getReview($cids){
 
-       	$q = 'SELECT `u`.*,`pr`.*,`p`.`product_name`,`rv`.`vote`,CONCAT_WS(" ",`u`.`title`,u.`last_name`,`u`.`first_name`) as customer FROM `#__virtuemart_rating_reviews` AS `pr`
-		LEFT JOIN `#__virtuemart_userinfos` AS `u`
-     	ON `pr`.`created_by` = `u`.`virtuemart_user_id`
-		LEFT JOIN `#__virtuemart_products_'.VmConfig::$vmlang.'` AS `p`
-     	ON `p`.`virtuemart_product_id` = `pr`.`virtuemart_product_id`
-		LEFT JOIN `#__virtuemart_rating_votes` as `rv` on `rv`.`virtuemart_product_id`=`pr`.`virtuemart_product_id` and `rv`.`created_by`=`pr`.`created_by`
-      WHERE virtuemart_rating_review_id="'.(int)$cids[0].'" ' ;
+       	$q = 'SELECT `u`.*,`pr`.*,`p`.`product_name`,`rv`.`vote`,CONCAT_WS(" ",`u`.`title`,u.`last_name`,`u`.`first_name`) as customer FROM `#__tsmart_rating_reviews` AS `pr`
+		LEFT JOIN `#__tsmart_userinfos` AS `u`
+     	ON `pr`.`created_by` = `u`.`tsmart_user_id`
+		LEFT JOIN `#__tsmart_products_'.VmConfig::$vmlang.'` AS `p`
+     	ON `p`.`tsmart_product_id` = `pr`.`tsmart_product_id`
+		LEFT JOIN `#__tsmart_rating_votes` as `rv` on `rv`.`tsmart_product_id`=`pr`.`tsmart_product_id` and `rv`.`created_by`=`pr`.`created_by`
+      WHERE tsmart_rating_review_id="'.(int)$cids[0].'" ' ;
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		vmdebug('getReview',$db->getQuery());
@@ -201,7 +201,7 @@ class VirtueMartModelRatings extends VmModel {
      */
 
     function getRatingByProduct($product_id,$onlyPublished=true){
-    	$q = 'SELECT * FROM `#__virtuemart_ratings` WHERE `virtuemart_product_id` = "'.(int)$product_id.'" ';
+    	$q = 'SELECT * FROM `#__tsmart_ratings` WHERE `tsmart_product_id` = "'.(int)$product_id.'" ';
 		if($onlyPublished){
 			$q .= 'AND `published`="1" ';
 		}
@@ -224,7 +224,7 @@ class VirtueMartModelRatings extends VmModel {
 			$userId = $user->id;
     	}
 		if(!empty($userId)){
-			$q = 'SELECT * FROM `#__virtuemart_rating_reviews` WHERE `virtuemart_product_id` = "'.(int)$product_id.'" AND `created_by` = "'.(int)$userId.'" ';
+			$q = 'SELECT * FROM `#__tsmart_rating_reviews` WHERE `tsmart_product_id` = "'.(int)$product_id.'" AND `created_by` = "'.(int)$userId.'" ';
 			$db = JFactory::getDBO();
 			$db->setQuery($q);
 			return $db->loadObject();
@@ -246,7 +246,7 @@ class VirtueMartModelRatings extends VmModel {
 			$user = JFactory::getUser();
 			$userId = $user->id;
     	}
-		$q = 'SELECT * FROM `#__virtuemart_rating_reviews` WHERE `virtuemart_product_id` = "'.(int)$product_id.'" ';
+		$q = 'SELECT * FROM `#__tsmart_rating_reviews` WHERE `tsmart_product_id` = "'.(int)$product_id.'" ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		return $db->loadObjectList();
@@ -265,7 +265,7 @@ class VirtueMartModelRatings extends VmModel {
 			$user = JFactory::getUser();
 			$userId = $user->id;
     	}
-		$q = 'SELECT * FROM `#__virtuemart_rating_votes` WHERE `virtuemart_product_id` = "'.(int)$product_id.'" AND `created_by` = "'.(int)$userId.'" ';
+		$q = 'SELECT * FROM `#__tsmart_rating_votes` WHERE `tsmart_product_id` = "'.(int)$product_id.'" AND `created_by` = "'.(int)$userId.'" ';
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 		return $db->loadObject();
@@ -280,7 +280,7 @@ class VirtueMartModelRatings extends VmModel {
 
 		//Check user_rating
 		$maxrating = VmConfig::get('vm_maximum_rating_scale',5);
-		$tsmart_product_id = vRequest::getInt('virtuemart_product_id',0);
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id',0);
 
 		$app = JFactory::getApplication();
 		if( $app->isSite() ){
@@ -296,7 +296,7 @@ class VirtueMartModelRatings extends VmModel {
 
 
 		if(!empty($tsmart_product_id)){
-			//if ( !empty($data['virtuemart_product_id']) && !empty($userId)){
+			//if ( !empty($data['tsmart_product_id']) && !empty($userId)){
 
 			if(empty($data)) $data = vRequest::getPost();
 
@@ -313,12 +313,12 @@ class VirtueMartModelRatings extends VmModel {
 
 				$data['vote'] = (int) $data['vote'];
 
-				$rating = $this->getRatingByProduct($data['virtuemart_product_id']);
+				$rating = $this->getRatingByProduct($data['tsmart_product_id']);
 				vmdebug('$rating',$rating);
-				$vote = $this->getVoteByProduct($data['virtuemart_product_id'],$userId);
+				$vote = $this->getVoteByProduct($data['tsmart_product_id'],$userId);
 				vmdebug('$vote',$vote);
 
-				$data['virtuemart_rating_vote_id'] = empty($vote->virtuemart_rating_vote_id)? 0: $vote->virtuemart_rating_vote_id;
+				$data['tsmart_rating_vote_id'] = empty($vote->tsmart_rating_vote_id)? 0: $vote->tsmart_rating_vote_id;
 
 				if(isset($data['vote'])){
 					$votesTable = $this->getTable('rating_votes');
@@ -349,7 +349,7 @@ class VirtueMartModelRatings extends VmModel {
 					$data['rating'] = $data['rates']/$data['ratingcount'];
 				}
 
-				$data['virtuemart_rating_id'] = empty($rating->virtuemart_rating_id)? 0: $rating->virtuemart_rating_id;
+				$data['tsmart_rating_id'] = empty($rating->tsmart_rating_id)? 0: $rating->tsmart_rating_id;
 				vmdebug('saveRating $data',$data);
 				$rating = $this->getTable('ratings');
 				$res = $rating->bindChecknStore($data,TRUE);
@@ -382,16 +382,16 @@ class VirtueMartModelRatings extends VmModel {
 					} else {
 						$model = new VmModel();
 						$product = $model->getTable('products');
-						$product->load($data['virtuemart_product_id']);
+						$product->load($data['tsmart_product_id']);
 						$vendorId = vmAccess::isSuperVendor();
-						if(!vmAccess::manager() or $vendorId!=$product->virtuemart_vendor_id){
+						if(!vmAccess::manager() or $vendorId!=$product->tsmart_vendor_id){
 							$data['published'] = 0;
 						}
 					}
 
 				}
 
-				$review = $this->getReviewByProduct($data['virtuemart_product_id'],$userId);
+				$review = $this->getReviewByProduct($data['tsmart_product_id'],$userId);
 
 				if(!empty($review->review_rates)){
 					$data['review_rates'] = $review->review_rates + $data['vote'];
@@ -407,7 +407,7 @@ class VirtueMartModelRatings extends VmModel {
 
 				$data['review_rating'] = $data['review_rates']/$data['review_ratingcount'];
 
-				$data['virtuemart_rating_review_id'] = empty($review->virtuemart_rating_review_id)? 0: $review->virtuemart_rating_review_id;
+				$data['tsmart_rating_review_id'] = empty($review->tsmart_rating_review_id)? 0: $review->tsmart_rating_review_id;
 
 				$reviewTable = $this->getTable('rating_reviews');
 				$res = $reviewTable->bindChecknStore($data,TRUE);
@@ -415,7 +415,7 @@ class VirtueMartModelRatings extends VmModel {
 					vmError(get_class( $this ).'::Error store review ');
 				}
 			}
-			return $data['virtuemart_rating_review_id'];
+			return $data['tsmart_rating_review_id'];
 		} else{
 			vmError('Cant save rating/review/vote without vote/product_id');
 			return FALSE;
@@ -441,19 +441,19 @@ class VirtueMartModelRatings extends VmModel {
     	foreach($ids as $id) {
 
     		$rating->load($id);
-    		$prod_id = $rating->virtuemart_product_id;
+    		$prod_id = $rating->tsmart_product_id;
 
     		if (!$rating->delete($id)) {
     			vmError(get_class( $this ).'::Error deleting ratings ');
     			$ok = FALSE;
     		}
 
-    		if (!$review->delete($prod_id,'virtuemart_product_id')) {
+    		if (!$review->delete($prod_id,'tsmart_product_id')) {
     			vmError(get_class( $this ).'::Error deleting review ');
     			$ok = FALSE;
     		}
 
-    		if (!$votes->delete($prod_id,'virtuemart_product_id')) {
+    		if (!$votes->delete($prod_id,'tsmart_product_id')) {
     			vmError(get_class( $this ).'::Error deleting votes ');
     			$ok = FALSE;
     		}
@@ -475,8 +475,8 @@ class VirtueMartModelRatings extends VmModel {
 	public function countReviewsForProduct($pid) {
 		$db = JFactory::getDBO();
 		$q = "SELECT COUNT(*) AS total
-			FROM #__virtuemart_rating_reviews
-			WHERE virtuemart_product_id=".(int)$pid;
+			FROM #__tsmart_rating_reviews
+			WHERE tsmart_product_id=".(int)$pid;
 		$db->setQuery($q);
 		$reviews = $db->loadResult();
 		return $reviews;
@@ -552,9 +552,9 @@ class VirtueMartModelRatings extends VmModel {
 							if(!is_array($rr_os)) $rr_os = array($rr_os);
 
 							$db = JFactory::getDBO ();
-							$q = 'SELECT COUNT(*) as total FROM `#__virtuemart_orders` AS o LEFT JOIN `#__virtuemart_order_items` AS oi ';
-							$q .= 'ON `o`.`virtuemart_order_id` = `oi`.`virtuemart_order_id` ';
-							$q .= 'WHERE o.virtuemart_user_id > 0 AND o.virtuemart_user_id = "' . $user->id . '" AND oi.virtuemart_product_id = "' . $product_id . '" ';
+							$q = 'SELECT COUNT(*) as total FROM `#__tsmart_orders` AS o LEFT JOIN `#__tsmart_order_items` AS oi ';
+							$q .= 'ON `o`.`tsmart_order_id` = `oi`.`tsmart_order_id` ';
+							$q .= 'WHERE o.tsmart_user_id > 0 AND o.tsmart_user_id = "' . $user->id . '" AND oi.tsmart_product_id = "' . $product_id . '" ';
 							$q .= 'AND o.order_status IN (\'' . implode("','",$rr_os). '\') ';
 
 							$db->setQuery ($q);

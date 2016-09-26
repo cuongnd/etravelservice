@@ -3,11 +3,11 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 /**
  *
  * @version $Id:connection.php 431 2006-10-17 21:55:46 +0200 (Di, 17 Okt 2006) soeren_nb $
- * @package VirtueMart
+ * @package tsmart
  * @subpackage classes
- * @copyright Copyright (C) 2004-2007 soeren, 2009-2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (C) 2004-2007 soeren, 2009-2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -20,7 +20,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
  * Provides general tools to handle connections (http, headers, ... )
  *
  * @author soeren
- * @since VirtueMart 1.1.0
+ * @since tsmart 1.1.0
  */
 class VmConnector {
 
@@ -53,7 +53,7 @@ class VmConnector {
      * This is a general function to safely open a connection to a server,
      * post data when needed and read the result.
      * Tries using cURL and switches to fopen/fsockopen if cURL is not available
-     * @since VirtueMart 1.1.0
+     * @since tsmart 1.1.0
      * @static
      * @param string $url
      * @param string $postData

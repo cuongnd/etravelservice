@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelDateAvailability extends VmModel
+class tsmartModelDateAvailability extends VmModel
 {
 
 
@@ -53,9 +53,9 @@ class VirtueMartModelDateAvailability extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('date')
-            ->from('#__virtuemart_date_availability')
-            ->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
+            ->from('#__tsmart_date_availability')
+            ->where('tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
             ;
         $list=$db->setQuery($query)->loadColumn();
         return $list;
@@ -98,25 +98,25 @@ class VirtueMartModelDateAvailability extends VmModel
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
-        $tsmart_date_availability_id=$this->getState('filter.virtuemart_date_availability_id');
+        $tsmart_date_availability_id=$this->getState('filter.tsmart_date_availability_id');
 
         $query->select('dateavailability.date')
-            ->from('#__virtuemart_date_availability AS dateavailability')
-            ->rightJoin('#__virtuemart_tour_id_service_class_id AS tour_id_service_class_id ON tour_id_service_class_id.virtuemart_product_id=dateavailability.virtuemart_product_id')
-            ->leftJoin('#__virtuemart_service_class AS service_class ON service_class.virtuemart_service_class_id=tour_id_service_class_id.virtuemart_service_class_id')
-            ->select('service_class.virtuemart_service_class_id,service_class.service_class_name')
+            ->from('#__tsmart_date_availability AS dateavailability')
+            ->rightJoin('#__tsmart_tour_id_service_class_id AS tour_id_service_class_id ON tour_id_service_class_id.tsmart_product_id=dateavailability.tsmart_product_id')
+            ->leftJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=tour_id_service_class_id.tsmart_service_class_id')
+            ->select('service_class.tsmart_service_class_id,service_class.service_class_name')
 
-            ->leftJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=tour_id_service_class_id.virtuemart_product_id')
-            ->select('products_en_gb.virtuemart_product_id')
+            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb ON products_en_gb.tsmart_product_id=tour_id_service_class_id.tsmart_product_id')
+            ->select('products_en_gb.tsmart_product_id')
             ->select('products_en_gb.product_name')
             ->select('GROUP_CONCAT(dateavailability.date) AS dates')
 
 
 
-            ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_id_service_class_id.virtuemart_product_id')
+            ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_id_service_class_id.tsmart_product_id')
             ->where('products.price_type!='.$query->q(tsmGroupSize::FLAT_PRICE))
             ->group('tour_id_service_class_id.id')
             ->leftJoin('#__users AS users ON users.id=products.assign_user_id')
@@ -124,11 +124,11 @@ class VirtueMartModelDateAvailability extends VmModel
         ;
         if($tsmart_date_availability_id)
         {
-            $query->where('dateavailability.virtuemart_date_availability_id='.(int)$tsmart_date_availability_id);
+            $query->where('dateavailability.tsmart_date_availability_id='.(int)$tsmart_date_availability_id);
         }
         if($tsmart_product_id)
         {
-            $query->where('dateavailability.virtuemart_product_id='.(int)$tsmart_product_id);
+            $query->where('dateavailability.tsmart_product_id='.(int)$tsmart_product_id);
         }
         $user = JFactory::getUser();
         $shared = '';
@@ -152,7 +152,7 @@ class VirtueMartModelDateAvailability extends VmModel
 
         if ($orderCol == 'airport.ordering')
         {
-            $orderCol = $db->quoteName('dateavailability.virtuemart_date_availability_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
+            $orderCol = $db->quoteName('dateavailability.tsmart_date_availability_id') . ' ' . $orderDirn . ', ' . $db->quoteName('itinerary.ordering');
         }
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -188,20 +188,20 @@ class VirtueMartModelDateAvailability extends VmModel
             }
         }
         //lấy ra group_size_id từ bản ghi đầu tiên
-        $tsmart_group_size_id=reset($list_basic_available2)->virtuemart_group_size_id;
+        $tsmart_group_size_id=reset($list_basic_available2)->tsmart_group_size_id;
         $list_date_available='"'.implode('","',$list_date_available).'"';
         //check exists data
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('virtuemart_date_availability_id')
-            ->from('#__virtuemart_dateavailability')
+        $query->select('tsmart_date_availability_id')
+            ->from('#__tsmart_dateavailability')
             ->where('dateavailability_date IN('.$list_date_available.')')
-            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
-            ->where('virtuemart_service_class_id='.(int)$tour_service_class_id)
-            ->where('virtuemart_group_size_id='.(int)$tsmart_group_size_id)
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
+            ->where('tsmart_service_class_id='.(int)$tour_service_class_id)
+            ->where('tsmart_group_size_id='.(int)$tsmart_group_size_id)
             ;
-        $list_virtuemart_date_availability_id=$db->setQuery($query)->loadObjectList();
-        if(count($list_virtuemart_date_availability_id)>1)
+        $list_tsmart_date_availability_id=$db->setQuery($query)->loadObjectList();
+        if(count($list_tsmart_date_availability_id)>1)
         {
             vmError('there are some dateavailability exists');
             return false;
@@ -219,17 +219,17 @@ class VirtueMartModelDateAvailability extends VmModel
         $table_dateavailability->bind($data);
 
         $table_dateavailability->store();
-        $tsmart_date_availability_id=$table_dateavailability->virtuemart_date_availability_id;
+        $tsmart_date_availability_id=$table_dateavailability->tsmart_date_availability_id;
         //inser to group size
         foreach($list_basic_available2 as $item)
         {
-            $table_dateavailability->virtuemart_date_availability_id=0;
+            $table_dateavailability->tsmart_date_availability_id=0;
             $table_dateavailability->published=1;
-            $table_dateavailability->virtuemart_date_availability_id=$tsmart_date_availability_id;
-            $table_dateavailability->virtuemart_product_id=$tsmart_product_id;
+            $table_dateavailability->tsmart_date_availability_id=$tsmart_date_availability_id;
+            $table_dateavailability->tsmart_product_id=$tsmart_product_id;
             $table_dateavailability->dateavailability_date=JFactory::getDate($item->date_select)->toSql();
-            $table_dateavailability->virtuemart_service_class_id=$item->service_class_id;
-            $table_dateavailability->virtuemart_group_size_id=$item->virtuemart_group_size_id;
+            $table_dateavailability->tsmart_service_class_id=$item->service_class_id;
+            $table_dateavailability->tsmart_group_size_id=$item->tsmart_group_size_id;
             $table_dateavailability->senior_price=$item->senior_price;
             $table_dateavailability->adult_price=$item->price_adult;
             $table_dateavailability->teen_price=$item->price_teen;
@@ -335,9 +335,9 @@ class VirtueMartModelDateAvailability extends VmModel
 
         //get list group size by tour id
         $query->select('group_size.*')
-            ->from('#__virtuemart_tour_id_group_size_id AS tour_id_group_size_id')
-            ->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tour_id)
-            ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=tour_id_group_size_id.virtuemart_group_size_id')
+            ->from('#__tsmart_tour_id_group_size_id AS tour_id_group_size_id')
+            ->where('tour_id_group_size_id.tsmart_product_id='.(int)$tour_id)
+            ->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=tour_id_group_size_id.tsmart_group_size_id')
             ->order('group_size.from')
             ->where('group_size.from>='.(int)$min_space.' OR (group_size.from<='.(int)$min_space.' AND group_size.to>='.(int)$min_space.')')
             ;
@@ -350,13 +350,13 @@ class VirtueMartModelDateAvailability extends VmModel
 
         $query->clear()
             ->select('group_size_id_tour_dateavailability_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_dateavailability_price_id AS group_size_id_tour_dateavailability_price_id')
-            ->leftJoin('#__virtuemart_tour_dateavailability_price AS dateavailability_price
-			ON dateavailability_price.virtuemart_dateavailability_price_id=group_size_id_tour_dateavailability_price_id.virtuemart_tour_dateavailability_price_id')
+            ->from('#__tsmart_group_size_id_tour_dateavailability_price_id AS group_size_id_tour_dateavailability_price_id')
+            ->leftJoin('#__tsmart_tour_dateavailability_price AS dateavailability_price
+			ON dateavailability_price.tsmart_dateavailability_price_id=group_size_id_tour_dateavailability_price_id.tsmart_tour_dateavailability_price_id')
             ->select('dateavailability_price.*')
-            ->where('dateavailability_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('dateavailability_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('group_size_id_tour_dateavailability_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
+            ->where('dateavailability_price.tsmart_product_id='.(int)$tour_id)
+            ->where('dateavailability_price.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('group_size_id_tour_dateavailability_price_id.tsmart_group_size_id='.(int)$group_size->tsmart_group_size_id)
         ;
 
         $list_dateavailability_price=$db->setQuery($query)->loadObjectList();
@@ -385,19 +385,19 @@ class VirtueMartModelDateAvailability extends VmModel
         }
         //lấy ra giá có markup (giá trị dateavailability) theo tour có net dateavailability price
         $list_mark_up_tour_dateavailability_net_price=array();
-        $list_virtuemart_dateavailability_price_id=array();
+        $list_tsmart_dateavailability_price_id=array();
         foreach($list_dateavailability_price as $item_dateavailability_price)
         {
-            if(!in_array($item_dateavailability_price->virtuemart_dateavailability_price_id,$list_virtuemart_dateavailability_price_id))
+            if(!in_array($item_dateavailability_price->tsmart_dateavailability_price_id,$list_tsmart_dateavailability_price_id))
             {
-                $list_virtuemart_dateavailability_price_id[]=$item_dateavailability_price->virtuemart_dateavailability_price_id;
+                $list_tsmart_dateavailability_price_id[]=$item_dateavailability_price->tsmart_dateavailability_price_id;
             }
         }
-        if(count($list_virtuemart_dateavailability_price_id)>=1) {
+        if(count($list_tsmart_dateavailability_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_dateavailability_net_price_id AS mark_up_tour_dateavailability_net_price_id')
+                ->from('#__tsmart_mark_up_tour_dateavailability_net_price_id AS mark_up_tour_dateavailability_net_price_id')
                 ->select('mark_up_tour_dateavailability_net_price_id.*')
-                ->where('mark_up_tour_dateavailability_net_price_id.virtuemart_tour_dateavailability_price_id IN ('.implode(',', $list_virtuemart_dateavailability_price_id).')')
+                ->where('mark_up_tour_dateavailability_net_price_id.tsmart_tour_dateavailability_price_id IN ('.implode(',', $list_tsmart_dateavailability_price_id).')')
             ;
 
             $list_mark_up_tour_dateavailability_net_price=$db->setQuery($query)->loadObjectList();
@@ -405,7 +405,7 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_dateavailability_net_price2=array();
         foreach($list_mark_up_tour_dateavailability_net_price as $mark_up_tour_dateavailability_net_price)
         {
-            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_net_price->virtuemart_tour_dateavailability_price_id;
+            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_net_price->tsmart_tour_dateavailability_price_id;
             $list_mark_up_tour_dateavailability_net_price2[$tsmart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_net_price->type]=$mark_up_tour_dateavailability_net_price;
         }
         if(count($list_dateavailability_available)==0)
@@ -416,7 +416,7 @@ class VirtueMartModelDateAvailability extends VmModel
         //1.tính giá thực sau khi dateavailability
         foreach($list_dateavailability_available as $key=> $dateavailability_available)
         {
-            $tsmart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
+            $tsmart_dateavailability_price_id=$dateavailability_available->tsmart_dateavailability_price_id;
 
             $percent_price=$list_mark_up_tour_dateavailability_net_price2[$tsmart_dateavailability_price_id]['percent'];
             if(
@@ -495,18 +495,18 @@ class VirtueMartModelDateAvailability extends VmModel
 
         }
 
-        if(count($list_virtuemart_dateavailability_price_id)==0)
+        if(count($list_tsmart_dateavailability_price_id)==0)
         {
             vmWarn('there are no dateavailability price ');
         }
 
         //lấy ra các giá markup (giá trị có lãi) theo tour có net dateavailability price
         $list_mark_up_tour_dateavailability_price=array();
-        if(count($list_virtuemart_dateavailability_price_id)>=1) {
+        if(count($list_tsmart_dateavailability_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_dateavailability_price_id AS mark_up_tour_dateavailability_price_id')
+                ->from('#__tsmart_mark_up_tour_dateavailability_price_id AS mark_up_tour_dateavailability_price_id')
                 ->select('mark_up_tour_dateavailability_price_id.*')
-                ->where('mark_up_tour_dateavailability_price_id.virtuemart_tour_dateavailability_price_id IN ('.implode(',', $list_virtuemart_dateavailability_price_id).')')
+                ->where('mark_up_tour_dateavailability_price_id.tsmart_tour_dateavailability_price_id IN ('.implode(',', $list_tsmart_dateavailability_price_id).')')
             ;
             $list_mark_up_tour_dateavailability_price=$db->setQuery($query)->loadObjectList();
         }
@@ -514,14 +514,14 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_dateavailability_price2=array();
         foreach($list_mark_up_tour_dateavailability_price as $mark_up_tour_dateavailability_price)
         {
-            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_price->virtuemart_tour_dateavailability_price_id;
+            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_price->tsmart_tour_dateavailability_price_id;
             $list_mark_up_tour_dateavailability_price2[$tsmart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_price->type]=$mark_up_tour_dateavailability_price;
         }
         //2.tính giá thực sau khi khi có markup (có phần lãi)
 
         foreach($list_dateavailability_available as $key=> $dateavailability_available)
         {
-            $tsmart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
+            $tsmart_dateavailability_price_id=$dateavailability_available->tsmart_dateavailability_price_id;
 
             $percent_price=$list_mark_up_tour_dateavailability_price2[$tsmart_dateavailability_price_id]['percent'];
             if(
@@ -602,7 +602,7 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_dateavailability_available2=array();
         foreach($list_dateavailability_available as $dateavailability_available)
         {
-            $list_dateavailability_available2[$dateavailability_available->virtuemart_product_id.'-'.$dateavailability_available->service_class_id.'-'.$dateavailability_available->virtuemart_group_size_id.'-'.$dateavailability_available->date_select]=$dateavailability_available;
+            $list_dateavailability_available2[$dateavailability_available->tsmart_product_id.'-'.$dateavailability_available->service_class_id.'-'.$dateavailability_available->tsmart_group_size_id.'-'.$dateavailability_available->date_select]=$dateavailability_available;
         }
         //tính giá bán sau thuế
         foreach($list_dateavailability_available as $key=> $dateavailability_available)
@@ -639,13 +639,13 @@ class VirtueMartModelDateAvailability extends VmModel
 
         $query->clear()
             ->select('group_size_id_tour_price_id.*')
-            ->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
-            ->leftJoin('#__virtuemart_tour_price AS tour_price
-			ON tour_price.virtuemart_price_id=group_size_id_tour_price_id.virtuemart_price_id')
+            ->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
+            ->leftJoin('#__tsmart_tour_price AS tour_price
+			ON tour_price.tsmart_price_id=group_size_id_tour_price_id.tsmart_price_id')
             ->select('tour_price.*')
-            ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('tour_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
-            ->where('group_size_id_tour_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
+            ->where('tour_price.tsmart_product_id='.(int)$tour_id)
+            ->where('tour_price.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('group_size_id_tour_price_id.tsmart_group_size_id='.(int)$group_size->tsmart_group_size_id)
         ;
 
 
@@ -680,22 +680,22 @@ class VirtueMartModelDateAvailability extends VmModel
         //lấy ra các giá markup (giá trị có lãi) theo tour có net  price
 
 
-        $list_virtuemart_price_id=array();
+        $list_tsmart_price_id=array();
         foreach($list_price as $item_price)
         {
-            if(!in_array($item_price->virtuemart_price_id,$list_virtuemart_price_id))
+            if(!in_array($item_price->tsmart_price_id,$list_tsmart_price_id))
             {
-                $list_virtuemart_price_id[]=$item_price->virtuemart_price_id;
+                $list_tsmart_price_id[]=$item_price->tsmart_price_id;
             }
         }
 
 
         $list_mark_up_tour_price=array();
-        if(count($list_virtuemart_price_id)>=1) {
+        if(count($list_tsmart_price_id)>=1) {
             $query->clear()
-                ->from('#__virtuemart_mark_up_tour_price_id AS mark_up_tour_price_id')
+                ->from('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id')
                 ->select('mark_up_tour_price_id.*')
-                ->where('mark_up_tour_price_id.virtuemart_price_id IN ('.implode(',', $list_virtuemart_price_id).')')
+                ->where('mark_up_tour_price_id.tsmart_price_id IN ('.implode(',', $list_tsmart_price_id).')')
             ;
             $list_mark_up_tour_price=$db->setQuery($query)->loadObjectList();
         }
@@ -703,14 +703,14 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $tsmart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $tsmart_price_id=$mark_up_tour_price->tsmart_price_id;
             $list_mark_up_tour_price2[$tsmart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.tính giá thực sau khi khi có markup basic (có phần lãi)
 
         foreach($list_price_available as $key=> $price_available)
         {
-            $tsmart_price_id=$price_available->virtuemart_price_id;
+            $tsmart_price_id=$price_available->tsmart_price_id;
 
             $percent_price=$list_mark_up_tour_price2[$tsmart_price_id]['percent'];
             if(
@@ -795,7 +795,7 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_price_available2=array();
         foreach($list_price_available as $price_available)
         {
-            $list_price_available2[$price_available->virtuemart_product_id.'-'.$price_available->service_class_id.'-'.$price_available->virtuemart_group_size_id.'-'.$price_available->date_select]=$price_available;
+            $list_price_available2[$price_available->tsmart_product_id.'-'.$price_available->service_class_id.'-'.$price_available->tsmart_group_size_id.'-'.$price_available->date_select]=$price_available;
         }
         //tính giá bán sau thuế
         foreach($list_price_available as $key=> $price_available)
@@ -862,8 +862,8 @@ class VirtueMartModelDateAvailability extends VmModel
     public function create_children_dateavailability($tsmart_date_availability_id)
     {
         $query=$this->_db->getQuery(true);
-        $query->delete('#__virtuemart_dateavailability')
-            ->where('virtuemart_dateavailability_parent_id='.(int)$tsmart_date_availability_id);
+        $query->delete('#__tsmart_dateavailability')
+            ->where('tsmart_dateavailability_parent_id='.(int)$tsmart_date_availability_id);
         $this->_db->setQuery($query);
         $ok = $this->_db->execute();
         if (!$ok) {
@@ -896,9 +896,9 @@ class VirtueMartModelDateAvailability extends VmModel
         foreach($days_seleted as $day) {
             $table_dateavailability->dateavailability_date = $day;
             $day=JFactory::getDate($day);
-            $table_dateavailability->virtuemart_date_availability_id = 0;
+            $table_dateavailability->tsmart_date_availability_id = 0;
             $table_dateavailability->dateavailability_code =tsmdateavailability::get_format_dateavailability_code($tsmart_date_availability_id,$day);
-            $table_dateavailability->virtuemart_dateavailability_parent_id = $tsmart_date_availability_id;
+            $table_dateavailability->tsmart_dateavailability_parent_id = $tsmart_date_availability_id;
             $ok = $table_dateavailability->store();
             if (!$ok) {
                 $this->setError($table_dateavailability->getErrors());

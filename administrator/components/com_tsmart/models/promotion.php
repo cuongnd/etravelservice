@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelpromotion extends VmModel
+class tsmartModelpromotion extends VmModel
 {
 
 
@@ -54,8 +54,8 @@ class VirtueMartModelpromotion extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('tour_class.*')
-            ->from('#__virtuemart_service_class AS tour_class')
-            ->where('tour_class.virtuemart_service_class_id='.(int)$item->virtuemart_service_class_id)
+            ->from('#__tsmart_service_class AS tour_class')
+            ->where('tour_class.tsmart_service_class_id='.(int)$item->tsmart_service_class_id)
             ;
         $item->service_class=$db->setQuery($query)->loadObject();
         return $item;
@@ -88,7 +88,7 @@ class VirtueMartModelpromotion extends VmModel
         $whereString = '';
         if (count($where) > 0) $whereString = ' WHERE ' . implode(' AND ', $where);
 
-        $data = $this->exeSortSearchListQuery(0, '*', ' FROM `#__virtuemart_tour_price`', $whereString, '', $this->_getOrdering());
+        $data = $this->exeSortSearchListQuery(0, '*', ' FROM `#__tsmart_tour_price`', $whereString, '', $this->_getOrdering());
 
         return $data;
     }
@@ -99,12 +99,12 @@ class VirtueMartModelpromotion extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true)
             ->select('tour_price.*')
-            ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
-            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_promotion_price.virtuemart_service_class_id')
+            ->from('#__tsmart_tour_promotion_price AS tour_promotion_price')
+            ->leftJoin('#__tsmart_service_class AS tour_service_class ON tour_service_class.tsmart_service_class_id=tour_promotion_price.tsmart_service_class_id')
             ->select('tour_service_class.service_class_name')
-            ->where('tour_promotion_price.virtuemart_product_id='.(int)$tour_id)
+            ->where('tour_promotion_price.tsmart_product_id='.(int)$tour_id)
             ->order('tour_price.sale_period_from,tour_price.sale_period_to,tour_service_class.ordering')
-            ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_price.virtuemart_product_id')
+            ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_price.tsmart_product_id')
             ;
         return $db->setQuery($query)->loadObjectList();
 
@@ -116,18 +116,18 @@ class VirtueMartModelpromotion extends VmModel
         $db=JFactory::getDbo();
         $query=$db->getQuery(true)
             ->select('tour_promotion_price.*,language_products.product_name AS tour_name')
-            ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
+            ->from('#__tsmart_tour_promotion_price AS tour_promotion_price')
 
-            ->leftJoin('#__virtuemart_service_class AS tour_service_class ON tour_service_class.virtuemart_service_class_id=tour_promotion_price.virtuemart_service_class_id')
+            ->leftJoin('#__tsmart_service_class AS tour_service_class ON tour_service_class.tsmart_service_class_id=tour_promotion_price.tsmart_service_class_id')
             ->select('tour_service_class.service_class_name')
-            ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_promotion_price.virtuemart_product_id')
-            ->innerJoin('#__virtuemart_tour_type AS tour_type ON tour_type.virtuemart_tour_type_id=products.virtuemart_tour_type_id')
+            ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_promotion_price.tsmart_product_id')
+            ->innerJoin('#__tsmart_tour_type AS tour_type ON tour_type.tsmart_tour_type_id=products.tsmart_tour_type_id')
             ->select('tour_type.title AS tour_type_name')
-            ->leftJoin('#__virtuemart_products_'.VmConfig::$vmlang.' AS language_products ON language_products.virtuemart_product_id=products.virtuemart_product_id')
+            ->leftJoin('#__tsmart_products_'.VmConfig::$vmlang.' AS language_products ON language_products.tsmart_product_id=products.tsmart_product_id')
             ;
         if($tsmart_product_id)
         {
-            $query->where('products.virtuemart_product_id='.(int)$tsmart_product_id);
+            $query->where('products.tsmart_product_id='.(int)$tsmart_product_id);
         }
         echo $query->dump();
         return $db->setQuery($query)->loadObjectList();
@@ -141,9 +141,9 @@ class VirtueMartModelpromotion extends VmModel
         if ($vendorId === 0) {
             $multix = Vmconfig::get('multix', 'none');
             if (strpos($multix, 'payment') !== FALSE) {
-                if (!class_exists('VirtueMartModelVendor'))
+                if (!class_exists('tsmartModelVendor'))
                     require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-                $vendorId = VirtueMartModelVendor::getLoggedVendor();
+                $vendorId = tsmartModelVendor::getLoggedVendor();
 
             } else {
                 $vendorId = 1;
@@ -151,7 +151,7 @@ class VirtueMartModelpromotion extends VmModel
         }
         if (!isset($currencies[$vendorId])) {
             $db = JFactory::getDbo();
-            $q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
+            $q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id`=' . $vendorId;
             $db->setQuery($q);
             $vendor_currency = $db->loadAssoc();
             if (!$vendor_currency['vendor_accepted_currencies']) {
@@ -165,10 +165,10 @@ class VirtueMartModelpromotion extends VmModel
                     return $currencies[$vendorId];
                 }
             }
-            $q = 'SELECT `virtuemart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
-					FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id` IN (' . $vendor_currency['vendor_accepted_currencies'] . ')';
+            $q = 'SELECT `tsmart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
+					FROM `#__tsmart_currencies` WHERE `tsmart_currency_id` IN (' . $vendor_currency['vendor_accepted_currencies'] . ')';
             if ($vendorId != 1) {
-                $q .= ' AND (`virtuemart_vendor_id` = "' . $vendorId . '" OR `shared`="1")';
+                $q .= ' AND (`tsmart_vendor_id` = "' . $vendorId . '" OR `shared`="1")';
             }
             $q .= '	AND published = "1"
 					ORDER BY `ordering`,`currency_name`';
@@ -192,7 +192,7 @@ class VirtueMartModelpromotion extends VmModel
     {
         $tsmart_promotion_price_id = parent::store($data);
         if($tsmart_promotion_price_id) {
-            $tsmart_product_id = $data['virtuemart_product_id'];
+            $tsmart_product_id = $data['tsmart_product_id'];
             $model_product = $this->getModel('product');
             $product = $model_product->getItem($tsmart_product_id);
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
@@ -231,23 +231,23 @@ class VirtueMartModelpromotion extends VmModel
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_group_size_id_tour_promotion_price_id')
-            ->where('virtuemart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
+        $query->delete('#__tsmart_group_size_id_tour_promotion_price_id')
+            ->where('tsmart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
         }
         if (count($tour_promotion_price_by_tour_promotion_price_id)) {
             foreach ($tour_promotion_price_by_tour_promotion_price_id as  $item) {
-                $group_size_id=$item->virtuemart_group_size_id;
-                unset($item->virtuemart_group_size_id);
+                $group_size_id=$item->tsmart_group_size_id;
+                unset($item->tsmart_group_size_id);
                 $query = $db->getQuery(true);
-                $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id');
+                $query->insert('#__tsmart_group_size_id_tour_promotion_price_id');
                 foreach ($item as $key => $value) {
                     $query->set("$key=".(int)$value);
                 }
-                $query->set("virtuemart_promotion_price_id=$tsmart_promotion_price_id")
-                    ->set("virtuemart_group_size_id=$group_size_id");
+                $query->set("tsmart_promotion_price_id=$tsmart_promotion_price_id")
+                    ->set("tsmart_group_size_id=$group_size_id");
                 if(!$db->setQuery($query)->execute())
                 {
                     throw new Exception(500, $db->getErrorMsg());
@@ -261,8 +261,8 @@ class VirtueMartModelpromotion extends VmModel
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_mark_up_tour_promotion_price_id')
-            ->where('virtuemart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
+        $query->delete('#__tsmart_mark_up_tour_promotion_price_id')
+            ->where('tsmart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
@@ -270,11 +270,11 @@ class VirtueMartModelpromotion extends VmModel
         if (count($amount)&&($amount->senior>0||$amount->adult>0||$amount->teen>0||$amount->children1>0||$amount->children2>0||$amount->infant>0||$amount->private_room>0||$amount->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
+                ->insert('#__tsmart_mark_up_tour_promotion_price_id');
             foreach ($amount as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_promotion_price_id=$tsmart_promotion_price_id")
+            $query->set("tsmart_promotion_price_id=$tsmart_promotion_price_id")
                 ->set('type='.$query->q('amount'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -286,11 +286,11 @@ class VirtueMartModelpromotion extends VmModel
         if (count($percent)&&($percent->senior>0||$percent->adult>0||$percent->teen>0||$percent->children1>0||$percent->children2>0||$percent->infant>0||$percent->private_room>0||$percent->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_promotion_price_id');
+                ->insert('#__tsmart_mark_up_tour_promotion_price_id');
             foreach ($percent as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_promotion_price_id=$tsmart_promotion_price_id")
+            $query->set("tsmart_promotion_price_id=$tsmart_promotion_price_id")
                 ->set('type='.$query->q('percent'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -304,8 +304,8 @@ class VirtueMartModelpromotion extends VmModel
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_mark_up_tour_promotion_net_price_id')
-            ->where('virtuemart_promotion_price_id=' . (int)$tsmart_price_id);
+        $query->delete('#__tsmart_mark_up_tour_promotion_net_price_id')
+            ->where('tsmart_promotion_price_id=' . (int)$tsmart_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
@@ -314,11 +314,11 @@ class VirtueMartModelpromotion extends VmModel
         if (count($amount)&&($amount->senior>0||$amount->adult>0||$amount->teen>0||$amount->children1>0||$amount->children2>0||$amount->infant>0||$amount->private_room>0||$amount->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
+                ->insert('#__tsmart_mark_up_tour_promotion_net_price_id');
             foreach ($amount as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_promotion_price_id=$tsmart_price_id")
+            $query->set("tsmart_promotion_price_id=$tsmart_price_id")
                 ->set('type='.$query->q('amount'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -330,11 +330,11 @@ class VirtueMartModelpromotion extends VmModel
         if (count($percent)&&($percent->senior>0||$percent->adult>0||$percent->teen>0||$percent->children1>0||$percent->children2>0||$percent->infant>0||$percent->private_room>0||$percent->extra_bed>0)) {
             $query = $db->getQuery(true);
             $query->clear()
-                ->insert('#__virtuemart_mark_up_tour_promotion_net_price_id');
+                ->insert('#__tsmart_mark_up_tour_promotion_net_price_id');
             foreach ($percent as $key => $value) {
                 $query->set("$key=".(int)$value);
             }
-            $query->set("virtuemart_promotion_price_id=$tsmart_price_id")
+            $query->set("tsmart_promotion_price_id=$tsmart_price_id")
                 ->set('type='.$query->q('percent'))
                 ;
             if(!$db->setQuery($query)->execute())
@@ -348,8 +348,8 @@ class VirtueMartModelpromotion extends VmModel
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->delete('#__virtuemart_group_size_id_tour_promotion_price_id')
-            ->where('virtuemart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
+        $query->delete('#__tsmart_group_size_id_tour_promotion_price_id')
+            ->where('tsmart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
         if(!$db->setQuery($query)->execute())
         {
             throw new Exception(500, $db->getErrorMsg());
@@ -358,15 +358,15 @@ class VirtueMartModelpromotion extends VmModel
 
         if (count($tour_promotion_price_by_tour_promotion_price_id)) {
             foreach ($tour_promotion_price_by_tour_promotion_price_id as  $item) {
-                $group_size_id=$item->virtuemart_group_size_id;
-                unset($item->virtuemart_group_size_id);
+                $group_size_id=$item->tsmart_group_size_id;
+                unset($item->tsmart_group_size_id);
                 $query = $db->getQuery(true);
-                $query->insert('#__virtuemart_group_size_id_tour_promotion_price_id');
+                $query->insert('#__tsmart_group_size_id_tour_promotion_price_id');
                 foreach ($item as $key => $value) {
                     $query->set("$key=".(int)$value);
                 }
-                $query->set("virtuemart_promotion_price_id=$tsmart_promotion_price_id")
-                    ->set("virtuemart_group_size_id=$group_size_id");
+                $query->set("tsmart_promotion_price_id=$tsmart_promotion_price_id")
+                    ->set("tsmart_group_size_id=$group_size_id");
                 if(!$db->setQuery($query)->execute())
                 {
                     throw new Exception(500, $db->getErrorMsg());

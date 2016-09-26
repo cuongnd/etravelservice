@@ -2,19 +2,19 @@
 /**
  * Class for getting with language keys translated text. The original code was written by joomla Platform 11.1
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @copyright Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -39,9 +39,9 @@ class vmproduct
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('products_en_gb.*')
-            ->from('#__virtuemart_products AS products')
-            ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
-            ->group('products.virtuemart_product_id')
+            ->from('#__tsmart_products AS products')
+            ->innerJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+            ->group('products.tsmart_product_id')
 
             ;
         return $db->setQuery($query)->loadObjectList();
@@ -51,10 +51,10 @@ class vmproduct
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('products_en_gb.*')
-            ->from('#__virtuemart_products AS products')
-            ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
-            ->group('products.virtuemart_product_id')
-            ->where('products.virtuemart_tour_type_id='.(int)$tsmart_tour_type_id)
+            ->from('#__tsmart_products AS products')
+            ->innerJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+            ->group('products.tsmart_product_id')
+            ->where('products.tsmart_tour_type_id='.(int)$tsmart_tour_type_id)
             ;
         return $db->setQuery($query)->loadObjectList();
     }
@@ -67,9 +67,9 @@ class vmproduct
 
         $query=$db->getQuery(true);
         $query->select('tour_service_class.service_class_name')
-            ->from('#__virtuemart_service_class AS tour_service_class')
-            ->leftJoin('#__virtuemart_tour_id_service_class_id  AS tour_id_service_class_id USING(virtuemart_service_class_id)')
-            ->where('tour_id_service_class_id.virtuemart_product_id='.(int)$product->virtuemart_product_id)
+            ->from('#__tsmart_service_class AS tour_service_class')
+            ->leftJoin('#__tsmart_tour_id_service_class_id  AS tour_id_service_class_id USING(tsmart_service_class_id)')
+            ->where('tour_id_service_class_id.tsmart_product_id='.(int)$product->tsmart_product_id)
             ;
         $product->list_tour_service_class=$db->setQuery($query)->loadColumn();
 
@@ -77,55 +77,55 @@ class vmproduct
 
         $query=$db->getQuery(true);
         $query->select('countries.country_name')
-            ->from('#__virtuemart_countries AS countries')
-            ->leftJoin('#__virtuemart_tour_id_country_id  AS tour_id_country_id USING(virtuemart_country_id)')
-            ->where('tour_id_country_id.virtuemart_product_id='.(int)$product->virtuemart_product_id)
+            ->from('#__tsmart_countries AS countries')
+            ->leftJoin('#__tsmart_tour_id_country_id  AS tour_id_country_id USING(tsmart_country_id)')
+            ->where('tour_id_country_id.tsmart_product_id='.(int)$product->tsmart_product_id)
             ;
         $product->list_country=implode(',',$db->setQuery($query)->loadColumn());
 
 
         $query=$db->getQuery(true);
         $query->select('cityarea.city_area_name')
-            ->from('#__virtuemart_cityarea AS cityarea')
-            ->where('cityarea.virtuemart_cityarea_id='.(int)$product->start_city)
+            ->from('#__tsmart_cityarea AS cityarea')
+            ->where('cityarea.tsmart_cityarea_id='.(int)$product->start_city)
             ;
         $product->start_city=$db->setQuery($query)->loadResult();
 
 
         $query=$db->getQuery(true);
         $query->select('tour_section.tour_section_name')
-            ->from('#__virtuemart_tour_section AS tour_section')
-            ->where('tour_section.virtuemart_tour_section_id='.(int)$product->virtuemart_tour_section_id)
+            ->from('#__tsmart_tour_section AS tour_section')
+            ->where('tour_section.tsmart_tour_section_id='.(int)$product->tsmart_tour_section_id)
             ;
         $product->tour_section=$db->setQuery($query)->loadResult();
 
         $query=$db->getQuery(true);
         $query->select('cityarea.city_area_name')
-            ->from('#__virtuemart_cityarea AS cityarea')
-            ->where('cityarea.virtuemart_cityarea_id='.(int)$product->end_city)
+            ->from('#__tsmart_cityarea AS cityarea')
+            ->where('cityarea.tsmart_cityarea_id='.(int)$product->end_city)
             ;
         $product->end_city=$db->setQuery($query)->loadResult();
 
         $query=$db->getQuery(true);
         $query->select('tour_type.title')
-            ->from('#__virtuemart_tour_type AS tour_type')
-            ->where('tour_type.virtuemart_tour_type_id='.(int)$product->virtuemart_tour_type_id)
+            ->from('#__tsmart_tour_type AS tour_type')
+            ->where('tour_type.tsmart_tour_type_id='.(int)$product->tsmart_tour_type_id)
             ;
         $product->tour_type=$db->setQuery($query)->loadResult();
 
 
         $query=$db->getQuery(true);
         $query->select('tour_style.title')
-            ->from('#__virtuemart_tour_style AS tour_style')
-            ->where('tour_style.virtuemart_tour_style_id='.(int)$product->virtuemart_tour_style_id)
+            ->from('#__tsmart_tour_style AS tour_style')
+            ->where('tour_style.tsmart_tour_style_id='.(int)$product->tsmart_tour_style_id)
             ;
         $product->tour_style=$db->setQuery($query)->loadResult();
 
 
         $query=$db->getQuery(true);
         $query->select('physicalgrade.title')
-            ->from('#__virtuemart_physicalgrade AS physicalgrade')
-            ->where('physicalgrade.virtuemart_physicalgrade_id='.(int)$product->virtuemart_physicalgrade_id)
+            ->from('#__tsmart_physicalgrade AS physicalgrade')
+            ->where('physicalgrade.tsmart_physicalgrade_id='.(int)$product->tsmart_physicalgrade_id)
             ;
         $product->physicalgrade=$db->setQuery($query)->loadResult();
 

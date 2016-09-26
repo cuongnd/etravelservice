@@ -2,10 +2,10 @@
 /**
  * RSS helper class
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Valerie Isaksen
- * @copyright Copyright (c) 2014 VirtueMart Team and author. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team and author. All rights reserved.
  */
 defined('_JEXEC') or die('Restricted access');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
@@ -43,7 +43,7 @@ class vmRSS{
 		if (empty(self::$extFeeds)) {
 			try {
 				self::$extFeeds = self::getCPsRssFeed( "http://extensions.tsmart.net/?format=feed&type=rss", $items,$cache_time );
-				//self::$extFeeds =  self::getRssFeed("http://extensions.virtuemart.net/?format=feed&type=rss", 15);
+				//self::$extFeeds =  self::getRssFeed("http://extensions.tsmart.net/?format=feed&type=rss", 15);
 			} catch (Exception $e) {
 				echo 'Where not able to parse extension feed';
 			}
@@ -57,7 +57,7 @@ class vmRSS{
 	 * @return mixed
 	 */
 	public static $vmFeeds = false;
-	static public function getVirtueMartRssFeed() {
+	static public function gettsmartRssFeed() {
  		if (empty(self::$vmFeeds)) {
 			try {
 				self::$vmFeeds =  self::getCPsRssFeed("http://tsmart.net/news/list-all-news?format=feed&type=rss", 5, 240);

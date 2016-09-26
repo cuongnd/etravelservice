@@ -3,13 +3,13 @@
  *
  * Media table
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Media
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -28,7 +28,7 @@ if (!class_exists ('tsmTable')) {
  * The class is is used to manage the media in the shop.
  *
  * @author Max Milbers
- * @package        VirtueMart
+ * @package        tsmart
  */
 class TableMedias extends tsmTable {
 
@@ -69,10 +69,10 @@ class TableMedias extends tsmTable {
 	 */
 	function __construct (&$db) {
 
-		parent::__construct ('#__virtuemart_medias', 'virtuemart_media_id', $db);
+		parent::__construct ('#__tsmart_medias', 'tsmart_media_id', $db);
 
 		//In a VmTable the primary key is the same as the _tbl_key and therefore not needed
-// 		$this->setPrimaryKey('virtuemart_media_id');
+// 		$this->setPrimaryKey('tsmart_media_id');
 //		$this->setUniqueName('file_title');
 
 		$this->setLoggable ();
@@ -105,8 +105,8 @@ class TableMedias extends tsmTable {
 				vmError (tsmText::sprintf ('com_tsmart_URL_NOT_VALID', $this->file_url));
 			}
 
-			if (empty($this->virtuemart_media_id)) {
-				$q = 'SELECT `virtuemart_media_id`,`file_url` FROM `' . $this->_tbl . '` WHERE `file_url` = "' . $this->_db->escape ($this->file_url) . '" ';
+			if (empty($this->tsmart_media_id)) {
+				$q = 'SELECT `tsmart_media_id`,`file_url` FROM `' . $this->_tbl . '` WHERE `file_url` = "' . $this->_db->escape ($this->file_url) . '" ';
 				$this->_db->setQuery ($q);
 				$unique_id = $this->_db->loadAssocList ();
 
@@ -114,8 +114,8 @@ class TableMedias extends tsmTable {
 				if ($count !== 0) {
 
 					if ($count == 1) {
-						if (empty($this->virtuemart_media_id)) {
-							$this->virtuemart_media_id = $unique_id[0]['virtuemart_media_id'];
+						if (empty($this->tsmart_media_id)) {
+							$this->tsmart_media_id = $unique_id[0]['tsmart_media_id'];
 						}
 						else {
 							vmError (tsmText::_ ('com_tsmart_MEDIA_IS_ALREADY_IN_DB'));
@@ -150,11 +150,11 @@ class TableMedias extends tsmTable {
 			$this->_db->setQuery ($q);
 			$unique_id = $this->_db->loadAssocList ();
 
-			$tblKey = 'virtuemart_media_id';
+			$tblKey = 'tsmart_media_id';
 
 			if (!empty($unique_id)) {
 				foreach ($unique_id as $item) {
-					if ($item['virtuemart_media_id'] != $this->virtuemart_media_id) {
+					if ($item['tsmart_media_id'] != $this->tsmart_media_id) {
 						$lastDir = substr ($this->file_url, 0, strrpos ($this->file_url, '/'));
 						$lastDir = substr ($lastDir, strrpos ($lastDir, '/') + 1);
 						if (!empty($lastDir)) {

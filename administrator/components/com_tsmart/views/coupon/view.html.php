@@ -3,13 +3,13 @@
 *
 * Currency View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
@@ -60,7 +60,7 @@ class TsmartViewcoupon extends tsmViewAdmin {
 			$this->item = $model->getItem();
 			//get list tour
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcoupon.php';
-			$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+			$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->tsmart_hotel_addon_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$list_tour = vmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
@@ -111,11 +111,11 @@ class TsmartViewcoupon extends tsmViewAdmin {
 				$model->setId($cid);
 				$this->item = $model->getItem();
 				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcoupon.php';
-				$this->hotel=tsmcoupon::get_detail_hotel_by_hotel_id($this->item->virtuemart_hotel_id);
-				$this->tour_id_seletecd=tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				$this->hotel=tsmcoupon::get_detail_hotel_by_hotel_id($this->item->tsmart_hotel_id);
+				$this->tour_id_seletecd=tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->tsmart_hotel_addon_id);
 				//get list tour
 
-				$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->tsmart_hotel_addon_id);
 
 				//end get list tour
 

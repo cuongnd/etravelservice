@@ -1,9 +1,9 @@
 <?php
 /**
- * VirtueMart Change Log
+ * tsmart Change Log
  *
- * @package	VirtueMart
- * @copyright Copyright (c) 2009 VirtueMart Team. All rights reserved.
+ * @package	tsmart
+ * @copyright Copyright (c) 2009 tsmart Team. All rights reserved.
  */
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );

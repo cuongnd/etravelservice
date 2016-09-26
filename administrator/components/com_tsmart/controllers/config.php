@@ -3,14 +3,14 @@
 *
 * Config controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Config
 * @auhtor Max Milbers
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team and authors. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team and authors. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -26,7 +26,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Configuration Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Config
  */
 class TsmartControllerConfig extends TsmController {

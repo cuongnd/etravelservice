@@ -3,14 +3,14 @@
 *
 * Category Model
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Category
 * @author Max Milbers
 * @author jseros, RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model for product categories
  */
-class VirtueMartModelCategory extends VmModel {
+class tsmartModelCategory extends VmModel {
 
 	private $_category_tree;
 	public $_cleanCache = true ;
@@ -70,7 +70,7 @@ class VirtueMartModelCategory extends VmModel {
    			$this->_cache[$this->_id][$childs]->load($this->_id);
 
    			$xrefTable = $this->getTable('category_medias');
-   			$this->_cache[$this->_id][$childs]->virtuemart_media_id = $xrefTable->load((int)$this->_id);
+   			$this->_cache[$this->_id][$childs]->tsmart_media_id = $xrefTable->load((int)$this->_id);
 
    			if(empty($this->_cache[$this->_id][$childs]->category_template)){
    				$this->_cache[$this->_id][$childs]->category_template = VmConfig::get('categorytemplate');
@@ -109,7 +109,7 @@ class VirtueMartModelCategory extends VmModel {
 	 */
 	public function getChildCategoryList($vendorId, $tsmart_category_id,$selectedOrdering = null, $orderDir = null, $useCache = true) {
 
-		if(empty($this) or get_class($this)!='VirtueMartModelCategory'){
+		if(empty($this) or get_class($this)!='tsmartModelCategory'){
 			$useCache = false;
 		}
 
@@ -155,9 +155,9 @@ class VirtueMartModelCategory extends VmModel {
 				$cache = JFactory::getCache('com_tsmart_cats','callback');
 				$cache->setCaching(true);
 				//vmdebug('Calling cache getChildCategoryListObject');
-				$_childCategoryList[$key] = $cache->call( array( 'VirtueMartModelCategory', 'getChildCategoryListObject' ),$vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = $cache->call( array( 'tsmartModelCategory', 'getChildCategoryListObject' ),$vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
 			} else {
-				$_childCategoryList[$key] = VirtueMartModelCategory::getChildCategoryListObject($vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = tsmartModelCategory::getChildCategoryListObject($vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
 			}
 
 			//vmTime('Time to load cats '.(int)$useCache,'com_tsmart_cats');
@@ -192,7 +192,7 @@ class VirtueMartModelCategory extends VmModel {
 			$useJLback = false;
 			$method = 'INNER';
 			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins[] = ' '.$method.' JOIN `#__virtuemart_categories_'.VmConfig::$jDefLang.'` as ljd using (`virtuemart_category_id`)';
+				$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.VmConfig::$jDefLang.'` as ljd using (`tsmart_category_id`)';
 				$method = 'LEFT';
 				$useJLback = true;
 			}
@@ -204,26 +204,26 @@ class VirtueMartModelCategory extends VmModel {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$from = ' FROM `#__virtuemart_categories` as c';
+			$from = ' FROM `#__tsmart_categories` as c';
 
 
-			$joins[] = ' '.$method.' JOIN `#__virtuemart_categories_'.VmConfig::$defaultLang.'` as ld using (`virtuemart_category_id`)';
-			$joins[] = ' LEFT JOIN `#__virtuemart_categories_'.$lang.'` as l using (`virtuemart_category_id`)';
+			$joins[] = ' '.$method.' JOIN `#__tsmart_categories_'.VmConfig::$defaultLang.'` as ld using (`tsmart_category_id`)';
+			$joins[] = ' LEFT JOIN `#__tsmart_categories_'.$lang.'` as l using (`tsmart_category_id`)';
 			$query = $select.$from.implode(' ',$joins);
 
 
 		} else {
 			$query = 'SELECT l.*
-					FROM `#__virtuemart_categories_'.$lang.'` as l
-					INNER JOIN `#__virtuemart_categories` as c using (`virtuemart_category_id`)';
+					FROM `#__tsmart_categories_'.$lang.'` as l
+					INNER JOIN `#__tsmart_categories` as c using (`tsmart_category_id`)';
 		}
 
-		$query .= ' LEFT JOIN `#__virtuemart_category_categories` as cx on c.`virtuemart_category_id` = cx.`category_child_id` ';
+		$query .= ' LEFT JOIN `#__tsmart_category_categories` as cx on c.`tsmart_category_id` = cx.`category_child_id` ';
 		$query .= ' WHERE cx.`category_parent_id` = ' . (int)$tsmart_category_id . ' ';
 		if(empty($vendorId) and VmConfig::get('multix')!='none'){
 			$query .= ' AND c.`shared` = 1' ;
 		} else if(!empty($vendorId)){
-			$query .= ' AND c.`virtuemart_vendor_id` = ' . (int)$vendorId ;
+			$query .= ' AND c.`tsmart_vendor_id` = ' . (int)$vendorId ;
 		}
 
 		$query .= ' AND c.`published` = 1 ';
@@ -237,7 +237,7 @@ class VirtueMartModelCategory extends VmModel {
 			if(!class_exists('TableCategory_medias'))require(VMPATH_ADMIN.DS.'tables'.DS.'category_medias.php');
 			foreach($childList as $child){
 				$xrefTable = new TableCategory_medias($db);
-				$child->virtuemart_media_id = $xrefTable->load($child->virtuemart_category_id);
+				$child->tsmart_media_id = $xrefTable->load($child->tsmart_category_id);
 			}
 		}
 		return $childList;
@@ -299,7 +299,7 @@ class VirtueMartModelCategory extends VmModel {
 					$category->level = $level;
 					$category->siblingCount = $siblingCount;
 					$sortedCats[] = $category;
-					$this->rekurseCats($category->virtuemart_category_id,$level,$onlyPublished,$keyword,$sortedCats,$deep);
+					$this->rekurseCats($category->tsmart_category_id,$level,$onlyPublished,$keyword,$sortedCats,$deep);
 				}
 			}
 		}
@@ -310,12 +310,12 @@ class VirtueMartModelCategory extends VmModel {
 		return;
 		static $cats = array();
 
-		$select = ' c.`virtuemart_category_id`, category_description, category_name, c.`ordering`, c.`published`, cx.`category_child_id`, cx.`category_parent_id`, c.`shared` ';
+		$select = ' c.`tsmart_category_id`, category_description, category_name, c.`ordering`, c.`published`, cx.`category_child_id`, cx.`category_parent_id`, c.`shared` ';
 
-		$joinedTables = ' FROM `#__virtuemart_categories_'.VmConfig::$vmlang.'` l
-				  JOIN `#__virtuemart_categories` AS c using (`virtuemart_category_id`)
-				  LEFT JOIN `#__virtuemart_category_categories` AS cx
-				  ON l.`virtuemart_category_id` = cx.`category_child_id` ';
+		$joinedTables = ' FROM `#__tsmart_categories_'.VmConfig::$vmlang.'` l
+				  JOIN `#__tsmart_categories` AS c using (`tsmart_category_id`)
+				  LEFT JOIN `#__tsmart_category_categories` AS cx
+				  ON l.`tsmart_category_id` = cx.`category_child_id` ';
 
 		$where = array();
 
@@ -336,7 +336,7 @@ class VirtueMartModelCategory extends VmModel {
 
 		if($vendorId!=1){
 
-			$where[] = ' (c.`virtuemart_vendor_id` = "'. (int)$vendorId. '" OR c.`shared` = "1") ';
+			$where[] = ' (c.`tsmart_vendor_id` = "'. (int)$vendorId. '" OR c.`shared` = "1") ';
 		}
 
 		if( !empty( $keyword ) ) {
@@ -361,7 +361,7 @@ class VirtueMartModelCategory extends VmModel {
 
 		$hash = md5($keyword.'.'.(int)$parentId.VmConfig::$vmlang.(int)$childId.$this->_selectedOrderingDir.(int)$vendorId.$this->_selectedOrdering);
 		if(!isset($cats[$hash])){
-			$cats[$hash] = $this->_category_tree = $this->exeSortSearchListQuery(0,$select,$joinedTables,$whereString,'GROUP BY virtuemart_category_id',$ordering );
+			$cats[$hash] = $this->_category_tree = $this->exeSortSearchListQuery(0,$select,$joinedTables,$whereString,'GROUP BY tsmart_category_id',$ordering );
 		}
 
 		return $cats[$hash];
@@ -379,12 +379,12 @@ class VirtueMartModelCategory extends VmModel {
 		$db = JFactory::getDBO();
 		$vendorId = 1;
 		if ($cat_id > 0) {
-			$q = 'SELECT count(#__virtuemart_products.virtuemart_product_id) AS total
-			FROM `#__virtuemart_products`, `#__virtuemart_product_categories`
-			WHERE `#__virtuemart_products`.`virtuemart_vendor_id` = "'.(int)$vendorId.'"
-			AND `#__virtuemart_product_categories`.`virtuemart_category_id` = '.(int)$cat_id.'
-			AND `#__virtuemart_products`.`virtuemart_product_id` = `#__virtuemart_product_categories`.`virtuemart_product_id`
-			AND `#__virtuemart_products`.`published` = "1" ';
+			$q = 'SELECT count(#__tsmart_products.tsmart_product_id) AS total
+			FROM `#__tsmart_products`, `#__tsmart_product_categories`
+			WHERE `#__tsmart_products`.`tsmart_vendor_id` = "'.(int)$vendorId.'"
+			AND `#__tsmart_product_categories`.`tsmart_category_id` = '.(int)$cat_id.'
+			AND `#__tsmart_products`.`tsmart_product_id` = `#__tsmart_product_categories`.`tsmart_product_id`
+			AND `#__tsmart_products`.`published` = "1" ';
 			$db->setQuery($q);
 			$count = $db->loadResult();
 		} else $count=0 ;
@@ -407,7 +407,7 @@ class VirtueMartModelCategory extends VmModel {
 		$row = $this->getTable('categories');
 		$row->load($id);
 
-		$query = 'SELECT `category_parent_id` FROM `#__virtuemart_category_categories` WHERE `category_child_id` = '. (int)$row->virtuemart_category_id ;
+		$query = 'SELECT `category_parent_id` FROM `#__tsmart_category_categories` WHERE `category_child_id` = '. (int)$row->tsmart_category_id ;
 		$db = JFactory::getDBO();
 		$db->setQuery($query);
 		$parent = $db->loadObject();
@@ -432,10 +432,10 @@ class VirtueMartModelCategory extends VmModel {
 		$groupings	= array();
 		$row = $this->getTable('categories');
 
-		$query = 'SELECT `category_parent_id` FROM `#__virtuemart_categories` c
-				  LEFT JOIN `#__virtuemart_category_categories` cx
-				  ON c.`virtuemart_category_id` = cx.`category_child_id`
-			      WHERE c.`virtuemart_category_id` = %s';
+		$query = 'SELECT `category_parent_id` FROM `#__tsmart_categories` c
+				  LEFT JOIN `#__tsmart_category_categories` cx
+				  ON c.`tsmart_category_id` = cx.`category_child_id`
+			      WHERE c.`tsmart_category_id` = %s';
 
 		$db = JFactory::getDBO();
 		// update ordering values
@@ -495,7 +495,7 @@ class VirtueMartModelCategory extends VmModel {
 
 		$db = JFactory::getDBO();
     	$query = 'SELECT `category_parent_id`, `ordering`
-    			  FROM `#__virtuemart_category_categories`
+    			  FROM `#__tsmart_category_categories`
     			  WHERE `category_child_id` = '. (int)$tsmart_category_id;
     	$db->setQuery($query);
 
@@ -516,7 +516,7 @@ class VirtueMartModelCategory extends VmModel {
 		if(!vmAccess::manager('category.edit')){
 			vmWarn('Insufficient permission to store category');
 			return false;
-		} else if( empty($data['virtuemart_category_id']) and !vmAccess::manager('category.create')){
+		} else if( empty($data['tsmart_category_id']) and !vmAccess::manager('category.create')){
 			vmWarn('Insufficient permission to create category');
 			return false;
 		}
@@ -540,8 +540,8 @@ class VirtueMartModelCategory extends VmModel {
 
 		$table->bindChecknStore($data);
 
-		if(!empty($data['virtuemart_category_id'])){
-			$xdata['category_child_id'] = (int)$data['virtuemart_category_id'];
+		if(!empty($data['tsmart_category_id'])){
+			$xdata['category_child_id'] = (int)$data['tsmart_category_id'];
 			$xdata['category_parent_id'] = empty($data['category_parent_id'])? 0:(int)$data['category_parent_id'];
 			$xdata['ordering'] = empty($data['ordering'])? 0: (int)$data['ordering'];
 
@@ -557,11 +557,11 @@ class VirtueMartModelCategory extends VmModel {
 
 		$cache = JFactory::getCache();
 		$cache->clean('com_tsmart_cats');
-		$cache->clean('mod_virtuemart_product');
-		$cache->clean('mod_virtuemart_category');
+		$cache->clean('mod_tsmart_product');
+		$cache->clean('mod_tsmart_category');
 
 
-		return $data['virtuemart_category_id'] ;
+		return $data['tsmart_category_id'] ;
 	}
 
 	/**
@@ -589,15 +589,15 @@ class VirtueMartModelCategory extends VmModel {
 			}
 
 			$db = JFactory::getDbo();
-			$q = 'SELECT `virtuemart_customfield_id` FROM `#__virtuemart_product_customfields` as pc ';
-			$q .= 'LEFT JOIN `#__virtuemart_customs`as c using (`virtuemart_custom_id`) WHERE pc.`customfield_value` = "' . $cid . '" AND `field_type`= "Z"';
+			$q = 'SELECT `tsmart_customfield_id` FROM `#__tsmart_product_customfields` as pc ';
+			$q .= 'LEFT JOIN `#__tsmart_customs`as c using (`tsmart_custom_id`) WHERE pc.`customfield_value` = "' . $cid . '" AND `field_type`= "Z"';
 			$db->setQuery($q);
 			$list = $db->loadColumn();
 
 			if ($list) {
 				$listInString = implode(',',$list);
 				//Delete media xref
-				$query = 'DELETE FROM `#__virtuemart_product_customfields` WHERE `virtuemart_customfield_id` IN ('. $listInString .') ';
+				$query = 'DELETE FROM `#__tsmart_product_customfields` WHERE `tsmart_customfield_id` IN ('. $listInString .') ';
 				$db->setQuery($query);
 				if(!$db->execute()){
 					vmError( $db->getErrorMsg() );
@@ -608,14 +608,14 @@ class VirtueMartModelCategory extends VmModel {
 		$cidInString = implode(',',$cids);
 
 		//Delete media xref
-		$query = 'DELETE FROM `#__virtuemart_category_medias` WHERE `virtuemart_category_id` IN ('. $cidInString .') ';
+		$query = 'DELETE FROM `#__tsmart_category_medias` WHERE `tsmart_category_id` IN ('. $cidInString .') ';
 		$db->setQuery($query);
 		if(!$db->execute()){
 			vmError( $db->getErrorMsg() );
 		}
 
 		//deleting product relations
-		$query = 'DELETE FROM `#__virtuemart_product_categories` WHERE `virtuemart_category_id` IN ('. $cidInString .') ';
+		$query = 'DELETE FROM `#__tsmart_product_categories` WHERE `tsmart_category_id` IN ('. $cidInString .') ';
 		$db->setQuery($query);
 
 		if(!$db->execute()){
@@ -623,7 +623,7 @@ class VirtueMartModelCategory extends VmModel {
 		}
 
 		//deleting category relations
-		$query = 'DELETE FROM `#__virtuemart_category_categories` WHERE `category_child_id` IN ('. $cidInString .') ';
+		$query = 'DELETE FROM `#__tsmart_category_categories` WHERE `category_child_id` IN ('. $cidInString .') ';
 		$db->setQuery($query);
 
 		if(!$db->execute()){
@@ -631,7 +631,7 @@ class VirtueMartModelCategory extends VmModel {
 		}
 
 		//updating parent relations
-		$query = 'UPDATE `#__virtuemart_category_categories` SET `category_parent_id` = 0 WHERE `category_parent_id` IN ('. $cidInString .') ';
+		$query = 'UPDATE `#__tsmart_category_categories` SET `category_parent_id` = 0 WHERE `category_parent_id` IN ('. $cidInString .') ';
 		$db->setQuery($query);
 
 		if(!$db->execute()){
@@ -657,7 +657,7 @@ class VirtueMartModelCategory extends VmModel {
 		if(!isset($hasChildrenCache[$tsmart_category_id])){
 			$db = JFactory::getDBO();
 			$q = "SELECT `category_child_id`
-			FROM `#__virtuemart_category_categories`
+			FROM `#__tsmart_category_categories`
 			WHERE `category_parent_id` = ".(int)$tsmart_category_id;
 			$db->setQuery($q);
 			$db->execute();
@@ -687,15 +687,15 @@ class VirtueMartModelCategory extends VmModel {
 		} else {
 			$menuItem = $menu->getItem($query['Itemid']);
 		}
-		$menuCatid = (empty($menuItem->query['virtuemart_category_id'])) ? 0 : $menuItem->query['virtuemart_category_id'];
+		$menuCatid = (empty($menuItem->query['tsmart_category_id'])) ? 0 : $menuItem->query['tsmart_category_id'];
 		if ($menuCatid == $tsmart_category_id) return ;
 		$parents_id = array_reverse($this->getCategoryRecurse($tsmart_category_id,$menuCatid));
 
 
-		$select = 'SELECT `virtuemart_category_id`, `category_name`';
+		$select = 'SELECT `tsmart_category_id`, `category_name`';
 		$method = 'FROM';
-		$joins = ' FROM `#__virtuemart_categories_'.VmConfig::$vmlang.'` as l';
-		$where = 'WHERE `virtuemart_category_id`= ';
+		$joins = ' FROM `#__tsmart_categories_'.VmConfig::$vmlang.'` as l';
+		$where = 'WHERE `tsmart_category_id`= ';
 		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
 			$langFields = array('category_name');
 
@@ -703,12 +703,12 @@ class VirtueMartModelCategory extends VmModel {
 			$joins = '';
 			$as='as ld';
 			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins = ' FROM `#__virtuemart_categories_'.VmConfig::$jDefLang.'` as ljd';
+				$joins = ' FROM `#__tsmart_categories_'.VmConfig::$jDefLang.'` as ljd';
 				$method = ' LEFT JOIN';
-				$as .= ' using (`virtuemart_category_id`)';
+				$as .= ' using (`tsmart_category_id`)';
 				$useJLback = true;
 			}
-			$select = 'SELECT `virtuemart_category_id`';
+			$select = 'SELECT `tsmart_category_id`';
 			foreach($langFields as $langField){
 				$expr2 = 'ld.'.$langField;
 				if($useJLback){
@@ -716,8 +716,8 @@ class VirtueMartModelCategory extends VmModel {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins .= ' '.$method.' `#__virtuemart_categories_'.VmConfig::$defaultLang.'` '.$as;
-			$joins .= ' LEFT JOIN `#__virtuemart_categories_'.VmConfig::$vmlang.'` as l using (`virtuemart_category_id`)';
+			$joins .= ' '.$method.' `#__tsmart_categories_'.VmConfig::$defaultLang.'` '.$as;
+			$joins .= ' LEFT JOIN `#__tsmart_categories_'.VmConfig::$vmlang.'` as l using (`tsmart_category_id`)';
 
 		}
 
@@ -751,7 +751,7 @@ class VirtueMartModelCategory extends VmModel {
 		} else{
 			$db	= JFactory::getDBO();
 			$q = "SELECT `category_child_id` AS `child`, `category_parent_id` AS `parent`
-				FROM  #__virtuemart_category_categories AS `xref`
+				FROM  #__tsmart_category_categories AS `xref`
 				WHERE `xref`.`category_child_id`= ".(int)$tsmart_category_id;
 			$db->setQuery($q);
 			$ids = $resId[$hash] = $db->loadObject();

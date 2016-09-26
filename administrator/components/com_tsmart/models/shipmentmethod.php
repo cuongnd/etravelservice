@@ -3,13 +3,13 @@
  *
  * Data module for shipment
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,11 +24,11 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop shipment
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG
  */
-class VirtueMartModelShipmentmethod extends VmModel {
+class tsmartModelShipmentmethod extends VmModel {
 
 	//    /** @var integer Primary key */
 	//    var $_id;
@@ -63,9 +63,9 @@ class VirtueMartModelShipmentmethod extends VmModel {
 			$this->_cache[$this->_id]->load((int)$this->_id);
 
 
-			if(empty($this->_cache[$this->_id]->virtuemart_vendor_id)){
-				if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-				$this->_cache[$this->_id]->virtuemart_vendor_id = VirtueMartModelVendor::getLoggedVendor();;
+			if(empty($this->_cache[$this->_id]->tsmart_vendor_id)){
+				if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+				$this->_cache[$this->_id]->tsmart_vendor_id = tsmartModelVendor::getLoggedVendor();;
 			}
 
 			if ($this->_cache[$this->_id]->shipment_jplugin_id) {
@@ -100,10 +100,10 @@ class VirtueMartModelShipmentmethod extends VmModel {
 			}
 
 			/* Add the shipmentcarreir shoppergroups */
-			$q = 'SELECT `virtuemart_shoppergroup_id` FROM #__virtuemart_shipmentmethod_shoppergroups WHERE `virtuemart_shipmentmethod_id` = "'.$this->_id.'"';
+			$q = 'SELECT `tsmart_shoppergroup_id` FROM #__tsmart_shipmentmethod_shoppergroups WHERE `tsmart_shipmentmethod_id` = "'.$this->_id.'"';
 			$this->_db->setQuery($q);
-			$this->_cache[$this->_id]->virtuemart_shoppergroup_ids = $this->_db->loadColumn();
-			if(empty($this->_cache[$this->_id]->virtuemart_shoppergroup_ids)) $this->_cache[$this->_id]->virtuemart_shoppergroup_ids = 0;
+			$this->_cache[$this->_id]->tsmart_shoppergroup_ids = $this->_db->loadColumn();
+			if(empty($this->_cache[$this->_id]->tsmart_shoppergroup_ids)) $this->_cache[$this->_id]->tsmart_shoppergroup_ids = 0;
 
 		}
 
@@ -120,14 +120,14 @@ class VirtueMartModelShipmentmethod extends VmModel {
 
 		$whereString = '';
 
-		$joins = ' FROM `#__virtuemart_shipmentmethods` as i ';
+		$joins = ' FROM `#__tsmart_shipmentmethods` as i ';
 
 		if(VmConfig::$defaultLang!=VmConfig::$vmlang and Vmconfig::$langCount>1){
 			$langFields = array('shipment_name','shipment_desc');
 
 			$useJLback = false;
 			if(VmConfig::$defaultLang!=VmConfig::$jDefLang){
-				$joins .= ' LEFT JOIN `#__virtuemart_shipmentmethods_'.VmConfig::$jDefLang.'` as ljd';
+				$joins .= ' LEFT JOIN `#__tsmart_shipmentmethods_'.VmConfig::$jDefLang.'` as ljd';
 				$useJLback = true;
 			}
 
@@ -139,11 +139,11 @@ class VirtueMartModelShipmentmethod extends VmModel {
 				}
 				$select .= ', IFNULL(l.'.$langField.','.$expr2.') as '.$langField.'';
 			}
-			$joins .= ' LEFT JOIN `#__virtuemart_shipmentmethods_'.VmConfig::$defaultLang.'` as ld using (`virtuemart_shipmentmethod_id`)';
-			$joins .= ' LEFT JOIN `#__virtuemart_shipmentmethods_'.VmConfig::$vmlang.'` as l using (`virtuemart_shipmentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_shipmentmethods_'.VmConfig::$defaultLang.'` as ld using (`tsmart_shipmentmethod_id`)';
+			$joins .= ' LEFT JOIN `#__tsmart_shipmentmethods_'.VmConfig::$vmlang.'` as l using (`tsmart_shipmentmethod_id`)';
 		} else {
 			$select = ' * ';
-			$joins .= ' LEFT JOIN `#__virtuemart_shipmentmethods_'.VmConfig::$vmlang.'` as l USING (`virtuemart_shipmentmethod_id`) ';
+			$joins .= ' LEFT JOIN `#__tsmart_shipmentmethods_'.VmConfig::$vmlang.'` as l USING (`tsmart_shipmentmethod_id`) ';
 		}
 
 
@@ -153,10 +153,10 @@ class VirtueMartModelShipmentmethod extends VmModel {
 			if(!class_exists('shopfunctions')) require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
 			foreach ($datas as &$data){
 				// Add the shipment shoppergroups
-				$q = 'SELECT `virtuemart_shoppergroup_id` FROM #__virtuemart_shipmentmethod_shoppergroups WHERE `virtuemart_shipmentmethod_id` = "'.$data->virtuemart_shipmentmethod_id.'"';
+				$q = 'SELECT `tsmart_shoppergroup_id` FROM #__tsmart_shipmentmethod_shoppergroups WHERE `tsmart_shipmentmethod_id` = "'.$data->tsmart_shipmentmethod_id.'"';
 				$db = JFactory::getDBO();
 				$db->setQuery($q);
-				$data->virtuemart_shoppergroup_ids = $db->loadColumn();
+				$data->tsmart_shoppergroup_ids = $db->loadColumn();
 			}
 		}
 		return $datas;
@@ -179,7 +179,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 		if(!vmAccess::manager('shipmentmethod.edit')){
 			vmWarn('Insufficient permissions to store shipmentmethod');
 			return false;
-		} else if( empty($data['virtuemart_shipment_id']) and !vmAccess::manager('shipmentmethod.create')){
+		} else if( empty($data['tsmart_shipment_id']) and !vmAccess::manager('shipmentmethod.create')){
 			vmWarn('Insufficient permission to create shipmentmethod');
 			return false;
 		}
@@ -190,11 +190,11 @@ class VirtueMartModelShipmentmethod extends VmModel {
 			}
 		}
 
-		if(empty($data['virtuemart_vendor_id'])){
-			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-			$data['virtuemart_vendor_id'] = VirtueMartModelVendor::getLoggedVendor();
+		if(empty($data['tsmart_vendor_id'])){
+			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			$data['tsmart_vendor_id'] = tsmartModelVendor::getLoggedVendor();
 		} else {
-			$data['virtuemart_vendor_id'] = (int) $data['virtuemart_vendor_id'];
+			$data['tsmart_vendor_id'] = (int) $data['tsmart_vendor_id'];
 		}
 
 		$tb = '#__extensions';
@@ -236,7 +236,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 		$dispatcher = JDispatcher::getInstance();
 		$retValues = $dispatcher->trigger('plgVmOnStoreInstallShipmentPluginTable', array(  $data['shipment_jplugin_id']));
 
-		return $table->virtuemart_shipmentmethod_id;
+		return $table->tsmart_shipmentmethod_id;
 	}
 	/**
 	 * Creates a clone of a given shipmentmethod id
@@ -254,7 +254,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 
 		$this->setId ($id);
 		$shipment = $this->getShipment();
-		$shipment->virtuemart_shipmentmethod_id = 0;
+		$shipment->tsmart_shipmentmethod_id = 0;
 		$shipment->shipment_name = $shipment->shipment_name.' Copy';
 		$clone = $this->store($shipment);
 		return $clone;

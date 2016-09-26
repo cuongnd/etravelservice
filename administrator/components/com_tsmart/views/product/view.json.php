@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,12 +22,12 @@ defined('_JEXEC') or die('Restricted access');
 // Load the view framework
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 		// Load some common models
-if(!class_exists('VirtueMartModelCustomfields')) require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
+if(!class_exists('tsmartModelCustomfields')) require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 class TsmartViewProduct extends tsmViewAdmin {
@@ -47,7 +47,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 		$filter = vRequest::getVar('q', vRequest::getVar('term', false) );
 
 		$id = vRequest::getInt('id', false);
-		$tsmart_product_id = vRequest::getInt('virtuemart_product_id',array());
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id',array());
 		if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 			$product_id = (int)$tsmart_product_id[0];
 		} else {
@@ -56,23 +56,23 @@ class TsmartViewProduct extends tsmViewAdmin {
 		//$customfield = $this->model->getcustomfield();
 		/* Get the task */
 		if ($this->type=='relatedproducts') {
-			$query = "SELECT virtuemart_product_id AS id, CONCAT(product_name, '::', product_sku) AS value
-				FROM #__virtuemart_products_".VmConfig::$vmlang."
-				 JOIN `#__virtuemart_products` AS p using (`virtuemart_product_id`)";
+			$query = "SELECT tsmart_product_id AS id, CONCAT(product_name, '::', product_sku) AS value
+				FROM #__tsmart_products_".VmConfig::$vmlang."
+				 JOIN `#__tsmart_products` AS p using (`tsmart_product_id`)";
 			if ($filter) $query .= " WHERE product_name LIKE '%". $this->db->escape( $filter, true ) ."%' or product_sku LIKE '%". $this->db->escape( $filter, true ) ."%' limit 0,10";
 			self::setRelatedHtml($product_id,$query,'R');
 		}
 		else if ($this->type=='relatedcategories')
 		{
-			$query = "SELECT virtuemart_category_id AS id, CONCAT(category_name, '::', virtuemart_category_id) AS value
-				FROM #__virtuemart_categories_".VmConfig::$vmlang;
+			$query = "SELECT tsmart_category_id AS id, CONCAT(category_name, '::', tsmart_category_id) AS value
+				FROM #__tsmart_categories_".VmConfig::$vmlang;
 			if ($filter) $query .= " WHERE category_name LIKE '%". $this->db->escape( $filter, true ) ."%' limit 0,10";
 			self::setRelatedHtml($product_id,$query,'Z');
 		}
 		else if ($this->type=='custom')
 		{
-			$query = "SELECT CONCAT(virtuemart_custom_id, '|', custom_value, '|', field_type) AS id, CONCAT(custom_title, '::', custom_tip) AS value
-				FROM #__virtuemart_customs";
+			$query = "SELECT CONCAT(tsmart_custom_id, '|', custom_value, '|', field_type) AS id, CONCAT(custom_title, '::', custom_tip) AS value
+				FROM #__tsmart_customs";
 			if ($filter) $query .= " WHERE custom_title LIKE '%".$filter."%' limit 0,50";
 			$this->db->setQuery($query);
 			$this->json['value'] = $this->db->loadObjectList();
@@ -80,12 +80,12 @@ class TsmartViewProduct extends tsmViewAdmin {
 		}
 		else if ($this->type=='fields')
 		{
-			if (!class_exists ('VirtueMartModelCustom')) {
+			if (!class_exists ('tsmartModelCustom')) {
 				require(VMPATH_ADMIN . DS . 'models' . DS . 'custom.php');
 			}
-			$fieldTypes = VirtueMartModelCustom::getCustomTypes();
+			$fieldTypes = tsmartModelCustom::getCustomTypes();
 			$model = VmModel::getModel('custom');
-			$q = 'SELECT `virtuemart_custom_id` FROM `#__virtuemart_customs`
+			$q = 'SELECT `tsmart_custom_id` FROM `#__tsmart_customs`
 			WHERE (`custom_parent_id`='.$id.') ';
 			$q .= 'order by `ordering` asc';
 			$this->db->setQuery($q);
@@ -108,9 +108,9 @@ class TsmartViewProduct extends tsmViewAdmin {
 			foreach ($rows as $field) {
 				if ($field->field_type =='deprecatedwasC' ){
 					$this->json['table'] = 'childs';
-					$q='SELECT `virtuemart_product_id` FROM `#__virtuemart_products` WHERE `published`=1
-					AND `product_parent_id`= '.vRequest::getInt('virtuemart_product_id');
-					//$this->db->setQuery(' SELECT virtuemart_product_id, product_name FROM `#__virtuemart_products` WHERE `product_parent_id` ='.(int)$product_id);
+					$q='SELECT `tsmart_product_id` FROM `#__tsmart_products` WHERE `published`=1
+					AND `product_parent_id`= '.vRequest::getInt('tsmart_product_id');
+					//$this->db->setQuery(' SELECT tsmart_product_id, product_name FROM `#__tsmart_products` WHERE `product_parent_id` ='.(int)$product_id);
 					$this->db->setQuery($q);
 					if ($childIds = $this->db->loadColumn()) {
 					// Get childs
@@ -146,7 +146,7 @@ class TsmartViewProduct extends tsmViewAdmin {
 					 } else {
 					     $cartIcone= 'default-off';
 					 }
-					$field->virtuemart_product_id=$product_id;
+					$field->tsmart_product_id=$product_id;
 					$html[] = '
 					<tr class="removable">
 						<td>
@@ -196,14 +196,14 @@ class TsmartViewProduct extends tsmViewAdmin {
 		$this->db->setQuery($query);
 		$this->json = $this->db->loadObjectList();
 
-		$query = 'SELECT * FROM `#__virtuemart_customs` WHERE field_type ="'.$fieldType.'" ';
+		$query = 'SELECT * FROM `#__tsmart_customs` WHERE field_type ="'.$fieldType.'" ';
 		$this->db->setQuery($query);
 		$custom = $this->db->loadObject();
 		if(!$custom) {
 			vmdebug('setRelatedHtml could not find $custom for field type '.$fieldType);
 			return false;
 		}
-		$custom->virtuemart_product_id = $product_id;
+		$custom->tsmart_product_id = $product_id;
 		foreach ($this->json as &$related) {
 
 			$custom->customfield_value = $related->id;

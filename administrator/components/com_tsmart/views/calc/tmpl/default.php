@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Calculation tool
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -70,7 +70,7 @@ AdminUIHelper::startAdminArea($this);
 			<th width="20">
 				<?php echo tsmText::_( 'com_tsmart_SHARED')  ?>
 			</th><?php }  ?>
-			<th><?php echo $this->sort('virtuemart_calc_id', 'com_tsmart_ID')  ?></th>
+			<th><?php echo $this->sort('tsmart_calc_id', 'com_tsmart_ID')  ?></th>
 		<?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>
 			</th> */ ?>
@@ -82,10 +82,10 @@ AdminUIHelper::startAdminArea($this);
 		for ($i=0, $n=count( $this->calcs ); $i < $n; $i++) {
 
 			$row = $this->calcs[$i];
-			$checked = JHtml::_('grid.id', $i, $row->virtuemart_calc_id);
+			$checked = JHtml::_('grid.id', $i, $row->tsmart_calc_id);
 			$published = $this->toggle($row->published, $i, 'toggle.published');
 
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=calc&task=edit&cid[]=' . $row->virtuemart_calc_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=calc&task=edit&cid[]=' . $row->tsmart_calc_id);
 			?>
 			<tr class="<?php echo "row".$k; ?>">
 
@@ -97,7 +97,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<?php  if($this->showVendors){ ?>
 				<td align="left">
-					<?php echo $row->virtuemart_vendor_id; ?>
+					<?php echo $row->tsmart_vendor_id; ?>
 				</td>
 				<?php } ?>
 				<td>
@@ -172,7 +172,7 @@ AdminUIHelper::startAdminArea($this);
 				}
 			?>
 				<td align="right">
-					<?php echo $row->virtuemart_calc_id; ?>
+					<?php echo $row->tsmart_calc_id; ?>
 				</td>
 			</tr>
 			<?php

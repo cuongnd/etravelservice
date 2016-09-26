@@ -3,13 +3,13 @@
 *
 * Media controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Product Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @author Max Milbers
  */
 class TsmartControllerMedia extends TsmController {
@@ -38,7 +38,7 @@ class TsmartControllerMedia extends TsmController {
 	 */
 	function __construct() {
 		VmConfig::loadJLang('com_tsmart_media');
-		parent::__construct('virtuemart_media_id');
+		parent::__construct('tsmart_media_id');
 
 	}
 
@@ -77,7 +77,7 @@ class TsmartControllerMedia extends TsmController {
 
 		$cmd = vRequest::getCmd('task');
 		if($cmd == 'apply'){
-			$redirection = 'index.php?option=com_tsmart&view=media&task=edit&virtuemart_media_id='.$id;
+			$redirection = 'index.php?option=com_tsmart&view=media&task=edit&tsmart_media_id='.$id;
 		} else {
 			$redirection = 'index.php?option=com_tsmart&view=media';
 		}

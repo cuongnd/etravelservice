@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php')
 /**
  * Model class for shop Currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  */
-class VirtueMartModelCurrency extends VmModel {
+class tsmartModelCurrency extends VmModel {
 
 
 	/**
@@ -68,7 +68,7 @@ class VirtueMartModelCurrency extends VmModel {
 		}
 		$vendorId = vmAccess::isSuperVendor();
 		if($vendorId){
-			$where[]  = '(`virtuemart_vendor_id` = "'.(int)$vendorId.'" '.$shared.')';
+			$where[]  = '(`tsmart_vendor_id` = "'.(int)$vendorId.'" '.$shared.')';
 		}
 
 		if(empty($search)){
@@ -84,7 +84,7 @@ class VirtueMartModelCurrency extends VmModel {
 		$whereString='';
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
 
-		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_currencies`',$whereString,'',$this->_getOrdering());
+		$data = $this->exeSortSearchListQuery(0,'*',' FROM `#__tsmart_currencies`',$whereString,'',$this->_getOrdering());
 
 		return $data;
 	}
@@ -95,9 +95,9 @@ class VirtueMartModelCurrency extends VmModel {
 		if($vendorId===0){
 			$multix = Vmconfig::get('multix','none');
 			if(strpos($multix,'payment')!==FALSE){
-				if (!class_exists('VirtueMartModelVendor'))
+				if (!class_exists('tsmartModelVendor'))
 					require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
-				$vendorId = VirtueMartModelVendor::getLoggedVendor();
+				$vendorId = tsmartModelVendor::getLoggedVendor();
 
 			} else {
 				$vendorId = 1;
@@ -105,7 +105,7 @@ class VirtueMartModelCurrency extends VmModel {
 		}
 		if(!isset($currencies[$vendorId])){
 			$db = JFactory::getDbo();
-			$q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id`=' . $vendorId;
+			$q = 'SELECT `vendor_accepted_currencies`, `vendor_currency` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id`=' . $vendorId;
 			$db->setQuery($q);
 			$vendor_currency = $db->loadAssoc();
 			if (!$vendor_currency['vendor_accepted_currencies']) {
@@ -119,10 +119,10 @@ class VirtueMartModelCurrency extends VmModel {
 					return $currencies[$vendorId];
 				}
 			}
-			$q = 'SELECT `virtuemart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
-					FROM `#__virtuemart_currencies` WHERE `virtuemart_currency_id` IN ('.$vendor_currency['vendor_accepted_currencies'].')';
+			$q = 'SELECT `tsmart_currency_id`,CONCAT_WS(" ",`currency_name`,`currency_symbol`) as currency_txt
+					FROM `#__tsmart_currencies` WHERE `tsmart_currency_id` IN ('.$vendor_currency['vendor_accepted_currencies'].')';
 			if($vendorId!=1){
-				$q .= ' AND (`virtuemart_vendor_id` = "'.$vendorId.'" OR `shared`="1")';
+				$q .= ' AND (`tsmart_vendor_id` = "'.$vendorId.'" OR `shared`="1")';
 			}
 			$q .= '	AND published = "1"
 					ORDER BY `ordering`,`currency_name`';
@@ -143,7 +143,7 @@ class VirtueMartModelCurrency extends VmModel {
 	 */
 	function getCurrencies($vendorId=1) {
 		$db = JFactory::getDBO();
-		$q = 'SELECT * FROM `#__virtuemart_currencies` WHERE (`virtuemart_vendor_id` = "'.(int)$vendorId.'" OR `shared`="1") AND published = "1" ORDER BY `ordering`,`#__virtuemart_currencies`.`currency_name`';
+		$q = 'SELECT * FROM `#__tsmart_currencies` WHERE (`tsmart_vendor_id` = "'.(int)$vendorId.'" OR `shared`="1") AND published = "1" ORDER BY `ordering`,`#__tsmart_currencies`.`currency_name`';
 		$db->setQuery($q);
 		return $db->loadObjectList();
 	}

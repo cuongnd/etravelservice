@@ -3,13 +3,13 @@
 *
 * Review controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milberes
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -27,7 +27,7 @@ if (!class_exists ('TsmController')){
 /**
  * Review Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  */
 class TsmartControllerRatings extends TsmController {
 
@@ -88,7 +88,7 @@ class TsmartControllerRatings extends TsmController {
 
 		if($layout=='list_reviews'){
 
-			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
@@ -96,10 +96,10 @@ class TsmartControllerRatings extends TsmController {
 			}
 			$redPath = '';
 			if (!empty($tsmart_product_id)) {
-				$redPath = '&task=listreviews&virtuemart_product_id=' . $tsmart_product_id;
+				$redPath = '&task=listreviews&tsmart_product_id=' . $tsmart_product_id;
 			}
 
-			parent::publish('virtuemart_rating_review_id','rating_reviews',$this->redirectPath.$redPath);
+			parent::publish('tsmart_rating_review_id','rating_reviews',$this->redirectPath.$redPath);
 		} else {
 			parent::publish();
 		}
@@ -113,7 +113,7 @@ class TsmartControllerRatings extends TsmController {
 
 		if($layout=='list_reviews'){
 
-			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
@@ -121,10 +121,10 @@ class TsmartControllerRatings extends TsmController {
 			}
 			$redPath = '';
 			if (!empty($tsmart_product_id)) {
-				$redPath = '&task=listreviews&virtuemart_product_id=' . $tsmart_product_id;
+				$redPath = '&task=listreviews&tsmart_product_id=' . $tsmart_product_id;
 			}
 
-			parent::unpublish('virtuemart_rating_review_id','rating_reviews',$this->redirectPath.$redPath);
+			parent::unpublish('tsmart_rating_review_id','rating_reviews',$this->redirectPath.$redPath);
 		} else {
 			parent::unpublish();
 		}
@@ -170,15 +170,15 @@ class TsmartControllerRatings extends TsmController {
 
 		$redir = $this->redirectPath;
 		if($apply){
-			$redir = 'index.php?option=com_tsmart&view=ratings&task=edit_review&virtuemart_rating_review_id='.$id;
+			$redir = 'index.php?option=com_tsmart&view=ratings&task=edit_review&tsmart_rating_review_id='.$id;
 		} else {
-			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
 				$tsmart_product_id = (int)$tsmart_product_id;
 			}
-			$redir = 'index.php?option=com_tsmart&view=ratings&task=listreviews&virtuemart_product_id='.$tsmart_product_id;
+			$redir = 'index.php?option=com_tsmart&view=ratings&task=listreviews&tsmart_product_id='.$tsmart_product_id;
 		}
 
 		$this->setRedirect($redir, $msg);
@@ -190,14 +190,14 @@ class TsmartControllerRatings extends TsmController {
 	 */
 	function cancelEditReview(){
 
-		$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id');
 		if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
 			$tsmart_product_id = (int)$tsmart_product_id[0];
 		} else {
 			$tsmart_product_id = (int)$tsmart_product_id;
 		}
 		$msg = tsmText::sprintf('com_tsmart_STRING_CANCELLED',$this->mainLangKey); //'com_tsmart_OPERATION_CANCELED'
-		$this->setRedirect('index.php?option=com_tsmart&view=ratings&task=listreviews&virtuemart_product_id='.$tsmart_product_id, $msg);
+		$this->setRedirect('index.php?option=com_tsmart&view=ratings&task=listreviews&tsmart_product_id='.$tsmart_product_id, $msg);
 	}
 
 }

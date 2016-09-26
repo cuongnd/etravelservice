@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Edit
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -27,13 +27,13 @@ $tabarray = array();
 $tabarray['edit'] = 'com_tsmart_ADMIN_PAYMENT_FORM';
 $tabarray['config'] = 'com_tsmart_ADMIN_PAYMENT_CONFIGURATION';
 
-AdminUIHelper::buildTabs ( $this, $tabarray,$this->payment->virtuemart_paymentmethod_id );
+AdminUIHelper::buildTabs ( $this, $tabarray,$this->payment->tsmart_paymentmethod_id );
 // Loading Templates in Tabs END ?>
 
 
     <!-- Hidden Fields -->
 <input type="hidden" name="option" value="com_tsmart" />
-<input type="hidden" name="virtuemart_paymentmethod_id" value="<?php echo $this->payment->virtuemart_paymentmethod_id; ?>" />
+<input type="hidden" name="tsmart_paymentmethod_id" value="<?php echo $this->payment->tsmart_paymentmethod_id; ?>" />
 <input type="hidden" name="task" value="" />
 <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
 

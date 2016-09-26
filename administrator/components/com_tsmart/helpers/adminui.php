@@ -3,12 +3,12 @@
  * Administrator menu helper class
  *
  * This class was derived from the show_image_in_imgtag.php and imageTools.class.php files in VM.  It provides some
- * image functions that are used throughout the VirtueMart shop.
+ * image functions that are used throughout the tsmart shop.
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Eugen Stranz
- * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 tsmart Team. All rights reserved.
  */
 
 // Check to ensure this file is included in Joomla!
@@ -103,7 +103,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
     {
         $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/asianventure-edit-inline.less');
     }
-    $tsmart_product_id = $app->input->get('virtuemart_product_id', array(), 'array');
+    $tsmart_product_id = $app->input->get('tsmart_product_id', array(), 'array');
     $tsmart_product_id = $tsmart_product_id[0];
     $uri = JUri::getInstance();
     $url = $uri->toString(array('query'));
@@ -144,7 +144,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
 			jQuery('.tsmart-admin-area .toggler').vm2admin('toggle');
 			jQuery('#admin-ui-menu').vm2admin('accordeon');
 			if ( jQuery('#admin-ui-tabs').length  ) {
-				jQuery('#admin-ui-tabs').vm2admin('tabs',virtuemartcookie);
+				jQuery('#admin-ui-tabs').vm2admin('tabs',tsmartcookie);
 			}
 			jQuery('#content-box [title]').vm2admin('tips',tip_image);
 			jQuery('.reset-value').click( function(e){
@@ -181,7 +181,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
     <div class="toolbar-box" style="height: 84px;position: relative;"><?php echo $bar->render() ?></div>
 <?php } ?>
     <?php $hideMenu = JFactory::getApplication()->input->cookie->getString('vmmenu', 'show') === 'hide' ? ' menu-collapsed' : ''; ?>
-    <div class="virtuemart-admin-area<?php echo $hideMenu ?> <?php echo $show_edit_in_line?'edit-in-line':''; ?>">
+    <div class="tsmart-admin-area<?php echo $hideMenu ?> <?php echo $show_edit_in_line?'edit-in-line':''; ?>">
         <div class="div-loading"></div>
         <?php if ($vmView->add_new_popup == 1) { ?>
             <div id="vm-edit-form-<?php echo $vmView->getName() ?>" class="vm-edit-form">
@@ -339,11 +339,11 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                                     build</a>
                                             </li>
                                             <li>
-                                                <a href="index.php?option=com_tsmart&view=highlight&virtuemart_product_id=<?php echo $tsmart_product_id ?>"><i
+                                                <a href="index.php?option=com_tsmart&view=highlight&tsmart_product_id=<?php echo $tsmart_product_id ?>"><i
                                                         class="im-screen"></i>Highlights</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=itinerary&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=itinerary&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>itinerary</a>
                                             </li>
                                             <li>
@@ -351,23 +351,23 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                                         class="im-screen"></i>Photo</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=document&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=document&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>Documents</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=tourprice&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=tourprice&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>Tour price</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=relation&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=relation&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>Relation</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=hotel&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=hotel&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>Hotel</a>
                                             </li>
                                             <li>
-                                                <a href='index.php?option=com_tsmart&view=faq&virtuemart_product_id=<?php echo $tsmart_product_id ?>'><i
+                                                <a href='index.php?option=com_tsmart&view=faq&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
                                                         class="im-screen"></i>FAQs</a>
                                             </li>
                                         </ul>
@@ -751,14 +751,14 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Tour infomation</a></li>
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=itinerary&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=itinerary&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>build itinerary</a></li>
 
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=price&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=price&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Build tour price</a></li>
 
                                     </ul>
@@ -766,24 +766,24 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=accommodation&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=accommodation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Accommodation</a></li>
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=document&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=document&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Add document</a></li>
 
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=media&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=media&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>Add photo</a></li>
                                     </ul>
                                 </div>
                                 <div class="span2">
                                     <ul class="ul_sub_menu">
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=faq&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=faq&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>add faqs</a></li>
                                         <li>
-                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=relation&virtuemart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
+                                            <a href="<?php echo $tsmart_product_id ? 'index.php?option=com_tsmart&view=relation&tsmart_product_id=' . $tsmart_product_id : 'javascript:void(0)' ?>"><span
                                                     class="icon-palette" title=""></span>build relation</a></li>
                                     </ul>
                                 </div>
@@ -930,7 +930,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
         $cookieName = vRequest::getCmd('view', 'tsmart') . $cookieName;
 
         vmJsApi::addJScript('vm.cookie', '
-		var virtuemartcookie="' . $cookieName . '";
+		var tsmartcookie="' . $cookieName . '";
 		');
 
         $html = '<div id="admin-ui-tabs">';
@@ -956,7 +956,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
         if ($return == 'start') {
 
             vmJsApi::addJScript('vm.cookietab', '
-			var virtuemartcookie="vm-tab";
+			var tsmartcookie="vm-tab";
 			');
             $html = '<div id="admin-ui-tabs">
 							<div class="tabs" title="' . tsmText::_($language) . '">';
@@ -987,8 +987,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
         }
 
         $query = 'SELECT `jmmod`.`module_id`, `module_name`, `module_perms`, `id`, `name`, `link`, `depends`, `icon_class`, `view`, `task`';
-        $query .= 'FROM `#__virtuemart_modules` AS jmmod
-						LEFT JOIN `#__virtuemart_adminmenuentries` AS item ON `jmmod`.`module_id`=`item`.`module_id`
+        $query .= 'FROM `#__tsmart_modules` AS jmmod
+						LEFT JOIN `#__tsmart_adminmenuentries` AS item ON `jmmod`.`module_id`=`item`.`module_id`
 						WHERE  ' . implode(' AND ', $filter) . '
 						ORDER BY `jmmod`.`ordering`, `item`.`ordering` ';
 

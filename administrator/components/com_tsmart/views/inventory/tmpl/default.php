@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -57,7 +57,7 @@ AdminUIHelper::startAdminArea($this);
 		$k = 0;
 		$keyword = vRequest::uword ('keyword', "", ' ,-,+,.,_,#,/');
 		foreach ($this->inventorylist as $key => $product) {
-			$checked = JHtml::_('grid.id', $i , $product->virtuemart_product_id);
+			$checked = JHtml::_('grid.id', $i , $product->tsmart_product_id);
 			$published = $this->gridPublished( $product, $i );
 
 			//<!-- low_stock_notification  -->
@@ -72,7 +72,7 @@ AdminUIHelper::startAdminArea($this);
 				<td class="admin-checkbox"><?php echo $checked; ?></td>
 				<!-- Product name -->
 				<?php
-				$link = 'index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$product->virtuemart_product_id.'&product_parent_id='.$product->product_parent_id;
+				$link = 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id='.$product->tsmart_product_id.'&product_parent_id='.$product->product_parent_id;
 				?>
 				<td><?php echo JHtml::_('link', JRoute::_($link, FALSE), $product->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($product->product_name))); ?></td>
 				<td><?php echo $product->product_sku; ?></td>

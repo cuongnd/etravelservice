@@ -4,13 +4,13 @@ defined ('_JEXEC') or die('Restricted access');
 /**
  * abstract class for payment plugins
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Plugins
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -21,7 +21,7 @@ if (!class_exists( 'VmConfig' )) {
 	if(file_exists(VMPATH_ADMIN.DS.'com_tsmart'.DS.'helpers'.DS.'config.php')){
 		require(VMPATH_ADMIN.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 	} else {
-		echo 'Install VirtueMart first'; return;
+		echo 'Install tsmart first'; return;
 	}
 }
 
@@ -47,7 +47,7 @@ abstract class vmPlugin extends JPlugin {
 	//the name of the table to store plugin internal data, like payment logs
 	protected $_tablename = 0;
 	protected $_tableId = 'id';
-	//Name of the primary key of this table, for exampel virtuemart_calc_id or virtuemart_order_id
+	//Name of the primary key of this table, for exampel tsmart_calc_id or tsmart_order_id
 	protected $_tablepkey = 0;
 	protected $_vmpCtable = 0;
 	//the name of the table which holds the configuration like paymentmethods, shipmentmethods, customs
@@ -81,7 +81,7 @@ abstract class vmPlugin extends JPlugin {
 
 		$this->loadJLangThis($filename);
 
-		$this->_tablename = '#__virtuemart_' . $this->_psType . '_plg_' . $this->_name;
+		$this->_tablename = '#__tsmart_' . $this->_psType . '_plg_' . $this->_name;
 		$this->_tableChecked = FALSE;
 		$this->_xmlFile	= vRequest::filterPath( VMPATH_ROOT .DS. 'plugins' .DS. $this->_type .DS.  $this->_name . DS. $this->_name . '.xml');
 
@@ -371,7 +371,7 @@ abstract class vmPlugin extends JPlugin {
 			vmdebug('onStoreInstallPluginTable result of table already exists? ',$result);
 			if ($result) {
 				$update[$this->_tablename] = array($tablesFields, array(), array());
-				vmdebug(get_class($this) . ':: VirtueMart2 update ' . $this->_tablename);
+				vmdebug(get_class($this) . ':: tsmart2 update ' . $this->_tablename);
 				if (!class_exists('GenericTableUpdater'))
 					require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tableupdater.php');
 				$updater = new GenericTableUpdater();

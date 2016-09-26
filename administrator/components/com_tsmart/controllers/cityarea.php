@@ -3,13 +3,13 @@
 *
 * Currency controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Currency Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
@@ -57,7 +57,7 @@ class TsmartControllercityarea extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tsmart_state_id=$input->get('virtuemart_state_id',0,'int');
+		$tsmart_state_id=$input->get('tsmart_state_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
 		$list_state=tsmcities::get_list_city_by_state_id($tsmart_state_id);
 		echo json_encode($list_state);

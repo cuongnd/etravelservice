@@ -293,7 +293,7 @@
 
             container.delegate(".edit-24-grey", "click", function () {
                 var data = jQuery(this).parent().find("input").val();
-                jQuery.getJSON("index.php?option=com_tsmart&view=media&task=viewJson&format=json&virtuemart_media_id=" + data,
+                jQuery.getJSON("index.php?option=com_tsmart&view=media&task=viewJson&format=json&tsmart_media_id=" + data,
                     function (datas, textStatus) {
                         if (datas.msg == "OK") {
                             jQuery("#vm_display_image").attr("src", datas.file_root + datas.file_url);
@@ -317,7 +317,7 @@
 							jQuery("#adminForm [name='media[file_class]']").val(datas.file_class);
                             jQuery("#adminForm [name='media[file_url]']").val(datas.file_url);
                             jQuery("#adminForm [name='media[file_url_thumb]']").val(datas.file_url_thumb);
-                            jQuery("[name='media[active_media_id]']").val(datas.virtuemart_media_id);
+                            jQuery("[name='media[active_media_id]']").val(datas.tsmart_media_id);
                             if (typeof datas.file_url_thumb !== "undefined") {
                                 jQuery("#vm_thumb_image").attr("src", datas.file_root + datas.file_url_thumb);
                             }

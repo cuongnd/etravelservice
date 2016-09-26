@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage language
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -22,7 +22,7 @@ $app = JFactory::getApplication();
 $input = $app->input;
 $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
 $cid = $input->get('cid', array(), 'array');
-$tsmart_country_id = $input->get('virtuemart_country_id', 0, 'int');
+$tsmart_country_id = $input->get('tsmart_country_id', 0, 'int');
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -55,7 +55,7 @@ AdminUIHelper::startAdminArea($this);
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('virtuemart_transfer_addon_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_transfer_addon_id','Id') ; ?></label>
                     </th>
                     <th>
                         <?php echo $this->sort('title', 'Country name'); ?>
@@ -101,26 +101,26 @@ AdminUIHelper::startAdminArea($this);
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->virtuemart_language_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_language_id);
                     $published = $this->gridPublished($row, $i);
 
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=language&task=edit_in_line&virtuemart_country_id='.$row->virtuemart_country_id.'&cid[]=' . $row->virtuemart_language_id);
-                    $edit = $this->gridEdit($row, $i, 'virtuemart_language_id', $editlink);
-                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=language&task=save_in_line&cid[]=' . $row->virtuemart_language_id);
-                    $save = $this->grid_save_in_line($row, $i, 'virtuemart_language_id', $save_link);
-                    $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_language_id');
-                    $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_language_id');
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=language&task=edit_in_line&tsmart_country_id='.$row->tsmart_country_id.'&cid[]=' . $row->tsmart_language_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_language_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=language&task=save_in_line&cid[]=' . $row->tsmart_language_id);
+                    $save = $this->grid_save_in_line($row, $i, 'tsmart_language_id', $save_link);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_language_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_language_id');
                     if($show_edit_in_line==1)
                     {
-                        $show_edit=($row->virtuemart_country_id==$tsmart_country_id);
+                        $show_edit=($row->tsmart_country_id==$tsmart_country_id);
                     }
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_language_id => $row->virtuemart_language_id)); ?>
-                                <?php echo VmHTML::inputHidden(array(virtuemart_country_id => $row->virtuemart_country_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_language_id => $row->tsmart_language_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_country_id => $row->tsmart_country_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>
@@ -181,9 +181,9 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo VmHTML::inputHidden(array(published => $row->published)); ?>
 
                             <?php } else { ?>
-                                <?php echo $row->virtuemart_language_id?$published:''; ?>
+                                <?php echo $row->tsmart_language_id?$published:''; ?>
                                 <?php echo $edit; ?>
-                                <?php echo $row->virtuemart_language_id?$delete:''; ?>
+                                <?php echo $row->tsmart_language_id?$delete:''; ?>
                             <?php } ?>
 
                         </td>

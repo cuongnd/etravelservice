@@ -4,11 +4,11 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 /**
 *
 * @version $Id: default.php 8953 2015-08-19 10:30:52Z Milbo $
-* @package VirtueMart
+* @package tsmart
 * @subpackage Report
-* @copyright Copyright (C) VirtueMart Team - All rights reserved.
+* @copyright Copyright (C) tsmart Team - All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -44,7 +44,7 @@ else $addDateInfo = false;
                         if(VmConfig::get('multix','none')!='none'){
                             $vendorId = vmConfig::isSuperVendor();
                             if(vmAccess::manager('managevendors')){
-                                $vendorId = vRequest::getInt('virtuemart_vendor_id',$vendorId);
+                                $vendorId = vRequest::getInt('tsmart_vendor_id',$vendorId);
                             }
                         	echo ShopFunctions::renderVendorList($vendorId);
                         } ?>
@@ -67,7 +67,7 @@ else $addDateInfo = false;
                         <?php echo $this->sort('created_on', 'com_tsmart_'.$intervalTitle); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('o.virtuemart_order_id', 'com_tsmart_REPORT_BASIC_ORDERS') ; ?>
+                        <?php echo $this->sort('o.tsmart_order_id', 'com_tsmart_REPORT_BASIC_ORDERS') ; ?>
                     </th>
                     <th>
                         <?php echo $this->sort('product_quantity', 'com_tsmart_REPORT_BASIC_TOTAL_ITEMS') ; ?>
@@ -86,7 +86,7 @@ else $addDateInfo = false;
                         <?php echo $this->sort('order_item_name', 'com_tsmart_PRODUCT_NAME') ; ?>
                     </th>
                     <th>
-	                    <?php echo $this->sort('virtuemart_product_id', 'com_tsmart_PRODUCT_ID') ; ?>
+	                    <?php echo $this->sort('tsmart_product_id', 'com_tsmart_PRODUCT_ID') ; ?>
                     </th>
 		        <?php
 	                }
@@ -128,7 +128,7 @@ else $addDateInfo = false;
 		                <?php echo $r['order_item_name'];?>
 	                </td>
 	                <td align="center">
-		                <?php echo $r['virtuemart_product_id'];?>
+		                <?php echo $r['tsmart_product_id'];?>
 	                </td>
 
 	         <?php  }

@@ -1,18 +1,18 @@
-# Required configuration data for the VirtueMart installer
-# http://www.virtuemart.net
-# Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+# Required configuration data for the tsmart installer
+# http://www.tsmart.net
+# Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 # http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-# VirtueMart is free software. This version may have been modified pursuant
+# tsmart is free software. This version may have been modified pursuant
 # to the GNU General Public License, and as distributed it includes or
 # is derivative of works licensed under the GNU General Public License or
 # other free or open source software licenses.
-# $Id: virtuemart_defaults.cfg 3726 2011-07-16 12:01:49Z Milbo $
+# $Id: tsmart_defaults.cfg 3726 2011-07-16 12:01:49Z Milbo $
 #
 # Notes:
 # - The hash-sign (#) is a comment character, but only if it's the first non-blank char on a line
 # - The equal-sign (=) when the default value is empty, is optional
 # - Constant values can be used by enclosing them in curly brackets ({}), eg:
-	# some_path_value={VMPATH_ROOT}{DS}virtuemart{DS}somewhere
+	# some_path_value={VMPATH_ROOT}{DS}tsmart{DS}somewhere
 
 [config]
 ##shop settings
@@ -81,11 +81,11 @@ latest_products_rows=1
 
 ##Paths
     assets_general_path=components/com_tsmart/assets/
-    media_category_path=images/stories/virtuemart/category/
-    media_product_path=images/stories/virtuemart/product/
-    media_manufacturer_path=images/stories/virtuemart/manufacturer/
-    media_vendor_path=images/stories/virtuemart/vendor/
-	forSale_path_thumb=images/stories/virtuemart/forSale/resized/
+    media_category_path=images/stories/tsmart/category/
+    media_product_path=images/stories/tsmart/product/
+    media_manufacturer_path=images/stories/tsmart/manufacturer/
+    media_vendor_path=images/stories/tsmart/vendor/
+	forSale_path_thumb=images/stories/tsmart/forSale/resized/
     img_resize_enable=1
     img_width=0
     img_height=90

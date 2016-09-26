@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -125,13 +125,13 @@ AdminUIHelper::startAdminArea($this);
                     $k = 0;
                     for ($i = 0, $n = count($this->departures); $i < $n; $i++) {
                         $row = $this->departures[$i];
-                        $checked = JHtml::_('grid.id', $i, $row->virtuemart_departure_id);
+                        $checked = JHtml::_('grid.id', $i, $row->tsmart_departure_id);
                         $published = $this->gridPublished($row, $i);
 
-                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=departure&task=edit&cid[]=' . $row->virtuemart_departure_id);
+                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=departure&task=edit&cid[]=' . $row->tsmart_departure_id);
                         ?>
                         <tr role="row" class="row<?php echo $k; ?>"
-                            data-virtuemart_departure_id="<?php echo $row->virtuemart_departure_id ?>"
+                            data-tsmart_departure_id="<?php echo $row->tsmart_departure_id ?>"
                             data-tour_id="<?php echo $item->tour_id ?>">
                             <td class="admin-checkbox">
                                 <?php echo $checked; ?>
@@ -223,7 +223,7 @@ AdminUIHelper::startAdminArea($this);
                         <select id="tour_id" name="tour_id" style="width: 300px">
                             <?php foreach ($this->list_tour as $tour) { ?>
                                 <option
-                                    value="<?php echo $tour->virtuemart_product_id ?>"><?php echo $tour->product_name ?></option>
+                                    value="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?></option>
                             <?php } ?>
                         </select>
 
@@ -231,7 +231,7 @@ AdminUIHelper::startAdminArea($this);
                         <select id="tour_service_class_id" name="tour_service_class_id" style="width: 300px">
                             <?php foreach ($this->list_tour_class as $tour_service_class) { ?>
                                 <option
-                                    value="<?php echo $tour_service_class->virtuemart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
+                                    value="<?php echo $tour_service_class->tsmart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
                             <?php } ?>
                         </select>
                         <label>Departure name</label>
@@ -461,7 +461,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="virtuemart_departure_id" name="virtuemart_departure_id"
+            <input type="hidden" id="tsmart_departure_id" name="tsmart_departure_id"
                    value="0"/>
             <?php echo $this->addStandardHiddenToForm(); ?>
         </form>

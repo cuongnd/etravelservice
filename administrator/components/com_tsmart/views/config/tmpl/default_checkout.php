@@ -2,13 +2,13 @@
 /**
  * Admin form for the checkout configuration settings
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Config
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
- * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+ * @link http://www.tsmart.net
+ * @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,8 +26,8 @@ defined('_JEXEC') or die('Restricted access');
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CHECKOUT_OPC','oncheckout_opc',VmConfig::get('oncheckout_opc',1));
 		echo VmHTML::row('checkbox','com_tsmart_CFG_OPC_AJAX','oncheckout_ajax',VmConfig::get('oncheckout_ajax',1));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_STEPS','oncheckout_show_steps',VmConfig::get('oncheckout_show_steps',1));
-		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_SHIPMENT',$this->listShipment,'set_automatic_shipment','','virtuemart_shipmentmethod_id','shipment_name',VmConfig::get('set_automatic_shipment',0));
-		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_PAYMENT',$this->listPayment,'set_automatic_payment','','virtuemart_paymentmethod_id','payment_name',VmConfig::get('set_automatic_payment',0));
+		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_SHIPMENT',$this->listShipment,'set_automatic_shipment','','tsmart_shipmentmethod_id','shipment_name',VmConfig::get('set_automatic_shipment',0));
+		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_AUTOMATIC_PAYMENT',$this->listPayment,'set_automatic_payment','','tsmart_paymentmethod_id','payment_name',VmConfig::get('set_automatic_payment',0));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_AGREE_TERMS_ONORDER','agree_to_tos_onorder',VmConfig::get('agree_to_tos_onorder',1));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_SHOW_REGISTER','oncheckout_show_register',VmConfig::get('oncheckout_show_register',1));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_ONCHECKOUT_ONLY_REGISTERED','oncheckout_only_registered',VmConfig::get('oncheckout_only_registered',0));

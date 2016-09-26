@@ -60,7 +60,7 @@
                     $('input[name="list_group_size_id[]"]').attr("disabled", true);
                 }
                 var price_type=$(this).val();
-                var $tsmart_tour_type_id=$element.find('select[name="virtuemart_tour_type_id"]');
+                var $tsmart_tour_type_id=$element.find('select[name="tsmart_tour_type_id"]');
                 if(price_type=='flat_price')
                 {
                     $tsmart_tour_type_id.find('option[data-price_type="flat_price"]').prop("selected", true);
@@ -74,7 +74,7 @@
                 $tsmart_tour_type_id.trigger("change");
 
             });
-            $element.find('select[name="virtuemart_tour_type_id"]').change(function(){
+            $element.find('select[name="tsmart_tour_type_id"]').change(function(){
                 var price_type=$(this).find('option:selected').data('price_type');
                 var checkator=$('input[name="price_type"]').data('checkator');
 

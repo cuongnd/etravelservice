@@ -3,14 +3,14 @@
  *
  * Data module for shop currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,10 +25,10 @@ if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmm
 /**
  * Model class for shop Currencies
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  */
-class VirtueMartModelExcursionaddon extends VmModel
+class tsmartModelExcursionaddon extends VmModel
 {
 
 
@@ -70,8 +70,8 @@ class VirtueMartModelExcursionaddon extends VmModel
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('excursion_addon.*')
-            ->from('#__virtuemart_excursion_addon AS excursion_addon')
-            ->leftJoin('me1u8_virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
+            ->from('#__tsmart_excursion_addon AS excursion_addon')
+            ->leftJoin('me1u8_tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
             ->select('cityarea.city_area_name AS city_area_name')
         ;
         $user = JFactory::getUser();
@@ -114,8 +114,8 @@ class VirtueMartModelExcursionaddon extends VmModel
         if($tsmart_excursion_addon_id) {
             //inser to excusionaddon
             $query = $db->getQuery(true);
-            $query->delete('#__virtuemart_tour_id_excursion_addon_id')
-                ->where('virtuemart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
+            $query->delete('#__tsmart_tour_id_excursion_addon_id')
+                ->where('tsmart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -124,9 +124,9 @@ class VirtueMartModelExcursionaddon extends VmModel
             $list_tour_id = $data['list_tour_id'];
             foreach ($list_tour_id as $tsmart_product_id) {
                 $query->clear()
-                    ->insert('#__virtuemart_tour_id_excursion_addon_id')
-                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
-                    ->set('virtuemart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
+                    ->insert('#__tsmart_tour_id_excursion_addon_id')
+                    ->set('tsmart_product_id=' . (int)$tsmart_product_id)
+                    ->set('tsmart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -158,10 +158,10 @@ class VirtueMartModelExcursionaddon extends VmModel
 
                     $date=$vail_from->format('Y-m-d');
                     $table_excursion_ad_don_date_price->id=0;
-                    $table_excursion_ad_don_date_price->jload(array('date'=>$date,'virtuemart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
+                    $table_excursion_ad_don_date_price->jload(array('date'=>$date,'tsmart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
                     $table_excursion_ad_don_date_price->date=$date;
-                    $table_excursion_ad_don_date_price->virtuemart_hotel_addon_id=$tsmart_hotel_addon_id;
-                    $table_excursion_ad_don_date_price->virtuemart_product_id=$tour_id;
+                    $table_excursion_ad_don_date_price->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
+                    $table_excursion_ad_don_date_price->tsmart_product_id=$tour_id;
                     $table_excursion_ad_don_date_price->hotel_addon_type=$hotel_addon_type;
                     $table_excursion_ad_don_date_price->single_room_net_price=$single_room->net_price;
                     $table_excursion_ad_don_date_price->doulble_twin_room_net_price=$double_twin_room->net_price;

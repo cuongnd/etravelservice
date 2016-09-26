@@ -3,13 +3,13 @@
 *
 * Ratings table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * Product review table class
  * The class is is used to manage the reviews in the shop.
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author Max Milbers
  */
 class TableRatings extends tsmTable {
@@ -48,10 +48,10 @@ class TableRatings extends tsmTable {
 	* @param JDataBase $db
 	*/
 	function __construct(&$db) {
-		parent::__construct('#__virtuemart_ratings', 'virtuemart_rating_id', $db);
+		parent::__construct('#__tsmart_ratings', 'tsmart_rating_id', $db);
 		//In a VmTable the primary key is the same as the _tbl_key and therefore not needed
-  		$this->setPrimaryKey('virtuemart_rating_id');
-//		$this->setObligatoryKeys('virtuemart_product_id');
+  		$this->setPrimaryKey('tsmart_rating_id');
+//		$this->setObligatoryKeys('tsmart_product_id');
 
 		$this->setLoggable();
 

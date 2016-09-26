@@ -5,14 +5,14 @@ defined('_JEXEC') or die('Restricted access');
 *
 * Data module for shop calculation rules
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage  Calculation tool
 * @author Max Milbers
 * @author mediaDESIGN> St.Kraft 2013-02-24 manufacturer relation added
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
-class VirtueMartModelCalc extends VmModel {
+class tsmartModelCalc extends VmModel {
 
 
     /**
@@ -40,8 +40,8 @@ class VirtueMartModelCalc extends VmModel {
 			$this->setToggleName('calc_shopper_published');
 			$this->setToggleName('calc_vendor_published');
 	  		$this->setToggleName('shared');
-			$this->addvalidOrderingFieldName(array('virtuemart_category_id','virtuemart_country_id','virtuemart_state_id','virtuemart_shoppergroup_id'
-				,'virtuemart_manufacturer_id'
+			$this->addvalidOrderingFieldName(array('tsmart_category_id','tsmart_country_id','tsmart_state_id','tsmart_shoppergroup_id'
+				,'tsmart_manufacturer_id'
 			)); 
     }
 
@@ -64,16 +64,16 @@ class VirtueMartModelCalc extends VmModel {
 			$this->_cache[$this->_id]->calc_categories = $xrefTable->load($this->_id);
 
 			$xrefTable = $this->getTable('calc_shoppergroups');
-			$this->_cache[$this->_id]->virtuemart_shoppergroup_ids = $xrefTable->load($this->_id);
+			$this->_cache[$this->_id]->tsmart_shoppergroup_ids = $xrefTable->load($this->_id);
 
 			$xrefTable = $this->getTable('calc_countries');
 			$this->_cache[$this->_id]->calc_countries = $xrefTable->load($this->_id);
 
 			$xrefTable = $this->getTable('calc_states');
-			$this->_cache[$this->_id]->virtuemart_state_ids = $xrefTable->load($this->_id);
+			$this->_cache[$this->_id]->tsmart_state_ids = $xrefTable->load($this->_id);
 
 			$xrefTable = $this->getTable('calc_manufacturers');
-			$this->_cache[$this->_id]->virtuemart_manufacturers = $xrefTable->load($this->_id);
+			$this->_cache[$this->_id]->tsmart_manufacturers = $xrefTable->load($this->_id);
 
 			JPluginHelper::importPlugin('vmcalculation');
 			$dispatcher = JDispatcher::getInstance();
@@ -109,7 +109,7 @@ class VirtueMartModelCalc extends VmModel {
 		$whereString= '';
 		if (count($where) > 0) $whereString = ' WHERE '.implode(' AND ', $where) ;
 
-		$datas = $this->exeSortSearchListQuery(0,'*',' FROM `#__virtuemart_calcs`',$whereString,'',$this->_getOrdering());
+		$datas = $this->exeSortSearchListQuery(0,'*',' FROM `#__tsmart_calcs`',$whereString,'',$this->_getOrdering());
 
 		if(!class_exists('ShopFunctions')) require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
 		foreach ($datas as &$data){
@@ -137,7 +137,7 @@ class VirtueMartModelCalc extends VmModel {
 		if(!vmAccess::manager('calc.edit')){
 			vmWarn('Insufficient permission to store calculation rule');
 			return false;
-		} else if( empty($data['virtuemart_calc_id']) and !vmAccess::manager('calc.create')){
+		} else if( empty($data['tsmart_calc_id']) and !vmAccess::manager('calc.create')){
 			vmWarn('Insufficient permission to create calculation rule');
 			return false;
 		}
@@ -190,7 +190,7 @@ class VirtueMartModelCalc extends VmModel {
 		//$error = $dispatcher->trigger('plgVmStorePluginInternalDataCalc',array(&$data));
 		$error = $dispatcher->trigger('plgVmOnStoreInstallPluginTable',array('calculation',$data,$table));
 
-		return $table->virtuemart_calc_id;
+		return $table->tsmart_calc_id;
 	}
 
 	static function getRule($kind){
@@ -201,7 +201,7 @@ class VirtueMartModelCalc extends VmModel {
 		$nullDate		= $db->getNullDate();
 		$now			= JFactory::getDate()->toSQL();
 
-		$q = 'SELECT * FROM `#__virtuemart_calcs` WHERE ';
+		$q = 'SELECT * FROM `#__tsmart_calcs` WHERE ';
 		foreach ($kind as $field){
 			$q .= '`calc_kind`='.$db->Quote($field).' OR ';
 		}

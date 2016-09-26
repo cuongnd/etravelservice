@@ -16,8 +16,8 @@
             list_base_price_by_service_class_id_and_tour_id: [],
             display_format: 'DD-MM-YYYY',
             promotion_price:{
-                virtuemart_product_id:0,
-                virtuemart_price_id:'',
+                tsmart_product_id:0,
+                tsmart_price_id:'',
                 sale_period_from:new Date(),
                 sale_period_to:new Date()
             }
@@ -34,19 +34,19 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.validate = function () {
-            var virtuemart_product_id = $('select[name="virtuemart_product_id"]').val();
-            if (virtuemart_product_id <= 0) {
+            var tsmart_product_id = $('select[name="tsmart_product_id"]').val();
+            if (tsmart_product_id <= 0) {
                 alert('please select tour');
                 return false;
             }
 
-            var virtuemart_service_class_id = $('select[name="virtuemart_service_class_id"]').val();
-            if (virtuemart_service_class_id <= 0) {
+            var tsmart_service_class_id = $('select[name="tsmart_service_class_id"]').val();
+            if (tsmart_service_class_id <= 0) {
                 alert('please select tour class');
                 return false;
             }
-            var virtuemart_price_id = $('select[name="virtuemart_price_id"]').val();
-            if (virtuemart_price_id <= 0) {
+            var tsmart_price_id = $('select[name="tsmart_price_id"]').val();
+            if (tsmart_price_id <= 0) {
                 alert('please select range of date');
                 return false;
             }
@@ -107,32 +107,32 @@
             //end ramdom markup
         };
         plugin.update_select_range_of_date = function (list_range_of_date) {
-            var virtuemart_price_id=plugin.settings.promotion_price.virtuemart_price_id;
+            var tsmart_price_id=plugin.settings.promotion_price.tsmart_price_id;
             var display_format = plugin.settings.display_format;
-            $promotion_price_form.find('#virtuemart_price_id').empty();
+            $promotion_price_form.find('#tsmart_price_id').empty();
             var $option = '<option value="0">Please select range of date</option>';
-            $promotion_price_form.find('#virtuemart_price_id').append($option);
+            $promotion_price_form.find('#tsmart_price_id').append($option);
             $.each(list_range_of_date, function (index, item) {
                 var sale_period_from = new Date(item.sale_period_from);
                 sale_period_from = moment(sale_period_from).format(display_format);
                 var sale_period_to = new Date(item.sale_period_to);
                 sale_period_to = moment(sale_period_to).format(display_format);
 
-                var $option = '<option  '+(item.virtuemart_price_id==virtuemart_price_id?' selected ':'')+' value="' + item.virtuemart_price_id + '">' + sale_period_from + ' -> ' + sale_period_to + '</option>';
-                $promotion_price_form.find('#virtuemart_price_id').append($option);
+                var $option = '<option  '+(item.tsmart_price_id==tsmart_price_id?' selected ':'')+' value="' + item.tsmart_price_id + '">' + sale_period_from + ' -> ' + sale_period_to + '</option>';
+                $promotion_price_form.find('#tsmart_price_id').append($option);
             });
-            $promotion_price_form.find('#virtuemart_price_id').trigger('change');
+            $promotion_price_form.find('#tsmart_price_id').trigger('change');
         };
         plugin.update_service_class = function (list_service_class) {
-            $promotion_price_form.find('#virtuemart_service_class_id').empty();
+            $promotion_price_form.find('#tsmart_service_class_id').empty();
             var promotion_price=plugin.settings.promotion_price;
             var $option = '<option value="0">Please select service class</option>';
-            $promotion_price_form.find('#virtuemart_service_class_id').append($option);
+            $promotion_price_form.find('#tsmart_service_class_id').append($option);
             $.each(list_service_class, function (index, item_service_class) {
-                var $option = '<option  '+(item_service_class.virtuemart_product_id==promotion_price.virtuemart_product_id?' selected ':'') +' value="' + item_service_class.virtuemart_product_id + '">' + item_service_class.service_class_name + '</option>';
-                $promotion_price_form.find('#virtuemart_service_class_id').append($option);
+                var $option = '<option  '+(item_service_class.tsmart_product_id==promotion_price.tsmart_product_id?' selected ':'') +' value="' + item_service_class.tsmart_product_id + '">' + item_service_class.service_class_name + '</option>';
+                $promotion_price_form.find('#tsmart_service_class_id').append($option);
             });
-            $promotion_price_form.find('#virtuemart_service_class_id').trigger('change');
+            $promotion_price_form.find('#tsmart_service_class_id').trigger('change');
         };
         plugin.update_value_calendar = function () {
             var promotion_price=plugin.settings.promotion_price;
@@ -176,7 +176,7 @@
                 var self = $(this);
                 var $row = self.closest('tr[role="row"]');
                 $row.toggleClass('focus');
-                var virtuemart_promotion_price_id = $row.data('virtuemart_promotion_price_id');
+                var tsmart_promotion_price_id = $row.data('tsmart_promotion_price_id');
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -187,7 +187,7 @@
                             option: 'com_tsmart',
                             controller: 'promotion',
                             task: 'get_list_promotion_price',
-                            virtuemart_promotion_price_id: virtuemart_promotion_price_id
+                            tsmart_promotion_price_id: tsmart_promotion_price_id
                         };
                         return dataPost;
                     })(),
@@ -206,7 +206,7 @@
                         });
                         $element.find('.' + plugin.settings.dialog_class).find('input.number').val(0);
                         plugin.fill_data(response);
-                        $element.find('input[name="virtuemart_promotion_price_id"]').val(virtuemart_promotion_price_id);
+                        $element.find('input[name="tsmart_promotion_price_id"]').val(tsmart_promotion_price_id);
                         $element.find('#price_type').val(response.tour.price_type);
                         $("#price-form").dialog("open");
 
@@ -215,11 +215,11 @@
                         plugin.settings.list_tour=response.list_tour;
                         plugin.settings.tour= response.tour;
                         plugin.settings.promotion_price= response.promotion_price;
-                        var virtuemart_product_id = response.tour.virtuemart_product_id;
+                        var tsmart_product_id = response.tour.tsmart_product_id;
                         plugin.update_service_class(response.list_tour);
                         plugin.update_value_calendar();
-                        $promotion_price_form.find("#virtuemart_product_id").val(virtuemart_product_id);
-                        $promotion_price_form.find("#virtuemart_product_id").trigger("liszt:updated");
+                        $promotion_price_form.find("#tsmart_product_id").val(tsmart_product_id);
+                        $promotion_price_form.find("#tsmart_product_id").trigger("liszt:updated");
                         $promotion_price_form.find('#template_price').html(response.price_content);
 
 
@@ -296,7 +296,7 @@
                 if (confirm('Are you sure you want publish this item ?')) {
                     var self = $(this);
                     var $row = self.closest('tr[role="row"]');
-                    var virtuemart_promotion_price_id = $row.data('virtuemart_promotion_price_id');
+                    var tsmart_promotion_price_id = $row.data('tsmart_promotion_price_id');
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
@@ -306,7 +306,7 @@
                                 option: 'com_tsmart',
                                 controller: 'promotion',
                                 task: 'ajax_publish',
-                                price_id: virtuemart_promotion_price_id
+                                price_id: tsmart_promotion_price_id
                             };
                             return dataPost;
                         })(),
@@ -347,7 +347,7 @@
                 }
 
                 var dataPost = $('.dialog-form-price').find(':input').serializeObject();
-                var price_id = dataPost.virtuemart_promotion_price_id;
+                var price_id = dataPost.tsmart_promotion_price_id;
                 var $row = $element.find('.list-prices tr[data-price_id="' + price_id + '"]');
                 if (confirm('Are you sure you want save this item ?')) {
                     //save and close
@@ -379,10 +379,10 @@
                                 if ($row.length == 0) {
                                     $row = $element.find('.list-prices tbody tr:first').clone(true).prependTo(".list-prices tbody").fadeIn('slow');
                                 }
-                                $row.attr('data-price_id', result.virtuemart_price_id);
-                                $row.data('price_id', result.virtuemart_price_id);
-                                $row.find('span.item-id').html(result.virtuemart_price_id);
-                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
+                                $row.attr('data-price_id', result.tsmart_price_id);
+                                $row.data('price_id', result.tsmart_price_id);
+                                $row.find('span.item-id').html(result.tsmart_price_id);
+                                $row.find('input[name="row_price_id[]"]').val(result.tsmart_price_id);
                                 $row.find('td.service_class_name').html(result.service_class.service_class_name);
                                 $row.find('td.sale_period').html(result.sale_period);
                                 $row.find('td.modified_on').html(result.modified_on);
@@ -412,7 +412,7 @@
             $element.find('.dialog-form-price').find('.cancel-price').click(function () {
                 if (confirm('Are you sure you want cancel this item ?')) {
                     //save and close
-                    var price_id = $element.find('input[name="virtuemart_price_id"]').val();
+                    var price_id = $element.find('input[name="tsmart_price_id"]').val();
                     $element.find("#price-form").dialog("close");
                     var $row = $element.find('.list-prices tr[data-price_id="' + price_id + '"]');
                     $row.delay(500).queue(function () {
@@ -426,7 +426,7 @@
             $element.find('.dialog-form-price').find('.apply-price').click(function () {
                 var dataPost = $element.find('.dialog-form-price').find(':input').serializeObject();
                 if (confirm('Are you sure you want save this item ?')) {
-                    var promotion_price_id = dataPost.virtuemart_promotion_price_id;
+                    var promotion_price_id = dataPost.tsmart_promotion_price_id;
                     var $row = $element.find('.list-prices tr[data-price_id="' + promotion_price_id + '"]');
                     //save and close
                     $.ajax({
@@ -454,10 +454,10 @@
                                 if ($row.length == 0) {
                                     $row = $element.find('.list-prices tbody tr:first').clone(true).prependTo(".list-prices tbody").fadeIn('slow');
                                 }
-                                $row.attr('data-price_id', result.virtuemart_price_id);
-                                $row.data('price_id', result.virtuemart_price_id);
-                                $row.find('span.item-id').html(result.virtuemart_price_id);
-                                $row.find('input[name="row_price_id[]"]').val(result.virtuemart_price_id);
+                                $row.attr('data-price_id', result.tsmart_price_id);
+                                $row.data('price_id', result.tsmart_price_id);
+                                $row.find('span.item-id').html(result.tsmart_price_id);
+                                $row.find('input[name="row_price_id[]"]').val(result.tsmart_price_id);
                                 $row.find('td.service_class_name').html(result.service_class.service_class_name);
                                 $row.find('td.sale_period').html(result.sale_period);
                                 $row.find('td.modified_on').html(result.modified_on);
@@ -486,8 +486,8 @@
             });
             Joomla.submitbutton = function (task) {
                 if (task == "add") {
-                    var virtuemart_product_id = $element.find('input[name="virtuemart_product_id"]').val();
-                    if(virtuemart_product_id==0){
+                    var tsmart_product_id = $element.find('input[name="tsmart_product_id"]').val();
+                    if(tsmart_product_id==0){
                         $("#price-form").dialog("open");
                         return false;
                     }
@@ -501,7 +501,7 @@
                                 option: 'com_tsmart',
                                 controller: 'promotion',
                                 task: 'get_list_promotion_price',
-                                tour_id: virtuemart_product_id
+                                tour_id: tsmart_product_id
                             };
                             return dataPost;
                         })(),
@@ -520,18 +520,18 @@
                             });
                             $("#price-form").dialog("open");
                             plugin.update_service_class()
-                            $("#price-form").find('#virtuemart_service_class_id option').css({
+                            $("#price-form").find('#tsmart_service_class_id option').css({
                                 display: "none"
                             });
-                            response.virtuemart_service_class_ids.push(0);
-                            $.each(response.virtuemart_service_class_ids, function (index, value) {
-                                $("#price-form").find('#virtuemart_service_class_id option[value="' + value + '"]').css({
+                            response.tsmart_service_class_ids.push(0);
+                            $.each(response.tsmart_service_class_ids, function (index, value) {
+                                $("#price-form").find('#tsmart_service_class_id option[value="' + value + '"]').css({
                                     display: "block"
                                 });
                             });
-                            $element.find("#virtuemart_product_id").val(virtuemart_product_id);
-                            $element.find("#virtuemart_product_id").trigger("change");
-                            $element.find("#virtuemart_service_class_id").trigger("change");
+                            $element.find("#tsmart_product_id").val(tsmart_product_id);
+                            $element.find("#tsmart_product_id").trigger("change");
+                            $element.find("#tsmart_service_class_id").trigger("change");
                             $element.find('#template_price').html(response.price_content);
 
                             $("#price-form").find('input.number').change(function (e) {
@@ -561,13 +561,13 @@
 
 
             };
-            $promotion_price_form.find('#virtuemart_service_class_id').change(function () {
-                var virtuemart_service_class_id = $(this).val();
-                if (virtuemart_service_class_id == 0) {
+            $promotion_price_form.find('#tsmart_service_class_id').change(function () {
+                var tsmart_service_class_id = $(this).val();
+                if (tsmart_service_class_id == 0) {
                     return;
                 }
-                var virtuemart_product_id = $promotion_price_form.find('select[name="virtuemart_product_id"]').val();
-                if (virtuemart_product_id == 0) {
+                var tsmart_product_id = $promotion_price_form.find('select[name="tsmart_product_id"]').val();
+                if (tsmart_product_id == 0) {
                     return;
                 }
                 $.ajax({
@@ -580,8 +580,8 @@
                             option: 'com_tsmart',
                             controller: 'promotion',
                             task: 'ajax_get_list_base_price_by_service_class_id_and_tour_id',
-                            virtuemart_product_id: virtuemart_product_id,
-                            virtuemart_product_id: virtuemart_service_class_id
+                            tsmart_product_id: tsmart_product_id,
+                            tsmart_product_id: tsmart_service_class_id
 
                         };
                         return dataPost;
@@ -609,15 +609,15 @@
 
 
             });
-            $promotion_price_form.find('#virtuemart_price_id').change(function () {
-                var virtuemart_price_id = $(this).val();
-                if (virtuemart_price_id > 0) {
+            $promotion_price_form.find('#tsmart_price_id').change(function () {
+                var tsmart_price_id = $(this).val();
+                if (tsmart_price_id > 0) {
                     var list_price = plugin.settings.list_base_price_by_service_class_id_and_tour_id;
                     var range_of_date = $promotion_price_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                     range_of_date.clear();
                     for (var i = 0; i < list_price.length; i++) {
                         var item = list_price[i];
-                        if (item.virtuemart_price_id == virtuemart_price_id) {
+                        if (item.tsmart_price_id == tsmart_price_id) {
 
                             var sale_period_from = new Date(item.sale_period_from);
                             var sale_period_to = new Date(item.sale_period_to);
@@ -638,8 +638,8 @@
                 }
 
             });
-            $("#price-form").find('#virtuemart_product_id').change(function () {
-                var virtuemart_product_id = $(this).val();
+            $("#price-form").find('#tsmart_product_id').change(function () {
+                var tsmart_product_id = $(this).val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -650,7 +650,7 @@
                             option: 'com_tsmart',
                             controller: 'promotion',
                             task: 'ajax_get_change_tour',
-                            virtuemart_product_id: virtuemart_product_id
+                            tsmart_product_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -668,25 +668,25 @@
 
 
                         });
-                        $promotion_price_form.find('#virtuemart_service_class_id option').remove();
+                        $promotion_price_form.find('#tsmart_service_class_id option').remove();
                         var list_service_class = plugin.settings.list_tour;
 
                         $promotion_price_form.find('#price_type').val(response.tour.price_type);
-                        response.virtuemart_service_class_ids.push(0);
-                        var virtuemart_service_class_ids = response.virtuemart_service_class_ids;
+                        response.tsmart_service_class_ids.push(0);
+                        var tsmart_service_class_ids = response.tsmart_service_class_ids;
                         var $option = '<option value="0">Please select tour class</option>';
-                        $promotion_price_form.find('#virtuemart_service_class_id').append($option);
-                        $.each(response.virtuemart_service_class_ids, function (index, virtuemart_service_class_id) {
+                        $promotion_price_form.find('#tsmart_service_class_id').append($option);
+                        $.each(response.tsmart_service_class_ids, function (index, tsmart_service_class_id) {
                             $.each(list_service_class, function (index, item_service_class) {
-                                if (item_service_class.virtuemart_product_id == virtuemart_service_class_id) {
-                                    var $option = '<option value="' + virtuemart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
-                                    $promotion_price_form.find('#virtuemart_service_class_id').append($option);
+                                if (item_service_class.tsmart_product_id == tsmart_service_class_id) {
+                                    var $option = '<option value="' + tsmart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
+                                    $promotion_price_form.find('#tsmart_service_class_id').append($option);
                                 }
                             });
                         });
 
-                        $promotion_price_form.find("#virtuemart_service_class_id").val(0);
-                        $promotion_price_form.find("#virtuemart_service_class_id").trigger("change");
+                        $promotion_price_form.find("#tsmart_service_class_id").val(0);
+                        $promotion_price_form.find("#tsmart_service_class_id").trigger("change");
                         $promotion_price_form.find('#template_price').html(response.price_content);
                         plugin.updata_price(response);
                         plugin.setup_calculator_promotion_price();
@@ -821,7 +821,7 @@
             }
             $promotion_price_form.find('input[name="tax"]').val(result.promotion_price.tax);
             plugin.settings.price_type=result.tour.price_type
-            $promotion_price_form.find('input[name="virtuemart_promotion_price_id"]').val(result.promotion_price.virtuemart_promotion_price_id);
+            $promotion_price_form.find('input[name="tsmart_promotion_price_id"]').val(result.promotion_price.tsmart_promotion_price_id);
             $promotion_price_form.find('textarea[name="price_note"]').val(result.promotion_price.price_note.trim());
 
 
@@ -836,7 +836,7 @@
 
 
 
-            $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.virtuemart_product_id);
+            $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.tsmart_product_id);
             $promotion_price_form.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
             var price_type = result.tour.price_type;
             if (price_type == 'tour_group') {
@@ -847,7 +847,7 @@
                     display: "none"
                 });
                 $.each(list_tour_promotion_price_by_tour_promotion_price_id, function (index, item) {
-                    var $row = $promotion_price_form.find('table.base-price tr[data-group_size_id="' + item.virtuemart_group_size_id + '"]');
+                    var $row = $promotion_price_form.find('table.base-price tr[data-group_size_id="' + item.tsmart_group_size_id + '"]');
                     $row.find('td input[column-type="senior"]').val(item.price_senior);
                     $row.find('td input[column-type="adult"]').val(item.price_adult);
                     $row.find('td input[column-type="teen"]').val(item.price_teen);
@@ -897,7 +897,7 @@
         }
         plugin.updata_price = function updata_price(respone) {
             var price_type = $promotion_price_form.find('#price_type').val();
-            var virtuemart_product_id = $promotion_price_form.find('input[name="virtuemart_product_id"]').val();
+            var tsmart_product_id = $promotion_price_form.find('input[name="tsmart_product_id"]').val();
             var $promotion_price_tr_first = $promotion_price_form.find('table.base-price tbody tr');
             var tax = $promotion_price_form.find('input[name="tax"]').val();
             tax = parseFloat(tax);

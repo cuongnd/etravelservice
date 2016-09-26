@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -81,11 +81,11 @@ AdminUIHelper::startAdminArea($this);
                     <?php
                     foreach ($this->promotion_prices as $promotion_price) {
                         ?>
-                        <tr role="row" data-virtuemart_promotion_price_id="<?php echo $promotion_price->virtuemart_promotion_price_id ?>">
+                        <tr role="row" data-tsmart_promotion_price_id="<?php echo $promotion_price->tsmart_promotion_price_id ?>">
                             <td><label class="checkbox"><input type="checkbox" name="row_price_id[]"
-                                                               value="<?php echo $promotion_price->virtuemart_promotion_price_id ?>"
+                                                               value="<?php echo $promotion_price->tsmart_promotion_price_id ?>"
                                                                class="check-item"><span
-                                        class="item-id"><?php echo $promotion_price->virtuemart_promotion_price_id ?></span></label>
+                                        class="item-id"><?php echo $promotion_price->tsmart_promotion_price_id ?></span></label>
                             </td>
                             <td><?php echo $promotion_price->tour_name ?></td>
                             <td class="service_class_name"><?php echo $promotion_price->service_class_name ?></td>
@@ -127,11 +127,11 @@ AdminUIHelper::startAdminArea($this);
                         <table class="table-bordered  table table-striped">
                             <tr>
                                 <td>Tour</td>
-                                <td ><select name="virtuemart_product_id" id="virtuemart_product_id">
+                                <td ><select name="tsmart_product_id" id="tsmart_product_id">
                                         <option value="0">select tour</option>
                                         <?php foreach ($this->list_tour as $tour) { ?>
                                             <option
-                                                value="<?php echo $tour->virtuemart_product_id ?>"><?php echo $tour->product_name ?></option>
+                                                value="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?></option>
                                         <?php } ?>
                                     </select>
                                 </td>
@@ -140,7 +140,7 @@ AdminUIHelper::startAdminArea($this);
                                 <td>Service class</td>
                                 <td >
 
-                                    <?php echo VmHTML::select_service_class($this->list_service_class_by_tour_id,'virtuemart_service_class_id',$this->price->service_class_id,''); ?>
+                                    <?php echo VmHTML::select_service_class($this->list_service_class_by_tour_id,'tsmart_service_class_id',$this->price->service_class_id,''); ?>
 
                                 </td>
                             </tr>
@@ -149,7 +149,7 @@ AdminUIHelper::startAdminArea($this);
                             <tr>
                                 <td>Range of date</td>
                                 <td >
-                                    <?php echo VmHTML::select_range_of_date(array(),'virtuemart_price_id',$this->price->virtuemart_price_id,'','vituemart_price_id','title'); ?>
+                                    <?php echo VmHTML::select_range_of_date(array(),'tsmart_price_id',$this->price->tsmart_price_id,'','vituemart_price_id','title'); ?>
                                 </td>
 
 
@@ -198,7 +198,7 @@ AdminUIHelper::startAdminArea($this);
 
                     </div>
                 </div>
-                <input type="hidden" name="virtuemart_promotion_price_id" value="0">
+                <input type="hidden" name="tsmart_promotion_price_id" value="0">
                 <input type="hidden" id="published" name="published" value="1"/>
             </div>
 
@@ -210,8 +210,8 @@ AdminUIHelper::startAdminArea($this);
         <input type="hidden" name="view" value="promotion"/>
         <input type="hidden" name="task" value=""/>
 
-        <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $this->virtuemart_product_id; ?>"/>
-        <input type="hidden" id="virtuemart_product_id" name="virtuemart_product_id" value="<?php echo $this->virtuemart_product_id; ?>"/>
+        <input type="hidden" name="key[tsmart_product_id]" value="<?php echo $this->tsmart_product_id; ?>"/>
+        <input type="hidden" id="tsmart_product_id" name="tsmart_product_id" value="<?php echo $this->tsmart_product_id; ?>"/>
 
         <input type="hidden" name="cid[]" value="0"/>
         <?php echo JHtml::_('form.token'); ?>
@@ -219,7 +219,7 @@ AdminUIHelper::startAdminArea($this);
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.view-promotion-default').view_promotion_default({
-                tour_id:<?php echo $this->virtuemart_product_id ?>,
+                tour_id:<?php echo $this->tsmart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,
                 date_format: "<?php echo JText::_('com_tsmart_DATE_FORMAT_INPUT_J16')  ?>",

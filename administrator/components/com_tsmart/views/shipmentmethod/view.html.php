@@ -3,13 +3,13 @@
 *
 * Shipment  View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Shipment
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of shipment
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG
  */
@@ -69,21 +69,21 @@ class TsmartViewShipmentmethod extends tsmViewAdmin {
 			if (!class_exists('VmImage'))
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
-			 if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			 if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
 			 $vendor_id = 1;
-			 $currency=VirtueMartModelVendor::getVendorCurrency ($vendor_id);
+			 $currency=tsmartModelVendor::getVendorCurrency ($vendor_id);
 			 $this->assignRef('vendor_currency', $currency->currency_symbol);
 
 			if($this->showVendors()){
-					$vendorList= ShopFunctions::renderVendorList($shipment->virtuemart_vendor_id);
+					$vendorList= ShopFunctions::renderVendorList($shipment->tsmart_vendor_id);
 					$this->assignRef('vendorList', $vendorList);
 			 }
 
 			$this->pluginList = self::renderInstalledShipmentPlugins($shipment->shipment_jplugin_id);
 			$this->assignRef('shipment', $shipment);
-			$this->shopperGroupList = ShopFunctions::renderShopperGroupList($shipment->virtuemart_shoppergroup_ids,true);
+			$this->shopperGroupList = ShopFunctions::renderShopperGroupList($shipment->tsmart_shoppergroup_ids,true);
 
-			$this->addStandardEditViewCommands($shipment->virtuemart_shipmentmethod_id);
+			$this->addStandardEditViewCommands($shipment->tsmart_shipmentmethod_id);
 
 		} else {
 			JToolBarHelper::custom('cloneshipment', 'copy', 'copy', tsmText::_('com_tsmart_SHIPMENT_CLONE'), true);
@@ -96,7 +96,7 @@ class TsmartViewShipmentmethod extends tsmViewAdmin {
 
 			foreach ($this->shipments as &$data){
 				// Write the first 5 shoppergroups in the list
-				$data->shipmentShoppersList = shopfunctions::renderGuiList($data->virtuemart_shoppergroup_ids,'shoppergroups','shopper_group_name','shopper');
+				$data->shipmentShoppersList = shopfunctions::renderGuiList($data->tsmart_shoppergroup_ids,'shoppergroups','shopper_group_name','shopper');
 			}
 
 			$this->pagination = $model->getPagination();

@@ -4,13 +4,13 @@ defined ('_JEXEC') or die('Direct Access to ' . basename (__FILE__) . ' is not a
 /**
  * General helper class
  *
- * This class provides some shop functions that are used throughout the VirtueMart shop.
+ * This class provides some shop functions that are used throughout the tsmart shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
  * @author Patrick Kohl
- * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009 tsmart Team. All rights reserved.
  * @version $Id: shopfunctions.php 9012 2015-10-09 11:49:32Z Milbo $
  */
 class ShopFunctions {
@@ -46,9 +46,9 @@ class ShopFunctions {
 		if ($view != 'user' and $view != 'shoppergroup') {
 			$cid = 'cid';
 		} else if ($view == 'user'){
-			$cid = 'virtuemart_user_id';
+			$cid = 'tsmart_user_id';
 		} else {
-			$cid = 'virtuemart_shoppergroup_id';
+			$cid = 'tsmart_shoppergroup_id';
 		}
 
 		$model = new VmModel();
@@ -56,7 +56,7 @@ class ShopFunctions {
 
 		if(!is_array($idList)){
 			$db = JFactory::getDBO ();
-			$q = 'SELECT `' . $table->getPKey() . '` FROM `#__virtuemart_' . $db->escape ($tableXref) . '` WHERE ' . $db->escape ($tableSecondaryKey) . ' = "' . (int)$idList . '"';
+			$q = 'SELECT `' . $table->getPKey() . '` FROM `#__tsmart_' . $db->escape ($tableXref) . '` WHERE ' . $db->escape ($tableSecondaryKey) . ' = "' . (int)$idList . '"';
 			$db->setQuery ($q);
 			$idList = $db->loadColumn ();
 		}
@@ -96,7 +96,7 @@ class ShopFunctions {
 	 * @param bool $multiple if the select list should allow multiple selections
 	 * @return string HTML select option list
 	 */
-	static public function renderVendorList ($vendorId, $name = 'virtuemart_vendor_id') {
+	static public function renderVendorList ($vendorId, $name = 'tsmart_vendor_id') {
 
 		$view = vRequest::getCmd('view',false);
 		if(!vmAccess::manager(array($view,'managevendors'),0,true)) {
@@ -104,7 +104,7 @@ class ShopFunctions {
 				$vendor = tsmText::_('com_tsmart_USER_NOT_A_VENDOR');
 			} else {
 				$db = JFactory::getDBO ();
-				$q = 'SELECT `vendor_name` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id` = "' . (int)$vendorId . '" ';
+				$q = 'SELECT `vendor_name` FROM `#__tsmart_vendors` WHERE `tsmart_vendor_id` = "' . (int)$vendorId . '" ';
 				$db->setQuery ($q);
 				$vendor = $db->loadResult ();
 			}
@@ -115,11 +115,11 @@ class ShopFunctions {
 
 	}
 
-	static public function renderVendorFullVendorList($vendorId, $multiple = false, $name = 'virtuemart_vendor_id'){
+	static public function renderVendorFullVendorList($vendorId, $multiple = false, $name = 'tsmart_vendor_id'){
 
 		$db = JFactory::getDBO ();
 
-		$q = 'SELECT `virtuemart_vendor_id`,`vendor_name` FROM #__virtuemart_vendors';
+		$q = 'SELECT `tsmart_vendor_id`,`vendor_name` FROM #__tsmart_vendors';
 		$db->setQuery ($q);
 		$vendors = $db->loadAssocList ();
 
@@ -132,10 +132,10 @@ class ShopFunctions {
 			$attrs['multiple'] = 'multiple';
 			$idA .= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_vendor_id', 'vendor_name');
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'tsmart_vendor_id', 'vendor_name');
 			array_unshift ($vendors, $emptyOption);
 		}
-		$listHTML = JHtml::_ ('select.genericlist', $vendors, $idA, $attrs, 'virtuemart_vendor_id', 'vendor_name', $vendorId, $id);
+		$listHTML = JHtml::_ ('select.genericlist', $vendors, $idA, $attrs, 'tsmart_vendor_id', 'vendor_name', $vendorId, $id);
 		return $listHTML;
 	}
 
@@ -148,7 +148,7 @@ class ShopFunctions {
 	 * @param bool $multiple if the select list should allow multiple selections
 	 * @return string HTML select option list
 	 */
-	static public function renderShopperGroupList ($shopperGroupId = 0, $multiple = TRUE,$name='virtuemart_shoppergroup_id', $select_attribute='com_tsmart_DRDOWN_AVA2ALL' ) {
+	static public function renderShopperGroupList ($shopperGroupId = 0, $multiple = TRUE,$name='tsmart_shoppergroup_id', $select_attribute='com_tsmart_DRDOWN_AVA2ALL' ) {
 		VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 
 		$shopperModel = VmModel::getModel ('shoppergroup');
@@ -160,15 +160,15 @@ class ShopFunctions {
 		if ($multiple) {
 			$attrs['multiple'] = 'multiple';
 			$attrs['data-placeholder'] = tsmText::_($select_attribute);
-			if($name=='virtuemart_shoppergroup_id'){
+			if($name=='tsmart_shoppergroup_id'){
 				$name.= '[]';
 			}
 		} else {
-			$emptyOption = JHTML::_ ('select.option', '', tsmText::_ ($select_attribute), 'virtuemart_shoppergroup_id', 'shopper_group_name');
+			$emptyOption = JHTML::_ ('select.option', '', tsmText::_ ($select_attribute), 'tsmart_shoppergroup_id', 'shopper_group_name');
 			array_unshift ($shoppergrps, $emptyOption);
 		}
 
-		$listHTML = JHTML::_ ('select.genericlist', $shoppergrps, $name, $attrs, 'virtuemart_shoppergroup_id', 'shopper_group_name', $shopperGroupId,false,true);
+		$listHTML = JHTML::_ ('select.genericlist', $shoppergrps, $name, $attrs, 'tsmart_shoppergroup_id', 'shopper_group_name', $shopperGroupId,false,true);
 		return $listHTML;
 	}
 
@@ -178,7 +178,7 @@ class ShopFunctions {
 	 * @author St. Kraft
 	 * Mod. <mediaDESIGN> St.Kraft 2013-02-24 Herstellerrabatt
 	 */
-	static public function renderManufacturerList ($manufacturerId = 0, $multiple = FALSE, $name = 'virtuemart_manufacturer_id') {
+	static public function renderManufacturerList ($manufacturerId = 0, $multiple = FALSE, $name = 'tsmart_manufacturer_id') {
 
 		$manufacturerModel = VmModel::getModel ('manufacturer');
 		$manufacturers = $manufacturerModel->getManufacturers (FALSE, TRUE);
@@ -186,13 +186,13 @@ class ShopFunctions {
 		$attrs['class'] = 'width100';
 		if ($multiple) {
 			$attrs['multiple'] = 'multiple';
-			if($name=='virtuemart_manufacturer_id')	$name.= '[]';
+			if($name=='tsmart_manufacturer_id')	$name.= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_manufacturer_id', 'mf_name');
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'tsmart_manufacturer_id', 'mf_name');
 			array_unshift ($manufacturers, $emptyOption);
 		}
 
-		$listHTML = JHtml::_ ('select.genericlist', $manufacturers, $name, $attrs, 'virtuemart_manufacturer_id', 'mf_name', $manufacturerId);
+		$listHTML = JHtml::_ ('select.genericlist', $manufacturers, $name, $attrs, 'tsmart_manufacturer_id', 'mf_name', $manufacturerId);
 		return $listHTML;
 	}
 
@@ -204,16 +204,16 @@ class ShopFunctions {
 	 */
 	static function renderTaxList ($selected, $name = 'product_tax_id', $class = '') {
 
-		if (!class_exists ('VirtueMartModelCalc')) {
+		if (!class_exists ('tsmartModelCalc')) {
 					require(VMPATH_ADMIN . DS . 'models' . DS . 'calc.php');
 				}
-		$taxes = VirtueMartModelCalc::getTaxes ();
+		$taxes = tsmartModelCalc::getTaxes ();
 
 		$taxrates = array();
 		$taxrates[] = JHtml::_ ('select.option', '-1', tsmText::_ ('com_tsmart_PRODUCT_TAX_NONE'), $name);
 		$taxrates[] = JHtml::_ ('select.option', '0', tsmText::_ ('com_tsmart_PRODUCT_TAX_NO_SPECIAL'), $name);
 		foreach ($taxes as $tax) {
-			$taxrates[] = JHtml::_ ('select.option', $tax->virtuemart_calc_id, $tax->calc_name, $name);
+			$taxrates[] = JHtml::_ ('select.option', $tax->tsmart_calc_id, $tax->calc_name, $name);
 		}
 		$listHTML = JHtml::_ ('Select.genericlist', $taxrates, $name, $class, $name, 'text', $selected);
 		return $listHTML;
@@ -261,7 +261,7 @@ class ShopFunctions {
 
 // Ordering dropdown
 		$qry = 'SELECT ordering AS value, '.$fieldname.' AS text'
-			. ' FROM #__virtuemart_'.$table.' '.$where
+			. ' FROM #__tsmart_'.$table.' '.$where
 			. ' ORDER BY '.$orderingField;
 		$db = JFactory::getDbo();
 		$db->setQuery($qry);
@@ -650,19 +650,19 @@ class ShopFunctions {
 		$id = (int)$id;
 		$db = JFactory::getDBO ();
 
-		$q = 'SELECT `' . $db->escape ($fld) . '` AS fld FROM `#__virtuemart_countries` WHERE virtuemart_country_id = ' . (int)$id;
+		$q = 'SELECT `' . $db->escape ($fld) . '` AS fld FROM `#__tsmart_countries` WHERE tsmart_country_id = ' . (int)$id;
 		$db->setQuery ($q);
 		return $db->loadResult ();
 	}
 
 	/**
-	 * Return the virtuemart_country_id of a given country name
+	 * Return the tsmart_country_id of a given country name
 	 *
 	 * @author Oscar van Eijk
 	 * @author Max Milbers
 	 * @access public
 	 * @param string $name Country name (can be country_name or country_3_code  or country_2_code )
-	 * @return int virtuemart_country_id
+	 * @return int tsmart_country_id
 	 */
 	static public function getCountryIDByName ($name) {
 
@@ -680,14 +680,14 @@ class ShopFunctions {
 				$fieldname = 'country_name';
 			}
 		}
-		$q = 'SELECT `virtuemart_country_id` FROM `#__virtuemart_countries` WHERE `' . $fieldname . '` = "' . $db->escape ($name) . '"';
+		$q = 'SELECT `tsmart_country_id` FROM `#__tsmart_countries` WHERE `' . $fieldname . '` = "' . $db->escape ($name) . '"';
 		$db->setQuery ($q);
 		$r = $db->loadResult ();
 		return $r;
 	}
 
 	/**
-	 * Return the statename or code of a given virtuemart_state_id
+	 * Return the statename or code of a given tsmart_state_id
 	 *
 	 * @author Oscar van Eijk
 	 * @access public
@@ -701,7 +701,7 @@ class ShopFunctions {
 			return '';
 		}
 		$db = JFactory::getDBO ();
-		$q = 'SELECT ' . $db->escape ($fld) . ' AS fld FROM `#__virtuemart_states` WHERE virtuemart_state_id = "' . (int)$id . '"';
+		$q = 'SELECT ' . $db->escape ($fld) . ' AS fld FROM `#__tsmart_states` WHERE tsmart_state_id = "' . (int)$id . '"';
 		$db->setQuery ($q);
 		$r = $db->loadObject ();
 		return $r->fld;
@@ -713,7 +713,7 @@ class ShopFunctions {
 	 * @author Max Milbers
 	 * @access public
 	 * @param string $name Country name
-	 * @return int virtuemart_state_id
+	 * @return int tsmart_state_id
 	 */
 	static public function getStateIDByName ($name) {
 
@@ -730,18 +730,18 @@ class ShopFunctions {
 				$fieldname = 'state_name';
 			}
 		}
-		$q = 'SELECT `virtuemart_state_id` FROM `#__virtuemart_states` WHERE `' . $fieldname . '` = "' . $db->escape ($name) . '"';
+		$q = 'SELECT `tsmart_state_id` FROM `#__tsmart_states` WHERE `' . $fieldname . '` = "' . $db->escape ($name) . '"';
 		$db->setQuery ($q);
 		$r = $db->loadResult ();
 		return $r;
 	}
 
 	/*
-	 * Returns the associative array for a given virtuemart_calc_id
+	 * Returns the associative array for a given tsmart_calc_id
 	*
 	* @author Valérie Isaksen
 	* @access public
-	* @param int $id virtuemart_calc_id
+	* @param int $id tsmart_calc_id
 	* @return array Result row
 	*/
 	static public function getTaxByID ($id) {
@@ -752,19 +752,19 @@ class ShopFunctions {
 
 		$id = (int)$id;
 		$db = JFactory::getDBO ();
-		$q = 'SELECT  *   FROM `#__virtuemart_calcs` WHERE virtuemart_calc_id = ' . (int)$id;
+		$q = 'SELECT  *   FROM `#__tsmart_calcs` WHERE tsmart_calc_id = ' . (int)$id;
 		$db->setQuery ($q);
 		return $db->loadAssoc ();
 
 	}
 
 	/**
-	 * Return any field  from table '#__virtuemart_currencies'
+	 * Return any field  from table '#__tsmart_currencies'
 	 *
 	 * @author Valérie Isaksen
 	 * @access public
 	 * @param int $id Currency ID
-	 * @param char $fld Field from table '#__virtuemart_currencies' to return: currency_name (default), currency_code_2, currency_code_3 etc.
+	 * @param char $fld Field from table '#__tsmart_currencies' to return: currency_name (default), currency_code_2, currency_code_3 etc.
 	 * @return string Currency name or code
 	 */
 	static public function getCurrencyByID ($id, $fld = 'currency_name') {
@@ -777,7 +777,7 @@ class ShopFunctions {
 			$id = (int)$id;
 			$db = JFactory::getDBO ();
 
-			$q = 'SELECT ' . $db->escape ($fld) . ' AS fld FROM `#__virtuemart_currencies` WHERE virtuemart_currency_id = ' . (int)$id;
+			$q = 'SELECT ' . $db->escape ($fld) . ' AS fld FROM `#__tsmart_currencies` WHERE tsmart_currency_id = ' . (int)$id;
 			$db->setQuery ($q);
 			$currencyNameById[$id][$fld] = $db->loadResult ();
 		}
@@ -791,7 +791,7 @@ class ShopFunctions {
 	 * @author Valerie Isaksen, Max Milbers
 	 * @access public
 	 * @param string $name Currency name
-	 * @return int virtuemart_currency_id
+	 * @return int tsmart_currency_id
 	 */
 	static public function getCurrencyIDByName ($name) {
 
@@ -810,7 +810,7 @@ class ShopFunctions {
 					$fieldname = 'currency_name';
 				}
 			}
-			$q = 'SELECT `virtuemart_currency_id` FROM `#__virtuemart_currencies` WHERE `' . $fieldname . '` = "' . ($name) . '"';
+			$q = 'SELECT `tsmart_currency_id` FROM `#__tsmart_currencies` WHERE `' . $fieldname . '` = "' . ($name) . '"';
 			$db->setQuery ($q);
 			$currencyIdByName[$name] = $db->loadResult ();
 		}
@@ -992,7 +992,7 @@ class ShopFunctions {
 			'`p`.product_height', '`p`.product_width', '`p`.product_length', '`p`.product_lwh_uom',
 			'`p`.product_weight', '`p`.product_weight_uom', '`p`.product_in_stock', '`p`.low_stock_notification',
 			'`p`.modified_on', '`p`.product_gtin',
-			'`p`.product_unit', '`p`.product_packaging', '`p`.virtuemart_product_id', 'pc.ordering');
+			'`p`.product_unit', '`p`.product_packaging', '`p`.tsmart_product_id', 'pc.ordering');
 
 			//other possible fields
 			//'p.intnotes',		this is maybe interesting, but then only for admins or special shoppergroups
@@ -1147,7 +1147,7 @@ class ShopFunctions {
 			$html .= '</td>
 			<td class="order_number">';
 				$uri = JFactory::getURI();
-				$link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id=' . $order_info['order_id'];
+				$link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=orders&task=edit&tsmart_order_id=' . $order_info['order_id'];
 				$html .= JHtml::_ ('link', $link, $order_info['order_number'], array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order_info['order_number']));
 			$first=FALSE;
 			$html .= '

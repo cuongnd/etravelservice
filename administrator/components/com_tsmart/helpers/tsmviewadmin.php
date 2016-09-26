@@ -5,12 +5,12 @@
  * This class provides the functions for the Views
  * This class provides the functions for the calculations
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (C) 2014-2015 Virtuemart Team. All rights reserved.
+ * @copyright Copyright (C) 2014-2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -96,7 +96,7 @@ class tsmViewAdmin extends JViewLegacy
 
 
         }
-        if ($view == 'tsmart' //Virtuemart view is always allowed since this is the page we redirect to in case the user does not have the rights
+        if ($view == 'tsmart' //tsmart view is always allowed since this is the page we redirect to in case the user does not have the rights
             or $view == 'about' //About view always displayed
             or $this->manager($view)
         ) {
@@ -687,15 +687,15 @@ class tsmViewAdmin extends JViewLegacy
         						type: "GET",
 								cache: false,
         						dataType: "json",
-        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1",
+        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1",
     					}).done(
-								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
+								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
 										function(data) {
-											cible = jQuery("#child' . $child->virtuemart_product_id . 'product_name");
+											cible = jQuery("#child' . $child->tsmart_product_id . 'product_name");
 											if (oldflag !== "") cible.parent().removeClass(oldflag)
 											cible.parent().addClass(flagClass);
 											cible.val(data.fields.product_name);
-											jQuery("#child' . $child->virtuemart_product_id . 'slug").val(data.fields["slug"]);
+											jQuery("#child' . $child->tsmart_product_id . 'slug").val(data.fields["slug"]);
 										}
 									)
 								';
@@ -858,15 +858,15 @@ class tsmViewAdmin extends JViewLegacy
         						type: "GET",
 								cache: false,
         						dataType: "json",
-        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1",
+        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1",
     					}).done(
-								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
+								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
 										function(data) {
-											cible = jQuery("#child' . $child->virtuemart_product_id . 'product_name");
+											cible = jQuery("#child' . $child->tsmart_product_id . 'product_name");
 											if (oldflag !== "") cible.parent().removeClass(oldflag)
 											cible.parent().addClass(flagClass);
 											cible.val(data.fields.product_name);
-											jQuery("#child' . $child->virtuemart_product_id . 'slug").val(data.fields["slug"]);
+											jQuery("#child' . $child->tsmart_product_id . 'slug").val(data.fields["slug"]);
 										}
 									)
 								';
@@ -1029,15 +1029,15 @@ class tsmViewAdmin extends JViewLegacy
         						type: "GET",
 								cache: false,
         						dataType: "json",
-        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1",
+        						url: "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1",
     					}).done(
-								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->virtuemart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
+								//	$.getJSON( "index.php?option=com_tsmart&view=translate&task=paste&format=json&lg="+langCode+"&id=' . $child->tsmart_product_id . '&editView=' . $editView . '&' . $token . '=1" ,
 										function(data) {
-											cible = jQuery("#child' . $child->virtuemart_product_id . 'product_name");
+											cible = jQuery("#child' . $child->tsmart_product_id . 'product_name");
 											if (oldflag !== "") cible.parent().removeClass(oldflag)
 											cible.parent().addClass(flagClass);
 											cible.val(data.fields.product_name);
-											jQuery("#child' . $child->virtuemart_product_id . 'slug").val(data.fields["slug"]);
+											jQuery("#child' . $child->tsmart_product_id . 'slug").val(data.fields["slug"]);
 										}
 									)
 								';

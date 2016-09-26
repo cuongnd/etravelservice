@@ -7,7 +7,7 @@
         var defaults = {
             list_tour_type:[],
             select_name:"",
-            virtuemart_tour_type_id:0
+            tsmart_tour_type_id:0
         }
 
         // current instance of the object
@@ -29,13 +29,13 @@
             plugin.settings = $.extend({}, defaults, options);
             var list_tour_type=plugin.settings.list_tour_type;
             var select_name=plugin.settings.select_name;
-            var virtuemart_tour_type_id=plugin.settings.virtuemart_tour_type_id;
+            var tsmart_tour_type_id=plugin.settings.tsmart_tour_type_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
                 data:list_tour_type,
                 templateResult:plugin.set_select2_template_result,
                 templateSelection:plugin.set_lect2_template_selection
             });
-            plugin.select2.val(virtuemart_tour_type_id).trigger("change")
+            plugin.select2.val(tsmart_tour_type_id).trigger("change")
         }
 
         plugin.init();

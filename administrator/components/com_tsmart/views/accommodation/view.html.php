@@ -3,13 +3,13 @@
 *
 * Currency View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of currencies
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
@@ -39,13 +39,13 @@ class TsmartViewaccommodation extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		$task=$app->input->getString('task','');
-		$tsmart_product_id=$app->input->getInt('virtuemart_product_id',0);
+		$tsmart_product_id=$app->input->getInt('tsmart_product_id',0);
 		$model = VmModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+		$this->tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
         require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
         $this->list_hotel=tsmHotel::get_list_hotel();
-        $this->list_hotel=JArrayHelper::pivot($this->list_hotel,'virtuemart_hotel_id');
+        $this->list_hotel=JArrayHelper::pivot($this->list_hotel,'tsmart_hotel_id');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -75,8 +75,8 @@ class TsmartViewaccommodation extends tsmViewAdmin {
 			if ($task == 'edit_item'||$task=='add_new_item') {
 				$app=JFactory::getApplication();
 				$input=$app->input;
-				$tsmart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
-				$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+				$tsmart_itinerary_id=$input->getInt('tsmart_itinerary_id',0);
+				$tsmart_product_id=$input->getInt('tsmart_product_id',0);
 
 				$cid	= vRequest::getInt( 'cid' );
 

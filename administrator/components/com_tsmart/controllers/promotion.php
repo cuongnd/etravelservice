@@ -3,13 +3,13 @@
 *
 * Currency controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Currency
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Currency Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
@@ -93,9 +93,9 @@ class TsmartControllerpromotion extends TsmController {
         $post = json_decode($post);
 
         $input=$app->input;
-        $tsmart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
+        $tsmart_promotion_price_id=$input->get('tsmart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
-        $post->virtuemart_product_id=$post->virtuemart_product_id;
+        $post->tsmart_product_id=$post->tsmart_product_id;
         $post=(array)$post;
         $return_ajax=new stdClass();
         $return_ajax->e=0;
@@ -120,12 +120,12 @@ class TsmartControllerpromotion extends TsmController {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
+        $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
         $tsmart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
         $return_item=new stdClass();
-        $return_item->virtuemart_service_class_ids=$tsmart_service_class_ids;
-        $view = &$this->getView('promotion', 'html', 'VirtuemartView');
+        $return_item->tsmart_service_class_ids=$tsmart_service_class_ids;
+        $view = &$this->getView('promotion', 'html', 'tsmartView');
         $modal_promotion=$this->getModel('promotion');
         $view->setModel($modal_promotion,true);
         $model_product=$this->getModel('product');
@@ -168,8 +168,8 @@ class TsmartControllerpromotion extends TsmController {
     public function ajax_get_list_base_price_by_service_class_id_and_tour_id(){
         $app=JFactory::getApplication();
         $input=$app->input;
-        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
-        $tsmart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
+        $tsmart_service_class_id=$input->getInt('tsmart_service_class_id',0);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
         $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($tsmart_product_id,$tsmart_service_class_id);
         echo json_encode($list_base_price_by_service_class_id_and_tour_id);
@@ -180,14 +180,14 @@ class TsmartControllerpromotion extends TsmController {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $view = &$this->getView('promotion', 'html', 'VirtuemartView');
-        $tsmart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
+        $view = &$this->getView('promotion', 'html', 'tsmartView');
+        $tsmart_promotion_price_id=$input->get('tsmart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
         $model_promotion_price->setId($tsmart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
         $product=vmpromotion::get_product_by_promotion_price_id($tsmart_promotion_price_id);
-        $tsmart_product_id=$product->virtuemart_product_id;
+        $tsmart_product_id=$product->tsmart_product_id;
 
 
         $return_item=new stdClass();

@@ -4,13 +4,13 @@
  *
  * Shipment  table
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Shipment
  * @author RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,7 +26,7 @@ if (!class_exists('tsmTable'))
  * Shipment  table class
  * The class is is used to manage the shipment in the shop.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @author RickG, Max Milbers
  */
 class TableShipmentmethods extends tsmTable {
@@ -63,7 +63,7 @@ class TableShipmentmethods extends tsmTable {
      * @param JDataBase $db
      */
     function __construct(&$db) {
-	parent::__construct('#__virtuemart_shipmentmethods', 'virtuemart_shipmentmethod_id', $db);
+	parent::__construct('#__tsmart_shipmentmethods', 'tsmart_shipmentmethod_id', $db);
 	// we can have several time the same shipment name. It is the vendor problem to set up correctly his shipment rate.
 	// $this->setUniqueName('shipment_name');
 	$this->setObligatoryKeys('shipment_jplugin_id');

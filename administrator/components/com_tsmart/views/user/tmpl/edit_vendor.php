@@ -3,13 +3,13 @@
 *
 * Modify user form view, User info
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -72,7 +72,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								<?php echo tsmText::_('com_tsmart_CURRENCY'); ?>:
 							</td>
 							<td>
-								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_currency', '', 'virtuemart_currency_id', 'currency_name', $this->vendor->vendor_currency); ?>
+								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_currency', '', 'tsmart_currency_id', 'currency_name', $this->vendor->vendor_currency); ?>
 							</td>
 						</tr>
 						<tr>
@@ -80,7 +80,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								<?php echo tsmText::_('com_tsmart_STORE_FORM_ACCEPTED_CURRENCIES'); ?>:
 							</td>
 							<td>
-								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_accepted_currencies[]', 'size=10 multiple="multiple" data-placeholder="'.tsmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS').'"', 'virtuemart_currency_id', 'currency_name', $this->vendor->vendor_accepted_currencies); ?>
+								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_accepted_currencies[]', 'size=10 multiple="multiple" data-placeholder="'.tsmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS').'"', 'tsmart_currency_id', 'currency_name', $this->vendor->vendor_accepted_currencies); ?>
 							</td>
 						</tr>
 					</table>
@@ -91,8 +91,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<?php echo tsmText::_('com_tsmart_VENDOR_FORM_INFO_LBL') ?>
 			</legend>
 			<?php
-			vmdebug('$this->vendor->virtuemart_vendor_id',$this->vendor->virtuemart_vendor_id);
-				echo $this->vendor->images[0]->displayFilesHandler($this->vendor->virtuemart_media_id,'vendor',$this->vendor->virtuemart_vendor_id);
+			vmdebug('$this->vendor->tsmart_vendor_id',$this->vendor->tsmart_vendor_id);
+				echo $this->vendor->images[0]->displayFilesHandler($this->vendor->tsmart_media_id,'vendor',$this->vendor->tsmart_vendor_id);
 			?>
 
 
@@ -127,5 +127,5 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 </div>
 <input type="hidden" name="user_is_vendor" value="1" />
-<input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->vendor->virtuemart_vendor_id; ?>" />
+<input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->vendor->tsmart_vendor_id; ?>" />
 <input type="hidden" name="last_task" value="<?php echo vRequest::getCmd('task'); ?>" />

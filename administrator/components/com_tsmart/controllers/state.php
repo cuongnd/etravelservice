@@ -3,13 +3,13 @@
 *
 * State controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage State
 * @author RickG, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Product Controller
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage State
  * @author RickG, Max Milbers
  */
@@ -38,10 +38,10 @@ class TsmartControllerState extends TsmController {
 	 * @author RickG, Max Milbers
 	 */
 	function __construct() {
-		parent::__construct('virtuemart_state_id');
+		parent::__construct('tsmart_state_id');
 
-		$country = vRequest::getInt('virtuemart_country_id', 0);
-		$this->redirectPath .= ($country > 0) ? '&virtuemart_country_id=' . $country : '';
+		$country = vRequest::getInt('tsmart_country_id', 0);
+		$this->redirectPath .= ($country > 0) ? '&tsmart_country_id=' . $country : '';
 	}
 
 
@@ -56,7 +56,7 @@ class TsmartControllerState extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$tsmart_country_id=$input->get('virtuemart_country_id',0,'int');
+		$tsmart_country_id=$input->get('tsmart_country_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmstates.php';
 		$list_state=vmstates::get_list_state_by_country_id($tsmart_country_id);
 		echo json_encode($list_state);

@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage UpdatesMigration
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -97,13 +97,13 @@ if($option=='com_tsmart'){
 		</tr>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<a href="http://docs.virtuemart.net"><?php echo tsmText::_('com_tsmart_DOCUMENTATION'); ?></a>
+				<a href="http://docs.tsmart.net"><?php echo tsmText::_('com_tsmart_DOCUMENTATION'); ?></a>
 				</span>
 			</td>
 		</tr>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<a href="http://extensions.virtuemart.net"><?php echo  tsmText::_('com_tsmart_EXTENSIONS_MORE'); ?></a>
+				<a href="http://extensions.tsmart.net"><?php echo  tsmText::_('com_tsmart_EXTENSIONS_MORE'); ?></a>
 				</span>
 			</td>
 		</tr>

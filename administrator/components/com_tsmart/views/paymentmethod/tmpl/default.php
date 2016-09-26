@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Paymentmethod
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -40,7 +40,7 @@ AdminUIHelper::startAdminArea($this);
 			</th>
 			<?php if($this->showVendors()){ ?>
 			<th >
-				<?php echo $this->sort('virtuemart_vendor_id', 'com_tsmart_VENDOR');  ?>
+				<?php echo $this->sort('tsmart_vendor_id', 'com_tsmart_VENDOR');  ?>
 			</th><?php }?>
 
 			<th  >
@@ -60,7 +60,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo tsmText::_('com_tsmart_SHARED'); ?>
 			</th>
 			<?php } ?>
-			 <th><?php echo $this->sort('virtuemart_paymentmethod_id', 'com_tsmart_ID')  ?></th>
+			 <th><?php echo $this->sort('tsmart_paymentmethod_id', 'com_tsmart_ID')  ?></th>
 		</tr>
 		</thead>
 		<?php
@@ -69,12 +69,12 @@ AdminUIHelper::startAdminArea($this);
 		for ($i=0, $n=count( $this->payments ); $i < $n; $i++) {
 
 			$row = $this->payments[$i];
-			$checked = JHtml::_('grid.id', $i, $row->virtuemart_paymentmethod_id);
+			$checked = JHtml::_('grid.id', $i, $row->tsmart_paymentmethod_id);
 			$published = $this->gridPublished( $row, $i );
 			if($this->showVendors){
 				$shared = $this->toggle($row->shared, $i, 'toggle.shared');
 			}
-			$editlink = JROUTE::_('index.php?option=com_tsmart&view=paymentmethod&task=&task=show_parent_popup&cid[]=' . $row->virtuemart_paymentmethod_id);
+			$editlink = JROUTE::_('index.php?option=com_tsmart&view=paymentmethod&task=&task=show_parent_popup&cid[]=' . $row->tsmart_paymentmethod_id);
 			?>
 			<tr class="<?php echo "row".$k; ?>">
 
@@ -89,7 +89,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<?php if($this->showVendors()){?>
 				<td align="left">
-					<?php echo tsmText::_($row->virtuemart_vendor_id); ?>
+					<?php echo tsmText::_($row->tsmart_vendor_id); ?>
 				</td>
 				<?php } ?>
 
@@ -111,7 +111,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<?php } ?>
 				<td align="center">
-					<?php echo $row->virtuemart_paymentmethod_id; ?>
+					<?php echo $row->tsmart_paymentmethod_id; ?>
 				</td>
 			</tr>
 			<?php

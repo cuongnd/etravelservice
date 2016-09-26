@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 class TsmartViewOrders extends tsmViewAdmin {
@@ -59,19 +59,19 @@ class TsmartViewOrders extends tsmViewAdmin {
 			$userFieldsModel = VmModel::getModel('userfields');
 
 			// Get the data
-			$tsmart_order_id = vRequest::getInt('virtuemart_order_id');
+			$tsmart_order_id = vRequest::getInt('tsmart_order_id');
 			$order = $orderModel->getOrder($tsmart_order_id);
 
 			if(empty($order['details'])){
 				JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=orders',tsmText::_('com_tsmart_ORDER_NOTFOUND'));;
 			}
 
-			$_orderID = $order['details']['BT']->virtuemart_order_id;
+			$_orderID = $order['details']['BT']->tsmart_order_id;
 			$orderbt = $order['details']['BT'];
 			$orderst = (array_key_exists('ST', $order['details'])) ? $order['details']['ST'] : $orderbt;
-			$orderbt ->invoiceNumber = $orderModel->getInvoiceNumber($orderbt->virtuemart_order_id);
+			$orderbt ->invoiceNumber = $orderModel->getInvoiceNumber($orderbt->tsmart_order_id);
 
-			$currency = CurrencyDisplay::getInstance('',$order['details']['BT']->virtuemart_vendor_id);
+			$currency = CurrencyDisplay::getInstance('',$order['details']['BT']->tsmart_vendor_id);
 
 			$this->assignRef('currency', $currency);
 
@@ -114,7 +114,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 			// We'll probably want to put this somewhere in ShopFunctions...
 			$_orderStatusList = array();
 			foreach ($orderStates as $orderState) {
-				//$_orderStatusList[$orderState->virtuemart_orderstate_id] = $orderState->order_status_name;
+				//$_orderStatusList[$orderState->tsmart_orderstate_id] = $orderState->order_status_name;
 				//When I use update, I have to use this?
 				$_orderStatusList[$orderState->order_status_code] = tsmText::_($orderState->order_status_name);
 			}
@@ -122,7 +122,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 			$_itemStatusUpdateFields = array();
 			$_itemAttributesUpdateFields = array();
 			foreach($order['items'] as $_item) {
-				$_itemStatusUpdateFields[$_item->virtuemart_order_item_id] = JHtml::_('select.genericlist', $orderStates, "item_id[".$_item->virtuemart_order_item_id."][order_status]", 'class="selectItemStatusCode"', 'order_status_code', 'order_status_name', $_item->order_status, 'order_item_status'.$_item->virtuemart_order_item_id,true);
+				$_itemStatusUpdateFields[$_item->tsmart_order_item_id] = JHtml::_('select.genericlist', $orderStates, "item_id[".$_item->tsmart_order_item_id."][order_status]", 'class="selectItemStatusCode"', 'order_status_code', 'order_status_name', $_item->order_status, 'order_item_status'.$_item->tsmart_order_item_id,true);
 
 			}
 
@@ -145,7 +145,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 			$this->assignRef('itemattributesupdatefields', $_itemAttributesUpdateFields);
 			$this->assignRef('orderbt', $orderbt);
 			$this->assignRef('orderst', $orderst);
-			$this->assignRef('virtuemart_shipmentmethod_id', $orderbt->virtuemart_shipmentmethod_id);
+			$this->assignRef('tsmart_shipmentmethod_id', $orderbt->tsmart_shipmentmethod_id);
 
 			/* Data for the Edit Status form popup */
 			$_currentOrderStat = $order['details']['BT']->order_status;
@@ -170,8 +170,8 @@ class TsmartViewOrders extends tsmViewAdmin {
 			$model = VmModel::getModel();
 			$orderId = vRequest::getString('orderId', '');
 			$orderLineItem = vRequest::getVar('orderLineId', '');
-			$this->assignRef('virtuemart_order_id', $orderId);
-			$this->assignRef('virtuemart_order_item_id', $orderLineItem);
+			$this->assignRef('tsmart_order_id', $orderId);
+			$this->assignRef('tsmart_order_item_id', $orderLineItem);
 
 			$orderItem = $model->getOrderLineDetails($orderId, $orderLineItem);
 			$this->assignRef('orderitem', $orderItem);
@@ -199,25 +199,25 @@ class TsmartViewOrders extends tsmViewAdmin {
 
 				    if(!empty($order->order_currency)){
 					    $currency = $order->order_currency;
-				    } else if($order->virtuemart_vendor_id){
-					    if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-					    $currObj = VirtueMartModelVendor::getVendorCurrency($order->virtuemart_vendor_id);
-				        $currency = $currObj->virtuemart_currency_id;
+				    } else if($order->tsmart_vendor_id){
+					    if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+					    $currObj = tsmartModelVendor::getVendorCurrency($order->tsmart_vendor_id);
+				        $currency = $currObj->tsmart_currency_id;
 					}
 				    //This is really interesting for multi-X, but I avoid to support it now already, lets stay it in the code
 				    if (!array_key_exists('curr'.$currency, $_currencies)) {
 
-					    $_currencies['curr'.$currency] = CurrencyDisplay::getInstance($currency,$order->virtuemart_vendor_id);
+					    $_currencies['curr'.$currency] = CurrencyDisplay::getInstance($currency,$order->tsmart_vendor_id);
 				    }
 
 				    $order->order_total = $_currencies['curr'.$currency]->priceDisplay($order->order_total);
-				    $order->invoiceNumber = $model->getInvoiceNumber($order->virtuemart_order_id);
+				    $order->invoiceNumber = $model->getInvoiceNumber($order->tsmart_order_id);
 			    }
 
 			}
 
 			//update order items button
-			/*$q = 'SELECT * FROM #__virtuemart_order_items WHERE `product_discountedPriceWithoutTax` IS NULL ';
+			/*$q = 'SELECT * FROM #__tsmart_order_items WHERE `product_discountedPriceWithoutTax` IS NULL ';
 			$db = JFactory::getDBO();
 			$db->setQuery($q);
 			//$res = $db->loadRow();

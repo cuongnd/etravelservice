@@ -3,14 +3,14 @@
  *
  * Main product information
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Product
  * @author Max Milbers
  * @todo Price update calculations
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -29,11 +29,11 @@ $i = 0;
     <legend><?php
         $parentRel = '';
         if ($this->product->product_parent_id) {
-            $parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT', JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $this->product->product_parent_id),
+            $parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT', JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $this->product->product_parent_id),
                     ($this->product_parent->product_name), array('title' => tsmText::_('com_tsmart_EDIT') . ' ' . htmlentities($this->product_parent->product_name))) . ' =&gt; ');
         }
         echo tsmText::sprintf('com_tsmart_PRODUCT_INFORMATION', $parentRel);
-        echo ' id: ' . $this->product->virtuemart_product_id ?>
+        echo ' id: ' . $this->product->tsmart_product_id ?>
     </legend>
     <table class="adminform" width="100%">
         <tr class="row<?php echo $i ?>">
@@ -185,7 +185,7 @@ $i = 0;
             $this->product->allPrices[$k] = array_merge($this->product->allPrices[$k], $this->calculatedPrices);
 
             $currency_model = VmModel::getModel('currency');
-            $this->lists['currencies'] = JHtml::_('select.genericlist', $currencies, 'mprices[product_currency][' . $this->priceCounter . ']', '', 'virtuemart_currency_id', 'currency_name', $this->product->allPrices[$k]['product_currency']);
+            $this->lists['currencies'] = JHtml::_('select.genericlist', $currencies, 'mprices[product_currency][' . $this->priceCounter . ']', '', 'tsmart_currency_id', 'currency_name', $this->product->allPrices[$k]['product_currency']);
 
             $DBTax = ''; //vmText::_('com_tsmart_RULES_EFFECTING') ;
             foreach ($calculator->rules['DBTax'] as $rule) {
@@ -220,11 +220,11 @@ $i = 0;
             }
             $this->lists['discounts'] = $this->renderDiscountList($this->product->allPrices[$k]['product_discount_id'], 'mprices[product_discount_id][' . $this->priceCounter . ']');
 
-            $this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList($this->product->allPrices[$k]['virtuemart_shoppergroup_id'], false, 'mprices[virtuemart_shoppergroup_id][' . $this->priceCounter . ']');
+            $this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList($this->product->allPrices[$k]['tsmart_shoppergroup_id'], false, 'mprices[tsmart_shoppergroup_id][' . $this->priceCounter . ']');
 
             if ($this->priceCounter == $nbPrice) {
                 $tmpl = "productPriceRowTmpl";
-                $this->product->allPrices[$k]['virtuemart_product_price_id'] = '';
+                $this->product->allPrices[$k]['tsmart_product_price_id'] = '';
             } else {
                 $tmpl = "productPriceRowTmpl_" . $this->priceCounter;
             }
@@ -256,8 +256,8 @@ $i = 0;
 
 
 <?php
-if ($this->product->virtuemart_product_id) {
-    $link = JRoute::_('index.php?option=com_tsmart&view=product&task=createChild&virtuemart_product_id=' . $this->product->virtuemart_product_id . '&' . JSession::getFormToken() . '=1');
+if ($this->product->tsmart_product_id) {
+    $link = JRoute::_('index.php?option=com_tsmart&view=product&task=createChild&tsmart_product_id=' . $this->product->tsmart_product_id . '&' . JSession::getFormToken() . '=1');
     $add_child_button = "";
 } else {
     $link = "";

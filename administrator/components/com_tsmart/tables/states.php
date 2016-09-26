@@ -3,13 +3,13 @@
 *
 * State table
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Country
 * @author RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * State table class
  * The class is is used to manage the states in a country
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author RickG
  */
 class TableStates extends tsmTable {
@@ -52,7 +52,7 @@ class TableStates extends tsmTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__virtuemart_states', 'virtuemart_state_id', $db);
+		parent::__construct('#__tsmart_states', 'tsmart_state_id', $db);
 
 		$this->setUniqueName('state_name');
 

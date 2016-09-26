@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -34,7 +34,7 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
                         <div class="span6">
                             <?php echo VmHTML::input( 'hotel_name', $this->item->hotel_name, ' placeholder="hotel name" '); ?>
                             <?php echo VmHTML::input( 'title', $this->item->star_rating, ' placeholder="Star  rating"'); ?>
-                            <?php echo VmHTML::location_city('virtuemart_cityarea_id',$this->item->virtuemart_cityarea_id,'') ; ?>
+                            <?php echo VmHTML::location_city('tsmart_cityarea_id',$this->item->tsmart_cityarea_id,'') ; ?>
                             <?php echo VmHTML::input( 'address', $this->item->address, ' placeholder="Address"'); ?>
                             <?php echo VmHTML::input( 'google_map', $this->item->google_map, ' placeholder="Google map"'); ?>
                             <?php echo VmHTML::input( 'add_photo', $this->item->add_photo, ' placeholder="Add photo"'); ?>
@@ -68,8 +68,8 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
             <input type="hidden" value="hotel" name="view">
             <input type="hidden" value="" name="task">
 
-            <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-            <input type="hidden" name="virtuemart_hotel_id" value="<?php echo $this->item->virtuemart_hotel_id; ?>"/>
+            <input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
+            <input type="hidden" name="tsmart_hotel_id" value="<?php echo $this->item->tsmart_hotel_id; ?>"/>
         </form>
         <div class="pull-right">
             <?php

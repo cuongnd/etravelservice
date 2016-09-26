@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage State
 * @author RickG, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -27,7 +27,7 @@ AdminUIHelper::startAdminArea($this);
 <div class="col50">
 	<fieldset>
 <?php /*	<legend><?php echo vmText::_('com_tsmart_STATE_DETAILS'); ?></legend> */?>
-	<legend><?php echo JHtml::_('link','index.php?option=com_tsmart&view=state&virtuemart_country_id='.$this->virtuemart_country_id,tsmText::sprintf('com_tsmart_STATE_COUNTRY',$this->country_name).' '. tsmText::_('com_tsmart_DETAILS') ); ?></legend>
+	<legend><?php echo JHtml::_('link','index.php?option=com_tsmart&view=state&tsmart_country_id='.$this->tsmart_country_id,tsmText::sprintf('com_tsmart_STATE_COUNTRY',$this->country_name).' '. tsmText::_('com_tsmart_DETAILS') ); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('input', 'com_tsmart_STATE_NAME', 'state_name', $this->state->state_name,'class="required" size="50"');
@@ -35,12 +35,12 @@ AdminUIHelper::startAdminArea($this);
 		?>
 		<tr>
 		<td width="110" class="key">
-				<label for="virtuemart_worldzone_id">
+				<label for="tsmart_worldzone_id">
 					<?php echo tsmText::_('com_tsmart_WORLDZONE'); ?>
 				</label>
 			</td>
 			<td>
-				<?php echo JHtml::_('Select.genericlist', $this->worldZones, 'virtuemart_worldzone_id', '', 'virtuemart_worldzone_id', 'zone_name', $this->state->virtuemart_worldzone_id); ?>
+				<?php echo JHtml::_('Select.genericlist', $this->worldZones, 'tsmart_worldzone_id', '', 'tsmart_worldzone_id', 'zone_name', $this->state->tsmart_worldzone_id); ?>
 			</td>
 		</tr>
 		<?php
@@ -51,8 +51,8 @@ AdminUIHelper::startAdminArea($this);
 	</fieldset>
 </div>
 
-	<input type="hidden" name="virtuemart_country_id" value="<?php echo $this->virtuemart_country_id; ?>" />
-	<input type="hidden" name="virtuemart_state_id" value="<?php echo $this->state->virtuemart_state_id; ?>" />
+	<input type="hidden" name="tsmart_country_id" value="<?php echo $this->tsmart_country_id; ?>" />
+	<input type="hidden" name="tsmart_state_id" value="<?php echo $this->state->tsmart_state_id; ?>" />
 
 	<?php echo $this->addStandardHiddenToForm(); ?>
 </form>

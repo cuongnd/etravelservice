@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -60,7 +60,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                             <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
                                 <?php
 
-                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
+                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->tsmart_group_size_id];
                                 $price_adult = isset($tour_price_by_tour_price_id->price_adult) ? $tour_price_by_tour_price_id->price_adult : 0;
                                 $price_infant = isset($tour_price_by_tour_price_id->price_infant) ? $tour_price_by_tour_price_id->price_infant : 0;
                                 $price_children1 = isset($tour_price_by_tour_price_id->price_children1) ? $tour_price_by_tour_price_id->price_children1 : 0;
@@ -70,25 +70,25 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                                 <tr>
                                     <td style="text-align: center"><?php echo $group_size->group_name ?></td>
                                     <td><input type="text" size="7" value="<?php echo $price_adult ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_adult]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
 
                                 </tr>
@@ -142,7 +142,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                             <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
                                 <?php
 
-                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
+                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->tsmart_group_size_id];
                                 $price_adult = isset($tour_price_by_tour_price_id->price_adult) ? $tour_price_by_tour_price_id->price_adult : 0;
                                 $price_infant = isset($tour_price_by_tour_price_id->price_infant) ? $tour_price_by_tour_price_id->price_infant : 0;
                                 $price_children = isset($tour_price_by_tour_price_id->price_children) ? $tour_price_by_tour_price_id->price_children : 0;
@@ -150,25 +150,25 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                                 <tr>
                                     <td style="text-align: center"><?php echo $group_size->group_name ?></td>
                                     <td><input type="text" size="7" value="<?php echo $price_adult ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_adult]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
 
                                 </tr>
@@ -196,7 +196,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                             <?php foreach ($this->list_group_size_by_tour_id AS $group_size) { ?>
                                 <?php
 
-                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->virtuemart_group_size_id];
+                                $tour_price_by_tour_price_id = $this->list_tour_price_by_tour_price_id[$group_size->tsmart_group_size_id];
                                 $price_adult = isset($tour_price_by_tour_price_id->price_adult) ? $tour_price_by_tour_price_id->price_adult : 0;
                                 $price_infant = isset($tour_price_by_tour_price_id->price_infant) ? $tour_price_by_tour_price_id->price_infant : 0;
                                 $price_children = isset($tour_price_by_tour_price_id->price_children) ? $tour_price_by_tour_price_id->price_children : 0;
@@ -204,25 +204,25 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                                 <tr>
                                     <td style="text-align: center"><?php echo $group_size->group_name ?></td>
                                     <td><input type="text" size="7" value="<?php echo $price_adult ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_adult]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_adult]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_infant ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_infant]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_infant]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
                                     <td><input type="text" size="7" value="<?php echo $price_children ?>"
-                                               name="tour_price_by_tour_price_id[<?php echo $group_size->virtuemart_group_size_id ?>][price_children]"
+                                               name="tour_price_by_tour_price_id[<?php echo $group_size->tsmart_group_size_id ?>][price_children]"
                                                required="true" class="inputbox number"></td>
 
                                 </tr>
@@ -240,10 +240,10 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
                             <tr>
                                 <td>Service class</td>
                                 <td colspan="4">
-                                    <select name="virtuemart_service_class_id">
+                                    <select name="tsmart_service_class_id">
                                         <?php foreach ($this->list_service_class_by_tour_id as $service_class) { ?>
                                             <option
-                                                value="<?php echo $service_class->virtuemart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
+                                                value="<?php echo $service_class->tsmart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
                                         <?php } ?>
                                     </select>
 
@@ -321,10 +321,10 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_CURRENCY_DETAILS');
 
 
         </div>
-        <input type="hidden" name="virtuemart_price_id" value="<?php echo $this->price->virtuemart_price_id; ?>"/>
+        <input type="hidden" name="tsmart_price_id" value="<?php echo $this->price->tsmart_price_id; ?>"/>
         <input type="hidden" name="tour_methor" value="<?php echo $this->product->tour_methor; ?>"/>
-        <input type="hidden" name="key[virtuemart_product_id]"
-               value="<?php echo $this->product->virtuemart_product_id; ?>"/>
+        <input type="hidden" name="key[tsmart_product_id]"
+               value="<?php echo $this->product->tsmart_product_id; ?>"/>
         <?php echo $this->addStandardHiddenToForm(); ?>
     </form>
 

@@ -7,7 +7,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
  * Be sure to include this line in the plugin file:
  * require(VMPATH_ADMIN.DS.'helpers'.DS.'vmextendedplugin.php');
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Plugins
  * @author Christopher Roussel
  */
@@ -96,7 +96,7 @@ abstract class vmExtendedPlugin extends vmPlugin {
 	/**
 	 * Plugs into the updater model to remove additional VM data (useful if the plugin depends on fields in a VM table)
 	 *
-	 * @param object $updater VirtueMartModelUpdatesMigration object
+	 * @param object $updater tsmartModelUpdatesMigration object
 	 */
 	public function onVmSqlRemove (&$updater) { return null; }
 /*		example:
@@ -106,7 +106,7 @@ abstract class vmExtendedPlugin extends vmPlugin {
 	/**
 	 * Plugs into the updater model to reinstall additional VM data (useful if the plugin depends on fields in a VM table)
 	 *
-	 * @param object $updater VirtueMartModelUpdatesMigration object
+	 * @param object $updater tsmartModelUpdatesMigration object
 	 */
 	public function onVmSqlRestore (&$updater) { return null; }
 /*		example:

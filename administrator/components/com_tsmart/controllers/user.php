@@ -3,13 +3,13 @@
 *
 * User controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmContr
 /**
  * Controller class for the user
  *
- * @package    	VirtueMart
+ * @package    	tsmart
  * @subpackage 	User
  * @author     	Oscar van Eijk
  * @author 		Max Milbers
@@ -40,7 +40,7 @@ class TsmartControllerUser extends TsmController {
 	 */
 	function __construct(){
 
-		parent::__construct('virtuemart_user_id');
+		parent::__construct('tsmart_user_id');
 	}
 
 	/**
@@ -48,10 +48,10 @@ class TsmartControllerUser extends TsmController {
 	 */
 	function edit($view=0){
 
-		//We set here the virtuemart_user_id, when no virtuemart_user_id is set to 0, for adding a new user
-		//In every other case the virtuemart_user_id is sent.
-		$cid = vRequest::getVar('virtuemart_user_id');
-		if(!isset($cid)) vRequest::setVar('virtuemart_user_id', (int)0);
+		//We set here the tsmart_user_id, when no tsmart_user_id is set to 0, for adding a new user
+		//In every other case the tsmart_user_id is sent.
+		$cid = vRequest::getVar('tsmart_user_id');
+		if(!isset($cid)) vRequest::setVar('tsmart_user_id', (int)0);
 
 		parent::edit('edit');
 	}
@@ -63,8 +63,8 @@ class TsmartControllerUser extends TsmController {
 
 	function removeAddressST(){
 
-		$tsmart_userinfo_id = vRequest::getInt('virtuemart_userinfo_id');
-		$tsmart_user_id = vRequest::getInt('virtuemart_user_id');
+		$tsmart_userinfo_id = vRequest::getInt('tsmart_userinfo_id');
+		$tsmart_user_id = vRequest::getInt('tsmart_user_id');
 
 		//Lets do it dirty for now
 		$userModel = VmModel::getModel('user');
@@ -73,14 +73,14 @@ class TsmartControllerUser extends TsmController {
 		$userModel->removeAddress($tsmart_userinfo_id);
 
 		$layout = vRequest::getCmd('layout','edit');
-		$this->setRedirect( 'index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]='.$tsmart_user_id[0] );
+		$this->setRedirect( 'index.php?option=com_tsmart&view=user&task=edit&tsmart_user_id[]='.$tsmart_user_id[0] );
 	}
 
 	function editshop(){
 
 		$user = JFactory::getUser();
-		//the virtuemart_user_id var gets overriden in the edit function, when not set. So we must set it here
-		vRequest::setVar('virtuemart_user_id', (int)$user->id);
+		//the tsmart_user_id var gets overriden in the edit function, when not set. So we must set it here
+		vRequest::setVar('tsmart_user_id', (int)$user->id);
 		$this->edit();
 
 	}
@@ -123,7 +123,7 @@ class TsmartControllerUser extends TsmController {
 			$data['vendor_letter_header_html'] = vRequest::getHtml('vendor_letter_header_html');
 			$data['vendor_letter_footer_html'] = vRequest::getHtml('vendor_letter_footer_html');
 
-			$ids = vRequest::getInt('virtuemart_user_id');
+			$ids = vRequest::getInt('tsmart_user_id');
 
 			if($ids){
 				if(is_array($ids) and isset($ids[0])){
@@ -146,7 +146,7 @@ class TsmartControllerUser extends TsmController {
 		$lastTask = vRequest::getCmd('last_task');
 		if($cmd == 'apply'){
 			if ($lastTask == 'editshop') $redirection = 'index.php?option=com_tsmart&view=user&task=editshop';
-			else $redirection = 'index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]='.$ret['newId'];
+			else $redirection = 'index.php?option=com_tsmart&view=user&task=edit&tsmart_user_id[]='.$ret['newId'];
 		} else {
 			if ($lastTask == 'editshop') $redirection = 'index.php?option=com_tsmart';
 			else $redirection = 'index.php?option=com_tsmart&view=user';

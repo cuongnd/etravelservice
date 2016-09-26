@@ -2,12 +2,12 @@
 /**
  * Configuration helper class
  *
- * This class provides some functions that are used throughout the VirtueMart shop to access confgiuration values.
+ * This class provides some functions that are used throughout the tsmart shop to access confgiuration values.
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009-2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004-2008 Soeren Eberhardt-Biermann, 2009-2014 tsmart Team. All rights reserved.
  */
 defined('_JEXEC') or die('Restricted access');
 use Joomla\Registry\Registry;
@@ -793,8 +793,8 @@ class VmConfig {
 
 		self::$_jpConfig = new VmConfig();
 
-		if(!class_exists('VirtueMartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
-		$configTable  = VirtueMartModelConfig::checkConfigTableExists();
+		if(!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
+		$configTable  = tsmartModelConfig::checkConfigTableExists();
 
 		$app = JFactory::getApplication();
 		$db = JFactory::getDBO();
@@ -824,14 +824,14 @@ class VmConfig {
 				//VmConfig::$_debug=true;
 				//vmdebug('my option',$option,$_REQUEST);
 				//if($option!='com_languages'){
-					$msg = 'Install your selected language <b>'.$selectedLang.'</b> first in <a href="'.$link.'">joomla language manager</a>, just select then the component VirtueMart under menu "component", to proceed with the installation ';
+					$msg = 'Install your selected language <b>'.$selectedLang.'</b> first in <a href="'.$link.'">joomla language manager</a>, just select then the component tsmart under menu "component", to proceed with the installation ';
 					//$link = 'index.php?option=com_installer&view=languages&redirected=1';
 					//$app->redirect($link,$msg);
 				//}
 				$app->enqueueMessage($msg);
 			}
 
-			self::$installed = VirtueMartModelConfig::checkVirtuemartInstalled();
+			self::$installed = tsmartModelConfig::checktsmartInstalled();
 			/*if(!self::$installed){
 				if(!$redirected and !$install){
 					$link = 'index.php?option=com_tsmart&view=updatesmigration&redirected=1';
@@ -839,19 +839,19 @@ class VmConfig {
 					if($app->isSite()){
 						$link = JURI::root(true).'/administrator/'.$link;
 					} else {
-						if(empty($msg)) $msg = 'Install Virtuemart first, click on the menu component and select VirtueMart';
+						if(empty($msg)) $msg = 'Install tsmart first, click on the menu component and select tsmart';
 					}
 				}
 			}*/
 		} else {
-			$query = ' SELECT `config` FROM `#__virtuemart_configs` WHERE `virtuemart_config_id` = "1";';
+			$query = ' SELECT `config` FROM `#__tsmart_configs` WHERE `tsmart_config_id` = "1";';
 			$db->setQuery($query);
 			self::$_jpConfig->_raw = $db->loadResult();
 			//vmTime('time to load config','loadConfig');
 		}
 
 		if(empty(self::$_jpConfig->_raw)){
-			$_value = VirtueMartModelConfig::readConfigFile();
+			$_value = tsmartModelConfig::readConfigFile();
 			if (!$_value) {
 				vmError('Serious error, config file could not be filled with data');
 				return FALSE;
@@ -895,13 +895,13 @@ class VmConfig {
 
 		$user = JFactory::getUser();
 		if($user->authorise('core.admin','com_tsmart')){
-			$installed = VirtueMartModelConfig::checkVirtuemartInstalled();
+			$installed = tsmartModelConfig::checktsmartInstalled();
 			if($installed){
 
-				VirtueMartModelConfig::installVMconfigTable();
+				tsmartModelConfig::installVMconfigTable();
 
 				$confData = array();
-				$confData['virtuemart_config_id'] = 1;
+				$confData['tsmart_config_id'] = 1;
 
 				$confData['config'] = VmConfig::$_jpConfig->toString();
 				$confTable = tsmTable::getInstance('configs', 'Table', array());
@@ -1117,7 +1117,7 @@ class VmConfig {
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->select('*')
-			->from('#__virtuemart_general')
+			->from('#__tsmart_general')
 		;
 		$item=$db->setQuery($query)->loadObject();
 		$params = new Registry;
@@ -1143,7 +1143,7 @@ class VmConfig {
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->select('*')
-			->from('#__virtuemart_general')
+			->from('#__tsmart_general')
 		;
 		$item=$db->setQuery($query)->loadObject();
 		$params = new Registry;
@@ -1218,7 +1218,7 @@ class vmRequest{
 }
 class vmAccess {
 
-	static protected $_virtuemart_vendor_id = array();
+	static protected $_tsmart_vendor_id = array();
 	static protected $_manager = array();
 	static protected $_cu = array();
 	static protected $_cuId = null;
@@ -1280,32 +1280,32 @@ class vmAccess {
 		}
 		$user = self::$_cu[$uid];
 
-		if(!isset(self::$_virtuemart_vendor_id[$uid])){
+		if(!isset(self::$_tsmart_vendor_id[$uid])){
 
-			self::$_virtuemart_vendor_id[$uid] = 0;
+			self::$_tsmart_vendor_id[$uid] = 0;
 			if(!empty( $user->id)){
-				$q='SELECT `virtuemart_vendor_id` FROM `#__virtuemart_vmusers` as `au`
-				WHERE `au`.`virtuemart_user_id`="' .$user->id.'" AND `au`.`user_is_vendor` = "1" ';
+				$q='SELECT `tsmart_vendor_id` FROM `#__tsmart_vmusers` as `au`
+				WHERE `au`.`tsmart_user_id`="' .$user->id.'" AND `au`.`user_is_vendor` = "1" ';
 
 				$db= JFactory::getDbo();
 				$db->setQuery($q);
 				$tsmart_vendor_id = $db->loadResult();
 
 				if ($tsmart_vendor_id) {
-					self::$_virtuemart_vendor_id[$uid] = $tsmart_vendor_id;
+					self::$_tsmart_vendor_id[$uid] = $tsmart_vendor_id;
 					vmdebug('Active vendor '.$tsmart_vendor_id );
 				} else {
 					if(self::manager('core') or self::manager('managevendors')){
 						vmdebug('Active Mainvendor');
-						self::$_virtuemart_vendor_id[$uid] = 1;
+						self::$_tsmart_vendor_id[$uid] = 1;
 					} else {
-						self::$_virtuemart_vendor_id[$uid] = 0;
+						self::$_tsmart_vendor_id[$uid] = 0;
 					}
 				}
 			}
-			if(self::$_virtuemart_vendor_id[$uid] == -1) vmdebug('isSuperVendor Not a vendor');
+			if(self::$_tsmart_vendor_id[$uid] == -1) vmdebug('isSuperVendor Not a vendor');
 		}
-		return self::$_virtuemart_vendor_id[$uid];
+		return self::$_tsmart_vendor_id[$uid];
 	}
 
 
@@ -1361,7 +1361,7 @@ class vmAccess {
 		return self::$_manager[$h];
 	}
 
-	public static function getVendorId($task=0, $uid = 0, $name = 'virtuemart_vendor_id'){
+	public static function getVendorId($task=0, $uid = 0, $name = 'tsmart_vendor_id'){
 
 		if(self::$_site === null) {
 			$app = JFactory::getApplication();

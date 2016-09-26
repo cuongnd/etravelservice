@@ -1010,16 +1010,16 @@
             full_charge_children1=full_charge_children1==1?true:false;
             var full_charge_children2 = departure.full_charge_children2;
             full_charge_children2=full_charge_children2==1?true:false;
-            var virtuemart_promotion_price_id = departure.virtuemart_promotion_price_id;
-            var virtuemart_promotion_price_id = virtuemart_promotion_price_id != null && virtuemart_promotion_price_id != 0;
-            var price_senior = virtuemart_promotion_price_id ? sale_promotion_price_senior : sale_price_senior;
-            var price_adult = virtuemart_promotion_price_id ? sale_promotion_price_adult : sale_price_adult;
-            var price_teen = virtuemart_promotion_price_id ? sale_promotion_price_teen : sale_price_teen;
-            var price_children1 = virtuemart_promotion_price_id ? sale_promotion_price_children1 : sale_price_children1;
-            var price_children2 = virtuemart_promotion_price_id ? sale_promotion_price_children2 : sale_price_children2;
-            var price_infant = virtuemart_promotion_price_id ? sale_promotion_price_infant : sale_price_infant;
-            var price_private_aobject = virtuemart_promotion_price_id ? sale_promotion_price_private_aobject : sale_price_private_aobject;
-            var price_extra_bed = virtuemart_promotion_price_id ? sale_promotion_price_extra_bed : sale_price_extra_bed;
+            var tsmart_promotion_price_id = departure.tsmart_promotion_price_id;
+            var tsmart_promotion_price_id = tsmart_promotion_price_id != null && tsmart_promotion_price_id != 0;
+            var price_senior = tsmart_promotion_price_id ? sale_promotion_price_senior : sale_price_senior;
+            var price_adult = tsmart_promotion_price_id ? sale_promotion_price_adult : sale_price_adult;
+            var price_teen = tsmart_promotion_price_id ? sale_promotion_price_teen : sale_price_teen;
+            var price_children1 = tsmart_promotion_price_id ? sale_promotion_price_children1 : sale_price_children1;
+            var price_children2 = tsmart_promotion_price_id ? sale_promotion_price_children2 : sale_price_children2;
+            var price_infant = tsmart_promotion_price_id ? sale_promotion_price_infant : sale_price_infant;
+            var price_private_aobject = tsmart_promotion_price_id ? sale_promotion_price_private_aobject : sale_price_private_aobject;
+            var price_extra_bed = tsmart_promotion_price_id ? sale_promotion_price_extra_bed : sale_price_extra_bed;
             for (var i = 0; i < list_aobject.length; i++) {
                 var aobject_item = list_aobject[i];
                 var aobject_index = i;

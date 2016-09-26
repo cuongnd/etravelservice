@@ -3,13 +3,13 @@
  *
  * List/add/edit/remove Users
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of users
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  */
@@ -49,14 +49,14 @@ class TsmartViewUser extends tsmViewAdmin {
 			if(empty($isSuperOrVendor)){
 				JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			} else {
-				if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-				$userId = VirtueMartModelVendor::getUserIdByVendorId($isSuperOrVendor);
+				if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+				$userId = tsmartModelVendor::getUserIdByVendorId($isSuperOrVendor);
 			}
 			$this->SetViewTitle('STORE'  );
 		} else if ($task == 'add'){
 			$userId  = 0;
 		} else {
-			$userId = vRequest::getVar('virtuemart_user_id',0);
+			$userId = vRequest::getVar('tsmart_user_id',0);
 			if(is_array($userId)){
 				$userId = $userId[0];
 			}
@@ -83,7 +83,7 @@ class TsmartViewUser extends tsmViewAdmin {
 				} else {
 					$this->SetViewTitle('STORE',tsmText::_('com_tsmart_NEW_VENDOR') , 'shop_mart');
 				}
-				$vendorid = $userDetails->virtuemart_vendor_id;
+				$vendorid = $userDetails->tsmart_vendor_id;
 				if($vendorid==1)$this -> checkTCPDFinstalled();
 			} else {
 				$vendorid = 0 ;
@@ -105,10 +105,10 @@ class TsmartViewUser extends tsmViewAdmin {
 			$this->lists['params'] = $userDetails->JUser->getParameters(true);
 
 			// Shopper info
-			$this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList($userDetails->shopper_groups,true, 'virtuemart_shoppergroup_id');
+			$this->lists['shoppergroups'] = ShopFunctions::renderShopperGroupList($userDetails->shopper_groups,true, 'tsmart_shoppergroup_id');
 			$this->lists['vendors'] = '';
 			if($this->showVendors()){
-				$this->lists['vendors'] = ShopFunctions::renderVendorList($userDetails->virtuemart_vendor_id);
+				$this->lists['vendors'] = ShopFunctions::renderVendorList($userDetails->tsmart_vendor_id);
 			}
 
 			$model->setId($userDetails->JUser->get('id'));
@@ -146,7 +146,7 @@ class TsmartViewUser extends tsmViewAdmin {
 			$addrtype = vRequest::getCmd('addrtype');
 			$tsmart_userinfo_id = 0;
 			if ($layoutName == 'edit_shipto' or $task=='addST' or $addrtype=='ST') {
-				$tsmart_userinfo_id = vRequest::getString('virtuemart_userinfo_id', '0','');
+				$tsmart_userinfo_id = vRequest::getString('tsmart_userinfo_id', '0','');
 				$userFieldsArray = $model->getUserInfoInUserFields($layoutName,'ST',$tsmart_userinfo_id,false);
 				if($new ){
 					$tsmart_userinfo_id = 0;
@@ -188,7 +188,7 @@ class TsmartViewUser extends tsmViewAdmin {
 						vmdebug('No vendor currency given, fallback to main vendor',$userDetails->vendor->vendor_currency);
 					}
 				//}
-				$vendorM->setId($userDetails->virtuemart_vendor_id);
+				$vendorM->setId($userDetails->tsmart_vendor_id);
 
 				$vendorM->addImages($userDetails->vendor);
 				$this->assignRef('vendor', $userDetails->vendor);

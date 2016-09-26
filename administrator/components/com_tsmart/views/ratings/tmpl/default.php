@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage   ratings
 * @author
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -63,7 +63,7 @@ $option = vRequest::getCmd('option');
 		$k = 0;
 		$keyword = vRequest::getCmd('keyword');
 		foreach ($this->ratingslist as $key => $review) {
-			$checked = JHtml::_('grid.id', $i , $review->virtuemart_rating_id);
+			$checked = JHtml::_('grid.id', $i , $review->tsmart_rating_id);
 			$published = $this->gridPublished( $review, $i );
 
 			?>
@@ -71,10 +71,10 @@ $option = vRequest::getCmd('option');
 				<!-- Checkbox -->
 				<td class="admin-checkbox"><?php echo $checked; ?></td>
 				<!-- Username + time -->
-				<?php $link = 'index.php?option='.$option.'&view=ratings&task=listreviews&virtuemart_product_id='.$review->virtuemart_product_id; ?>
+				<?php $link = 'index.php?option='.$option.'&view=ratings&task=listreviews&tsmart_product_id='.$review->tsmart_product_id; ?>
 				<td><?php echo JHtml::_('link', $link,vmJsApi::date($review->created_on,'LC2',true) , array("title" => tsmText::_('com_tsmart_RATING_EDIT_TITLE'))); ?></td>
 				<!-- Product name -->
-				<?php $link = 'index.php?option='.$option.'&view=product&task=edit&virtuemart_product_id='.$review->virtuemart_product_id ; ?>
+				<?php $link = 'index.php?option='.$option.'&view=product&task=edit&tsmart_product_id='.$review->tsmart_product_id ; ?>
 				<td><?php echo JHtml::_('link', JRoute::_($link), $review->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($review->product_name))); ?></td>
 				<!-- Stars rating -->
 				<td align="center">

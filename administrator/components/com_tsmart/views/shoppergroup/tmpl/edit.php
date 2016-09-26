@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage ShopperGroup
  * @author Markus �hler
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -52,7 +52,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
 		<?php /*
 		  <tr>
 		  <td width="110" class="key">
-		  <label for="virtuemart_vendor_id">
+		  <label for="tsmart_vendor_id">
 		  <?php echo vmText::_('com_tsmart_VENDOR'); ?>
 		  </label>
 		  </td>
@@ -141,7 +141,7 @@ echo ShopFunctions::writePriceConfigLine($this->shoppergroup, 'unitPrice', 'com_
     </div>
 
     <input type="hidden" name="default" value="<?php echo $this->shoppergroup->default ?>" />
-    <input type="hidden" name="virtuemart_shoppergroup_id" value="<?php echo $this->shoppergroup->virtuemart_shoppergroup_id; ?>" />
+    <input type="hidden" name="tsmart_shoppergroup_id" value="<?php echo $this->shoppergroup->tsmart_shoppergroup_id; ?>" />
 <?php echo $this->addStandardHiddenToForm(); ?>
 
 </form>

@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Currency
  * @author Max Milbers, RickG
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -80,7 +80,7 @@ AdminUIHelper::imitateTabs('start', "coupon");
 
 						</div>
 						<div class="span5">
-							<?php echo VmHTML::row_basic('list_checkbox', 'select tour', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'virtuemart_product_id', 'product_name', false); ?>
+							<?php echo VmHTML::row_basic('list_checkbox', 'select tour', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'tsmart_product_id', 'product_name', false); ?>
 
 						</div>
 
@@ -90,9 +90,9 @@ AdminUIHelper::imitateTabs('start', "coupon");
 			</div>
 			<?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
 
-			<input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-			<input type="hidden" name="virtuemart_coupon_id"
-				   value="<?php echo $this->item->virtuemart_coupon_id; ?>"/>
+			<input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
+			<input type="hidden" name="tsmart_coupon_id"
+				   value="<?php echo $this->item->tsmart_coupon_id; ?>"/>
 			<?php echo $this->addStandardHiddenToForm(); ?>
 		</form>
 

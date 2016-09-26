@@ -3,12 +3,12 @@
  * tsmart table class, with some additional behaviours.
  *
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -317,7 +317,7 @@ class vmJsApi{
 		self::addJScript('jquery.ui.autocomplete.html', false, false, false,'');
 	}
 
-	// Virtuemart product and price script
+	// tsmart product and price script
 	static function jPrice() {
 
 		if(!VmConfig::get( 'jprice', TRUE ) and !self::isAdmin()) {
@@ -349,7 +349,7 @@ class vmJsApi{
 		}
 
 		if(VmConfig::get('addtocart_popup',1)){
-			$jsVars .= "Virtuemart.addtocart_popup = '".VmConfig::get('addtocart_popup',1)."' ; \n";
+			$jsVars .= "tsmart.addtocart_popup = '".VmConfig::get('addtocart_popup',1)."' ; \n";
 			if(VmConfig::get('usefancy',1)){
 				$jsVars .= "usefancy = true;";
 				vmJsApi::addJScript( 'fancybox/jquery.fancybox-1.3.4.pack',false);
@@ -370,12 +370,12 @@ class vmJsApi{
 		vmJsApi::addJScript( 'vmprices',false,false);
 
 		$onReady = 'jQuery(document).ready(function($) {
-	Virtuemart.product(jQuery("form.product"));
+	tsmart.product(jQuery("form.product"));
 
 	/*$("form.js-recalculate").each(function(){
 		if ($(this).find(".product-fields").length && !$(this).find(".no-vm-bind").length) {
-			var id= $(this).find(\'input[name="virtuemart_product_id[]"]\').val();
-			Virtuemart.setproducttype($(this),id);
+			var id= $(this).find(\'input[name="tsmart_product_id[]"]\').val();
+			tsmart.setproducttype($(this),id);
 
 		}
 	});*/
@@ -399,8 +399,8 @@ class vmJsApi{
 jQuery(document).ready(function() { // GALT: Start listening for dynamic content update.
 	// If template is aware of dynamic update and provided a variable let's
 	// set-up the event listeners.
-	if (Virtuemart.container)
-		Virtuemart.updateDynamicUpdateListeners();
+	if (tsmart.container)
+		tsmart.updateDynamicUpdateListeners();
 
 }); ");
 	}
@@ -414,7 +414,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 		self::addJScript('vm.countryState'.$prefix,'
 		vmSiteurl = "'.JURI::root().'";'."\n".'
 		jQuery( function($) {
-			$("#'.$prefix.'virtuemart_country_id").vm2front("list",{dest : "#'.$prefix.'virtuemart_state_id",ids : "'.$stateIds.'",prefiks : "'.$prefix.'"});
+			$("#'.$prefix.'tsmart_country_id").vm2front("list",{dest : "#'.$prefix.'tsmart_state_id",ids : "'.$stateIds.'",prefiks : "'.$prefix.'"});
 		});	');
 		$JcountryStateList[$prefix] = TRUE;
 		return;
@@ -482,16 +482,16 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 				}
 
 				$script =
-	'if (typeof Virtuemart === "undefined")
-	var Virtuemart = {};
-	Virtuemart.updateChosenDropdownLayout = function() {
+	'if (typeof tsmart === "undefined")
+	var tsmart = {};
+	tsmart.updateChosenDropdownLayout = function() {
 		var vm2string = {'.$vm2string.'};
 		'.$selector.'.each( function () {
 			var swidth = jQuery(this).css("width")+10;
 			jQuery(this).chosen({enable_select_all: true,select_all_text : vm2string.select_all_text,select_some_options_text:vm2string.select_some_options_text,disable_search_threshold: 5, width: swidth});
 		});
 	}
-	Virtuemart.updateChosenDropdownLayout();';
+	tsmart.updateChosenDropdownLayout();';
 
 				self::addJScript('updateChosen',$script);
 			}
@@ -572,10 +572,10 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 				}
 			} else {
 				//dirty Hack for country dropdown
-				var cField = jQuery('#virtuemart_country_id');
+				var cField = jQuery('#tsmart_country_id');
 				if(typeof cField!=='undefined'){
 					if(cField.attr('required')=='required' && cField.attr('aria-required')=='true'){
-						chznField = jQuery('#virtuemart_country_id_chzn');
+						chznField = jQuery('#tsmart_country_id_chzn');
 						var there = chznField.attr('class');
 						var ind = there.indexOf('required');
 						var results = 0;
@@ -586,7 +586,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 							var res = there.slice(0,ind);
 							chznField.attr('class', res);
 						}
-						chznField = jQuery('#virtuemart_state_id_chzn');
+						chznField = jQuery('#tsmart_state_id_chzn');
 						if(typeof chznField!=='undefined'){
 							if(results===0){
 								results = chznField.find('.chzn-results li').length;
@@ -594,7 +594,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 
 							there = chznField.attr('class');
 							ind = there.indexOf('required');
-							var sel = jQuery('#virtuemart_state_id').val();
+							var sel = jQuery('#tsmart_state_id').val();
 							if(sel==0 && ind==-1 && results>1){
 								chznField.attr('class', there + ' required');
 							} else if(ind!=-1 && (results<2 || sel!=0)){
@@ -616,7 +616,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 		vmJsApi::addJScript('vm.validator',$js);
 	}
 
-	// Virtuemart product and price script
+	// tsmart product and price script
 	static function jCreditCard()
 	{
 
@@ -687,7 +687,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 	}
 
 	// $yearRange format >> 1980:2010
-	// Virtuemart Datepicker script
+	// tsmart Datepicker script
 	static function jDate($date='',$name="date",$id=NULL,$resetBt = TRUE, $yearRange='',$options=array()) {
 
 		if ($yearRange) {

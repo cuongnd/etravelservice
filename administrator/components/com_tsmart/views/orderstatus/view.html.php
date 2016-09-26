@@ -3,14 +3,14 @@
  *
  * List/add/edit/remove Order Status Types
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage OrderStatus
  * @author Oscar van Eijk
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,7 +26,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of order types
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage OrderStatus
  */
 class TsmartViewOrderstatus extends tsmViewAdmin {
@@ -56,7 +56,7 @@ class TsmartViewOrderstatus extends tsmViewAdmin {
 		if ($layoutName == 'edit') {
 			$this->orderStatus = $model->getData();
 			$this->SetViewTitle('',tsmText::_($this->orderStatus->order_status_name) );
-			if ($this->orderStatus->virtuemart_orderstate_id < 1) {
+			if ($this->orderStatus->tsmart_orderstate_id < 1) {
 				$this->ordering = tsmText::_('com_tsmart_NEW_ITEMS_PLACE');
 			} else {
 
@@ -68,7 +68,7 @@ class TsmartViewOrderstatus extends tsmViewAdmin {
 			// Vendor selection
 			$vendor_model = VmModel::getModel('vendor');
 			$vendor_list = $vendor_model->getVendors();
-			$this->lists['vendors'] = JHtml::_('select.genericlist', $vendor_list, 'virtuemart_vendor_id', '', 'virtuemart_vendor_id', 'vendor_name', $this->orderStatus->virtuemart_vendor_id);
+			$this->lists['vendors'] = JHtml::_('select.genericlist', $vendor_list, 'tsmart_vendor_id', '', 'tsmart_vendor_id', 'vendor_name', $this->orderStatus->tsmart_vendor_id);
 
 			$this->addStandardEditViewCommands();
 		} else {

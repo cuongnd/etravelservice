@@ -3,14 +3,14 @@
  *
  * Main product information
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Product
  * @author Max Milbers
  * @todo Price update calculations
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -45,8 +45,8 @@ $rowColor = 0;
                 style="text-align:right;"
                 value="<?php echo $this->product->allPrices[$this->product->selectedPrice]['costPrice']; ?>"/>
             <input type="hidden"
-                   name="mprices[virtuemart_product_price_id][]"
-                   value="<?php echo $this->product->allPrices[$this->product->selectedPrice]['virtuemart_product_price_id']; ?>"/>
+                   name="mprices[tsmart_product_price_id][]"
+                   value="<?php echo $this->product->allPrices[$this->product->selectedPrice]['tsmart_product_price_id']; ?>"/>
         </td>
         <td width="185px" >
 			<?php echo $this->lists['currencies']; ?>

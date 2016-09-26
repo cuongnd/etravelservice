@@ -3,13 +3,13 @@
 *
 * Data module for updates and migrations
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage updatesMigration
 * @author Max Milbers, RickG
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,14 +24,14 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Model class for updates and migrations
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage updatesMigration
  * @author Max Milbers, RickG
  */
-class VirtueMartModelUpdatesMigration extends VmModel {
+class tsmartModelUpdatesMigration extends VmModel {
 
     /**
-     * Checks the VirtueMart Server for the latest available Version of VirtueMart
+     * Checks the tsmart Server for the latest available Version of tsmart
      *
      * @return string Example: 1.1.2
      */
@@ -50,8 +50,8 @@ class VirtueMartModelUpdatesMigration extends VmModel {
      * @author Max Milbers
      */
     function determineStoreOwner() {
-		if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-		$tsmart_user_id = VirtueMartModelVendor::getUserIdByVendorId(1);
+		if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+		$tsmart_user_id = tsmartModelVendor::getUserIdByVendorId(1);
 		if (isset($tsmart_user_id) && $tsmart_user_id > 0) {
 		    $this->_user = JFactory::getUser($tsmart_user_id);
 		}
@@ -80,27 +80,27 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		}
 
 		$db = JFactory::getDBO();
-		$db->setQuery('SELECT * FROM  `#__virtuemart_vmusers` WHERE `virtuemart_user_id`= "' . $userId . '" ');
+		$db->setQuery('SELECT * FROM  `#__tsmart_vmusers` WHERE `tsmart_user_id`= "' . $userId . '" ');
 		$oldUserId = $db->loadResult();
 
 		if (!empty($oldUserId) and !empty($userId)) {
-		    $db->setQuery( 'UPDATE `#__virtuemart_vmusers` SET `virtuemart_vendor_id` = "0", `user_is_vendor` = "0" WHERE `virtuemart_vendor_id` ="1" ');
+		    $db->setQuery( 'UPDATE `#__tsmart_vmusers` SET `tsmart_vendor_id` = "0", `user_is_vendor` = "0" WHERE `tsmart_vendor_id` ="1" ');
 		    if ($db->execute() == false ) {
-			    vmWarn( 'UPDATE __vmusers failed for virtuemart_user_id '.$userId);
+			    vmWarn( 'UPDATE __vmusers failed for tsmart_user_id '.$userId);
 			    return false;
 		    }
 
-			$db->setQuery( 'UPDATE `#__virtuemart_vmusers` SET `virtuemart_vendor_id` = "1", `user_is_vendor` = "1" WHERE `virtuemart_user_id` ="'.$userId.'" ');
+			$db->setQuery( 'UPDATE `#__tsmart_vmusers` SET `tsmart_vendor_id` = "1", `user_is_vendor` = "1" WHERE `tsmart_user_id` ="'.$userId.'" ');
 			if ($db->execute() === false ) {
-				vmWarn( 'UPDATE __vmusers failed for virtuemart_user_id '.$userId);
+				vmWarn( 'UPDATE __vmusers failed for tsmart_user_id '.$userId);
 				return false;
 			} else {
 				vmInfo('setStoreOwner VmUser updated new main vendor has user id  '.$userId);
 			}
 		} else if($allowInsert){
-			$db->setQuery('INSERT `#__virtuemart_vmusers` (`virtuemart_user_id`, `user_is_vendor`, `virtuemart_vendor_id`) VALUES ("' . $userId . '", "1","1")');
+			$db->setQuery('INSERT `#__tsmart_vmusers` (`tsmart_user_id`, `user_is_vendor`, `tsmart_vendor_id`) VALUES ("' . $userId . '", "1","1")');
 			if ($db->execute() === false ) {
-				vmWarn( 'setStoreOwner was not possible to execute INSERT __vmusers for virtuemart_user_id '.$userId);
+				vmWarn( 'setStoreOwner was not possible to execute INSERT __vmusers for tsmart_user_id '.$userId);
 				return false;
 			} else {
 				vmInfo('setStoreOwner VmUser inserted new main vendor has user id  '.$userId);
@@ -125,7 +125,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 	}
 
 	$fields['username'] =  $this->_user->username;
-	$fields['virtuemart_user_id'] =  $userId;
+	$fields['tsmart_user_id'] =  $userId;
 	$fields['address_type'] =  'BT';
 	// Don't change this company name; it's used in install_sample_data.sql
 	$fields['company'] =  "Sample Company";
@@ -137,19 +137,19 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 	$fields['address_1'] =  'PO Box 123';
 	$fields['city'] =  'Seattle';
 	$fields['zip'] =  '98101';
-	$fields['virtuemart_state_id'] =  '48';
-	$fields['virtuemart_country_id'] =  '223';
+	$fields['tsmart_state_id'] =  '48';
+	$fields['tsmart_country_id'] =  '223';
 
 	//Dont change this, atm everything is mapped to mainvendor with id=1
 	$fields['user_is_vendor'] =  '1';
-	$fields['virtuemart_vendor_id'] = '1';
+	$fields['tsmart_vendor_id'] = '1';
 	$fields['vendor_name'] =  'Sample Company';
 		//quickndirty hack for vendor_phone
 		vRequest::setVar('phone_1',$fields['phone_1']);
 	//$fields['vendor_phone'] =  '555-555-1212';
-	$fields['vendor_store_name'] =  "VirtueMart 3 Sample store";
-	$fields['vendor_store_desc'] =  '<p>Welcome to VirtueMart the ecommerce managment system. The sample data give you a good insight of the possibilities with VirtueMart. The product description is directly the manual to configure the demonstrated features. \n </p><p>You see here the store description used to describe your store. Check it out!</p> <p>We were established in 1869 in a time when getting good clothes was expensive, but the quality was good. Now that only a select few of those authentic clothes survive, we have dedicated this store to bringing the experience alive for collectors and master carrier everywhere.</p>';
-	$fields['virtuemart_media_id'] =  1;
+	$fields['vendor_store_name'] =  "tsmart 3 Sample store";
+	$fields['vendor_store_desc'] =  '<p>Welcome to tsmart the ecommerce managment system. The sample data give you a good insight of the possibilities with tsmart. The product description is directly the manual to configure the demonstrated features. \n </p><p>You see here the store description used to describe your store. Check it out!</p> <p>We were established in 1869 in a time when getting good clothes was expensive, but the quality was good. Now that only a select few of those authentic clothes survive, we have dedicated this store to bringing the experience alive for collectors and master carrier everywhere.</p>';
+	$fields['tsmart_media_id'] =  1;
 	$fields['vendor_currency'] = '47';
 	$fields['vendor_accepted_currencies'] = '52,26,47,144';
 	$fields['vendor_terms_of_service'] =  '<h5>This is a demo store. Your orders will not proceed. You have not configured any terms of service yet. Click <a href="'.JURI::base(true).'/index.php?option=com_tsmart&view=user&task=editshop">here</a> to change this text.</h5>';
@@ -162,7 +162,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 	$fields['vendor_letter_header_html']='<h1>{vm:vendorname}</h1><p>{vm:vendoraddress}</p>';
 	$fields['vendor_letter_header_image']='1';
 	$fields['vendor_letter_footer_html']='{vm:vendorlegalinfo}<br /> Page {vm:pagenum}/{vm:pagecount}';
-	if(!class_exists('VirtueMartModelUser')) require(VMPATH_ADMIN.DS.'models'.DS.'user.php');
+	if(!class_exists('tsmartModelUser')) require(VMPATH_ADMIN.DS.'models'.DS.'user.php');
 	$usermodel = VmModel::getModel('user');
 	$usermodel->setId($userId);
 
@@ -188,11 +188,11 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		$db->setQuery($q);
 		$shipment_plg_id = $db->loadResult();
 		if(!empty($shipment_plg_id)){
-			$q = 'INSERT INTO `#__virtuemart_shipmentmethods` (`virtuemart_shipmentmethod_id`, `virtuemart_vendor_id`, `shipment_jplugin_id`, `shipment_element`, `shipment_params`, `ordering`, `shared`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
+			$q = 'INSERT INTO `#__tsmart_shipmentmethods` (`tsmart_shipmentmethod_id`, `tsmart_vendor_id`, `shipment_jplugin_id`, `shipment_element`, `shipment_params`, `ordering`, `shared`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
 			(1, 1, '.$shipment_plg_id.', "weight_countries", \'shipment_logos=""|countries=""|zip_start=""|zip_stop=""|weight_start=""|weight_stop=""|weight_unit="KG"|nbproducts_start=0|nbproducts_stop=0|orderamount_start=""|orderamount_stop=""|cost="0"|package_fee="2.49"|tax_id="0"|free_shipment="500"|\', 0, 0, 1, "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0)';
 			$db->setQuery($q);
 			$db->execute();
- 			$q = 'INSERT INTO `#__virtuemart_shipmentmethods_'.$lang.'` (`virtuemart_shipmentmethod_id`, `shipment_name`, `shipment_desc`, `slug`) VALUES (1, "Self pick-up", "", "Self-pick-up")';
+ 			$q = 'INSERT INTO `#__tsmart_shipmentmethods_'.$lang.'` (`tsmart_shipmentmethod_id`, `shipment_name`, `shipment_desc`, `slug`) VALUES (1, "Self pick-up", "", "Self-pick-up")';
 			$db->setQuery($q);
 			$db->execute();
 
@@ -205,19 +205,19 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 			}
 
 			if (!class_exists ('plgVmShipmentWeight_countries')) require(VMPATH_ROOT . DS . $url . DS . 'weight_countries.php');
-			$this->installPluginTable('plgVmShipmentWeight_countries','#__virtuemart_shipment_plg_weight_countries','Shipment Weight Countries Table');
+			$this->installPluginTable('plgVmShipmentWeight_countries','#__tsmart_shipment_plg_weight_countries','Shipment Weight Countries Table');
 		}
 
 		$q = 'SELECT `extension_id` FROM #__extensions WHERE element = "standard" AND folder = "vmpayment"';
 		$db->setQuery($q);
 		$payment_plg_id = $db->loadResult();
 		if(!empty($payment_plg_id)){
-			$q='INSERT INTO `#__virtuemart_paymentmethods` (`virtuemart_paymentmethod_id`, `virtuemart_vendor_id`, `payment_jplugin_id`,  `payment_element`, `payment_params`, `shared`, `ordering`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
+			$q='INSERT INTO `#__tsmart_paymentmethods` (`tsmart_paymentmethod_id`, `tsmart_vendor_id`, `payment_jplugin_id`,  `payment_element`, `payment_params`, `shared`, `ordering`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
 			(1, 1, '.$payment_plg_id.',  "standard", \'payment_logos=""|countries=""|payment_currency="0"|status_pending="U"|send_invoice_on_order_null="1"|min_amount=""|max_amount=""|cost_per_transaction="0.10"|cost_percent_total="1.5"|tax_id="0"|payment_info=""|\', 0, 0, 1,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0,  "0000-00-00 00:00:00", 0)';
 			$db->setQuery($q);
 			$db->execute();
 
-			$q="INSERT INTO `#__virtuemart_paymentmethods_".$lang."` (`virtuemart_paymentmethod_id`, `payment_name`, `payment_desc`, `slug`) VALUES	(1, 'Cash on delivery', '', 'Cash-on-delivery')";
+			$q="INSERT INTO `#__tsmart_paymentmethods_".$lang."` (`tsmart_paymentmethod_id`, `payment_name`, `payment_desc`, `slug`) VALUES	(1, 'Cash on delivery', '', 'Cash-on-delivery')";
 			$db->setQuery($q);
 			$db->execute();
 
@@ -227,7 +227,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 				$url = '/plugins/vmpayment';
 			}
 			if (!class_exists ('plgVmPaymentStandard')) require(VMPATH_ROOT . DS . $url . DS . 'standard.php');
-			$this->installPluginTable('plgVmPaymentStandard','#__virtuemart_payment_plg_standard','Payment Standard Table');
+			$this->installPluginTable('plgVmPaymentStandard','#__tsmart_payment_plg_standard','Payment Standard Table');
 		}
 		vmInfo(tsmText::_('com_tsmart_SAMPLE_DATA_INSTALLED'));
 	}
@@ -391,7 +391,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
     }
 
     /**
-     * Delete all Virtuemart tables.
+     * Delete all tsmart tables.
      *
      * @return True if successful, false otherwise
      */
@@ -399,7 +399,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		$db = JFactory::getDBO();
 		$config = JFactory::getConfig();
 
-		$prefix = $config->get('dbprefix').'virtuemart_%';
+		$prefix = $config->get('dbprefix').'tsmart_%';
 		$db->setQuery('SHOW TABLES LIKE "'.$prefix.'"');
 		if (!$tables = $db->loadColumn()) {
 			vmInfo ('removeAllVMTables no tables found '.$db->getErrorMsg());
@@ -448,7 +448,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		$db = JFactory::getDBO();
 		$prefix = $db->getPrefix();
 		foreach ($tables as $table) {
-			$query = 'SHOW TABLES LIKE "'.$prefix.'virtuemart_'.$table.'_%"';
+			$query = 'SHOW TABLES LIKE "'.$prefix.'tsmart_'.$table.'_%"';
 			$db->setQuery($query);
 			if($translatedTables= $db->loadColumn()) {
 				foreach ($translatedTables as $translatedTable) {
@@ -578,7 +578,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 	function resetThumbs(){
 
 		$db = JFactory::getDbo();
-		$q = 'UPDATE `#__virtuemart_medias` SET `file_url_thumb`=""';
+		$q = 'UPDATE `#__tsmart_medias` SET `file_url_thumb`=""';
 
 		$db->setQuery($q);
 		$db->execute();

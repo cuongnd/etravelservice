@@ -2,13 +2,13 @@
 if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not allowed.' );
 /**
 * @version $Id: COPYRIGHT.php 9012 2015-10-09 11:49:32Z Milbo $
-* @package VirtueMart
+* @package tsmart
 * @subpackage core
 * @author Sören
 * @author Max Milbers
 * @copyright Copyright (C) 2004-2008 soeren - All rights reserved., 2010-2011 by the tsmart team (addendum for vm2)
 * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2, see COPYRIGHT.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -21,7 +21,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 
 <strong>Copyright:</strong>
 Since VM2/VM3 is a derived work of VM1, we list them beyond, some rests of them may be in the code.
-VirtueMart derives from copyrighted works licensed under the GNU General
+tsmart derives from copyrighted works licensed under the GNU General
 Public License.  This version has been modified pursuant to the
 GNU General Public License as of September 15, 2005, and as distributed,
 it includes or is derivative of works licensed under the GNU General
@@ -33,11 +33,11 @@ Vu Hoang Viet, Simon Hodgkiss, Fred Bidon, Mickaël Cabanas, Alexander Kludt, Ko
 
 
 
-If you have contributed a vital part of VirtueMart that is not mentioned and/or missing here,
+If you have contributed a vital part of tsmart that is not mentioned and/or missing here,
 and you feel that your copyright note should be mentioned here,
-please contact the leader of the author team of VirtueMart (max|at|virtuemart.net).
+please contact the leader of the author team of tsmart (max|at|tsmart.net).
 
-VirtueMart includes or is derivative of works distributed under the following copyright notices:
+tsmart includes or is derivative of works distributed under the following copyright notices:
 
 Administrator Icons
 ----
@@ -69,7 +69,7 @@ License:	PHP license
 
 OLD VM1: Copyright, since we used some lines, all not already mentioned above is here again
 
-VirtueMart derives from copyrighted works licensed under the GNU General
+tsmart derives from copyrighted works licensed under the GNU General
 Public License.  This version has been modified pursuant to the
 GNU General Public License as of September 15, 2005, and as distributed,
 it includes or is derivative of works licensed under the GNU General
@@ -79,9 +79,9 @@ Ekkehard Domning, Zdenek Dvorak, Edikon corp., Soeren Eberhardt,
 pablo (from Edikon), Bernhard Pfeifer,  John Syben, Phil Taylor, Erich Vinson,
 or Mike Wattier from Zephware (devcompany.com)
 
-(If you have contributed a piece of VirtueMart that is not mentioned and missing here,
+(If you have contributed a piece of tsmart that is not mentioned and missing here,
 and you feel that your copyright note should be mentioned here,
-please contact the author of VirtueMart (max |at| virtuemart.net).)
+please contact the author of tsmart (max |at| tsmart.net).)
 
 
 CreditCard Class

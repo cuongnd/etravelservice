@@ -2,13 +2,13 @@
 /**
  * Generate orderdetails in Raw format for printing
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Orders
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport( 'joomla.application.component.view');
 
 /**
- * HTML View class for the VirtueMart Component
+ * HTML View class for the tsmart Component
  *
- * @package		VirtueMart
+ * @package		tsmart
  * @author
  */
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
@@ -50,14 +50,14 @@ class TsmartViewOrders extends tsmViewAdmin {
 
 		/* Get the data */
 
-		$tsmart_order_id = vRequest::getvar('virtuemart_order_id');
+		$tsmart_order_id = vRequest::getvar('tsmart_order_id');
 		$order = $orderModel->getOrder($tsmart_order_id);
 		//$order = $this->get('Order');
-		$orderNumber = $order['details']['BT']->virtuemart_order_number;
+		$orderNumber = $order['details']['BT']->tsmart_order_number;
 		$orderbt = $order['details']['BT'];
 		$orderst = (array_key_exists('ST', $order['details'])) ? $order['details']['ST'] : $orderbt;
 
-		$currency = CurrencyDisplay::getInstance('',$order['details']['BT']->virtuemart_vendor_id);
+		$currency = CurrencyDisplay::getInstance('',$order['details']['BT']->tsmart_vendor_id);
 		$this->assignRef('currency', $currency);
 
 
@@ -92,22 +92,22 @@ class TsmartViewOrders extends tsmViewAdmin {
 			if (!empty($_item->product_attribute)) {
 				$_attribs = preg_split('/\s?<br\s*\/?>\s?/i', $_item->product_attribute);
 
-				$product = $productModel->getProduct($_item->virtuemart_product_id);
+				$product = $productModel->getProduct($_item->tsmart_product_id);
 				$_productAttributes = array();
 				$_prodAttribs = explode(';', $product->attribute);
 				foreach ($_prodAttribs as $_pAttr) {
 					$_list = explode(',', $_pAttr);
 					$_name = array_shift($_list);
-					$_productAttributes[$_item->virtuemart_order_item_id][$_name] = array();
+					$_productAttributes[$_item->tsmart_order_item_id][$_name] = array();
 					foreach ($_list as $_opt) {
 						$_optObj = new stdClass();
 						$_optObj->option = $_opt;
-						$_productAttributes[$_item->virtuemart_order_item_id][$_name][] = $_optObj;
+						$_productAttributes[$_item->tsmart_order_item_id][$_name][] = $_optObj;
 					}
 				}
 			}
 		}*/
-		//$_shipmentInfo = ShopFunctions::getShipmentRateDetails($orderbt->virtuemart_shipmentmethod_id);
+		//$_shipmentInfo = ShopFunctions::getShipmentRateDetails($orderbt->tsmart_shipmentmethod_id);
 
 		/* Assign the data */
 		$this->assignRef('orderdetails', $order);
@@ -117,7 +117,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 		$this->assignRef('orderstatuslist', $_orderStatusList);
 		$this->assignRef('orderbt', $orderbt);
 		$this->assignRef('orderst', $orderst);
-		$this->assignRef('virtuemart_shipmentmethod_id', $orderbt->virtuemart_shipmentmethod_id);
+		$this->assignRef('tsmart_shipmentmethod_id', $orderbt->tsmart_shipmentmethod_id);
 
 		error_reporting(0);
 		parent::display($tpl);

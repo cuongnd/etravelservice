@@ -3,13 +3,13 @@
 *
 * State View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage State
 * @author RickG, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,7 +25,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
 /**
  * HTML View class for maintaining the list of states
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage State
  * @author Max Milbers
  */
@@ -41,7 +41,7 @@ class TsmartViewState extends tsmViewAdmin {
 
 		$this->state = $model->getItem();
 
-		$this->virtuemart_country_id = vRequest::getInt('virtuemart_country_id', $this->state->virtuemart_country_id);
+		$this->tsmart_country_id = vRequest::getInt('tsmart_country_id', $this->state->tsmart_country_id);
 
         $isNew = (count($this->state) < 1);
 
@@ -51,7 +51,7 @@ class TsmartViewState extends tsmViewAdmin {
 		}
 
 		$country = VmModel::getModel('country');
-		$country->setId($this->virtuemart_country_id);
+		$country->setId($this->tsmart_country_id);
 		$this->country_name = $country->getData()->country_name;
 
 		$layoutName = vRequest::getCmd('layout', 'default');

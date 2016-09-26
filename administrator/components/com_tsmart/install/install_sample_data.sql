@@ -1,10 +1,10 @@
-INSERT IGNORE INTO `#__virtuemart_calcs` (`virtuemart_calc_id`, `calc_name`, `calc_descr`, `calc_kind`, `calc_value_mathop`, `calc_value`, `calc_currency`, `ordering`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_calcs` (`tsmart_calc_id`, `calc_name`, `calc_descr`, `calc_kind`, `calc_value_mathop`, `calc_value`, `calc_currency`, `ordering`, `published`) VALUES
 	(1, 'Tax 20%', 'common vat, if your shop needs only one VAT, just use it without any category set', 'VatTax', '+%', 20.0000, 47, 0, 1),
 	(2, 'Discount 5% for ladies', 'The discount is based on net price with VAT, the tax amount is recalculated based on the new net price', 'DATax', '-%', 5.0000, 47, 0, 1),
 	(3, 'Tax 10%', 'as example for the category product variants', 'VatTax', '+%', 10.0000, 47, 0, 1),
 	(4, 'Tax 7%', 'as example for the category product attributes', 'VatTax', '+%', 7.0000, 47, 0, 1);
 
-INSERT IGNORE INTO `#__virtuemart_calc_categories` (`virtuemart_calc_id`, `virtuemart_category_id`) VALUES
+INSERT IGNORE INTO `#__tsmart_calc_categories` (`tsmart_calc_id`, `tsmart_category_id`) VALUES
   (1, 2),
   (1, 3),
   (1, 4),
@@ -15,7 +15,7 @@ INSERT IGNORE INTO `#__virtuemart_calc_categories` (`virtuemart_calc_id`, `virtu
 	(3, 11),
 	(4, 12);
 
-INSERT IGNORE INTO `#__virtuemart_categories` (`virtuemart_category_id`, `virtuemart_vendor_id`, `ordering`, `shared`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_categories` (`tsmart_category_id`, `tsmart_vendor_id`, `ordering`, `shared`, `published`) VALUES
 	(2, 1, 2, 1, 1),
 	(3, 1, 3, 1, 1),
 	(4, 1, 4, 1, 1),
@@ -25,7 +25,7 @@ INSERT IGNORE INTO `#__virtuemart_categories` (`virtuemart_category_id`, `virtue
 	(11, 1, 1, 1, 1),
 	(12, 1, 0, 1, 1);
 
-INSERT IGNORE INTO `#__virtuemart_categories_XLANG` (`virtuemart_category_id`, `category_name`, `category_description`, `metadesc`, `metakey`, `customtitle`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_categories_XLANG` (`tsmart_category_id`, `category_name`, `category_description`, `metadesc`, `metakey`, `customtitle`, `slug`) VALUES
   (2, 'Product pattern', '<p><span style="background-color: #fcdb73; text-align: center; padding: 5px 40px;">Example for usage of product pattern. For showcase reason the PATTERN is NOT unpublished.</span></p>', '', '', '', 'product-pattern'),
 	(3, 'Pagination', '<p>Use this category to test the ordering of products. Sort order by Name, SKU, Manufacturer (more available in vmconfig &gt; product order settings)<br />Additionally filter by Manufacturer,</p>&#13;&#10;<p style="background-color: #fcdb73; text-align: center; padding: 5px 40px;"><strong>Advise:</strong> There are three pattern HGD#0, CEG#0, FAC#0. The last two digits represent the sort order.</p>', '', '', '', 'pagination'),
 	(4, 'Headpiece', '', '', '', '', 'headpiece'),
@@ -35,7 +35,7 @@ INSERT IGNORE INTO `#__virtuemart_categories_XLANG` (`virtuemart_category_id`, `
 	(11, 'Product variants', '<p><span style="background-color: #fcdb73; text-align: center; padding: 5px 40px;">Product variants by customfields w/ user input.</span></p>', '', '', '', 'product-variants'),
 	(12, 'Product attributes', '<p><span style="background-color: #fcdb73; text-align: center; padding: 5px 40px;">Products using customfields as attribute.</span></p>', '', '', '', 'product-attributes');
 
-INSERT IGNORE INTO `#__virtuemart_category_categories` (`id`, `category_parent_id`, `category_child_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_category_categories` (`id`, `category_parent_id`, `category_child_id`, `ordering`) VALUES
 	(2, 0, 2, 4),
 	(3, 0, 3, 6),
 	(4, 0, 4, 6),
@@ -45,7 +45,7 @@ INSERT IGNORE INTO `#__virtuemart_category_categories` (`id`, `category_parent_i
 	(9, 7, 9, 7),
 	(12, 0, 12, 2);
 
-INSERT IGNORE INTO `#__virtuemart_category_medias` (`virtuemart_category_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_category_medias` (`tsmart_category_id`, `tsmart_media_id`, `ordering`) VALUES
 	(12, 10, 1),
 	(3, 10, 1),
 	(2, 10, 1),
@@ -55,10 +55,10 @@ INSERT IGNORE INTO `#__virtuemart_category_medias` (`virtuemart_category_id`, `v
 	(11, 10, 1),
 	(9, 13, 1);
 
-INSERT IGNORE INTO `#__virtuemart_coupons` (`virtuemart_coupon_id`, `coupon_code`, `percent_or_total`, `coupon_type`, `coupon_value`, `coupon_start_date`, `coupon_expiry_date`, `coupon_value_valid`, `coupon_used`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
+INSERT IGNORE INTO `#__tsmart_coupons` (`tsmart_coupon_id`, `coupon_code`, `percent_or_total`, `coupon_type`, `coupon_value`, `coupon_start_date`, `coupon_expiry_date`, `coupon_value_valid`, `coupon_used`, `published`, `created_on`, `created_by`, `modified_on`, `modified_by`, `locked_on`, `locked_by`) VALUES
 	(1, 'Sample Coupon', 'total', 'permanent', 0.01000, '', '', 0.00000, '0', 1, '', 635, '', 635, '', 0);
 
-INSERT IGNORE INTO `#__virtuemart_customs` (`virtuemart_custom_id`, `custom_parent_id`, `ordering`, `field_type`, `is_cart_attribute`, `is_input`, `is_list`, `layout_pos`, `custom_title`, `custom_tip`, `custom_desc`, `custom_value`, `custom_params`, `show_title`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_customs` (`tsmart_custom_id`, `custom_parent_id`, `ordering`, `field_type`, `is_cart_attribute`, `is_input`, `is_list`, `layout_pos`, `custom_title`, `custom_tip`, `custom_desc`, `custom_value`, `custom_params`, `show_title`, `published`) VALUES
  (01, 0, 0, 'R', 0, 0, 0, 'related_products','com_tsmart_RELATED_PRODUCTS','com_tsmart_RELATED_PRODUCTS_TIP','com_tsmart_RELATED_PRODUCTS_DESC', 'related_products','wPrice="1"|wImage="1"|wDescr="1"|', 1, 1),
  (02, 0, 0, 'Z', 0, 0, 0, 'related_categories','com_tsmart_RELATED_CATEGORIES','com_tsmart_RELATED_CATEGORIES_TIP','com_tsmart_RELATED_CATEGORIES_DESC', 'related_categories','wImage="1"|wDescr="1"|', 1, 1),
  (09, 0, 0, 'G', 0, 0, 0, '','Group','Group','set of cart attribute', '','', 1, 1),
@@ -78,56 +78,56 @@ INSERT IGNORE INTO `#__virtuemart_customs` (`virtuemart_custom_id`, `custom_pare
  (24, 0, 0, 'P', 0, 0, 0, '','Property','','', '','', 0, 1);
 
 
-INSERT IGNORE INTO `#__virtuemart_manufacturercategories` (`virtuemart_manufacturercategories_id`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_manufacturercategories` (`tsmart_manufacturercategories_id`, `published`) VALUES
   (1, 1);
 
-INSERT IGNORE INTO `#__virtuemart_manufacturercategories_XLANG` (`virtuemart_manufacturercategories_id`, `mf_category_name`, `mf_category_desc`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_manufacturercategories_XLANG` (`tsmart_manufacturercategories_id`, `mf_category_name`, `mf_category_desc`, `slug`) VALUES
 	(1, 'default', 'This is the default manufacturer category ', 'default');
 
-INSERT IGNORE INTO `#__virtuemart_manufacturers` (`virtuemart_manufacturer_id`, `virtuemart_manufacturercategories_id`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_manufacturers` (`tsmart_manufacturer_id`, `tsmart_manufacturercategories_id`, `published`) VALUES
  	(1, 1, 1),
 	(2, 1, 1),
 	(3, 1, 1);
 
-INSERT IGNORE INTO `#__virtuemart_manufacturers_XLANG` (`virtuemart_manufacturer_id`, `mf_name`, `mf_email`, `mf_desc`, `mf_url`, `slug`) VALUES
-	(1, 'Manufacturer', 'manufacturer@example.org', '<p>An example for a manufacturer</p>', 'http://virtuemart.net', 'manufacturer'),
-	(2, 'Default', 'example@manufacturer.net', '<p>Default manufacturer</p>', 'http://virtuemart.net', 'default'),
-	(3, 'Producer', 'info@producer.com', '<p>An example for another manufacturer.</p>', 'http://virtuemart.net', 'producer');
+INSERT IGNORE INTO `#__tsmart_manufacturers_XLANG` (`tsmart_manufacturer_id`, `mf_name`, `mf_email`, `mf_desc`, `mf_url`, `slug`) VALUES
+	(1, 'Manufacturer', 'manufacturer@example.org', '<p>An example for a manufacturer</p>', 'http://tsmart.net', 'manufacturer'),
+	(2, 'Default', 'example@manufacturer.net', '<p>Default manufacturer</p>', 'http://tsmart.net', 'default'),
+	(3, 'Producer', 'info@producer.com', '<p>An example for another manufacturer.</p>', 'http://tsmart.net', 'producer');
 
-INSERT IGNORE INTO `#__virtuemart_manufacturer_medias` (`virtuemart_manufacturer_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_manufacturer_medias` (`tsmart_manufacturer_id`, `tsmart_media_id`, `ordering`) VALUES
 	(3, 5, 1),
 	(1, 6, 1),
 	(2, 5, 1);
 
-INSERT IGNORE INTO `#__virtuemart_medias` (`virtuemart_media_id`, `file_is_product_image`, `file_type`, `file_mimetype`, `file_title`, `file_description`, `file_meta`, `file_url`, `file_url_thumb`, `file_params`, `published`) VALUES
- (01, 0, 'vendor', 'image/gif','ShopLogo','Used in the invoice','virtuemart shop','images/stories/virtuemart/vendor/vendor.gif', 'images/stories/virtuemart/vendor/resized/vendor_0x90.gif', '', 1),
+INSERT IGNORE INTO `#__tsmart_medias` (`tsmart_media_id`, `file_is_product_image`, `file_type`, `file_mimetype`, `file_title`, `file_description`, `file_meta`, `file_url`, `file_url_thumb`, `file_params`, `published`) VALUES
+ (01, 0, 'vendor', 'image/gif','ShopLogo','Used in the invoice','tsmart shop','images/stories/tsmart/vendor/vendor.gif', 'images/stories/tsmart/vendor/resized/vendor_0x90.gif', '', 1),
 
- (05, 0, 'manufacturer', 'image/jpeg', 'Manufacturer','','','images/stories/virtuemart/manufacturer/manufacturer.jpg', '', '', 1),
- (06, 0, 'manufacturer', 'image/jpeg', 'Producer','','','images/stories/virtuemart/manufacturer/producer.jpg', '', '', 1),
+ (05, 0, 'manufacturer', 'image/jpeg', 'Manufacturer','','','images/stories/tsmart/manufacturer/manufacturer.jpg', '', '', 1),
+ (06, 0, 'manufacturer', 'image/jpeg', 'Producer','','','images/stories/tsmart/manufacturer/producer.jpg', '', '', 1),
 
- (10, 0, 'category', 'image/jpeg', 'student hat', 'Products in this category showing tips and tricks','student_hat_16','images/stories/virtuemart/category/student_hat_16.jpg', '', '', 1),
- (11, 0, 'product', 'image/png', 'T-Shirts', 'Warp5 T-Shirts','virtuemart warp5','images/stories/virtuemart/product/tshirt5.png', '', '', 1),
- (12, 0, 'product', 'image/png', 'Hats', 'Hat #1','virtuemart #1','images/stories/virtuemart/product/hat1.png', '', '', 1),
- (13, 0, 'product', 'image/png', 'Skirts', 'Skirt #1','virtuemart #1','images/stories/virtuemart/product/skirt1.png', '', '', 1),
+ (10, 0, 'category', 'image/jpeg', 'student hat', 'Products in this category showing tips and tricks','student_hat_16','images/stories/tsmart/category/student_hat_16.jpg', '', '', 1),
+ (11, 0, 'product', 'image/png', 'T-Shirts', 'Warp5 T-Shirts','tsmart warp5','images/stories/tsmart/product/tshirt5.png', '', '', 1),
+ (12, 0, 'product', 'image/png', 'Hats', 'Hat #1','tsmart #1','images/stories/tsmart/product/hat1.png', '', '', 1),
+ (13, 0, 'product', 'image/png', 'Skirts', 'Skirt #1','tsmart #1','images/stories/tsmart/product/skirt1.png', '', '', 1),
 
- (20, 1, 'product', 'image/jpeg', 'VM Cart Logo','The Famous VirtueMart Cart Logo','virtuemart cart logo','images/stories/virtuemart/product/cart_logo.jpg', '', '', 1),
- (21, 1, 'product', 'image/png', 'Hat 1','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/hat1.png', '', '', 1),
- (22, 1, 'product', 'image/png', 'Hat 2','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/hat2.png', '', '', 1),
- (23, 1, 'product', 'image/png', 'Hat 3','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/hat3.png', '', '', 1),
- (24, 1, 'product', 'image/png', 'shirt 1','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/shirt1.png', '', '', 1),
- (25, 1, 'product', 'image/png', 'shirt 2','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/shirt2.png', '', '', 1),
- (26, 1, 'product', 'image/png', 'Coat','','','images/stories/virtuemart/product/coat1.png', '', '', 1),
- (27, 1, 'product', 'image/png', 'Skirt 1','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/skirt1.png', '', '', 1),
- (28, 1, 'product', 'image/png', 'Skirt 2','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/skirt2.png', '', '', 1),
- (29, 1, 'product', 'image/png', 'T-Shirt EightBall','VirtueMart Sample','virtuemart sample','images/stories/virtuemart/product/tshirt8.png', '', '', 1);
+ (20, 1, 'product', 'image/jpeg', 'VM Cart Logo','The Famous tsmart Cart Logo','tsmart cart logo','images/stories/tsmart/product/cart_logo.jpg', '', '', 1),
+ (21, 1, 'product', 'image/png', 'Hat 1','tsmart Sample','tsmart sample','images/stories/tsmart/product/hat1.png', '', '', 1),
+ (22, 1, 'product', 'image/png', 'Hat 2','tsmart Sample','tsmart sample','images/stories/tsmart/product/hat2.png', '', '', 1),
+ (23, 1, 'product', 'image/png', 'Hat 3','tsmart Sample','tsmart sample','images/stories/tsmart/product/hat3.png', '', '', 1),
+ (24, 1, 'product', 'image/png', 'shirt 1','tsmart Sample','tsmart sample','images/stories/tsmart/product/shirt1.png', '', '', 1),
+ (25, 1, 'product', 'image/png', 'shirt 2','tsmart Sample','tsmart sample','images/stories/tsmart/product/shirt2.png', '', '', 1),
+ (26, 1, 'product', 'image/png', 'Coat','','','images/stories/tsmart/product/coat1.png', '', '', 1),
+ (27, 1, 'product', 'image/png', 'Skirt 1','tsmart Sample','tsmart sample','images/stories/tsmart/product/skirt1.png', '', '', 1),
+ (28, 1, 'product', 'image/png', 'Skirt 2','tsmart Sample','tsmart sample','images/stories/tsmart/product/skirt2.png', '', '', 1),
+ (29, 1, 'product', 'image/png', 'T-Shirt EightBall','tsmart Sample','tsmart sample','images/stories/tsmart/product/tshirt8.png', '', '', 1);
 
 #Common associations for patterns
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_weight`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_params`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_weight`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_params`, `published`) VALUES
   (13, 0, 'root', 0.1, 0.1000, 0.1000, 0.1000, 10, 'min_order_level=""|max_order_level=""|step_order_level=""|product_box="1"|', 0);
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
   (13, 'Root Pattern', 'root', '','<p>This product is derived from a pattern for other products. It is a parent product and has multiple child products. <br />You can set several settings (content, customfields) for parent product. Childs of this parent will basically have the same settings as the parent automatically inherit except you overwrite the settings.<br /><br /></p>\r\n<p>In this case product price is set in pattern.</p><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>\r\n<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>\r\n<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   <br /><br /></p>');
 
-INSERT IGNORE INTO `#__virtuemart_product_manufacturers` (`virtuemart_product_id`, `virtuemart_manufacturer_id`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_manufacturers` (`tsmart_product_id`, `tsmart_manufacturer_id`) VALUES
   (13, 1),
   (163, 2),
   (170, 3),
@@ -135,14 +135,14 @@ INSERT IGNORE INTO `#__virtuemart_product_manufacturers` (`virtuemart_product_id
   (204, 3),
   (300, 3);
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `product_price`, `product_currency`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `product_price`, `product_currency`) VALUES
 	(13, 10.000000, 47);
 
-INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_medias` (`tsmart_product_id`, `tsmart_media_id`, `ordering`) VALUES
 	(13, 20, 1);
 
 #Product attributes
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
 	(163, 13, '', 0, 20, NULL, 1, 1),
 	(164, 163, '', 0, 20, 5.0000, 1, 2),
 	(165, 163, 'DP2', 0, 20, 1.0000, 1, 3),
@@ -151,7 +151,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_p
 	(168, 163, 'MPRS', 0, 20, 10.0000, 1, 6),
 	(169, 163, 'MP002', 0, 20, 10.0000, 1, 7);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
 	(163, 'PATTERN Product attributes', 'pattern-product-attributes', '', ''),
 	(164, 'Default product', 'default-product', '', ''),
 	(165, 'Free product', 'free-product', 'It\'s a free Product!', '<p>This product shows how a free product is set up. The shopper can purchase without beeing charged. In all cases the shopper needs to checkout.</p>\r\n<p>It can be used e.g. if you want to offer catalogues or sample products.</p>'),
@@ -160,7 +160,7 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
 	(168, 'Multiple price ranges', 'multiple-price-ranges', 'Price ranges for product quantity.', '<p>Price ranges for product quantity. Test out the price changes following the values below<br /><br />100€ 1-5 pcs</p>\r\n<p>80€ 6-10 pcs</p>\r\n<p>70€ 11- pcs</p>'),
 	(169, 'Multiple prices', 'images-1', 'Mutliple prices per shoppergroups.', '<p>Your shoppergroup changes your price. Login to preview.<br /><br />100€ Guest</p>\r\n<p>80€ Registered</p>\r\n<p>50€ Gold Member</p>');
 
-INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_product_id`, `virtuemart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_customfields` (`tsmart_product_id`, `tsmart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
 	(166, 16, 0, 0, '<p><strong>Editor field content.</strong> We have additional room here for more information. Use of <em>WYSIWYG</em> editor customfield here.</p>', NULL, 2, ''),
 	(166, 12, 0, 0, 'Polyester', NULL, 1, ''),
 	(166, 10, 0, 0, 'My string content here.', NULL, 0, ''),
@@ -168,7 +168,7 @@ INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_product_id`
 	(167, 15, 0, 0, '10', NULL, 1, 'width="0"|height="0"|'),
 	(167, 16, 0, 0, '1', NULL, 0, 'width="0"|height="0"|');
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `virtuemart_shoppergroup_id`, `product_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `tsmart_shoppergroup_id`, `product_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
   (163, 0, 10.000000, 47, NULL, NULL),
   (165, 0, 0.00001, 47, NULL, NULL),
   (168, 0, 100.000000, 47, 0, 5),
@@ -178,7 +178,7 @@ INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `vir
   (169, 2, 80.000000, 47, 0, 0),
   (169, 4, 50.000000, 47, 0, 0);
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
 	(164, 12, 0),
 	(165, 12, 1),
 	(166, 12, 2),
@@ -186,7 +186,7 @@ INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, 
 	(168, 12, 4),
 	(169, 12, 5);
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
   (160, 164, 5, 1, 4.9, 1),
   (161, 165, 4, 1, 4.3, 1),
   (162, 166, 5, 1, 4.8, 1),
@@ -195,7 +195,7 @@ INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_
   (165, 169, 5, 1, 5.0, 1);
 
 #Showcase patterns
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
 	(200, 13, '005', 0, 10, 0.1000, 1, 1),
 	(201, 200, '006', 0, 10, 0.1000, 1, 2),
 	(202, 200, '007', 0, 10, NULL, 1, 3),
@@ -205,7 +205,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_p
 	(206, 204, '011', 0, 10, NULL, 1, 7),
 	(207, 204, '012', 0, 10, NULL, 1, 8);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
 	(200, 'Basic PATTERN', 'basic-pattern', 'Showcase for pattern usage.', '<p>This product is used as a pattern for other products. It is a parent product and has multiple child products. <br />You can set several settings (content, customfields) for parent product. Childs of this parent will basically have the same settings as the parent automatically inherit except you overwrite the settings.<br /><br /></p>\r\n<p>In this case product price is set in pattern.</p>'),
   (201, 'Basic child', 'basic-pattern-1', 'This is a basic child of Product PATTERN.', '<p>This is a basic child of Product PATTERN. You see inherited settings, only Product description is overwritten.<br /></p>'),
   (202, 'Basic price overwrite', 'basic-price-overwrite', 'This is a basic child of Product PATTERN. You see inherited settings.', '<p>This is a basic child of Product PATTERN. You see inherited settings. <br />Overwritten are following setting/content:<br />- Product desc<br />- Product price<br /></p>'),
@@ -215,7 +215,7 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
 	(206, 'Advanced price overwrite', 'advanced-price-overwrite', '', '<p>This is a advanced child of Advanced PATTERN. You see inherited settings. <br />Overwritten are following setting/content:<br />- Product desc<br />- Product price<br /></p>'),
 	(207, 'Advanced multiple overrides', 'advanced-multiple-overrides', 'Advanced multiple overrides', '<p>This is a child of Product PATTERN. Most inherited settings are overwritten: <br />- Short desc<br />- Product desc<br />- Product price<br />- Product Images<br />- Product Dimension and Weight (Units in Box)<br />- Customfields<br /></p>');
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
 	(200, 2, 0),
 	(201, 2, 1),
 	(202, 2, 2),
@@ -225,7 +225,7 @@ INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, 
 	(206, 2, 6),
 	(207, 2, 7);
 
-INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield_id`, `virtuemart_product_id`, `virtuemart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_customfields` (`tsmart_customfield_id`, `tsmart_product_id`, `tsmart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
 	(200, 204, 10, 0, 0, 'Customfield string 1: Child content', NULL, 0, ''),
 	(201, 204, 10, 0, 0, 'Customfield string 2: Child content', NULL, 1, ''),
 	(202, 204, 16, 0, 0, '<p>Advanced PATTERN content <br />&gt;&gt; This customfields are assigned in parent product.</p>', NULL, 2, ''),
@@ -238,17 +238,17 @@ INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield
 	(278, 207, 13, 0, 0, 'C Variant', 10.00, 12, ''),
 	(279, 207, 13, 0, 0, 'D Variant', -5.00, 13, '');
 
-INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_medias` (`tsmart_product_id`, `tsmart_media_id`, `ordering`) VALUES
 	(203, 21, 1),
 	(207, 22, 1);
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `virtuemart_shoppergroup_id`, `product_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `tsmart_shoppergroup_id`, `product_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
   (200, 0, 33.000000, 47, NULL, NULL),
 	(204, 0, 25.000000, 47, NULL, NULL),
 	(207, 0, 80.000000, 47, 6, 10),
 	(207, 0, 50.000000, 47, 11, 0);
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
   (200, 200, 5, 1, 5.0, 1),
   (201, 201, 5, 1, 4.9, 1),
   (202, 202, 4, 1, 3.0, 1),
@@ -259,7 +259,7 @@ INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_
   (207, 207, 5, 1, 4.9, 1);
 
 #Product variants
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `product_weight`, `published`, `pordering`) VALUES
 	(170, 13, '', 0, 10, NULL, 1, 0),
 	(171, 170, 'CSIV', 0, 11, NULL, 1, 0),
 	(172, 170, 'GCCV', 0, 12, NULL, 1, 0),
@@ -268,7 +268,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_p
 	(175, 172, 'GCV-C', 0, 15, NULL, 1, 3),
 	(176, 170, 'CSIV', 0, 11, NULL, 1, 0);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
   (170, 'PATTERN Product variants', 'pattern-product-variants', '', ''),
 	(171, 'Customfield string', 'customfield-string', '', ''),
 	(172, 'Generic child variant', 'generic-child-cart-variant', 'Default product generic child variant and cart variant.', '<p>Showcase to present the combination of product price, child variant price, and cart variant price:<br /><br />Child variant -&gt; full overrideable genuine product, stock control per variant</p>\r\n<p>Cart variant -&gt; easy to use variant, add price, no stock control</p>'),
@@ -277,13 +277,13 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
 	(175, 'generic child variant C', 'generic-child-variant-c', 'Default product generic child variant and cart variant.', '<p>This product is a showcase to present the combination of product price, child variant price, and cart variant price.<br /><br />Cart variant -&gt; easy to use, add price (+0.50€) no variant stock control</p>\r\n<p><br />Child variant -&gt; full overrideable genuine product as variant</p>'),
 	(176, 'Customfield image variant', 'customfield-image-variant', 'Product image variant', '<p>This product is a showcase for customfield image variant as shopper selection</p>');
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
 	(170, 11, 0),
 	(171, 11, 1),
 	(172, 11, 3),
 	(176, 11, 10);
 
-INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_product_id`, `virtuemart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_customfields` (`tsmart_product_id`, `tsmart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
   (171, 10, 0, 0, 'My customfield string content', NULL, 0, ''),
   (171, 12, 0, 0, 'My customfield cart string content', NULL, 0, ''),
   (171, 69, 0, 0, '6', 1.000000, 3, 'width="0"|height="0"|'),
@@ -298,13 +298,13 @@ INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_product_id`
 	(176, 22, 0, 0, '21', NULL, 2, ''),
 	(176, 22, 0, 0, '22', 5.00, 1, '');
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
   (170, 170, 5, 1, 4.6, 1),
   (171, 171, 4, 1, 4.0, 1),
   (172, 172, 5, 1, 4.9, 1);
 
 #Examples Clothing
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_weight_uom`, `product_weight`, `product_lwh_uom`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_sales`, `published`, `pordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_weight_uom`, `product_weight`, `product_lwh_uom`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_sales`, `published`, `pordering`) VALUES
   (153, 13, '', 0, 'KG', NULL, 'M', NULL, NULL, NULL, 0, 0, 1, 0),
 	(154, 13, 'PR-DST', 1, 'G', 200.0000, 'CM', 40.0000, 40.0000, 40.0000, 50, 0, 1, 1),
 	(155, 13, 'MA-SS', 1, 'G', 200.0000, 'CM', 40.0000, 40.0000, 40.0000, 50, 0, 1, 2),
@@ -321,7 +321,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_p
 	(198, 155, 'TS-Medium', 0, 'G', NULL, 'CM', NULL, NULL, NULL, 30, 0, 1, 2),
 	(199, 155, 'TS-Large', 0, 'G', NULL, 'CM', NULL, NULL, NULL, 20, 0, 1, 3);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
   (153, 'PATTERN Wear', 'pattern-wear', '', ''),
 	(154, 'Dress Shirt with tie', 'dress-shirt-with-tie', 'Fine feathers make fine birds - time to get serious.', '<p>Refresh yourself with genuine VM dress.</p>'),
 	(155, 'T-Shirt classic blue', 't-shirt-classic-blue', 'Freetime & leisure 360° comrade.', '<p>The first print VM shirt available - the one - the virtue. Profit by introductory offer </p>'),
@@ -338,13 +338,13 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
 	(198, 'T-Shirt classic blue - medium', 't-shirt-classic-m', '', ''),
 	(199, 'T-Shirt classic blue - large', 't-shirt-classic-l', '', '');
 
-INSERT IGNORE INTO `#__virtuemart_product_manufacturers` (`virtuemart_product_id`, `virtuemart_manufacturer_id`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_manufacturers` (`tsmart_product_id`, `tsmart_manufacturer_id`) VALUES
   (153, 2),
   (154, 3),
   (155, 3),
   (159, 2);
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
 	(156, 9, 0),
 	(161, 4, 0),
 	(156, 7, 0),
@@ -362,7 +362,7 @@ INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, 
 	(156, 8, 0),
 	(162, 4, 0);
 
-INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield_id`, `virtuemart_product_id`, `virtuemart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_customfields` (`tsmart_customfield_id`, `tsmart_product_id`, `tsmart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
 	(400, 153, 11, 0, 0, 'Stiched genuine VM logo, color: black', NULL, 0, ''),
 	(401, 153, 13, 0, 0, 'Basic', NULL, 1, ''),
 	(402, 153, 13, 0, 0, 'Handmade', 100.000000, 2, ''),
@@ -438,7 +438,7 @@ INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield
  	(471, 199, 13, 0, 0, 'Industry made', 0.00001, 5, ''),
  	(472, 199, 13, 0, 0, 'Hand made', 25.00, 6, '');
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `product_price`, `product_currency`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `product_price`, `product_currency`) VALUES
 	(161, 15.833330, 47),
 	(160, 40.833330, 47),
 	(158, 140.833330, 47),
@@ -446,10 +446,10 @@ INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `pro
 	(156, 49.166670, 47),
 	(154, 40.833330, 47);
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `virtuemart_shoppergroup_id`, `product_price`, `override`, `product_override_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `tsmart_shoppergroup_id`, `product_price`, `override`, `product_override_price`, `product_currency`, `price_quantity_start`, `price_quantity_end`) VALUES
 	(155, 0, 24.166670, 0, 19.00000, 47, 0, 0);
 
-INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_medias` (`tsmart_product_id`, `tsmart_media_id`, `ordering`) VALUES
 	(154, 24, 1),
 	(155, 29, 1),
 	(156, 25, 1),
@@ -469,7 +469,7 @@ INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `vir
 	(164, 28, 10),
 	(164, 29, 11);
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
   (150, 154, 5, 1, 4.6, 1),
   (151, 155, 5, 1, 4.8, 1),
   (152, 156, 4, 1, 3.8, 1),
@@ -480,16 +480,16 @@ INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_
   (157, 162, 5, 1, 4.7, 1);
 
 #Multivariant
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `published`, `product_lwh_uom`,`product_width`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_special`, `product_in_stock`, `published`, `product_lwh_uom`,`product_width`) VALUES
   (300, 170, 'MV Parent', 1, 10, 1, 'CM', 56.0);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`, `product_s_desc`, `product_desc`) VALUES
   (300, 'Multi Variant', 'multi-variant', 'Depended Multivariants', 'The new Multi variant feature lets manage you 100s of product variants in the parent. The product content is replaced by the selected product');
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
   (300,11,16);
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `product_price`, `product_currency`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `product_price`, `product_currency`) VALUES
   (300, 10, 47),
   (301, 8, 47),
   (302, 8.2, 47),
@@ -507,7 +507,7 @@ INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `pro
   (314, 13.5, 47),
   (315, 14.5, 47);
 
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_in_stock`, `published`, `product_width`, `product_length`, `pordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`, `product_parent_id`, `product_sku`, `product_in_stock`, `published`, `product_width`, `product_length`, `pordering`) VALUES
 	(301, 300, 'MV 2', 8, 1, 46.0, 68.5, 0),
 	(302, 300, 'MV 3', 5, 1, 46.0, 68.5, 1),
 	(303, 300, 'MV 4', 10, 1, 46.0, 71.0, 2),
@@ -524,7 +524,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`, `product_p
   (314, 300, 'MV 15', 33, 1, 61.0, 76.0, 24),
 	(315, 300, 'MV 16', 31, 1, 61.0, 76.0, 25);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`) VALUES
   (301, 'Multi Variant Child', 'multi-variant-2'),
   (302, 'Multi Variant Child', 'multi-variant-3'),
   (303, 'Multi Variant Child', 'multi-variant-4'),
@@ -541,7 +541,7 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
   (314, 'Multi Variant Child', 'multi-variant-15'),
   (315, 'Multi Variant Child', 'multi-variant-16');
 
-INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield_id`, `virtuemart_product_id`, `virtuemart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_customfields` (`tsmart_customfield_id`, `tsmart_product_id`, `tsmart_custom_id`, `disabler`, `override`, `customfield_value`, `customfield_price`, `ordering`, `customfield_params`) VALUES
 	(300, 300, 21, 0, 0, NULL, NULL, 0, 'usecanonical=0|showlabels=0|sCustomId=10|selectoptions=[{"voption":"product_width","clabel":"1","values":"46.0000\\r\\n51.0000\\r\\n56.0000\\r\\n61.0000"},{"voption":"product_length","clabel":"1","values":"68.5000\\r\\n71.0000\\r\\n73.5000\\r\\n76.0000"},{"voption":"clabels","clabel":"Weave","values":"Advanced\\r\\nPremium"}]|clabels=0|options={"300":["","","0"],"301":["46.0000","68.5000","Advanced"],"302":["46.0000","68.5000","Premium"],"303":["46.0000","71.0000","Advanced"],"304":["46.0000","71.0000","Premium"],"305":["51.0000","68.5000","Advanced"],"306":["51.0000","71.0000","Advanced"],"307":["51.0000","71.0000","Premium"],"308":["51.0000","73.5000","Advanced"],"309":["51.0000","73.5000","Premium"],"310":["56.0000","73.5000","Advanced"],"311":["56.0000","73.5000","Premium"],"312":["56.0000","76.0000","Advanced"],"313":["56.0000","76.0000","Premium"],"314":["61.0000","76.0000","Advanced"],"315":["61.0000","76.0000","Premium"]}|'),
 	(301, 301, 10, 0, 0, 'Advanced', NULL, 0, ''),
 	(302, 302, 10, 0, 0, 'Premium', NULL, 0, ''),
@@ -559,7 +559,7 @@ INSERT IGNORE INTO `#__virtuemart_product_customfields` (`virtuemart_customfield
 	(314, 314, 10, 0, 0, 'Advanced', NULL, 0, ''),
 	(315, 315, 10, 0, 0, 'Premium', NULL, 0, '');
 
-INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `virtuemart_media_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_medias` (`tsmart_product_id`, `tsmart_media_id`, `ordering`) VALUES
 	(300, 11, 1),
 	(302, 29, 1),
 	(304, 29, 1),
@@ -569,7 +569,7 @@ INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `vir
 	(313, 29, 1),
 	(315, 29, 1);
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
 	(300, 300, 5, 1, 5.0, 1),
   (301, 301, 4, 1, 4.0, 1),
   (302, 302, 5, 1, 5.0, 1),
@@ -588,17 +588,17 @@ INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_
   (315, 315, 5, 1, 5.0, 1);
 
 #Pagination
-INSERT IGNORE INTO `#__virtuemart_products` ( `virtuemart_product_id`, `product_parent_id`, `product_sku`, `product_weight`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_sales`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` ( `tsmart_product_id`, `product_parent_id`, `product_sku`, `product_weight`, `product_length`, `product_width`, `product_height`, `product_in_stock`, `product_sales`, `published`) VALUES
   (1000, 13, 'CEG', 1.0, 10, 10, 10, 10, 170, 1),
   (1100, 13, 'GHD', 2.0, 20, 20, 10, 20, 180, 1),
   (1200, 13, 'FAC', 3.0, 30, 20, 30, 30, 190, 1);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`) VALUES
   (1000, 'CEG #0 03', 'ceg-0-03'),
   (1100, 'GHD #0 08', 'ghd-0-08'),
   (1200, 'FAC #0 20', 'fac-0-20');
 
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_parent_id`, `product_weight`, `product_in_stock`, `product_sales`, `product_special`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`,  `product_parent_id`, `product_weight`, `product_in_stock`, `product_sales`, `product_special`, `published`) VALUES
 	(1001, 1000, 1.1, 20, 50, 0, 1),
 	(1002, 1000, 1.2, 30, 40, 0, 1),
 	(1003, 1000, 1.2, 25, 70, 0, 1),
@@ -610,7 +610,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_
 	(1009, 1000, 1.5, 20, 55, 0, 1),
 	(1010, 1000, 1.8, 30, 56, 0, 1);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`) VALUES
   (1001, 'CEG #1 06', 'ceg-1-06'),
   (1002, 'CEG #2 15', 'ceg-2-15'),
   (1003, 'CEG #3 30', 'ceg-3-30'),
@@ -622,7 +622,7 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
   (1009, 'CEG #9 18', 'ceg-9-18'),
   (1010, 'CEG #a 33', 'ceg-a-33');
 
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_parent_id`, `product_weight`, `product_in_stock`, `product_sales`, `product_special`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`,  `product_parent_id`, `product_weight`, `product_in_stock`, `product_sales`, `product_special`, `published`) VALUES
   (1101, 1100, 2.1, 20, 20, 0, 1),
   (1102, 1100, 2.2, 30, 30, 0, 1),
   (1103, 1100, 2.2, 25, 40, 0, 1),
@@ -634,7 +634,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_
   (1109, 1100, 2.8, 20, 55, 0, 1),
   (1110, 1100, 2.9, 30, 56, 0, 1);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`) VALUES
   (1101, 'GHD #1 02', 'ghd-1-02'),
   (1102, 'GHD #2 07', 'ghd-2-07'),
   (1103, 'GHD #3 05', 'ghd-3-05'),
@@ -646,7 +646,7 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
   (1109, 'GHD #9 27', 'ghd-9-27'),
   (1110, 'GHD #a 28', 'ghd-a-28');
 
-INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_parent_id`, `product_weight`, `product_length`, `product_sales`, `product_special`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_products` (`tsmart_product_id`,  `product_parent_id`, `product_weight`, `product_length`, `product_sales`, `product_special`, `published`) VALUES
 	(1201, 1200, NULL, 20, 20, 0, 1),
 	(1202, 1200, NULL, 30, 30, 0, 1),
 	(1203, 1200, NULL, 25, 40, 0, 1),
@@ -658,7 +658,7 @@ INSERT IGNORE INTO `#__virtuemart_products` (`virtuemart_product_id`,  `product_
 	(1209, 1200, 3.8, 20, 55, 0, 1),
 	(1210, 1200, 3.7, 30, 56, 0, 1);
 
-INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `product_name`, `slug`) VALUES
+INSERT IGNORE INTO `#__tsmart_products_XLANG` (`tsmart_product_id`, `product_name`, `slug`) VALUES
   (1201, 'FAC #1 19', 'fac-1-19'),
   (1202, 'FAC #2 14', 'fac-2-14'),
   (1203, 'FAC #3 13', 'fac-3-13'),
@@ -670,22 +670,22 @@ INSERT IGNORE INTO `#__virtuemart_products_XLANG` (`virtuemart_product_id`, `pro
   (1209, 'FAC #9 29', 'fac-9-29'),
   (1210, 'FAC #a 12', 'fac-a-12');
 
-INSERT IGNORE INTO `#__virtuemart_product_manufacturers` (`virtuemart_product_id`, `virtuemart_manufacturer_id`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_manufacturers` (`tsmart_product_id`, `tsmart_manufacturer_id`) VALUES
   (1000, 1),
   (1100, 2),
   (1200, 3);
 
-INSERT IGNORE INTO `#__virtuemart_product_medias` (`virtuemart_product_id`, `virtuemart_media_id`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_medias` (`tsmart_product_id`, `tsmart_media_id`) VALUES
   (1000, 20),
   (1100, 20),
   (1200, 20);
 
-INSERT IGNORE INTO `#__virtuemart_product_prices` (`virtuemart_product_id`, `product_price`, `product_currency`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_prices` (`tsmart_product_id`, `product_price`, `product_currency`) VALUES
   (1000, 10, 47),
   (1100, 50, 47),
   (1200, 80, 47);
 
-INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, `virtuemart_category_id`, `ordering`) VALUES
+INSERT IGNORE INTO `#__tsmart_product_categories` (`tsmart_product_id`, `tsmart_category_id`, `ordering`) VALUES
   (1000, 3, 3),
   (1001, 3, 6),
   (1002, 3, 15),
@@ -720,7 +720,7 @@ INSERT IGNORE INTO `#__virtuemart_product_categories` (`virtuemart_product_id`, 
   (1209, 3, 29),
   (1210, 3, 12);
 
-INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_ratings` (`tsmart_rating_id`, `tsmart_product_id`, `rates`, `ratingcount`, `rating`, `published`) VALUES
   (1000, 1000, 5, 1, 4.8, 1),
 	(1001, 1001, 5, 1, 4.8, 1),
 	(1002, 1002, 4, 1, 4.0, 1),
@@ -754,6 +754,6 @@ INSERT IGNORE INTO `#__virtuemart_ratings` (`virtuemart_rating_id`, `virtuemart_
 	(1209, 1209, 5, 1, 4.5, 1),
 	(1210, 1210, 5, 1, 4.8, 1);
 
-INSERT IGNORE INTO `#__virtuemart_shoppergroups` (`virtuemart_shoppergroup_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`, `published`) VALUES
+INSERT IGNORE INTO `#__tsmart_shoppergroups` (`tsmart_shoppergroup_id`, `shopper_group_name`, `shopper_group_desc`, `default`, `shared`, `published`) VALUES
 ( 3,'Wholesale', 'Shoppers that can buy at wholesale.', 0,1,1),
 ( 4,'Gold Level', 'Gold Level Shoppers.', 0,1,1);
