@@ -120,11 +120,11 @@ class CurrencyDisplay {
 
 				if(empty(self::$_instance[$h]->_currency_id)){
 					$link = JURI::root().'administrator/index.php?option=com_tsmart&view=user&task=editshop';
-					vmWarn(vmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED','<a href="'.$link.'">'.$link.'</a>'));
+					vmWarn(tsmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED','<a href="'.$link.'">'.$link.'</a>'));
 				} else{
 					if(vRequest::getCmd('view')!='currency'){
 						$link = JURI::root().'administrator/index.php?option=com_tsmart&view=currency&task=edit&cid[]='.self::$_instance[$h]->_currency_id;
-						vmWarn(vmText::sprintf('com_tsmart_CONF_WARN_NO_FORMAT_DEFINED','<a href="'.$link.'">'.$link.'</a>'));
+						vmWarn(tsmText::sprintf('com_tsmart_CONF_WARN_NO_FORMAT_DEFINED','<a href="'.$link.'">'.$link.'</a>'));
 					}
 				}
 			}
@@ -342,7 +342,7 @@ class CurrencyDisplay {
 				return '<div class="Price'.$name.$vis.'" ><span class="Price'.$name.'" >'.$priceFormatted.'</span></div>';
 			}
 			$descr = '';
-			if($this->_priceConfig[$name][2]) $descr = vmText::_($description);
+			if($this->_priceConfig[$name][2]) $descr = tsmText::_($description);
 			// 			vmdebug('createPriceDiv $name '.$name.' '.$product_price[$name]);
 			if($switchSequel){
 				return '<div class="Price'.$name.$vis.'"  ><span class="Price'.$name.'" >'.$priceFormatted.'</span>'.$descr.'</div>';

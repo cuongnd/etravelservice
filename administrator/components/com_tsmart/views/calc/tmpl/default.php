@@ -46,29 +46,29 @@ AdminUIHelper::startAdminArea($this);
 			<th width="20%"><?php echo $this->sort('calc_name', 'com_tsmart_NAME') ; ?></th>
 			<?php if($this->showVendors){ ?>
 			<th width="10px">
-				<?php echo vmText::_('com_tsmart_VENDOR');  ?>
+				<?php echo tsmText::_('com_tsmart_VENDOR');  ?>
 			</th><?php }  ?>
 			<th width="25%"><?php echo $this->sort('calc_descr' , 'com_tsmart_DESCRIPTION'); ?></th>
 			<th><?php echo $this->sort('ordering') ; ?></th>
 			<th style="min-width:120px;width:5%;" ><?php echo $this->sort('calc_kind') ; ?></th>
-			<th><?php echo vmText::_('com_tsmart_CALC_VALUE_MATHOP'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_CALC_VALUE_MATHOP'); ?></th>
 			<th><?php echo $this->sort('calc_value' , 'com_tsmart_VALUE'); ?></th>
 			<th><?php echo $this->sort('calc_currency' , 'com_tsmart_CURRENCY'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_CATEGORY_S'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_MANUFACTURER'); // Mod. <mediaDESIGN> St.Kraft 2013-02-24  ?></th>
-			<th><?php echo vmText::_('com_tsmart_SHOPPERGROUP_IDS'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_CATEGORY_S'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_MANUFACTURER'); // Mod. <mediaDESIGN> St.Kraft 2013-02-24  ?></th>
+			<th><?php echo tsmText::_('com_tsmart_SHOPPERGROUP_IDS'); ?></th>
 			<?php /*		<th><?php echo vmText::_('com_tsmart_CALC_VIS_SHOPPER'); ?></th>
 			<th width="10"><?php echo vmText::_('com_tsmart_CALC_VIS_VENDOR'); ?></th> */  ?>
 			<th><?php echo $this->sort('publish_up' , 'com_tsmart_START_DATE'); ?></th>
 			<th><?php echo $this->sort('publish_down' , 'com_tsmart_END_DATE'); ?></th>
 <?php /*	<th width="20"><?php echo vmText::_('com_tsmart_CALC_AMOUNT_COND'); ?></th>
 			<th width="10"><?php echo vmText::_('com_tsmart_CALC_AMOUNT_DIMUNIT'); ?></th> */  ?>
-			<th><?php echo vmText::_('com_tsmart_COUNTRY_S'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_STATE_IDS'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_PUBLISHED'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_COUNTRY_S'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_STATE_IDS'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_PUBLISHED'); ?></th>
 			<?php if($this->showVendors){ ?>
 			<th width="20">
-				<?php echo vmText::_( 'com_tsmart_SHARED')  ?>
+				<?php echo tsmText::_( 'com_tsmart_SHARED')  ?>
 			</th><?php }  ?>
 			<th><?php echo $this->sort('virtuemart_calc_id', 'com_tsmart_ID')  ?></th>
 		<?php /*	<th width="10">
@@ -154,10 +154,10 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo vmText::_($row->calc_amount_dimunit); ?>
 				</td> */  ?>
 				<td>
-					<?php echo vmText::_($row->calcCountriesList); ?>
+					<?php echo tsmText::_($row->calcCountriesList); ?>
 				</td>
 				<td>
-					<?php echo vmText::_($row->calcStatesList); ?>
+					<?php echo tsmText::_($row->calcStatesList); ?>
 				</td>
 				<td align="center">
 					<?php echo $published; ?>

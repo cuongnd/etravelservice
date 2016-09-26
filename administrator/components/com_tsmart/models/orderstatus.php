@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for the order status
@@ -100,7 +100,7 @@ class VirtueMartModelOrderstatus extends VmModel {
 		if ($multiple) {
 			$attrs .= ' multiple="multiple" ';
 			if(empty($langkey)) $langkey = 'com_tsmart_DRDOWN_SELECT_SOME_OPTIONS';
-			$attrs .=  ' data-placeholder="'.vmText::_($langkey).'"';
+			$attrs .=  ' data-placeholder="'.tsmText::_($langkey).'"';
 			$idA .= '[]';
 		} else {
 			if(empty($langkey)) $langkey = 'com_tsmart_LIST_EMPTY_OPTION';
@@ -115,7 +115,7 @@ class VirtueMartModelOrderstatus extends VmModel {
 		$hash = md5($hashValue.$name.$attrs);
 		if (!isset($this->_renderStatusList[$hash])) {
 			$orderStates = $this->getOrderStatusNames();
-			$emptyOption = JHtml::_ ('select.option', -1, vmText::_ ($langkey), 'order_status_code', 'order_status_name');
+			$emptyOption = JHtml::_ ('select.option', -1, tsmText::_ ($langkey), 'order_status_code', 'order_status_name');
 			array_unshift ($orderStates, $emptyOption);
 			if ($multiple) {
 				$attrs .=' size="'.count($orderStates).'" ';

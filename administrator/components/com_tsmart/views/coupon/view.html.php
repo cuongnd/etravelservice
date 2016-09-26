@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewcoupon extends VmViewAdmin {
+class TsmartViewcoupon extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -60,8 +60,8 @@ class TsmartViewcoupon extends VmViewAdmin {
 			$this->item = $model->getItem();
 			//get list tour
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcoupon.php';
-			$this->item->list_tour_id = vmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+			$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$list_tour = vmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
@@ -83,19 +83,19 @@ class TsmartViewcoupon extends VmViewAdmin {
 			$this->pagination = $model->getPagination();
             $this->state=$model->getState();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
-			$this->list_cityarea=vmcities::get_city_state_country();
+			$this->list_cityarea=tsmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
-			$this->list_hotel_addon_type=vmcoupon::get_list_hotel_addon_type();
-			$this->list_hotel_payment_type=vmcoupon::get_list_hotel_payment_type();
-			$this->list_hotel_addon_service_class=vmcoupon::get_list_hotel_addon_service_class();
-			require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmhotel.php';
+			$this->list_hotel_addon_type=tsmcoupon::get_list_hotel_addon_type();
+			$this->list_hotel_payment_type=tsmcoupon::get_list_hotel_payment_type();
+			$this->list_hotel_addon_service_class=tsmcoupon::get_list_hotel_addon_service_class();
+			require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
 
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
             $list_tour = vmproduct::get_list_product();
             $this->assignRef('list_tour', $list_tour);
 
 
-			$this->list_hotel=vmHotel::get_list_hotel();
+			$this->list_hotel=tsmHotel::get_list_hotel();
 			if($task=='edit_item'||$task=='add_new_item')
 			{
 				$cid	= vRequest::getInt( 'cid' );
@@ -111,11 +111,11 @@ class TsmartViewcoupon extends VmViewAdmin {
 				$model->setId($cid);
 				$this->item = $model->getItem();
 				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcoupon.php';
-				$this->hotel=vmcoupon::get_detail_hotel_by_hotel_id($this->item->virtuemart_hotel_id);
-				$this->tour_id_seletecd=vmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				$this->hotel=tsmcoupon::get_detail_hotel_by_hotel_id($this->item->virtuemart_hotel_id);
+				$this->tour_id_seletecd=tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
 				//get list tour
 
-				$this->item->list_tour_id = vmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
+				$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->virtuemart_hotel_addon_id);
 
 				//end get list tour
 

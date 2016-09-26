@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of manufacturer categories
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Manufacturer Categories
  * @author Patrick Kohl
  */
-class TsmartViewManufacturercategories extends VmViewAdmin {
+class TsmartViewManufacturercategories extends tsmViewAdmin {
 
 	function display($tpl = null) {
 

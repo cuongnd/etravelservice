@@ -2,7 +2,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
 *
-* @version $Id: admin.virtuemart.php 7256 2013-09-29 18:42:44Z Milbo $
+* @version $Id: admin.tsmart.php 7256 2013-09-29 18:42:44Z Milbo $
 * @package VirtueMart
 * @subpackage core
 * @copyright Copyright (C) VirtueMart Team - All rights reserved.
@@ -22,8 +22,8 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 VmConfig::loadConfig();
 
-if (!class_exists( 'VmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
-if (!class_exists( 'VmModel' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
+if (!class_exists( 'VmModel' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 vmRam('Start');
 vmSetStartTime('Start');
@@ -45,7 +45,7 @@ if($_controller) {
 		$results = $dispatcher->trigger('onVmAdminController', array($_controller));
 		if (empty($results)) {
 			$app = JFactory::getApplication();
-			$app->enqueueMessage('Fatal Error in maincontroller admin.virtuemart.php: Couldnt find file '.$_controller);
+			$app->enqueueMessage('Fatal Error in maincontroller admin.tsmart.php: Couldnt find file '.$_controller);
 			$app->redirect('index.php?option=com_tsmart');
 		}
 	}

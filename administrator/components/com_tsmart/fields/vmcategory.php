@@ -47,7 +47,7 @@ class JFormFieldVmCategory extends JFormField
 	    $categorylist = ShopFunctions::categoryListTree(array($this->value));
 
         $html = '<select class="inputbox"   name="' . $this->name . '" >';
-        $html .= '<option value="0">' . vmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL') . '</option>';
+        $html .= '<option value="0">' . tsmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL') . '</option>';
         $html .= $categorylist;
         $html .="</select>";
         return $html;

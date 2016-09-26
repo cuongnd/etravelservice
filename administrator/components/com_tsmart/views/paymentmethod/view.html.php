@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * Description
@@ -32,7 +32,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
 if (!class_exists('VirtueMartModelCurrency'))
 require(VMPATH_ADMIN . DS . 'models' . DS . 'currency.php');
 
-class TsmartViewPaymentMethod extends VmViewAdmin {
+class TsmartViewPaymentMethod extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -81,7 +81,7 @@ class TsmartViewPaymentMethod extends VmViewAdmin {
 				$payment->form = JForm::getInstance($payment->payment_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 				$payment->params = new stdClass();
 				$varsToPush = vmPlugin::getVarsToPushFromForm($payment->form);
-				VmTable::bindParameterableToSubField($payment,$varsToPush);
+				tsmTable::bindParameterableToSubField($payment,$varsToPush);
 				$payment->form->bind($payment->getProperties());
 
 			} else {
@@ -99,7 +99,7 @@ class TsmartViewPaymentMethod extends VmViewAdmin {
 
 			$this->addStandardEditViewCommandsPopup( $payment->virtuemart_paymentmethod_id);
 		} else {
-			JToolBarHelper::custom('clonepayment', 'copy', 'copy', vmText::_('com_tsmart_PAYMENT_CLONE'), true);
+			JToolBarHelper::custom('clonepayment', 'copy', 'copy', tsmText::_('com_tsmart_PAYMENT_CLONE'), true);
 
 			$this->addStandardDefaultViewCommandsPopup();
 			$this->addStandardDefaultViewLists($model);
@@ -128,7 +128,7 @@ class TsmartViewPaymentMethod extends VmViewAdmin {
 		$result = $db->loadAssocList('extension_id');
 		if(empty($result)){
 			$app = JFactory::getApplication();
-			$app -> enqueueMessage(vmText::_('com_tsmart_NO_PAYMENT_PLUGINS_INSTALLED'));
+			$app -> enqueueMessage(tsmText::_('com_tsmart_NO_PAYMENT_PLUGINS_INSTALLED'));
 		}
 
 		$listHTML='<select id="payment_jplugin_id" name="payment_jplugin_id" style= "width: 300px;">';
@@ -136,7 +136,7 @@ class TsmartViewPaymentMethod extends VmViewAdmin {
 		foreach($result as $paym){
 			if($paym['extension_id']==$selected) $checked='selected="selected"'; else $checked='';
 			// Get plugin info
-			$listHTML .= '<option '.$checked.' value="'.$paym['extension_id'].'">'.vmText::_($paym['name']).'</option>';
+			$listHTML .= '<option '.$checked.' value="'.$paym['extension_id'].'">'.tsmText::_($paym['name']).'</option>';
 
 		}
 		$listHTML .= '</select>';

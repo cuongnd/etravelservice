@@ -19,7 +19,7 @@ use Joomla\Registry\Registry;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerGeneral extends VmController {
+class TsmartControllerGeneral extends TsmController {
 
 	/**
 	 * Method to display the view

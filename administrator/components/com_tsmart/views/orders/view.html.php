@@ -19,7 +19,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the VirtueMart Component
@@ -27,7 +27,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author
  */
-class TsmartViewOrders extends VmViewAdmin {
+class TsmartViewOrders extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -63,7 +63,7 @@ class TsmartViewOrders extends VmViewAdmin {
 			$order = $orderModel->getOrder($virtuemart_order_id);
 
 			if(empty($order['details'])){
-				JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=orders',vmText::_('com_tsmart_ORDER_NOTFOUND'));;
+				JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=orders',tsmText::_('com_tsmart_ORDER_NOTFOUND'));;
 			}
 
 			$_orderID = $order['details']['BT']->virtuemart_order_id;
@@ -116,7 +116,7 @@ class TsmartViewOrders extends VmViewAdmin {
 			foreach ($orderStates as $orderState) {
 				//$_orderStatusList[$orderState->virtuemart_orderstate_id] = $orderState->order_status_name;
 				//When I use update, I have to use this?
-				$_orderStatusList[$orderState->order_status_code] = vmText::_($orderState->order_status_name);
+				$_orderStatusList[$orderState->order_status_code] = tsmText::_($orderState->order_status_name);
 			}
 
 			$_itemStatusUpdateFields = array();
@@ -130,7 +130,7 @@ class TsmartViewOrders extends VmViewAdmin {
 				if(empty($orderbt->order_status)){
 					$orderbt->order_status = 'unknown';
 				}
-				$_orderStatusList[$orderbt->order_status] = vmText::_('com_tsmart_UNKNOWN_ORDER_STATUS');
+				$_orderStatusList[$orderbt->order_status] = tsmText::_('com_tsmart_UNKNOWN_ORDER_STATUS');
 			}
 
 			$this->lists['search'] = '';
@@ -233,7 +233,7 @@ class TsmartViewOrders extends VmViewAdmin {
 
 			/* Toolbar */
 			//JToolBarHelper::customX( 'CreateOrderHead', 'new','new','New',false);
-			JToolBarHelper::save('updatestatus', vmText::_('com_tsmart_UPDATE_STATUS'));
+			JToolBarHelper::save('updatestatus', tsmText::_('com_tsmart_UPDATE_STATUS'));
 
 			if (vmAccess::manager('orders.delete')) {
 				JToolBarHelper::spacer('80');

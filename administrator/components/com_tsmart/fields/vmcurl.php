@@ -35,7 +35,7 @@ class JFormFieldVmCurl extends JFormField {
 
 		$option = vRequest::getCmd('option');
 		if (!function_exists('curl_init') or !function_exists('curl_exec')) {
-			return vmText::_('com_tsmart_PS_CURL_LIBRARY_NOT_INSTALLED');
+			return tsmText::_('com_tsmart_PS_CURL_LIBRARY_NOT_INSTALLED');
 		} else {
 
 				$js = "

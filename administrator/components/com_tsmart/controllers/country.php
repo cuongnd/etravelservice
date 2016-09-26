@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @subpackage Country
  */
-class TsmartControllerCountry extends VmController {
+class TsmartControllerCountry extends TsmController {
 
 }
 

@@ -25,7 +25,7 @@ AdminUIHelper::startAdminArea($this);
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_SHOPPER_FORM_SHIPTO_LBL'); ?>
+		<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_SHIPTO_LBL'); ?>
 	</legend>
 <?php
 	$_k = 0;

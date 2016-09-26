@@ -20,13 +20,13 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for ratings (and customer reviews)
  *
  */
-class TsmartViewRatings extends VmViewAdmin {
+class TsmartViewRatings extends tsmViewAdmin {
 	public $max_rating;
 
 	function display($tpl = null) {
@@ -88,14 +88,14 @@ class TsmartViewRatings extends VmViewAdmin {
 				if(!empty($this->rating)){
 					$this->SetViewTitle('REVIEW_RATE',$this->rating->product_name." (". $this->rating->customer.")" );
 
-					JToolBarHelper::custom('saveReview', 'save', 'save',  vmText::_('com_tsmart_SAVE'), false);
-					JToolBarHelper::custom('applyReview', 'apply', 'apply',  vmText::_('com_tsmart_APPLY'), false);
+					JToolBarHelper::custom('saveReview', 'save', 'save',  tsmText::_('com_tsmart_SAVE'), false);
+					JToolBarHelper::custom('applyReview', 'apply', 'apply',  tsmText::_('com_tsmart_APPLY'), false);
 
 				} else {
 					$this->SetViewTitle('REVIEW_RATE','ERROR' );
 				}
 
-				JToolBarHelper::custom('cancelEditReview', 'cancel', 'cancel',  vmText::_('com_tsmart_CANCEL'), false);
+				JToolBarHelper::custom('cancelEditReview', 'cancel', 'cancel',  tsmText::_('com_tsmart_CANCEL'), false);
 
 				break;
 			default:

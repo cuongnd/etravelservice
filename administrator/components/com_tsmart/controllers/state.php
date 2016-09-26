@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage State
  * @author RickG, Max Milbers
  */
-class TsmartControllerState extends VmController {
+class TsmartControllerState extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -57,7 +57,7 @@ class TsmartControllerState extends VmController {
 		$app=JFactory::getApplication();
 		$input=$app->input;
 		$virtuemart_country_id=$input->get('virtuemart_country_id',0,'int');
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmstates.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmstates.php';
 		$list_state=vmstates::get_list_state_by_country_id($virtuemart_country_id);
 		echo json_encode($list_state);
 		jexit();

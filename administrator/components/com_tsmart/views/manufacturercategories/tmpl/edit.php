@@ -27,7 +27,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_MANUFACTURER_CATEGORY_DETAILS');
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_MANUFACTURER_CATEGORY_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_MANUFACTURER_CATEGORY_DETAILS'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('input','com_tsmart_MANUFACTURER_CATEGORY_NAME','mf_category_name',$this->manufacturerCategory->mf_category_name); ?>
 		<?php echo VmHTML::row('booleanlist','com_tsmart_PUBLISHED','published',$this->manufacturerCategory->published); ?>

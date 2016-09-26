@@ -32,24 +32,24 @@ AdminUIHelper::startAdminArea($this);
 				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this)" />
 			</th>
 			<th width="40%">
-				<?php echo vmText::_('com_tsmart_SHOPPERGROUP_NAME'); ?>
+				<?php echo tsmText::_('com_tsmart_SHOPPERGROUP_NAME'); ?>
 			</th>
 			<th width="60%">
-				<?php echo vmText::_('com_tsmart_SHOPPERGROUP_DESCRIPTION'); ?>
+				<?php echo tsmText::_('com_tsmart_SHOPPERGROUP_DESCRIPTION'); ?>
 			</th>
 			<th width="40">
-				<?php echo vmText::_('com_tsmart_DEFAULT'); ?>
+				<?php echo tsmText::_('com_tsmart_DEFAULT'); ?>
 			</th>
 			<th width="30px" >
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 			<?php if((Vmconfig::get('multix','none')!='none') && $this->showVendors){ ?>
 			<th>
-				<?php echo vmText::_('com_tsmart_VENDOR'); ?>
+				<?php echo tsmText::_('com_tsmart_VENDOR'); ?>
 			</th>
 			<?php } ?>
 			<th width="30px" >
-				<?php echo vmText::_('com_tsmart_ADDITIONAL'); ?>
+				<?php echo tsmText::_('com_tsmart_ADDITIONAL'); ?>
 			</th>
 			<th>
 				<?php echo $this->sort('virtuemart_shoppergroup_id', 'com_tsmart_ID')  ?>
@@ -76,15 +76,15 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo $checked; ?>
 			</td>
 			<td align="left">
-			  <a href="<?php echo $editlink; ?>"><?php echo vmText::_($row->shopper_group_name); ?></a>
+			  <a href="<?php echo $editlink; ?>"><?php echo tsmText::_($row->shopper_group_name); ?></a>
 			</td>
 			<td align="left">
-				<?php echo vmText::_($row->shopper_group_desc); ?>
+				<?php echo tsmText::_($row->shopper_group_desc); ?>
 			</td>
 			<td align="center">
 				<?php
 				if ($row->default != 0) {
-					echo JHtml::_('image','menu/icon-16-default.png', vmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'), NULL, true);
+					echo JHtml::_('image','menu/icon-16-default.png', tsmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'), NULL, true);
 				}
 				?>
 			</td>
@@ -99,7 +99,7 @@ AdminUIHelper::startAdminArea($this);
 			<td align="center">
 				<?php 
 				if ($row->sgrp_additional == 1) {
-					echo JHtml::_('image','menu/icon-16-apply.png', vmText::_('com_tsmart_SHOPPERGROUP_ADDITIONAL'), NULL, true);
+					echo JHtml::_('image','menu/icon-16-apply.png', tsmText::_('com_tsmart_SHOPPERGROUP_ADDITIONAL'), NULL, true);
 				}
 				?>
 			</td>

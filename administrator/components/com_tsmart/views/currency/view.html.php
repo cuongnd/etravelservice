@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewcurrency extends VmViewAdmin {
+class TsmartViewcurrency extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -60,7 +60,7 @@ class TsmartViewcurrency extends VmViewAdmin {
 			$this->SetViewTitle('',$this->item->title);
 			$this->addStandardEditViewCommands();
 			//get state
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmstates.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
 			$states = vmstates::get_states();
 			$this->assignRef('states', $states);
 			//end get state
@@ -73,14 +73,14 @@ class TsmartViewcurrency extends VmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 			//get state
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmstates.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
 			$list_state = vmstates::get_states();
 			$this->assignRef('list_state', $list_state);
 			//end get state
 
 			//get country
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
-			$list_country = vmcountries::get_countries();
+			$list_country = tsmcountries::get_countries();
 			$this->assignRef('list_country', $list_country);
 			//end get country
 

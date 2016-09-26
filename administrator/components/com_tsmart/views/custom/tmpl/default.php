@@ -30,14 +30,14 @@ $keyword = vRequest::getCmd('keyword', null);
 <div id="header">
 	<div>
 		<?php
-			if (vRequest::getInt('virtuemart_product_id', false)) echo JHtml::_('link', JRoute::_('index.php?option='.$option.'&view=custom',FALSE), vmText::_('com_tsmart_PRODUCT_FILES_LIST_RETURN'));
+			if (vRequest::getInt('virtuemart_product_id', false)) echo JHtml::_('link', JRoute::_('index.php?option='.$option.'&view=custom',FALSE), tsmText::_('com_tsmart_PRODUCT_FILES_LIST_RETURN'));
 		echo $this->customsSelect ;
-		echo vmText::_('com_tsmart_SEARCH_LBL') .' '.vmText::_('com_tsmart_TITLE') ?>&nbsp;
+		echo tsmText::_('com_tsmart_SEARCH_LBL') .' '.tsmText::_('com_tsmart_TITLE') ?>&nbsp;
 		<input type="text" value="<?php echo $keyword; ?>" name="keyword" size="25" class="inputbox" />
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="view" value="custom" />
 
-		<input class="button btn btn-small" type="submit" name="search" value="<?php echo vmText::_('com_tsmart_SEARCH_TITLE')?>" />
+		<input class="button btn btn-small" type="submit" name="search" value="<?php echo tsmText::_('com_tsmart_SEARCH_TITLE')?>" />
 	</div>
 </div>
 <?php
@@ -50,19 +50,19 @@ $customs = $this->customs->items;
 	<thead>
 	<tr>
 		<th class="admin-checkbox"><input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this)" /></th>
-		<th width="10%"><?php echo vmText::_('com_tsmart_CUSTOM_GROUP'); ?></th>
-		<th width="30%"><?php echo vmText::_('com_tsmart_TITLE'); ?></th>
-		<th width="35%"><?php echo vmText::_('com_tsmart_CUSTOM_FIELD_DESCRIPTION'); ?></th>
-		<th><?php echo vmText::_('com_tsmart_CUSTOM_FIELD_TYPE'); ?></th>
-		<th><?php echo vmText::_('com_tsmart_CUSTOM_IS_CART_ATTRIBUTE'); ?></th>
-		<th><?php echo vmText::_('com_tsmart_CUSTOM_ADMIN_ONLY'); ?></th>
-		<th><?php echo vmText::_('com_tsmart_CUSTOM_IS_HIDDEN'); ?></th>
+		<th width="10%"><?php echo tsmText::_('com_tsmart_CUSTOM_GROUP'); ?></th>
+		<th width="30%"><?php echo tsmText::_('com_tsmart_TITLE'); ?></th>
+		<th width="35%"><?php echo tsmText::_('com_tsmart_CUSTOM_FIELD_DESCRIPTION'); ?></th>
+		<th><?php echo tsmText::_('com_tsmart_CUSTOM_FIELD_TYPE'); ?></th>
+		<th><?php echo tsmText::_('com_tsmart_CUSTOM_IS_CART_ATTRIBUTE'); ?></th>
+		<th><?php echo tsmText::_('com_tsmart_CUSTOM_ADMIN_ONLY'); ?></th>
+		<th><?php echo tsmText::_('com_tsmart_CUSTOM_IS_HIDDEN'); ?></th>
 		<?php if(!empty($this->custom_parent_id)){
 			echo '<th style="min-width:80px;width:8%;align:center;" >'.$this->sort('ordering');
 			echo JHtml::_('grid.order',  $customs ).'</th>';
 		}
 		?>
-		<th style="max-width:80px;align:center;" ><?php echo vmText::_('com_tsmart_PUBLISHED'); ?></th>
+		<th style="max-width:80px;align:center;" ><?php echo tsmText::_('com_tsmart_PUBLISHED'); ?></th>
 		  <th min-width="8px"><?php echo $this->sort('virtuemart_custom_id', 'com_tsmart_ID')  ?></th>
 	</tr>
 	</thead>
@@ -90,9 +90,9 @@ $customs = $this->customs->items;
 				<td><?php
 
                             $lang = JFactory::getLanguage();
-                            $text = $lang->hasKey($custom->group_title) ? vmText::_($custom->group_title) : $custom->group_title;
+                            $text = $lang->hasKey($custom->group_title) ? tsmText::_($custom->group_title) : $custom->group_title;
 
-                            echo JHtml::_('link', JRoute::_($link,FALSE),$text, array('title' => vmText::_('com_tsmart_FILTER_BY').' '.htmlentities($text))); ?></td>
+                            echo JHtml::_('link', JRoute::_($link,FALSE),$text, array('title' => tsmText::_('com_tsmart_FILTER_BY').' '.htmlentities($text))); ?></td>
 
 				<!-- Product name -->
 				<?php
@@ -100,14 +100,14 @@ $customs = $this->customs->items;
 				if ($custom->is_cart_attribute) $cartIcon=  'default';
 							 else  $cartIcon= 'default-off';
 				?>
-				<td><?php echo JHtml::_('link', JRoute::_($link, FALSE), vmText::_($custom->custom_title), array('title' => vmText::_('com_tsmart_EDIT').' '.htmlentities($custom->custom_title))); ?></td>
-				<td><?php echo vmText::_($custom->custom_desc); ?></td>
-				<td><?php echo vmText::_($custom->field_type_display); ?></td>
+				<td><?php echo JHtml::_('link', JRoute::_($link, FALSE), tsmText::_($custom->custom_title), array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($custom->custom_title))); ?></td>
+				<td><?php echo tsmText::_($custom->custom_desc); ?></td>
+				<td><?php echo tsmText::_($custom->field_type_display); ?></td>
 				<td><span class="vmicon vmicon-16-<?php echo $cartIcon ?>"></span></td>
 				<td>
-					<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','toggle.admin_only')" title="<?php echo ($custom->admin_only ) ? vmText::_('com_tsmart_YES') : vmText::_('com_tsmart_NO');?>">
+					<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','toggle.admin_only')" title="<?php echo ($custom->admin_only ) ? tsmText::_('com_tsmart_YES') : tsmText::_('com_tsmart_NO');?>">
 					<span class="vmicon <?php echo ( $custom->admin_only  ? 'vmicon-16-checkin' : 'vmicon-16-bug' );?>"></span></a></td>
-				<td><a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','toggle.is_hidden')" title="<?php echo ($custom->is_hidden ) ? vmText::_('com_tsmart_YES') : vmText::_('com_tsmart_NO');?>">
+				<td><a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','toggle.is_hidden')" title="<?php echo ($custom->is_hidden ) ? tsmText::_('com_tsmart_YES') : tsmText::_('com_tsmart_NO');?>">
 					<span class="vmicon <?php echo ( $custom->is_hidden  ? 'vmicon-16-checkin' : 'vmicon-16-bug' );?>"></span></a></td>
 
 					<?php
@@ -115,8 +115,8 @@ $customs = $this->customs->items;
 					?>
 						<td align="center" class="order">
 							<span class="vmicon vmicon-16-move"></span>
-						<!--span><?php echo $this->pagination->vmOrderUpIcon($i, $custom->ordering, 'orderUp', vmText::_('com_tsmart_MOVE_UP')); ?></span>
-						<span><?php echo $this->pagination->vmOrderDownIcon( $i, $custom->ordering, $n, true, 'orderDown', vmText::_('com_tsmart_MOVE_DOWN')); ?></span-->
+						<!--span><?php echo $this->pagination->vmOrderUpIcon($i, $custom->ordering, 'orderUp', tsmText::_('com_tsmart_MOVE_UP')); ?></span>
+						<span><?php echo $this->pagination->vmOrderDownIcon( $i, $custom->ordering, $n, true, 'orderDown', tsmText::_('com_tsmart_MOVE_DOWN')); ?></span-->
 						<input class="ordering" type="text" name="order[<?php echo $i?>]" id="order[<?php echo $i?>]" size="5" value="<?php echo $custom->ordering; ?>" style="text-align: center" />
 						</td>
 					<?php

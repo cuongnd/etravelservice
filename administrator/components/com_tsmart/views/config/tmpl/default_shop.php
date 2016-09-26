@@ -19,14 +19,14 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');?>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOP_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOP_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 			echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SHOP_OFFLINE','shop_is_offline',VmConfig::get('shop_is_offline',0));
 		?>
 		<tr>
 			<td class="key">
-				<?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOP_OFFLINE_MSG'); ?>
+				<?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOP_OFFLINE_MSG'); ?>
 			</td>
 			<td>
 				<textarea rows="6" cols="50" name="offline_message"
@@ -46,18 +46,18 @@ defined('_JEXEC') or die('Restricted access');?>
 </fieldset>
 
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOP_LANGUAGES'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOP_LANGUAGES'); ?></legend>
 	<table class="admintable">
 		<tr>
 			<td class="key">
-					<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_MULTILANGUE_TIP'); ?>">
-						<?php echo vmText::_('com_tsmart_ADMIN_CFG_MULTILANGUE'); ?>
+					<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MULTILANGUE_TIP'); ?>">
+						<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MULTILANGUE'); ?>
 					</span>
 			</td>
 			<td>
 				<?php echo $this->activeLanguages; ?>
 			 <span>
-				<?php echo vmText::sprintf('com_tsmart_MORE_LANGUAGES','<a href="http://virtuemart.net/community/translations" target="_blank" >Translations</a>'); ?>
+				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','<a href="http://virtuemart.net/community/translations" target="_blank" >Translations</a>'); ?>
 				</span></td>
 		</tr>
 		<?php
@@ -70,30 +70,30 @@ defined('_JEXEC') or die('Restricted access');?>
 
 
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOP_ADVANCED'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOP_ADVANCED'); ?></legend>
 	<table class="admintable">
 		<?php
 			$optDebug = array(
-				'none' => vmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_NONE'),
-				'admin' => vmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ADMIN'),
-				'all' => vmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ALL')
+				'none' => tsmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_NONE'),
+				'admin' => tsmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ADMIN'),
+				'all' => tsmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ALL')
 			);
 			echo VmHTML::row('radiolist','com_tsmart_ADMIN_CFG_ENABLE_DEBUG','debug_enable',VmConfig::get('debug_enable','none'), $optDebug);
 			echo VmHTML::row('radiolist','com_tsmart_CFG_DEV','vmdev',VmConfig::get('vmdev',0), $optDebug);
 			echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS','dangeroustools',VmConfig::get('dangeroustools',0));
 			echo VmHTML::row('input','com_tsmart_REV_PROXY_VAR','revproxvar',VmConfig::get('revproxvar',''));
 			$optMultiX = array(
-				'none' => vmText::_('com_tsmart_ADMIN_CFG_ENABLE_MULTIX_NONE'),
-				'admin' => vmText::_('com_tsmart_ADMIN_CFG_ENABLE_MULTIX_ADMIN')
+				'none' => tsmText::_('com_tsmart_ADMIN_CFG_ENABLE_MULTIX_NONE'),
+				'admin' => tsmText::_('com_tsmart_ADMIN_CFG_ENABLE_MULTIX_ADMIN')
 
 				// 				'all'	=> vmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ALL')
 			);
 			echo VmHTML::row('radiolist','com_tsmart_ADMIN_CFG_ENABLE_MULTIX','multix',VmConfig::get('multix','none'), $optMultiX);
 		$optMultiX = array(
-			'0' => vmText::_('com_tsmart_CFG_MULTIX_CART_NONE'),
-			'byproduct' => vmText::_('com_tsmart_CFG_MULTIX_CART_BYPRODUCT'),
-			'byvendor' => vmText::_('com_tsmart_CFG_MULTIX_CART_BYVENDOR'),
-			'byselection' => vmText::_('com_tsmart_CFG_MULTIX_CART_BYSELECTION')
+			'0' => tsmText::_('com_tsmart_CFG_MULTIX_CART_NONE'),
+			'byproduct' => tsmText::_('com_tsmart_CFG_MULTIX_CART_BYPRODUCT'),
+			'byvendor' => tsmText::_('com_tsmart_CFG_MULTIX_CART_BYVENDOR'),
+			'byselection' => tsmText::_('com_tsmart_CFG_MULTIX_CART_BYSELECTION')
 			// 				'all'	=> vmText::_('com_tsmart_ADMIN_CFG_ENABLE_DEBUG_ALL')
 		);
 		echo VmHTML::row('radiolist','com_tsmart_CFG_MULTIX_CART','multixcart',VmConfig::get('multixcart',0), $optMultiX);

@@ -45,7 +45,7 @@ $doc->addScriptDeclaration($js_content);
 
             <div class="col50">
                 <fieldset>
-                    <legend><?php echo vmText::_('Current tour class'); ?></legend>
+                    <legend><?php echo tsmText::_('Current tour class'); ?></legend>
                     <div class="admintable row-fluid">
                         <?php echo VmHTML::row_control('input', 'Tour class name', 'service_class_name', $this->item->service_class_name, 'class="required"'); ?>
                         <?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>

@@ -19,7 +19,7 @@ class JFormFieldScustom extends JFormField {
 
 	private function _getStringCustoms() {
 		if (!class_exists('VmModel'))
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 		$cModel = VmModel::getModel('custom');
 		$cModel->_noLimit = true;
 		$q = 'SELECT `virtuemart_custom_id` AS value, custom_title AS text FROM `#__virtuemart_customs` WHERE custom_parent_id="0" AND field_type = "S" ';
@@ -27,7 +27,7 @@ class JFormFieldScustom extends JFormField {
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);
 		$l = $db->loadObjectList ();
-		$eOpt = JHtml::_('select.option', '0', vmText::_('com_tsmart_NONE'));
+		$eOpt = JHtml::_('select.option', '0', tsmText::_('com_tsmart_NONE'));
 		array_unshift($l,$eOpt);
 
 		return $l;

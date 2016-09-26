@@ -47,9 +47,9 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			}
 			if(!class_exists('VmConfig')) require_once($this->path .'/helpers/config.php');
 			VmConfig::loadConfig(false,true);
-			if(!class_exists('VmTable')) require_once($this->path .'/helpers/vmtable.php');
-			if(!class_exists('VmModel')) require_once($this->path .'/helpers/vmmodel.php');
-			VmTable::addIncludePath($this->path.DS.'tables');
+			if(!class_exists('tsmTable')) require_once($this->path .'/helpers/tsmtable.php');
+			if(!class_exists('VmModel')) require_once($this->path .'/helpers/tsmmodel.php');
+			tsmTable::addIncludePath($this->path.DS.'tables');
 			VmModel::addIncludePath($this->path.DS.'models');
 
 		}
@@ -138,7 +138,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 
-			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'vmmodel.php';
+			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
 
 			if(!class_exists('VirtueMartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
 			$model = VmModel::getModel('updatesmigration');
@@ -240,7 +240,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			$lang = $params->get('site', 'en-GB');//use default joomla
 			$lang = strtolower(strtr($lang,'-','_'));
 
-			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'vmmodel.php';
+			if(!class_exists('VmModel')) require $this->path.DS.'helpers'.DS.'tsmmodel.php';
 			if(!class_exists('VirtueMartModelUpdatesMigration')) require($this->path . DS . 'models' . DS . 'updatesmigration.php');
 			$model = VmModel::getModel('updatesmigration');
 			//$model = new VirtueMartModelUpdatesMigration(); //JModel::getInstance('updatesmigration', 'VirtueMartModel');
@@ -489,7 +489,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 						$updateQuery .= ' WHERE `id` = '.$id.';';
 						$db->setQuery($updateBase.$updateQuery);
 						if (!$db->execute()) {
-							vmWarn( 'JInstaller::install: '.$sqlfile.' '.vmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
+							vmWarn( 'JInstaller::install: '.$sqlfile.' '.tsmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
 							$ok = false;
 						}
 						//vmdebug('Update Admin menu entries value $updateQuery',$updateBase.$updateQuery);
@@ -501,7 +501,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			if(!empty($query)){
 				$db->setQuery($query);
 				if (!$db->execute()) {
-					vmWarn( 'JInstaller::install: '.$sqlfile.' '.vmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
+					vmWarn( 'JInstaller::install: '.$sqlfile.' '.tsmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
 				}
 			}
 

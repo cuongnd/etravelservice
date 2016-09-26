@@ -12,14 +12,14 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Shopper group table.
  *
  * This class is a template.
  */
-class TableShoppergroups extends VmTable
+class TableShoppergroups extends tsmTable
 {
 
 	var $virtuemart_shoppergroup_id	 = 0;

@@ -373,8 +373,8 @@ class VmMediaHandler {
 		foreach( $this->_foldersToTest as $dir ) {
 			$result .= $dir . ' :: ';
 			$result .= is_writable( $dir )
-			? '<span style="font-weight:bold;color:green;">'.vmText::_('com_tsmart_WRITABLE').'</span>'
-			: '<span style="font-weight:bold;color:red;">'.vmText::_('com_tsmart_UNWRITABLE').'</span>';
+			? '<span style="font-weight:bold;color:green;">'.tsmText::_('com_tsmart_WRITABLE').'</span>'
+			: '<span style="font-weight:bold;color:red;">'.tsmText::_('com_tsmart_UNWRITABLE').'</span>';
 			$result .= '<br/>';
 		}
 		$result .= '</div>';
@@ -409,12 +409,12 @@ class VmMediaHandler {
 
 		$supportedTypes = '';
 		if(function_exists('mime_content_type')){
-			$supportedTypes .= vmText::_('com_tsmart_FILES_FORM_MIME_CONTENT_TYPE_SUPPORTED').'<br />';
+			$supportedTypes .= tsmText::_('com_tsmart_FILES_FORM_MIME_CONTENT_TYPE_SUPPORTED').'<br />';
 		} else {
-			$supportedTypes .= vmText::_('com_tsmart_FILES_FORM_MIME_CONTENT_TYPE_NOT_SUPPORTED').'<br />';
+			$supportedTypes .= tsmText::_('com_tsmart_FILES_FORM_MIME_CONTENT_TYPE_NOT_SUPPORTED').'<br />';
 		}
 
-		$supportedTypes .= vmText::_('com_tsmart_FILES_FORM_IMAGETYPES_SUPPORTED'). implode($aSupportedTypes,', ');
+		$supportedTypes .= tsmText::_('com_tsmart_FILES_FORM_IMAGETYPES_SUPPORTED'). implode($aSupportedTypes,', ');
 
 		return $supportedTypes;
 	}
@@ -466,11 +466,11 @@ class VmMediaHandler {
 			if($return){
 				if($this->file_is_downloadable){
 					$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('downloadable','zip.png');
-					$file_alt = vmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
+					$file_alt = tsmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
 					return $this->displayIt($file_url, $file_alt, '',true,'',$withDescr);
 				} else {
 					$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_set');
-					$file_alt = vmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
+					$file_alt = tsmText::_('com_tsmart_NO_IMAGE_SET').' '.$this->file_description;
 					return $this->displayIt($file_url, $file_alt, $imageArgs,$lightbox, $effect);
 				}
 			}
@@ -537,7 +537,7 @@ class VmMediaHandler {
 			$file_alt = $this->file_description;
 		} else {
 			$file_url = $this->theme_url.'assets/images/vmgeneral/'.VmConfig::get('no_image_found');
-			$file_alt = vmText::_('com_tsmart_NO_IMAGE_FOUND').' '.$this->file_description;
+			$file_alt = tsmText::_('com_tsmart_NO_IMAGE_FOUND').' '.$this->file_description;
 		}
 		if($return){
 			if($this->file_is_downloadable){
@@ -606,8 +606,8 @@ class VmMediaHandler {
 	 * @return name of the uploaded file
 	 */
 	function uploadFile($urlfolder,$overwrite = false){
-		if(!class_exists('vmUploader')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmuploader.php');
-		$r = vmUploader::uploadFile($urlfolder,$this,$overwrite);
+		if(!class_exists('tsmUploader')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmuploader.php');
+		$r = tsmUploader::uploadFile($urlfolder,$this,$overwrite);
 		return $r;
 	}
 
@@ -635,9 +635,9 @@ class VmMediaHandler {
 		}
 
 		if($res = JFile::delete( $file_path )){
-			$app->enqueueMessage(vmText::sprintf('com_tsmart_FILE_DELETE_OK',$msg_path));
+			$app->enqueueMessage(tsmText::sprintf('com_tsmart_FILE_DELETE_OK',$msg_path));
 		} else {
-			$app->enqueueMessage(vmText::sprintf('com_tsmart_FILE_DELETE_ERR',$res.' '.$msg_path));
+			$app->enqueueMessage(tsmText::sprintf('com_tsmart_FILE_DELETE_ERR',$res.' '.$msg_path));
 		}
 		return ;
 	}
@@ -937,11 +937,11 @@ class VmMediaHandler {
 
 		$html='';
 		$html .= '<fieldset class="checkboxes">' ;
-		$html .= '<legend>'.vmText::_('com_tsmart_IMAGES').'</legend>';
-		$html .=  '<span style="height:18px;vertical-align: middle;margin:4px" class="hasTip always-left" title="'.vmText::_('com_tsmart_SEARCH_MEDIA_TIP').'">'.vmText::_('com_tsmart_SEARCH_MEDIA') . '</span>';
+		$html .= '<legend>'.tsmText::_('com_tsmart_IMAGES').'</legend>';
+		$html .=  '<span style="height:18px;vertical-align: middle;margin:4px" class="hasTip always-left" title="'.tsmText::_('com_tsmart_SEARCH_MEDIA_TIP').'">'.tsmText::_('com_tsmart_SEARCH_MEDIA') . '</span>';
 		$html .=   '
 				<input type="text" name="searchMedia" id="searchMedia" style="height:18px;vertical-align: middle;margin:4px;width:250px" data-start="0" value="' .vRequest::getString('searchMedia') . '" class="text_area always-left" />
-				<button class="reset-value fg-button" style="height:18px;vertical-align: middle;margin:4px">'.vmText::_('com_tsmart_RESET') .'</button>
+				<button class="reset-value fg-button" style="height:18px;vertical-align: middle;margin:4px">'.tsmText::_('com_tsmart_RESET') .'</button>
 				<a style="height:18px;vertical-align: middle;margin:4px" class="js-pages js-previous fg-button ui-state-default fg-button-icon-left ui-corner-all" ><span class="ui-icon ui-icon-circle-minus" style="display:inline-block;"></span> 16 </a>
 				<a style="height:18px;vertical-align: middle;margin:4px" class="js-pages js-next fg-button ui-state-default fg-button-icon-right ui-corner-all"> 16 <span class="ui-icon ui-icon-circle-plus" style="display:inline-block;"></span></a>';
 		$html .='<br class="clear"/>';
@@ -980,10 +980,10 @@ class VmMediaHandler {
 			<input class="ordering" type="hidden" name="mediaordering['.$image->virtuemart_media_id.']" value="'.$key.'">
 		<a class="vm_thumb" rel="group1" title ="'.$image->file_title.'" href="'.JURI::root(true).'/'.$image->file_url.'" >
 		<img src="' . JURI::root(true).'/'.$file_url_thumb . '" alt="' . $image->file_title . '"  />
-		</a><div class="vmicon vmicon-16-remove" title="'.vmText::_('com_tsmart_IMAGE_REMOVE').'"></div><div class="edit-24-grey" title="'.vmText::_('com_tsmart_IMAGE_EDIT_INFO').'"></div></div>';
+		</a><div class="vmicon vmicon-16-remove" title="'.tsmText::_('com_tsmart_IMAGE_REMOVE').'"></div><div class="edit-24-grey" title="'.tsmText::_('com_tsmart_IMAGE_EDIT_INFO').'"></div></div>';
 		} else {
 			$fileTitle = empty($image->file_title)? 'no  title':$image->file_title;
-			return  '<div  class="vm_thumb_image"><b>'.vmText::_('com_tsmart_NO_IMAGE_SET').'</b><br />'.$fileTitle.'</div>';
+			return  '<div  class="vm_thumb_image"><b>'.tsmText::_('com_tsmart_NO_IMAGE_SET').'</b><br />'.$fileTitle.'</div>';
 		}
 
 	}
@@ -994,7 +994,7 @@ class VmMediaHandler {
 		$Images = array();
 		$list = VmMediaHandler::getImagesList($types,$page,$max);
 		if (empty($list['images'])){
-			return vmText::_('com_tsmart_NO_MEDIA_FILES');
+			return tsmText::_('com_tsmart_NO_MEDIA_FILES');
 		}
 
 		foreach ($list['images'] as $key =>$image) {
@@ -1004,7 +1004,7 @@ class VmMediaHandler {
 				$htmlImages .= '<div class="vm_thumb_image">
 				<span>'.JHtml::image($image->file_url_thumb,$image->file_title, 'class="vm_thumb" ').'</span>';
 			} else {
-				$htmlImages .=  '<div class="vm_thumb_image">'.vmText::_('com_tsmart_NO_IMAGE_SET').'<br />'.$image->file_title ;
+				$htmlImages .=  '<div class="vm_thumb_image">'.tsmText::_('com_tsmart_NO_IMAGE_SET').'<br />'.$image->file_title ;
 			}
 			$Images[$key ]['label'] = $htmlImages.'<input type="hidden" value="'.$image->virtuemart_media_id.'" name="virtuemart_media_id['.$image->virtuemart_media_id.']"><input class="ordering" type="hidden" name="mediaordering['.$image->virtuemart_media_id.']" value=""><div class="vmicon vmicon-16-remove" title="remove"></div><div title="edit image information" class="edit-24-grey"></div></div>';
 			$Images[$key ]['value'] = $image->file_title.' :: '.$image->virtuemart_media_id;
@@ -1068,7 +1068,7 @@ class VmMediaHandler {
 		$this->addHiddenByType();
 
 		$html = '<fieldset class="checkboxes">' ;
-		$html .= '<legend>'.vmText::_('com_tsmart_IMAGE_INFORMATION').'</legend>';
+		$html .= '<legend>'.tsmText::_('com_tsmart_IMAGE_INFORMATION').'</legend>';
 		$html .= '<div class="vm__img_autocrop">';
 		$imageArgs = array('id'=>'vm_display_image');
 		$html .=  $this->displayMediaFull($imageArgs,false,'',false).'</div>';
@@ -1088,7 +1088,7 @@ class VmMediaHandler {
 		//  The following was removed bacause the check box (publish/unpublish) was not functioning...
 		// 			$this->media_published = $this->published;
 		$html .= '<td class="labelcell" style="width:20em">
-	<label for="published">'. vmText::_('com_tsmart_FILES_FORM_FILE_PUBLISHED') .'</label>
+	<label for="published">'. tsmText::_('com_tsmart_FILES_FORM_FILE_PUBLISHED') .'</label>
 </td>
 <td>';
 	if(!class_exists('VmHtml')) require(VMPATH_ADMIN.DS.'helpers'.DS.'html.php');
@@ -1138,7 +1138,7 @@ $html .='</td>';
 			//vmdebug('my displayFileHandler ',$this,$file_url_thumb);
 
 			if($this->file_url_thumb == $file_url_thumb){
-				$file_url_thumb = vmText::sprintf('com_tsmart_DEFAULT_URL',$file_url_thumb);
+				$file_url_thumb = tsmText::sprintf('com_tsmart_DEFAULT_URL',$file_url_thumb);
 			}
 		}
 		$html .= $this->displayRow('com_tsmart_FILES_FORM_FILE_URL_THUMB','file_url_thumb',$readonly,$file_url_thumb);
@@ -1146,7 +1146,7 @@ $html .='</td>';
 		$this->addMediaAttributesByType();
 
 		$html .= '<tr>
-				<td class="labelcell">'.vmText::_('com_tsmart_FILES_FORM_ROLE').'</td>
+				<td class="labelcell">'.tsmText::_('com_tsmart_FILES_FORM_ROLE').'</td>
 				<td><fieldset class="checkboxes">'.JHtml::_('select.radiolist', $this->getOptions($this->_mRoles), 'media[media_roles]', '', 'value', 'text', $this->media_role).'</fieldset></td></tr>';
 
 		// 			$html .= '<tr><td class="labelcell">'.VmHTML::checkbox('file_is_forSale', $this->file_is_forSale);
@@ -1155,15 +1155,15 @@ $html .='</td>';
 		if(!empty($this->file_type)){
 
 			$html .= '<tr>
-					<td class="labelcell">'.vmText::_('com_tsmart_FILES_FORM_LOCATION').'</td>
-					<td><fieldset class="checkboxes">'.vmText::_('com_tsmart_FORM_MEDIA_SET_'.strtoupper($this->file_type)).'</fieldset></td></tr>';
+					<td class="labelcell">'.tsmText::_('com_tsmart_FILES_FORM_LOCATION').'</td>
+					<td><fieldset class="checkboxes">'.tsmText::_('com_tsmart_FORM_MEDIA_SET_'.strtoupper($this->file_type)).'</fieldset></td></tr>';
 		} else {
 			$mediaattribtemp = $this->media_attributes;
 			if(empty($this->media_attributes)){
 				$mediaattribtemp = 'product';
 			}
 			$html .= '<tr>
-					<td class="labelcell">'.vmText::_('com_tsmart_FILES_FORM_LOCATION').'</td>
+					<td class="labelcell">'.tsmText::_('com_tsmart_FILES_FORM_LOCATION').'</td>
 					<td><fieldset class="checkboxes">'.JHtml::_('select.radiolist', $this->getOptions($this->_mLocation), 'media[media_attributes]', '', 'value', 'text', $mediaattribtemp).'</fieldset></td></tr>';
 		}
 
@@ -1175,7 +1175,7 @@ $html .='</td>';
 			$configM = VmModel::getModel('config');
 			$languages = $configM->getActiveLanguages($selectedImageLangue,'media[active_languages][]');
 			$html .= '<tr>
-					<td class="labelcell"><span class="hasTip" title="' . vmText::_ ('com_tsmart_FILES_FORM_LANGUAGE_TIP') . '">' . vmText::_ ('com_tsmart_FILES_FORM_LANGUAGE') . '</span></td>
+					<td class="labelcell"><span class="hasTip" title="' . tsmText::_ ('com_tsmart_FILES_FORM_LANGUAGE_TIP') . '">' . tsmText::_ ('com_tsmart_FILES_FORM_LANGUAGE') . '</span></td>
 					<td><fieldset class="inputbox">'.$languages.'</fieldset></td>
 					</tr>';
 		}
@@ -1199,11 +1199,11 @@ $html .='</td>';
 		$this->addMediaActionByType();
 
 		$html .= '<fieldset class="checkboxes">' ;
-		$html .= '<legend>'.vmText::_('com_tsmart_FILE_UPLOAD').'</legend>';
-		$html .= vmText::_('com_tsmart_IMAGE_ACTION'). JHtml::_('select.radiolist', $this->getOptions($this->_actions), 'media[media_action]', '', 'value', 'text', 0).'<br /><br style="clear:both" />';
+		$html .= '<legend>'.tsmText::_('com_tsmart_FILE_UPLOAD').'</legend>';
+		$html .= tsmText::_('com_tsmart_IMAGE_ACTION'). JHtml::_('select.radiolist', $this->getOptions($this->_actions), 'media[media_action]', '', 'value', 'text', 0).'<br /><br style="clear:both" />';
 
 
-		$html .= vmText::_('com_tsmart_FILE_UPLOAD').' <input type="file" name="upload" id="upload" size="50" class="inputbox" /><br />';
+		$html .= tsmText::_('com_tsmart_FILE_UPLOAD').' <input type="file" name="upload" id="upload" size="50" class="inputbox" /><br />';
 
 		$html .= '<br />'.$this->displaySupportedImageTypes();
 		$html .='<br /></fieldset>';
@@ -1225,7 +1225,7 @@ $html .='</td>';
 
 		$options=array();
 		foreach($optionsarray as $optionName=>$langkey){
-			$options[] = JHtml::_('select.option',  $optionName, vmText::_( $langkey ) );
+			$options[] = JHtml::_('select.option',  $optionName, tsmText::_( $langkey ) );
 		}
 		return $options;
 	}
@@ -1240,7 +1240,7 @@ $html .='</td>';
 	private function displayRow($descr, $name,$readonly='',$value = null){
 		$v = (isset($value))? $value: $this->$name;
 		$html = '<tr>
-	<td class="labelcell">'.vmText::_($descr).'</td>
+	<td class="labelcell">'.tsmText::_($descr).'</td>
 	<td> <input type="text" '.$readonly.' class="inputbox" name="media['.$name.']" size="70" value="'.$v.'" /></td>
 </tr>';
 		return $html;

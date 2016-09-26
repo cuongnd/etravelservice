@@ -72,10 +72,10 @@ AdminUIHelper::startAdminArea($this);
                         <?php echo $this->sort('mode', 'CON. Mode'); ?>
                     </th>
                     <th>
-                        <?php echo vmText::_('Application'); ?>
+                        <?php echo tsmText::_('Application'); ?>
                     </th>
                     <th width="10">
-                        <?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+                        <?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
                     </th>
                     <?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>

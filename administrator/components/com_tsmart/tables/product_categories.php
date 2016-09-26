@@ -16,9 +16,9 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablexarray.php');
+if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtablexarray.php');
 
-class TableProduct_categories extends VmTableXarray {
+class TableProduct_categories extends tsmTableXarray {
 
 	function __construct(&$db){
 		parent::__construct('#__virtuemart_product_categories', 'id', $db);

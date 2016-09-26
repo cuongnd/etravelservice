@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="col50">
     <fieldset>
-        <legend><?php echo vmText::_('com_tsmart_PAYMENTMETHOD'); ?></legend>
+        <legend><?php echo tsmText::_('com_tsmart_PAYMENTMETHOD'); ?></legend>
         <table class="admintable">
 		<?php echo VmHTML::row('input','com_tsmart_PAYMENTMETHOD_FORM_NAME','payment_name',$this->payment->payment_name,'class="required"'); ?>
 		<?php echo VmHTML::row('input','com_tsmart_SLUG','slug',$this->payment->slug); ?>

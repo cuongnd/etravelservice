@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the VirtueMart Component
@@ -28,7 +28,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author
  */
-class TsmartViewCustom extends VmViewAdmin {
+class TsmartViewCustom extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -71,7 +71,7 @@ class TsmartViewCustom extends VmViewAdmin {
 					$this->custom->form = JForm::getInstance($this->custom->custom_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 					$this->custom->params = new stdClass();
 					$varsToPush = vmPlugin::getVarsToPushFromForm($this->custom->form);
-					VmTable::bindParameterableToSubField($this->custom,$varsToPush);
+					tsmTable::bindParameterableToSubField($this->custom,$varsToPush);
 					$this->custom->form->bind($this->custom->getProperties());
 
 				}
@@ -107,7 +107,7 @@ class TsmartViewCustom extends VmViewAdmin {
 					$formString .= '</fieldset>'.chr(10).'</fields>'.chr(10).'</vmconfig>';
 					$this->custom->form = JForm::getInstance($this->custom->field_type, $formString, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 					$this->custom->params = new stdClass();
-					VmTable::bindParameterableToSubField($this->custom,$varsToPush);
+					tsmTable::bindParameterableToSubField($this->custom,$varsToPush);
 					$this->custom->form->bind($this->custom->getProperties());
 
 				}
@@ -126,11 +126,11 @@ class TsmartViewCustom extends VmViewAdmin {
         }
         else {
 
-			JToolBarHelper::custom('createClone', 'copy', 'copy',  vmText::_('com_tsmart_CLONE'), true);
-			JToolBarHelper::custom('toggle.admin_only.1', 'publish','', vmText::_('com_tsmart_TOGGLE_ADMIN'), true);
-			JToolBarHelper::custom('toggle.admin_only.0', 'unpublish','', vmText::_('com_tsmart_TOGGLE_ADMIN'), true);
-			JToolBarHelper::custom('toggle.is_hidden.1', 'publish','', vmText::_('com_tsmart_TOGGLE_HIDDEN'), true);
-			JToolBarHelper::custom('toggle.is_hidden.0', 'unpublish','', vmText::_('com_tsmart_TOGGLE_HIDDEN'), true);
+			JToolBarHelper::custom('createClone', 'copy', 'copy',  tsmText::_('com_tsmart_CLONE'), true);
+			JToolBarHelper::custom('toggle.admin_only.1', 'publish','', tsmText::_('com_tsmart_TOGGLE_ADMIN'), true);
+			JToolBarHelper::custom('toggle.admin_only.0', 'unpublish','', tsmText::_('com_tsmart_TOGGLE_ADMIN'), true);
+			JToolBarHelper::custom('toggle.is_hidden.1', 'publish','', tsmText::_('com_tsmart_TOGGLE_HIDDEN'), true);
+			JToolBarHelper::custom('toggle.is_hidden.0', 'unpublish','', tsmText::_('com_tsmart_TOGGLE_HIDDEN'), true);
 
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model);
@@ -236,7 +236,7 @@ class TsmartViewCustom extends VmViewAdmin {
 
 		$options = array();
 		foreach ($field_types as $optionName=> $langkey) {
-			$options[] = JHtml::_ ('select.option', $optionName, vmText::_ ($langkey));
+			$options[] = JHtml::_ ('select.option', $optionName, tsmText::_ ($langkey));
 		}
 		return $options;
 	}

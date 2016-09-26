@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 if (!class_exists('VmModel'))
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 /**
  * Model class for shop credit cards

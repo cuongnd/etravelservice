@@ -27,9 +27,9 @@ jimport( 'joomla.application.component.view');
  * @package		VirtueMart
  * @author
  */
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
-class TsmartViewOrders extends VmViewAdmin {
+class TsmartViewOrders extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -85,7 +85,7 @@ class TsmartViewOrders extends VmViewAdmin {
 		$_orderStats = $this->get('OrderStatusList');
 		$_orderStatusList = array();
 		foreach ($_orderStats as $orderState) {
-				$_orderStatusList[$orderState->order_status_code] = vmText::_($orderState->order_status_name);
+				$_orderStatusList[$orderState->order_status_code] = tsmText::_($orderState->order_status_name);
 		}
 
 		/*foreach($order['items'] as $_item) {

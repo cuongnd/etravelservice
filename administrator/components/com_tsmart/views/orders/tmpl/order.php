@@ -136,7 +136,7 @@ jQuery('.orderStatFormSubmit').click(function() {
 });
 
 function confirmation(destnUrl) {
-	var answer = confirm('".addslashes( vmText::_('com_tsmart_ORDER_DELETE_ITEM_JS') )."');
+	var answer = confirm('".addslashes( tsmText::_('com_tsmart_ORDER_DELETE_ITEM_JS') )."');
 if (answer) {
 	window.location = destnUrl;
 	}
@@ -528,16 +528,16 @@ vmJsApi::addJScript('ordergui',$j);
 		<?php echo $this->displayDefaultViewSearch ('com_tsmart_ORDER_PRINT_NAME'); ?>
 			<span class="btn btn-small " >
 		<a class="updateOrder" href="#"><span class="icon-nofloat vmicon vmicon-16-save"></span>
-		<?php echo vmText::_('com_tsmart_ORDER_SAVE_USER_INFO'); ?></a></span>
+		<?php echo tsmText::_('com_tsmart_ORDER_SAVE_USER_INFO'); ?></a></span>
 		&nbsp;&nbsp;
 				<span class="btn btn-small " >
 		<a href="#" onClick="javascript:resetOrderHead(event);" ><span class="icon-nofloat vmicon vmicon-16-cancel"></span>
-		<?php echo vmText::_('com_tsmart_ORDER_RESET'); ?></a>
+		<?php echo tsmText::_('com_tsmart_ORDER_RESET'); ?></a>
 					</span>
 		<!--
 		&nbsp;&nbsp;
 		<a class="createOrder" href="#"><span class="icon-nofloat vmicon vmicon-16-new"></span>
-		<?php echo vmText::_('com_tsmart_ORDER_CREATE'); ?></a>
+		<?php echo tsmText::_('com_tsmart_ORDER_CREATE'); ?></a>
 		-->
 		</td>
 	</tr>
@@ -550,36 +550,36 @@ vmJsApi::addJScript('ordergui',$j);
 		<table class="adminlist" cellspacing="0" cellpadding="0">
 			<thead>
 			<tr>
-				<th colspan="2"><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_LBL') ?></th>
+				<th colspan="2"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_LBL') ?></th>
 			</tr>
 			</thead>
 			<?php
 				$print_url = juri::root().'index.php?option=com_tsmart&view=invoice&layout=invoice&virtuemart_order_id=' . $this->orderbt->virtuemart_order_id . '&order_number=' .$this->orderbt->order_number. '&order_pass=' .$this->orderbt->order_pass;
-				$print_link = "<a title=\"".vmText::_('com_tsmart_PRINT')."\" href=\"javascript:void window.open('$print_url', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
+				$print_link = "<a title=\"".tsmText::_('com_tsmart_PRINT')."\" href=\"javascript:void window.open('$print_url', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
 				$print_link .=   $this->orderbt->order_number . ' </a>';
 			?>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_NUMBER') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_NUMBER') ?></strong></td>
 				<td><?php echo  $print_link;?></td>
 			</tr>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_PASS') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_PASS') ?></strong></td>
 				<td><?php echo  $this->orderbt->order_pass;?></td>
 			</tr>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_DATE') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_DATE') ?></strong></td>
 				<td><?php  echo vmJsApi::date($this->orderbt->created_on,'LC2',true); ?></td>
 			</tr>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_STATUS') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_STATUS') ?></strong></td>
 				<td><?php echo $this->orderstatuslist[$this->orderbt->order_status]; ?></td>
 			</tr>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_NAME') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_NAME') ?></strong></td>
 				<td><?php
 					if ($this->orderbt->virtuemart_user_id) {
 						$userlink = JROUTE::_ ('index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]=' . $this->orderbt->virtuemart_user_id);
-						echo JHtml::_ ('link', JRoute::_ ($userlink), $this->orderbt->order_name, array('title' => vmText::_ ('com_tsmart_ORDER_EDIT_USER') . ' ' . $this->orderbt->order_name));
+						echo JHtml::_ ('link', JRoute::_ ($userlink), $this->orderbt->order_name, array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_USER') . ' ' . $this->orderbt->order_name));
 					} else {
 						echo $this->orderbt->first_name.' '.$this->orderbt->last_name;
 					}
@@ -587,23 +587,23 @@ vmJsApi::addJScript('ordergui',$j);
 				</td>
 			</tr>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_IPADDRESS') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_IPADDRESS') ?></strong></td>
 				<td><?php echo $this->orderbt->ip_address; ?></td>
 			</tr>
 			<?php
 			if ($this->orderbt->coupon_code) { ?>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_COUPON_CODE') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_COUPON_CODE') ?></strong></td>
 				<td><?php echo $this->orderbt->coupon_code; ?></td>
 			</tr>
 			<?php } ?>
 			<?php
 			if ($this->orderbt->invoiceNumber and !shopFunctionsF::InvoiceNumberReserved($this->orderbt->invoiceNumber) ) {
 				$invoice_url = juri::root().'index.php?option=com_tsmart&view=invoice&layout=invoice&format=pdf&virtuemart_order_id=' . $this->orderbt->virtuemart_order_id . '&order_number=' .$this->orderbt->order_number. '&order_pass=' .$this->orderbt->order_pass;
-				$invoice_link = "<a title=\"".vmText::_('com_tsmart_INVOICE_PRINT')."\"  href=\"javascript:void window.open('$invoice_url', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
+				$invoice_link = "<a title=\"".tsmText::_('com_tsmart_INVOICE_PRINT')."\"  href=\"javascript:void window.open('$invoice_url', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
 				$invoice_link .=   $this->orderbt->invoiceNumber . '</a>';?>
 			<tr>
-				<td class="key"><strong><?php echo vmText::_('com_tsmart_INVOICE') ?></strong></td>
+				<td class="key"><strong><?php echo tsmText::_('com_tsmart_INVOICE') ?></strong></td>
 				<td><?php echo $invoice_link; ?></td>
 			</tr>
 			<?php } ?>
@@ -613,10 +613,10 @@ vmJsApi::addJScript('ordergui',$j);
 		<table class="adminlist table">
 			<thead>
 				<tr>
-					<th><?php echo vmText::_('com_tsmart_ORDER_HISTORY_DATE_ADDED') ?></th>
-					<th><?php echo vmText::_('com_tsmart_ORDER_HISTORY_CUSTOMER_NOTIFIED') ?></th>
-					<th><?php echo vmText::_('com_tsmart_ORDER_LIST_STATUS') ?></th>
-					<th><?php echo vmText::_('com_tsmart_COMMENT') ?></th>
+					<th><?php echo tsmText::_('com_tsmart_ORDER_HISTORY_DATE_ADDED') ?></th>
+					<th><?php echo tsmText::_('com_tsmart_ORDER_HISTORY_CUSTOMER_NOTIFIED') ?></th>
+					<th><?php echo tsmText::_('com_tsmart_ORDER_LIST_STATUS') ?></th>
+					<th><?php echo tsmText::_('com_tsmart_COMMENT') ?></th>
 				</tr>
 			</thead>
 			<?php
@@ -624,16 +624,16 @@ vmJsApi::addJScript('ordergui',$j);
 				echo "<tr >";
 				echo "<td class='key'>". vmJsApi::date($this->orderbt_event->created_on,'LC2',true) ."</td>\n";
 				if ($this->orderbt_event->customer_notified == 1) {
-					echo '<td align="center">'.vmText::_('com_tsmart_YES').'</td>';
+					echo '<td align="center">'.tsmText::_('com_tsmart_YES').'</td>';
 				}
 				else {
-					echo '<td align="center">'.vmText::_('com_tsmart_NO').'</td>';
+					echo '<td align="center">'.tsmText::_('com_tsmart_NO').'</td>';
 				}
 				if(!isset($this->orderstatuslist[$this->orderbt_event->order_status_code])){
 					if(empty($this->orderbt_event->order_status_code)){
 						$this->orderbt_event->order_status_code = 'unknown';
 					}
-					$this->orderstatuslist[$this->orderbt_event->order_status_code] = vmText::_('com_tsmart_UNKNOWN_ORDER_STATUS');
+					$this->orderstatuslist[$this->orderbt_event->order_status_code] = tsmText::_('com_tsmart_UNKNOWN_ORDER_STATUS');
 				}
 
 				echo '<td align="center">'.$this->orderstatuslist[$this->orderbt_event->order_status_code].'</td>';
@@ -643,7 +643,7 @@ vmJsApi::addJScript('ordergui',$j);
 			?>
 			<tr>
 				<td colspan="4">
-				<a href="#" class="show_element"><span class="vmicon vmicon-16-editadd"></span><?php echo vmText::_('com_tsmart_ORDER_UPDATE_STATUS') ?></a>
+				<a href="#" class="show_element"><span class="vmicon vmicon-16-editadd"></span><?php echo tsmText::_('com_tsmart_ORDER_UPDATE_STATUS') ?></a>
 				<div style="display: none; background: white; z-index: 100;"
 					class="element-hidden vm-absolute"
 					id="updateOrderStatus"><?php echo $this->loadTemplate('editstatus'); ?>
@@ -682,11 +682,11 @@ vmJsApi::addJScript('ordergui',$j);
 					<table class="adminlist" cellspacing="0" cellpadding="0">
 						<thead>
 						<tr>
-						<th colspan="2"><?php echo vmText::_('com_tsmart_ORDER_PRINT_PAYMENT_SHIPMENT') ?></th>
+						<th colspan="2"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT_SHIPMENT') ?></th>
 						</tr>
 						</thead>
 					<tr>
-						<td><?php echo vmText::_('com_tsmart_ORDER_PRINT_PAYMENT_LBL') ?></td>
+						<td><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT_LBL') ?></td>
 						<?php
 						$model = VmModel::getModel('paymentmethod');
 						$payments = $model->getPayments();
@@ -698,7 +698,7 @@ vmJsApi::addJScript('ordergui',$j);
 							<!--
 							<? echo VmHTML::select("virtuemart_paymentmethod_id", $payments, $this->orderbt->virtuemart_paymentmethod_id, '', "virtuemart_paymentmethod_id", "payment_name"); ?>
 							<span id="delete_old_payment" style="display: none;"><br />
-								<input id="delete_old_payment" type="checkbox" name="delete_old_payment" value="1" /> <label class='' for="" title="<?php echo vmText::_('com_tsmart_ORDER_PRINT_PAYMENT_DELETE_DESC'); ?>"><?php echo vmText::_('com_tsmart_ORDER_PRINT_PAYMENT_DELETE'); ?></label>
+								<input id="delete_old_payment" type="checkbox" name="delete_old_payment" value="1" /> <label class='' for="" title="<?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT_DELETE_DESC'); ?>"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT_DELETE'); ?></label>
 							</span>
 							-->
 							<?php
@@ -709,13 +709,13 @@ vmJsApi::addJScript('ordergui',$j);
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo vmText::_('com_tsmart_ORDER_PRINT_SHIPMENT_LBL') ?></td>
+						<td><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SHIPMENT_LBL') ?></td>
 						<td>
 							<input type="hidden" size="10" name="virtuemart_shipmentmethod_id" value="<?php echo $this->orderbt->virtuemart_shipmentmethod_id; ?>"/>
 							<!--
 							<? echo VmHTML::select("virtuemart_shipmentmethod_id", $shipments, $this->orderbt->virtuemart_shipmentmethod_id, '', "virtuemart_shipmentmethod_id", "shipment_name"); ?>
 							<span id="delete_old_shipment" style="display: none;"><br />
-								<input id="delete_old_shipment" type="checkbox" name="delete_old_shipment" value="1" /> <label class='' for=""><?php echo vmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
+								<input id="delete_old_shipment" type="checkbox" name="delete_old_shipment" value="1" /> <label class='' for=""><?php echo tsmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
 							</span>
 							-->
 							<?php
@@ -726,7 +726,7 @@ vmJsApi::addJScript('ordergui',$j);
 						</td>
 					</tr>
 					<tr>
-						<td class="key"><?php echo vmText::_('com_tsmart_DELIVERY_DATE') ?></td>
+						<td class="key"><?php echo tsmText::_('com_tsmart_DELIVERY_DATE') ?></td>
 						<td><input type="text" maxlength="190" class="required" value="<?php echo $this->orderbt->delivery_date; ?>" size="30" name="delivery_date" id="delivery_date_field"></td>
 					</tr>
 					</table>
@@ -741,7 +741,7 @@ vmJsApi::addJScript('ordergui',$j);
 		<table class="adminlist table">
 			<thead>
 				<tr>
-					<th  style="text-align: center;" colspan="2"><?php echo vmText::_('com_tsmart_ORDER_PRINT_BILL_TO_LBL') ?></th>
+					<th  style="text-align: center;" colspan="2"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_BILL_TO_LBL') ?></th>
 				</tr>
 			</thead>
 
@@ -778,7 +778,7 @@ vmJsApi::addJScript('ordergui',$j);
 		<table class="adminlist table">
 			<thead>
 				<tr>
-					<th   style="text-align: center;" colspan="2"><?php echo vmText::_('com_tsmart_ORDER_PRINT_SHIP_TO_LBL') ?></th>
+					<th   style="text-align: center;" colspan="2"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SHIP_TO_LBL') ?></th>
 				</tr>
 			</thead>
 
@@ -817,18 +817,18 @@ vmJsApi::addJScript('ordergui',$j);
 		<table class="adminlist table"  id="itemTable" >
 			<thead>
 				<tr>
-					<!--<th class="title" width="5%" align="left"><?php echo vmText::_('com_tsmart_ORDER_EDIT_ACTIONS') ?></th> -->
+					<!--<th class="title" width="5%" align="left"><?php echo tsmText::_('com_tsmart_ORDER_EDIT_ACTIONS') ?></th> -->
 					<th class="title" width="3" align="left">#</th>
-					<th class="title" width="47" align="left"><?php echo vmText::_('com_tsmart_ORDER_PRINT_QUANTITY') ?></th>
-					<th class="title" width="*" align="left"><?php echo vmText::_('com_tsmart_ORDER_PRINT_NAME') ?></th>
-					<th class="title" width="10%" align="left"><?php echo vmText::_('com_tsmart_ORDER_PRINT_SKU') ?></th>
-					<th class="title" width="10%"><?php echo vmText::_('com_tsmart_ORDER_PRINT_ITEM_STATUS') ?></th>
-					<th class="title" width="50"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_NET') ?></th>
-					<th class="title" width="50"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_BASEWITHTAX') ?></th>
-					<th class="title" width="50"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_GROSS') ?></th>
-					<th class="title" width="50"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_TAX') ?></th>
-					<th class="title" width="50"> <?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_DISCOUNT') ?></th>
-					<th class="title" width="5%"><?php echo vmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?></th>
+					<th class="title" width="47" align="left"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_QUANTITY') ?></th>
+					<th class="title" width="*" align="left"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_NAME') ?></th>
+					<th class="title" width="10%" align="left"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SKU') ?></th>
+					<th class="title" width="10%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_ITEM_STATUS') ?></th>
+					<th class="title" width="50"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_NET') ?></th>
+					<th class="title" width="50"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_BASEWITHTAX') ?></th>
+					<th class="title" width="50"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_GROSS') ?></th>
+					<th class="title" width="50"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_TAX') ?></th>
+					<th class="title" width="50"> <?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_DISCOUNT') ?></th>
+					<th class="title" width="5%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?></th>
 				</tr>
 			</thead>
 		<?php $i=1;
@@ -841,7 +841,7 @@ vmJsApi::addJScript('ordergui',$j);
 			<tr valign="top" <?php echo $lId?>><?php /*id="showItem_<?php echo $item->virtuemart_order_item_id; ?>" data-itemid="<?php echo $item->virtuemart_order_item_id; ?>">*/ ?>
 				<!--<td>
 					<?php $removeLineLink=JRoute::_('index.php?option=com_tsmart&view=orders&orderId='.$this->orderbt->virtuemart_order_id.'&orderLineId='.$item->virtuemart_order_item_id.'&task=removeOrderItem'); ?>
-					<a class="vmicon vmicon-16-bug" title="<?php echo vmText::_('remove'); ?>" onclick="javascript:confirmation('<?php echo $removeLineLink; ?>');"></a>
+					<a class="vmicon vmicon-16-bug" title="<?php echo tsmText::_('remove'); ?>" onclick="javascript:confirmation('<?php echo $removeLineLink; ?>');"></a>
 
 					<a href="javascript:enableItemEdit(<?php echo $item->virtuemart_order_item_id; ?>)"> <?php echo JHtml::_('image',  'administrator/components/com_tsmart/assets/images/icon_16/icon-16-category.png', "Edit", NULL, true); ?></a>
 				</td> -->
@@ -915,8 +915,8 @@ vmJsApi::addJScript('ordergui',$j);
 				<td align="right" style="padding-right: 5px;">
 					<?php echo $this->currency->priceDisplay( $item->product_tax); ?>
 					<input class='orderedit' type="text" size="12" name="item_id[<?php echo $item->virtuemart_order_item_id; ?>][product_tax]" value="<?php echo $item->product_tax; ?>"/>
-					<span style="display: block; font-size: 80%;" title="<?php echo vmText::_('com_tsmart_ORDER_EDIT_CALCULATE_DESC'); ?>">
-						<input class='orderedit' type="checkbox" name="item_id[<?php echo $item->virtuemart_order_item_id; ?>][calculate_product_tax]" value="1" /> <label class='orderedit' for="calculate_product_tax"><?php echo vmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
+					<span style="display: block; font-size: 80%;" title="<?php echo tsmText::_('com_tsmart_ORDER_EDIT_CALCULATE_DESC'); ?>">
+						<input class='orderedit' type="checkbox" name="item_id[<?php echo $item->virtuemart_order_item_id; ?>][calculate_product_tax]" value="1" /> <label class='orderedit' for="calculate_product_tax"><?php echo tsmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
 					</span>
 				</td>
 				<td align="right" style="padding-right: 5px;">
@@ -943,16 +943,16 @@ vmJsApi::addJScript('ordergui',$j);
 
 					<td colspan="5">
 						<!--
-						&nbsp;<a class="newOrderItem" href="#"><span class="icon-nofloat vmicon vmicon-16-new"></span><?php echo vmText::_('com_tsmart_NEW_ITEM'); ?></a>
+						&nbsp;<a class="newOrderItem" href="#"><span class="icon-nofloat vmicon vmicon-16-new"></span><?php echo tsmText::_('com_tsmart_NEW_ITEM'); ?></a>
 						&nbsp;&nbsp;
 						-->
-						<a class="updateOrderItemStatus" href="#"><span class="icon-nofloat vmicon vmicon-16-save"></span><?php echo vmText::_('com_tsmart_SAVE'); ?></a>
+						<a class="updateOrderItemStatus" href="#"><span class="icon-nofloat vmicon vmicon-16-save"></span><?php echo tsmText::_('com_tsmart_SAVE'); ?></a>
 						&nbsp;&nbsp;
-						<a href="#" onClick="javascript:cancelEdit(event);" ><span class="icon-nofloat vmicon vmicon-16-remove"></span><?php echo '&nbsp;'. vmText::_('com_tsmart_CANCEL'); ?></a>
+						<a href="#" onClick="javascript:cancelEdit(event);" ><span class="icon-nofloat vmicon vmicon-16-remove"></span><?php echo '&nbsp;'. tsmText::_('com_tsmart_CANCEL'); ?></a>
 						&nbsp;&nbsp;
-						<a href="#" onClick="javascript:enableEdit(event);"><span class="icon-nofloat vmicon vmicon-16-edit"></span><?php echo '&nbsp;'. vmText::_('com_tsmart_EDIT'); ?></a>
+						<a href="#" onClick="javascript:enableEdit(event);"><span class="icon-nofloat vmicon vmicon-16-edit"></span><?php echo '&nbsp;'. tsmText::_('com_tsmart_EDIT'); ?></a>
 						&nbsp;&nbsp;
-						<a href="#" onClick="javascript:addNewLine(event,<?php echo $this->orderdetails['items'][0]->virtuemart_order_item_id ?>);"><span class="icon-nofloat vmicon vmicon-16-new"></span><?php echo '&nbsp;'. vmText::_('JTOOLBAR_NEW'); ?></a>
+						<a href="#" onClick="javascript:addNewLine(event,<?php echo $this->orderdetails['items'][0]->virtuemart_order_item_id ?>);"><span class="icon-nofloat vmicon vmicon-16-new"></span><?php echo '&nbsp;'. tsmText::_('JTOOLBAR_NEW'); ?></a>
 					</td>
 
 					<td colspan="6">
@@ -977,7 +977,7 @@ vmJsApi::addJScript('ordergui',$j);
 				<!-- <a href="<?php echo $editLineLink; ?>" class="modal"> <?php echo JHtml::_('image',  'administrator/components/com_tsmart/assets/images/icon_16/icon-16-editadd.png', "New Item"); ?>
 				New Item </a>--></td>
 				<td align="right" colspan="4">
-				<div align="right"><strong> <?php echo vmText::_('com_tsmart_ORDER_PRINT_SUBTOTAL') ?>:
+				<div align="right"><strong> <?php echo tsmText::_('com_tsmart_ORDER_PRINT_SUBTOTAL') ?>:
 				</strong></div>
 				</td>
 				<td  align="right" style="padding-right: 5px;"><?php echo $this->currency->priceDisplay($this->orderbt->order_subtotal); ?></td>
@@ -994,7 +994,7 @@ vmJsApi::addJScript('ordergui',$j);
 				if ($this->orderbt->coupon_discount > 0 || $this->orderbt->coupon_discount < 0) {
 					?>
 			<tr>
-				<td align="right" colspan="5"><strong><?php echo vmText::_('com_tsmart_COUPON_DISCOUNT') ?></strong></td>
+				<td align="right" colspan="5"><strong><?php echo tsmText::_('com_tsmart_COUPON_DISCOUNT') ?></strong></td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>
@@ -1063,7 +1063,7 @@ vmJsApi::addJScript('ordergui',$j);
 
 
 			<tr>
-				<td align="right" colspan="5"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_SHIPPING') ?>:</strong></td>
+				<td align="right" colspan="5"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SHIPPING') ?>:</strong></td>
 				<td  align="right" style="padding-right: 5px;"><?php echo $this->currency->priceDisplay($this->orderbt->order_shipment); ?>
 					<input class='orderedit' type="text" size="8" name="order_shipment" value="<?php echo $this->orderbt->order_shipment; ?>"/>
 				</td>
@@ -1077,7 +1077,7 @@ vmJsApi::addJScript('ordergui',$j);
 
 			</tr>
 			 <tr>
-				<td align="right" colspan="5"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_PAYMENT') ?>:</strong></td>
+				<td align="right" colspan="5"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT') ?>:</strong></td>
 				<td  align="right" style="padding-right: 5px;"><?php echo $this->currency->priceDisplay($this->orderbt->order_payment); ?>
 					<input class='orderedit' type="text" size="8" name="order_payment" value="<?php echo $this->orderbt->order_payment; ?>"/>
 				</td>
@@ -1093,15 +1093,15 @@ vmJsApi::addJScript('ordergui',$j);
 
 
 			<tr>
-				<td align="right" colspan="5"><strong><?php echo vmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?>:</strong></td>
+				<td align="right" colspan="5"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?>:</strong></td>
 				<td align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td align="right" style="padding-right: 5px;">
 					<?php echo $this->currency->priceDisplay($this->orderbt->order_billTaxAmount); ?>
 					<input class='orderedit' type="text" size="12" name="order_billTaxAmount" value="<?php echo $this->orderbt->order_billTaxAmount; ?>"/>
-					<span style="display: block; font-size: 80%;" title="<?php echo vmText::_('com_tsmart_ORDER_EDIT_CALCULATE_DESC'); ?>">
-						<input class='orderedit' type="checkbox" name="calculate_billTaxAmount" value="1" checked /> <label class='orderedit' for="calculate_billTaxAmount"><?php echo vmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
+					<span style="display: block; font-size: 80%;" title="<?php echo tsmText::_('com_tsmart_ORDER_EDIT_CALCULATE_DESC'); ?>">
+						<input class='orderedit' type="checkbox" name="calculate_billTaxAmount" value="1" checked /> <label class='orderedit' for="calculate_billTaxAmount"><?php echo tsmText::_('com_tsmart_ORDER_EDIT_CALCULATE'); ?></label>
 					</span>
 				</td>
 				<td align="right" style="padding-right: 5px;"><strong><?php echo $this->currency->priceDisplay($this->orderbt->order_billDiscountAmount); ?></strong></td>
@@ -1110,7 +1110,7 @@ vmJsApi::addJScript('ordergui',$j);
 			</tr>
 			<?php if ($this->orderbt->user_currency_rate != 1.0) { ?>
 			<tr>
-				<td align="right" colspan="5"><em><?php echo vmText::_('com_tsmart_ORDER_USER_CURRENCY_RATE') ?>:</em></td>
+				<td align="right" colspan="5"><em><?php echo tsmText::_('com_tsmart_ORDER_USER_CURRENCY_RATE') ?>:</em></td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>
 				<td  align="right" style="padding-right: 5px;">&nbsp;</td>

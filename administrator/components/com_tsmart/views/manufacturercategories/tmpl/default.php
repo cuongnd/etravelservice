@@ -32,16 +32,16 @@ AdminUIHelper::startAdminArea($this);
 				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this)" />
 			</th>
 			<th>
-				<?php echo  vmText::_('com_tsmart_MANUFACTURER_CATEGORY_NAME'); ?>
+				<?php echo  tsmText::_('com_tsmart_MANUFACTURER_CATEGORY_NAME'); ?>
 			</th>
 			<th>
-				<?php echo  vmText::_('com_tsmart_MANUFACTURER_CATEGORY_DESCRIPTION'); ?>
+				<?php echo  tsmText::_('com_tsmart_MANUFACTURER_CATEGORY_DESCRIPTION'); ?>
 			</th>
 			<th>
-				<?php echo  vmText::_('com_tsmart_MANUFACTURER_CATEGORY_LIST'); ?>
+				<?php echo  tsmText::_('com_tsmart_MANUFACTURER_CATEGORY_LIST'); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 			   <th><?php echo $this->sort('virtuemart_manufacturercategories_id', 'com_tsmart_ID')  ?></th>
 		</tr>
@@ -67,10 +67,10 @@ AdminUIHelper::startAdminArea($this);
 
 				</td>
 				<td>
-					<?php echo vmText::_($row->mf_category_desc); ?>
+					<?php echo tsmText::_($row->mf_category_desc); ?>
 				</td>
 				<td>
-					<a title="<?php echo vmText::_('com_tsmart_MANUFACTURER_SHOW'); ?>" href="<?php echo $manufacturersList; ?>"><?php echo vmText::_('com_tsmart_SHOW'); ?></a>
+					<a title="<?php echo tsmText::_('com_tsmart_MANUFACTURER_SHOW'); ?>" href="<?php echo $manufacturersList; ?>"><?php echo tsmText::_('com_tsmart_SHOW'); ?></a>
 				</td>
 				<td align="center">
 					<?php echo $published; ?>

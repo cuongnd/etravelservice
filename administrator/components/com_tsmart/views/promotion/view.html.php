@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewpromotion extends VmViewAdmin {
+class TsmartViewpromotion extends tsmViewAdmin {
 
 	function display_price()
 	{
@@ -50,7 +50,7 @@ class TsmartViewpromotion extends VmViewAdmin {
 
 		$config = JFactory::getConfig();
 
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
         $this->list_service_class = vmServiceclass::get_list_service_class();
 
 
@@ -59,7 +59,7 @@ class TsmartViewpromotion extends VmViewAdmin {
 		if ($layoutName == 'edit') {
 			$virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
 			$this->virtuemart_product_id=$virtuemart_product_id;
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 
 
@@ -91,7 +91,7 @@ class TsmartViewpromotion extends VmViewAdmin {
 			$this->addStandardEditViewCommands();
 
 		} else {
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
             $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
             $this->virtuemart_product_id=$virtuemart_product_id;
@@ -108,7 +108,7 @@ class TsmartViewpromotion extends VmViewAdmin {
             $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');

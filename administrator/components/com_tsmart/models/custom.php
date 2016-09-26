@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model for VirtueMart Customs Fields
@@ -94,7 +94,7 @@ class VirtueMartModelCustom extends VmModel {
 			//			vm3 withParent="1"|parentOrderable="1"|
 			$this->_cache[$this->_id]->_xParams = 'custom_params';
 			if(!empty($this->_cache[$this->_id]->_varsToPushParam)){
-				VmTable::bindParameterable($this->_cache[$this->_id],'custom_params',$this->_cache[$this->_id]->_varsToPushParam);
+				tsmTable::bindParameterable($this->_cache[$this->_id],'custom_params',$this->_cache[$this->_id]->_varsToPushParam);
 			}
     	}
 
@@ -147,7 +147,7 @@ class VirtueMartModelCustom extends VmModel {
 				$data->group_title =  '-' ;
 			}
 			if(!empty($field_types[$data->field_type ])){
-				$data->field_type_display = vmText::_( $field_types[$data->field_type ] );
+				$data->field_type_display = tsmText::_( $field_types[$data->field_type ] );
 			} else {
 				$data->field_type_display = 'not valid, delete this line';
 				vmError('The field with id '.$data->virtuemart_custom_id.' and title '.$data->custom_title.' is not longer valid, please delete it from the list');

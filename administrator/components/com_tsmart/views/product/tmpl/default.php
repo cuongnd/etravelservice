@@ -38,16 +38,16 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                     <table class="">
                         <tr>
                             <td align="left">
-                                <?php echo vmText::_('com_tsmart_FILTER') ?>:
+                                <?php echo tsmText::_('com_tsmart_FILTER') ?>:
                                 <select class="inputbox" id="virtuemart_category_id" name="virtuemart_category_id"
                                         onchange="this.form.submit(); return false;">
                                     <option
-                                        value=""><?php echo vmText::sprintf('com_tsmart_SELECT', vmText::_('com_tsmart_CATEGORY')); ?></option>
+                                        value=""><?php echo tsmText::sprintf('com_tsmart_SELECT', tsmText::_('com_tsmart_CATEGORY')); ?></option>
                                     <?php echo $this->category_tree; ?>
                                 </select>
 
 
-                                <?php echo vmText::_('com_tsmart_PRODUCT_LIST_SEARCH_BY_DATE') ?>&nbsp;
+                                <?php echo tsmText::_('com_tsmart_PRODUCT_LIST_SEARCH_BY_DATE') ?>&nbsp;
                                 <input type="text" value="<?php echo vRequest::getVar('filter_product'); ?>"
                                        name="filter_product" size="25"/>
                                 <?php
@@ -57,9 +57,9 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                 echo $this->lists['vendors'];
                                 ?>
                                 <button class="btn btn-small"
-                                        onclick="this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?></button>
+                                        onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
                                 <button class="btn btn-small"
-                                        onclick="document.adminForm.filter_product.value=''; document.adminForm.search_type.options[0].selected = true;"><?php echo vmText::_('com_tsmart_RESET'); ?></button>
+                                        onclick="document.adminForm.filter_product.value=''; document.adminForm.search_type.options[0].selected = true;"><?php echo tsmText::_('com_tsmart_RESET'); ?></button>
 
                             </td>
 
@@ -93,16 +93,16 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                                           onclick="Joomla.checkAll(this)"/></th>
 
                         <th width="20%"><?php echo $this->sort('product_name', $col_product_name) ?> </th>
-                        <th style="min-width:40px;"><?php echo vmText::_('tour code'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('tour type'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('tour style'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('Start end city'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('price'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('hotel'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('add ons'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('Payment'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('Added'); ?></th>
-                        <th style="min-width:40px;"><?php echo vmText::_('assigns'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('tour code'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('tour type'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('tour style'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Start end city'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('price'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('hotel'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('add ons'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Payment'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Added'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('assigns'); ?></th>
                         <th width="40px"><?php echo $this->sort('product_special', 'com_tsmart_PRODUCT_FORM_SPECIAL'); ?> </th>
                         <th width="40px"><?php echo $this->sort('published'); ?></th>
                         <th><?php echo $this->sort('p.virtuemart_product_id', 'com_tsmart_ID') ?></th>
@@ -135,7 +135,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     if (empty($product->product_name)) {
                                         $product->product_name = 'Language Missing id ' . $product->virtuemart_product_id;
                                     }
-                                    echo JHtml::_('link', JRoute::_($link), $product->product_name, array('title' => vmText::_('com_tsmart_EDIT') . ' ' . htmlentities($product->product_name))); ?>
+                                    echo JHtml::_('link', JRoute::_($link), $product->product_name, array('title' => tsmText::_('com_tsmart_EDIT') . ' ' . htmlentities($product->product_name))); ?>
                                     <!-- </span>  -->
                                 </td>
                                 <td>

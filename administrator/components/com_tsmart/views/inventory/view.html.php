@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the VirtueMart Component
@@ -28,7 +28,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author
  */
-class TsmartViewInventory extends VmViewAdmin {
+class TsmartViewInventory extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -66,9 +66,9 @@ class TsmartViewInventory extends VmViewAdmin {
 		}
 
 		$options = array();
-		$options[] = JHtml::_('select.option', '', vmText::_('com_tsmart_DISPLAY_STOCK').':');
-		$options[] = JHtml::_('select.option', 'stocklow', vmText::_('com_tsmart_STOCK_LEVEL_LOW'));
-		$options[] = JHtml::_('select.option', 'stockout', vmText::_('com_tsmart_STOCK_LEVEL_OUT'));
+		$options[] = JHtml::_('select.option', '', tsmText::_('com_tsmart_DISPLAY_STOCK').':');
+		$options[] = JHtml::_('select.option', 'stocklow', tsmText::_('com_tsmart_STOCK_LEVEL_LOW'));
+		$options[] = JHtml::_('select.option', 'stockout', tsmText::_('com_tsmart_STOCK_LEVEL_OUT'));
 		$this->lists['stockfilter'] = JHtml::_('select.genericlist', $options, 'search_type', 'onChange="document.adminForm.submit(); return false;"', 'value', 'text', vRequest::getVar('search_type'));
 		$this->lists['filter_product'] = vRequest::getVar('filter_product');
 

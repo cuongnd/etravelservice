@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the Installation. Updating of the files and imports of the database should be done here
@@ -29,14 +29,14 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage UpdatesMigration
  * @author Max Milbers
  */
-class TsmartViewUpdatesMigration extends VmViewAdmin {
+class TsmartViewUpdatesMigration extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
 
 		$latestVersion = vRequest::getVar('latestverison', '');
 
-		JToolBarHelper::title(vmText::_('com_tsmart_UPDATE_MIGRATION'), 'head vm_config_48');
+		JToolBarHelper::title(tsmText::_('com_tsmart_UPDATE_MIGRATION'), 'head vm_config_48');
 
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');

@@ -23,13 +23,13 @@ defined('_JEXEC') or die('Restricted access');
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_SHOPPER_FORM_LBL') ?>
+		<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_LBL') ?>
 	</legend>
 	<table class="adminform">
 		<tr>
 			<td class="key">
 				<label for="virtuemart_vendor_id">
-					<?php echo vmText::_('com_tsmart_VENDOR') ?>:
+					<?php echo tsmText::_('com_tsmart_VENDOR') ?>:
 				</label>
 			</td>
 			<td>
@@ -40,7 +40,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="customer_number">
-					<?php echo vmText::_('com_tsmart_USER_FORM_CUSTOMER_NUMBER') ?>:
+					<?php echo tsmText::_('com_tsmart_USER_FORM_CUSTOMER_NUMBER') ?>:
 				</label>
 			</td>
 			<td>
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="virtuemart_shoppergroup_id">
-					<?php echo vmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?>:
+					<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?>:
 				</label>
 			</td>
 			<td>
@@ -64,7 +64,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php if ($this->userDetails->JUser->get('id') ) { ?>
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_USER_FORM_SHIPTO_LBL'); ?>
+		<?php echo tsmText::_('com_tsmart_USER_FORM_SHIPTO_LBL'); ?>
 	</legend>
 
 	<?php echo $this->lists['shipTo']; ?>
@@ -74,7 +74,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_USERFIELDS_FORM_LBL'); ?>
+		<?php echo tsmText::_('com_tsmart_USERFIELDS_FORM_LBL'); ?>
 	</legend>
 <?php
 	$_k = 0;
@@ -159,7 +159,7 @@ function gotocontact(id) {
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_USER_FORM_LEGEND_USERDETAILS'); ?>
+		<?php echo tsmText::_('com_tsmart_USER_FORM_LEGEND_USERDETAILS'); ?>
 	</legend>
 	<table class="admintable" cellspacing="1">
 
@@ -167,7 +167,7 @@ function gotocontact(id) {
 		<?php if ($this->lists['canBlock']) : ?>
 		<tr>
 			<td class="key">
-				<?php echo vmText::_('com_tsmart_USER_FORM_BLOCKUSER'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_BLOCKUSER'); ?>
 			</td>
 			<td><fieldset class="radio">
 				<?php echo $this->lists['block']; ?>
@@ -178,7 +178,7 @@ function gotocontact(id) {
 		<?php if ($this->lists['canSetMailopt']) : ?>
 		<tr>
 			<td class="key">
-				<?php echo vmText::_('com_tsmart_USER_FORM_RECEIVESYSTEMEMAILS'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_RECEIVESYSTEMEMAILS'); ?>
 			</td>
 			<td>
 				<fieldset class="radio">
@@ -194,7 +194,7 @@ function gotocontact(id) {
 		<?php if( $this->userDetails->JUser ) : ?>
 		<tr>
 			<td class="key">
-				<?php echo vmText::_('com_tsmart_USER_FORM_REGISTERDATE'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_REGISTERDATE'); ?>
 			</td>
 			<td>
 				<?php echo $this->userDetails->JUser->get('registerDate');?>
@@ -203,7 +203,7 @@ function gotocontact(id) {
 
 		<tr>
 			<td class="key">
-				<?php echo vmText::_('com_tsmart_USER_FORM_LASTVISITDATE'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_LASTVISITDATE'); ?>
 			</td>
 			<td>
 				<?php echo $this->userDetails->JUser->get('lastvisitDate'); ?>
@@ -216,7 +216,7 @@ function gotocontact(id) {
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_USER_FORM_LEGEND_PARAMETERS'); ?>
+		<?php echo tsmText::_('com_tsmart_USER_FORM_LEGEND_PARAMETERS'); ?>
 		</legend>
 	<table class="admintable" cellspacing="1">
 		<tr>
@@ -233,16 +233,16 @@ function gotocontact(id) {
 
 <fieldset>
 	<legend>
-		<?php echo vmText::_('com_tsmart_USER_FORM_LEGEND_CONTACTINFO'); ?>
+		<?php echo tsmText::_('com_tsmart_USER_FORM_LEGEND_CONTACTINFO'); ?>
 	</legend>
 	<?php if ( !$this->contactDetails ) { ?>
 	<table class="admintable" cellspacing="1">
 		<tr>
 			<td>
 				<br />
-				<?php echo vmText::_('com_tsmart_USER_FORM_NOCONTACTDETAILS_1'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_NOCONTACTDETAILS_1'); ?>
 				<br />
-				<?php echo vmText::_('com_tsmart_USER_FORM_NOCONTACTDETAILS_2'); ?>
+				<?php echo tsmText::_('com_tsmart_USER_FORM_NOCONTACTDETAILS_2'); ?>
 				<br /><br />
 			</td>
 		</tr>
@@ -251,7 +251,7 @@ function gotocontact(id) {
 	<table class="admintable" cellspacing="1">
 		<tr>
 			<td width="15%">
-				<?php echo vmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_NAME'); ?>:
+				<?php echo tsmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_NAME'); ?>:
 			</td>
 			<td>
 				<strong><?php echo $this->contactDetails->name;?></strong>
@@ -259,7 +259,7 @@ function gotocontact(id) {
 		</tr>
 		<tr>
 			<td>
-				<?php echo vmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_POSITION'); ?>:
+				<?php echo tsmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_POSITION'); ?>:
 			</td>
 			<td >
 				<strong><?php echo $this->contactDetails->con_position;?></strong>
@@ -267,7 +267,7 @@ function gotocontact(id) {
 		</tr>
 		<tr>
 			<td>
-				<?php echo vmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_TELEPHONE'); ?>:
+				<?php echo tsmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_TELEPHONE'); ?>:
 			</td>
 			<td >
 				<strong><?php echo $this->contactDetails->telephone;?></strong>
@@ -275,7 +275,7 @@ function gotocontact(id) {
 		</tr>
 		<tr>
 			<td>
-				<?php echo vmText::_('com_tsmart_SHOPPER_FORM_FAX'); ?>:
+				<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_FAX'); ?>:
 			</td>
 			<td >
 				<strong><?php echo $this->contactDetails->fax;?></strong>
@@ -298,7 +298,7 @@ function gotocontact(id) {
 		<tr>
 			<td colspan="2">
 				<br />
-				<input class="button" type="button" value="<?php echo vmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_CHANGEBUTTON'); ?>" onclick="javascript: gotocontact( '<?php echo $this->contactDetails->id; ?>' )">
+				<input class="button" type="button" value="<?php echo tsmText::_('com_tsmart_USER_FORM_CONTACTDETAILS_CHANGEBUTTON'); ?>" onclick="javascript: gotocontact( '<?php echo $this->contactDetails->id; ?>' )">
 			</td>
 		</tr>
 	</table>

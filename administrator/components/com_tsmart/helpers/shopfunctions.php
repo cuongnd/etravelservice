@@ -66,7 +66,7 @@ class ShopFunctions {
 		foreach($idList as $id ){
 
 			$item = $table->load ((int)$id);
-			if($translate) $item->$name = vmText::_($item->$name);
+			if($translate) $item->$name = tsmText::_($item->$name);
 			$link = ', '.JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view='.$view.'&task=edit&'.$cid.'[]='.$id,false), $item->$name);
 			if($i<$quantity and $i<=count($idList)){
 				$list .= $link;
@@ -101,7 +101,7 @@ class ShopFunctions {
 		$view = vRequest::getCmd('view',false);
 		if(!vmAccess::manager(array($view,'managevendors'),0,true)) {
 			if (empty($vendorId)) {
-				$vendor = vmText::_('com_tsmart_USER_NOT_A_VENDOR');
+				$vendor = tsmText::_('com_tsmart_USER_NOT_A_VENDOR');
 			} else {
 				$db = JFactory::getDBO ();
 				$q = 'SELECT `vendor_name` FROM `#__virtuemart_vendors` WHERE `virtuemart_vendor_id` = "' . (int)$vendorId . '" ';
@@ -132,7 +132,7 @@ class ShopFunctions {
 			$attrs['multiple'] = 'multiple';
 			$idA .= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', vmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_vendor_id', 'vendor_name');
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_vendor_id', 'vendor_name');
 			array_unshift ($vendors, $emptyOption);
 		}
 		$listHTML = JHtml::_ ('select.genericlist', $vendors, $idA, $attrs, 'virtuemart_vendor_id', 'vendor_name', $vendorId, $id);
@@ -159,12 +159,12 @@ class ShopFunctions {
 		$attrs['class'] = 'vm-chzn-select';
 		if ($multiple) {
 			$attrs['multiple'] = 'multiple';
-			$attrs['data-placeholder'] = vmText::_($select_attribute);
+			$attrs['data-placeholder'] = tsmText::_($select_attribute);
 			if($name=='virtuemart_shoppergroup_id'){
 				$name.= '[]';
 			}
 		} else {
-			$emptyOption = JHTML::_ ('select.option', '', vmText::_ ($select_attribute), 'virtuemart_shoppergroup_id', 'shopper_group_name');
+			$emptyOption = JHTML::_ ('select.option', '', tsmText::_ ($select_attribute), 'virtuemart_shoppergroup_id', 'shopper_group_name');
 			array_unshift ($shoppergrps, $emptyOption);
 		}
 
@@ -188,7 +188,7 @@ class ShopFunctions {
 			$attrs['multiple'] = 'multiple';
 			if($name=='virtuemart_manufacturer_id')	$name.= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', vmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_manufacturer_id', 'mf_name');
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_manufacturer_id', 'mf_name');
 			array_unshift ($manufacturers, $emptyOption);
 		}
 
@@ -210,8 +210,8 @@ class ShopFunctions {
 		$taxes = VirtueMartModelCalc::getTaxes ();
 
 		$taxrates = array();
-		$taxrates[] = JHtml::_ ('select.option', '-1', vmText::_ ('com_tsmart_PRODUCT_TAX_NONE'), $name);
-		$taxrates[] = JHtml::_ ('select.option', '0', vmText::_ ('com_tsmart_PRODUCT_TAX_NO_SPECIAL'), $name);
+		$taxrates[] = JHtml::_ ('select.option', '-1', tsmText::_ ('com_tsmart_PRODUCT_TAX_NONE'), $name);
+		$taxrates[] = JHtml::_ ('select.option', '0', tsmText::_ ('com_tsmart_PRODUCT_TAX_NO_SPECIAL'), $name);
 		foreach ($taxes as $tax) {
 			$taxrates[] = JHtml::_ ('select.option', $tax->virtuemart_calc_id, $tax->calc_name, $name);
 		}
@@ -231,7 +231,7 @@ class ShopFunctions {
 	static public function renderTemplateList ($defaultText = 0, $defaultOption = TRUE) {
 
 		if (empty($defaultText)) {
-			$defaultText = vmText::_ ('com_tsmart_TEMPLATE_DEFAULT');
+			$defaultText = tsmText::_ ('com_tsmart_TEMPLATE_DEFAULT');
 		}
 
 		$defaulttemplate = array();
@@ -267,7 +267,7 @@ class ShopFunctions {
 		$db->setQuery($qry);
 		$orderStatusList = $db -> loadAssocList();
 		foreach($orderStatusList as &$text){
-			$text['text'] = $text['value'].' '.vmText::_($text['text']);
+			$text['text'] = $text['value'].' '.tsmText::_($text['text']);
 		}
 		return JHtml::_('select.genericlist',$orderStatusList,'ordering','','value','text',$selected);
 	}
@@ -284,11 +284,11 @@ class ShopFunctions {
 			return $weigth_unit;
 		}
 		return $weigth_unit = array(
-			'KG' => vmText::_ ('com_tsmart_UNIT_NAME_KG')
-		, 'G'   => vmText::_ ('com_tsmart_UNIT_NAME_G')
-		, 'MG'   => vmText::_ ('com_tsmart_UNIT_NAME_MG')
-		, 'LB'   => vmText::_ ('com_tsmart_UNIT_NAME_LB')
-		, 'OZ'   => vmText::_ ('com_tsmart_UNIT_NAME_ONCE')
+			'KG' => tsmText::_ ('com_tsmart_UNIT_NAME_KG')
+		, 'G'   => tsmText::_ ('com_tsmart_UNIT_NAME_G')
+		, 'MG'   => tsmText::_ ('com_tsmart_UNIT_NAME_MG')
+		, 'LB'   => tsmText::_ ('com_tsmart_UNIT_NAME_LB')
+		, 'OZ'   => tsmText::_ ('com_tsmart_UNIT_NAME_ONCE')
 		);
 	}
 
@@ -326,13 +326,13 @@ class ShopFunctions {
 	static function renderUnitIsoList($name, $selected){
 
 		$weight_unit_default = array(
-			'KG' => vmText::_ ('com_tsmart_UNIT_SYMBOL_KG')
-		, '100G' => vmText::_ ('com_tsmart_UNIT_SYMBOL_100G')
-		, 'M'   => vmText::_ ('com_tsmart_UNIT_SYMBOL_M')
-		, 'SM'   => vmText::_ ('com_tsmart_UNIT_SYMBOL_SM')
-		, 'CUBM'   => vmText::_ ('com_tsmart_UNIT_SYMBOL_CUBM')
-		, 'L'   => vmText::_ ('com_tsmart_UNIT_SYMBOL_L')
-		, '100ML'   => vmText::_ ('com_tsmart_UNIT_SYMBOL_100ML')
+			'KG' => tsmText::_ ('com_tsmart_UNIT_SYMBOL_KG')
+		, '100G' => tsmText::_ ('com_tsmart_UNIT_SYMBOL_100G')
+		, 'M'   => tsmText::_ ('com_tsmart_UNIT_SYMBOL_M')
+		, 'SM'   => tsmText::_ ('com_tsmart_UNIT_SYMBOL_SM')
+		, 'CUBM'   => tsmText::_ ('com_tsmart_UNIT_SYMBOL_CUBM')
+		, 'L'   => tsmText::_ ('com_tsmart_UNIT_SYMBOL_L')
+		, '100ML'   => tsmText::_ ('com_tsmart_UNIT_SYMBOL_100ML')
 		);
 		foreach ($weight_unit_default as  $key => $value) {
 			$wu_list[] = JHtml::_ ('select.option', $key, $value, $name);
@@ -468,12 +468,12 @@ class ShopFunctions {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		}
 
-		$lwh_unit_default = array('M' => vmText::_ ('com_tsmart_UNIT_NAME_M')
-		, 'CM'                        => vmText::_ ('com_tsmart_UNIT_NAME_CM')
-		, 'MM'                        => vmText::_ ('com_tsmart_UNIT_NAME_MM')
-		, 'YD'                        => vmText::_ ('com_tsmart_UNIT_NAME_YARD')
-		, 'FT'                        => vmText::_ ('com_tsmart_UNIT_NAME_FOOT')
-		, 'IN'                        => vmText::_ ('com_tsmart_UNIT_NAME_INCH')
+		$lwh_unit_default = array('M' => tsmText::_ ('com_tsmart_UNIT_NAME_M')
+		, 'CM'                        => tsmText::_ ('com_tsmart_UNIT_NAME_CM')
+		, 'MM'                        => tsmText::_ ('com_tsmart_UNIT_NAME_MM')
+		, 'YD'                        => tsmText::_ ('com_tsmart_UNIT_NAME_YARD')
+		, 'FT'                        => tsmText::_ ('com_tsmart_UNIT_NAME_FOOT')
+		, 'IN'                        => tsmText::_ ('com_tsmart_UNIT_NAME_INCH')
 		);
 		foreach ($lwh_unit_default as  $key => $value) {
 			$lu_list[] = JHtml::_ ('select.option', $key, $value, $name);
@@ -500,8 +500,8 @@ class ShopFunctions {
 		$html =
 			'<tr>
 				<td class="key">
-					<span class="editlinktip hasTip" title="' . vmText::_ ($langkey . '_EXPLAIN') . '">
-						<label>' . vmText::_ ($langkey) .
+					<span class="editlinktip hasTip" title="' . tsmText::_ ($langkey . '_EXPLAIN') . '">
+						<label>' . tsmText::_ ($langkey) .
 						'</label>
 					</span>
 				</td>
@@ -877,7 +877,7 @@ class ShopFunctions {
 		}
 		$start = $start ? $start : 1;
 		$end = $end ? $end : $start + 30;
-		$options[] = JHtml::_ ('select.option', 0, vmText::_ ('DAY'));
+		$options[] = JHtml::_ ('select.option', 0, tsmText::_ ('DAY'));
 		for ($i = $start; $i <= $end; $i++) {
 			$options[] = JHtml::_ ('select.option', $i, $i);
 		}
@@ -899,21 +899,21 @@ class ShopFunctions {
 			$selected = date ('m');
 		}
 		$months=array(
-			"01"=>vmText::_ ('JANUARY'),
-			"02"=>vmText::_ ('FEBRUARY'),
-			"03"=>vmText::_ ('MARCH'),
-			"04"=>vmText::_ ('APRIL'),
-			"05"=>vmText::_ ('MAY'),
-			"06"=>vmText::_ ('JUNE'),
-			"07"=>vmText::_ ('JULY'),
-			"08"=>vmText::_ ('AUGUST'),
-			"09"=>vmText::_ ('SEPTEMBER'),
-			"10"=>vmText::_ ('OCTOBER'),
-			"11"=>vmText::_ ('NOVEMBER'),
-			"12"=>vmText::_ ('DECEMBER')
+			"01"=>tsmText::_ ('JANUARY'),
+			"02"=>tsmText::_ ('FEBRUARY'),
+			"03"=>tsmText::_ ('MARCH'),
+			"04"=>tsmText::_ ('APRIL'),
+			"05"=>tsmText::_ ('MAY'),
+			"06"=>tsmText::_ ('JUNE'),
+			"07"=>tsmText::_ ('JULY'),
+			"08"=>tsmText::_ ('AUGUST'),
+			"09"=>tsmText::_ ('SEPTEMBER'),
+			"10"=>tsmText::_ ('OCTOBER'),
+			"11"=>tsmText::_ ('NOVEMBER'),
+			"12"=>tsmText::_ ('DECEMBER')
 		);
 
-		$options[] = JHTML::_ ('select.option', 0, vmText::_ ('MONTH'));
+		$options[] = JHTML::_ ('select.option', 0, tsmText::_ ('MONTH'));
 		foreach($months as  $key => $value) {
 			if ($format=='F') {
 				$text=$value;
@@ -941,7 +941,7 @@ class ShopFunctions {
 		}
 		$start = $start ? $start : date ($format);
 		$end = $end ? $end : $start + 11;
-		$options[] = JHtml::_ ('select.option', 0, vmText::_ ('YEAR'));
+		$options[] = JHtml::_ ('select.option', 0, tsmText::_ ('YEAR'));
 		for ($i = $start; $i <= $end; $i++) {
 			$options[] = JHtml::_ ('select.option', $i, $i);
 		}
@@ -1022,9 +1022,9 @@ class ShopFunctions {
 
 		$html = $intro;
 
-		$html .= self::displayLinkButton(vmText::sprintf('com_tsmart_THRD_PARTY_CONTACT',$developer),$contactlink, $logolink.'/contact.png',$width,$height,$linesHeight);
+		$html .= self::displayLinkButton(tsmText::sprintf('com_tsmart_THRD_PARTY_CONTACT',$developer),$contactlink, $logolink.'/contact.png',$width,$height,$linesHeight);
 		$html .='<br />';
-		$html .= self::displayLinkButton(vmText::sprintf('com_tsmart_THRD_PARTY_MANUAL',$title),$manlink, $logolink.'/manual.png',$width,$height,$linesHeight);
+		$html .= self::displayLinkButton(tsmText::sprintf('com_tsmart_THRD_PARTY_MANUAL',$title),$manlink, $logolink.'/manual.png',$width,$height,$linesHeight);
 
 		return $html;
 	}
@@ -1069,14 +1069,14 @@ class ShopFunctions {
 				if(!is_writable( $safePath )){
 					VmConfig::loadJLang('com_tsmart_config');
 					vmdebug('checkSafePath $safePath not writeable '.$safePath);
-					VmError(vmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',vmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
-						,vmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
+					VmError(tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
+						,tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
 				} else {
 					if(!is_writable(self::getInvoicePath($safePath) )){
 						VmConfig::loadJLang('com_tsmart_config');
 						vmdebug('checkSafePath $safePath/invoice not writeable '.addslashes($safePath));
-						VmError(vmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',vmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
-						,vmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
+						VmError(tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$safePath)
+						,tsmText::sprintf('com_tsmart_WARN_SAFE_PATH_INV_NOT_WRITEABLE','',''));
 					}
 				}
 			}
@@ -1088,7 +1088,7 @@ class ShopFunctions {
 			$suggestedPath2 = VMPATH_ADMIN.DS.self::generateRandomString(12).DS;
 			VmConfig::loadJLang('com_tsmart_config');
 			$configlink = $uri->root() . 'administrator/index.php?option=com_tsmart&view=config';
-			VmError(vmText::sprintf($warn,vmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$suggestedPath,$configlink,$suggestedPath2));
+			VmError(tsmText::sprintf($warn,tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'),$suggestedPath,$configlink,$suggestedPath2));
 		}
 
 		return $safePath;
@@ -1143,12 +1143,12 @@ class ShopFunctions {
 			$html .= $order_info['quantity'];
 			$html .= '</td>';
 			$html .= '<td class="order_status">';
-			$html .= vmText::_($order_info['order_item_status_name']);
+			$html .= tsmText::_($order_info['order_item_status_name']);
 			$html .= '</td>
 			<td class="order_number">';
 				$uri = JFactory::getURI();
 				$link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id=' . $order_info['order_id'];
-				$html .= JHtml::_ ('link', $link, $order_info['order_number'], array('title' => vmText::_ ('com_tsmart_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order_info['order_number']));
+				$html .= JHtml::_ ('link', $link, $order_info['order_number'], array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order_info['order_number']));
 			$first=FALSE;
 			$html .= '
 					</td>
@@ -1161,7 +1161,7 @@ class ShopFunctions {
 			$html = '
 				<tr class="customer">
 					<td colspan="4">
-						' . vmText::_ ('com_tsmart_NO_SEARCH_RESULT') . '
+						' . tsmText::_ ('com_tsmart_NO_SEARCH_RESULT') . '
 					</td>
 				</tr>
 				';
@@ -1173,12 +1173,12 @@ class ShopFunctions {
 	static public function renderMetaEdit($obj){
 
 		$options = array(
-			''	=>	vmText::_('JGLOBAL_INDEX_FOLLOW'),
-			'noindex, follow'	=>	vmText::_('JGLOBAL_NOINDEX_FOLLOW'),
-			'index, nofollow'	=>	vmText::_('JGLOBAL_INDEX_NOFOLLOW'),
-			'noindex, nofollow'	=>	vmText::_('JGLOBAL_NOINDEX_NOFOLLOW'),
-			'noodp, noydir'	=>	vmText::_('com_tsmart_NOODP_NOYDIR'),
-			'noodp, noydir, nofollow'	=>	vmText::_('com_tsmart_NOODP_NOYDIR_NOFOLLOW'),
+			''	=>	tsmText::_('JGLOBAL_INDEX_FOLLOW'),
+			'noindex, follow'	=>	tsmText::_('JGLOBAL_NOINDEX_FOLLOW'),
+			'index, nofollow'	=>	tsmText::_('JGLOBAL_INDEX_NOFOLLOW'),
+			'noindex, nofollow'	=>	tsmText::_('JGLOBAL_NOINDEX_NOFOLLOW'),
+			'noodp, noydir'	=>	tsmText::_('com_tsmart_NOODP_NOYDIR'),
+			'noodp, noydir, nofollow'	=>	tsmText::_('com_tsmart_NOODP_NOYDIR_NOFOLLOW'),
 		);
 		$html = '<table>
 					'.VmHTML::row('input','com_tsmart_CUSTOM_PAGE_TITLE','customtitle',$obj->customtitle).'

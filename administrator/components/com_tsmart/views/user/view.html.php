@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of users
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage User
  * @author Oscar van Eijk
  */
-class TsmartViewUser extends VmViewAdmin {
+class TsmartViewUser extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -47,7 +47,7 @@ class TsmartViewUser extends VmViewAdmin {
 		if($task == 'editshop'){
 			$isSuperOrVendor = vmAccess::isSuperVendor();
 			if(empty($isSuperOrVendor)){
-				JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', vmText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			} else {
 				if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
 				$userId = VirtueMartModelVendor::getUserIdByVendorId($isSuperOrVendor);
@@ -81,7 +81,7 @@ class TsmartViewUser extends VmViewAdmin {
 				if(!empty($userDetails->vendor->vendor_store_name)){
 					$this->SetViewTitle('STORE',$userDetails->vendor->vendor_store_name, 'shop_mart' );
 				} else {
-					$this->SetViewTitle('STORE',vmText::_('com_tsmart_NEW_VENDOR') , 'shop_mart');
+					$this->SetViewTitle('STORE',tsmText::_('com_tsmart_NEW_VENDOR') , 'shop_mart');
 				}
 				$vendorid = $userDetails->virtuemart_vendor_id;
 				if($vendorid==1)$this -> checkTCPDFinstalled();
@@ -253,7 +253,7 @@ class TsmartViewUser extends VmViewAdmin {
 		$vendorModel->setId($vendorId);
 		$vendor = $vendorModel->getVendor();
 		$vendorModel->addImages($vendor);
-		$this->assignRef('subject', ($doVendor) ? vmText::sprintf('com_tsmart_NEW_USER_MESSAGE_VENDOR_SUBJECT', $this->user->get('email')) : vmText::sprintf('com_tsmart_NEW_USER_MESSAGE_SUBJECT',$vendor->vendor_store_name));
+		$this->assignRef('subject', ($doVendor) ? tsmText::sprintf('com_tsmart_NEW_USER_MESSAGE_VENDOR_SUBJECT', $this->user->get('email')) : tsmText::sprintf('com_tsmart_NEW_USER_MESSAGE_SUBJECT',$vendor->vendor_store_name));
 		parent::display();
 	}
 

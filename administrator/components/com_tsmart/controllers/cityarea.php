@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllercityarea extends VmController {
+class TsmartControllercityarea extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -59,7 +59,7 @@ class TsmartControllercityarea extends VmController {
 		$input=$app->input;
 		$virtuemart_state_id=$input->get('virtuemart_state_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
-		$list_state=vmcities::get_list_city_by_state_id($virtuemart_state_id);
+		$list_state=tsmcities::get_list_city_by_state_id($virtuemart_state_id);
 		echo json_encode($list_state);
 		jexit();
 	}

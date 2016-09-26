@@ -25,7 +25,7 @@ JHtml::_('formbehavior.chosen');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
 $format_date=VmConfig::$date_format;// 'd-m-Y';
-require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
+require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 $doc->addScript(JUri::root() . '/media/system/js/datepicker/js/datepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/dateFormat.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/src/jquery.dateFormat.js');
@@ -156,7 +156,7 @@ AdminUIHelper::startAdminArea($this);
                     </div>
                 </div>
 
-                <?php if ($this->product->price_type != vmGroupSize::FLAT_PRICE) { ?>
+                <?php if ($this->product->price_type != tsmGroupSize::FLAT_PRICE) { ?>
                     <div class="row-fluid">
                         <div class="span12">
 
@@ -194,7 +194,7 @@ AdminUIHelper::startAdminArea($this);
                                     ?>
                                     <tr role="row"
                                         data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
-                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td>
                                             <input type="hidden" name="tour_price_by_tour_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
                                             <input required="true"
@@ -355,7 +355,7 @@ AdminUIHelper::startAdminArea($this);
                                     $group_size=$this->list_group_size_by_tour_id[$i];
                                     ?>
                                     <tr>
-                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="senior"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -407,7 +407,7 @@ AdminUIHelper::startAdminArea($this);
                                 ?>
 
                                     <tr>
-                                        <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                                        <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                                                   column-type="senior"></span></td>
                                         <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -472,7 +472,7 @@ AdminUIHelper::startAdminArea($this);
                             ?>
                             <tr role="row"
                                 data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
-                                <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                                <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                                 <td>
                                     <input type="hidden" name="tour_price_by_tour_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
                                     <input required="true"
@@ -721,7 +721,7 @@ AdminUIHelper::startAdminArea($this);
         jQuery(document).ready(function ($) {
             $('#adminForm').view_price_default({
                 list_price:<?php echo json_encode($this->prices) ?>,
-                flat_price:"<?php echo vmGroupSize::FLAT_PRICE ?>",
+                flat_price:"<?php echo tsmGroupSize::FLAT_PRICE ?>",
                 tour_id:<?php echo $this->virtuemart_product_id ?>,
                 totalItem:<?php echo count($this->prices) ?>,
                 totalPages:<?php echo count($this->prices) ?>,

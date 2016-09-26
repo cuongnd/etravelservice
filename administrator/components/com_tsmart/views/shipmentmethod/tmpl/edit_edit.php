@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="col50">
     <fieldset>
-        <legend><?php echo vmText::_('com_tsmart_SHIPMENTMETHOD'); ?></legend>
+        <legend><?php echo tsmText::_('com_tsmart_SHIPMENTMETHOD'); ?></legend>
         <table class="admintable">
 	    <?php echo VmHTML::row('input', 'com_tsmart_SHIPPING_FORM_NAME', 'shipment_name', $this->shipment->shipment_name,'class="required"'); ?>
 		<?php echo VmHTML::row('input', 'com_tsmart_SLUG', 'slug', $this->shipment->slug); ?>

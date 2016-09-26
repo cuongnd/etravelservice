@@ -26,7 +26,7 @@ if(!VmConfig::get('dangeroustools', false)){
 	?>
 
 	<div class="vmquote" style="text-align:left;margin-left:20px;">
-		<span style="font-weight:bold;color:green;"> <?php echo vmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_ENABLED_JS',vmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link) ?></span>
+		<span style="font-weight:bold;color:green;"> <?php echo tsmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_ENABLED_JS',tsmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link) ?></span>
 	</div>
 
 <?php
@@ -39,14 +39,14 @@ $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=installC
 
 <div class="icon"><a onclick="javascript:confirmation('<?php echo $link; ?>');">
 		<span class="vmicon48"></span>
-		<br /><?php echo vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH'); ?>
+		<br /><?php echo tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH'); ?>
 
 	</a></div>
 
 <?php	$link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=installCompleteSamples&'.JSession::getFormToken().'=1&token='.JSession::getFormToken().'&install=1'); ?>
 	<div class="icon"><a onclick="javascript:confirmation('<?php echo $link; ?>');">
 			<span class="vmicon48"></span>
-			<br /><?php echo vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE'); ?>
+			<br /><?php echo tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE'); ?>
 
 		</a></div>
 	</table>

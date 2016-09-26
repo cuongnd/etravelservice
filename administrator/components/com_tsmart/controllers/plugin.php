@@ -18,14 +18,14 @@ defined('_JEXEC') or die();
 */
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 /**
  * VirtueMart default administrator controller
  *
  * @package		VirtueMart
  */
-class TsmartControllerPlugin extends VmController
+class TsmartControllerPlugin extends TsmController
 {
 	/**
 	 * Method to render the plugin datas

@@ -18,7 +18,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access'); ?>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SEO_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SEO_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SEO_DISABLE','seo_disabled', VmConfig::get('seo_disabled', 0));

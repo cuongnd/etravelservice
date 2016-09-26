@@ -20,7 +20,7 @@
 defined ('_JEXEC') or die('Restricted access');
 
 if (!class_exists ('VmModel')) {
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
 /**
@@ -193,7 +193,7 @@ class VirtueMartModelVendor extends VmModel {
 			} else if(!empty($data['company'])){
 				$data['vendor_store_name'] = $data['company'];
 			} else {
-				$data['vendor_store_name'] = vmText::_('com_tsmart_VENDOR').' '.$data['vendor_name'];
+				$data['vendor_store_name'] = tsmText::_('com_tsmart_VENDOR').' '.$data['vendor_name'];
 			}
 		}
 		if(empty($data['vendor_name'])) $data['vendor_name'] = $data['vendor_store_name'];

@@ -22,7 +22,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model for VirtueMart Orders
@@ -133,7 +133,7 @@ class VirtueMartModelOrders extends VmModel {
 			$orderNumber = vRequest::getString('order_number',$orderNumber);
 			$tries = $sess->get('getOrderDetails.'.$orderNumber,0);
 			if($tries>5){
-				vmDebug ('Too many tries, Invalid order_number/password '.vmText::_('com_tsmart_RESTRICTED_ACCESS'));
+				vmDebug ('Too many tries, Invalid order_number/password '.tsmText::_('com_tsmart_RESTRICTED_ACCESS'));
 				return false;
 			}
             // If the user is not logged in, we will check the order number and order pass
@@ -141,7 +141,7 @@ class VirtueMartModelOrders extends VmModel {
 
                 $orderId = $this->getOrderIdByOrderPass($orderNumber,$orderPass);
                 if(empty($orderId)){
-                    echo vmText::_('com_tsmart_RESTRICTED_ACCESS');
+                    echo tsmText::_('com_tsmart_RESTRICTED_ACCESS');
 					vmdebug('getMyOrderDetails com_tsmart_RESTRICTED_ACCESS',$orderNumber, $orderPass, $tries);
 					$tries++;
 					$sess->set('getOrderDetails.'.$orderNumber,$tries);
@@ -165,7 +165,7 @@ class VirtueMartModelOrders extends VmModel {
                 }
 
                 if ($orderDetails['details']['BT']->virtuemart_user_id != $cuid) {
-                    echo vmText::_('com_tsmart_RESTRICTED_ACCESS');
+                    echo tsmText::_('com_tsmart_RESTRICTED_ACCESS');
                     return false;
                 }
             }
@@ -752,7 +752,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 				}
 			} else {
 				VmConfig::loadJLang('com_tsmart_orders', true);
-				$data->delivery_date = vmText::_('com_tsmart_DELDATE_INV');
+				$data->delivery_date = tsmText::_('com_tsmart_DELDATE_INV');
 			}
 		}
 
@@ -772,7 +772,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 					//$this->updateSingleItem($order_item->virtuemart_order_item_id, $data->order_status, $order['comments'] , $virtuemart_order_id, $data->order_pass);
 					if(empty($item_id)){
-						$inputOrder['comments'] .= ' '.vmText::sprintf('com_tsmart_ORDER_PRODUCT_ADDED',$order_item_data->order_item_name);
+						$inputOrder['comments'] .= ' '.tsmText::sprintf('com_tsmart_ORDER_PRODUCT_ADDED',$order_item_data->order_item_name);
 					}
 					$this->updateSingleItem($item_id, $order_item_data,true);
 				}
@@ -1477,18 +1477,18 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * Creates a standard order password
 	 */
 	 static public function genStdOrderPass(){
-		if(!class_exists('vmCrypt'))
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+		if(!class_exists('tsmCrypt'))
+			require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
 		 $chrs = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 		 $chrs.= "abcdefghijkmnopqrstuvwxyz";
 		 $chrs.= "123456789";
-		return 'p_'.vmCrypt::getToken(VmConfig::get('randOrderPw',8),$chrs);
+		return 'p_'.tsmCrypt::getToken(VmConfig::get('randOrderPw',8),$chrs);
 	 }
 
 	static public function genStdCreateInvoicePass(){
-		if(!class_exists('vmCrypt'))
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-		return vmCrypt::getToken(8);
+		if(!class_exists('tsmCrypt'))
+			require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
+		return tsmCrypt::getToken(8);
 	}
 
 	/**
@@ -1509,9 +1509,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		$c = $db->loadResult();
 		$c = $c + (int)VM_ORDER_OFFSET;
 
-		if(!class_exists('vmCrypt'))
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-		$str = vmCrypt::getHumanToken(VmConfig::get('randOrderNr',4)).'0'.$c;
+		if(!class_exists('tsmCrypt'))
+			require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
+		$str = tsmCrypt::getHumanToken(VmConfig::get('randOrderNr',4)).'0'.$c;
 
 		return $str;
 	}
@@ -1534,9 +1534,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		$count = $db->loadResult();
 		$count = $count + (int)VM_ORDER_OFFSET;
 
-		if(!class_exists('vmCrypt'))
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-		$data = vmCrypt::getHumanToken($length).'0'.$count;
+		if(!class_exists('tsmCrypt'))
+			require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
+		$data = tsmCrypt::getHumanToken($length).'0'.$count;
 
 		return $data;
 	}
@@ -1589,9 +1589,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 					if(empty($data['invoice_number'])) {
 						$date = date("Y-m-d");
-						if(!class_exists('vmCrypt'))
-							require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-						$data['invoice_number'] = str_replace('-', '', substr($date,2,8)).vmCrypt::getHumanToken(4).'0'.$count;
+						if(!class_exists('tsmCrypt'))
+							require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
+						$data['invoice_number'] = str_replace('-', '', substr($date,2,8)).tsmCrypt::getHumanToken(4).'0'.$count;
 					}
 			    } else {
 					return false;
@@ -1705,7 +1705,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		}
 
 		if($res!=-1){
-			vmInfo( vmText::_($string,false).' '.$order['details']['BT']->first_name.' '.$order['details']['BT']->last_name. ', '.$order['details']['BT']->email);
+			vmInfo( tsmText::_($string,false).' '.$order['details']['BT']->first_name.' '.$order['details']['BT']->last_name. ', '.$order['details']['BT']->email);
 		}
 
 		//quicknDirty to prevent that an email is sent twice

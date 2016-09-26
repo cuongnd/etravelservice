@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -30,7 +30,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Translate
  * @author Patrick Kohl
  */
-class TsmartControllerTranslate extends VmController {
+class TsmartControllerTranslate extends TsmController {
 
 	var $check 	= null;
 	var $fields = null;
@@ -107,7 +107,7 @@ class TsmartControllerTranslate extends VmController {
 		//if ($json['fields'] = $db->loadAssoc()) {
 		if ($table->getLoaded()) {
 			$json['structure'] = 'filled' ;
-			$json['msg'] = vmText::_('com_tsmart_SELECTED_LANG').':'.$lang;
+			$json['msg'] = tsmText::_('com_tsmart_SELECTED_LANG').':'.$lang;
 
 		} else {
 			$db =JFactory::getDBO();
@@ -119,7 +119,7 @@ class TsmartControllerTranslate extends VmController {
 			$fields=array();
 			foreach ($tableDescribe as $key =>$val) $fields[$val['Field']] = $val['Field'] ;
 			$json['fields'] = $fields;
-			$json['msg'] = vmText::sprintf('com_tsmart_LANG_IS_EMPTY',$lang ,vmText::_('com_tsmart_'.strtoupper( $viewKey)) ) ;
+			$json['msg'] = tsmText::sprintf('com_tsmart_LANG_IS_EMPTY',$lang ,tsmText::_('com_tsmart_'.strtoupper( $viewKey)) ) ;
 		}
 		echo vmJsApi::safe_json_encode($json);
 		jExit();

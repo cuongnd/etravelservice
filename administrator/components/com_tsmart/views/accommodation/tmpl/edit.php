@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start', "accommodation");
 
         <div class="col50">
             <fieldset>
-                <legend><?php echo vmText::_('Current accommodation'); ?></legend>
+                <legend><?php echo tsmText::_('Current accommodation'); ?></legend>
                 <div class="admintable row-fluid">
                     <?php echo VmHTML::row_control('input', 'accommodation name', 'title', $this->item->title, 'class="required"'); ?>
                     <?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>

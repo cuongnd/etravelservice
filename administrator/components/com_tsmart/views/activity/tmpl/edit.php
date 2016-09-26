@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start',"Activity");
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('Current activity'); ?></legend>
+	<legend><?php echo tsmText::_('Current activity'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row_control('input','Activity name','title',$this->item->title,'class="required"'); ?>
 		<?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>

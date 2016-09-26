@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of order types
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Userfields
  * @author Oscar van Eijk
  */
-class TsmartViewUserfields extends VmViewAdmin {
+class TsmartViewUserfields extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -102,14 +102,14 @@ class TsmartViewUserfields extends VmViewAdmin {
 			// Minimum age select
 			$ages = array();
 			for ($i = 13; $i <= 25; $i++) {
-				$ages[] = array('key' => $i, 'value' => $i.' '.vmText::_('com_tsmart_YEAR_S'));
+				$ages[] = array('key' => $i, 'value' => $i.' '.tsmText::_('com_tsmart_YEAR_S'));
 			}
 			$lists['minimum_age'] = JHtml::_('select.genericlist', $ages, 'minimum_age', '', 'key', 'value', $this->userField->get('minimum_age', 18));
 
 			// Web address types
 			$webaddress_types = array(
-				 array('key' => 0, 'value' => vmText::_('com_tsmart_USERFIELDS_URL_ONLY'))
-				,array('key' => 2, 'value' => vmText::_('com_tsmart_USERFIELDS_HYPERTEXT_URL'))
+				 array('key' => 0, 'value' => tsmText::_('com_tsmart_USERFIELDS_URL_ONLY'))
+				,array('key' => 2, 'value' => tsmText::_('com_tsmart_USERFIELDS_HYPERTEXT_URL'))
 			);
 			$lists['webaddresstypes'] = JHtml::_('select.genericlist', $webaddress_types, 'webaddresstype', '', 'key', 'value', $this->userField->get('webaddresstype'));
 
@@ -125,7 +125,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 				$lists['userfield_values'] = '';
 				$lang =JFactory::getLanguage();
 				for ($i = 0; $i < $n; $i++) {
-					$translate= $lang->hasKey($userFieldValues[$i]->fieldtitle) ? " (".vmText::_($userFieldValues[$i]->fieldtitle).")" : "";
+					$translate= $lang->hasKey($userFieldValues[$i]->fieldtitle) ? " (".tsmText::_($userFieldValues[$i]->fieldtitle).")" : "";
 					$lists['userfield_values'] .=
 						 '<tr>'
 						 .'<td><input type="text" value="'.$userFieldValues[$i]->fieldvalue.'" name="vValues['.$i.']" /></td>'
@@ -150,7 +150,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 			$this->assignRef('userFieldValues', $userFieldValues);
 
 		} else {
-			JToolBarHelper::title( vmText::_('com_tsmart_MANAGE_USER_FIELDS'),'vm_user_48 head');
+			JToolBarHelper::title( tsmText::_('com_tsmart_MANAGE_USER_FIELDS'),'vm_user_48 head');
 			JToolBarHelper::addNew();
 			JToolBarHelper::editList();
 			JToolBarHelper::divider();
@@ -159,7 +159,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 			JToolBarHelper::publishList();
 			JToolBarHelper::unpublishList();
 			JToolBarHelper::divider();
-			$barText = vmText::_('com_tsmart_FIELDMANAGER_SHOW_HIDE');
+			$barText = tsmText::_('com_tsmart_FIELDMANAGER_SHOW_HIDE');
 
 			$bar= JToolBar::getInstance( 'toolbar' );
 			$bar->appendButton( 'Separator', '"><span class="bartext">'.$barText.'</span><hr style="display: none;' );
@@ -195,20 +195,20 @@ class TsmartViewUserfields extends VmViewAdmin {
 	 */
 	function _getTypes ($value = null){
 		$types = array(
-			 array('type' => 'text'             , 'text' => vmText::_('com_tsmart_FIELDS_TEXTFIELD'))
-			,array('type' => 'checkbox'         , 'text' => vmText::_('com_tsmart_FIELDS_CHECKBOX_SINGLE'))
-			,array('type' => 'multicheckbox'    , 'text' => vmText::_('com_tsmart_FIELDS_CHECKBOX_MULTIPLE'))
-			,array('type' => 'date'             , 'text' => vmText::_('com_tsmart_FIELDS_DATE'))
-			,array('type' => 'age_verification' , 'text' => vmText::_('com_tsmart_FIELDS_AGEVERIFICATION'))
-			,array('type' => 'select'           , 'text' => vmText::_('com_tsmart_FIELDS_DROPDOWN_SINGLE'))
-			,array('type' => 'multiselect'      , 'text' => vmText::_('com_tsmart_FIELDS_DROPDOWN_MULTIPLE'))
-			,array('type' => 'emailaddress'     , 'text' => vmText::_('com_tsmart_FIELDS_EMAIL'))
- 			,array('type' => 'custom'          , 'text' => vmText::_('com_tsmart_FIELDS_CUSTOM'))
-			,array('type' => 'editorta'         , 'text' => vmText::_('com_tsmart_FIELDS_EDITORAREA'))
-			,array('type' => 'textarea'         , 'text' => vmText::_('com_tsmart_FIELDS_TEXTAREA'))
-			,array('type' => 'radio'            , 'text' => vmText::_('com_tsmart_FIELDS_RADIOBUTTON'))
-			,array('type' => 'webaddress'       , 'text' => vmText::_('com_tsmart_FIELDS_WEBADDRESS'))
-			,array('type' => 'delimiter'        , 'text' => vmText::_('com_tsmart_FIELDS_DELIMITER'))
+			 array('type' => 'text'             , 'text' => tsmText::_('com_tsmart_FIELDS_TEXTFIELD'))
+			,array('type' => 'checkbox'         , 'text' => tsmText::_('com_tsmart_FIELDS_CHECKBOX_SINGLE'))
+			,array('type' => 'multicheckbox'    , 'text' => tsmText::_('com_tsmart_FIELDS_CHECKBOX_MULTIPLE'))
+			,array('type' => 'date'             , 'text' => tsmText::_('com_tsmart_FIELDS_DATE'))
+			,array('type' => 'age_verification' , 'text' => tsmText::_('com_tsmart_FIELDS_AGEVERIFICATION'))
+			,array('type' => 'select'           , 'text' => tsmText::_('com_tsmart_FIELDS_DROPDOWN_SINGLE'))
+			,array('type' => 'multiselect'      , 'text' => tsmText::_('com_tsmart_FIELDS_DROPDOWN_MULTIPLE'))
+			,array('type' => 'emailaddress'     , 'text' => tsmText::_('com_tsmart_FIELDS_EMAIL'))
+ 			,array('type' => 'custom'          , 'text' => tsmText::_('com_tsmart_FIELDS_CUSTOM'))
+			,array('type' => 'editorta'         , 'text' => tsmText::_('com_tsmart_FIELDS_EDITORAREA'))
+			,array('type' => 'textarea'         , 'text' => tsmText::_('com_tsmart_FIELDS_TEXTAREA'))
+			,array('type' => 'radio'            , 'text' => tsmText::_('com_tsmart_FIELDS_RADIOBUTTON'))
+			,array('type' => 'webaddress'       , 'text' => tsmText::_('com_tsmart_FIELDS_WEBADDRESS'))
+			,array('type' => 'delimiter'        , 'text' => tsmText::_('com_tsmart_FIELDS_DELIMITER'))
 
 		);
 		$this->renderInstalledUserfieldPlugins($types);
@@ -243,7 +243,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 			$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 			$this->userField->params = new stdClass();
 			$varsToPush = vmPlugin::getVarsToPushFromForm($this->userField->form);
-			VmTable::bindParameterableToSubField($this->userField,$varsToPush);
+			tsmTable::bindParameterableToSubField($this->userField,$varsToPush);
 			$this->userField->form->bind($this->userField->getProperties());
 		} else {
 			$this->userField->form = false;

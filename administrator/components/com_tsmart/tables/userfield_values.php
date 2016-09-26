@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Userfields table class
@@ -28,7 +28,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @package	VirtueMart
  * @author Oscar van Eijk
  */
-class TableUserfield_values extends VmTable {
+class TableUserfield_values extends tsmTable {
 
 	/** @var int Primary key */
 	var $virtuemart_userfield_value_id	= 0;
@@ -65,7 +65,7 @@ class TableUserfield_values extends VmTable {
 	function check()
 	{
 		if (preg_match('/[^a-z0-9\._\-]/i', $this->fieldvalue) > 0) {
-			vmError(vmText::_('com_tsmart_TITLE_IN_FIELDVALUES_CONTAINS_INVALID_CHARACTERS'));
+			vmError(tsmText::_('com_tsmart_TITLE_IN_FIELDVALUES_CONTAINS_INVALID_CHARACTERS'));
 			return false;
 		}
 

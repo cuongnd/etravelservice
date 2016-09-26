@@ -30,11 +30,11 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 
 <div class="col50">
 <fieldset>
-<legend><?php echo vmText::_('com_tsmart_REVIEW_DETAILS'); ?></legend>
-<table class="admintable" summary="<?php echo vmText::_('com_tsmart_RATING_EDIT_TITLE');?>">
+<legend><?php echo tsmText::_('com_tsmart_REVIEW_DETAILS'); ?></legend>
+<table class="admintable" summary="<?php echo tsmText::_('com_tsmart_RATING_EDIT_TITLE');?>">
 	<tr>
 		<td width="24%" align="left" valign="top">
-			<?php echo vmText::_('com_tsmart_RATING_TITLE'); ?>
+			<?php echo tsmText::_('com_tsmart_RATING_TITLE'); ?>
 		</td>
 		<td valign="top"><fieldset class="radio">
 		<!-- Rating stars -->
@@ -42,7 +42,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 		$rating_options = array();
 		for ($i=0;$i<=$this->max_rating;$i++) {
 
-            $title = (vmText::_("com_tsmart_RATING_TITLE").' : '. $i . '/' . $this->max_rating) ;
+            $title = (tsmText::_("com_tsmart_RATING_TITLE").' : '. $i . '/' . $this->max_rating) ;
 			$stars  = '<span class="floatleft vmiconFE vm2-stars'.$i.'" title="'.$title.'"></span>';
 			$rating_options[] = JHtml::_('select.option',$i,$stars);
 
@@ -55,7 +55,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 		<!-- Review comment -->
 	<tr>
 		<td width="24%" align="left" valign="top">
-			<?php echo vmText::_('com_tsmart_REVIEW'); ?>
+			<?php echo tsmText::_('com_tsmart_REVIEW'); ?>
         	</td>
 		<td width="76%" align="left">
 			<textarea onblur="refresh_counter();" onfocus="refresh_counter();" onkeypress="refresh_counter();" rows="20" cols="60" name="comment"><?php echo $this->rating->comment; ?></textarea>
@@ -65,7 +65,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 		<!-- Show number of typed in characters -->
 		<td width="24%" align="left" valign="top"> &nbsp; </td>
 		<td width="76%" align="left">
-	        <div align="left"><i><?php echo vmText::_('com_tsmart_REVIEW_COUNT') ?></i>
+	        <div align="left"><i><?php echo tsmText::_('com_tsmart_REVIEW_COUNT') ?></i>
                 	<input type="text" value="150" size="4" class="inputbox readonly" name="counter" maxlength="4" readonly="readonly" />
             	</div>
 		</td>
@@ -74,7 +74,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 <!-- todo?? To be used with HTML editor (with some more restrictions)
 	<tr>
 		<td width="24%" align="left" valign="top">
-			<?php echo vmText::_('com_tsmart_REVIEW'); ?>
+			<?php echo tsmText::_('com_tsmart_REVIEW'); ?>
         	</td>
 		<td width="76%" align="left">
 	<?php
@@ -87,7 +87,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_REVIEW_DETAILS');
 	<tr>
 		<!-- published status -->
 		<td>
-			<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+			<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 		</td>
 		<td><fieldset class="radio">
 			<?php echo JHtml::_('select.booleanlist', 'published', '', $this->rating->published); ?>
@@ -120,8 +120,8 @@ function submitbutton(pressbutton) {
 		submitform( pressbutton );
 	}
 	else {
-		if (document.adminForm.counter.value > <?php echo VmConfig::get('reviews_maximum_comment_length'); ?>) alert('<?php echo addslashes( vmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT2_JS',VmConfig::get('reviews_maximum_comment_length')) ); ?>');
-		else if (document.adminForm.counter.value < <?php echo VmConfig::get('reviews_minimum_comment_length'); ?>) alert('<?php echo addslashes( vmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT1_JS',VmConfig::get('reviews_minimum_comment_length')) ); ?>');
+		if (document.adminForm.counter.value > <?php echo VmConfig::get('reviews_maximum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT2_JS',VmConfig::get('reviews_maximum_comment_length')) ); ?>');
+		else if (document.adminForm.counter.value < <?php echo VmConfig::get('reviews_minimum_comment_length'); ?>) alert('<?php echo addslashes( tsmText::sprintf('com_tsmart_REVIEW_ERR_COMMENT1_JS',VmConfig::get('reviews_minimum_comment_length')) ); ?>');
 		else submitform( pressbutton );
 	}
 }

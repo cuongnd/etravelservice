@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start', " faq");
 
         <div class="col50">
             <fieldset>
-                <legend><?php echo vmText::_('Current  faq'); ?></legend>
+                <legend><?php echo tsmText::_('Current  faq'); ?></legend>
                 <div class="admintable row-fluid">
                     <?php echo VmHTML::row_control('input', ' faq name', 'title', $this->item->title, 'class="required"'); ?>
                     <?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>

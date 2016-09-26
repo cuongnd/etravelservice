@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 /**
  * Model class for shop Currencies
@@ -160,7 +160,7 @@ class VirtueMartModelpromotion extends VmModel
                 if (empty($vendor_currency['vendor_accepted_currencies'])) {
                     $uri = JFactory::getURI();
                     $link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=user&task=editshop';
-                    vmWarn(vmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED', '<a href="' . $link . '">' . $link . '</a>'));
+                    vmWarn(tsmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED', '<a href="' . $link . '">' . $link . '</a>'));
                     $currencies[$vendorId] = false;
                     return $currencies[$vendorId];
                 }
@@ -195,8 +195,8 @@ class VirtueMartModelpromotion extends VmModel
             $virtuemart_product_id = $data['virtuemart_product_id'];
             $model_product = $this->getModel('product');
             $product = $model_product->getItem($virtuemart_product_id);
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
-            if ($virtuemart_promotion_price_id && $product->price_type != vmGroupSize::FLAT_PRICE) {
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
+            if ($virtuemart_promotion_price_id && $product->price_type != tsmGroupSize::FLAT_PRICE) {
 
                 $tour_promotion_price_by_tour_promotion_price_id = $data['tour_promotion_price_by_tour_promotion_price_id'];
                 $this->save_promotion_price_group_size_by_promotion_price_id($tour_promotion_price_by_tour_promotion_price_id, $virtuemart_promotion_price_id);

@@ -42,7 +42,7 @@ defined('_JEXEC') or die('Restricted access');
 			} else {
 				$url = 'http://uk.pixelz.com/virtuemart/';
 			}
-			echo '<a href="'.$url.'" target="_blank" alt="'.vmText::_('com_tsmart_RTB_AD').'"><img  style="width: 150px;" src="'.$imgUrl.'" title="'.vmText::_('com_tsmart_RTB_AD').'"></a>';
+			echo '<a href="'.$url.'" target="_blank" alt="'.tsmText::_('com_tsmart_RTB_AD').'"><img  style="width: 150px;" src="'.$imgUrl.'" title="'.tsmText::_('com_tsmart_RTB_AD').'"></a>';
 		?>
 	</div>
 </div>

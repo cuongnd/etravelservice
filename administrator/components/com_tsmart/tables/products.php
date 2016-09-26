@@ -18,10 +18,10 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists('VmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtable.php');
+if (!class_exists('tsmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 
 
-class TableProducts extends VmTable
+class TableProducts extends tsmTable
 {
 
     var $virtuemart_product_id = 0;

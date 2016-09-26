@@ -45,7 +45,7 @@ $doc->addScriptDeclaration($js_content);
 
             <div class="col50">
                 <fieldset>
-                    <legend><?php echo vmText::_('Current room'); ?></legend>
+                    <legend><?php echo tsmText::_('Current room'); ?></legend>
                     <div class="admintable row-fluid">
                         <?php echo VmHTML::row_control('input', 'Room name', 'room_name', $this->item->room_name, 'class="required"'); ?>
                         <?php echo VmHTML::row_control('image', 'Image 1','image1', $this->item->image1, 'class="required"'); ?>

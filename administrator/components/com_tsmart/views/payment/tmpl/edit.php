@@ -29,7 +29,7 @@ AdminUIHelper::imitateTabs('start', "payment");
 
 			<div class="col50">
 				<fieldset>
-					<legend><?php echo vmText::_('Current payment'); ?></legend>
+					<legend><?php echo tsmText::_('Current payment'); ?></legend>
 					<div class="row-fluid">
 						<div class="span6">
 							<?php echo VmHTML::row_control('input', 'Rule name', 'title', $this->item->title, 'class="required"'); ?>

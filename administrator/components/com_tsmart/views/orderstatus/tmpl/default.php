@@ -38,17 +38,17 @@ AdminUIHelper::startAdminArea($this);
 			<?php echo $this->sort('order_status_code') ?>
 			</th>
 			<th>
-				<?php echo vmText::_('com_tsmart_ORDER_STATUS_STOCK_HANDLE'); ?>
+				<?php echo tsmText::_('com_tsmart_ORDER_STATUS_STOCK_HANDLE'); ?>
 			</th>
 			<th>
-				<?php echo vmText::_('com_tsmart_DESCRIPTION'); ?>
+				<?php echo tsmText::_('com_tsmart_DESCRIPTION'); ?>
 			</th>
 			<th>
 			<?php  echo $this->sort('ordering')  ?>
 			<?php echo JHtml::_('grid.order',  $this->orderStatusList ); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 			<th><?php echo $this->sort('virtuemart_orderstate_id', 'com_tsmart_ID')  ?></th>
 		</tr>
@@ -64,9 +64,9 @@ AdminUIHelper::startAdminArea($this);
 
 			$coreStatus = (in_array($row->order_status_code, $this->lists['vmCoreStatusCode']));
 			$image = 'admin/checked_out.png';
-			$image = JHtml::_('image', $image, vmText::_('com_tsmart_ORDER_STATUS_CODE_CORE'),'',true);
+			$image = JHtml::_('image', $image, tsmText::_('com_tsmart_ORDER_STATUS_CODE_CORE'),'',true);
 			$checked = ($coreStatus) ?
-				'<span class="hasTip" title="'. vmText::_('com_tsmart_ORDER_STATUS_CODE_CORE').'">'. $image .'</span>' :
+				'<span class="hasTip" title="'. tsmText::_('com_tsmart_ORDER_STATUS_CODE_CORE').'">'. $image .'</span>' :
 				JHtml::_('grid.id', $i, $row->virtuemart_orderstate_id);
 
 			$editlink = JROUTE::_('index.php?option=com_tsmart&view=orderstatus&task=edit&cid[]=' . $row->virtuemart_orderstate_id);
@@ -81,7 +81,7 @@ AdminUIHelper::startAdminArea($this);
 					<?php
 					$lang =JFactory::getLanguage();
 					if ($lang->hasKey($row->order_status_name)) {
-						echo '<a href="' . $editlink . '">'. vmText::_($row->order_status_name) .'</a> ('.$row->order_status_name.')';
+						echo '<a href="' . $editlink . '">'. tsmText::_($row->order_status_name) .'</a> ('.$row->order_status_name.')';
 					} else {
 						echo '<a href="' . $editlink . '">'. $row->order_status_name .'</a> ';
 					}
@@ -91,14 +91,14 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo $row->order_status_code; ?>
 				</td>
 				<td align="left">
-					<?php echo  vmText::_($this->stockHandelList[$row->order_stock_handle]); ?>
+					<?php echo  tsmText::_($this->stockHandelList[$row->order_stock_handle]); ?>
 				</td>
 				<td align="left">
-					<?php echo vmText::_($row->order_status_description); ?>
+					<?php echo tsmText::_($row->order_status_description); ?>
 				</td>
 				<td align="center" class="order">
-					<span><?php echo $this->pagination->vmOrderUpIcon($i, $row->ordering, 'orderUp', vmText::_('com_tsmart_MOVE_UP')); ?></span>
-					<span><?php echo $this->pagination->vmOrderDownIcon( $i, $row->ordering,$n, true, 'orderDown', vmText::_('com_tsmart_MOVE_DOWN')); ?></span>
+					<span><?php echo $this->pagination->vmOrderUpIcon($i, $row->ordering, 'orderUp', tsmText::_('com_tsmart_MOVE_UP')); ?></span>
+					<span><?php echo $this->pagination->vmOrderDownIcon( $i, $row->ordering,$n, true, 'orderDown', tsmText::_('com_tsmart_MOVE_DOWN')); ?></span>
 					<input class="ordering" type="text" name="order[<?php echo $i?>]" id="order[<?php echo $i?>]" size="5" value="<?php echo $row->ordering; ?>" style="text-align: center" />
 				</td>
 				<td align="center"><?php echo $published; ?></td>

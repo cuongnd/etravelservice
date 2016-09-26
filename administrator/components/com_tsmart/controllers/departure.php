@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerDeparture extends VmController {
+class TsmartControllerDeparture extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -63,7 +63,7 @@ class TsmartControllerDeparture extends VmController {
 		$app=JFactory::getApplication();
 		$input=$app->input;
         $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
 		$list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
 		echo json_encode($list_service_class);
 		die;

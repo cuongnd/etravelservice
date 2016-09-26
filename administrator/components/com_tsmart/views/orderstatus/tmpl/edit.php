@@ -27,7 +27,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_ORDERSTATUS_DETAILS');
 
     <div class="col50">
 	<fieldset>
-	    <legend><?php echo vmText::_('com_tsmart_ORDERSTATUS_DETAILS'); ?></legend>
+	    <legend><?php echo tsmText::_('com_tsmart_ORDERSTATUS_DETAILS'); ?></legend>
 	    <?php
 	    $editcoreStatus = (in_array($this->orderStatus->order_status_code, $this->lists['vmCoreStatusCode']));
 	    $orderStatusCodeTip = ($editcoreStatus) ? 'com_tsmart_ORDER_STATUS_CODE_CORE' : 'com_tsmart_ORDER_STATUS_CODE_TIP';
@@ -40,7 +40,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_ORDERSTATUS_DETAILS');
 	    <table class="admintable">
 		<?php
 		$lang = JFactory::getLanguage();
-		$text = $lang->hasKey($this->orderStatus->order_status_name) ? ' (' . vmText::_($this->orderStatus->order_status_name) . ')' : ' ';
+		$text = $lang->hasKey($this->orderStatus->order_status_name) ? ' (' . tsmText::_($this->orderStatus->order_status_name) . ')' : ' ';
 
 		echo VmHTML::row('input', 'com_tsmart_ORDER_STATUS_NAME', 'order_status_name', $this->orderStatus->order_status_name, 'class="inputbox"', '', 50, 50, $text);
 		?>

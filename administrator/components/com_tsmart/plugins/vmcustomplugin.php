@@ -90,7 +90,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 */
 	public function parseCustomParams (&$field, $xParams = 'customfield_params') {
 
-		VmTable::bindParameterable ($field, $xParams, $this->_varsToPushParam);
+		tsmTable::bindParameterable ($field, $xParams, $this->_varsToPushParam);
 
 		if (empty($field->custom_element)) {
 			return 0;
@@ -113,7 +113,7 @@ abstract class vmCustomPlugin extends vmPlugin {
 	 */
 	public function getCustomParams (&$field) {
 
-		VmTable::bindParameterable ($field, 'customfield_params', $this->_varsToPushParam);
+		tsmTable::bindParameterable ($field, 'customfield_params', $this->_varsToPushParam);
 
 		//Why do we have this?
 		if (empty($field->custom_element)) {

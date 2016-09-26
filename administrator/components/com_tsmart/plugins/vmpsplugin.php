@@ -115,7 +115,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			if (empty($this->_name)) {
 				vmAdminInfo ('displayListFE cartVendorId=' . $cart->vendorId);
 				$app = JFactory::getApplication ();
-				$app->enqueueMessage (vmText::_ ('com_tsmart_CART_NO_' . strtoupper ($this->_psType)));
+				$app->enqueueMessage (tsmText::_ ('com_tsmart_CART_NO_' . strtoupper ($this->_psType)));
 				return FALSE;
 			} else {
 				return FALSE;
@@ -309,11 +309,11 @@ abstract class vmPSPlugin extends vmPlugin {
 		$html = '<table class="admintable">' . "\n"
 			. '	<thead>' . "\n"
 			. '		<tr>' . "\n"
-			. '			<td class="key" style="text-align: center;" colspan="2">' . vmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_type) . '_LBL') . '</td>' . "\n"
+			. '			<td class="key" style="text-align: center;" colspan="2">' . tsmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_type) . '_LBL') . '</td>' . "\n"
 			. '		</tr>' . "\n"
 			. '	</thead>' . "\n"
 			. '	<tr>' . "\n"
-			. '		<td class="key">' . vmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_type) . '_LBL') . ': </td>' . "\n"
+			. '		<td class="key">' . tsmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_type) . '_LBL') . ': </td>' . "\n"
 			. '		<td align="left">' . $order_name . '</td>' . "\n"
 			. '	</tr>' . "\n";
 
@@ -531,7 +531,7 @@ abstract class vmPSPlugin extends vmPlugin {
 
 		if ($this->methods) {
 			foreach ($this->methods as $method) {
-				VmTable::bindParameterable ($method, $this->_xParams, $this->_varsToPushParam);
+				tsmTable::bindParameterable ($method, $this->_xParams, $this->_varsToPushParam);
 			}
 		} else if($this->methods===false){
 			vmError ('Error reading getPluginMethods ' . $q);
@@ -689,10 +689,10 @@ abstract class vmPSPlugin extends vmPlugin {
 		$vendorName = $vendorModel->getVendorName($vendorId);
 		VmConfig::loadJLang('com_tsmart');
 		if ($subject == NULL) {
-			$subject = vmText::sprintf('com_tsmart_ERROR_SUBJECT', $this->_name, $vendor->vendor_store_name);
+			$subject = tsmText::sprintf('com_tsmart_ERROR_SUBJECT', $this->_name, $vendor->vendor_store_name);
 		}
 		if ($message == NULL) {
-			$message = vmText::sprintf('com_tsmart_ERROR_BODY', $subject, $this->getLogFilename().VmConfig::LOGFILEEXT);
+			$message = tsmText::sprintf('com_tsmart_ERROR_BODY', $subject, $this->getLogFilename().VmConfig::LOGFILEEXT);
 		}
 		JFactory::getMailer()->sendMail($vendorEmail, $vendorName, $vendorEmail, $subject, $message);
 
@@ -775,7 +775,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		$costDisplay = "";
 		if ($pluginSalesPrice) {
 			$costDisplay = $currency->priceDisplay ($pluginSalesPrice);
-			$costDisplay = '<span class="' . $this->_type . '_cost"> (' . vmText::_ ('com_tsmart_PLUGIN_COST_DISPLAY') . $costDisplay . ")</span>";
+			$costDisplay = '<span class="' . $this->_type . '_cost"> (' . tsmText::_ ('com_tsmart_PLUGIN_COST_DISPLAY') . $costDisplay . ")</span>";
 		}
 		$dynUpdate='';
 		if( VmConfig::get('oncheckout_ajax',false)) {
@@ -793,7 +793,7 @@ abstract class vmPSPlugin extends vmPlugin {
 		$class = "class='key'";
 		$html = ' 	<thead>' . "\n"
 			. '		<tr>' . "\n"
-			. '			<th ' . $class . ' style="text-align: center;" colspan="2">' . vmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_psType) . '_LBL') . '</th>' . "\n"
+			. '			<th ' . $class . ' style="text-align: center;" colspan="2">' . tsmText::_ ('com_tsmart_ORDER_PRINT_' . strtoupper($this->_psType) . '_LBL') . '</th>' . "\n"
 			. '		</tr>' . "\n"
 			. '	</thead>' . "\n";
 
@@ -808,13 +808,13 @@ abstract class vmPSPlugin extends vmPlugin {
 		$complete_key = strtoupper ($this->_type . '_' . $key);
 
 		if ($lang->hasKey($complete_key)) {
-			$key_text = vmText::_ ($complete_key);
+			$key_text = tsmText::_ ($complete_key);
 		} else {
-			$key_text = vmText::_ ($key);
+			$key_text = tsmText::_ ($key);
 		}
 		$more_key = strtoupper($complete_key . '_' . $value);
 		if ($lang->hasKey ($more_key)) {
-			$value .= " (" . vmText::_ ($more_key) . ")";
+			$value .= " (" . tsmText::_ ($more_key) . ")";
 		}
 		$html = "<tr>\n<td " . $class . ">" . $key_text . "</td>\n <td align='left'>" . $value . "</td>\n</tr>\n";
 		return $html;
@@ -1171,7 +1171,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			// error while processing the payment
 			$mainframe = JFactory::getApplication ();
 			$mainframe->enqueueMessage ($html);
-			$mainframe->redirect (JRoute::_ ('index.php?option=com_tsmart&view=cart',FALSE), vmText::_ ('com_tsmart_CART_ORDERDONE_DATA_NOT_VALID'));
+			$mainframe->redirect (JRoute::_ ('index.php?option=com_tsmart&view=cart',FALSE), tsmText::_ ('com_tsmart_CART_ORDERDONE_DATA_NOT_VALID'));
 		}
 	}
 
@@ -1310,7 +1310,7 @@ abstract class vmPSPlugin extends vmPlugin {
 			$order['order_status'] = 'X';
 			$order['virtuemart_order_id'] = $virtuemart_order_id;
 			$order['customer_notified'] = 0;
-			$order['comments'] = vmText::_ ('com_tsmart_PAYMENT_CANCELLED_BY_SHOPPER');
+			$order['comments'] = tsmText::_ ('com_tsmart_PAYMENT_CANCELLED_BY_SHOPPER');
 			$modelOrder->updateStatusForOneOrder ($virtuemart_order_id, $order, TRUE);
 			//$modelOrder->remove (array('virtuemart_order_id' => $virtuemart_order_id));
 		}

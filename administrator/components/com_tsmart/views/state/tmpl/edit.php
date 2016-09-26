@@ -27,7 +27,7 @@ AdminUIHelper::startAdminArea($this);
 <div class="col50">
 	<fieldset>
 <?php /*	<legend><?php echo vmText::_('com_tsmart_STATE_DETAILS'); ?></legend> */?>
-	<legend><?php echo JHtml::_('link','index.php?option=com_tsmart&view=state&virtuemart_country_id='.$this->virtuemart_country_id,vmText::sprintf('com_tsmart_STATE_COUNTRY',$this->country_name).' '. vmText::_('com_tsmart_DETAILS') ); ?></legend>
+	<legend><?php echo JHtml::_('link','index.php?option=com_tsmart&view=state&virtuemart_country_id='.$this->virtuemart_country_id,tsmText::sprintf('com_tsmart_STATE_COUNTRY',$this->country_name).' '. tsmText::_('com_tsmart_DETAILS') ); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('input', 'com_tsmart_STATE_NAME', 'state_name', $this->state->state_name,'class="required" size="50"');
@@ -36,7 +36,7 @@ AdminUIHelper::startAdminArea($this);
 		<tr>
 		<td width="110" class="key">
 				<label for="virtuemart_worldzone_id">
-					<?php echo vmText::_('com_tsmart_WORLDZONE'); ?>
+					<?php echo tsmText::_('com_tsmart_WORLDZONE'); ?>
 				</label>
 			</td>
 			<td>

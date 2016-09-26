@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 // Hardcoded groupID of the Super Admin
 define('__SUPER_ADMIN_GID', 25);
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 
 /**
@@ -370,7 +370,7 @@ class VirtueMartModelUser extends VmModel
             $cUser = JFactory::getUser();
             if ($usersConfig->get('allowUserRegistration') == '0' and !(vmAccess::manager('user'))) {
                 VmConfig::loadJLang('com_tsmart');
-                vmError(vmText::_('com_tsmart_ACCESS_FORBIDDEN'));
+                vmError(tsmText::_('com_tsmart_ACCESS_FORBIDDEN'));
                 return;
             }
             // Initialize new usertype setting
@@ -406,7 +406,7 @@ class VirtueMartModelUser extends VmModel
         // If an exising superadmin gets a new group, make sure enough admins are left...
         if (!$new && $user->get('gid') != $gid && $gid == __SUPER_ADMIN_GID) {
             if ($this->getSuperAdminCount() <= 1) {
-                vmError(vmText::_('com_tsmart_USER_ERR_ONLYSUPERADMIN'));
+                vmError(tsmText::_('com_tsmart_USER_ERR_ONLYSUPERADMIN'));
                 return false;
             }
         }
@@ -417,7 +417,7 @@ class VirtueMartModelUser extends VmModel
 
         // Save the JUser object
         if (!$user->save()) {
-            $msg = vmText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $user->getError());
+            $msg = tsmText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $user->getError());
             vmError($msg, $msg);
             return false;
         } else {
@@ -1216,9 +1216,9 @@ class VirtueMartModelUser extends VmModel
                 $required++;
                 if (empty($data[$field->name])) {
                     if ($lang->hasKey('com_tsmart_MISSING_' . $field->name)) {
-                        $missingFields[] = vmText::_('com_tsmart_MISSING_' . $field->name);
+                        $missingFields[] = tsmText::_('com_tsmart_MISSING_' . $field->name);
                     } else {
-                        $missingFields[] = vmText::sprintf('com_tsmart_MISSING_VALUE_FOR_FIELD', $field->title);
+                        $missingFields[] = tsmText::sprintf('com_tsmart_MISSING_VALUE_FOR_FIELD', $field->title);
                     }
 
                     $i++;
@@ -1513,7 +1513,7 @@ class VirtueMartModelUser extends VmModel
                     // Prevent deletion of the only Super Admin
                     //$_u = JUser::getInstance($userId);
                     if ($_JUser->get('gid') == __SUPER_ADMIN_GID) {
-                        vmError(vmText::_('com_tsmart_USER_ERR_LASTSUPERADMIN'));
+                        vmError(tsmText::_('com_tsmart_USER_ERR_LASTSUPERADMIN'));
                         $_status = false;
                         continue;
                     }
@@ -1706,7 +1706,7 @@ class VirtueMartModelUser extends VmModel
                     $toAdd->id = $user->id;
                     $toAdd->name = $user->name;
                     $toAdd->username = $user->username;
-                    $toAdd->displayedName = vmText::sprintf('com_tsmart_RETURN_TO', $user->name, $user->username);
+                    $toAdd->displayedName = tsmText::sprintf('com_tsmart_RETURN_TO', $user->name, $user->username);
                     array_unshift($result, $toAdd);
                 }
             }
@@ -1715,7 +1715,7 @@ class VirtueMartModelUser extends VmModel
             $toAdd->id = 0;
             $toAdd->name = '';
             $toAdd->username = '';
-            $toAdd->displayedName = '-' . vmText::_('com_tsmart_REGISTER') . '-';
+            $toAdd->displayedName = '-' . tsmText::_('com_tsmart_REGISTER') . '-';
             array_unshift($result, $toAdd);
         }
 

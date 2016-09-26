@@ -31,10 +31,10 @@ $option = vRequest::getCmd('option');
 	<table>
 	  <tr>
 		 <td align="left" width="100%">
-			<?php echo vmText::_('com_tsmart_FILTER'); ?>:
+			<?php echo tsmText::_('com_tsmart_FILTER'); ?>:
 			<input type="text" name="filter_ratings" value="<?php echo vRequest::getVar('filter_ratings', ''); ?>" />
-			<button class="btn btn-small" onclick="this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?></button>
-			<button class="btn btn-small" onclick="document.adminForm.filter_ratings.value='';"><?php echo vmText::_('com_tsmart_RESET'); ?></button>
+			<button class="btn btn-small" onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
+			<button class="btn btn-small" onclick="document.adminForm.filter_ratings.value='';"><?php echo tsmText::_('com_tsmart_RESET'); ?></button>
 			<?php if($this->showVendors()){
 				echo Shopfunctions::renderVendorList(vmAccess::getVendorId());
 			} ?>
@@ -72,10 +72,10 @@ $option = vRequest::getCmd('option');
 				<td class="admin-checkbox"><?php echo $checked; ?></td>
 				<!-- Username + time -->
 				<?php $link = 'index.php?option='.$option.'&view=ratings&task=listreviews&virtuemart_product_id='.$review->virtuemart_product_id; ?>
-				<td><?php echo JHtml::_('link', $link,vmJsApi::date($review->created_on,'LC2',true) , array("title" => vmText::_('com_tsmart_RATING_EDIT_TITLE'))); ?></td>
+				<td><?php echo JHtml::_('link', $link,vmJsApi::date($review->created_on,'LC2',true) , array("title" => tsmText::_('com_tsmart_RATING_EDIT_TITLE'))); ?></td>
 				<!-- Product name -->
 				<?php $link = 'index.php?option='.$option.'&view=product&task=edit&virtuemart_product_id='.$review->virtuemart_product_id ; ?>
-				<td><?php echo JHtml::_('link', JRoute::_($link), $review->product_name, array('title' => vmText::_('com_tsmart_EDIT').' '.htmlentities($review->product_name))); ?></td>
+				<td><?php echo JHtml::_('link', JRoute::_($link), $review->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($review->product_name))); ?></td>
 				<!-- Stars rating -->
 				<td align="center">
 					
@@ -84,7 +84,7 @@ $option = vRequest::getCmd('option');
 				    $ratingwidth = round($review->rating) * 24;
 				    ?>
 	
-				    <span title="<?php echo (vmText::_("com_tsmart_RATING_TITLE").' '. round($review->rating) . '/' . $maxrating) ?>" class="ratingbox" style="display:inline-block;">
+				    <span title="<?php echo (tsmText::_("com_tsmart_RATING_TITLE").' '. round($review->rating) . '/' . $maxrating) ?>" class="ratingbox" style="display:inline-block;">
 						<span class="stars-orange" style="width:<?php echo $ratingwidth.'px'; ?>">
 						</span>
 				    </span>

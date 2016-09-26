@@ -17,7 +17,7 @@
 */
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 /**
  * Calculator table class
  * The class is is used to manage the calculation in the shop.
@@ -25,7 +25,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @author Max Milbers
  * @package		VirtueMart
  */
-class TableCalcs extends VmTable
+class TableCalcs extends tsmTable
 {
 	/** @var int Primary key */
 	var $virtuemart_calc_id					= 0;

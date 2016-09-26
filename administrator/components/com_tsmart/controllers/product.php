@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @author
  */
-class TsmartControllerProduct extends VmController {
+class TsmartControllerProduct extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -44,7 +44,7 @@ class TsmartControllerProduct extends VmController {
 	public function ajax_get_list_tour_id_by_tour_type_id(){
 		$input=JFactory::getApplication()->input;
 		$virtuemart_tour_type_id=$input->getInt('virtuemart_tour_type_id');
-		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmproduct.php';
+		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$list_tour_type = vmproduct::get_list_product_by_tour_type_id($virtuemart_tour_type_id);
 		echo json_encode($list_tour_type);
 		die;
@@ -53,7 +53,7 @@ class TsmartControllerProduct extends VmController {
 	public function ajax_get_list_service_class_by_tour_id(){
 		$input=JFactory::getApplication()->input;
 		$virtuemart_product_id=$input->getInt('virtuemart_product_id');
-		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
 		$list_service_class = vmserviceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
 		echo json_encode($list_service_class);
 		die;
@@ -62,8 +62,8 @@ class TsmartControllerProduct extends VmController {
 	public function ajax_get_list_departure_by_tour_id(){
 		$input=JFactory::getApplication()->input;
 		$virtuemart_product_id=$input->getInt('virtuemart_product_id');
-		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmdeparture.php';
-		$list_departure = vmdeparture::get_list_departure_by_tour_id($virtuemart_product_id);
+		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmdeparture.php';
+		$list_departure = tsmDeparture::get_list_departure_by_tour_id($virtuemart_product_id);
 		echo json_encode($list_departure);
 		die;
 
@@ -144,7 +144,7 @@ class TsmartControllerProduct extends VmController {
 
 		$msg = 'failed';
 		if(!empty($id)) {
-			$msg = vmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
+			$msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
 			$type = 'message';
 		}
 		else $type = 'error';
@@ -185,7 +185,7 @@ class TsmartControllerProduct extends VmController {
 		$msgtype = 'info';
 		foreach($cids as $cid){
 			if ($id=$model->createChild($cid)){
-				$msg = vmText::_('com_tsmart_PRODUCT_CHILD_CREATED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_CHILD_CREATED_SUCCESSFULLY');
 
 
 				if($target=='parent'){
@@ -196,7 +196,7 @@ class TsmartControllerProduct extends VmController {
 				}
 
 			} else {
-				$msg = vmText::_('com_tsmart_PRODUCT_NO_CHILD_CREATED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_NO_CHILD_CREATED_SUCCESSFULLY');
 				$msgtype = 'error';
 				$redirect = 'index.php?option=com_tsmart&view=product';
 			}
@@ -302,9 +302,9 @@ class TsmartControllerProduct extends VmController {
 
 		foreach($cids as $cid){
 			if ($model->createClone($cid)) {
-				$msg = vmText::_('com_tsmart_PRODUCT_CLONED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_CLONED_SUCCESSFULLY');
 			} else {
-				$msg = vmText::_('com_tsmart_PRODUCT_NOT_CLONED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_NOT_CLONED_SUCCESSFULLY');
 				$msgtype = 'error';
 			}
 		}

@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllercoupon extends VmController {
+class TsmartControllercoupon extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -59,7 +59,7 @@ class TsmartControllercoupon extends VmController {
 		$virtuemart_hotel_id=$input->getInt('virtuemart_hotel_id',0);
 		$db=JFactory::getDbo();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
-		$hotel=vmcoupon::get_detail_hotel_by_hotel_id($virtuemart_hotel_id);
+		$hotel=tsmcoupon::get_detail_hotel_by_hotel_id($virtuemart_hotel_id);
 		echo json_encode($hotel);
 		die;
 	}

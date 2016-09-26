@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start',"state");
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('Current state'); ?></legend>
+	<legend><?php echo tsmText::_('Current state'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row_control('input','state name','title',$this->item->title,'class="required"'); ?>
 		<?php echo VmHTML::row_control('select','State', 'virtuemart_state_id', $this->states ,$this->item->virtuemart_state_id,'','virtuemart_state_id', 'state_name',false) ; ?>

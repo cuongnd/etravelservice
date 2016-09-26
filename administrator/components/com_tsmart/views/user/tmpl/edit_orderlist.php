@@ -27,22 +27,22 @@ defined('_JEXEC') or die('Restricted access');
 	<tr>
 
 		<th>
-			<?php echo vmText::_('com_tsmart_ORDER_LIST_NUMBER'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_NUMBER'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('com_tsmart_PRINT_VIEW'); ?>
+			<?php echo tsmText::_('com_tsmart_PRINT_VIEW'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('com_tsmart_ORDER_CDATE'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_CDATE'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('com_tsmart_ORDER_LIST_MDATE'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_MDATE'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('com_tsmart_STATUS'); ?>
+			<?php echo tsmText::_('com_tsmart_STATUS'); ?>
 		</th>
 		<th>
-			<?php echo vmText::_('com_tsmart_TOTAL'); ?>
+			<?php echo tsmText::_('com_tsmart_TOTAL'); ?>
 		</th>
 	</thead>
 	<?php

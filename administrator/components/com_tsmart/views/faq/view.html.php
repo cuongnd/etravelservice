@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewfaq extends VmViewAdmin {
+class TsmartViewfaq extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -40,7 +40,7 @@ class TsmartViewfaq extends VmViewAdmin {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$model = VmModel::getModel();
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');

@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 /**
  * Category table class
  * The class is is used to table-level abstraction for Categories.
@@ -28,7 +28,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @subpackage Category
  * @author jseros
  */
-class TableCategories extends VmTable {
+class TableCategories extends tsmTable {
 
 	/** @var int Primary key */
 	var $virtuemart_category_id	= null;

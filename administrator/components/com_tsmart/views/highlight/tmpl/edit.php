@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start',"hightlight");
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('Current hightlight'); ?></legend>
+	<legend><?php echo tsmText::_('Current hightlight'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('input','hightlight name','title',$this->item->title,'class="required"'); ?>
 		<?php echo VmHTML::row('booleanlist','com_tsmart_PUBLISHED','published',$this->item->published); ?>

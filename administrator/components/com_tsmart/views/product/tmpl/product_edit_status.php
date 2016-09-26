@@ -19,11 +19,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access'); ?>
 <fieldset>
-				<legend><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRODUCT_STATUS_LBL'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRODUCT_STATUS_LBL'); ?></legend>
 <table class="adminform" width="100%">
 	<tr class="row0">
 		<th style="text-align:right;" width="25%">
-		<?php echo vmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK') ?>
+		<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK') ?>
 		</th>
 		<td width="20%">
 			<input  type="text" class="inputbox js-change-stock"  name="product_in_stock" value="<?php echo $this->product->product_in_stock; ?>" size="10" />
@@ -41,7 +41,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			}*/ ?>
 		</td>
  			<th style="text-align:right;" width="20%">
-			<?php echo vmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK') ?>
+			<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK') ?>
 		</th>
 		<td colspan="2">
 			<input type="text" class="inputbox js-change-stock"  name="product_ordered" value="<?php echo $this->product->product_ordered; ?>" size="10" />
@@ -50,13 +50,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<tr class="row1">
 	<!-- low stock notification -->
 		<th style="text-align:right;">
-		<?php echo vmText::_('com_tsmart_LOW_STOCK_NOTIFICATION'); ?>
+		<?php echo tsmText::_('com_tsmart_LOW_STOCK_NOTIFICATION'); ?>
 			</th>
 		<td>
 			<input type="text" class="inputbox" name="low_stock_notification" value="<?php echo $this->product->low_stock_notification; ?>" size="3" />
 		</td>
 		<th style="text-align:right;">
-		<?php echo vmText::_('com_tsmart_PRODUCT_FORM_STEP_ORDER') ?>
+		<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_STEP_ORDER') ?>
 		</th>
 		<td>
 			<input type="text" class="inputbox"  name="step_order_level" value="<?php echo $this->product->step_order_level; ?>" size="10" />
@@ -65,14 +65,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</tr>
 	<tr class="row0">
 		<th style="text-align:right;">
-				<?php echo vmText::_('com_tsmart_PRODUCT_FORM_MIN_ORDER') ?>
+				<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_MIN_ORDER') ?>
 </th>
 		<td>
 			<input type="text" class="inputbox"  name="min_order_level" value="<?php echo $this->product->min_order_level; ?>" size="10" />
 		</td>
 		<th style="text-align:right;">
 
-				<?php echo vmText::_('com_tsmart_PRODUCT_FORM_MAX_ORDER') ?>
+				<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_MAX_ORDER') ?>
 		</th>
 		<td>
 			<input type="text" class="inputbox"  name="max_order_level" value="<?php echo $this->product->max_order_level; ?>" size="10" />
@@ -81,7 +81,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<tr class="row1">
 		<th style="text-align:right;">
 
-				<?php echo vmText::_('com_tsmart_PRODUCT_FORM_AVAILABLE_DATE') ?>
+				<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_AVAILABLE_DATE') ?>
 		</th>
 		<td colspan="3">
 			<?php
@@ -92,23 +92,23 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<tr class="row0">
 		<th style="text-align:right;">
 
-				<?php echo vmText::_('com_tsmart_AVAILABILITY') ?>
+				<?php echo tsmText::_('com_tsmart_AVAILABILITY') ?>
 		</th>
 		<td colspan="2">
 			<input type="text" class="inputbox" id="product_availability" name="product_availability" value="<?php echo $this->product->product_availability; ?>" />
-			<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>'.vmText::_('com_tsmart_AVAILABILITY').'</b><br/ >'.vmText::_('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP1') ?>"></span>
+			<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>'.tsmText::_('com_tsmart_AVAILABILITY').'</b><br/ >'.tsmText::_('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP1') ?>"></span>
 
 			<?php echo JHtml::_('list.images', 'image', $this->product->product_availability, " ", $this->imagePath); ?>
-			<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>'.vmText::_('com_tsmart_AVAILABILITY').'</b><br/ >'.vmText::sprintf('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP2',  $this->imagePath ) ?>"></span>
+			<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>'.tsmText::_('com_tsmart_AVAILABILITY').'</b><br/ >'.tsmText::sprintf('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP2',  $this->imagePath ) ?>"></span>
 		</td>
-		<td><img border="0" id="imagelib" alt="<?php echo vmText::_('com_tsmart_PREVIEW'); ?>" name="imagelib" src="<?php if ($this->product->product_availability) echo JURI::root(true).$this->imagePath.$this->product->product_availability;?>"/></td>
+		<td><img border="0" id="imagelib" alt="<?php echo tsmText::_('com_tsmart_PREVIEW'); ?>" name="imagelib" src="<?php if ($this->product->product_availability) echo JURI::root(true).$this->imagePath.$this->product->product_availability;?>"/></td>
 
 	</tr>
 </table>
 </fieldset>
 
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_PRODUCT_SHOPPERS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_PRODUCT_SHOPPERS'); ?></legend>
 		<?php echo $this->loadTemplate('customer'); ?>
 </fieldset>
 

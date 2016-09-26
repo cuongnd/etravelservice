@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start', "tourtype");
 
         <div class="col50">
             <fieldset>
-                <legend><?php echo vmText::_('Current tourtype'); ?></legend>
+                <legend><?php echo tsmText::_('Current tourtype'); ?></legend>
                 <div class="admintable row-fluid">
                     <?php echo VmHTML::row_control('input', 'tourtype name', 'title', $this->item->title, 'class="required"'); ?>
                     <?php echo VmHTML::row_control('list_radio','Price type','price_type', $this->list_price_type , $this->item->price_type, 'class="required"'); ?>

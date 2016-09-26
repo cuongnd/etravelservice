@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of categories
@@ -30,7 +30,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Category
  * @author RickG, jseros
  */
-class TsmartViewCategory extends VmViewAdmin {
+class TsmartViewCategory extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -72,7 +72,7 @@ class TsmartViewCategory extends VmViewAdmin {
 			$this->assignRef('parent', $parent);
 
 			if(!class_exists('ShopFunctions'))require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
-			$templateList = ShopFunctions::renderTemplateList(vmText::_('com_tsmart_CATEGORY_TEMPLATE_DEFAULT'));
+			$templateList = ShopFunctions::renderTemplateList(tsmText::_('com_tsmart_CATEGORY_TEMPLATE_DEFAULT'));
 
 			$this->assignRef('jTemplateList', $templateList);
 

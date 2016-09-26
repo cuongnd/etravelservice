@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @subpackage Config
  */
-class TsmartControllerConfig extends VmController {
+class TsmartControllerConfig extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -59,7 +59,7 @@ class TsmartControllerConfig extends VmController {
 
 		$msg = '';
 		if ($model->store($data)) {
-			$msg = vmText::_('com_tsmart_CONFIG_SAVED');
+			$msg = tsmText::_('com_tsmart_CONFIG_SAVED');
 			// Load the newly saved values into the session.
 			VmConfig::loadConfig();
 		}
@@ -82,7 +82,7 @@ class TsmartControllerConfig extends VmController {
 	 */
 	function remove(){
 
-		$msg = vmText::_('com_tsmart_ERROR_CONFIGS_COULD_NOT_BE_DELETED');
+		$msg = tsmText::_('com_tsmart_ERROR_CONFIGS_COULD_NOT_BE_DELETED');
 
 		$this->setRedirect( $this->redirectPath , $msg);
 	}

@@ -17,12 +17,12 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOP_EMAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOP_EMAILS'); ?></legend>
 	<table class="admintable">
 		<tr>
 			<td class="key">
-					<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_EXPLAIN'); ?>">
-						<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT'); ?>
+					<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_EXPLAIN'); ?>">
+						<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT'); ?>
 					</span>
 			</td>
 			<td>
@@ -30,12 +30,12 @@ defined('_JEXEC') or die('Restricted access');
 					<option value="0" <?php if (VmConfig::get('order_mail_html') == '0') {
 						echo 'selected="selected"';
 					} ?>>
-						<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_TEXT'); ?>
+						<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_TEXT'); ?>
 					</option>
 					<option value="1" <?php if (VmConfig::get('order_mail_html') == '1') {
 						echo 'selected="selected"';
 					} ?>>
-						<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_HTML'); ?>
+						<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAIL_FORMAT_HTML'); ?>
 					</option>
 				</select>
 			</td>

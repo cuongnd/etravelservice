@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @author
  */
-class TsmartControllerOrders extends VmController {
+class TsmartControllerOrders extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -130,7 +130,7 @@ class TsmartControllerOrders extends VmController {
 		$id = vRequest::getInt('virtuemart_order_id');
 		if (!$order_id = $model->getOrderId($id, $dir)) {
 			$order_id  = $id;
-			$msg = vmText::_('com_tsmart_NO_MORE_ORDERS');
+			$msg = tsmText::_('com_tsmart_NO_MORE_ORDERS');
 		} else {
 			$msg ='';
 		}
@@ -217,11 +217,11 @@ class TsmartControllerOrders extends VmController {
 
 		$msg='';
 		if ($result['updated'] > 0)
-		$msg = vmText::sprintf('com_tsmart_ORDER_UPDATED_SUCCESSFULLY', $result['updated'] );
+		$msg = tsmText::sprintf('com_tsmart_ORDER_UPDATED_SUCCESSFULLY', $result['updated'] );
 		else if ($result['error'] == 0)
-		$msg .= vmText::_('com_tsmart_ORDER_NOT_UPDATED');
+		$msg .= tsmText::_('com_tsmart_ORDER_NOT_UPDATED');
 		if ($result['error'] > 0)
-		$msg .= vmText::sprintf('com_tsmart_ORDER_NOT_UPDATED_SUCCESSFULLY', $result['error'] , $result['total']);
+		$msg .= tsmText::sprintf('com_tsmart_ORDER_NOT_UPDATED_SUCCESSFULLY', $result['error'] , $result['total']);
 		if ('updatestatus'== $lastTask ) {
 			$app->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$virtuemart_order_id , $msg);
 		}

@@ -22,27 +22,27 @@ defined('_JEXEC') or die('Restricted access');?>
    <tbody>
 
     <tr class="row1">
-		<th style="text-align:right;"><?php echo vmText::_('com_tsmart_PRODUCT_LENGTH') ?>
+		<th style="text-align:right;"><?php echo tsmText::_('com_tsmart_PRODUCT_LENGTH') ?>
       </th>
       <td width="79%">
         <input type="text" class="inputbox"  name="product_length" value="<?php echo $this->product->product_length; ?>" size="15" maxlength="15" />   <?php echo " ".$this->lists['product_lwh_uom'];?>
       </td>
     </tr>
     <tr class="row0">
-		<th style="text-align:right;"><?php echo vmText::_('com_tsmart_PRODUCT_WIDTH') ?></th>
+		<th style="text-align:right;"><?php echo tsmText::_('com_tsmart_PRODUCT_WIDTH') ?></th>
       <td>
         <input type="text" class="inputbox"  name="product_width" value="<?php echo $this->product->product_width; ?>" size="15" maxlength="15" />
       </td>
     </tr>
     <tr class="row1">
-		<th style="text-align:right;"><?php echo vmText::_('com_tsmart_PRODUCT_HEIGHT') ?></th>
+		<th style="text-align:right;"><?php echo tsmText::_('com_tsmart_PRODUCT_HEIGHT') ?></th>
       <td>
         <input type="text" class="inputbox"  name="product_height" value="<?php echo $this->product->product_height; ?>" size="15" maxlength="15" />
       </td>
     </tr>
    
     <tr class="row0">
-		<th style="text-align:right;"><?php echo vmText::_('com_tsmart_PRODUCT_WEIGHT') ?></th>
+		<th style="text-align:right;"><?php echo tsmText::_('com_tsmart_PRODUCT_WEIGHT') ?></th>
        <td>
         <input type="text" class="inputbox"  name="product_weight" size="15" maxlength="15" value="<?php echo $this->product->product_weight; ?>" />
         <?php echo " ".$this->lists['product_weight_uom'];?>
@@ -54,8 +54,8 @@ defined('_JEXEC') or die('Restricted access');?>
    
     <tr class="row0">
 		<th style="text-align:right;">
-        <span class="hasTip" title="<?php echo vmText::sprintf('com_tsmart_PRODUCT_PACKAGING_DESCRIPTION',vmText::_('com_tsmart_UNIT_NAME_L'),vmText::_('com_tsmart_PRODUCT_UNIT'),vmText::_('com_tsmart_UNIT_NAME_100ML')); ?>">
-        <?php echo vmText::_('com_tsmart_PRODUCT_PACKAGING') ?>
+        <span class="hasTip" title="<?php echo tsmText::sprintf('com_tsmart_PRODUCT_PACKAGING_DESCRIPTION',tsmText::_('com_tsmart_UNIT_NAME_L'),tsmText::_('com_tsmart_PRODUCT_UNIT'),tsmText::_('com_tsmart_UNIT_NAME_100ML')); ?>">
+        <?php echo tsmText::_('com_tsmart_PRODUCT_PACKAGING') ?>
          </span>
 		</th>
       <td>
@@ -65,8 +65,8 @@ defined('_JEXEC') or die('Restricted access');?>
     </tr>
     <tr class="row1">
 		<th style="text-align:right;">
-                <span class="hasTip" title="<?php echo vmText::_('com_tsmart_PRODUCT_BOX_DESCRIPTION'); ?>">
-                <?php echo vmText::_('com_tsmart_PRODUCT_BOX') ?>
+                <span class="hasTip" title="<?php echo tsmText::_('com_tsmart_PRODUCT_BOX_DESCRIPTION'); ?>">
+                <?php echo tsmText::_('com_tsmart_PRODUCT_BOX') ?>
                 </span></th>
       <td>
         <input type="text" class="inputbox"  name="product_box" value="<?php echo $this->product->product_box; ?>" size="15" maxlength="15"/>&nbsp;

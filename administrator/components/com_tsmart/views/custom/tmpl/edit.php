@@ -22,7 +22,7 @@ AdminUIHelper::startAdminArea($this);
 ?>
 <form name="adminForm" id="adminForm" method="post" action="">
     <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_PRODUCT_CUSTOM_FIELD'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_PRODUCT_CUSTOM_FIELD'); ?></legend>
 	<?php
 	$this->addHidden('view', 'custom');
 	$this->addHidden('task', '');
@@ -38,7 +38,7 @@ AdminUIHelper::startAdminArea($this);
 	    <?php echo $this->displayCustomFields($this->custom); ?>
 
 	    <tr id="custom_plg">
-		<td valign="top"><?php echo vmText::_('com_tsmart_SELECT_CUSTOM_PLUGIN') ?></td>
+		<td valign="top"><?php echo tsmText::_('com_tsmart_SELECT_CUSTOM_PLUGIN') ?></td>
 		<td>
 		    <fieldset>
 			<?php if (!$this->custom->form) {
@@ -52,15 +52,15 @@ AdminUIHelper::startAdminArea($this);
 				if ($this->custom->form) {
 
 					?>
-					<h2 style="text-align: center;"><?php echo vmText::_($this->custom->custom_title) ?></h2>
-					<div style="text-align: center;"><?php echo VmText::_('com_tsmart_CUSTOM_CLASS_NAME').": ".$this->custom->custom_element ?></div>
+					<h2 style="text-align: center;"><?php echo tsmText::_($this->custom->custom_title) ?></h2>
+					<div style="text-align: center;"><?php echo tsmText::_('com_tsmart_CUSTOM_CLASS_NAME').": ".$this->custom->custom_element ?></div>
 					<?php
 					if ($this->custom->form) {
 						$form = $this->custom->form;
 						include(VMPATH_ADMIN.DS.'fields'.DS.'formrenderer.php');
 					}
 				} else {
-					echo vmText::_('com_tsmart_SELECT_CUSTOM_PLUGIN');
+					echo tsmText::_('com_tsmart_SELECT_CUSTOM_PLUGIN');
 				}
 				?>
 

@@ -37,7 +37,7 @@ class JFormFieldManufacturer extends JFormField
 		VmConfig::loadConfig();
 		$model = VmModel::getModel('Manufacturer');
 		$manufacturers = $model->getManufacturers(true, true, false);
-		$emptyOption = JHtml::_ ('select.option', '', vmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_manufacturer_id', 'mf_name');
+		$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), 'virtuemart_manufacturer_id', 'mf_name');
 		if(!empty($manufacturers) and is_array($manufacturers)){
 			array_unshift ($manufacturers, $emptyOption);
 		} else {

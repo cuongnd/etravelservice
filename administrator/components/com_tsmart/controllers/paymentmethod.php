@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Calculation tool
  * @author Max Milbers
  */
-class TsmartControllerPaymentmethod extends VmController {
+class TsmartControllerPaymentmethod extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -80,9 +80,9 @@ class TsmartControllerPaymentmethod extends VmController {
 		if(!is_array($cids)) $cids = array($cids);
 
 		foreach($cids as $cid){
-			if ($model->createClone($cid)) $msg = vmText::_('com_tsmart_PAYMENT_CLONED_SUCCESSFULLY');
+			if ($model->createClone($cid)) $msg = tsmText::_('com_tsmart_PAYMENT_CLONED_SUCCESSFULLY');
 			else {
-				$msg = vmText::_('com_tsmart_PAYMENT_NOT_CLONED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PAYMENT_NOT_CLONED_SUCCESSFULLY');
 				$msgtype = 'error';
 			}
 		}

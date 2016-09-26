@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerpromotion extends VmController {
+class TsmartControllerpromotion extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -121,7 +121,7 @@ class TsmartControllerpromotion extends VmController {
         $app=JFactory::getApplication();
         $input=$app->input;
         $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
         $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
         $return_item=new stdClass();
         $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
@@ -130,9 +130,9 @@ class TsmartControllerpromotion extends VmController {
         $view->setModel($modal_promotion,true);
         $model_product=$this->getModel('product');
         $product=$model_product->getItem($virtuemart_product_id);
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpromotion.php';
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
-        if($product->price_type!=vmGroupSize::FLAT_PRICE)
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
+        if($product->price_type!=tsmGroupSize::FLAT_PRICE)
         {
             $list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_product_id);
             $return_item->list_tour_promotion_price_by_tour_promotion_price_id=$list_tour_promotion_price_by_tour_promotion_price_id;
@@ -170,7 +170,7 @@ class TsmartControllerpromotion extends VmController {
         $input=$app->input;
         $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
         $virtuemart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
         $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($virtuemart_product_id,$virtuemart_service_class_id);
         echo json_encode($list_base_price_by_service_class_id_and_tour_id);
         die;
@@ -185,30 +185,30 @@ class TsmartControllerpromotion extends VmController {
         $model_promotion_price = VmModel::getModel('promotion');
         $model_promotion_price->setId($virtuemart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpromotion.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
         $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
         $virtuemart_product_id=$product->virtuemart_product_id;
 
 
         $return_item=new stdClass();
 
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
         $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
         $return_item->list_service_class=$list_service_class;
 
         $return_item->promotion_price=$promotion_price;
         $view->assignRef('promotion_price',$return_item->promotion_price);
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpromotion.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
 
 
         $model_product = VmModel::getModel('product');
         $product=$model_product->getItem($virtuemart_product_id);
         $return_item->tour=$product;
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpromotion.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
 
         $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
-        if($product->price_type!=vmGroupSize::FLAT_PRICE)
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
+        if($product->price_type!=tsmGroupSize::FLAT_PRICE)
         {
             $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_promotion_price_id);
             $view->assignRef('list_tour_promotion_price_by_tour_promotion_price_id',$return_item->list_tour_promotion_price_by_tour_promotion_price_id);
@@ -231,7 +231,7 @@ class TsmartControllerpromotion extends VmController {
         $return_item->list_promotion=JArrayHelper::pivot($return_item->list_promotion,'type');
         $view->assignRef('list_promotion',$return_item->list_promotion);
         //end get markup
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
         $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
         $view->assignRef('list_group_size_by_tour_id',$return_item->list_group_size_by_tour_id);
         ob_start();

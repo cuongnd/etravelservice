@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <tr>
 <td valign="top" width="50%">
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOPFRONT_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOPFRONT_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('genericlist','com_tsmart_SELECT_DEFAULT_SHOP_TEMPLATE',$this->jTemplateList, 'vmtemplate', 'size=1 width=200', 'value', 'name', VmConfig::get('vmtemplate', 'default'));
@@ -39,7 +39,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</table>
 </fieldset>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_PAGINATION_SEQUENCE'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PAGINATION_SEQUENCE'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('input','com_tsmart_LIST_MEDIA','mediaLimit',VmConfig::get('mediaLimit',20));
@@ -56,7 +56,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 </fieldset>
 
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_CAT_FEED_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_CAT_FEED_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FEED_ENABLE', 'feed_cat_published', VmConfig::get('feed_cat_published', 0));
@@ -64,15 +64,15 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FEED_SHOWPRICES', 'feed_cat_show_prices', VmConfig::get('feed_cat_show_prices', 0));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FEED_SHOWDESC', 'feed_cat_show_description', VmConfig::get('feed_cat_show_description', 0));
 		$options = array();
-		$options[] = JHtml::_('select.option', 'product_s_desc', vmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
-		$options[] = JHtml::_('select.option', 'product_desc', vmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
+		$options[] = JHtml::_('select.option', 'product_s_desc', tsmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
+		$options[] = JHtml::_('select.option', 'product_desc', tsmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
 		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE', $options, 'feed_cat_description_type', 'size=1', 'value', 'text', VmConfig::get('feed_cat_description_type',0));
 		echo VmHTML::row('input','com_tsmart_ADMIN_CFG_FEED_MAX_TEXT_LENGTH','feed_cat_max_text_length',VmConfig::get('feed_cat_max_text_length','500'),"","",4);
 		?>
 	</table>
 </fieldset>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_MEDIA_TITLE'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_TITLE'); ?></legend>
 	<table class="admintable table-striped">
 		<?php
 		echo VmHTML::row('input','com_tsmart_ADMIN_CFG_ASSETS_GENERAL_PATH','assets_general_path',VmConfig::get('assets_general_path',''),'class="inputbox"','',60,260);
@@ -91,7 +91,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		} else { ?>
 		<tr>
 			<td colspan="2">
-				<strong><?php echo vmText::_('com_tsmart_ADMIN_CFG_GD_MISSING'); ?></strong>
+				<strong><?php echo tsmText::_('com_tsmart_ADMIN_CFG_GD_MISSING'); ?></strong>
 				<input type="hidden" name="img_resize_enable" value="0"/>
 				<input type="hidden" name="img_width" value="<?php echo  VmConfig::get('img_width', 90); ?>"/>
 				<input type="hidden" name="img_height" value="<?php echo  VmConfig::get('img_height', 90); ?>"/>
@@ -108,7 +108,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 </td>
 <td valign="top">
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_HOMEPAGE_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_HOMEPAGE_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_MAIN_LAYOUT',$this->vmLayoutList, 'vmlayout', 'size=1', 'value', 'text', VmConfig::get('vmlayout',0));
@@ -128,7 +128,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</table>
 </fieldset>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_HOME_FEED_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_HOME_FEED_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FEED_LATEST_ENABLE','feed_latest_published', VmConfig::get('feed_latest_published',0));
@@ -144,8 +144,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FEED_SHOWDESC','feed_home_show_description', VmConfig::get('feed_home_show_description',0));
 
 		$options = array();
-		$options[] = JHtml::_('select.option', 'product_s_desc', vmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
-		$options[] = JHtml::_('select.option', 'product_desc', vmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
+		$options[] = JHtml::_('select.option', 'product_s_desc', tsmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
+		$options[] = JHtml::_('select.option', 'product_desc', tsmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
 		echo VmHTML::row('genericlist','com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE', $options, 'feed_home_description_type', 'size=1', 'value', 'text', VmConfig::get('feed_home_description_type'));
 
 		echo VmHTML::row('input','com_tsmart_ADMIN_CFG_FEED_MAX_TEXT_LENGTH','feed_home_max_text_length', VmConfig::get('feed_home_max_text_length',500),'',10,10);
@@ -153,8 +153,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</table>
 </fieldset>
 <fieldset>
-	<legend class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FRONT_CSS_JS_SETTINGS_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FRONT_CSS_JS_SETTINGS'); ?>
+	<legend class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FRONT_CSS_JS_SETTINGS_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FRONT_CSS_JS_SETTINGS'); ?>
 	</legend>
 	<table class="admintable">
 		<?php

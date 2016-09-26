@@ -28,18 +28,18 @@ AdminUIHelper::startAdminArea($this);
 		<table>
 			<tr>
 				<td width="100%">
-					<?php echo vmText::_('com_tsmart_FILTER'); ?>:
+					<?php echo tsmText::_('com_tsmart_FILTER'); ?>:
 					<input type="text" name="search" id="search" value="<?php echo $this->lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" />
 					<?php
 					$selected = vRequest::getString('searchTable','juser');
 					$searchOptionTables = array(
-						'0' => array('searchTable' => 'juser', 'searchTable_name' => vmText::_('com_tsmart_ONLY_JUSER')),
-						'1' => array('searchTable' => 'all', 'searchTable_name' => vmText::_('JALL'))
+						'0' => array('searchTable' => 'juser', 'searchTable_name' => tsmText::_('com_tsmart_ONLY_JUSER')),
+						'1' => array('searchTable' => 'all', 'searchTable_name' => tsmText::_('JALL'))
 					);
 					echo JHtml::_('Select.genericlist', $searchOptionTables, 'searchTable', '', 'searchTable', 'searchTable_name', $selected );
 					?>
-					<button class="btn btn-small" onclick="this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?></button>
-					<button class="btn btn-small" onclick="document.adminForm.search.value='';this.form.submit();"><?php echo vmText::_('com_tsmart_RESET'); ?></button>
+					<button class="btn btn-small" onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
+					<button class="btn btn-small" onclick="document.adminForm.search.value='';this.form.submit();"><?php echo tsmText::_('com_tsmart_RESET'); ?></button>
 				</td>
 			</tr>
 		</table>
@@ -60,7 +60,7 @@ AdminUIHelper::startAdminArea($this);
 <?php	/*	<th><?php echo vmText::_('com_tsmart_USER_GROUP'); ?></th> 	*/ ?>
 			<th width="25%"><?php echo $this->sort('shopper_group_name', 'com_tsmart_SHOPPERGROUP')  ?></th>
 			<?php if(Vmconfig::get('multix','none')!=='none'){ ?>
-			<th width="80px"><?php echo vmText::_('com_tsmart_USER_IS_VENDOR'); ?></th>
+			<th width="80px"><?php echo tsmText::_('com_tsmart_USER_IS_VENDOR'); ?></th>
 			<?php } ?>
 			<th><?php echo $this->sort('ju.id', 'com_tsmart_ID') ?></th>
 		</tr>
@@ -90,7 +90,7 @@ AdminUIHelper::startAdminArea($this);
 				<td align="left">
 					<?php
 					if(empty($row->shopper_group_name)) $row->shopper_group_name = $this->defaultShopperGroup;
-					echo vmText::_($row->shopper_group_name);
+					echo tsmText::_($row->shopper_group_name);
 					?>
 				</td>
 				<?php if(Vmconfig::get('multix','none')!=='none'){ ?>

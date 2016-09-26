@@ -29,7 +29,7 @@ AdminUIHelper::imitateTabs('start', "coupon");
 
 			<div class="col50">
 				<fieldset>
-					<legend><?php echo vmText::_('Current coupon'); ?></legend>
+					<legend><?php echo tsmText::_('Current coupon'); ?></legend>
 					<div class="row-fluid">
 						<div class="span7">
 							<?php echo VmHTML::row_control('input', 'service name', 'title', $this->item->title, 'class="required"'); ?>

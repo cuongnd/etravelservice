@@ -24,12 +24,12 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_MANUFACTURER_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_MANUFACTURER_DETAILS'); ?></legend>
 	<table class="admintable">
 
 		<?php echo VmHTML::row('input','com_tsmart_MANUFACTURER_NAME','mf_name',$this->manufacturer->mf_name,'class="required"'); ?>
 	    	<?php echo VmHTML::row('booleanlist','com_tsmart_PUBLISHED','published',$this->manufacturer->published); ?>
-		<?php echo VmHTML::row('input',$this->viewName.' '. vmText::_('com_tsmart_SLUG'),'slug',$this->manufacturer->slug); ?>
+		<?php echo VmHTML::row('input',$this->viewName.' '. tsmText::_('com_tsmart_SLUG'),'slug',$this->manufacturer->slug); ?>
 		<?php echo VmHTML::row('select','com_tsmart_MANUFACTURER_CATEGORY_NAME','virtuemart_manufacturercategories_id',$this->manufacturerCategories,$this->manufacturer->virtuemart_manufacturercategories_id,'','virtuemart_manufacturercategories_id', 'mf_category_name',false); ?>
 		<?php echo VmHTML::row('input','com_tsmart_MANUFACTURER_URL','mf_url',$this->manufacturer->mf_url); ?>
 		<?php echo VmHTML::row('input','com_tsmart_MANUFACTURER_EMAIL','mf_email',$this->manufacturer->mf_email); ?>

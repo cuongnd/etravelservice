@@ -17,7 +17,7 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 * http://virtuemart.org
 */
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Report table class
@@ -26,7 +26,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @subpackage Report
  * @author Wicksj
  */
-class TableReports extends VmTable {
+class TableReports extends tsmTable {
 
 	/**
 	 * Constructor for report table class

@@ -25,7 +25,7 @@ if(!VmConfig::get('dangeroustools', false)){
 	?>
 
 	<div class="vmquote" style="text-align:left;margin-left:20px;">
-	<span style="font-weight:bold;color:green;"> <?php echo vmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_ENABLED_JS',vmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link) ?></span>
+	<span style="font-weight:bold;color:green;"> <?php echo tsmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_ENABLED_JS',tsmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link) ?></span>
 	</div>
 
 	<?php
@@ -38,7 +38,7 @@ if(!VmConfig::get('dangeroustools', false)){
 
 
 	<td align="left" colspan="2" >
-             <h3> <?php echo vmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'); ?> </h3>
+             <h3> <?php echo tsmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'); ?> </h3>
 	</td>
 
 
@@ -61,59 +61,59 @@ if(!VmConfig::get('dangeroustools', false)){
 
  	<td align="center" width="25%">
 		<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=portMedia&'.JSession::getFormToken().'=1' ); ?>
-	    <div class="icon"><a onclick="javascript:confirmation('<?php echo vmText::sprintf('com_tsmart_UPDATE_MIGRATION_STRING_CONFIRM', vmText::_('com_tsmart_MEDIA_S')); ?>', '<?php echo $link; ?>');">
+	    <div class="icon"><a onclick="javascript:confirmation('<?php echo tsmText::sprintf('com_tsmart_UPDATE_MIGRATION_STRING_CONFIRM', tsmText::_('com_tsmart_MEDIA_S')); ?>', '<?php echo $link; ?>');">
 			<span class="vmicon48"></span>
-			<br /><?php echo vmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'); ?>
+			<br /><?php echo tsmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'); ?>
 
 		</a></div>
 	</td>
 
     <td align="left" width="25%" >
-		<?php echo vmText::sprintf('com_tsmart_TOOLS_SYNC_MEDIAS_EXPLAIN',VmConfig::get('media_product_path') ,VmConfig::get('media_category_path') , VmConfig::get('media_manufacturer_path')); ?>
+		<?php echo tsmText::sprintf('com_tsmart_TOOLS_SYNC_MEDIAS_EXPLAIN',VmConfig::get('media_product_path') ,VmConfig::get('media_category_path') , VmConfig::get('media_manufacturer_path')); ?>
     </td>
 
     </tr>
   <tr>
 	  <td align="center" width="25%">
 		  <?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=resetThumbs&'.JSession::getFormToken().'=1' ); ?>
-		  <div class="icon"><a onclick="javascript:confirmation('<?php echo vmText::_('com_tsmart_TOOLS_RESTHUMB_CONF'); ?>', '<?php echo $link; ?>');">
+		  <div class="icon"><a onclick="javascript:confirmation('<?php echo tsmText::_('com_tsmart_TOOLS_RESTHUMB_CONF'); ?>', '<?php echo $link; ?>');">
 				  <span class="vmicon48 vm_cpanel_48"></span>
-				  <br /><?php echo vmText::_('com_tsmart_TOOLS_RESTHUMB'); ?>
+				  <br /><?php echo tsmText::_('com_tsmart_TOOLS_RESTHUMB'); ?>
 
 			  </a></div>
 	  </td>
 
 	  <td align="left" width="25%" >
 
-		  <?php echo vmText::_('com_tsmart_TOOLS_RESTHUMB_TIP'); ?>
+		  <?php echo tsmText::_('com_tsmart_TOOLS_RESTHUMB_TIP'); ?>
 	  </td>
     </tr>
 
-    <tr><td align="left" colspan="4"><?php echo vmText::_('com_tsmart_UPDATE_MIGRATION_TOOLS_WARNING'); ?></td></tr>
+    <tr><td align="left" colspan="4"><?php echo tsmText::_('com_tsmart_UPDATE_MIGRATION_TOOLS_WARNING'); ?></td></tr>
 <tr>
     <td align="center">
 		<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=refreshCompleteInstall&'.JSession::getFormToken().'=1' ); ?>
-	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 		<span class="vmicon48"></span>
 	    <br />
-            <?php echo vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH'); ?>
+            <?php echo tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_FRESH'); ?>
 		</a></div>
 	</td>
 	   <td align="center">
 		<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=refreshCompleteInstallAndSample&'.JSession::getFormToken().'=1' ); ?>
-	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 		<span class="vmicon48"></span>
 	    <br />
-            <?php echo vmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE'); ?>
+            <?php echo tsmText::_('com_tsmart_DELETES_ALL_VM_TABLES_AND_SAMPLE'); ?>
 		</a></div>
 	</td>
 
 	   <td align="center">
 		<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=updateDatabase&'.JSession::getFormToken().'=1' ); ?>
-	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATEDATABASE_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+	    <div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATEDATABASE_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 		<span class="vmicon48"></span>
 	    <br />
-            <?php echo vmText::_('com_tsmart_UPDATEDATABASE'); ?>
+            <?php echo tsmText::_('com_tsmart_UPDATEDATABASE'); ?>
 		</a></div>
 	</td>
 	<td align="center">
@@ -123,24 +123,24 @@ if(!VmConfig::get('dangeroustools', false)){
     <tr>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=restoreSystemDefaults&'.JSession::getFormToken().'=1'); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATE_RESTOREDEFAULTS_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATE_RESTOREDEFAULTS_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 			<span class="vmicon48 vm_cpanel_48"></span>
-			<br /><?php echo vmText::_('com_tsmart_UPDATE_RESTOREDEFAULTS'); ?>
+			<br /><?php echo tsmText::_('com_tsmart_UPDATE_RESTOREDEFAULTS'); ?>
 			</a></div>
 		</td>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=deleteVmData&'.JSession::getFormToken().'=1' ); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATE_REMOVEDATA_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATE_REMOVEDATA_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 			<span class="vmicon48"></span>
-			<br /> <?php echo vmText::_('com_tsmart_UPDATE_REMOVEDATA'); ?>
+			<br /> <?php echo tsmText::_('com_tsmart_UPDATE_REMOVEDATA'); ?>
 			</a></div>
 		</td>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=deleteVmTables&'.JSession::getFormToken().'=1' ); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATE_REMOVETABLES_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATE_REMOVETABLES_CONFIRM_JS') ); ?>', '<?php echo $link; ?>');">
 			<span class="vmicon48"></span>
 			<br />
-				<?php echo vmText::_('com_tsmart_UPDATE_REMOVETABLES'); ?>
+				<?php echo tsmText::_('com_tsmart_UPDATE_REMOVETABLES'); ?>
 			</a></div>
 		</td>
 
@@ -148,26 +148,26 @@ if(!VmConfig::get('dangeroustools', false)){
 	<tr>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=deleteInheritedCustoms&'.JSession::getFormToken().'=1' ); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATE_DELETE_INHERITEDC') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATE_DELETE_INHERITEDC') ); ?>', '<?php echo $link; ?>');">
 					<span class="vmicon48"></span>
 					<br />
-					<?php echo vmText::_('com_tsmart_UPDATE_DELETE_INHERITEDC'); ?>
+					<?php echo tsmText::_('com_tsmart_UPDATE_DELETE_INHERITEDC'); ?>
 				</a></div>
 		</td>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=fixCustomsParams&'.JSession::getFormToken().'=1' ); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('com_tsmart_UPDATE_OLD_CUSTOMFORMAT') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('com_tsmart_UPDATE_OLD_CUSTOMFORMAT') ); ?>', '<?php echo $link; ?>');">
 					<span class="vmicon48"></span>
 					<br />
-					<?php echo vmText::_('com_tsmart_UPDATE_OLD_CUSTOMFORMAT'); ?>
+					<?php echo tsmText::_('com_tsmart_UPDATE_OLD_CUSTOMFORMAT'); ?>
 				</a></div>
 		</td>
 		<td align="center">
 			<?php $link=JROUTE::_('index.php?option=com_tsmart&view=updatesmigration&task=updateDatabaseJoomla&'.JSession::getFormToken().'=1' ); ?>
-			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( vmText::_('Update Joomla Database') ); ?>', '<?php echo $link; ?>');">
+			<div class="icon"><a onclick="javascript:confirmation('<?php echo addslashes( tsmText::_('Update Joomla Database') ); ?>', '<?php echo $link; ?>');">
 					<span class="vmicon48"></span>
 					<br />
-					<?php echo vmText::_('Update Joomla Database for pros, use only if you know what you do'); ?>
+					<?php echo tsmText::_('Update Joomla Database for pros, use only if you know what you do'); ?>
 				</a></div>
 		</td>
 	</tr>

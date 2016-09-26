@@ -19,8 +19,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))
-require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcontroller.php');
+if(!class_exists('TsmController'))
+require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmController.php');
 
 /**
  * updatesMigration Controller
@@ -29,7 +29,7 @@ require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcontroller.php');
  * @subpackage updatesMigration
  * @author Max Milbers
  */
-class TsmartControllerUpdatesMigration extends VmController{
+class TsmartControllerUpdatesMigration extends TsmController{
 
 	private $installer;
 
@@ -132,7 +132,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 			$model = $this->getModel('updatesMigration');
 			$model->restoreSystemDefaults();
 
-			$msg = vmText::_('com_tsmart_SYSTEM_DEFAULTS_RESTORED');
+			$msg = tsmText::_('com_tsmart_SYSTEM_DEFAULTS_RESTORED');
 			$msg .= ' User id of the main vendor is ' . $model->setStoreOwner();
 			$this->setDangerousToolsOff();
 		} else {
@@ -268,7 +268,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 
 		$this->checkPermissionForTools();
 
-		$msg = vmText::_('com_tsmart_SYSTEM_VMTABLES_DELETED');
+		$msg = tsmText::_('com_tsmart_SYSTEM_VMTABLES_DELETED');
 		if(VmConfig::get('dangeroustools', false)){
 			$model = $this->getModel('updatesMigration');
 
@@ -292,7 +292,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 
 		$this->checkPermissionForTools();
 
-		$msg = vmText::_('com_tsmart_SYSTEM_VMDATA_DELETED');
+		$msg = tsmText::_('com_tsmart_SYSTEM_VMDATA_DELETED');
 		if(VmConfig::get('dangeroustools', false)){
 			$model = $this->getModel('updatesMigration');
 
@@ -311,7 +311,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 
 		$this->checkPermissionForTools();
 
-		$msg = vmText::_('com_tsmart_SYSTEM_ALLVMDATA_DELETED');
+		$msg = tsmText::_('com_tsmart_SYSTEM_ALLVMDATA_DELETED');
 		if(VmConfig::get('dangeroustools', false)){
 
 			$this->installer->populateVmDatabase("delete_essential.sql");
@@ -328,7 +328,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 
 		$this->checkPermissionForTools();
 
-		$msg = vmText::_('com_tsmart_SYSTEM_RESTVMDATA_DELETED');
+		$msg = tsmText::_('com_tsmart_SYSTEM_RESTVMDATA_DELETED');
 		if(VmConfig::get('dangeroustools', false)){
 			$this->installer->populateVmDatabase("delete_restoreable.sql");
 			$this->setDangerousToolsOff();
@@ -435,7 +435,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 			if ($return === false) {
 				// Save the data in the session.
 				$app->setUserState('com_config.config.global.data', $jConfig);
-				vmError(vmText::sprintf('JERROR_SAVE_FAILED', 'installComplete'));
+				vmError(tsmText::sprintf('JERROR_SAVE_FAILED', 'installComplete'));
 				//return false;
 			} else {
 				// Set the success message.
@@ -523,7 +523,7 @@ class TsmartControllerUpdatesMigration extends VmController{
 	function _getMsgDangerousTools(){
 		VmConfig::loadJLang('com_tsmart_config');
 		$link = JURI::root() . 'administrator/index.php?option=com_tsmart&view=config';
-		$msg = vmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_DISABLED', vmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'), $link);
+		$msg = tsmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_DISABLED', tsmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'), $link);
 		return $msg;
 	}
 

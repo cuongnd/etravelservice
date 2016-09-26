@@ -134,7 +134,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
     vmJsApi::addJScript('/administrator/components/com_tsmart/assets/js/jquery.coookie.js');
     vmJsApi::addJScript('/administrator/components/com_tsmart/assets/js/vm2admin.js');
 
-    $vm2string = "editImage: 'edit image',select_all_text: '" . vmText::_('com_tsmart_DRDOWN_SELALL') . "',select_some_options_text: '" . vmText::_($selectText) . "'";
+    $vm2string = "editImage: 'edit image',select_all_text: '" . tsmText::_('com_tsmart_DRDOWN_SELALL') . "',select_some_options_text: '" . tsmText::_($selectText) . "'";
     vmJsApi::addJScript('vm.remindTab', "
 		var tip_image='" . JURI::root(true) . "/components/com_tsmart/assets/js/images/vtip_arrow.png';
 		var vm2string ={" . $vm2string . "} ;
@@ -936,7 +936,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
         $html = '<div id="admin-ui-tabs">';
 
         foreach ($load_template as $tab_content => $tab_title) {
-            $html .= '<div class="tabs" title="' . vmText::_($tab_title) . '">';
+            $html .= '<div class="tabs" title="' . tsmText::_($tab_title) . '">';
             $html .= $view->loadTemplate($tab_content);
             $html .= '<div class="clear"></div></div>';
         }
@@ -959,7 +959,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
 			var virtuemartcookie="vm-tab";
 			');
             $html = '<div id="admin-ui-tabs">
-							<div class="tabs" title="' . vmText::_($language) . '">';
+							<div class="tabs" title="' . tsmText::_($language) . '">';
             echo $html;
         }
         if ($return == 'end') {
@@ -1051,7 +1051,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
 						<li>
 							<a href="' . $url . '" ' . $target . '>
 								<span class="vmicon-wrapper"><span class="' . $link ['icon_class'] . '"></span></span>
-								<span class="menu-subtitle">' . vmText::_($link ['name']) . '</span>
+								<span class="menu-subtitle">' . tsmText::_($link ['name']) . '</span>
 							</a>
 						</li>';
                         }
@@ -1062,8 +1062,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                     <h3 class="menu-title">
 					<span class="menu-title-wrapper">
 						<span class="vmicon-wrapper"><span
-                                class="<?php echo vmText::_($item['items'][0]['icon_class']) ?>"></span></span>
-						<span class="menu-title-content"><?php echo vmText::_($item ['title']) ?></span>
+                                class="<?php echo tsmText::_($item['items'][0]['icon_class']) ?>"></span></span>
+						<span class="menu-title-content"><?php echo tsmText::_($item ['title']) ?></span>
 					</span>
                     </h3>
 

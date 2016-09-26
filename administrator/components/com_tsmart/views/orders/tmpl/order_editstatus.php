@@ -39,32 +39,32 @@ vmJsApi::addJScript( 'orderstatus', "
 <table class="admintable table" >
 	<tr>
 		<td align="center" colspan="2">
-		<h1><?php echo vmText::_('com_tsmart_ORDER_UPDATE_STATUS') ?></h1>
+		<h1><?php echo tsmText::_('com_tsmart_ORDER_UPDATE_STATUS') ?></h1>
 		</td>
 	</tr>
 	<tr>
-		<td class="key"><?php echo vmText::_('com_tsmart_ORDER_PRINT_PO_STATUS') ?></td>
+		<td class="key"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_STATUS') ?></td>
 		<td><?php echo $this->orderStatSelect; ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="key"><?php echo vmText::_('com_tsmart_COMMENT') ?></td>
+		<td class="key"><?php echo tsmText::_('com_tsmart_COMMENT') ?></td>
 		<td><textarea rows="6" cols="35" name="comments"></textarea>
 		</td>
 	</tr>
 	<tr>
-		<td class="key"><?php echo vmText::_('com_tsmart_ORDER_LIST_NOTIFY') ?></td>
+		<td class="key"><?php echo tsmText::_('com_tsmart_ORDER_LIST_NOTIFY') ?></td>
 		<td><?php echo VmHTML::checkbox('customer_notified', true); ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="key"><?php echo vmText::_('com_tsmart_ORDER_HISTORY_INCLUDE_COMMENT') ?></td>
+		<td class="key"><?php echo tsmText::_('com_tsmart_ORDER_HISTORY_INCLUDE_COMMENT') ?></td>
 		<td><br />
 		<?php echo VmHTML::checkbox('include_comment', true); ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="key"><?php echo vmText::_('com_tsmart_ORDER_UPDATE_LINESTATUS') ?></td>
+		<td class="key"><?php echo tsmText::_('com_tsmart_ORDER_UPDATE_LINESTATUS') ?></td>
 		<td><br />
 		<?php echo VmHTML::checkbox('orders['.$this->orderID.'][update_lines]', true); ?>
 		</td>
@@ -72,15 +72,15 @@ vmJsApi::addJScript( 'orderstatus', "
 	<tr>
 		<td colspan="2" align="center" class="key">
 		<a href="#" class="orderStatFormSubmit" >
-			<span class="icon-nofloat vmicon vmicon-16-save"></span>&nbsp;<?php echo vmText::_('com_tsmart_SAVE'); ?></a>&nbsp;&nbsp;&nbsp;
-		<a href="#" title="<?php echo vmText::_('com_tsmart_CANCEL'); ?>" onClick="javascript:cancelOrderStatFormEdit(event);" class="show_element[updateOrderStatus]">
-			<span class="icon-nofloat vmicon vmicon-16-remove"></span>&nbsp;<?php echo vmText::_('com_tsmart_CANCEL'); ?></a>
+			<span class="icon-nofloat vmicon vmicon-16-save"></span>&nbsp;<?php echo tsmText::_('com_tsmart_SAVE'); ?></a>&nbsp;&nbsp;&nbsp;
+		<a href="#" title="<?php echo tsmText::_('com_tsmart_CANCEL'); ?>" onClick="javascript:cancelOrderStatFormEdit(event);" class="show_element[updateOrderStatus]">
+			<span class="icon-nofloat vmicon vmicon-16-remove"></span>&nbsp;<?php echo tsmText::_('com_tsmart_CANCEL'); ?></a>
 		</td>
 <!--
-		<input type="submit" value="<?php echo vmText::_('com_tsmart_SAVE');?>" style="font-size: 10px" />
+		<input type="submit" value="<?php echo tsmText::_('com_tsmart_SAVE');?>" style="font-size: 10px" />
 		<input type="button"
 			onclick="javascript: window.parent.document.getElementById( 'sbox-window' ).close();"
-			value="<?php echo vmText::_('com_tsmart_CANCEL');?>" style="font-size: 10px" /></td>
+			value="<?php echo tsmText::_('com_tsmart_CANCEL');?>" style="font-size: 10px" /></td>
  -->
 	</tr>
 </table>

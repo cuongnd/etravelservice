@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @author Max Milbers
  */
-class TsmartControllerMedia extends VmController {
+class TsmartControllerMedia extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -72,7 +72,7 @@ class TsmartControllerMedia extends VmController {
 
 		$msg = '';
 		if ($id = $fileModel->store($data)) {
-			$msg = vmText::_('com_tsmart_FILE_SAVED_SUCCESS');
+			$msg = tsmText::_('com_tsmart_FILE_SAVED_SUCCESS');
 		}
 
 		$cmd = vRequest::getCmd('task');

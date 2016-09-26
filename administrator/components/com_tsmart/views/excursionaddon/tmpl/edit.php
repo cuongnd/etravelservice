@@ -29,7 +29,7 @@ AdminUIHelper::imitateTabs('start', "excursionaddon");
 
 			<div class="col50">
 				<fieldset>
-					<legend><?php echo vmText::_('Current excursionaddon'); ?></legend>
+					<legend><?php echo tsmText::_('Current excursionaddon'); ?></legend>
 					<div class="row-fluid">
 						<div class="span7">
 							<?php echo VmHTML::row_control('input', 'service name', 'title', $this->item->title, 'class="required"'); ?>

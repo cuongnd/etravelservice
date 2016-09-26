@@ -42,10 +42,10 @@ if ($form) {
 				if (!empty($label)) {
 					$class = isset($fieldSet->class) && !empty($fieldSet->class) ? "class=\"".$fieldSet->class."\"" : '';
 					?>
-					<h3> <span<?php echo $class  ?>><?php echo vmText::_($label) ?></span></h3>
+					<h3> <span<?php echo $class  ?>><?php echo tsmText::_($label) ?></span></h3>
 					<?php
 					if (isset($fieldSet->description) && trim($fieldSet->description)) {
-						echo '<p class="tip">' . $this->escape(vmText::_($fieldSet->description)) . '</p>';
+						echo '<p class="tip">' . $this->escape(tsmText::_($fieldSet->description)) . '</p>';
 					}
 				}
 				?>

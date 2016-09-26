@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewpayment extends VmViewAdmin {
+class TsmartViewpayment extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -58,16 +58,16 @@ class TsmartViewpayment extends VmViewAdmin {
 			$model->setId($cid);
 			$this->item = $model->getItem();
 			//get list tour
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmpayment.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmpayment.php';
 			$this->item->list_tour_id = vmPayment::get_list_tour_id_by_payment_id($this->item->virtuemart_payment_id);
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$this->list_tour = vmproduct::get_list_product();
 			//end get list tour
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcurrency.php';
-			$list_currency = vmcurrency::get_list_currency();
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcurrency.php';
+			$list_currency = tsmcurrency::get_list_currency();
 			$this->assignRef('list_currency', $list_currency);
 			//get list payment method
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpaymentmethod.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
 			$list_payment_method = vmpaymentmethod::get_list_payment_method();
 			$this->assignRef('list_payment_method', $list_payment_method);
 
@@ -76,7 +76,7 @@ class TsmartViewpayment extends VmViewAdmin {
 			//end get list payment method
 
 			//get list mode payment
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpaymentmethod.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
 			$list_mode_payment= vmpaymentmethod::get_list_mode_payment();
 			$this->assignRef('list_mode_payment', $list_mode_payment);
 

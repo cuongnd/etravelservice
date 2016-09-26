@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewPrice extends VmViewAdmin {
+class TsmartViewPrice extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -43,14 +43,14 @@ class TsmartViewPrice extends VmViewAdmin {
 		$app=JFactory::getApplication();
 		$model_product=VmModel::getModel('product');
 		$input=$app->input;
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 		$virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
 		$this->product=$model_product->getItem($virtuemart_product_id);
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
 
 			if($this->product->tour_methor=='tour_group')
@@ -77,7 +77,7 @@ class TsmartViewPrice extends VmViewAdmin {
 			$this->addStandardEditViewCommands();
 
 		} else {
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
             $tour_id=$input->get('virtuemart_product_id',0,'int');
             $this->virtuemart_product_id=$tour_id;
@@ -89,7 +89,7 @@ class TsmartViewPrice extends VmViewAdmin {
             $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup*/
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
             if(!count($this->list_group_size_by_tour_id))
             {
@@ -102,7 +102,7 @@ class TsmartViewPrice extends VmViewAdmin {
 
 
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vm_service_class.php';
-            $this->list_service_class_by_tour_id=vm_service_class::get_list_service_class_by_tour_id($tour_id);
+            $this->list_service_class_by_tour_id=tsm_service_class::get_list_service_class_by_tour_id($tour_id);
 
 			$this->prices = $model->getPricesListByTourid($tour_id);
             //$this->prices=JArrayHelper::pivot($this->prices,'service_class_name');

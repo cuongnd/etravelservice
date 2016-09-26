@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * WaitingUsers table class
@@ -28,7 +28,7 @@ if(!class_exists('VmTable')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php')
  * @package		VirtueMart
  * @author Seyi Awofadeju
  */
-class TableWaitingUsers extends VmTable {
+class TableWaitingUsers extends tsmTable {
 
 	var $virtuemart_waitinguser_id	= 0;
 	var $virtuemart_product_id		= 0;
@@ -50,7 +50,7 @@ class TableWaitingUsers extends VmTable {
 
 	function check() {
 		if(empty($this->notify_email) || !filter_var($this->notify_email, FILTER_VALIDATE_EMAIL)) {
-			vmError(vmText::_('com_tsmart_ENTER_A_VALID_EMAIL_ADDRESS'),vmText::_('com_tsmart_ENTER_A_VALID_EMAIL_ADDRESS'));
+			vmError(tsmText::_('com_tsmart_ENTER_A_VALID_EMAIL_ADDRESS'),tsmText::_('com_tsmart_ENTER_A_VALID_EMAIL_ADDRESS'));
 			return false;
 		}
 		return parent::check();

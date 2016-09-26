@@ -21,13 +21,13 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <br />
 <fieldset>
-    <legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SETTINGS') ?></legend>
+    <legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SETTINGS') ?></legend>
     <table class="admintable">
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP'); ?>">
-		<?php echo JHtml::tooltip(vmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP'), vmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP')); ?>
-		<label for="feed_published"><?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE') ?></label>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP'); ?>">
+		<?php echo JHtml::tooltip(tsmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP'), tsmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE_TIP')); ?>
+		<label for="feed_published"><?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_ENABLE') ?></label>
 		</span>
 	    </td>
 	    <td>
@@ -36,22 +36,22 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_CACHE_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_CACHE') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_CACHE_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_CACHE') ?>
 		</span>
 	    </td>
 	    <td>
 		<?php echo VmHTML::checkbox('feed_cache', $this->config->get('feed_cache')); ?>
 		<br />
 		<input type="text" size="10" value="<?php echo $this->config->get('feed_cachetime', '1800'); ?>" name="feed_cachetime" id="feed_cachetime" />
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_CACHETIME') ?>
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_CACHETIME') ?>
 	    </td>
 	</tr>
 
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE') ?>
 		</span>
 		</td>
 	    <td>
@@ -60,8 +60,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_TITLE_CATEGORIES') ?>
 		</span>
 	    </td>
 	    <td>
@@ -70,8 +70,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWIMAGES_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWIMAGES') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWIMAGES_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWIMAGES') ?>
 		</span>
 	    </td>
 	    <td>
@@ -80,8 +80,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWPRICES_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWPRICES') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWPRICES_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWPRICES') ?>
 		</span>
 	    </td>
 	    <td>
@@ -90,8 +90,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWDESC_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWDESC') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWDESC_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_SHOWDESC') ?>
 		</span>
 	    </td>
 	    <td>
@@ -100,23 +100,23 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_DESCRIPTION_TYPE') ?>
 		</span>
 	    </td>
 	    <td>
 		<?php
 		$options = array();
-		$options[] = JHtml::_('select.option', 'product_s_desc', vmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
-		$options[] = JHtml::_('select.option', 'product_desc', vmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
+		$options[] = JHtml::_('select.option', 'product_s_desc', tsmText::_('com_tsmart_PRODUCT_FORM_S_DESC'));
+		$options[] = JHtml::_('select.option', 'product_desc', tsmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION'));
 		echo JHtml::_('Select.genericlist', $options, 'feed_description_type', 'size=1', 'value', 'text', $this->config->get('feed_description_type'));
 		?>
 	    </td>
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAX_TEXT_LENGTH_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_LIMITTEXT') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAX_TEXT_LENGTH_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_LIMITTEXT') ?>
 		</span>
 	    </td>
 	    <td>
@@ -125,8 +125,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 	    <td class="key">
-		<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_MAX_TEXT_LENGTH_TIP'); ?>">
-		<?php echo vmText::_('com_tsmart_ADMIN_CFG_FEED_MAX_TEXT_LENGTH') ?>
+		<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_MAX_TEXT_LENGTH_TIP'); ?>">
+		<?php echo tsmText::_('com_tsmart_ADMIN_CFG_FEED_MAX_TEXT_LENGTH') ?>
 		</span>
 	    </td>
 	    <td>

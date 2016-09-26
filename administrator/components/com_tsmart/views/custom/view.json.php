@@ -46,7 +46,7 @@ class TsmartViewCustom extends JViewLegacy {
 				$json->msg =  'OK';
 				echo vmJsApi::safe_json_encode($json);
 			} else {
-				$json->msg =  '<b>'.vmText::_('com_tsmart_NO_IMAGE_SET').'</b>';
+				$json->msg =  '<b>'.tsmText::_('com_tsmart_NO_IMAGE_SET').'</b>';
 				echo json_encode($json);
 			}
 		}

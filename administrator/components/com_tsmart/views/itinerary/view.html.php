@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewitinerary extends VmViewAdmin {
+class TsmartViewitinerary extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -45,7 +45,7 @@ class TsmartViewitinerary extends VmViewAdmin {
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
         $this->SetViewTitle();
         JToolBarHelper::publishList();
         JToolBarHelper::unpublishList();
@@ -62,7 +62,7 @@ class TsmartViewitinerary extends VmViewAdmin {
         {
             require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcities.php';
             $this->item=$model->getItem();
-            $cities = vmcities::get_cities();
+            $cities = tsmcities::get_cities();
             $this->assignRef('cities', $cities);
         }
 

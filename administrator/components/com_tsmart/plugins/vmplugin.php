@@ -383,8 +383,8 @@ abstract class vmPlugin extends JPlugin {
 				} else {
 					$db->setQuery ($query);
 					if (!$db->execute ()) {
-						vmWarn($this->_name . '::onStoreInstallPluginTable: ' . vmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE));
-						echo $this->_name . '::onStoreInstallPluginTable: ' . vmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE);
+						vmWarn($this->_name . '::onStoreInstallPluginTable: ' . tsmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE));
+						echo $this->_name . '::onStoreInstallPluginTable: ' . tsmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE);
 					} else {
 						return true;
 					}
@@ -514,8 +514,8 @@ abstract class vmPlugin extends JPlugin {
 
 		}
 
-		if (!class_exists ('VmTable')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtable.php');
+		if (!class_exists ('tsmTable')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 		}
 
 		//New Vm3 way
@@ -614,15 +614,15 @@ abstract class vmPlugin extends JPlugin {
 	 * @param      $primaryKey
 	 * @param      $tableId
 	 * @param bool $loggable
-	 * @return VmTableData
+	 * @return tsmTableData
 	 */
 	protected function createPluginTableObject ($tableName, $tableFields, $primaryKey, $tableId, $loggable = FALSE) {
 
-		if (!class_exists ('VmTableData')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtabledata.php');
+		if (!class_exists ('tsmTableData')) {
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtabledata.php');
 		}
 		$db = JFactory::getDBO ();
-		$table = new VmTableData($tableName, $tableId, $db);
+		$table = new tsmTableData($tableName, $tableId, $db);
 		foreach ($tableFields as $field) {
 			$table->$field = 0;
 		}

@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the VirtueMart Component
@@ -28,7 +28,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author
  */
-class TsmartViewMedia extends VmViewAdmin {
+class TsmartViewMedia extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -58,23 +58,23 @@ class TsmartViewMedia extends VmViewAdmin {
 
 			$super = vmAccess::isSuperVendor();
 			if($super==1){
-				JToolBarHelper::custom('synchronizeMedia', 'new', 'new', vmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'),false);
+				JToolBarHelper::custom('synchronizeMedia', 'new', 'new', tsmText::_('com_tsmart_TOOLS_SYNC_MEDIA_FILES'),false);
 			}
 
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model,null,null,'searchMedia');
-			$options = array( '' => vmText::_('com_tsmart_LIST_ALL_TYPES'),
-				'product' => vmText::_('com_tsmart_PRODUCT'),
-				'category' => vmText::_('com_tsmart_CATEGORY'),
-				'manufacturer' => vmText::_('com_tsmart_MANUFACTURER'),
-				'vendor' => vmText::_('com_tsmart_VENDOR')
+			$options = array( '' => tsmText::_('com_tsmart_LIST_ALL_TYPES'),
+				'product' => tsmText::_('com_tsmart_PRODUCT'),
+				'category' => tsmText::_('com_tsmart_CATEGORY'),
+				'manufacturer' => tsmText::_('com_tsmart_MANUFACTURER'),
+				'vendor' => tsmText::_('com_tsmart_VENDOR')
 				);
 			$this->lists['search_type'] = VmHTML::selectList('search_type', vRequest::getVar('search_type'),$options,1,'','onchange="this.form.submit();"');
 
-			$options = array( '' => vmText::_('com_tsmart_LIST_ALL_ROLES'),
-				'file_is_displayable' => vmText::_('com_tsmart_FORM_MEDIA_DISPLAYABLE'),
-				'file_is_downloadable' => vmText::_('com_tsmart_FORM_MEDIA_DOWNLOADABLE'),
-				'file_is_forSale' => vmText::_('com_tsmart_FORM_MEDIA_SET_FORSALE'),
+			$options = array( '' => tsmText::_('com_tsmart_LIST_ALL_ROLES'),
+				'file_is_displayable' => tsmText::_('com_tsmart_FORM_MEDIA_DISPLAYABLE'),
+				'file_is_downloadable' => tsmText::_('com_tsmart_FORM_MEDIA_DOWNLOADABLE'),
+				'file_is_forSale' => tsmText::_('com_tsmart_FORM_MEDIA_SET_FORSALE'),
 				);
 			$this->lists['search_role'] = VmHTML::selectList('search_role', vRequest::getVar('search_role'),$options,1,'','onchange="this.form.submit();"');
 

@@ -68,7 +68,7 @@ AdminUIHelper::startAdminArea($this);
 
                     </th>
                     <th width="70px">
-                        <?php echo vmText::_('Action'); ?>
+                        <?php echo tsmText::_('Action'); ?>
                     </th>
                 </tr>
                 </thead>

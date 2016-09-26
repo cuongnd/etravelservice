@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of shipment
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Shipment
  * @author RickG
  */
-class TsmartViewShipmentmethod extends VmViewAdmin {
+class TsmartViewShipmentmethod extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -60,7 +60,7 @@ class TsmartViewShipmentmethod extends VmViewAdmin {
 				$shipment->form = JForm::getInstance($shipment->shipment_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 				$shipment->params = new stdClass();
 				$varsToPush = vmPlugin::getVarsToPushFromForm($shipment->form);
-				VmTable::bindParameterableToSubField($shipment,$varsToPush);
+				tsmTable::bindParameterableToSubField($shipment,$varsToPush);
 				$shipment->form->bind($shipment->getProperties());
 
 			} else {
@@ -86,7 +86,7 @@ class TsmartViewShipmentmethod extends VmViewAdmin {
 			$this->addStandardEditViewCommands($shipment->virtuemart_shipmentmethod_id);
 
 		} else {
-			JToolBarHelper::custom('cloneshipment', 'copy', 'copy', vmText::_('com_tsmart_SHIPMENT_CLONE'), true);
+			JToolBarHelper::custom('cloneshipment', 'copy', 'copy', tsmText::_('com_tsmart_SHIPMENT_CLONE'), true);
 
 			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model);
@@ -135,11 +135,11 @@ class TsmartViewShipmentmethod extends VmViewAdmin {
 		$result = $db->loadAssocList($ext_id);
 		if(empty($result)){
 			$app = JFactory::getApplication();
-			$app -> enqueueMessage(vmText::_('com_tsmart_NO_SHIPMENT_PLUGINS_INSTALLED'));
+			$app -> enqueueMessage(tsmText::_('com_tsmart_NO_SHIPMENT_PLUGINS_INSTALLED'));
 		}
 
 		foreach ($result as &$sh) {
-			$sh['name'] = vmText::_($sh['name']);
+			$sh['name'] = tsmText::_($sh['name']);
 		}
 		$attribs='style= "width: 300px;"';
 		return JHtml::_('select.genericlist', $result, 'shipment_jplugin_id', $attribs, $ext_id, 'name', $selected);

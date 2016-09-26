@@ -44,7 +44,7 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
 
     <div class="col50">
 	<fieldset>
-	    <legend><?php echo vmText::_('com_tsmart_SHOPPERGROUP_DETAILS'); ?></legend>
+	    <legend><?php echo tsmText::_('com_tsmart_SHOPPERGROUP_DETAILS'); ?></legend>
 	    <table class="admintable">
 
 		<?php echo VmHTML::row('input', 'com_tsmart_SHOPPERGROUP_NAME', 'shopper_group_name', $this->shoppergroup->shopper_group_name,'class="required"'); ?>
@@ -69,13 +69,13 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
     		<tr>
     		    <td width="110" class="key">
     			<label for="default">
-    			    <span class="hasTip" title="<?php echo vmText::_('com_tsmart_SHOPPERGROUP_DEFAULT_TIP'); ?>">
-				    <?php echo vmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'); ?>
+    			    <span class="hasTip" title="<?php echo tsmText::_('com_tsmart_SHOPPERGROUP_DEFAULT_TIP'); ?>">
+				    <?php echo tsmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'); ?>
     			    </span>
     			</label>
     		    </td>
     		    <td>
-					<?php echo JHtml::_('image','menu/icon-16-default.png', vmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'), NULL, true); ?>
+					<?php echo JHtml::_('image','menu/icon-16-default.png', tsmText::_('com_tsmart_SHOPPERGROUP_DEFAULT'), NULL, true); ?>
     		    </td>
     		</tr>
 		    <?php } ?>
@@ -91,12 +91,12 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
 	</fieldset>
 
 	<fieldset>
-	    <legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES') ?></legend>
+	    <legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES') ?></legend>
 
 	    <table class="admintable">
 		<tr>
 		    <td>
-<?php echo vmText::_('com_tsmart_SHOPPERGROUP_ENABLE_PRICE_DISPLAY'); ?>
+<?php echo tsmText::_('com_tsmart_SHOPPERGROUP_ENABLE_PRICE_DISPLAY'); ?>
 		    </td>
 		    <td>
 <?php
@@ -108,8 +108,8 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
 		<table class="admintable" id="show_hide_prices">
 		<tr>
 		    <td>
-			<span class="hasTip" title="<?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOW_PRICES_EXPLAIN'); ?>">
-<?php echo vmText::_('com_tsmart_ADMIN_CFG_SHOW_PRICES'); ?>
+			<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOW_PRICES_EXPLAIN'); ?>">
+<?php echo tsmText::_('com_tsmart_ADMIN_CFG_SHOW_PRICES'); ?>
 		    </td>
 		    <td>
 <?php echo VmHTML::checkbox('show_prices', $this->shoppergroup->show_prices); ?>
@@ -118,9 +118,9 @@ AdminUIHelper::imitateTabs('start', 'com_tsmart_SHOPPERGROUP_NAME');
 
 		    <tr>
 			<th></th>
-			<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_LABEL'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_TEXT'); ?></th>
-			<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_ROUNDING'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_LABEL'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_TEXT'); ?></th>
+			<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_ROUNDING'); ?></th>
 		    </tr>
 <?php
 echo ShopFunctions::writePriceConfigLine($this->shoppergroup, 'basePrice', 'com_tsmart_ADMIN_CFG_PRICE_BASEPRICE');

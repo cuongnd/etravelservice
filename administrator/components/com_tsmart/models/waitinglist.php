@@ -91,7 +91,7 @@ class VirtueMartModelWaitingList extends VmModel {
 
 
 		if (empty($subject)) {
-			$subject = vmText::sprintf('com_tsmart_PRODUCT_WAITING_LIST_EMAIL_SUBJECT', $item->product_name);
+			$subject = tsmText::sprintf('com_tsmart_PRODUCT_WAITING_LIST_EMAIL_SUBJECT', $item->product_name);
 		}
 		$vars['subject'] = $subject;
 		$vars['mailbody'] = $mailbody;

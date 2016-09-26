@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 /**
  * Model class for shop Currencies
@@ -550,7 +550,7 @@ class VirtueMartModeldeparture extends VmModel
                 if (empty($vendor_currency['vendor_accepted_currencies'])) {
                     $uri = JFactory::getURI();
                     $link = $uri->root() . 'administrator/index.php?option=com_tsmart&view=user&task=editshop';
-                    vmWarn(vmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED', '<a href="' . $link . '">' . $link . '</a>'));
+                    vmWarn(tsmText::sprintf('com_tsmart_CONF_WARN_NO_CURRENCY_DEFINED', '<a href="' . $link . '">' . $link . '</a>'));
                     $currencies[$vendorId] = false;
                     return $currencies[$vendorId];
                 }

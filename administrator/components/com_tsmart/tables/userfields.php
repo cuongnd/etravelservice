@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Userfields table class
@@ -28,7 +28,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @package	VirtueMart
  * @author Oscar van Eijk
  */
-class TableUserfields extends VmTable {
+class TableUserfields extends tsmTable {
 
 // 	/** @var var Primary Key*/
 	var $virtuemart_userfield_id		= 0;
@@ -61,13 +61,13 @@ class TableUserfields extends VmTable {
 	{
 
 		if (preg_match('/[^a-z0-9\._\-]/i', $this->name) > 0) {
-			vmError(vmText::_('com_tsmart_NAME_OF_USERFIELD_CONTAINS_INVALID_CHARACTERS'));
+			vmError(tsmText::_('com_tsmart_NAME_OF_USERFIELD_CONTAINS_INVALID_CHARACTERS'));
 			return false;
 		}
 		if($this->name !='virtuemart_country_id' and $this->name !='virtuemart_state_id'){
 			$reqValues = array('select', 'multiselect', 'radio', 'multicheckbox');
 			if (in_array($this->type, $reqValues) and $this->_nrOfValues == 0 ) {
-				vmError(vmText::_('com_tsmart_VALUES_ARE_REQUIRED_FOR_THIS_TYPE'));
+				vmError(tsmText::_('com_tsmart_VALUES_ARE_REQUIRED_FOR_THIS_TYPE'));
 				return false;
 			}
 		}

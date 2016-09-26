@@ -18,7 +18,7 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablexarray.php');
+if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtablexarray.php');
 
 /**
  * Calculator table class
@@ -27,7 +27,7 @@ if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablex
  * @author Max Milbers
  * @package		VirtueMart
  */
-class TableManufacturer_medias extends VmTableXarray {
+class TableManufacturer_medias extends tsmTableXarray {
 
 
 	/**

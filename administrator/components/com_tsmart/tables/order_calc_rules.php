@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Order calculation rules table class
@@ -28,7 +28,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @package	VirtueMart
  * @author Valerie Isaksen
  */
-class TableOrder_calc_rules extends VmTable {
+class TableOrder_calc_rules extends tsmTable {
 
 	/** @var int Primary key */
 	var $virtuemart_order_calc_rule_id = 0;

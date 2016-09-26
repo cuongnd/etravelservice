@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for manufacturer category
@@ -118,7 +118,7 @@ class VirtuemartModelManufacturercategories extends VmModel {
 				.' FROM `#__virtuemart_manufacturercategories_'.VmConfig::$vmlang.'`';
 		$db->setQuery($query);
 
-		$categoryFilter[] = JHtml::_('select.option',  '0', '- '. vmText::_('com_tsmart_SELECT_MANUFACTURER_CATEGORY') .' -' );
+		$categoryFilter[] = JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER_CATEGORY') .' -' );
 		$categoryFilter = array_merge($categoryFilter, (array)$db->loadObjectList());
 
 		return $categoryFilter;

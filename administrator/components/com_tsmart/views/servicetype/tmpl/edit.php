@@ -45,7 +45,7 @@ $doc->addScriptDeclaration($js_content);
 
             <div class="col50">
                 <fieldset>
-                    <legend><?php echo vmText::_('Current service type'); ?></legend>
+                    <legend><?php echo tsmText::_('Current service type'); ?></legend>
                     <div class="admintable row-fluid">
                         <?php echo VmHTML::row_control('input', 'Service type', 'title', $this->item->title, 'class="required"'); ?>
                         <?php echo VmHTML::row_control('booleanlist', 'com_tsmart_PUBLISHED', 'published', $this->item->published); ?>

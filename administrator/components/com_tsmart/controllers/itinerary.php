@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerItinerary extends VmController {
+class TsmartControllerItinerary extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -58,7 +58,7 @@ class TsmartControllerItinerary extends VmController {
         $virtuemart_product_id=$data['virtuemart_product_id'];
         $msg = 'failed';
         if(!empty($id)) {
-            $msg = vmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
+            $msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
             $type = 'message';
         }
         else $type = 'error';

@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewpaymentsetting extends VmViewAdmin {
+class TsmartViewpaymentsetting extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -67,12 +67,12 @@ class TsmartViewpaymentsetting extends VmViewAdmin {
 			$this->SetViewTitle();
 			JToolBarHelper::save('save','Save');
 			$this->addStandardDefaultViewLists($model,0,'ASC');
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpaymentsetting.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentsetting.php';
 			$this->list_config_mode=vmpaymentsetting::get_config_mode();
 			$this->hold_seat_type=vmpaymentsetting::get_hold_seat_type();
 			$this->currencies=vmpaymentsetting::get_list_currency();
 			//get list payment method
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpaymentmethod.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
 			$list_payment_method = vmpaymentmethod::get_list_payment_method();
 			$this->assignRef('list_payment_method', $list_payment_method);
 

@@ -18,7 +18,7 @@
 if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not allowed.' );
 
 if(!class_exists('VmModel'))
-require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 
 class Migrator extends VmModel{
@@ -264,46 +264,46 @@ class Migrator extends VmModel{
 		$type = 'product';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
-		$this->_app->enqueueMessage(vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
+		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
 		if((microtime(true)-$this->starttime) >= ($this->maxScriptTime)){
-			return $msg = vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
+			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
 		$url = VmConfig::get('media_category_path');
 		$type = 'category';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
-		$this->_app->enqueueMessage(vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
+		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
 		if((microtime(true)-$this->starttime) >= ($this->maxScriptTime)){
-			return $msg = vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
+			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
 		$url = VmConfig::get('media_manufacturer_path');
 		$type = 'manufacturer';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
-		$this->_app->enqueueMessage(vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
+		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
 		if((microtime(true)-$this->starttime) >= ($this->maxScriptTime)){
-			return $msg = vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
+			return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_NOT_FINISH', $countTotal);
 		}
 
 		$url = VmConfig::get('media_vendor_path');
 		$type = 'vendor';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
-		$this->_app->enqueueMessage(vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
+		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
 		$url = VmConfig::get('forSale_path');
 		$type = 'forSale';
 		$count = $this->_portMediaByType($url, $type);
 		$countTotal += $count;
-		$this->_app->enqueueMessage(vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
+		$this->_app->enqueueMessage(tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT', $count, $type, $url));
 
 
-		return $msg = vmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_FINISH', $countTotal);
+		return $msg = tsmText::sprintf('com_tsmart_UPDATE_PORT_MEDIA_RESULT_FINISH', $countTotal);
 	}
 
 	private function _portMediaByType($url, $type){

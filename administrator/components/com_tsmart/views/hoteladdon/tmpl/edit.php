@@ -29,7 +29,7 @@ AdminUIHelper::imitateTabs('start', "hoteladdon");
 
 			<div class="col50">
 				<fieldset>
-					<legend><?php echo vmText::_('Current hoteladdon'); ?></legend>
+					<legend><?php echo tsmText::_('Current hoteladdon'); ?></legend>
 					<div class="row-fluid">
 						<div class="span7">
 							<?php echo VmHTML::row_control('input', 'service name', 'title', $this->item->title, 'class="required"'); ?>

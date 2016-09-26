@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 
 /**
  * Model class for shop Currencies
@@ -69,8 +69,8 @@ class VirtueMartModelDeparture extends VmModel
     function getItemList($search='') {
         //echo $this->getListQuery()->dump();
         $items=parent::getItems();
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmpromotion.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
         foreach($items as &$item)
         {
             $item->sale_price_adult=vmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
@@ -86,7 +86,7 @@ class VirtueMartModelDeparture extends VmModel
 
     function getListQuery()
     {
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
         $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
@@ -106,7 +106,7 @@ class VirtueMartModelDeparture extends VmModel
             ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
             ->select('tour_price.tax')
             ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=group_size_id_tour_price_id.virtuemart_group_size_id')
-            ->where('group_size.type='.$query->q(vmGroupSize::FLAT_PRICE))
+            ->where('group_size.type='.$query->q(tsmGroupSize::FLAT_PRICE))
 
             ->where('tour_price.virtuemart_product_id=departure.virtuemart_product_id')
             ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
@@ -232,7 +232,7 @@ class VirtueMartModelDeparture extends VmModel
         }
         
         $query=$db->getQuery(true);
-        $table_departure=VmTable::getInstance('Departure','Table');
+        $table_departure=tsmTable::getInstance('Departure','Table');
         $table_departure->bind($data);
 
         $table_departure->store();
@@ -903,12 +903,12 @@ class VirtueMartModelDeparture extends VmModel
                 }
             }
         }
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmdeparture.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmdeparture.php';
         foreach($days_seleted as $day) {
             $table_departure->departure_date = $day;
             $day=JFactory::getDate($day);
             $table_departure->virtuemart_departure_id = 0;
-            $table_departure->departure_code =vmDeparture::get_format_departure_code($virtuemart_departure_id,$day);
+            $table_departure->departure_code =tsmDeparture::get_format_departure_code($virtuemart_departure_id,$day);
             $table_departure->virtuemart_departure_parent_id = $virtuemart_departure_id;
             $ok = $table_departure->store();
             if (!$ok) {

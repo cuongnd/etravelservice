@@ -30,7 +30,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_USERFIELD_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_USERFIELD_DETAILS'); ?></legend>
 	<table class="admintable" width="100%">
 		<?php echo VmHTML::row('raw','com_tsmart_FIELDMANAGER_TYPE', $this->lists['type'] ); ?>
 
@@ -39,7 +39,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 			<td colspan="2" style="text-align:left;overflow: auto;" id="toggler">
 				<div id="divText">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_TEXTFIELD_ATTRIBUTES'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_TEXTFIELD_ATTRIBUTES'); ?></legend>
 						<table class="admintable">
 							<?php echo VmHTML::row('input','com_tsmart_USERFIELDS_MAXLENGTH','maxlength',$this->userField->maxlength,'class="inputbox"','',5); ?>
 						</table>
@@ -48,7 +48,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 
 				<div id="divColsRows">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_COL_ROWS_ATTRIBUTES'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_COL_ROWS_ATTRIBUTES'); ?></legend>
 						<table class="admintable">
 							<?php echo VmHTML::row('input','com_tsmart_USERFIELDS_COLUMNS','cols',$this->userField->cols,'class="inputbox"','',5); ?>
 							<?php echo VmHTML::row('input','com_tsmart_USERFIELDS_ROWS','rows',$this->userField->rows,'class="inputbox"','',5); ?>
@@ -58,7 +58,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 
 				<div id="divAgeVerification" style="text-align:left;">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_FIELDS_AGEVERIFICATION_ATTRIBUTES'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_FIELDS_AGEVERIFICATION_ATTRIBUTES'); ?></legend>
 						<table class="admintable">
 							<?php echo VmHTML::row('raw','com_tsmart_FIELDS_AGEVERIFICATION_MINIMUM', $this->lists['minimum_age'] ); ?>
 						</table>
@@ -67,7 +67,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 
 				<div id="divWeb">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_FIELDS_WEBADDRESS'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_FIELDS_WEBADDRESS'); ?></legend>
 						<table class="admintable">
 							<?php echo VmHTML::row('raw','com_tsmart_FIELDMANAGER_TYPE', $this->lists['webaddresstypes'] ); ?>
 						</table>
@@ -76,22 +76,22 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 
 				<div id="divValues" style="text-align:left;">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_USERFIELDS_ADDVALUES_TIP'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_USERFIELDS_ADDVALUES_TIP'); ?></legend>
 						<table align=left id="divFieldValues" cellpadding="4" cellspacing="1" border="0" width="100%" class="admintable">
 							<thead>
 								<tr>
-									<th class="title" width="20%"><?php echo vmText::_('com_tsmart_VALUE') ?></th>
-									<th class="title" width="60%"><?php echo vmText::_('com_tsmart_TITLE') ?></th>
+									<th class="title" width="20%"><?php echo tsmText::_('com_tsmart_VALUE') ?></th>
+									<th class="title" width="60%"><?php echo tsmText::_('com_tsmart_TITLE') ?></th>
 								</tr>
 							</thead>
 							<tbody id="fieldValuesBody"><?php echo $this->lists['userfield_values'];?></tbody>
 						</table>
-						<input type="button" class="button insertRow" value="<?php echo vmText::_('com_tsmart_USERFIELDS_ADDVALUE') ?>" />
+						<input type="button" class="button insertRow" value="<?php echo tsmText::_('com_tsmart_USERFIELDS_ADDVALUE') ?>" />
 					</fieldset>
 				</div>
 				<div id="divPlugin" style="text-align:left;">
 					<fieldset>
-					<legend><?php echo vmText::_('com_tsmart_USERFIELDS_PLUGIN_TIP'); ?></legend>
+					<legend><?php echo tsmText::_('com_tsmart_USERFIELDS_PLUGIN_TIP'); ?></legend>
 					<div id="fieldPluginBody">
 						<?php echo $this->userFieldPlugin;	?>
 					</div>
@@ -104,7 +104,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 		<tr>
 			<td width="110" class="key">
 				<label for="name">
-					<?php echo vmText::_('com_tsmart_FIELDMANAGER_NAME') ?>
+					<?php echo tsmText::_('com_tsmart_FIELDMANAGER_NAME') ?>
 				</label>
 			</td>
 			<td>
@@ -119,13 +119,13 @@ AdminUIHelper::imitateTabs('start','com_tsmart_USERFIELD_DETAILS');
 		<tr>
 			<td width="110" class="key">
 				<label for="title">
-					<?php echo vmText::_('com_tsmart_FIELDMANAGER_TITLE') ?>
+					<?php echo tsmText::_('com_tsmart_FIELDMANAGER_TITLE') ?>
 				</label>
 			</td>
 			<td>
 				<?php
 				$lang = JFactory::getLanguage();
-				$text = $lang->hasKey($this->userField->title) ? vmText::_($this->userField->title) : $this->userField->title;
+				$text = $lang->hasKey($this->userField->title) ? tsmText::_($this->userField->title) : $this->userField->title;
 				?>
 				<input class="required" type="text" name="title" id="title" size="50" value="<?php echo $this->userField->title; ?>" />(<?php echo $text ?>)
 			</td>

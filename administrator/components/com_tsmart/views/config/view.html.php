@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the configuration maintenance
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage 	Config
  * @author 		RickG
  */
-class TsmartViewConfig extends VmViewAdmin {
+class TsmartViewConfig extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -42,7 +42,7 @@ class TsmartViewConfig extends VmViewAdmin {
 		$model = VmModel::getModel();
 		$usermodel = VmModel::getModel('user');
 
-		JToolBarHelper::title( vmText::_('com_tsmart_CONFIG') , 'head vm_config_48');
+		JToolBarHelper::title( tsmText::_('com_tsmart_CONFIG') , 'head vm_config_48');
 
 		$this->addStandardEditViewCommands();
 
@@ -53,7 +53,7 @@ class TsmartViewConfig extends VmViewAdmin {
 
 		$this->userparams = JComponentHelper::getParams('com_users');
 
-		$this->jTemplateList = ShopFunctions::renderTemplateList(vmText::_('com_tsmart_ADMIN_CFG_JOOMLA_TEMPLATE_DEFAULT'));
+		$this->jTemplateList = ShopFunctions::renderTemplateList(tsmText::_('com_tsmart_ADMIN_CFG_JOOMLA_TEMPLATE_DEFAULT'));
 
 		$this->vmLayoutList = $model->getLayoutList('virtuemart');
 
@@ -69,14 +69,14 @@ class TsmartViewConfig extends VmViewAdmin {
 		$this->orderStatusModel= VmModel::getModel('orderstatus');
 
 		$this->os_Options = $this->osWoP_Options = $this->osDel_Options = $this->orderStatusModel->getOrderStatusNames();
-		$emptyOption = JHtml::_ ('select.option', -1, vmText::_ ('com_tsmart_NONE'), 'order_status_code', 'order_status_name');
+		$emptyOption = JHtml::_ ('select.option', -1, tsmText::_ ('com_tsmart_NONE'), 'order_status_code', 'order_status_name');
 
 		array_unshift ($this->os_Options, $emptyOption);
 
 		unset($this->osWoP_Options['P']);
 		array_unshift ($this->osWoP_Options, $emptyOption);
 
-		$deldate_inv = JHtml::_ ('select.option', 'm', vmText::_ ('com_tsmart_DELDATE_INV'), 'order_status_code', 'order_status_name');
+		$deldate_inv = JHtml::_ ('select.option', 'm', tsmText::_ ('com_tsmart_DELDATE_INV'), 'order_status_code', 'order_status_name');
 		unset($this->osDel_Options['P']);
 		array_unshift ($this->osDel_Options, $deldate_inv);
 		array_unshift ($this->osDel_Options, $emptyOption);
@@ -100,7 +100,7 @@ class TsmartViewConfig extends VmViewAdmin {
 				$fieldWithoutPrefix = substr($field, $dotps+1);
 			}
 
-			$text = vmText::_('com_tsmart_'.strtoupper(str_replace(array(',',' '),array('_',''),$fieldWithoutPrefix))) ;
+			$text = tsmText::_('com_tsmart_'.strtoupper(str_replace(array(',',' '),array('_',''),$fieldWithoutPrefix))) ;
 			$orderByFieldsCat[] =  JHtml::_('select.option', $field, $text) ;
 		}
 
@@ -138,9 +138,9 @@ WHERE published="1"';
 			return array();
 		}
 		if(empty($options)) $options = array();
-		$emptyOption = JHtml::_('select.option', '0', vmText::_('com_tsmart_NOPREF'),'virtuemart_'.$ps.'method_id',$ps.'_name');
+		$emptyOption = JHtml::_('select.option', '0', tsmText::_('com_tsmart_NOPREF'),'virtuemart_'.$ps.'method_id',$ps.'_name');
 		array_unshift($options,$emptyOption);
-		$emptyOption = JHtml::_('select.option', '-1', vmText::_('com_tsmart_NONE'),'virtuemart_'.$ps.'method_id',$ps.'_name');
+		$emptyOption = JHtml::_('select.option', '-1', tsmText::_('com_tsmart_NONE'),'virtuemart_'.$ps.'method_id',$ps.'_name');
 		array_unshift($options,$emptyOption);
 		return $options;
 	}

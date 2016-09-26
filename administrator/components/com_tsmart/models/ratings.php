@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 if (!class_exists ('VmModel')){
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
 /**
@@ -532,14 +532,14 @@ class VirtueMartModelRatings extends VmModel {
 							return $this->_productBought[$product_id];
 						}
 
-						if(!class_exists('vmCrypt')){
-							require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+						if(!class_exists('tsmCrypt')){
+							require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
 						}
-						$key = vmCrypt::encrypt('productBought'.$product_id);
+						$key = tsmCrypt::encrypt('productBought'.$product_id);
 						$count = JFactory::getApplication()->input->cookie->getString($key, false);
 						if($count){
 							//check, somehow broken, atm
-							$v = vmCrypt::encrypt($key);
+							$v = tsmCrypt::encrypt($key);
 							if($v!=$count){
 								$count = false;
 							}

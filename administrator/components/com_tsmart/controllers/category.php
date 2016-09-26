@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 /**
  * Category Controller
@@ -28,7 +28,7 @@ if(!class_exists('VmController')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontro
  * @subpackage Category
  * @author jseros, Max Milbers
  */
-class TsmartControllerCategory extends VmController {
+class TsmartControllerCategory extends TsmController {
 
 
 	/**
@@ -40,7 +40,7 @@ class TsmartControllerCategory extends VmController {
 
 		//ACL
 		if (!vmAccess::manager('category.edit')) {
-			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', vmText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 		
 		$data = vRequest::getRequest();
@@ -61,7 +61,7 @@ class TsmartControllerCategory extends VmController {
 	{
 		//ACL
 		if (!vmAccess::manager('category.edit')) {
-			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', vmText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 
 		// Check token
@@ -74,7 +74,7 @@ class TsmartControllerCategory extends VmController {
 		if (isset($cid[0]) && $cid[0]) {
 			$id = $cid[0];
 		} else {
-			$this->setRedirect( 'index.php?option=com_tsmart&view=category', vmText::_('com_tsmart_NO_ITEMS_SELECTED') );
+			$this->setRedirect( 'index.php?option=com_tsmart&view=category', tsmText::_('com_tsmart_NO_ITEMS_SELECTED') );
 			return false;
 		}
 
@@ -83,7 +83,7 @@ class TsmartControllerCategory extends VmController {
 
 		$msg = '';
 		if ($model->orderCategory($id, -1)) {
-			$msg = vmText::_('com_tsmart_ITEM_MOVED_UP');
+			$msg = tsmText::_('com_tsmart_ITEM_MOVED_UP');
 		}
 
 		$this->setRedirect( 'index.php?option=com_tsmart&view=category', $msg );
@@ -99,7 +99,7 @@ class TsmartControllerCategory extends VmController {
 	{
 		//ACL
 		if (!vmAccess::manager('category.edit')) {
-			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', vmText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 		
 		// Check token
@@ -112,7 +112,7 @@ class TsmartControllerCategory extends VmController {
 		if (isset($cid[0]) && $cid[0]) {
 			$id = $cid[0];
 		} else {
-			$this->setRedirect( 'index.php?option=com_tsmart&view=category', vmText::_('com_tsmart_NO_ITEMS_SELECTED') );
+			$this->setRedirect( 'index.php?option=com_tsmart&view=category', tsmText::_('com_tsmart_NO_ITEMS_SELECTED') );
 			return false;
 		}
 
@@ -121,7 +121,7 @@ class TsmartControllerCategory extends VmController {
 
 		$msg = '';
 		if ($model->orderCategory($id, 1)) {
-			$msg = vmText::_('com_tsmart_ITEM_MOVED_DOWN');
+			$msg = tsmText::_('com_tsmart_ITEM_MOVED_DOWN');
 		}
 
 		$this->setRedirect( 'index.php?option=com_tsmart&view=category', $msg );
@@ -135,7 +135,7 @@ class TsmartControllerCategory extends VmController {
 	{
 		//ACL
 		if (!vmAccess::manager('category.edit')) {
-			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', vmText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			JFactory::getApplication()->redirect( 'index.php?option=com_tsmart', tsmText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 		
 		// Check for request forgeries
@@ -149,7 +149,7 @@ class TsmartControllerCategory extends VmController {
 
 		$msg = '';
 		if ($model->setOrder($cid,$order)) {
-			$msg = vmText::_('com_tsmart_NEW_ORDERING_SAVED');
+			$msg = tsmText::_('com_tsmart_NEW_ORDERING_SAVED');
 		}
 
 		$this->setRedirect('index.php?option=com_tsmart&view=category', $msg );

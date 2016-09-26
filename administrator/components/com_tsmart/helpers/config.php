@@ -81,18 +81,18 @@ defined('VM_ORDER_OFFSET') or define('VM_ORDER_OFFSET',3);
 require(VMPATH_ADMIN.DS.'version.php');
 defined('VM_REV') or define('VM_REV',vmVersion::$REVISION);
 
-if(!class_exists('VmTable')){
-	require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable')){
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 }
-VmTable::addIncludePath(VMPATH_ADMIN.DS.'tables');
+tsmTable::addIncludePath(VMPATH_ADMIN.DS.'tables');
 
 if (!class_exists ('VmModel')) {
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
 if(!class_exists('vRequest')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vrequest.php');
-if(!class_exists('vmText')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtext.php');
-if(!class_exists('vmJsApi')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmjsapi.php');
+if(!class_exists('tsmText')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtext.php');
+if(!class_exists('vmJsApi')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmjsapi.php');
 
 /**
  * Where type can be one of
@@ -128,7 +128,7 @@ function vmInfo($publicdescr,$value=NULL){
 				$msg = call_user_func_array('sprintf', $args);
 			}
 		}	else {
-			$msg = vmText::_($publicdescr);
+			$msg = tsmText::_($publicdescr);
 		}
 	}
 	else {
@@ -175,7 +175,7 @@ function vmAdminInfo($publicdescr,$value=NULL){
 			}	else {
 				VmConfig::$maxMessageCount++;
 				$publicdescr = $lang->_($publicdescr);
-				$app ->enqueueMessage('Info: '.vmText::_($publicdescr),'info');
+				$app ->enqueueMessage('Info: '.tsmText::_($publicdescr),'info');
 			}
 		}
 		else {
@@ -904,7 +904,7 @@ class VmConfig {
 				$confData['virtuemart_config_id'] = 1;
 
 				$confData['config'] = VmConfig::$_jpConfig->toString();
-				$confTable = VmTable::getInstance('configs', 'Table', array());
+				$confTable = tsmTable::getInstance('configs', 'Table', array());
 
 				if (!$confTable->bindChecknStore($confData)) {
 					vmError('storeConfig was not able to store config');
@@ -1230,9 +1230,9 @@ class vmAccess {
 			$cuId = JFactory::getSession()->get('vmAdminID',null);
 			//echo $cuId;
 			if($cuId) {
-				if(!class_exists('vmCrypt'))
-					require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
-				$cuId = vmCrypt::decrypt( $cuId );
+				if(!class_exists('tsmCrypt'))
+					require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
+				$cuId = tsmCrypt::decrypt( $cuId );
 				if(empty($cuId)){
 					$cuId = null;
 				}

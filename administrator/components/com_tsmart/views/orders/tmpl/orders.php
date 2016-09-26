@@ -30,7 +30,7 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 				<tr>
 					<td align="left" width="100%">
 						<?php echo $this->displayDefaultViewSearch ('com_tsmart_ORDER_PRINT_NAME'); ?>
-						<?php echo vmText::_ ('com_tsmart_ORDERSTATUS') . ':' . $this->lists['state_list']; ?>
+						<?php echo tsmText::_ ('com_tsmart_ORDERSTATUS') . ':' . $this->lists['state_list']; ?>
 					</td>
 				</tr>
 			</table>
@@ -46,11 +46,11 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 			<th width="26%"><?php echo $this->sort ('order_name', 'com_tsmart_ORDER_PRINT_NAME')  ?></th>
 			<th width="18%"><?php echo $this->sort ('order_email', 'com_tsmart_EMAIL')  ?></th>
 			<th width="18%"><?php echo $this->sort ('payment_method', 'com_tsmart_ORDER_PRINT_PAYMENT_LBL')  ?></th>
-			<th style="min-width:110px;width:5%;"><?php echo vmText::_ ('com_tsmart_PRINT_VIEW'); ?></th>
+			<th style="min-width:110px;width:5%;"><?php echo tsmText::_ ('com_tsmart_PRINT_VIEW'); ?></th>
 			<th class="admin-dates"><?php echo $this->sort ('created_on', 'com_tsmart_ORDER_CDATE')  ?></th>
 			<th class="admin-dates"><?php echo $this->sort ('modified_on', 'com_tsmart_ORDER_LIST_MDATE')  ?></th>
 			<th><?php echo $this->sort ('order_status', 'com_tsmart_STATUS')  ?></th>
-			<th style="min-width:130px;width:5%;"><?php echo vmText::_ ('com_tsmart_ORDER_LIST_NOTIFY'); ?></th>
+			<th style="min-width:130px;width:5%;"><?php echo tsmText::_ ('com_tsmart_ORDER_LIST_NOTIFY'); ?></th>
 			<th width="10%"><?php echo $this->sort ('order_total', 'com_tsmart_TOTAL')  ?></th>
 			<th><?php echo $this->sort ('virtuemart_order_id', 'com_tsmart_ORDER_LIST_ID')  ?></th>
 
@@ -73,13 +73,13 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 				<?php
 				$link = 'index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id=' . $order->virtuemart_order_id;
 				?>
-				<td><?php echo JHtml::_ ('link', JRoute::_ ($link, FALSE), $order->order_number, array('title' => vmText::_ ('com_tsmart_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order->order_number)); ?></td>
+				<td><?php echo JHtml::_ ('link', JRoute::_ ($link, FALSE), $order->order_number, array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_ORDER_NUMBER') . ' ' . $order->order_number)); ?></td>
 
 				<td>
 					<?php
 					if ($order->virtuemart_user_id) {
 						$userlink = JROUTE::_ ('index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]=' . $order->virtuemart_user_id, FALSE);
-						echo JHtml::_ ('link', JRoute::_ ($userlink, FALSE), $order->order_name, array('title' => vmText::_ ('com_tsmart_ORDER_EDIT_USER') . ' ' .  $order->order_name));
+						echo JHtml::_ ('link', JRoute::_ ($userlink, FALSE), $order->order_name, array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_USER') . ' ' .  $order->order_name));
 					} else {
 						echo $order->order_name;
 					}
@@ -97,24 +97,24 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 				/* Print view URL */
 				$print_url = juri::root () . 'index.php?option=com_tsmart&view=invoice&layout=invoice&virtuemart_order_id=' . $order->virtuemart_order_id . '&order_number=' . $order->order_number . '&order_pass=' . $order->order_pass;
 				$print_link = "<a href=\"javascript:void window.open('$print_url', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
-				$print_link .= '<span class="hasTip print_32" title="' . vmText::_ ('com_tsmart_PRINT') . '">&nbsp;</span></a>';
+				$print_link .= '<span class="hasTip print_32" title="' . tsmText::_ ('com_tsmart_PRINT') . '">&nbsp;</span></a>';
 				$invoice_link = '';
 				$deliverynote_link = '';
 				$pdfDummi= '&d='.rand(0,100);
 				if (!$order->invoiceNumber) {
 					$invoice_url = juri::root () . 'index.php?option=com_tsmart&view=invoice&layout=invoice&format=pdf&virtuemart_order_id=' . $order->virtuemart_order_id . '&order_number=' . $order->order_number . '&order_pass=' . $order->order_pass . '&create_invoice='.$order->order_create_invoice_pass.$pdfDummi;
-					$invoice_link .= "<a href=\"$invoice_url\"  >".'<span class="hasTip invoicenew_32" title="' . vmText::_ ('com_tsmart_INVOICE_CREATE') . '"></span></a>';
+					$invoice_link .= "<a href=\"$invoice_url\"  >".'<span class="hasTip invoicenew_32" title="' . tsmText::_ ('com_tsmart_INVOICE_CREATE') . '"></span></a>';
 				} elseif (!shopFunctions::InvoiceNumberReserved ($order->invoiceNumber)) {
 					$invoice_url = juri::root () . 'index.php?option=com_tsmart&view=invoice&layout=invoice&format=pdf&virtuemart_order_id=' . $order->virtuemart_order_id . '&order_number=' . $order->order_number . '&order_pass=' . $order->order_pass.$pdfDummi;
-					$invoice_link = "<a href=\"$invoice_url\"  >" . '<span class="hasTip invoice_32" title="' . vmText::_ ('com_tsmart_INVOICE') . '"></span></a>';
+					$invoice_link = "<a href=\"$invoice_url\"  >" . '<span class="hasTip invoice_32" title="' . tsmText::_ ('com_tsmart_INVOICE') . '"></span></a>';
 				}
 
 				if (!$order->invoiceNumber) {
 					$deliverynote_url = juri::root () . 'index.php?option=com_tsmart&view=invoice&layout=deliverynote&format=pdf&virtuemart_order_id=' . $order->virtuemart_order_id . '&order_number=' . $order->order_number . '&order_pass=' . $order->order_pass . '&create_invoice='.$order->order_create_invoice_pass.$pdfDummi;
-					$deliverynote_link = "<a href=\"$deliverynote_url\"  >" . '<span class="hasTip deliverynotenew_32" title="' . vmText::_ ('com_tsmart_DELIVERYNOTE_CREATE') . '"></span></a>';
+					$deliverynote_link = "<a href=\"$deliverynote_url\"  >" . '<span class="hasTip deliverynotenew_32" title="' . tsmText::_ ('com_tsmart_DELIVERYNOTE_CREATE') . '"></span></a>';
 				} elseif (!shopFunctions::InvoiceNumberReserved ($order->invoiceNumber)) {
 					$deliverynote_url = juri::root () . 'index.php?option=com_tsmart&view=invoice&layout=deliverynote&format=pdf&virtuemart_order_id=' . $order->virtuemart_order_id . '&order_number=' . $order->order_number . '&order_pass=' . $order->order_pass.$pdfDummi;
-					$deliverynote_link = "<a href=\"$deliverynote_url\"  >" . '<span class="hasTip deliverynote_32" title="' . vmText::_ ('com_tsmart_DELIVERYNOTE') . '"></span></a>';
+					$deliverynote_link = "<a href=\"$deliverynote_url\"  >" . '<span class="hasTip deliverynote_32" title="' . tsmText::_ ('com_tsmart_DELIVERYNOTE') . '"></span></a>';
 				}
 
 
@@ -131,18 +131,18 @@ $styleDateCol = 'style="width:5%;min-width:110px"';
 					<input type="hidden" name="orders[<?php echo $order->virtuemart_order_id; ?>][coupon_code]" value="<?php echo $order->coupon_code; ?>"/>
 					<br/>
 					<textarea class="element-hidden vm-order_comment vm-showable" name="orders[<?php echo $order->virtuemart_order_id; ?>][comments]" cols="5" rows="5"></textarea>
-					<?php echo JHtml::_ ('link', '#', vmText::_ ('com_tsmart_ADD_COMMENT'), array('class' => 'show_comment')); ?>
+					<?php echo JHtml::_ ('link', '#', tsmText::_ ('com_tsmart_ADD_COMMENT'), array('class' => 'show_comment')); ?>
 				</td>
 				<!-- Update -->
-				<td><?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][customer_notified]', 0) . vmText::_ ('com_tsmart_ORDER_LIST_NOTIFY'); ?>
+				<td><?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][customer_notified]', 0) . tsmText::_ ('com_tsmart_ORDER_LIST_NOTIFY'); ?>
 					<br/>
-					<?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][customer_send_comment]', 1) . vmText::_ ('com_tsmart_ORDER_HISTORY_INCLUDE_COMMENT'); ?>
+					<?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][customer_send_comment]', 1) . tsmText::_ ('com_tsmart_ORDER_HISTORY_INCLUDE_COMMENT'); ?>
 					<br/>
-					<?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][update_lines]', 1) . vmText::_ ('com_tsmart_ORDER_UPDATE_LINESTATUS'); ?>
+					<?php echo VmHTML::checkbox ('orders[' . $order->virtuemart_order_id . '][update_lines]', 1) . tsmText::_ ('com_tsmart_ORDER_UPDATE_LINESTATUS'); ?>
 				</td>
 				<!-- Total -->
 				<td><?php echo $order->order_total; ?></td>
-				<td><?php echo JHtml::_ ('link', JRoute::_ ($link, FALSE), $order->virtuemart_order_id, array('title' => vmText::_ ('com_tsmart_ORDER_EDIT_ORDER_ID') . ' ' . $order->virtuemart_order_id)); ?></td>
+				<td><?php echo JHtml::_ ('link', JRoute::_ ($link, FALSE), $order->virtuemart_order_id, array('title' => tsmText::_ ('com_tsmart_ORDER_EDIT_ORDER_ID') . ' ' . $order->virtuemart_order_id)); ?></td>
 
 			</tr>
 				<?php

@@ -19,17 +19,17 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');?>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_PRODUCT_FORM_S_DESC') ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_S_DESC') ?></legend>
 	<textarea class="inputbox" name="product_s_desc" id="product_s_desc" cols="65" rows="3" ><?php echo $this->product->product_s_desc; ?></textarea>
 </fieldset>
 			
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION') ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_DESCRIPTION') ?></legend>
 	<?php echo $this->editor->display('product_desc',  $this->product->product_desc, '100%;', '550', '75', '20', array('pagebreak', 'readmore') ) ; ?>
 </fieldset>
 
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_METAINFO') ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_METAINFO') ?></legend>
 	<?php echo shopFunctions::renderMetaEdit($this->product); ?>
 </fieldset>
 

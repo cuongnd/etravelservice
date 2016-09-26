@@ -20,7 +20,7 @@
 defined( '_JEXEC' ) or die('Restricted access');
 
 // Load the view framework
-if(!class_exists( 'VmViewAdmin' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for the VirtueMart Component
@@ -28,11 +28,11 @@ if(!class_exists( 'VmViewAdmin' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewa
  * @package        VirtueMart
  * @author
  */
-class TsmartViewAbout extends VmViewAdmin {
+class TsmartViewAbout extends tsmViewAdmin {
 
 	function display ($tpl = null) {
 
-		JToolBarHelper::title( vmText::_( 'com_tsmart_ABOUT' )."::".vmText::_( 'com_tsmart_CONTROL_PANEL' ), 'vm_store_48' );
+		JToolBarHelper::title( tsmText::_( 'com_tsmart_ABOUT' )."::".tsmText::_( 'com_tsmart_CONTROL_PANEL' ), 'vm_store_48' );
 
 		parent::display( $tpl );
 	}

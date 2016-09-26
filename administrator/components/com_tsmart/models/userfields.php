@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the helpers
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for user fields
@@ -75,7 +75,7 @@ class VirtueMartModelUserfields extends VmModel {
 		$value = $data[$field->name];
 		$params = $field->userfield_params;
 
-		if(!class_exists('vmFilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmfilter.php');
+		if(!class_exists('tsmilter'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmfilter.php');
 		switch(strtolower($fieldType)) {
 			case 'webaddress':
 
@@ -86,14 +86,14 @@ class VirtueMartModelUserfields extends VmModel {
 					$value = implode("|*|",$oValuesArr);
 				}
 				else {
-					if ($value = vmFilter::urlcheck($value) )
+					if ($value = tsmilter::urlcheck($value) )
 						$value = str_replace(array('mailto:','http://','https://'),'', $value);
 				}
 				break;
 			case 'email':
 			case 'emailaddress':
 				//vmdebug('emailaddress before filter',$value);
-				$value = vmFilter::mail( $value );
+				$value = tsmilter::mail( $value );
 				//$value = str_replace('mailto:','', $value);
 				//$value = str_replace(array('\'','"',',','%','*','/','\\','?','^','`','{','}','|','~'),array(''),$value);
 				//vmdebug('emailaddress after filter',$value);
@@ -113,12 +113,12 @@ class VirtueMartModelUserfields extends VmModel {
 				break;
 			case 'textarea':
 				$value = vRequest::getVar($fieldName, '', 'post', 'string' ,JREQUEST_ALLOWRAW);
-				$value = vmFilter::hl( $value,'text' );
+				$value = tsmilter::hl( $value,'text' );
 				break;
 
 			case 'editorta':
 				$value = vRequest::getVar($fieldName, '', 'post', 'string' ,JREQUEST_ALLOWRAW);
-				$value = vmFilter::hl( $value,'no_js_flash' );
+				$value = tsmilter::hl( $value,'no_js_flash' );
 				break;
 			default:
 
@@ -147,7 +147,7 @@ class VirtueMartModelUserfields extends VmModel {
 
 			// no HTML TAGS but permit all alphabet
 
-			$value = vmFilter::hl( $value,array('deny_attribute'=>'*'));
+			$value = tsmilter::hl( $value,array('deny_attribute'=>'*'));
 			$value = preg_replace('@<[\/\!]*?[^<>]*?>@si','',$value);//remove all html tags
 			$value = (string)preg_replace('#on[a-z](.+?)\)#si','',$value);//replace start of script onclick() onload()...
 			$value = trim(str_replace('"', ' ', $value),"'") ;
@@ -180,7 +180,7 @@ class VirtueMartModelUserfields extends VmModel {
 				$retValue = $dispatcher->trigger('plgVmDeclarePluginParamsUserfieldVM3',array(&$this->_cache[$hash]));
 			}
 			if(!empty($this->_cache[$hash]->_varsToPushParam)){
-				VmTable::bindParameterable($this->_cache[$hash],'userfield_params',$this->_cache[$hash]->_varsToPushParam);
+				tsmTable::bindParameterable($this->_cache[$hash],'userfield_params',$this->_cache[$hash]->_varsToPushParam);
 			}
 		}
 		return $this->_cache[$hash];
@@ -771,14 +771,14 @@ class VirtueMartModelUserfields extends VmModel {
 				$_return['fields'][$_fld->name] = array(
 					     'name' => $_prefix . $_fld->name
 				,'value' => (($_userData == null || !array_key_exists($_fld->name, $_userData))
-				? vmText::_($_fld->default)
+				? tsmText::_($_fld->default)
 				: $_userData[$_fld->name])
-				,'title' => vmText::_($_fld->title)
+				,'title' => tsmText::_($_fld->title)
 				,'type' => $_fld->type
 				,'required' => $_fld->required
 				,'hidden' => false
 				,'formcode' => ''
-				,'description' => vmText::_($_fld->description)
+				,'description' => tsmText::_($_fld->description)
 				);
 
 
@@ -953,7 +953,7 @@ class VirtueMartModelUserfields extends VmModel {
 							. $_prefix.$_fld->name . '" id="' . $_prefix.$_fld->name . '_field" value="1" '
 							. ($_return['fields'][$_fld->name]['value'] ? 'checked="checked"' : '') .'/>';
 							 if($_return['fields'][$_fld->name]['value']) {
-								 $_return['fields'][$_fld->name]['value'] = vmText::_($_prefix.$_fld->title);
+								 $_return['fields'][$_fld->name]['value'] = tsmText::_($_prefix.$_fld->title);
 							 }
 							break;
 						case 'custom':
@@ -984,7 +984,7 @@ class VirtueMartModelUserfields extends VmModel {
 							// Don't check on the field name though, since others might be added in the future :-(
 
 							foreach ($_values as $_v) {
-								$_v->fieldtitle = vmText::_($_v->fieldtitle);
+								$_v->fieldtitle = tsmText::_($_v->fieldtitle);
 							}
 							$_attribs = array();
 							if ($_fld->readonly and !$admin) {
@@ -1019,13 +1019,13 @@ class VirtueMartModelUserfields extends VmModel {
 									foreach ($_values as $_val) {
 										 if ( in_array($_val->fieldvalue, $_selected)) {
 											 $is_selected='checked="checked"';
-											 $field_values.= vmText::_($_val->fieldtitle). $separator_title;
+											 $field_values.= tsmText::_($_val->fieldtitle). $separator_title;
 										 }  else {
 											 $is_selected='';
 										 }
 										$formcode .= '<input type="checkbox" name="'
 										. $_prefix.$_fld->name . '[]" id="' . $_prefix.$_fld->name . '_field' . $_idx . '" value="'. $_val->fieldvalue . '" '
-										. $is_selected .'/> <label for="' . $_prefix.$_fld->name . '_field' . $_idx . '">'.vmText::_($_val->fieldtitle) .'</label>'. $separator_form;
+										. $is_selected .'/> <label for="' . $_prefix.$_fld->name . '_field' . $_idx . '">'.tsmText::_($_val->fieldtitle) .'</label>'. $separator_form;
 										$_idx++;
 									}
 									// remove last br
@@ -1041,7 +1041,7 @@ class VirtueMartModelUserfields extends VmModel {
 									$separator_title = ',';
 									foreach ($_values as $_val) {
 										 if ( in_array($_val->fieldvalue, $_selected)) {
-											 $field_values.= vmText::_($_val->fieldtitle). $separator_title;
+											 $field_values.= tsmText::_($_val->fieldtitle). $separator_title;
 										 }
 										}
 									$_return['fields'][$_fld->name]['value'] = substr($field_values,0,-strlen($separator_title));
@@ -1054,7 +1054,7 @@ class VirtueMartModelUserfields extends VmModel {
 									}
 									if(!$_fld->required){
 										$obj = new stdClass();
-										$obj->fieldtitle = vmText::_('com_tsmart_LIST_EMPTY_OPTION');
+										$obj->fieldtitle = tsmText::_('com_tsmart_LIST_EMPTY_OPTION');
 										$obj->fieldvalue = '';
 										array_unshift($_values,$obj);
 									}
@@ -1064,7 +1064,7 @@ class VirtueMartModelUserfields extends VmModel {
 										foreach ($_values as $_val) {
 											if ( $_val->fieldvalue==$_selected ) {
 												// vmdebug('getUserFieldsFilled set empty select to value',$_selected,$_fld,$_return['fields'][$_fld->name]);
-												$_return['fields'][$_fld->name]['value'] = vmText::_($_val->fieldtitle);
+												$_return['fields'][$_fld->name]['value'] = tsmText::_($_val->fieldtitle);
 											}
 										}
 									}
@@ -1076,7 +1076,7 @@ class VirtueMartModelUserfields extends VmModel {
 									if ( !empty($_selected)){
 										foreach ($_values as $_val) {
 											if (  $_val->fieldvalue==$_selected) {
-												$_return['fields'][$_fld->name]['value'] = vmText::_($_val->fieldtitle);
+												$_return['fields'][$_fld->name]['value'] = tsmText::_($_val->fieldtitle);
 											}
 										}
 									}

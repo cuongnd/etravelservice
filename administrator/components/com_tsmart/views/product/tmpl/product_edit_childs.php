@@ -25,7 +25,7 @@ $i = 0;
 
 <fieldset>
 		<legend>
-		<?php echo vmText::_('com_tsmart_PRODUCT_FORM_CHILD_PARENT'); ?></legend>
+		<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_CHILD_PARENT'); ?></legend>
 <table class="adminform">
 	<tr class="row<?php echo $i?>">
 		<td width="50%">
@@ -43,9 +43,9 @@ $i = 0;
 					<?php if ($link) { ?>
 					<a href="<?php echo $link ?>" class="btn btn-small">
 						<?php } else { ?>
-						<span class="hasTip" title="<?php echo vmText::_ ('com_tsmart_PRODUCT_ADD_CHILD_TIP'); ?>">
+						<span class="hasTip" title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_ADD_CHILD_TIP'); ?>">
 							<?php } ?>
-							<?php echo vmText::_('com_tsmart_PRODUCT_ADD_CHILD');?>
+							<?php echo tsmText::_('com_tsmart_PRODUCT_ADD_CHILD');?>
 							<?php if ($link) { ?>
 					</a>
 				<?php } else{ ?>
@@ -60,10 +60,10 @@ $i = 0;
 		<legend><?php
 			$parentRel = '';
 			if ($this->product->product_parent_id) {
-				$parentRel = vmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT',JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$this->product->product_parent_id),
-						$this->product_parent->product_name, array('title' => vmText::_('com_tsmart_EDIT').' '.htmlentities($this->product_parent->product_name))).' =&gt; ');
+				$parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT',JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$this->product->product_parent_id),
+						$this->product_parent->product_name, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($this->product_parent->product_name))).' =&gt; ');
 			}
-			echo vmText::sprintf('com_tsmart_PRODUCT_INFORMATION',$parentRel);
+			echo tsmText::sprintf('com_tsmart_PRODUCT_INFORMATION',$parentRel);
 			echo ' id: '.$this->product->virtuemart_product_id ?>
 		</legend>
 	</tr>
@@ -86,12 +86,12 @@ $i = 0;
 
 				<table class="adminform">
 					<tr>
-						<th style="text-align: left !important;"><?php echo vmText::_('com_tsmart_PRODUCT_CHILD') ?></th>
-						<th style="text-align: left !important;"><?php echo vmText::_('com_tsmart_PRODUCT_CHILD_NAME')?></th>
-						<th style="text-align: left !important;"><?php echo vmText::_('com_tsmart_PRODUCT_GTIN')?></th>
-						<th style="text-align: left !important;" width="5%"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_PRICE_COST')?></th>
-						<th style="text-align: left !important;"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK')?></th>
-						<th style="text-align: left !important;" width="5%"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK')?></th>
+						<th style="text-align: left !important;"><?php echo tsmText::_('com_tsmart_PRODUCT_CHILD') ?></th>
+						<th style="text-align: left !important;"><?php echo tsmText::_('com_tsmart_PRODUCT_CHILD_NAME')?></th>
+						<th style="text-align: left !important;"><?php echo tsmText::_('com_tsmart_PRODUCT_GTIN')?></th>
+						<th style="text-align: left !important;" width="5%"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_COST')?></th>
+						<th style="text-align: left !important;"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK')?></th>
+						<th style="text-align: left !important;" width="5%"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK')?></th>
 						<?php
 						$js='';
 						$disabled='';
@@ -111,17 +111,17 @@ $i = 0;
 							}
 							?>
 							<th style="text-align: left !important;">
-								<?php echo vmText::sprintf('com_tsmart_PRODUCT_CUSTOM_FIELD_N',vmText::_('com_tsmart_'.strtoupper($custom->customfield_value)))?>
+								<?php echo tsmText::sprintf('com_tsmart_PRODUCT_CUSTOM_FIELD_N',tsmText::_('com_tsmart_'.strtoupper($custom->customfield_value)))?>
 							</th>
 						<?php } ?>
-						<th style="text-align: left !important;" width="5%"><?php echo vmText::_('com_tsmart_ORDERING')?></th>
-						<th style="text-align: left !important;" width="5%"><?php echo vmText::_('com_tsmart_PUBLISHED')?></th>
+						<th style="text-align: left !important;" width="5%"><?php echo tsmText::_('com_tsmart_ORDERING')?></th>
+						<th style="text-align: left !important;" width="5%"><?php echo tsmText::_('com_tsmart_PUBLISHED')?></th>
 					</tr>
 					<?php foreach ($this->product_childs as $child  ) {
 						$i = 1 - $i; ?>
 						<tr class="row<?php echo $i ?>">
 							<td>
-								<?php echo JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $child->slug, array('title' => vmText::_('com_tsmart_EDIT').' '.htmlentities($child->product_name),'target' => '_blank')) ?>
+								<?php echo JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.htmlentities($child->product_name),'target' => '_blank')) ?>
 								<!--input type="hidden" name="childs[<?php echo $child->virtuemart_product_id ?>][slug]" id="child<?php echo $child->virtuemart_product_id ?>slug" value="<?php echo $child->slug ?>" /-->
 							</td>
 							<td><input type="text" class="inputbox productname" name="childs[<?php echo $child->virtuemart_product_id ?>][product_name]" id="child<?php echo $child->virtuemart_product_id ?>product_name" size="32" value="<?php echo $child->product_name ?>" /></td>

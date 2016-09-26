@@ -1385,7 +1385,7 @@ class calculationHelper {
 
 			if(!empty($this->_cart->cartData[$type][0])){
 				$this->_cart->$virtuemart_typemethod_id = $this->_cart->cartData[$type][0][$virtuemart_typemethod_id];
-				$this->_cart->cartData[$type.'Name'] = vmText::_($this->_cart->cartData[$type][0][$type.'Name']);
+				$this->_cart->cartData[$type.'Name'] = tsmText::_($this->_cart->cartData[$type][0][$type.'Name']);
 				//Here the values then
 				$this->_cart->cartPrices[$type.'Value'] = $this->_cart->cartData[$type][0][$type.'Value']; //could be automatically set to a default set in the globalconfig
 				$this->_cart->cartPrices[$type.'Tax'] = $this->_cart->cartData[$type][0][$type.'Tax'];
@@ -1413,7 +1413,7 @@ class calculationHelper {
 	 */
 	function calculateShipmentPrice( ) {
 
-		$this->_cart->cartData['shipmentName'] = vmText::_('com_tsmart_CART_NO_SHIPMENT_SELECTED');
+		$this->_cart->cartData['shipmentName'] = tsmText::_('com_tsmart_CART_NO_SHIPMENT_SELECTED');
 		$this->_cart->cartPrices['shipmentValue'] = 0; //could be automatically set to a default set in the globalconfig
 		$this->_cart->cartPrices['shipmentTax'] = 0;
 		$this->_cart->cartPrices['salesPriceShipment'] = 0;
@@ -1455,7 +1455,7 @@ class calculationHelper {
 	 */
 	function calculatePaymentPrice() {
 
-		$this->_cart->cartData['paymentName'] = vmText::_('com_tsmart_CART_NO_PAYMENT_SELECTED');
+		$this->_cart->cartData['paymentName'] = tsmText::_('com_tsmart_CART_NO_PAYMENT_SELECTED');
 		$this->_cart->cartPrices['paymentValue'] = 0; //could be automatically set to a default set in the globalconfig
 		$this->_cart->cartPrices['paymentTax'] = 0;
 		$this->_cart->cartPrices['paymentTotal'] = 0;

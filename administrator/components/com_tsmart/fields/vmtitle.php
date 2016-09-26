@@ -43,7 +43,7 @@ class JFormFieldVmtitle extends JFormField {
 		if ($this->value) {
 
 			$html .= '<div ' . $class . '>';
-			$html .= vmText::_($this->value);
+			$html .= tsmText::_($this->value);
 			$html .= '</div>';
 
 		}
@@ -60,7 +60,7 @@ class JFormFieldVmtitle extends JFormField {
 		$description = (string)$this->element['description'];
 		$class = $this->element['class'] ? ' class="' . trim((string)$this->element['class']) . '"' : '';
 
-		$html = !empty($description) ? vmText::_($description) : '';
+		$html = !empty($description) ? tsmText::_($description) : '';
 
 		return '<span ' . $class . '>' . $html . '</span>';
 	}

@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of order types
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package	VirtueMart
  * @subpackage OrderStatus
  */
-class TsmartViewOrderstatus extends VmViewAdmin {
+class TsmartViewOrderstatus extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -55,9 +55,9 @@ class TsmartViewOrderstatus extends VmViewAdmin {
 
 		if ($layoutName == 'edit') {
 			$this->orderStatus = $model->getData();
-			$this->SetViewTitle('',vmText::_($this->orderStatus->order_status_name) );
+			$this->SetViewTitle('',tsmText::_($this->orderStatus->order_status_name) );
 			if ($this->orderStatus->virtuemart_orderstate_id < 1) {
-				$this->ordering = vmText::_('com_tsmart_NEW_ITEMS_PLACE');
+				$this->ordering = tsmText::_('com_tsmart_NEW_ITEMS_PLACE');
 			} else {
 
 				if (!class_exists('ShopFunctions'))

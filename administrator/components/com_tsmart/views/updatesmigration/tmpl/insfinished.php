@@ -48,9 +48,9 @@ if($option=='com_tsmart'){
 				<strong>
 					<?php
 					if($update){
-						echo  vmText::_('com_tsmart_UPGRADE_SUCCESSFUL');
+						echo  tsmText::_('com_tsmart_UPGRADE_SUCCESSFUL');
 					} else {
-						echo vmText::_('com_tsmart_INSTALLATION_SUCCESSFUL');
+						echo tsmText::_('com_tsmart_INSTALLATION_SUCCESSFUL');
 					}
 					?>
 				</strong>
@@ -69,13 +69,13 @@ if($option=='com_tsmart'){
 					<<?php echo $tag.' '.$style ?>>
 						<?php
 						if ($update) {
-							echo vmText::_('com_tsmart_UPDATE_AIO');
+							echo tsmText::_('com_tsmart_UPDATE_AIO');
 						} else {
-							echo vmText::_('com_tsmart_INSTALL_AIO');
+							echo tsmText::_('com_tsmart_INSTALL_AIO');
 						}
 						?>
 					</<?php echo $tag ?>>
-					<?php echo vmText::_('com_tsmart_INSTALL_AIO_TIP'); ?>
+					<?php echo tsmText::_('com_tsmart_INSTALL_AIO_TIP'); ?>
 				</td>
 			</tr>
 		<?php
@@ -91,19 +91,19 @@ if($option=='com_tsmart'){
 		?>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<?php echo vmText::sprintf('com_tsmart_MORE_LANGUAGES','http://virtuemart.net/community/translations'); ?>
+				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','http://virtuemart.net/community/translations'); ?>
 				</span>
 			</td>
 		</tr>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<a href="http://docs.virtuemart.net"><?php echo vmText::_('com_tsmart_DOCUMENTATION'); ?></a>
+				<a href="http://docs.virtuemart.net"><?php echo tsmText::_('com_tsmart_DOCUMENTATION'); ?></a>
 				</span>
 			</td>
 		</tr>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<a href="http://extensions.virtuemart.net"><?php echo  vmText::_('com_tsmart_EXTENSIONS_MORE'); ?></a>
+				<a href="http://extensions.virtuemart.net"><?php echo  tsmText::_('com_tsmart_EXTENSIONS_MORE'); ?></a>
 				</span>
 			</td>
 		</tr>

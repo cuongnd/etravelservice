@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <fieldset>
-	<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_CHECKOUT_SETTINGS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_CHECKOUT_SETTINGS'); ?></legend>
 	<table class="admintable">
 		<?php
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_ADDTOCART_POPUP','addtocart_popup',VmConfig::get('addtocart_popup',1));

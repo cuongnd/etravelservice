@@ -32,8 +32,8 @@ $rowColor = 0;
             <div style="text-align: right; font-weight: bold;">
 								<span
                                         class="hasTip"
-                                        title="<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_COST_TIP'); ?>">
-									<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_COST') ?>
+                                        title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_COST_TIP'); ?>">
+									<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_COST') ?>
 								</span>
             </div>
         </td>
@@ -57,8 +57,8 @@ $rowColor = 0;
 
         <td colspan="2">
  			<span class="hasTip" style="font-weight: bold;"
-               title="<?php echo vmText::_ ('com_tsmart_SHOPPER_FORM_GROUP_PRICE_TIP'); ?>">
-						<?php echo vmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?></span>
+               title="<?php echo tsmText::_ ('com_tsmart_SHOPPER_FORM_GROUP_PRICE_TIP'); ?>">
+						<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?></span>
 			<?php echo $this->lists['shoppergroups'];  ?>
         </td>
     </tr>
@@ -68,8 +68,8 @@ $rowColor = 0;
             <div style="text-align: right; font-weight: bold;">
 								<span
                                         class="hasTip"
-                                        title="<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_BASE_TIP'); ?>">
-									<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_BASE') ?>
+                                        title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_BASE_TIP'); ?>">
+									<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_BASE') ?>
 								</span>
             </div>
         </td>
@@ -89,8 +89,8 @@ $rowColor = 0;
 			<?php echo $this->lists['taxrates']; ?><br/>
         </td>
         <td>
-	                        <span class="hasTip" title="<?php echo vmText::_ ('com_tsmart_RULES_EFFECTING_TIP') ?>">
-							<?php echo vmText::_ ('com_tsmart_TAX_EFFECTING') . '<br />' . $this->taxRules ?>
+	                        <span class="hasTip" title="<?php echo tsmText::_ ('com_tsmart_RULES_EFFECTING_TIP') ?>">
+							<?php echo tsmText::_ ('com_tsmart_TAX_EFFECTING') . '<br />' . $this->taxRules ?>
 		                    </span>
         </td>
 		<td style="background: #d5d5d5;padding:0;width:1px;"></td>
@@ -107,8 +107,8 @@ $rowColor = 0;
             <div style="text-align: right; font-weight: bold;">
 				<span
                         class="hasTip"
-                        title="<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_FINAL_TIP'); ?>">
-					<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_FINAL') ?>
+                        title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_FINAL_TIP'); ?>">
+					<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_PRICE_FINAL') ?>
 				</span>
             </div>
         </td>
@@ -127,13 +127,13 @@ $rowColor = 0;
 			<?php echo $this->lists['discounts']; ?> <br/>
         </td>
         <td>
-	                    <span class="hasTip" title="<?php echo vmText::_ ('com_tsmart_RULES_EFFECTING_TIP') ?>">
+	                    <span class="hasTip" title="<?php echo tsmText::_ ('com_tsmart_RULES_EFFECTING_TIP') ?>">
 						<?php if (!empty($this->DBTaxRules)) {
-		                    echo vmText::_ ('com_tsmart_RULES_EFFECTING') . '</span><br />' . $this->DBTaxRules . '<br />';
+		                    echo tsmText::_ ('com_tsmart_RULES_EFFECTING') . '</span><br />' . $this->DBTaxRules . '<br />';
 
 	                    }
 		                if (!empty($this->DATaxRules)) {
-			               echo vmText::_ ('com_tsmart_RULES_EFFECTING') . '<br />' . $this->DATaxRules;
+			               echo tsmText::_ ('com_tsmart_RULES_EFFECTING') . '<br />' . $this->DATaxRules;
 		                }
 
 		                    // 						vmdebug('my rules',$this->DBTaxRules,$this->DATaxRules); echo vmText::_('com_tsmart_PRODUCT_FORM_DISCOUNT_EFFECTING').$this->DBTaxRules;  ?>
@@ -155,8 +155,8 @@ $rowColor = 0;
             <div style="text-align: right; font-weight: bold;">
 				<span
                         class="hasTip"
-                        title="<?php echo vmText::_ ('com_tsmart_PRODUCT_DISCOUNT_OVERRIDE_TIP'); ?>">
-					<?php echo vmText::_ ('com_tsmart_PRODUCT_DISCOUNT_OVERRIDE') ?>
+                        title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_DISCOUNT_OVERRIDE_TIP'); ?>">
+					<?php echo tsmText::_ ('com_tsmart_PRODUCT_DISCOUNT_OVERRIDE') ?>
 				</span>
             </div>
         </td>
@@ -169,22 +169,22 @@ $rowColor = 0;
 			<?php echo $this->vendor_currency_symb;   ?>
 </div>
 			<?php
-			$options = array(0 => vmText::_ ('JNO'), 1 => vmText::_ ('JYES'));
+			$options = array(0 => tsmText::_ ('JNO'), 1 => tsmText::_ ('JYES'));
 			// echo VmHtml::radioList ('mprices[use_desired_price][' . $this->priceCounter . ']', $this->product->override, $options);
 			echo '<input type="checkbox" name="mprices[use_desired_price][' . $this->priceCounter . ']" value="1"/>'
 			?>
 			<strong>
 			<span
 				class="hasTip"
-				title="<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_CALCULATE_PRICE_FINAL_TIP'); ?>">
-			<?php echo vmText::_ ('com_tsmart_PRODUCT_FORM_CALCULATE_PRICE_FINAL'); ?>
+				title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_CALCULATE_PRICE_FINAL_TIP'); ?>">
+			<?php echo tsmText::_ ('com_tsmart_PRODUCT_FORM_CALCULATE_PRICE_FINAL'); ?>
 			</span>
 			</strong>
 
 			<br />
  <?php
 			// 							echo VmHtml::checkbox('override',$this->product->override);
-			$options = array(0 => vmText::_ ('com_tsmart_DISABLED'), 1 => vmText::_ ('com_tsmart_OVERWRITE_FINAL'), -1 => vmText::_ ('com_tsmart_OVERWRITE_PRICE_TAX'));
+			$options = array(0 => tsmText::_ ('com_tsmart_DISABLED'), 1 => tsmText::_ ('com_tsmart_OVERWRITE_FINAL'), -1 => tsmText::_ ('com_tsmart_OVERWRITE_PRICE_TAX'));
 
 			echo VmHtml::radioList ('mprices[override][' . $this->priceCounter . ']', $this->product->allPrices[$this->product->selectedPrice]['override'], $options,'',' ');
 			?>
@@ -192,7 +192,7 @@ $rowColor = 0;
 		<td style="background: #d5d5d5;padding:0;width:1px;"></td>
         <td>
             <div style="font-weight: bold;">
-				<?php echo vmText::_ ('com_tsmart_PRODUCT_PRICE_QUANTITY_RANGE') ?>
+				<?php echo tsmText::_ ('com_tsmart_PRODUCT_PRICE_QUANTITY_RANGE') ?>
             </div>
             <input type="text"
                    size="12"

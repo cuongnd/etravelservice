@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for VirtueMart Manufacturers
@@ -113,7 +113,7 @@ class VirtueMartModelManufacturer extends VmModel {
 						FROM `#__virtuemart_manufacturers_".VmConfig::$vmlang."` ORDER BY `mf_name` ASC";
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
-		array_unshift($options, JHtml::_('select.option',  '0', '- '. vmText::_('com_tsmart_SELECT_MANUFACTURER') .' -' ));
+		array_unshift($options, JHtml::_('select.option',  '0', '- '. tsmText::_('com_tsmart_SELECT_MANUFACTURER') .' -' ));
 		return $options;
 	}
 

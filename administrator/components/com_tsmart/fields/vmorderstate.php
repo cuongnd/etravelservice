@@ -40,7 +40,7 @@ class JFormFieldVmOrderState extends JFormFieldList {
 		$db->setQuery($query);
 		$values = $db->loadObjectList();
 		foreach ($values as $value) {
-			$options[] = JHtml::_('select.option', $value->value, vmText::_($value->text));
+			$options[] = JHtml::_('select.option', $value->value, tsmText::_($value->text));
 		}
 
 

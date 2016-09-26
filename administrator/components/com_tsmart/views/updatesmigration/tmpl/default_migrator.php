@@ -25,7 +25,7 @@ $session = JFactory::getSession();
 <table>
 <tr>
 	<td align="left" colspan="5" >
-		<h3> <?php echo vmText::_('com_tsmart_UPDATE_MIGRATION_TITLE'); ?> </h3>
+		<h3> <?php echo tsmText::_('com_tsmart_UPDATE_MIGRATION_TITLE'); ?> </h3>
 	</td>
 </tr>
 
@@ -41,7 +41,7 @@ $session = JFactory::getSession();
 		if($max_execution_time===$new_max_execution_time){
 			echo 'Server settings do not allow changes of your max_execution_time in the php.ini file, you may get problems migrating a big shop';
 		} else {
-			echo vmText::_('com_tsmart_UPDATE_MIGRATION_CHANGE_MAX_EXECUTION_TIME').'<input class="inputbox" type="text" name="max_execution_time" size="15" value="'.$max_execution_time.'" />';
+			echo tsmText::_('com_tsmart_UPDATE_MIGRATION_CHANGE_MAX_EXECUTION_TIME').'<input class="inputbox" type="text" name="max_execution_time" size="15" value="'.$max_execution_time.'" />';
 		}
 		@ini_set( 'max_execution_time', $max_execution_time );
 
@@ -56,7 +56,7 @@ $session = JFactory::getSession();
 // 			if($memory_limit===$new_memory_limit){
 // 				echo 'Server settings do not allow changes of your memory_limit in the php.ini file, you may get problems migrating a big shop';
 // 			}else {
-				echo vmText::_('com_tsmart_UPDATE_MIGRATION_CHANGE_MEMORY_LIMIT').'<input class="inputbox" type="text" name="memory_limit" size="15" value="'.$memory_limit.'" />';
+				echo tsmText::_('com_tsmart_UPDATE_MIGRATION_CHANGE_MEMORY_LIMIT').'<input class="inputbox" type="text" name="memory_limit" size="15" value="'.$memory_limit.'" />';
 // 			}
 // 			@ini_set( 'max_execution_time', $memory_limit );
 		}
@@ -67,24 +67,24 @@ $session = JFactory::getSession();
 
 <tr>
     <td align="center">
-		<button class="default" type="submit" ><?php echo vmText::_('com_tsmart_MIGRATE'); ?></button>
+		<button class="default" type="submit" ><?php echo tsmText::_('com_tsmart_MIGRATE'); ?></button>
     </td>
 <tr>
 
 <tr>
 	<td>
-		<?php echo vmText::_('com_tsmart_UPDATE_MIGRATION_STRING'); ?>
+		<?php echo tsmText::_('com_tsmart_UPDATE_MIGRATION_STRING'); ?>
 	</td>
 	<td>
    <?php
 		$options = array(
-			'migrateGeneralFromVmOne'	=>	vmText::_('com_tsmart_UPDATE_GENERAL'),
-			'migrateUsersFromVmOne'	=>	vmText::_('com_tsmart_UPDATE_USERS'),
-			'migrateProductsFromVmOne'	=> vmText::_('com_tsmart_UPDATE_PRODUCTS'),
-			'migrateOrdersFromVmOne'	=> vmText::_('com_tsmart_UPDATE_ORDERS'),
-			'migrateAllInOne'	=> vmText::_('com_tsmart_UPDATE_ALL'),
-			'portVmAttributes'	=> vmText::_('com_tsmart_UPDATE_ATTR').'<br />'.vmText::_('com_tsmart_UPDATE_ATTR_2'),
-			'portVmRelatedProducts'	=> vmText::_('com_tsmart_UPDATE_REL'),
+			'migrateGeneralFromVmOne'	=>	tsmText::_('com_tsmart_UPDATE_GENERAL'),
+			'migrateUsersFromVmOne'	=>	tsmText::_('com_tsmart_UPDATE_USERS'),
+			'migrateProductsFromVmOne'	=> tsmText::_('com_tsmart_UPDATE_PRODUCTS'),
+			'migrateOrdersFromVmOne'	=> tsmText::_('com_tsmart_UPDATE_ORDERS'),
+			'migrateAllInOne'	=> tsmText::_('com_tsmart_UPDATE_ALL'),
+			'portVmAttributes'	=> tsmText::_('com_tsmart_UPDATE_ATTR').'<br />'.tsmText::_('com_tsmart_UPDATE_ATTR_2'),
+			'portVmRelatedProducts'	=> tsmText::_('com_tsmart_UPDATE_REL'),
 		//	'setStoreOwner'	=> vmText::_('com_tsmart_SETSTOREOWNER')
 		);
 		echo VmHTML::radioList('task', $session->get('migration_task', 'migrateAllInOne', 'vm'), $options);
@@ -117,13 +117,13 @@ echo VmHTML::row('input','com_tsmart_MIGRATION_DCAT_FLY','migration_default_cate
 <table>
 <tr>
 	<td>
-		<?php echo vmText::_('com_tsmart_MIGRATION_STOREOWNERID'); ?>
+		<?php echo tsmText::_('com_tsmart_MIGRATION_STOREOWNERID'); ?>
 	</td>
 	<td>
 		<input class="inputbox" type="text" name="storeOwnerId" size="15" value="" />
 	</td>
     <td>
-        <button class="default" type="submit" ><?php echo vmText::_('com_tsmart_SETSTOREOWNER'); ?></button>
+        <button class="default" type="submit" ><?php echo tsmText::_('com_tsmart_SETSTOREOWNER'); ?></button>
     </td>
 </tr>
 </table>

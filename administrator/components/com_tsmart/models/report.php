@@ -23,7 +23,7 @@ if (!defined ('_JEXEC')) {
  */
 
 if (!class_exists ('VmModel')) {
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
 class VirtuemartModelReport extends VmModel {
@@ -171,7 +171,7 @@ class VirtuemartModelReport extends VmModel {
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['".vmText::_('com_tsmart_DAY')."', '".vmText::_('com_tsmart_REPORT_BASIC_ORDERS')."', '".vmText::_('com_tsmart_REPORT_BASIC_TOTAL_ITEMS')."', '".vmText::_('com_tsmart_REPORT_BASIC_REVENUE_NETTO')."'],";
+          ['".tsmText::_('com_tsmart_DAY')."', '".tsmText::_('com_tsmart_REPORT_BASIC_ORDERS')."', '".tsmText::_('com_tsmart_REPORT_BASIC_TOTAL_ITEMS')."', '".tsmText::_('com_tsmart_REPORT_BASIC_REVENUE_NETTO')."'],";
 
 		$interval = DateInterval::createFromDateString('1 day');
 		$period = new DatePeriod($begin, $interval, $end);
@@ -189,7 +189,7 @@ class VirtuemartModelReport extends VmModel {
 		$js .= "  ]);";
 		$js .="
         var options = {
-          title: '". vmText::sprintf('com_tsmart_REPORT_TITLE', vmJsApi::date( $reportM->from_period, 'LC',true) , vmJsApi::date( $reportM->until_period, 'LC',true) )."',
+          title: '". tsmText::sprintf('com_tsmart_REPORT_TITLE', vmJsApi::date( $reportM->from_period, 'LC',true) , vmJsApi::date( $reportM->until_period, 'LC',true) )."',
             series: {0: {targetAxisIndex:0},
                    1:{targetAxisIndex:0},
                    2:{targetAxisIndex:1},
@@ -405,31 +405,31 @@ class VirtuemartModelReport extends VmModel {
 		$curDate = mktime (0, 0, 0, date ('m', $curDate), date ('d', $curDate), date ('Y', $curDate));
 		$monday = (date ('w', $curDate) == 1) ? $curDate : strtotime ('last Monday', $curDate);
 		$this->date_presets['last90'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_LAST90'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_LAST90'),
 			'from'  => date ('Y-m-d', strtotime ('-89 day', $curDate)),
 			'until' => date ('Y-m-d', $curDate));
 		$this->date_presets['last60'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_LAST60'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_LAST60'),
 			'from'  => date ('Y-m-d', strtotime ('-59 day', $curDate)),
 			'until' => date ('Y-m-d', $curDate));
 		$this->date_presets['last30'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_LAST30'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_LAST30'),
 			'from'  => date ('Y-m-d', strtotime ('-29 day', $curDate)),
 			'until' => date ('Y-m-d', $curDate));
 		$this->date_presets['today'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_TODAY'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_TODAY'),
 			'from'  => date ('Y-m-d', $curDate),
 			'until' => date ('Y-m-d', $curDate));
 		$this->date_presets['this-week'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_THIS_WEEK'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_THIS_WEEK'),
 			'from'  => date ('Y-m-d', $monday),
 			'until' => date ('Y-m-d', strtotime ('+6 day', $monday)));
 		$this->date_presets['this-month'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_THIS_MONTH'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_THIS_MONTH'),
 			'from'  => date ('Y-m-d', mktime (0, 0, 0, date ('n', $curDate), 1, date ('Y', $curDate))),
 			'until' => date ('Y-m-d', mktime (0, 0, 0, date ('n', $curDate) + 1, 0, date ('Y', $curDate))));
 		$this->date_presets['this-year'] = array(
-			'name'  => vmText::_ ('com_tsmart_REPORT_PERIOD_THIS_YEAR'),
+			'name'  => tsmText::_ ('com_tsmart_REPORT_PERIOD_THIS_YEAR'),
 			'from'  => date ('Y-m-d', mktime (0, 0, 0, 1, 1, date ('Y', $curDate))),
 			'until' => date ('Y-m-d', mktime (0, 0, 0, 12, 31, date ('Y', $curDate))));
 
@@ -439,13 +439,13 @@ class VirtuemartModelReport extends VmModel {
 
 		// simpledate select
 		$select = '';
-		$options = array(JHtml::_ ('select.option', 'none', '- ' . vmText::_ ('com_tsmart_REPORT_SET_PERIOD') . ' -', 'text', 'value'));
+		$options = array(JHtml::_ ('select.option', 'none', '- ' . tsmText::_ ('com_tsmart_REPORT_SET_PERIOD') . ' -', 'text', 'value'));
 
 		$app = JFactory::getApplication ();
 		$select = $app->getUserStateFromRequest ('com_tsmart.revenue.period', 'period', 'last30', 'string');
 
 		foreach ($this->date_presets as $name => $value) {
-			$options[] = JHtml::_ ('select.option', $name, vmText::_ ($value['name']), 'text', 'value');
+			$options[] = JHtml::_ ('select.option', $name, tsmText::_ ($value['name']), 'text', 'value');
 		}
 		$listHTML = JHtml::_ ('select.genericlist', $options, 'period', 'size="7" class="inputbox" onchange="this.form.submit();" ', 'text', 'value', $select);
 		//$listHTML = JHtml::_ ('select.genericlist', $options, 'period', 'size="7" class="inputbox" ', 'text', 'value', $select);
@@ -458,12 +458,12 @@ class VirtuemartModelReport extends VmModel {
 		$intervals = vRequest::getCmd ('intervals', 'day');
 
 		$options = array();
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_PRODUCT_S'), 'product_s');
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_ORDERS'), 'orders');
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_DAILY'), 'day');
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_WEEKLY'), 'week');
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_MONTHLY'), 'month');
-		$options[] = JHtml::_ ('select.option', vmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_YEARLY'), 'year');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_PRODUCT_S'), 'product_s');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_ORDERS'), 'orders');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_DAILY'), 'day');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_WEEKLY'), 'week');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_MONTHLY'), 'month');
+		$options[] = JHtml::_ ('select.option', tsmText::_ ('com_tsmart_REPORT_INTERVAL_GROUP_YEARLY'), 'year');
 		//$listHTML = JHtml::_ ('select.genericlist', $options, 'intervals', 'class="inputbox" onchange="this.form.submit();" size="5"', 'text', 'value', $intervals);
 		$listHTML = JHtml::_ ('select.genericlist', $options, 'intervals', 'class="inputbox" size="6"', 'text', 'value', $intervals);
 		return $listHTML;

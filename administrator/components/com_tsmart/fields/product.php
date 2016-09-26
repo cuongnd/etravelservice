@@ -46,7 +46,7 @@ class JFormFieldProduct extends JFormField
 	}
 	private function _getProducts() {
 		if (!class_exists('VmModel'))
-		require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+		require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 		$productModel = VmModel::getModel('Product');
 		$productModel->_noLimit = true;
 		$products = $productModel->getProductListing(false, false, false, false, true,false);

@@ -32,14 +32,14 @@ if (JVM_VERSION < 3){
 if ($this->payment->payment_jplugin_id) {
 	?>
 	<h2 style="text-align: center;"><?php echo $this->payment->payment_name ?></h2>
-	<div style="text-align: center;"><?php echo  VmText::_('com_tsmart_PAYMENT_CLASS_NAME').": ".$this->payment->payment_element ?></div>
+	<div style="text-align: center;"><?php echo  tsmText::_('com_tsmart_PAYMENT_CLASS_NAME').": ".$this->payment->payment_element ?></div>
 	<?php
 	if ($this->payment->form) {
 		$form = $this->payment->form;
 		include(VMPATH_ADMIN.DS.'fields'.DS.'formrenderer.php');
 	}
 } else {
-	echo vmText::_('com_tsmart_SELECT_PAYMENT_METHOD_VM3');
+	echo tsmText::_('com_tsmart_SELECT_PAYMENT_METHOD_VM3');
 }
 
 

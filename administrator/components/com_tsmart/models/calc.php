@@ -20,7 +20,7 @@ defined('_JEXEC') or die('Restricted access');
 */
 
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 class VirtueMartModelCalc extends VmModel {
 
@@ -149,7 +149,7 @@ class VirtueMartModelCalc extends VmModel {
 		$startDate = JFactory::getDate($data['publish_up']);
 		$data['publish_up'] = $startDate->toSQL();
 
-		if (empty($data['publish_down']) || trim($data['publish_down']) == vmText::_('com_tsmart_NEVER')){
+		if (empty($data['publish_down']) || trim($data['publish_down']) == tsmText::_('com_tsmart_NEVER')){
 			$data['publish_down']	= $db->getNullDate();
 		} else {
 			$expireDate = JFactory::getDate($data['publish_down']);

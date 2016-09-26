@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of states
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage State
  * @author Max Milbers
  */
-class TsmartViewState extends VmViewAdmin {
+class TsmartViewState extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -64,7 +64,7 @@ class TsmartViewState extends VmViewAdmin {
 		} else {
 			//get list country
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcountries.php';
-			$list_country = vmcountries::get_countries();
+			$list_country = tsmcountries::get_countries();
 			$this->assignRef('list_country', $list_country);
 			//end get list country
 

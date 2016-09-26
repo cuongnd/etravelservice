@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @package    VirtueMart
  * @author Max Milbers
  */
-class TsmartControllerCustom extends VmController {
+class TsmartControllerCustom extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -80,9 +80,9 @@ class TsmartControllerCustom extends VmController {
 		$cids = vRequest::getInt($this->_cidName, vRequest::getInt('virtuemart_custom_id'));
 
 		foreach ($cids as $custom_id) {
-			if ($model->createClone($custom_id)) $msg = vmText::_('com_tsmart_CUSTOM_CLONED_SUCCESSFULLY');
+			if ($model->createClone($custom_id)) $msg = tsmText::_('com_tsmart_CUSTOM_CLONED_SUCCESSFULLY');
 			else {
-				$msg = vmText::_('com_tsmart_CUSTOM_NOT_CLONED_SUCCESSFULLY').' : '.$custom_id;
+				$msg = tsmText::_('com_tsmart_CUSTOM_NOT_CLONED_SUCCESSFULLY').' : '.$custom_id;
 				$msgtype = 'error';
 			}
 		}

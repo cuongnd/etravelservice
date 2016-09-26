@@ -19,8 +19,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if (!class_exists ('VmController')){
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcontroller.php');
+if (!class_exists ('TsmController')){
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmController.php');
 }
 
 
@@ -29,7 +29,7 @@ if (!class_exists ('VmController')){
  *
  * @package    VirtueMart
  */
-class TsmartControllerRatings extends VmController {
+class TsmartControllerRatings extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -165,7 +165,7 @@ class TsmartControllerRatings extends VmController {
 
 		$msg = 'failed';
 		if (!empty($id)) {
-			$msg = vmText::sprintf ('com_tsmart_STRING_SAVED', $this->mainLangKey);
+			$msg = tsmText::sprintf ('com_tsmart_STRING_SAVED', $this->mainLangKey);
 		}
 
 		$redir = $this->redirectPath;
@@ -196,7 +196,7 @@ class TsmartControllerRatings extends VmController {
 		} else {
 			$virtuemart_product_id = (int)$virtuemart_product_id;
 		}
-		$msg = vmText::sprintf('com_tsmart_STRING_CANCELLED',$this->mainLangKey); //'com_tsmart_OPERATION_CANCELED'
+		$msg = tsmText::sprintf('com_tsmart_STRING_CANCELLED',$this->mainLangKey); //'com_tsmart_OPERATION_CANCELED'
 		$this->setRedirect('index.php?option=com_tsmart&view=ratings&task=listreviews&virtuemart_product_id='.$virtuemart_product_id, $msg);
 	}
 

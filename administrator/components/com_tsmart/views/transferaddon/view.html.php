@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewtransferaddon extends VmViewAdmin {
+class TsmartViewtransferaddon extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -59,9 +59,9 @@ class TsmartViewtransferaddon extends VmViewAdmin {
 			$model->setId($cid);
 			$this->item = $model->getItem();
 			//get list tour
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmtransferaddon.php';
-			$this->item->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
+			$this->item->list_tour_id = tsmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$list_tour = vmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
@@ -83,10 +83,10 @@ class TsmartViewtransferaddon extends VmViewAdmin {
 			$this->pagination = $model->getPagination();
 
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
-			$this->list_cityarea=vmcities::get_city_state_country();
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmtransferaddon.php';
-			$this->list_transfer_type=vmtransferaddon::get_list_transfer_type();
-			$this->list_transfer_payment_type=vmtransferaddon::get_list_transfer_payment_type();
+			$this->list_cityarea=tsmcities::get_city_state_country();
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
+			$this->list_transfer_type=tsmtransferaddon::get_list_transfer_type();
+			$this->list_transfer_payment_type=tsmtransferaddon::get_list_transfer_payment_type();
 			if($task=='edit_item')
 			{
 				$cid	= vRequest::getInt( 'cid' );
@@ -103,9 +103,9 @@ class TsmartViewtransferaddon extends VmViewAdmin {
 				$this->item = $model->getItem();
 
 				//get list tour
-				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmtransferaddon.php';
-				$this->list_tour_id = vmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
-				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
+				$this->list_tour_id = tsmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->virtuemart_transfer_addon_id);
+				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 				$list_tour = vmproduct::get_list_product();
 				$this->assignRef('list_tour', $list_tour);
 				//end get list tour

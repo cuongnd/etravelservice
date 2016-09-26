@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -30,7 +30,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @author     	Oscar van Eijk
  * @author 		Max Milbers
  */
-class TsmartControllerUser extends VmController {
+class TsmartControllerUser extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -104,7 +104,7 @@ class TsmartControllerUser extends VmController {
 		$view = $this->getView('user', $viewType);
 
 		if (!vmAccess::manager('user.edit')) {
-			$msg = vmText::_('_NOT_AUTH');
+			$msg = tsmText::_('_NOT_AUTH');
 		} else {
 			$model = VmModel::getModel('user');
 

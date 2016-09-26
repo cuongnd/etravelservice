@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablexarray.php');
+if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtablexarray.php');
 
 /**
  * user_shoppergroup_xref table class
@@ -29,7 +29,7 @@ if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablex
  * @author Max Milbers
  */
 
- class TableVmuser_shoppergroups extends VmTableXarray {
+ class TableVmuser_shoppergroups extends tsmTableXarray {
 
 
 	/**

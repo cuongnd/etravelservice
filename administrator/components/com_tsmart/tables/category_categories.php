@@ -18,9 +18,9 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledata.php');
+if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
-class TableCategory_categories extends VmTableData {
+class TableCategory_categories extends tsmTableData {
 
 	var $category_parent_id = 0;
 

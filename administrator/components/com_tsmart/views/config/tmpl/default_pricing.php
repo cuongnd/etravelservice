@@ -40,7 +40,7 @@ vmJsApi::addJScript('show_prices',$js,true);
 	<tr>
 		<td valign="top">
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICE_CONFIGURATION'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICE_CONFIGURATION'); ?></legend>
 				<table class="admintable">
 					<?php
 					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_PRICE_SHOW_TAX','show_tax',VmConfig::get('show_tax',1));
@@ -54,7 +54,7 @@ vmJsApi::addJScript('show_prices',$js,true);
 		</td>
 		<td valign="top">
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES'); ?></legend>
 				<table class="admintable">
 					<?php
 					echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_SHOW_PRICES','show_prices',VmConfig::get('show_prices',1),1,0,'id="show_prices"');
@@ -63,9 +63,9 @@ vmJsApi::addJScript('show_prices',$js,true);
 				<table class="admintable" id="show_hide_prices">
 					<tr>
 						<th></th>
-						<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_LABEL'); ?></th>
-						<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_TEXT'); ?></th>
-						<th><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRICES_ROUNDING'); ?></th>
+						<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_LABEL'); ?></th>
+						<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_TEXT'); ?></th>
+						<th><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRICES_ROUNDING'); ?></th>
 					</tr>
 					<?php
 					echo ShopFunctions::writePriceConfigLine($this->config->_params, 'basePrice', 'com_tsmart_ADMIN_CFG_PRICE_BASEPRICE');

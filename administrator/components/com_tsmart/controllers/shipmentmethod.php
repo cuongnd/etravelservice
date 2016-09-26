@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Shipment
  * @author RickG, Max Milbers
  */
-class TsmartControllerShipmentmethod extends VmController {
+class TsmartControllerShipmentmethod extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -84,9 +84,9 @@ class TsmartControllerShipmentmethod extends VmController {
 		$cids = vRequest::getVar($this->_cidName, vRequest::getInt('virtuemart_shipment_id'));
 
 		foreach($cids as $cid){
-			if ($model->createClone($cid)) $msg = vmText::_('com_tsmart_SHIPMENT_CLONED_SUCCESSFULLY');
+			if ($model->createClone($cid)) $msg = tsmText::_('com_tsmart_SHIPMENT_CLONED_SUCCESSFULLY');
 			else {
-				$msg = vmText::_('com_tsmart_SHIPMENT_NOT_CLONED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_SHIPMENT_NOT_CLONED_SUCCESSFULLY');
 				$msgtype = 'error';
 			}
 		}

@@ -33,13 +33,13 @@ if(class_exists('finfo')){
 		<thead>
 		<tr>
 			<th>
-				<?php echo vmText::_('com_tsmart_LOG_FILENAME'); ?>
+				<?php echo tsmText::_('com_tsmart_LOG_FILENAME'); ?>
 			</th>
 			<th>
-				<?php echo vmText::_('com_tsmart_LOG_FILEINFO'); ?>
+				<?php echo tsmText::_('com_tsmart_LOG_FILEINFO'); ?>
 			</th>
 			<th>
-				<?php echo vmText::_('com_tsmart_LOG_FILESIZE'); ?>
+				<?php echo tsmText::_('com_tsmart_LOG_FILESIZE'); ?>
 			</th>
 
 		</tr>
@@ -74,7 +74,7 @@ if(class_exists('finfo')){
 				</td>
 					<td align="left">
 <?php
-						echo  $fileSize." ".vmText::_('com_tsmart_LOG_KB'); ?>
+						echo  $fileSize." ".tsmText::_('com_tsmart_LOG_KB'); ?>
 
 					</td>
 

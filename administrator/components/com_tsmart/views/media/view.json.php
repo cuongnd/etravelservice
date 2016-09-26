@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * Json View class for the VirtueMart Component
@@ -28,7 +28,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author  Patrick Kohl
  */
-class TsmartViewMedia extends VmViewAdmin {
+class TsmartViewMedia extends tsmViewAdmin {
 
 	/* json object */
 	private $json = null;
@@ -50,7 +50,7 @@ class TsmartViewMedia extends VmViewAdmin {
 				$this->json->msg =  'OK';
 				echo vmJsApi::safe_json_encode($this->json);
 			} else {
-				$this->json->msg =  '<b>'.vmText::_('com_tsmart_NO_IMAGE_SET').'</b>';
+				$this->json->msg =  '<b>'.tsmText::_('com_tsmart_NO_IMAGE_SET').'</b>';
 				echo @json_encode($this->json);
 			}
 		}

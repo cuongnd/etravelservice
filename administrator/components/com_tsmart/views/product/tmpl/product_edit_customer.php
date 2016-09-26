@@ -25,8 +25,8 @@ $i = 0;
 		<td width="21%" valign="top">
 			<?php
 			$mail_options = array(
-				'customer'=> vmText::_ ('com_tsmart_PRODUCT_SHOPPERS'),
-				'notify'  => vmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'),
+				'customer'=> tsmText::_ ('com_tsmart_PRODUCT_SHOPPERS'),
+				'notify'  => tsmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'),
 			);
 			$mail_default = 'notify';
 			if (VmConfig::get ('stockhandle', 0) != 'disableadd' or empty($this->waitinglist)) {
@@ -40,19 +40,19 @@ $i = 0;
 			<div id="notify_particulars" style="padding-left:20px;">
 				<div><input type="checkbox" name="notification_template" id="notification_template" value="1" CHECKED>
 					<label for="notification_template">
-						<span class="hasTip" title="<?php echo vmText::_ ('com_tsmart_PRODUCT_USE_NOTIFY_TEMPLATE_TIP'); ?>">
-						<?php echo vmText::_ ('com_tsmart_PRODUCT_USE_NOTIFY_TEMPLATE'); ?></span>
+						<span class="hasTip" title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_USE_NOTIFY_TEMPLATE_TIP'); ?>">
+						<?php echo tsmText::_ ('com_tsmart_PRODUCT_USE_NOTIFY_TEMPLATE'); ?></span>
 					</label>
 				</div>
-				<div><input type="text" name="notify_number" value="" size="4"/><?php echo vmText::_ ('com_tsmart_PRODUCT_NOTIFY_NUMBER'); ?></div>
+				<div><input type="text" name="notify_number" value="" size="4"/><?php echo tsmText::_ ('com_tsmart_PRODUCT_NOTIFY_NUMBER'); ?></div>
 			</div>
 			<br/>
 
 			<div class="mailing">
 				<div class="button2-left btn-wrapper btn btn-small" data-type="sendmail">
-					<div class="blank" style="padding:0 6px;cursor: pointer;" title="<?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_SEND_TIP'); ?>">
+					<div class="blank" style="padding:0 6px;cursor: pointer;" title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_SEND_TIP'); ?>">
 						<span class="vmicon vmicon-16-email"></span>
-						<?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_SEND'); ?>
+						<?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_SEND'); ?>
 					</div>
 				</div>
 				<div id="customers-list-msg"></div>
@@ -65,10 +65,10 @@ $i = 0;
 	<tr class="row<?php echo $i?>">
 		<td width="21%" valign="top">
 			<div id="customer-mail-content">
-				<div><?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_SUBJECT') ?></div>
-				<input type="text" class="mail-subject" id="mail-subject" size="100"   value="<?php echo vmText::sprintf ('com_tsmart_PRODUCT_EMAIL_SHOPPERS_SUBJECT',htmlentities($this->product->product_name)) ?>">
+				<div><?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_SUBJECT') ?></div>
+				<input type="text" class="mail-subject" id="mail-subject" size="100"   value="<?php echo tsmText::sprintf ('com_tsmart_PRODUCT_EMAIL_SHOPPERS_SUBJECT',htmlentities($this->product->product_name)) ?>">
 
-				<div><?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_CONTENT') ?></div>
+				<div><?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_CONTENT') ?></div>
 				<textarea style="width: 100%;" class="inputbox"   id="mail-body" cols="35" rows="10"></textarea>
 				<br/>
 			</div>
@@ -78,21 +78,21 @@ $i = 0;
 	<tr class="row<?php echo $i?>">
 		<td width="21%" valign="top">
 			<div id="customer-mail-list">
-				<span class="hasTip" title="<?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_ORDER_ITEM_STATUS_TIP'); ?>">
-				<strong><?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_ORDER_ITEM_STATUS') ?></strong>
+				<span class="hasTip" title="<?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_ORDER_ITEM_STATUS_TIP'); ?>">
+				<strong><?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_ORDER_ITEM_STATUS') ?></strong>
 				</span><br/>
 				<?php echo $this->lists['OrderStatus'];?>
 				<br/> <br/>
-				<div style="font-weight:bold;"><?php echo vmText::sprintf ('com_tsmart_PRODUCT_SHOPPERS_LIST', ($this->product->product_name)); ?></div>
+				<div style="font-weight:bold;"><?php echo tsmText::sprintf ('com_tsmart_PRODUCT_SHOPPERS_LIST', ($this->product->product_name)); ?></div>
 				<table class="adminlist table" cellspacing="0" cellpadding="0">
 					<thead>
 					<tr>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_NAME');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_EMAIL');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_SHOPPER_FORM_PHONE');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_ORDER_PRINT_QUANTITY');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_ORDER_PRINT_ITEM_STATUS');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_ORDER_NUMBER');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_NAME');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_EMAIL');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_SHOPPER_FORM_PHONE');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_ORDER_PRINT_QUANTITY');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_ORDER_PRINT_ITEM_STATUS');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_ORDER_NUMBER');?></th>
 					</tr>
 					</thead>
 					<tbody id="customers-list">
@@ -107,13 +107,13 @@ $i = 0;
 			<div id="customer-mail-notify-list">
 
 				<?php if (VmConfig::get ('stockhandle', 0) == 'disableadd' && !empty($this->waitinglist)) { ?>
-				<div style="font-weight:bold;"><?php echo vmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'); ?></div>
+				<div style="font-weight:bold;"><?php echo tsmText::_ ('com_tsmart_PRODUCT_WAITING_LIST_USERLIST'); ?></div>
 				<table class="adminlist table" cellspacing="0" cellpadding="0">
 					<thead>
 					<tr>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_NAME');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_USERNAME');?></th>
-						<th class="title"><?php echo vmText::_ ('com_tsmart_EMAIL');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_NAME');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_USERNAME');?></th>
+						<th class="title"><?php echo tsmText::_ ('com_tsmart_EMAIL');?></th>
 					</tr>
 					</thead>
 					<tbody id="customers-notify-list">
@@ -136,7 +136,7 @@ $i = 0;
 							?>
 						<tr>
 							<td colspan="4">
-								<?php echo vmText::_ ('com_tsmart_PRODUCT_WAITING_NOWAITINGUSERS'); ?>
+								<?php echo tsmText::_ ('com_tsmart_PRODUCT_WAITING_NOWAITINGUSERS'); ?>
 							</td>
 						</tr>
 							<?php
@@ -155,7 +155,7 @@ $i = 0;
 			<?php
 
 			$aflink = '<a target="_blank" href="http://www.acyba.com/acymailing.html?partner_id=19513"><img title="AcyMailing 2"  src="http://www.acyba.com/images/banners/acymailing_450-109.png" style="width: 150px;" /></a>';
-			echo vmText::sprintf('com_tsmart_AD_ACY',$aflink);
+			echo tsmText::sprintf('com_tsmart_AD_ACY',$aflink);
 			?>
 		</td>
 	</tr>
@@ -194,7 +194,7 @@ $i = 0;
 
 				jQuery.post($customerMailNotifyLink, { subject:$subject, mailbody:$body, max_number:$max_number, token:'<?php echo JSession::getFormToken() ?>' },
 					function (data) {
-						alert('<?php echo addslashes (vmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')); ?>');
+						alert('<?php echo addslashes (tsmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')); ?>');
 						jQuery.getJSON($customerListNotifyLink, {tmpl:'component', no_html:1},
 							function (data) {
 								//			jQuery("#customers-list").html(data.value);
@@ -218,17 +218,17 @@ $i = 0;
 				var $subject = jQuery('#mail-subject').val();
 				var $body = jQuery('#mail-body').val();
 				if ($subject == '') {
-					alert("<?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_ENTER_SUBJECT')?>");
+					alert("<?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_ENTER_SUBJECT')?>");
 				}
 				else if ($body == '') {
-					alert("<?php echo vmText::_ ('com_tsmart_PRODUCT_EMAIL_ENTER_BODY')?>");
+					alert("<?php echo tsmText::_ ('com_tsmart_PRODUCT_EMAIL_ENTER_BODY')?>");
 				}
 				else {
 					var $statut = jQuery('select#order_status').val();
 					jQuery.post($customerMailLink, { subject:$subject, mailbody:$body, statut:$statut, token:'<?php echo JSession::getFormToken() ?>' },
 						function (data) {
-							alert('<?php echo addslashes (vmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')); ?>');
-							//jQuery("#customers-list-msg").html('<strong><?php echo vmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')?></strong>');
+							alert('<?php echo addslashes (tsmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')); ?>');
+							//jQuery("#customers-list-msg").html('<strong><?php echo tsmText::_ ('com_tsmart_PRODUCT_NOTIFY_MESSAGE_SENT')?></strong>');
 							//jQuery("#mail-subject").html('');
 							jQuery("#mail-body").html('');
 						}

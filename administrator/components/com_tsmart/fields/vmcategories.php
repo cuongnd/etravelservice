@@ -47,7 +47,7 @@ class JFormFieldVmcategories extends JFormField {
 		}
 
 		$html = '<select class="inputbox"   name="' . $name . '" '.$this->multiple.' >';
-		if(!$this->multiple)$html .= '<option value="0">' . vmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL') . '</option>';
+		if(!$this->multiple)$html .= '<option value="0">' . tsmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL') . '</option>';
 		$html .= $categorylist;
 		$html .= "</select>";
 		return $html;

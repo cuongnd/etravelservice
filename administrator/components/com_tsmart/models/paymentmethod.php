@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 class VirtueMartModelPaymentmethod extends VmModel{
 
@@ -68,13 +68,13 @@ class VirtueMartModelPaymentmethod extends VmModel{
 			}
 
 			if(!empty($this->_cache[$this->_id]->_varsToPushParam)){
-				VmTable::bindParameterable($this->_cache[$this->_id],'payment_params',$this->_cache[$this->_id]->_varsToPushParam);
+				tsmTable::bindParameterable($this->_cache[$this->_id],'payment_params',$this->_cache[$this->_id]->_varsToPushParam);
 			}
 
 			//We still need this, because the table is already loaded, but the keys are set later
 			if($this->_cache[$this->_id]->getCryptedFields()){
-				if(!class_exists('vmCrypt')){
-					require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+				if(!class_exists('tsmCrypt')){
+					require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcrypt.php');
 				}
 
 				if(isset($this->_cache[$this->_id]->modified_on)){
@@ -86,7 +86,7 @@ class VirtueMartModelPaymentmethod extends VmModel{
 
 				foreach($this->_cache[$this->_id]->getCryptedFields() as $field){
 					if(isset($this->_cache[$this->_id]->$field)){
-						$this->_cache[$this->_id]->$field = vmCrypt::decrypt($this->_cache[$this->_id]->$field,$date);
+						$this->_cache[$this->_id]->$field = tsmCrypt::decrypt($this->_cache[$this->_id]->$field,$date);
 					}
 				}
 			}

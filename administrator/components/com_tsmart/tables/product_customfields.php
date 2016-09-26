@@ -16,10 +16,10 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 
-class TableProduct_customfields extends VmTable {
+class TableProduct_customfields extends tsmTable {
 
 	/** @var int Primary key */
 	var $virtuemart_customfield_id		= 0;

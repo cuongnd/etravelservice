@@ -18,9 +18,9 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablexarray.php');
+if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtablexarray.php');
 
-class TableVendor_users extends VmTableXarray {
+class TableVendor_users extends tsmTableXarray {
 
 	/**
 	 * @param JDataBase $db database connector object

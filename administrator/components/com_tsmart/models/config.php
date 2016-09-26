@@ -94,7 +94,7 @@ class VirtueMartModelConfig extends VmModel {
 	static function getLayouts($dirs,$type=0,$ignore=0){
 
 		$result = array();
-		$emptyOption = JHtml::_('select.option', '0', vmText::_('com_tsmart_ADMIN_CFG_NO_OVERRIDE'));
+		$emptyOption = JHtml::_('select.option', '0', tsmText::_('com_tsmart_ADMIN_CFG_NO_OVERRIDE'));
 		$result[] = $emptyOption;
 
 		$alreadyAddedFile = array();
@@ -153,7 +153,7 @@ class VirtueMartModelConfig extends VmModel {
 			$manual = array('courier','freemono','helvetica');
 			foreach($manual as $file){
 				if (file_exists($dir . DS . $file . '.php')) {
-					$result[] = JHtml::_('select.option',$file, vmText::_($file.' (standard)'));
+					$result[] = JHtml::_('select.option',$file, tsmText::_($file.' (standard)'));
 				}
 			}
 		} else {
@@ -161,7 +161,7 @@ class VirtueMartModelConfig extends VmModel {
 				$fontxml = @simpleXML_load_file($file);
 				if ($fontxml) {
 					if (file_exists($dir . DS . $fontxml->filename . '.php')) {
-						$result[] = JHtml::_('select.option', $fontxml->filename, vmText::_($fontxml->fontname.' ('.$fontxml->fonttype.')'));
+						$result[] = JHtml::_('select.option', $fontxml->filename, tsmText::_($fontxml->fontname.' ('.$fontxml->fonttype.')'));
 					} else {
 						vmError ('A font master file is missing: ' . $dir . DS . 	$fontxml->filename . '.php');
 					}
@@ -213,7 +213,7 @@ class VirtueMartModelConfig extends VmModel {
 				while (false !== ($file = readdir($handle))) {
 					if ($file != "." && $file != ".." && $file != '.svn' && $file != 'index.html') {
 						if (filetype($dir.DS.$file) != 'dir') {
-							$result[] = JHtml::_('select.option', $file, vmText::_(str_replace('.php', '', $file)));
+							$result[] = JHtml::_('select.option', $file, tsmText::_(str_replace('.php', '', $file)));
 						}
 					}
 				}
@@ -238,7 +238,7 @@ class VirtueMartModelConfig extends VmModel {
 				if ($file != "." && $file != ".." && $file != '.svn') {
 					$info = pathinfo($file);
 					if ((filetype($dir.DS.$file) == 'file') && ($info['extension'] == 'php')) {
-						$result[] = JHtml::_('select.option', $file, vmText::_($file));
+						$result[] = JHtml::_('select.option', $file, tsmText::_($file));
 					}
 				}
 			}
@@ -278,7 +278,7 @@ class VirtueMartModelConfig extends VmModel {
 			$activeLangs[] = JHtml::_('select.option', $jLang['tag'] , $jLang['name']) ;
 		}
 
-		return JHtml::_('select.genericlist', $activeLangs, $name, 'size=10 multiple="multiple" data-placeholder="'.vmText::_('com_tsmart_DRDOWN_NOTMULTILINGUAL').'"', 'value', 'text', $active_languages );// $activeLangs;
+		return JHtml::_('select.genericlist', $activeLangs, $name, 'size=10 multiple="multiple" data-placeholder="'.tsmText::_('com_tsmart_DRDOWN_NOTMULTILINGUAL').'"', 'value', 'text', $active_languages );// $activeLangs;
 	}
 
 
@@ -325,7 +325,7 @@ class VirtueMartModelConfig extends VmModel {
 				$fieldWithoutPrefix = substr($field, $dotps+1);
 			}
 
-			$text = vmText::_('com_tsmart_'.strtoupper(str_replace(array(',',' '),array('_',''),$fieldWithoutPrefix))) ;
+			$text = tsmText::_('com_tsmart_'.strtoupper(str_replace(array(',',' '),array('_',''),$fieldWithoutPrefix))) ;
 
 			if ($type == 'browse_orderby_fields' or $type == 'browse_cat_orderby_field'){
 				$searchFields->select[] =  JHtml::_('select.option', $field, $text) ;
@@ -417,7 +417,7 @@ class VirtueMartModelConfig extends VmModel {
 			}
 			$config->set('forSale_path',$safePath);
 		} else {
-			VmWarn('com_tsmart_WARN_SAFE_PATH_NO_INVOICE',vmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'));
+			VmWarn('com_tsmart_WARN_SAFE_PATH_NO_INVOICE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'));
 		/*	$safePath = VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'vmfiles';
 
 			$exists = JFolder::exists($safePath);
@@ -452,7 +452,7 @@ class VirtueMartModelConfig extends VmModel {
 				if($created){
 					vmInfo('com_tsmart_SAFE_PATH_INVOICE_CREATED');
 				} else {
-					VmWarn('com_tsmart_WARN_SAFE_PATH_NO_INVOICE',vmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'));
+					VmWarn('com_tsmart_WARN_SAFE_PATH_NO_INVOICE',tsmText::_('com_tsmart_ADMIN_CFG_MEDIA_FORSALE_PATH'));
 				}
 			}
 		}
@@ -634,7 +634,7 @@ class VirtueMartModelConfig extends VmModel {
 
 		if( $dangerousTools){
 			$link = JURI::root() . 'administrator/index.php?option=com_tsmart&view=config';
-			$lang = vmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_STILL_ENABLED',vmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link);
+			$lang = tsmText::sprintf('com_tsmart_SYSTEM_DANGEROUS_TOOL_STILL_ENABLED',tsmText::_('com_tsmart_ADMIN_CFG_DANGEROUS_TOOLS'),$link);
 			VmInfo($lang);
 		}
 		else {

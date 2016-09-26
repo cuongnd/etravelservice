@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewExcursionaddon extends VmViewAdmin {
+class TsmartViewExcursionaddon extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -60,8 +60,8 @@ class TsmartViewExcursionaddon extends VmViewAdmin {
 			$this->item = $model->getItem();
 			//get list tour
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
-			$this->item->list_tour_id = vmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->virtuemart_excursion_addon_id);
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+			$this->item->list_tour_id = tsmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->virtuemart_excursion_addon_id);
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$list_tour = vmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
@@ -83,9 +83,9 @@ class TsmartViewExcursionaddon extends VmViewAdmin {
 			$this->pagination = $model->getPagination();
 
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
-			$this->list_cityarea=vmcities::get_city_state_country();
+			$this->list_cityarea=tsmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
-			$this->list_excursion_payment_type=vmexcursionaddon::get_list_excursion_payment_type();
+			$this->list_excursion_payment_type=tsmexcursionaddon::get_list_excursion_payment_type();
 			if($task=='edit_item')
 			{
 				$cid	= vRequest::getInt( 'cid' );
@@ -103,8 +103,8 @@ class TsmartViewExcursionaddon extends VmViewAdmin {
 
 				//get list tour
 				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
-				$this->item->list_tour_id = vmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->virtuemart_excursion_addon_id);
-				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+				$this->item->list_tour_id = tsmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->virtuemart_excursion_addon_id);
+				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 				$list_tour = vmproduct::get_list_product();
 				$this->assignRef('list_tour', $list_tour);
 				//end get list tour

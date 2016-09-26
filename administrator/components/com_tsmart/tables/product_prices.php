@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledata.php');
+if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
 /**
  * Product table class
@@ -29,7 +29,7 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @author RolandD
  * @author Max Milbers
  */
-class TableProduct_prices extends VmTableData {
+class TableProduct_prices extends tsmTableData {
 
     /** @var int Primary key */
     var $virtuemart_product_price_id = 0;

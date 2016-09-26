@@ -45,7 +45,7 @@ AdminUIHelper::startAdminArea($this);
 			<?php echo $this->sort('currency_exchange_rate') ?>
 		    </th>
 		    <th width="20">
-			<?php echo vmText::_('com_tsmart_CURRENCY_SYMBOL'); ?>
+			<?php echo tsmText::_('com_tsmart_CURRENCY_SYMBOL'); ?>
 		    </th>
 <?php /*		    <th width="10">
 			<?php echo vmText::_('com_tsmart_CURRENCY_LIST_CODE_2'); ?>
@@ -54,7 +54,7 @@ AdminUIHelper::startAdminArea($this);
 			<?php  echo $this->sort('currency_code_3') ?>
 		    </th>
              <th width="20">
-			<?php echo vmText::_('com_tsmart_CURRENCY_NUMERIC_CODE'); ?>
+			<?php echo tsmText::_('com_tsmart_CURRENCY_NUMERIC_CODE'); ?>
 		    </th>
 <?php /*		    <th >
 				<?php echo vmText::_('com_tsmart_CURRENCY_START_DATE'); ?>
@@ -63,7 +63,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo vmText::_('com_tsmart_CURRENCY_END_DATE'); ?>
 			</th> */?>
 			<th width="10">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 		<?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>

@@ -35,10 +35,10 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo $this->sort('shipment_name', 'com_tsmart_SHIPMENT_NAME_LBL'); ?>
 			</th>
                         <th>
-				<?php echo vmText::_('com_tsmart_SHIPMENT_LIST_DESCRIPTION_LBL'); ?>
+				<?php echo tsmText::_('com_tsmart_SHIPMENT_LIST_DESCRIPTION_LBL'); ?>
 			</th>
                         <th width="20">
-				<?php echo vmText::_('com_tsmart_SHIPPING_SHOPPERGROUPS'); ?>
+				<?php echo tsmText::_('com_tsmart_SHIPPING_SHOPPERGROUPS'); ?>
 			</th>
                         <th>
 				<?php echo $this->sort('shipment_element', 'com_tsmart_SHIPMENTMETHOD'); ?>
@@ -49,7 +49,7 @@ AdminUIHelper::startAdminArea($this);
 			<th width="20"><?php echo $this->sort('published', 'com_tsmart_PUBLISHED'); ?></th>
 			<?php if($this->showVendors()){ ?>
 				<th width="20">
-				<?php echo vmText::_( 'com_tsmart_SHARED')  ?>
+				<?php echo tsmText::_( 'com_tsmart_SHARED')  ?>
 				</th><?php }  ?>
 			 <th><?php echo $this->sort('virtuemart_shipmentmethod_id', 'com_tsmart_ID')  ?></th>
 		</tr>
@@ -72,7 +72,7 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo $checked; ?>
 				</td>
 				<td align="left">
-					<?php echo JHtml::_('link', $editlink, vmText::_($row->shipment_name)); ?>
+					<?php echo JHtml::_('link', $editlink, tsmText::_($row->shipment_name)); ?>
 					<?php if ($set_automatic_shipment == $row->virtuemart_shipmentmethod_id) {
 						?><i class="icon-featured"></i><?php
 					}
@@ -88,7 +88,7 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo $row->shipment_element; //JHtml::_('link', $editlink, vmText::_($row->shipment_element)); ?>
 				</td>
 				<td align="left">
-					<?php echo vmText::_($row->ordering); ?>
+					<?php echo tsmText::_($row->ordering); ?>
 				</td>
 				<td><?php echo $published; ?></td>
 				<?php

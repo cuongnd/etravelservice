@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewdateavailability extends VmViewAdmin {
+class TsmartViewdateavailability extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -66,7 +66,7 @@ class TsmartViewdateavailability extends VmViewAdmin {
 			$model_product = VmModel::getModel('product');
 			$model_tour_class = VmModel::getModel('tourclass');
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmdateavailability.php';
-			$this->list_tour = vmdateavailability::get_list_tour_private();
+			$this->list_tour = tsmdateavailability::get_list_tour_private();
 
 			$this->list_tour_class = $model_tour_class->getItemList();
 			$this->SetViewTitle();

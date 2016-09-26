@@ -61,7 +61,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo $this->sort('mf_url', 'com_tsmart_MANUFACTURER_URL'); ?>
 		    </th>
 		    <th width="20px">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 		    </th>
 		      <th><?php echo $this->sort('m.virtuemart_manufacturer_id', 'com_tsmart_ID')  ?></th>
 		</tr>

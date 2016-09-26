@@ -23,12 +23,12 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('com_tsmart_VENDOR_FORM_INFO_LBL') ?>
+						<?php echo tsmText::_('com_tsmart_VENDOR_FORM_INFO_LBL') ?>
 					</legend>
 					<table class="admintable">
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_STORE_FORM_STORE_NAME'); ?>:
+								<?php echo tsmText::_('com_tsmart_STORE_FORM_STORE_NAME'); ?>:
 							</td>
 							<td>
 								<input class="inputbox" type="text" name="vendor_store_name" id="vendor_store_name" size="50" value="<?php echo $this->vendor->vendor_store_name; ?>" />
@@ -36,7 +36,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						</tr>
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_STORE_FORM_COMPANY_NAME'); ?>:
+								<?php echo tsmText::_('com_tsmart_STORE_FORM_COMPANY_NAME'); ?>:
 							</td>
 							<td>
 								<input class="inputbox" type="text" name="vendor_name" id="vendor_name" size="50" value="<?php echo $this->vendor->vendor_name; ?>" />
@@ -44,7 +44,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						</tr>
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_PRODUCT_FORM_URL'); ?>:
+								<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_URL'); ?>:
 							</td>
 							<td>
 								<input class="inputbox" type="text" name="vendor_url" id="vendor_url" size="50" value="<?php echo $this->vendor->vendor_url; ?>" />
@@ -52,7 +52,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						</tr>
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_STORE_FORM_MPOV'); ?>:
+								<?php echo tsmText::_('com_tsmart_STORE_FORM_MPOV'); ?>:
 							</td>
 							<td>
 								<input class="inputbox" type="text" name="vendor_min_pov" id="vendor_min_pov" size="10" value="<?php echo $this->vendor->vendor_min_pov; ?>" />
@@ -64,12 +64,12 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('com_tsmart_STORE_CURRENCY_DISPLAY') ?>
+						<?php echo tsmText::_('com_tsmart_STORE_CURRENCY_DISPLAY') ?>
 					</legend>
 					<table class="admintable">
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_CURRENCY'); ?>:
+								<?php echo tsmText::_('com_tsmart_CURRENCY'); ?>:
 							</td>
 							<td>
 								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_currency', '', 'virtuemart_currency_id', 'currency_name', $this->vendor->vendor_currency); ?>
@@ -77,10 +77,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						</tr>
 						<tr>
 							<td class="key">
-								<?php echo vmText::_('com_tsmart_STORE_FORM_ACCEPTED_CURRENCIES'); ?>:
+								<?php echo tsmText::_('com_tsmart_STORE_FORM_ACCEPTED_CURRENCIES'); ?>:
 							</td>
 							<td>
-								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_accepted_currencies[]', 'size=10 multiple="multiple" data-placeholder="'.vmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS').'"', 'virtuemart_currency_id', 'currency_name', $this->vendor->vendor_accepted_currencies); ?>
+								<?php echo JHtml::_('Select.genericlist', $this->currencies, 'vendor_accepted_currencies[]', 'size=10 multiple="multiple" data-placeholder="'.tsmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS').'"', 'virtuemart_currency_id', 'currency_name', $this->vendor->vendor_accepted_currencies); ?>
 							</td>
 						</tr>
 					</table>
@@ -88,7 +88,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 		<fieldset>
 			<legend>
-				<?php echo vmText::_('com_tsmart_VENDOR_FORM_INFO_LBL') ?>
+				<?php echo tsmText::_('com_tsmart_VENDOR_FORM_INFO_LBL') ?>
 			</legend>
 			<?php
 			vmdebug('$this->vendor->virtuemart_vendor_id',$this->vendor->virtuemart_vendor_id);
@@ -101,27 +101,27 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('com_tsmart_STORE_FORM_DESCRIPTION');?>
+						<?php echo tsmText::_('com_tsmart_STORE_FORM_DESCRIPTION');?>
 					</legend>
 					<?php echo $this->editor->display('vendor_store_desc', $this->vendor->vendor_store_desc, '100%', 350, 70, 15)?>
 				</fieldset>
 
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('com_tsmart_STORE_FORM_TOS');?>
+						<?php echo tsmText::_('com_tsmart_STORE_FORM_TOS');?>
 					</legend>
 					<?php echo $this->editor->display('vendor_terms_of_service', $this->vendor->vendor_terms_of_service, '100%', 350, 70, 15)?>
 				</fieldset>
 
 				<fieldset>
 					<legend>
-						<?php echo vmText::_('com_tsmart_STORE_FORM_LEGAL');?>
+						<?php echo tsmText::_('com_tsmart_STORE_FORM_LEGAL');?>
 					</legend>
 					<?php echo $this->editor->display('vendor_legal_info', $this->vendor->vendor_legal_info, '100%', 100, 70, 15)?>
 				</fieldset>
 
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_METAINFO'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_METAINFO'); ?></legend>
 				<?php echo shopFunctions::renderMetaEdit($this->vendor); ?>
 			</fieldset>
 

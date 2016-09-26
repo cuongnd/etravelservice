@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerHotel extends VmController {
+class TsmartControllerHotel extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -57,7 +57,7 @@ class TsmartControllerHotel extends VmController {
         $id = $model->store($data);
         $msg = 'failed';
         if(!empty($id)) {
-            $msg = vmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
+            $msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
             $type = 'message';
         }
         else $type = 'error';

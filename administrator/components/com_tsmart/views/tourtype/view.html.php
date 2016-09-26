@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewTourtype extends VmViewAdmin {
+class TsmartViewTourtype extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -43,7 +43,7 @@ class TsmartViewTourtype extends VmViewAdmin {
 
         $this->view_height=1300;
 		$config = JFactory::getConfig();
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
         $this->list_price_type = vmprice::get_list_price_type();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {

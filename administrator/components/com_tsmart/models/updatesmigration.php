@@ -168,7 +168,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 
 	//Save the VM user stuff
 	if(!$usermodel->store($fields)){
-		vmError(vmText::_('com_tsmart_NOT_ABLE_TO_SAVE_USER_DATA')  );
+		vmError(tsmText::_('com_tsmart_NOT_ABLE_TO_SAVE_USER_DATA')  );
 	}
 
 	$filename = VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'install'.DS.'install_sample_data.sql';
@@ -180,7 +180,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		    $lang = VmConfig::$vmlang;
 	    }
 	if(!$this->execSQLFile($filename)){
-		vmError(vmText::_('Problems execution of SQL File '.$filename));
+		vmError(tsmText::_('Problems execution of SQL File '.$filename));
 	} else {
 		//update jplugin_id from shipment and payment
 		$db = JFactory::getDBO();
@@ -229,7 +229,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 			if (!class_exists ('plgVmPaymentStandard')) require(VMPATH_ROOT . DS . $url . DS . 'standard.php');
 			$this->installPluginTable('plgVmPaymentStandard','#__virtuemart_payment_plg_standard','Payment Standard Table');
 		}
-		vmInfo(vmText::_('com_tsmart_SAMPLE_DATA_INSTALLED'));
+		vmInfo(tsmText::_('com_tsmart_SAMPLE_DATA_INSTALLED'));
 	}
 
 	return true;
@@ -261,7 +261,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		$db = JFactory::getDBO();
 		$db->setQuery($query);
 		if (!$db->execute ()) {
-			vmError ( $className.'::onStoreInstallPluginTable: ' . vmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE));
+			vmError ( $className.'::onStoreInstallPluginTable: ' . tsmText::_ ('com_tsmart_SQL_ERROR') . ' ' . $db->stderr (TRUE));
 		}
 
 	}
@@ -381,7 +381,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 
 				$db->setQuery($query);
 				if (!$db->execute()) {
-				    vmWarn( 'JInstaller::install: '.$sqlfile.' '.vmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
+				    vmWarn( 'JInstaller::install: '.$sqlfile.' '.tsmText::_('com_tsmart_SQL_ERROR')." ".$db->stderr(true));
 				    $ok = false;
 				}
 		    }

@@ -92,7 +92,7 @@ AdminUIHelper::startAdminArea($this);
                     <?php } ?>
 
                     <th width="70">
-                        <?php echo vmText::_('Action'); ?>
+                        <?php echo tsmText::_('Action'); ?>
                     </th>
                     <?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>

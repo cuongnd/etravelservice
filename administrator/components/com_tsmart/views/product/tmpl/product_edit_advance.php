@@ -29,10 +29,10 @@ $i = 0;
     <legend><?php
         $parentRel = '';
         if ($this->product->product_parent_id) {
-            $parentRel = vmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT', JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $this->product->product_parent_id),
-                    ($this->product_parent->product_name), array('title' => vmText::_('com_tsmart_EDIT') . ' ' . htmlentities($this->product_parent->product_name))) . ' =&gt; ');
+            $parentRel = tsmText::sprintf('com_tsmart_PRODUCT_FORM_PARENT', JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=' . $this->product->product_parent_id),
+                    ($this->product_parent->product_name), array('title' => tsmText::_('com_tsmart_EDIT') . ' ' . htmlentities($this->product_parent->product_name))) . ' =&gt; ');
         }
-        echo vmText::sprintf('com_tsmart_PRODUCT_INFORMATION', $parentRel);
+        echo tsmText::sprintf('com_tsmart_PRODUCT_INFORMATION', $parentRel);
         echo ' id: ' . $this->product->virtuemart_product_id ?>
     </legend>
     <table class="adminform" width="100%">
@@ -42,12 +42,12 @@ $i = 0;
             <td>
             </td>
             <td colspan="2">
-                <label><?php echo VmHTML::checkbox('published', $this->product->published); ?><?php echo vmText::_('com_tsmart_PUBLISHED') ?></label>
-                <label><?php echo VmHTML::checkbox('product_special', $this->product->product_special); ?><?php echo vmText::_('com_tsmart_PRODUCT_FORM_SPECIAL') ?></label>
+                <label><?php echo VmHTML::checkbox('published', $this->product->published); ?><?php echo tsmText::_('com_tsmart_PUBLISHED') ?></label>
+                <label><?php echo VmHTML::checkbox('product_special', $this->product->product_special); ?><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_SPECIAL') ?></label>
             </td>
             <td>
                 <span class="hastip"
-                      title="<?php echo vmText::_('com_tsmart_PRODUCT_FORM_ALIAS_TIP'); ?>"><?php echo vmText::_('com_tsmart_PRODUCT_FORM_ALIAS') ?></span>
+                      title="<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_ALIAS_TIP'); ?>"><?php echo tsmText::_('com_tsmart_PRODUCT_FORM_ALIAS') ?></span>
             </td>
             <td height="18">
                 <input type="text" class="inputbox" name="slug" id="slug" value="<?php echo $this->product->slug; ?>"
@@ -75,13 +75,13 @@ $i = 0;
         <tr class="row<?php echo $i ?>">
 
             <td>
-                <?php echo vmText::_('com_tsmart_PRODUCT_DETAILS_PAGE') ?>
+                <?php echo tsmText::_('com_tsmart_PRODUCT_DETAILS_PAGE') ?>
             </td>
             <td>
                 <?php echo JHTML::_('Select.genericlist', $this->productLayouts, 'layout', 'size=1', 'value', 'text', $this->product->layout); ?>
             </td>
             <td>
-                <?php echo vmText::_('com_tsmart_PRODUCT_FORM_URL') ?>
+                <?php echo tsmText::_('com_tsmart_PRODUCT_FORM_URL') ?>
             </td>
             <td>
                 <input type="text" class="inputbox" name="product_url"
@@ -91,13 +91,13 @@ $i = 0;
         <?php $i = 1 - $i; ?>
         <tr class="row<?php echo $i ?>">
             <td>
-                <?php echo vmText::_('com_tsmart_CATEGORY_S') ?>
+                <?php echo tsmText::_('com_tsmart_CATEGORY_S') ?>
             </td>
             <td>
                 <select class="inputbox width100" id="categories" name="categories[]" multiple="multiple"
-                        data-placeholder="<?php echo vmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS') ?>"
+                        data-placeholder="<?php echo tsmText::_('com_tsmart_DRDOWN_SELECT_SOME_OPTIONS') ?>"
                         size="100">
-                    <option value=""><?php echo vmText::_('com_tsmart_UNCATEGORIZED') ?></option>
+                    <option value=""><?php echo tsmText::_('com_tsmart_UNCATEGORIZED') ?></option>
                     <?php echo $this->category_tree; ?>
                 </select></td>
 
@@ -121,15 +121,15 @@ $i = 0;
                 ?><input type="hidden" value="<?php echo $this->product->ordering ?>" name="ordering"> <?php
             } ?>
             <td>
-				<span class="hasTip" title="<?php echo vmText::_('com_tsmart_SHOPPER_FORM_GROUP_PRODUCT_TIP'); ?>">
-				<?php echo vmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?></span>
+				<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP_PRODUCT_TIP'); ?>">
+				<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?></span>
             </td>
             <td>
                 <?php echo $this->shoppergroupList; ?>
             </td>
             <?php if (Vmconfig::get('multix', 'none') !== 'none') { ?>
                 <td>
-                    <?php echo vmText::_('com_tsmart_VENDOR') ?>
+                    <?php echo tsmText::_('com_tsmart_VENDOR') ?>
                 </td>
                 <td>
                     <?php echo $this->lists['vendors']; ?>
@@ -144,7 +144,7 @@ $i = 0;
 <!-- Product pricing -->
 <fieldset>
     <legend><?php
-        echo vmText::sprintf('com_tsmart_PRODUCT_FORM_PRICES', $this->activeShoppergroups); ?></legend>
+        echo tsmText::sprintf('com_tsmart_PRODUCT_FORM_PRICES', $this->activeShoppergroups); ?></legend>
 
     <?php
     //$product = $this->product;
@@ -248,7 +248,7 @@ $i = 0;
     <div class="button2-left btn-wrapper">
         <div class="blank">
             <a class="btn btn-small" href="#"
-               id="add_new_price"><?php echo vmText::_('com_tsmart_PRODUCT_ADD_PRICE') ?> </a>
+               id="add_new_price"><?php echo tsmText::_('com_tsmart_PRODUCT_ADD_PRICE') ?> </a>
         </div>
     </div>
 
@@ -269,9 +269,9 @@ echo '<div class="button2-left ' . $add_child_button . ' btn-wrapper">
 if ($link) {
     echo '<a href="' . $link . '" class="btn btn-small">';
 } else {
-    echo '<span class="hasTip" title="' . vmText::_('com_tsmart_PRODUCT_ADD_CHILD_TIP') . '">';
+    echo '<span class="hasTip" title="' . tsmText::_('com_tsmart_PRODUCT_ADD_CHILD_TIP') . '">';
 }
-echo vmText::_('com_tsmart_PRODUCT_ADD_CHILD');
+echo tsmText::_('com_tsmart_PRODUCT_ADD_CHILD');
 if ($link) {
     echo '</a>';
 } else {
@@ -284,7 +284,7 @@ if ($link) {
 
 <fieldset>
     <legend>
-        <?php echo vmText::_('com_tsmart_PRODUCT_PRINT_INTNOTES'); ?>
+        <?php echo tsmText::_('com_tsmart_PRODUCT_PRINT_INTNOTES'); ?>
     </legend>
     <textarea style="width: 100%;" class="inputbox" name="intnotes" id="intnotes" cols="35"
               rows="6"><?php echo $this->product->intnotes; ?></textarea>

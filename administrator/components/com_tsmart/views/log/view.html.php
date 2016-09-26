@@ -20,8 +20,8 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if (!class_exists('VmViewAdmin')) {
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmviewadmin.php');
+if (!class_exists('tsmViewAdmin')) {
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmviewadmin.php');
 }
 
 /**
@@ -31,7 +31,7 @@ if (!class_exists('VmViewAdmin')) {
  * @subpackage Log
  * @author Valérie isaksen
  */
-class TsmartViewLog extends VmViewAdmin {
+class TsmartViewLog extends tsmViewAdmin {
 
 	function display ($tpl = null) {
 

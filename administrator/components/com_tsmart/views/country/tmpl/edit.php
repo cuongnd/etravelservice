@@ -28,12 +28,12 @@ AdminUIHelper::imitateTabs('start','com_tsmart_COUNTRY_DETAILS');
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_COUNTRY_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_COUNTRY_DETAILS'); ?></legend>
 	<table class="admintable">
 		<?php
 		$lang = JFactory::getLanguage();
 		$prefix="com_tsmart_COUNTRY_";
-		$country_string = $lang->hasKey($prefix.$this->country->country_3_code) ? ' (' . vmText::_($prefix.$this->country->country_3_code) . ')' : ' ';
+		$country_string = $lang->hasKey($prefix.$this->country->country_3_code) ? ' (' . tsmText::_($prefix.$this->country->country_3_code) . ')' : ' ';
         ?>
 		<?php echo VmHTML::row('input','com_tsmart_COUNTRY_REFERENCE_NAME','country_name',$this->country->country_name,'class="required"', '', 50, 50, $country_string); ?>
 

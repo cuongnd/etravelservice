@@ -36,7 +36,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo $this->sort('payment_name', 'com_tsmart_PAYMENT_LIST_NAME'); ?>
 			</th>
 			 <th>
-				<?php echo vmText::_('com_tsmart_PAYMENT_LIST_DESCRIPTION_LBL'); ?>
+				<?php echo tsmText::_('com_tsmart_PAYMENT_LIST_DESCRIPTION_LBL'); ?>
 			</th>
 			<?php if($this->showVendors()){ ?>
 			<th >
@@ -44,7 +44,7 @@ AdminUIHelper::startAdminArea($this);
 			</th><?php }?>
 
 			<th  >
-				<?php echo vmText::_('com_tsmart_PAYMENT_SHOPPERGROUPS'); ?>
+				<?php echo tsmText::_('com_tsmart_PAYMENT_SHOPPERGROUPS'); ?>
 			</th>
 			<th >
 				<?php echo $this->sort('payment_element', 'com_tsmart_PAYMENT_ELEMENT'); ?>
@@ -57,7 +57,7 @@ AdminUIHelper::startAdminArea($this);
 			</th>
 			<?php if($this->showVendors){ ?>
 			<th width="10">
-				<?php echo vmText::_('com_tsmart_SHARED'); ?>
+				<?php echo tsmText::_('com_tsmart_SHARED'); ?>
 			</th>
 			<?php } ?>
 			 <th><?php echo $this->sort('virtuemart_paymentmethod_id', 'com_tsmart_ID')  ?></th>
@@ -89,7 +89,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<?php if($this->showVendors()){?>
 				<td align="left">
-					<?php echo vmText::_($row->virtuemart_vendor_id); ?>
+					<?php echo tsmText::_($row->virtuemart_vendor_id); ?>
 				</td>
 				<?php } ?>
 

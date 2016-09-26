@@ -108,7 +108,7 @@ if ($saveOrder) {
                     </th>
 
                     <th width="70">
-                        <?php echo vmText::_('Action'); ?>
+                        <?php echo tsmText::_('Action'); ?>
                     </th>
                     <?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>
@@ -129,12 +129,12 @@ if ($saveOrder) {
 
                     $virtuemart_accommodation_id=$row->virtuemart_accommodation_id;
                     $virtuemart_itinerary_id=$row->virtuemart_itinerary_id;
-                    require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+                    require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
                     $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($this->virtuemart_product_id);
-                    require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmhotel.php';
+                    require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
 
                     require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmaccommodation.php';
-                    $list_hotel_selected_by_service_class_id_and_itinerary_id=vmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
+                    $list_hotel_selected_by_service_class_id_and_itinerary_id=tsmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
                     $rowspan=0;
                     foreach($list_hotel_selected_by_service_class_id_and_itinerary_id AS $service_class )
                     {

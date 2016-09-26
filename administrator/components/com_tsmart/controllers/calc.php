@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 /**
  * Calculator Controller
@@ -28,7 +28,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Calculation tool
  * @author Max Milbers
  */
-class TsmartControllerCalc extends VmController {
+class TsmartControllerCalc extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -76,14 +76,14 @@ class TsmartControllerCalc extends VmController {
 		if (isset($cid[0]) && $cid[0]) {
 			$id = $cid[0];
 		} else {
-			$this->setRedirect( 'index.php?option=com_tsmart&view=calc', vmText::_('com_tsmart_NO_ITEMS_SELECTED') );
+			$this->setRedirect( 'index.php?option=com_tsmart&view=calc', tsmText::_('com_tsmart_NO_ITEMS_SELECTED') );
 			return false;
 		}
 
 		$model = VmModel::getModel('calc');
 
 		if ($model->orderCalc($id, -1)) {
-			$msg = vmText::_('com_tsmart_ITEM_MOVED_UP');
+			$msg = tsmText::_('com_tsmart_ITEM_MOVED_UP');
 		}
 
 		$this->setRedirect( 'index.php?option=com_tsmart&view=calc', $msg );
@@ -106,7 +106,7 @@ class TsmartControllerCalc extends VmController {
 		if (isset($cid[0]) && $cid[0]) {
 			$id = $cid[0];
 		} else {
-			$this->setRedirect( 'index.php?option=com_tsmart&view=calc', vmText::_('com_tsmart_NO_ITEMS_SELECTED') );
+			$this->setRedirect( 'index.php?option=com_tsmart&view=calc', tsmText::_('com_tsmart_NO_ITEMS_SELECTED') );
 			return false;
 		}
 
@@ -114,7 +114,7 @@ class TsmartControllerCalc extends VmController {
 		$model = VmModel::getModel('calc');
 		$msg = '';
 		if ($model->orderCalc($id, 1)) {
-			$msg = vmText::_('com_tsmart_ITEM_MOVED_DOWN');
+			$msg = tsmText::_('com_tsmart_ITEM_MOVED_DOWN');
 		}
 
 		$this->setRedirect( 'index.php?option=com_tsmart&view=calc', $msg );
@@ -137,7 +137,7 @@ class TsmartControllerCalc extends VmController {
 
 		$msg = '';
 		if ($model->setOrder($cid,$order)) {
-			$msg = vmText::_('com_tsmart_NEW_ORDERING_SAVED');
+			$msg = tsmText::_('com_tsmart_NEW_ORDERING_SAVED');
 		}
 		$this->setRedirect('index.php?option=com_tsmart&view=calc', $msg );
 	}

@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 /**
  * Order status table class
@@ -29,7 +29,7 @@ if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
  * @author Oscar van Eijk
  * @author Max Milbers
  */
-class TableOrderstates extends VmTable {
+class TableOrderstates extends tsmTable {
 
 	/** @var int Primary key */
 	var $virtuemart_orderstate_id			= 0;
@@ -81,7 +81,7 @@ class TableOrderstates extends VmTable {
 		if(is_array($row)){
 			if($row[0]>0){
 				if($row[1] != $this->virtuemart_orderstate_id){
-					vmError(vmText::_('com_tsmart_ORDER_STATUS_CODE_EXISTS'));
+					vmError(tsmText::_('com_tsmart_ORDER_STATUS_CODE_EXISTS'));
 					return false;
 				}
 			}

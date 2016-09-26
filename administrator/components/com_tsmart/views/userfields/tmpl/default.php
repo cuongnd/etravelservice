@@ -29,10 +29,10 @@ AdminUIHelper::startAdminArea($this);
 		<table>
 			<tr>
 				<td width="100%">
-					<?php echo vmText::_('com_tsmart_FILTER'); ?>:
+					<?php echo tsmText::_('com_tsmart_FILTER'); ?>:
 					<input type="text" name="search" id="search" value="<?php echo $this->lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" />
-					<button class="btn btn-small" onclick="this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?></button>
-					<button class="btn btn-small" onclick="document.adminForm.search.value='';this.form.submit();"><?php echo vmText::_('com_tsmart_RESET'); ?></button>
+					<button class="btn btn-small" onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
+					<button class="btn btn-small" onclick="document.adminForm.search.value='';this.form.submit();"><?php echo tsmText::_('com_tsmart_RESET'); ?></button>
 				</td>
 			</tr>
 		</table>
@@ -53,25 +53,25 @@ AdminUIHelper::startAdminArea($this);
 			<?php  echo $this->sort('name','com_tsmart_FIELDMANAGER_NAME')  ?>
 			</th>
 			<th>
-			<?php echo vmText::_('com_tsmart_FIELDMANAGER_TITLE'); ?>
+			<?php echo tsmText::_('com_tsmart_FIELDMANAGER_TITLE'); ?>
 			</th>
 			<th>
 			<?php echo $this->sort('type','com_tsmart_FIELDMANAGER_TYPE') ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_FIELDMANAGER_REQUIRED'); ?>
+				<?php echo tsmText::_('com_tsmart_FIELDMANAGER_REQUIRED'); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_CART'); ?>
+				<?php echo tsmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_CART'); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_SHIPPING'); ?>
+				<?php echo tsmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_SHIPPING'); ?>
 			</th>
 			<th width="20">
-				<?php echo vmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_ACCOUNT'); ?>
+				<?php echo tsmText::_('com_tsmart_FIELDMANAGER_SHOW_ON_ACCOUNT'); ?>
 			</th>
 			<th>
 			<?php echo $this->sort('ordering','com_tsmart_FIELDMANAGER_REORDER') ?>
@@ -87,10 +87,10 @@ AdminUIHelper::startAdminArea($this);
 
 			$coreField = (in_array($row->name, $this->lists['coreFields']));
 			$image = 'admin/checked_out.png';
-			$image = JHtml::_('image', $image, vmText::_('com_tsmart_FIELDMANAGER_COREFIELD'),null,true);
+			$image = JHtml::_('image', $image, tsmText::_('com_tsmart_FIELDMANAGER_COREFIELD'),null,true);
 			//$checked = '<div style="position: relative;">'.JHtml::_('grid.id', $i, null,$row->virtuemart_userfield_id);
 			$checked = JHtml::_('grid.id', $i ,$row->virtuemart_userfield_id,null,'virtuemart_userfield_id');
-			if ($coreField) $checked.='<span class="hasTip" style="position: absolute; margin-left:-3px;" title="'. vmText::_('com_tsmart_FIELDMANAGER_COREFIELD').'">'. $image .'</span>';
+			if ($coreField) $checked.='<span class="hasTip" style="position: absolute; margin-left:-3px;" title="'. tsmText::_('com_tsmart_FIELDMANAGER_COREFIELD').'">'. $image .'</span>';
 			$checked .= '</div>';
 			$checked_out = $coreField ? 'style="position: relative;"' : '';
 			// There is no reason not to allow moving of the core fields. We only need to disable deletion of them
@@ -113,13 +113,13 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 
 				<td align="left">
-					<a href="<?php echo $editlink; ?>"><?php echo vmText::_($row->name); ?></a>
+					<a href="<?php echo $editlink; ?>"><?php echo tsmText::_($row->name); ?></a>
 				</td>
 				<td align="left">
-					<?php echo vmText::_($row->title); ?>
+					<?php echo tsmText::_($row->title); ?>
 				</td>
 				<td align="left">
-					<?php echo vmText::_($row->type); ?>
+					<?php echo tsmText::_($row->type); ?>
 				</td>
 				<td align="center">
 					<?php echo $required; ?>
@@ -137,8 +137,8 @@ AdminUIHelper::startAdminArea($this);
 					<?php echo $account; ?>
 				</td>
 				<td class="order">
-					<span><?php echo $this->pagination->vmOrderUpIcon( $i, $ordering, 'orderup', vmText::_('com_tsmart_MOVE_UP')  ); ?></span>
-					<span><?php echo $this->pagination->vmOrderDownIcon( $i, $ordering, $n, true, 'orderdown', vmText::_('com_tsmart_MOVE_DOWN') ); ?></span>
+					<span><?php echo $this->pagination->vmOrderUpIcon( $i, $ordering, 'orderup', tsmText::_('com_tsmart_MOVE_UP')  ); ?></span>
+					<span><?php echo $this->pagination->vmOrderDownIcon( $i, $ordering, $n, true, 'orderdown', tsmText::_('com_tsmart_MOVE_DOWN') ); ?></span>
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering;?>" <?php echo $disabled ?> class="ordering" style="text-align: center" />
 			</td>
 			<td width="10">

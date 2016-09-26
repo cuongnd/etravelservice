@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 		// Load some common models
 if(!class_exists('VirtueMartModelCustomfields')) require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
 
@@ -30,7 +30,7 @@ if(!class_exists('VirtueMartModelCustomfields')) require(VMPATH_ADMIN.DS.'models
  * @package		VirtueMart
  * @author
  */
-class TsmartViewProduct extends VmViewAdmin {
+class TsmartViewProduct extends tsmViewAdmin {
 
 	var $json = array();
 
@@ -122,7 +122,7 @@ class TsmartViewProduct extends VmViewAdmin {
 							 $html[] = '<div class="removable">
 								<td>'.$field->custom_title.'</td>
 								 <td>'.$display.$field->custom_tip.'</td>
-								 <td>'.vmText::_($fieldTypes[$field->field_type]).'
+								 <td>'.tsmText::_($fieldTypes[$field->field_type]).'
 								'.$this->model->setEditCustomHidden($field, $this->row).'
 								 </td>
 								 <td><span class="vmicon vmicon-16-'.$cartIcone.'"></span></td>
@@ -150,7 +150,7 @@ class TsmartViewProduct extends VmViewAdmin {
 					$html[] = '
 					<tr class="removable">
 						<td>
-							<b>'.vmText::_($fieldTypes[$field->field_type]).'</b> '.vmText::_($field->custom_title).'</span><br/>
+							<b>'.tsmText::_($fieldTypes[$field->field_type]).'</b> '.tsmText::_($field->custom_title).'</span><br/>
 
 								<span class="vmicon vmicon-16-'.$cartIcone.'"></span>
 								<span class="vmicon vmicon-16-move"></span>

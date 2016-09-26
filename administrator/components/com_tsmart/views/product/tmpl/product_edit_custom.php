@@ -78,27 +78,27 @@ defined('_JEXEC') or die('Restricted access');
 
 							if(!empty($customfield->disabler)) $checkValue = $customfield->disabler;
 							if(!empty($customfield->override)) $checkValue = $customfield->override;
-							$title = vmText::sprintf('com_tsmart_CUSTOM_OVERRIDE',$checkValue).'</br>';
+							$title = tsmText::sprintf('com_tsmart_CUSTOM_OVERRIDE',$checkValue).'</br>';
 							if($customfield->disabler!=0){
-								$title = vmText::sprintf('com_tsmart_CUSTOM_DISABLED',$checkValue).'</br>';
+								$title = tsmText::sprintf('com_tsmart_CUSTOM_DISABLED',$checkValue).'</br>';
 							}
 
 							if($customfield->override!=0){
-								$title = vmText::sprintf('com_tsmart_CUSTOM_OVERRIDE',$checkValue).'</br>';
+								$title = tsmText::sprintf('com_tsmart_CUSTOM_OVERRIDE',$checkValue).'</br>';
 							}
 
 						} else if($customfield->virtuemart_product_id==$this->product->product_parent_id){
-							$title = vmText::_('com_tsmart_CUSTOM_INHERITED').'</br>';
+							$title = tsmText::_('com_tsmart_CUSTOM_INHERITED').'</br>';
 						}
 
 						if(!empty($title)){
-							$text = '<span style="white-space: nowrap;" class="hasTip" title="'.htmlentities(vmText::_('com_tsmart_CUSTOMFLD_DIS_DER_TIP')).'">d:'.VmHtml::checkbox('field[' . $i . '][disabler]',$customfield->disabler,$checkValue).'</span>
-							<span style="white-space: nowrap;" class="hasTip" title="'.htmlentities(vmText::_('com_tsmart_DIS_DER_CUSTOMFLD_OVERR_DER_TIP')).'">o:'.VmHtml::checkbox('field['.$i.'][override]',$customfield->override,$checkValue).'</span>';
+							$text = '<span style="white-space: nowrap;" class="hasTip" title="'.htmlentities(tsmText::_('com_tsmart_CUSTOMFLD_DIS_DER_TIP')).'">d:'.VmHtml::checkbox('field[' . $i . '][disabler]',$customfield->disabler,$checkValue).'</span>
+							<span style="white-space: nowrap;" class="hasTip" title="'.htmlentities(tsmText::_('com_tsmart_DIS_DER_CUSTOMFLD_OVERR_DER_TIP')).'">o:'.VmHtml::checkbox('field['.$i.'][override]',$customfield->override,$checkValue).'</span>';
 						}
 
 						$tables['fields'] .= '<tr class="removable">
 							<td >
-							<b>'.vmText::_($type).'</b> '.vmText::_($customfield->custom_title).'</span><br/>
+							<b>'.tsmText::_($type).'</b> '.tsmText::_($customfield->custom_title).'</span><br/>
 								'.$title.' '.$text.'
 								<span class="vmicon vmicon-16-'.$cartIcone.'"></span>';
 						if($customfield->virtuemart_product_id==$this->product->virtuemart_product_id or $customfield->override!=0){
@@ -117,39 +117,39 @@ defined('_JEXEC') or die('Restricted access');
 
 			 $emptyTable = '
 				<tr>
-					<td colspan="8">'.vmText::_( 'com_tsmart_CUSTOM_NO_TYPES').'</td>
+					<td colspan="8">'.tsmText::_( 'com_tsmart_CUSTOM_NO_TYPES').'</td>
 				<tr>';
 			?>
 			<fieldset style="background-color:#F9F9F9;">
-				<legend><?php echo vmText::_('com_tsmart_RELATED_CATEGORIES'); ?></legend>
-				<?php echo vmText::_('com_tsmart_CATEGORIES_RELATED_SEARCH'); ?>
+				<legend><?php echo tsmText::_('com_tsmart_RELATED_CATEGORIES'); ?></legend>
+				<?php echo tsmText::_('com_tsmart_CATEGORIES_RELATED_SEARCH'); ?>
 				<div class="jsonSuggestResults" style="width: auto;">
 					<input type="text" size="40" name="search" id="relatedcategoriesSearch" value="" />
-					<button class="reset-value btn"><?php echo vmText::_('com_tsmart_RESET') ?></button>
+					<button class="reset-value btn"><?php echo tsmText::_('com_tsmart_RESET') ?></button>
 				</div>
 				<div id="custom_categories" class="ui-sortable" ><?php echo  $tables['categories']; ?></div>
 			</fieldset>
 			<fieldset style="background-color:#F9F9F9;">
-				<legend><?php echo vmText::_('com_tsmart_RELATED_PRODUCTS'); ?></legend>
-				<?php echo vmText::_('com_tsmart_PRODUCT_RELATED_SEARCH'); ?>
+				<legend><?php echo tsmText::_('com_tsmart_RELATED_PRODUCTS'); ?></legend>
+				<?php echo tsmText::_('com_tsmart_PRODUCT_RELATED_SEARCH'); ?>
 				<div class="jsonSuggestResults" style="width: auto;">
 					<input type="text" size="40" name="search" id="relatedproductsSearch" value="" />
-					<button class="reset-value btn"><?php echo vmText::_('com_tsmart_RESET') ?></button>
+					<button class="reset-value btn"><?php echo tsmText::_('com_tsmart_RESET') ?></button>
 				</div>
 				<div id="custom_products" class="ui-sortable"><?php echo  $tables['products']; ?></div>
 			</fieldset>
 
 			<fieldset style="background-color:#F9F9F9;">
-				<legend><?php echo vmText::_('com_tsmart_CUSTOM_FIELD_TYPE' );?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_CUSTOM_FIELD_TYPE' );?></legend>
 				<div class="inline"><?php echo $this->customsList; ?></div>
 
 				<table id="custom_fields" class="adminlist" cellspacing="0" cellpadding="2">
 
 					<thead>
 					<tr class="row1">
-						<th style="min-width:140px;width:5%;"><?php echo vmText::_('com_tsmart_TITLE');?></th>
-						<th width="100px"><?php echo vmText::_('com_tsmart_CART_PRICE');?></th>
-						<th><?php echo vmText::_('com_tsmart_VALUE');?></th>
+						<th style="min-width:140px;width:5%;"><?php echo tsmText::_('com_tsmart_TITLE');?></th>
+						<th width="100px"><?php echo tsmText::_('com_tsmart_CART_PRICE');?></th>
+						<th><?php echo tsmText::_('com_tsmart_VALUE');?></th>
 					</tr>
 					</thead>
 
@@ -162,7 +162,7 @@ defined('_JEXEC') or die('Restricted access');
 				</table><!-- custom_fields -->
 			</fieldset>
 			<!--fieldset style="background-color:#F9F9F9;">
-				<legend><?php echo vmText::_('com_tsmart_CUSTOM_EXTENSION'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_CUSTOM_EXTENSION'); ?></legend>
 				<div id="custom_customPlugins"><?php echo  $tables['customPlugins']; ?></div>
 			</fieldset-->
 		</td>

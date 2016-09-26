@@ -23,7 +23,7 @@ class JFormFieldOrderstatus extends JFormField {
 		if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 		if (!class_exists ('VmModel')) {
-			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 		}
 		VmConfig::loadConfig ();
 		VmConfig::loadJLang('com_tsmart');
@@ -32,7 +32,7 @@ class JFormFieldOrderstatus extends JFormField {
 		$model = VmModel::getModel ('Orderstatus');
 		$orderStatus = $model->getOrderStatusList (true);
 		foreach ($orderStatus as $orderState) {
-			$orderState->order_status_name = vmText::_ ($orderState->order_status_name);
+			$orderState->order_status_name = tsmText::_ ($orderState->order_status_name);
 		}
 		return JHtml::_ ('select.genericlist', $orderStatus, $this->name, 'class="inputbox" multiple="true" size="1"', 'order_status_code', 'order_status_name', $this->value, $this->id);
 	}

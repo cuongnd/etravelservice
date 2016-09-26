@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * Json View class for the VirtueMart Component
@@ -28,7 +28,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @package		VirtueMart
  * @author  Patrick Kohl
  */
-class TsmartViewUserfields extends VmViewAdmin {
+class TsmartViewUserfields extends tsmViewAdmin {
 
 	function display($tpl = null) {
 		$db = JFactory::getDBO();
@@ -54,7 +54,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 				$formFile	= vRequest::filterPath( $path );
 				if (file_exists($formFile)){
 					if (!class_exists( 'VmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
-					if (!class_exists ('VmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtable.php');
+					if (!class_exists ('tsmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 
 					$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
 					$this->userField->params = new stdClass();
@@ -63,7 +63,7 @@ class TsmartViewUserfields extends VmViewAdmin {
 					$this->userField->params->userfield_params = $this->userField->params;
 					VmTable::bindParameterable($this->userField->params,'userfield_params',$varsToPush);*/
 					if(empty($this->userField->userfield_params)) $this->userField->userfield_params = '';
-					VmTable::bindParameterableToSubField($this->userField,$varsToPush);
+					tsmTable::bindParameterableToSubField($this->userField,$varsToPush);
 					$this->userField->form->bind($this->userField);
 				} else {
 					$this->userField->form = false;

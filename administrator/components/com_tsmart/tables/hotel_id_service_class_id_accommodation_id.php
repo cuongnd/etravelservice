@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledata.php');
+if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
 /**
  * Currency table class
@@ -28,7 +28,7 @@ if(!class_exists('VmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledat
  * @package		VirtueMart
  * @author RickG, Max Milbers
  */
-class Tablehotel_id_service_class_id_accommodation_id extends VmTableData {
+class Tablehotel_id_service_class_id_accommodation_id extends tsmTableData {
 
 	/** @var int Primary key */
 	var $virtuemart_accommodation_id			= 0;

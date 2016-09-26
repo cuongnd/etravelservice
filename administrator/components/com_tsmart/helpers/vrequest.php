@@ -312,7 +312,7 @@ class vRequest {
 			if ($session->isNew()){
 				// Redirect to login screen.
 				$app = JFactory::getApplication();
-				$app->redirect(JRoute::_('index.php'), vmText::_('JLIB_ENVIRONMENT_SESSION_EXPIRED'));
+				$app->redirect(JRoute::_('index.php'), tsmText::_('JLIB_ENVIRONMENT_SESSION_EXPIRED'));
 				$app->close();
 				return false;
 			}
@@ -321,7 +321,7 @@ class vRequest {
 					$redirectMsg = 'Invalid Token, in ' . vRequest::getCmd('options') .' view='.vRequest::getCmd('view'). ' task='.vRequest::getCmd('task');
 					//jexit('Invalid Token, in ' . vRequest::getCmd('options') .' view='.vRequest::getCmd('view'). ' task='.vRequest::getCmd('task'));
 				} else {
-					$redirectMsg =  vmText::_($redirectMsg);
+					$redirectMsg =  tsmText::_($redirectMsg);
 				}
 				// Redirect to login screen.
 				$app = JFactory::getApplication();
@@ -342,12 +342,12 @@ class vRequest {
 		$user = JFactory::getUser();
 
 		if(empty($user->id)) $user->id = 0;
-		if(!class_exists('vmCrypt'))
-			require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcrypt.php');
+		if(!class_exists('tsmCrypt'))
+			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmcrypt.php');
 
 		$token = $sess->get('session.token');
 		if ($token === null || $fNew) {
-			$token = vmCrypt::getToken();
+			$token = tsmCrypt::getToken();
 			$sess->set('session.token', $token);
 		}
 		$hash = self::getHash($user->id . $token);

@@ -20,7 +20,7 @@
 defined ('_JEXEC') or die('Restricted access');
 
 if (!class_exists ('VmModel')) {
-	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
 /**
@@ -212,10 +212,10 @@ class VirtueMartModelCustomfields extends VmModel {
 
 		if(!empty($obj->_varsToPushParam)){
 			//$obj ->_xParams = 'custom_params';
-			VmTable::bindParameterable($obj,'custom_params',$obj->_varsToPushParamCustom);
+			tsmTable::bindParameterable($obj,'custom_params',$obj->_varsToPushParamCustom);
 
 			$obj ->_xParams = 'customfield_params';
-			VmTable::bindParameterable($obj,$obj->_xParams,$obj->_varsToPushParamCustomField);
+			tsmTable::bindParameterable($obj,$obj->_xParams,$obj->_varsToPushParamCustomField);
 		}
 
 	}
@@ -250,7 +250,7 @@ class VirtueMartModelCustomfields extends VmModel {
 		}
 		$linkLabel = $line['parent_id'] .'->'. $line['vm_product_id'].' ';
 		$html = '<tr class="row'.(($i+1)%2).'">';
-		$html .= '<td>'.JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $linkLabel.$child->slug, array('title' => vmText::_('com_tsmart_EDIT').' '.$child->slug)).'</td>';
+		$html .= '<td>'.JHTML::_('link', JRoute::_('index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id='.$child->virtuemart_product_id), $linkLabel.$child->slug, array('title' => tsmText::_('com_tsmart_EDIT').' '.$child->slug)).'</td>';
 		if($showSku) $html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->virtuemart_product_id.'][product_sku]" id="child'.$child->virtuemart_product_id.'product_sku" size="20" maxlength="64" value="'.$child->product_sku .'" /></td>';
 		$html .= '<td><input '.$readonly.' '.$classBox.' type="text" name="childs['.$child->virtuemart_product_id.'][product_gtin]" id="child'.$child->virtuemart_product_id.'product_gtin" size="13" maxlength="13" value="'.$child->product_gtin .'" /></td>';
 		/*$html .= 	'<input type="hidden" name="childs['.$child->virtuemart_product_id .'][product_name]" id="child'.$child->virtuemart_product_id .'product_name" value="'.$child->product_name .'" />
@@ -383,15 +383,15 @@ class VirtueMartModelCustomfields extends VmModel {
 
 				$optAttr = array();
 
-				$optAttr[] = array('value' => '0' ,'text' =>vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
-				$optAttr[] = array('value' => 'product_name' ,'text' =>vmText::_('com_tsmart_PRODUCT_FORM_NAME'));
-				$optAttr[] = array('value' => 'product_sku', 'text' => vmText::_ ('com_tsmart_PRODUCT_SKU'));
-				$optAttr[] = array('value' => 'slug', 'text' => vmText::_ ('com_tsmart_PRODUCT_ALIAS'));
-				$optAttr[] = array('value' => 'product_length', 'text' => vmText::_ ('com_tsmart_PRODUCT_LENGTH'));
-				$optAttr[] = array('value' => 'product_width', 'text' => vmText::_ ('com_tsmart_PRODUCT_WIDTH'));
-				$optAttr[] = array('value' => 'product_height', 'text' => vmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
-				$optAttr[] = array('value' => 'product_weight', 'text' => vmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
-				$optAttr[] = array('value' => 'clabels', 'text' => vmText::_ ('com_tsmart_CLABELS'));
+				$optAttr[] = array('value' => '0' ,'text' =>tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+				$optAttr[] = array('value' => 'product_name' ,'text' =>tsmText::_('com_tsmart_PRODUCT_FORM_NAME'));
+				$optAttr[] = array('value' => 'product_sku', 'text' => tsmText::_ ('com_tsmart_PRODUCT_SKU'));
+				$optAttr[] = array('value' => 'slug', 'text' => tsmText::_ ('com_tsmart_PRODUCT_ALIAS'));
+				$optAttr[] = array('value' => 'product_length', 'text' => tsmText::_ ('com_tsmart_PRODUCT_LENGTH'));
+				$optAttr[] = array('value' => 'product_width', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WIDTH'));
+				$optAttr[] = array('value' => 'product_height', 'text' => tsmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
+				$optAttr[] = array('value' => 'product_weight', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
+				$optAttr[] = array('value' => 'clabels', 'text' => tsmText::_ ('com_tsmart_CLABELS'));
 
 
 				$productModel = VmModel::getModel('product');
@@ -411,7 +411,7 @@ class VirtueMartModelCustomfields extends VmModel {
 				if(empty($field->selectoptions)) $field->selectoptions = array();
 				foreach($field->selectoptions as $k=>&$soption){
 					$options = array();
-					$options[] = array('value' => '0' ,'text' =>vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+					$options[] = array('value' => '0' ,'text' =>tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
 
 					$added = array();
 
@@ -468,7 +468,7 @@ class VirtueMartModelCustomfields extends VmModel {
 
 					$soption->comboptions = $options;
 					if(!isset($soption->clabel)) $soption->clabel = '';
-					$soption->slabel = empty($soption->clabel)? vmText::_('com_tsmart_'.strtoupper($soption->voption)): vmText::_($soption->clabel);
+					$soption->slabel = empty($soption->clabel)? tsmText::_('com_tsmart_'.strtoupper($soption->voption)): tsmText::_($soption->clabel);
 
 					if($k==0){
 						$html .='<div style="float:left">';
@@ -488,14 +488,14 @@ class VirtueMartModelCustomfields extends VmModel {
 					}
 					$html .='</div>';
 					if($k==0){
-						$html .= '<div style="float:right;max-width:60%;width:45%;min-width:30%" >'.vmText::_('com_tsmart_CUSTOM_CV_DESC').'</div>';
+						$html .= '<div style="float:right;max-width:60%;width:45%;min-width:30%" >'.tsmText::_('com_tsmart_CUSTOM_CV_DESC').'</div>';
 						$html .= '<div class="clear"></div>';
 					}
 				}
 
 				$idTag = 'selectoptions'.++$k;
 				$html .= '<fieldset style="background-color:#F9F9F9;">
-					<legend>'. vmText::_('com_tsmart_CUSTOM_RAMB_NEW').'</legend>
+					<legend>'. tsmText::_('com_tsmart_CUSTOM_RAMB_NEW').'</legend>
 					<div id="new_ramification">';
 				//$html .= JHtml::_ ('select.genericlist', $options, 'field[' . $row . '][selectoptions]['.$k.'][voption]', '', 'value', 'text', 'product_name',$idTag) ;
 				//$html .= '<input type="text" value="" name="field[' . $row . '][selectoptions]['.$k.'][slabel]" />';
@@ -503,7 +503,7 @@ class VirtueMartModelCustomfields extends VmModel {
 				$html .= JHtml::_ ('select.genericlist', $optAttr, 'voption', '', 'value', 'text', 'product_name','voption') ;
 				$html .= '<input type="text" value="" id="vlabel" name="vlabel" />';
 
-				$html .= '<span id="new_ramification_bt"><span class="icon-nofloat vmicon vmicon-16-new"></span>'. vmText::_('com_tsmart_ADD').'</span>
+				$html .= '<span id="new_ramification_bt"><span class="icon-nofloat vmicon vmicon-16-new"></span>'. tsmText::_('com_tsmart_ADD').'</span>
 					</div>
 				</fieldset>';
 
@@ -540,9 +540,9 @@ class VirtueMartModelCustomfields extends VmModel {
 				if ($link) {
 					$html .= '<a href="'. $link .'" class="btn btn-small">';
 				} else {
-					$html .= '<span class="hasTip" title="'.vmText::_ ('com_tsmart_PRODUCT_ADD_CHILD_TIP').'">';
+					$html .= '<span class="hasTip" title="'.tsmText::_ ('com_tsmart_PRODUCT_ADD_CHILD_TIP').'">';
 				}
-				$html .= vmText::_('com_tsmart_PRODUCT_ADD_CHILD');
+				$html .= tsmText::_('com_tsmart_PRODUCT_ADD_CHILD');
 				if ($link) {
 					$html .= '</a>';
 				} else{
@@ -555,14 +555,14 @@ class VirtueMartModelCustomfields extends VmModel {
 				$html .= '<tr>
 <th style="text-align: left !important;width:130px;">#</th>';
 				if($showSku){
-					$html .= '<th style="text-align: left !important;width:90px;">'.vmText::_('com_tsmart_PRODUCT_SKU').'</th>';
+					$html .= '<th style="text-align: left !important;width:90px;">'.tsmText::_('com_tsmart_PRODUCT_SKU').'</th>';
 				}
-				$html .= '<th style="text-align: left !important;width:80px;">'. vmText::_('com_tsmart_PRODUCT_GTIN').'</th>
-<th style="text-align: left !important;" width="5%">'.vmText::_('com_tsmart_PRODUCT_FORM_PRICE_COST').'</th>
-<th style="text-align: left !important;width:30px;">'.vmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK').'</th>
-<th style="text-align: left !important;width:30px;">'.vmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK').'</th>';
+				$html .= '<th style="text-align: left !important;width:80px;">'. tsmText::_('com_tsmart_PRODUCT_GTIN').'</th>
+<th style="text-align: left !important;" width="5%">'.tsmText::_('com_tsmart_PRODUCT_FORM_PRICE_COST').'</th>
+<th style="text-align: left !important;width:30px;">'.tsmText::_('com_tsmart_PRODUCT_FORM_IN_STOCK').'</th>
+<th style="text-align: left !important;width:30px;">'.tsmText::_('com_tsmart_PRODUCT_FORM_ORDERED_STOCK').'</th>';
 				foreach($field->selectoptions as $k=>$option){
-					$html .= '<th>'.vmText::_('com_tsmart_'.strtoupper($option->voption)).'</th>';
+					$html .= '<th>'.tsmText::_('com_tsmart_'.strtoupper($option->voption)).'</th>';
 				}
 				$html .= '</tr>';
 
@@ -586,17 +586,17 @@ class VirtueMartModelCustomfields extends VmModel {
 				if(!isset($field->parentOrderable)) $field->parentOrderable = 0;
 				//vmdebug('displayProductCustomfieldBE',$field);
 				if (!class_exists('VmHTML')) require(VMPATH_ADMIN.DS.'helpers'.DS.'html.php');
-				$html = '</td><td>' . vmText::_('com_tsmart_CUSTOM_WP').VmHTML::checkbox('field[' . $row . '][withParent]',$field->withParent,1,0,'').'<br />';
-				$html .= vmText::_('com_tsmart_CUSTOM_PO').VmHTML::checkbox('field[' . $row . '][parentOrderable]',$field->parentOrderable,1,0,'');
+				$html = '</td><td>' . tsmText::_('com_tsmart_CUSTOM_WP').VmHTML::checkbox('field[' . $row . '][withParent]',$field->withParent,1,0,'').'<br />';
+				$html .= tsmText::_('com_tsmart_CUSTOM_PO').VmHTML::checkbox('field[' . $row . '][parentOrderable]',$field->parentOrderable,1,0,'');
 
 				$options = array();
-				$options[] = array('value' => 'product_name' ,'text' =>vmText::_('com_tsmart_PRODUCT_FORM_NAME'));
-				$options[] = array('value' => 'product_sku', 'text' => vmText::_ ('com_tsmart_PRODUCT_SKU'));
-				$options[] = array('value' => 'slug', 'text' => vmText::_ ('com_tsmart_PRODUCT_ALIAS'));
-				$options[] = array('value' => 'product_length', 'text' => vmText::_ ('com_tsmart_PRODUCT_LENGTH'));
-				$options[] = array('value' => 'product_width', 'text' => vmText::_ ('com_tsmart_PRODUCT_WIDTH'));
-				$options[] = array('value' => 'product_height', 'text' => vmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
-				$options[] = array('value' => 'product_weight', 'text' => vmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
+				$options[] = array('value' => 'product_name' ,'text' =>tsmText::_('com_tsmart_PRODUCT_FORM_NAME'));
+				$options[] = array('value' => 'product_sku', 'text' => tsmText::_ ('com_tsmart_PRODUCT_SKU'));
+				$options[] = array('value' => 'slug', 'text' => tsmText::_ ('com_tsmart_PRODUCT_ALIAS'));
+				$options[] = array('value' => 'product_length', 'text' => tsmText::_ ('com_tsmart_PRODUCT_LENGTH'));
+				$options[] = array('value' => 'product_width', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WIDTH'));
+				$options[] = array('value' => 'product_height', 'text' => tsmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
+				$options[] = array('value' => 'product_weight', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
 
 				$html .= JHtml::_ ('select.genericlist', $options, 'field[' . $row . '][customfield_value]', '', 'value', 'text', $field->customfield_value) ;
 				return $html;
@@ -625,13 +625,13 @@ class VirtueMartModelCustomfields extends VmModel {
 			// Property
 			case 'P':
 				$options = array();
-				$options[] = array('value' => 'product_name' ,'text' =>vmText::_('com_tsmart_PRODUCT_FORM_NAME'));
-				$options[] = array('value' => 'product_sku', 'text' => vmText::_ ('com_tsmart_PRODUCT_SKU'));
-				$options[] = array('value' => 'slug', 'text' => vmText::_ ('com_tsmart_PRODUCT_ALIAS'));
-				$options[] = array('value' => 'product_length', 'text' => vmText::_ ('com_tsmart_PRODUCT_LENGTH'));
-				$options[] = array('value' => 'product_width', 'text' => vmText::_ ('com_tsmart_PRODUCT_WIDTH'));
-				$options[] = array('value' => 'product_height', 'text' => vmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
-				$options[] = array('value' => 'product_weight', 'text' => vmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
+				$options[] = array('value' => 'product_name' ,'text' =>tsmText::_('com_tsmart_PRODUCT_FORM_NAME'));
+				$options[] = array('value' => 'product_sku', 'text' => tsmText::_ ('com_tsmart_PRODUCT_SKU'));
+				$options[] = array('value' => 'slug', 'text' => tsmText::_ ('com_tsmart_PRODUCT_ALIAS'));
+				$options[] = array('value' => 'product_length', 'text' => tsmText::_ ('com_tsmart_PRODUCT_LENGTH'));
+				$options[] = array('value' => 'product_width', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WIDTH'));
+				$options[] = array('value' => 'product_height', 'text' => tsmText::_ ('com_tsmart_PRODUCT_HEIGHT'));
+				$options[] = array('value' => 'product_weight', 'text' => tsmText::_ ('com_tsmart_PRODUCT_WEIGHT'));
 
 				return '</td><td>'.JHtml::_ ('select.genericlist', $options, 'field[' . $row . '][customfield_value]', '', 'value', 'text', $field->customfield_value) .
 						'<input type="text" value="' . $field->round . '" name="field[' . $row . '][round]" />';
@@ -876,7 +876,7 @@ class VirtueMartModelCustomfields extends VmModel {
 			}
 		}
 		else {
-			$price = ($customPrice === '') ? '' :  vmText::sprintf('com_tsmart_CART_PRICE_FREE',$currency->getSymbol());
+			$price = ($customPrice === '') ? '' :  tsmText::sprintf('com_tsmart_CART_PRICE_FREE',$currency->getSymbol());
 		}
 		return $price;
 	}

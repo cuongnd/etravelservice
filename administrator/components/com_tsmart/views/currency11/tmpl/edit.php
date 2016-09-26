@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_CURRENCY_DETAILS');
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_CURRENCY_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_CURRENCY_DETAILS'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('input','com_tsmart_CURRENCY_NAME','currency_name',$this->currency->currency_name,'class="required"'); ?>
 		<?php echo VmHTML::row('booleanlist','com_tsmart_PUBLISHED','published',$this->currency->published); ?>
@@ -44,7 +44,7 @@ AdminUIHelper::imitateTabs('start','com_tsmart_CURRENCY_DETAILS');
 		<?php echo VmHTML::row('input','com_tsmart_CURRENCY_NEGATIVE_DISPLAY','currency_negative_style',$this->currency->currency_negative_style,'class="inputbox"','',50,50); ?>
 
 	</table>
-	<?php echo vmText::_('com_tsmart_CURRENCY_DISPLAY_EXPL'); ?>
+	<?php echo tsmText::_('com_tsmart_CURRENCY_DISPLAY_EXPL'); ?>
 	</fieldset>
 
 </div>

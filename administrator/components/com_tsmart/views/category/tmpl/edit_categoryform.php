@@ -26,13 +26,13 @@ $mainframe = JFactory::getApplication();
 	<tr>
 		<td valign="top" colspan="2">
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_FORM_GENERAL'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_FORM_GENERAL'); ?></legend>
 				<table width="100%" border="0">
 					<!-- Commented out for future use
 				<tr>
 					<td class="key">
 						<label for="shared">
-							<?php echo vmText::_('com_tsmart_CATEGORY_FORM_SHARED'); ?>:
+							<?php echo tsmText::_('com_tsmart_CATEGORY_FORM_SHARED'); ?>:
 						</label>
 					</td>
 					<td>
@@ -54,12 +54,12 @@ $mainframe = JFactory::getApplication();
 	<tr>
 		<td valign="top" style="width: 50%;">
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_DETAILS'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_DETAILS'); ?></legend>
 				<table>
 					<?php echo VmHTML::row('raw','com_tsmart_CATEGORY_ORDERING', ShopFunctions::getEnumeratedCategories(true, true, $this->parent->virtuemart_category_id, 'ordering', '', 'ordering', 'category_name', $this->category->ordering) ); ?>
 					<?php $categorylist = '
 						<select name="category_parent_id" id="category_parent_id" class="inputbox">
-							<option value="">'.vmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL').'</option>
+							<option value="">'.tsmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL').'</option>
 							'.$this->categorylist.'
 						</select>';
 					echo VmHTML::row('raw','com_tsmart_CATEGORY_FORM_PARENT', $categorylist ); ?>
@@ -74,7 +74,7 @@ $mainframe = JFactory::getApplication();
 		</td>
 		<td valign="top" style="width: 50%;">
 			<fieldset>
-				<legend><?php echo vmText::_('com_tsmart_METAINFO'); ?></legend>
+				<legend><?php echo tsmText::_('com_tsmart_METAINFO'); ?></legend>
 				<?php echo shopFunctions::renderMetaEdit($this->category); ?>
 			</fieldset>
 		</td>

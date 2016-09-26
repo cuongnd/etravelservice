@@ -42,7 +42,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php  echo $this->sort('title','title') ; ?>
 		    </th>
 			<th width="10">
-				<?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+				<?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
 			</th>
 		<?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>

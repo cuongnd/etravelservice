@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start',"groupsize");
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('Current groupsize'); ?></legend>
+	<legend><?php echo tsmText::_('Current groupsize'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('input','group_name','group_name',$this->item->group_name,''); ?>
 		<?php echo VmHTML::row('input','from','from',$this->item->from,'class="required"'); ?>

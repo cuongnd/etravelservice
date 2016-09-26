@@ -115,12 +115,12 @@ class VmHtml
         }
         $lang = JFactory::getLanguage();
         if ($lang->hasKey($label . '_TIP')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_TIP')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_TIP')) . '">' . tsmText::_($label) . '</span>';
         } //Fallback
         else if ($lang->hasKey($label . '_EXPLAIN')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_EXPLAIN')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_EXPLAIN')) . '">' . tsmText::_($label) . '</span>';
         } else {
-            $label = vmText::_($label);
+            $label = tsmText::_($label);
         }
 
         $html = '
@@ -157,12 +157,12 @@ class VmHtml
         }
         $lang = JFactory::getLanguage();
         if ($lang->hasKey($label . '_TIP')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_TIP')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_TIP')) . '">' . tsmText::_($label) . '</span>';
         } //Fallback
         else if ($lang->hasKey($label . '_EXPLAIN')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_EXPLAIN')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_EXPLAIN')) . '">' . tsmText::_($label) . '</span>';
         } else {
-            $label = vmText::_($label);
+            $label = tsmText::_($label);
         }
         $label = '<label class="control-label">' . $label . '</label>';
 
@@ -199,12 +199,12 @@ class VmHtml
         }
         $lang = JFactory::getLanguage();
         if ($lang->hasKey($label . '_TIP')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_TIP')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_TIP')) . '">' . tsmText::_($label) . '</span>';
         } //Fallback
         else if ($lang->hasKey($label . '_EXPLAIN')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_EXPLAIN')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_EXPLAIN')) . '">' . tsmText::_($label) . '</span>';
         } else {
-            $label = vmText::_($label);
+            $label = tsmText::_($label);
         }
         $label = '<label class="control-label">' . $label . '</label>';
 
@@ -240,12 +240,12 @@ class VmHtml
         }
         $lang = JFactory::getLanguage();
         if ($lang->hasKey($label . '_TIP')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_TIP')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_TIP')) . '">' . tsmText::_($label) . '</span>';
         } //Fallback
         else if ($lang->hasKey($label . '_EXPLAIN')) {
-            $label = '<span class="hasTip" title="' . htmlentities(vmText::_($label . '_EXPLAIN')) . '">' . vmText::_($label) . '</span>';
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_EXPLAIN')) . '">' . tsmText::_($label) . '</span>';
         } else {
-            $label = vmText::_($label);
+            $label = tsmText::_($label);
         }
 
         $html = $label;
@@ -268,7 +268,7 @@ class VmHtml
     static function value($value)
     {
         $lang = JFactory::getLanguage();
-        return $lang->hasKey($value) ? vmText::_($value) : $value;
+        return $lang->hasKey($value) ? tsmText::_($value) : $value;
     }
 
     /**
@@ -343,7 +343,7 @@ class VmHtml
     public static function select($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         if ($zero == true) {
-            $option = array($key => "0", $text => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
@@ -357,10 +357,10 @@ class VmHtml
     public static function select_state($name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $options = array();
-        $options[] = array($key => "1", $text => vmText::_('active'));
-        $options[] = array($key => "0", $text => vmText::_('unactive'));
+        $options[] = array($key => "1", $text => tsmText::_('active'));
+        $options[] = array($key => "0", $text => tsmText::_('unactive'));
         if ($zero == true) {
-            $option = array($key => "", $text => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array($key => "", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
@@ -395,7 +395,7 @@ class VmHtml
 
 
         if ($zero == true) {
-            $option = array($key => "0", $text => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
@@ -416,7 +416,7 @@ class VmHtml
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_location_city/html_select_select_location_city.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcities.php';
-        $cities = vmcities::get_cities();
+        $cities = tsmcities::get_cities();
         $option = array('id' => '', 'text' => 'Please select location');
         foreach ($cities as &$city) {
             $city->id = $city->virtuemart_cityarea_id;
@@ -440,7 +440,7 @@ class VmHtml
 
 
         if ($zero == true) {
-            $option = array('vituemart_cityarea_id' => "0", 'city_area_name' => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array('vituemart_cityarea_id' => "0", 'city_area_name' => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $cities);
         }
         if ($chosenDropDowns) {
@@ -468,8 +468,8 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.less');
         $input = JFactory::getApplication()->input;
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmtourtype.php';
-        $list_tour_type = vmtourtype::get_list_tour_type();
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtourtype.php';
+        $list_tour_type = tsmtourtype::get_list_tour_type();
         $id_element = 'html_select_tour_type_' . $name;
         ob_start();
         ?>
@@ -557,7 +557,7 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.less');
         $input = JFactory::getApplication()->input;
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmproduct.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
         $list_products = vmproduct::get_list_product();
         foreach ($list_products as &$tour) {
             $tour->id = $tour->virtuemart_product_id;
@@ -603,17 +603,17 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.less');
         $input = JFactory::getApplication()->input;
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
         $list_service_class = vmServiceclass::get_list_tour_service_class();
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmproduct.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
         $list_products = vmproduct::get_list_product();
 
 
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmdeparture.php';
-        $list_departure = vmdeparture::get_list_departure();
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmdeparture.php';
+        $list_departure = tsmDeparture::get_list_departure();
 
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmtourtype.php';
-        $list_tour_type = vmtourtype::get_list_tour_type();
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtourtype.php';
+        $list_tour_type = tsmtourtype::get_list_tour_type();
         $element_id = 'select_trip_join_and_private_' . $name;
         ob_start();
         ?>
@@ -738,7 +738,7 @@ class VmHtml
 
 
         if ($zero == true) {
-            $option = array($key => "0", $text => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
@@ -1229,7 +1229,7 @@ class VmHtml
         $reload_ui_dialog_id = $input->get('ui_dialog_id', '', 'string');
         $remove_ui_dialog = $input->get('remove_ui_dialog', false, 'boolean');
         if ($zero == true) {
-            $option = array($key => "0", $text => vmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
@@ -1311,9 +1311,9 @@ class VmHtml
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.less');
 
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmgroupsize.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
-        $tour_group_size = vmGroupSize::get_list_group_size();
+        $tour_group_size = tsmGroupSize::get_list_group_size();
 
         $id_list_checkbox_group_size = 'list_checkbox_group_size_' . $name;
         ob_start();
@@ -1407,7 +1407,7 @@ class VmHtml
 
     public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
-        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
         $options = vmprice::get_list_price_type();
 
         JHtml::_('jquery.framework');
@@ -1720,7 +1720,7 @@ class VmHtml
             }
 
             if ($options['list.translate'] && !empty($label)) {
-                $label = vmText::_($label);
+                $label = tsmText::_($label);
             }
             if ($options['option.label.toHtml']) {
                 $label = htmlentities($label);
@@ -1744,7 +1744,7 @@ class VmHtml
             }
 
             if ($options['list.translate']) {
-                $text = vmText::_($text);
+                $text = tsmText::_($text);
             }
 
             // Generate the option, encoding as required
@@ -1787,7 +1787,7 @@ class VmHtml
             }
         }
         if (!empty($data_placeholder)) {
-            $data_placeholder = 'data-placeholder="' . vmText::_($data_placeholder) . '"';
+            $data_placeholder = 'data-placeholder="' . tsmText::_($data_placeholder) . '"';
         }
 
         $html = '<select class="inputbox" id="' . $name . '" name="' . $name . '" size="' . $size . '" ' . $multiple . ' ' . $extra . ' ' . $data_placeholder . ' >';
@@ -2188,7 +2188,7 @@ XML;
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_service_class)) {
-            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmserviceclass.php';
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
             $list_service_class = vmServiceclass::get_list_service_class();
         }
 

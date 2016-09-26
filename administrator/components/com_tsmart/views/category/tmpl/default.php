@@ -36,7 +36,7 @@ AdminUIHelper::startAdminArea($this);
 			</td>
 			<td>
 			<select class="inputbox" id="top_category_id" name="top_category_id" onchange="this.form.submit(); return false;">
-				<option value=""><?php echo vmText::sprintf( 'com_tsmart_SELECT' ,  vmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL')) ; ?></option>
+				<option value=""><?php echo tsmText::sprintf( 'com_tsmart_SELECT' ,  tsmText::_('com_tsmart_CATEGORY_FORM_TOP_LEVEL')) ; ?></option>
 				<?php echo $this->category_tree; ?>
 			</select>
 			</td>
@@ -63,7 +63,7 @@ AdminUIHelper::startAdminArea($this);
 				<?php echo $this->sort('category_description', 'com_tsmart_DESCRIPTION') ; ?>
 			</th>
 			<th style="min-width:80px;width:8%;align:center;">
-				<?php echo vmText::_('com_tsmart_PRODUCT_S'); ?>
+				<?php echo tsmText::_('com_tsmart_PRODUCT_S'); ?>
 			</th>
 
 			<th style="min-width:80px;width:8%;align:center;">
@@ -137,7 +137,7 @@ AdminUIHelper::startAdminArea($this);
 				</td>
 				<td>
 					<?php echo  $this->catmodel->countProducts($cat->virtuemart_category_id);//ShopFunctions::countProductsByCategory($row->virtuemart_category_id);?>
-					&nbsp;<a href="<?php echo $showProductsLink; ?>">[ <?php echo vmText::_('com_tsmart_SHOW');?> ]</a>
+					&nbsp;<a href="<?php echo $showProductsLink; ?>">[ <?php echo tsmText::_('com_tsmart_SHOW');?> ]</a>
 				</td>
 				<td align="center" class="vm-order">
 					<span><?php 
@@ -154,8 +154,8 @@ AdminUIHelper::startAdminArea($this);
 						$childCount = $cat->siblingCount;
 					}
 
-					echo $this->catpagination->vmOrderUpIcon( $i, $cat->ordering, 'orderUp', vmText::_('com_tsmart_MOVE_UP')); ?></span>
-					<span><?php echo $this->catpagination->vmOrderDownIcon( $i, $cat->ordering, $childCount , $cond2, 'orderDown', vmText::_('com_tsmart_MOVE_DOWN')); ?></span>
+					echo $this->catpagination->vmOrderUpIcon( $i, $cat->ordering, 'orderUp', tsmText::_('com_tsmart_MOVE_UP')); ?></span>
+					<span><?php echo $this->catpagination->vmOrderDownIcon( $i, $cat->ordering, $childCount , $cond2, 'orderDown', tsmText::_('com_tsmart_MOVE_DOWN')); ?></span>
 					<input class="ordering" type="text" name="order[<?php echo $i?>]" id="order[<?php echo $i?>]" size="5" value="<?php echo $cat->ordering; ?>" style="text-align: center" />
 				</td>
 				<td align="center">

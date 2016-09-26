@@ -113,7 +113,7 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Asign'); ?>
                         </th>
                         <th width="10">
-                            <?php echo vmText::_('com_tsmart_PUBLISHED'); ?>
+                            <?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
                         </th>
                         <th colspan="2">Action</th>
                         <?php /*	<th width="10">

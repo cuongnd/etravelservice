@@ -16,12 +16,12 @@
  * @version $Id: order_userinfos.php 8310 2014-09-21 17:51:47Z Milbo $
  */
 
-if(!class_exists('VmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtable.php');
+if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-class TableOrder_userinfos extends VmTableData {
+class TableOrder_userinfos extends tsmTableData {
 
     /**
      * @author Max Milbers

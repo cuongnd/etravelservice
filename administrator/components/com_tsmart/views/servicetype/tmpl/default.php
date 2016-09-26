@@ -34,7 +34,7 @@ if ($saveOrder)
 
 
 AdminUIHelper::startAdminArea($this);
-$states = vmText::_('com_tsmart_STATE_S');
+$states = tsmText::_('com_tsmart_STATE_S');
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
@@ -43,11 +43,11 @@ $states = vmText::_('com_tsmart_STATE_S');
                 <table>
                     <tr>
                         <td align="left" width="100%">
-                            <?php echo vmText::_('com_tsmart_FILTER') ?>:
+                            <?php echo tsmText::_('com_tsmart_FILTER') ?>:
                             &nbsp;<input type="text" value="<?php echo vRequest::getVar('filter_servicetype'); ?>"
                                          name="filter_servicetype" size="25"/>
                             <button class="btn btn-small"
-                                    onclick="this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?></button>
+                                    onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
                         </td>
                     </tr>
                 </table>
@@ -76,7 +76,7 @@ $states = vmText::_('com_tsmart_STATE_S');
                         <?php echo $this->sort('Modified date', 'modified_on'); ?>
                     </th>
                     <th width="20">
-                        <?php echo vmText::_('Action'); ?>
+                        <?php echo tsmText::_('Action'); ?>
                     </th>
                     <th width="1%" class="nowrap center hidden-phone">
                         <?php echo $this->sort('ordering', 'ordering'); ?>
@@ -126,7 +126,7 @@ $states = vmText::_('com_tsmart_STATE_S');
                                 <?php echo VmHTML::input('servicetype_name', $row->title, 'class="required"'); ?>
                             <?php } else { ?>
                                 <?php
-                                $servicetype_string = vmText::_($prefix . $row->servicetype_3_code); ?>
+                                $servicetype_string = tsmText::_($prefix . $row->servicetype_3_code); ?>
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->title ?> </a>
                             <?php } ?>
 

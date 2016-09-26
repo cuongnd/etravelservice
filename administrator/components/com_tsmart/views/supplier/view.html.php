@@ -20,7 +20,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load the view framework
-if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmin.php');
+if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
  * HTML View class for maintaining the list of currencies
@@ -29,7 +29,7 @@ if(!class_exists('VmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmviewadmi
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewsupplier extends VmViewAdmin {
+class TsmartViewsupplier extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -59,7 +59,7 @@ class TsmartViewsupplier extends VmViewAdmin {
 			$this->item = $model->getItem();
 
 			//get supplier_type and service_type
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmsupplier.php';
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmsupplier.php';
 			$list_supplier_type = vmsupplier::get_list_supplier_type();
 			$this->assignRef('list_supplier_type', $list_supplier_type);
 			$list_service_type = vmsupplier::get_list_service_type();
@@ -83,7 +83,7 @@ class TsmartViewsupplier extends VmViewAdmin {
 			$this->addStandardEditViewCommandsPopup();
 
 		} else {
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmproduct.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewCommandsPopup();
 			$model->setDefaultValidOrderingFields('supplier');

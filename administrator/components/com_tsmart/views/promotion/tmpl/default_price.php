@@ -1,5 +1,5 @@
 <?php
-require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
+require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 ?>
 <?php if($this->product->price_type!="flat_price"){ ?>
 <div class="row-fluid" id="tour_group">
@@ -43,7 +43,7 @@ require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsiz
                     <td style="text-align: center">
                         <input type="hidden" name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
 
-                        <?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                        <?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
 
                     <td>
                         <input required="true"
@@ -282,7 +282,7 @@ require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsiz
                 ?>
 
                 <tr>
-                    <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                    <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                     <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                               column-type="senior"></span></td>
                     <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -334,7 +334,7 @@ require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsiz
                 ?>
 
                 <tr>
-                    <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                    <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                     <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
                               column-type="senior"></span></td>
                     <td><span group-id="<?php echo $group_size->virtuemart_group_size_id ?>"
@@ -400,7 +400,7 @@ require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsiz
             ?>
             <tr role="row"
                 data-group_size_id="<?php echo $group_size->virtuemart_group_size_id ?>">
-                <td style="text-align: center"><?php echo $group_size->group_type==vmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
+                <td style="text-align: center"><?php echo $group_size->group_type==tsmGroupSize::FLAT_PRICE?JText::_('Flat price'):$group_size->group_name ?></td>
                 <td>
                     <input type="hidden" name="tour_promotion_price_by_tour_promotion_price_id[<?php echo $i ?>][virtuemart_group_size_id]" value="<?php echo $group_size->virtuemart_group_size_id ?>">
                     <input required="true"

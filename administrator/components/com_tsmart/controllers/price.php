@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
 
 
 /**
@@ -29,7 +29,7 @@ if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontrol
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllerPrice extends VmController {
+class TsmartControllerPrice extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -128,15 +128,15 @@ class TsmartControllerPrice extends VmController {
 
         $return_item=new stdClass();
         $return_item->price=$price;
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
         $tour_id=$input->get('virtuemart_product_id',0,'int');
         $this->virtuemart_product_id=$tour_id;
 
         $model_product = VmModel::getModel('product');
         $product=$model_product->getItem($this->virtuemart_product_id);
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmgroupsize.php';
-        if($price_type!=vmGroupSize::FLAT_PRICE)
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
+        if($price_type!=tsmGroupSize::FLAT_PRICE)
         {
             $return_item->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($price_id);
         }else{
@@ -147,7 +147,7 @@ class TsmartControllerPrice extends VmController {
         $return_item->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($price_id);
         $return_item->list_mark_up=JArrayHelper::pivot($return_item->list_mark_up,'type');
         //end get markup
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmprice.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
         $return_item->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
 
         echo json_encode($return_item);

@@ -18,9 +18,9 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmTableData')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtabledata.php');
+if(!class_exists('tsmTableData')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
-class TableVendors extends VmTableData {
+class TableVendors extends tsmTableData {
 
     // @var int Primary key
     var $virtuemart_vendor_id			= 0;

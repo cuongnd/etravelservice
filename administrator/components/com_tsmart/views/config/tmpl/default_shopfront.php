@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');?>
 <tr>
 <td valign="top" width="50%">
 <fieldset>
-<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_MORE_CORE_SETTINGS'); ?></legend>
+<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_MORE_CORE_SETTINGS'); ?></legend>
 <table class="admintable">
 	<?php
 	echo VmHTML::row('raw','com_tsmart_WEIGHT_UNIT_DEFAULT',ShopFunctions::renderWeightUnitList('weight_unit_default', VmConfig::get('weight_unit_default')));
@@ -33,7 +33,7 @@ defined('_JEXEC') or die('Restricted access');?>
 </table>
 </fieldset>
 <fieldset>
-<legend><?php echo vmText::_('com_tsmart_CFG_RECOMMEND_ASK'); ?></legend>
+<legend><?php echo tsmText::_('com_tsmart_CFG_RECOMMEND_ASK'); ?></legend>
 <table class="admintable">
 <?php
 	echo VmHTML::row('checkbox','com_tsmart_ADMIN_SHOW_EMAILFRIEND','show_emailfriend',VmConfig::get('show_emailfriend',0));
@@ -46,18 +46,18 @@ defined('_JEXEC') or die('Restricted access');?>
 </table>
 </fieldset>
 <fieldset>
-<legend><?php echo vmText::_('com_tsmart_COUPONS_ENABLE'); ?></legend>
+<legend><?php echo tsmText::_('com_tsmart_COUPONS_ENABLE'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('checkbox','com_tsmart_COUPONS_ENABLE','coupons_enable',VmConfig::get('coupons_enable',0));
 
 		$_defaultExpTime = array(
-		'1,D' => '1 ' . vmText::_('com_tsmart_DAY')
-		, '1,W' => '1 ' . vmText::_('com_tsmart_WEEK')
-		, '2,W' => '2 ' . vmText::_('com_tsmart_WEEK_S')
-		, '1,M' => '1 ' . vmText::_('com_tsmart_MONTH')
-		, '3,M' => '3 ' . vmText::_('com_tsmart_MONTH_S')
-		, '6,M' => '6 ' . vmText::_('com_tsmart_MONTH_S')
-		, '1,Y' => '1 ' . vmText::_('com_tsmart_YEAR')
+		'1,D' => '1 ' . tsmText::_('com_tsmart_DAY')
+		, '1,W' => '1 ' . tsmText::_('com_tsmart_WEEK')
+		, '2,W' => '2 ' . tsmText::_('com_tsmart_WEEK_S')
+		, '1,M' => '1 ' . tsmText::_('com_tsmart_MONTH')
+		, '3,M' => '3 ' . tsmText::_('com_tsmart_MONTH_S')
+		, '6,M' => '6 ' . tsmText::_('com_tsmart_MONTH_S')
+		, '1,Y' => '1 ' . tsmText::_('com_tsmart_YEAR')
 		);
 		echo VmHTML::row('raw','com_tsmart_COUPONS_EXPIRE',VmHTML::selectList('coupons_default_expire', VmConfig::get('coupons_default_expire'), $_defaultExpTime));
 		$attrlist = 'class="inputbox" multiple="multiple" ';
@@ -66,7 +66,7 @@ defined('_JEXEC') or die('Restricted access');?>
 	</table>
 </fieldset>
 <fieldset>
-<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_PRODUCT_LISTING'); ?></legend>
+<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_PRODUCT_LISTING'); ?></legend>
 <table class="admintable">
 <?php
 	echo VmHTML::row('checkbox','com_tsmart_PRODUCT_NAVIGATION_SHOW','product_navigation',VmConfig::get('product_navigation',1));
@@ -77,8 +77,8 @@ defined('_JEXEC') or die('Restricted access');?>
 	echo VmHTML::row('checkbox','com_tsmart_SHOW_PRODUCTS_UNPUBLISHED_CATEGORIES','show_unpub_cat_products',VmConfig::get('show_unpub_cat_products',1));
 	echo VmHTML::row('input','com_tsmart_LATEST_PRODUCTS_DAYS','latest_products_days',VmConfig::get('latest_products_days',7),'class="inputbox"','',4,4);
 	$latest_products_orderBy = array(
-		'modified_on' => vmText::_('com_tsmart_LATEST_PRODUCTS_ORDERBY_MODIFIED'),
-		'created_on' => vmText::_('com_tsmart_LATEST_PRODUCTS_ORDERBY_CREATED')
+		'modified_on' => tsmText::_('com_tsmart_LATEST_PRODUCTS_ORDERBY_MODIFIED'),
+		'created_on' => tsmText::_('com_tsmart_LATEST_PRODUCTS_ORDERBY_CREATED')
 	);
 	echo VmHTML::row('selectList','com_tsmart_LATEST_PRODUCTS_ORDERBY','latest_products_orderBy',VmConfig::get('latest_products_orderBy', 'created_on'),$latest_products_orderBy);
 ?>
@@ -88,61 +88,61 @@ defined('_JEXEC') or die('Restricted access');?>
 <td>
 	<fieldset class="checkboxes">
 		<legend>
-			<span class="hasTip" title="<?php echo vmText::_('com_tsmart_CFG_POOS_ENABLE_EXPLAIN'); ?>">
-				<?php echo vmText::_('com_tsmart_CFG_POOS_ENABLE'); ?>
+			<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_CFG_POOS_ENABLE_EXPLAIN'); ?>">
+				<?php echo tsmText::_('com_tsmart_CFG_POOS_ENABLE'); ?>
 			</span>
 		</legend>
 		<div>
 			<?php echo VmHTML::checkbox('lstockmail', VmConfig::get('lstockmail')); ?>
-			<span class="hasTip" title="<?php echo vmText::_('com_tsmart_CFG_LOWSTOCK_NOTIFY_TIP'); ?>">
+			<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_CFG_LOWSTOCK_NOTIFY_TIP'); ?>">
 				<label for="reviews_autopublish">
-					<?php echo vmText::_('com_tsmart_CFG_LOWSTOCK_NOTIFY'); ?>
+					<?php echo tsmText::_('com_tsmart_CFG_LOWSTOCK_NOTIFY'); ?>
 				</label>
 			</span>
 		</div>
 		<?php
 		$options = array(
-			'none' => vmText::_('com_tsmart_ADMIN_CFG_POOS_NONE'),
-			'disableit' => vmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_IT'),
-			'disableit_children' => vmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_IT_CHILDREN'),
-			'disableadd' => vmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_ADD'),
-			'risetime' => vmText::_('com_tsmart_ADMIN_CFG_POOS_RISE_AVATIME')
+			'none' => tsmText::_('com_tsmart_ADMIN_CFG_POOS_NONE'),
+			'disableit' => tsmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_IT'),
+			'disableit_children' => tsmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_IT_CHILDREN'),
+			'disableadd' => tsmText::_('com_tsmart_ADMIN_CFG_POOS_DISABLE_ADD'),
+			'risetime' => tsmText::_('com_tsmart_ADMIN_CFG_POOS_RISE_AVATIME')
 		);
 		echo VmHTML::radioList('stockhandle', VmConfig::get('stockhandle', 'none'), $options);
 		?>
 		<div style="font-weight:bold;">
-					<span class="hasTip" title="<?php echo vmText::_('com_tsmart_AVAILABILITY_EXPLAIN'); ?>">
-						<?php echo vmText::_('com_tsmart_AVAILABILITY'); ?>
+					<span class="hasTip" title="<?php echo tsmText::_('com_tsmart_AVAILABILITY_EXPLAIN'); ?>">
+						<?php echo tsmText::_('com_tsmart_AVAILABILITY'); ?>
 					</span>
 		</div>
 		<input type="text" class="inputbox" id="product_availability" name="rised_availability" value="<?php echo VmConfig::get('rised_availability'); ?>"/>
-		<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>' . vmText::_('com_tsmart_AVAILABILITY') . '</b><br/ >' . vmText::_('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP1') ?>"></span>
+		<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>' . tsmText::_('com_tsmart_AVAILABILITY') . '</b><br/ >' . tsmText::_('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP1') ?>"></span>
 
 		<div class="clr"></div>
 		<?php echo JHtml::_('list.images', 'image', VmConfig::get('rised_availability'), " ", $this->imagePath); ?>
-		<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>' . vmText::_('com_tsmart_AVAILABILITY') . '</b><br/ >' . vmText::sprintf('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP2', $this->imagePath) ?>"></span>
+		<span class="icon-nofloat vmicon vmicon-16-info tooltip" title="<?php echo '<b>' . tsmText::_('com_tsmart_AVAILABILITY') . '</b><br/ >' . tsmText::sprintf('com_tsmart_PRODUCT_FORM_AVAILABILITY_TOOLTIP2', $this->imagePath) ?>"></span>
 
 		<div class="clr"></div>
-		<img border="0" id="imagelib" alt="<?php echo vmText::_('com_tsmart_PREVIEW'); ?>" name="imagelib" src="<?php if (VmConfig::get('rised_availability')) {
+		<img border="0" id="imagelib" alt="<?php echo tsmText::_('com_tsmart_PREVIEW'); ?>" name="imagelib" src="<?php if (VmConfig::get('rised_availability')) {
 			echo JURI::root(true) . $this->imagePath . VmConfig::get('rised_availability');
 		}?>"/>
 	</fieldset>
 	<fieldset>
-		<legend><?php echo vmText::_('com_tsmart_ADMIN_CFG_REVIEW_TITLE'); ?></legend>
+		<legend><?php echo tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_TITLE'); ?></legend>
 		<table class="admintable">
 			<?php
 			echo VmHTML::row('checkbox','com_tsmart_REVIEWS_AUTOPUBLISH','reviews_autopublish',VmConfig::get('reviews_autopublish',0));
 			echo VmHTML::row('input','com_tsmart_ADMIN_CFG_REVIEW_MINIMUM_COMMENT_LENGTH','reviews_minimum_comment_length',VmConfig::get('reviews_minimum_comment_length',0));
 			echo VmHTML::row('input','com_tsmart_ADMIN_CFG_REVIEW_MAXIMUM_COMMENT_LENGTH','reviews_maximum_comment_length',VmConfig::get('reviews_maximum_comment_length',0));
-			$showReviewFor = array('none' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_NONE'),
-				'registered' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_REGISTERED'),
-				'all' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_ALL')
+			$showReviewFor = array('none' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_NONE'),
+				'registered' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_REGISTERED'),
+				'all' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_SHOW_ALL')
 			); //showReviewFor
 			echo VmHTML::row('radioList','com_tsmart_ADMIN_CFG_REVIEW_SHOW','showReviewFor',VmConfig::get('showReviewFor','all'),$showReviewFor);
 
-			$reviewMode = array('none' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_NONE'),
-				'bought' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_BOUGHT_PRODUCT'),
-				'registered' => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_REGISTERED')
+			$reviewMode = array('none' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_NONE'),
+				'bought' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_BOUGHT_PRODUCT'),
+				'registered' => tsmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_REGISTERED')
 				//	3 => vmText::_('com_tsmart_ADMIN_CFG_REVIEW_MODE_ALL')
 			);
 			echo VmHTML::row('radioList','com_tsmart_ADMIN_CFG_REVIEW','reviewMode',VmConfig::get('reviewMode','bought'),$reviewMode);

@@ -20,7 +20,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmmodel.php');
+if(!class_exists('VmModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 /**
  * Model class for shopper group
@@ -125,8 +125,8 @@ class VirtueMartModelShopperGroup extends VmModel {
 
 				}
 				VmConfig::loadJLang('com_tsmart_shoppers',TRUE);
-				$res->shopper_group_name = vmText::_($res->shopper_group_name);
-				$res->shopper_group_desc = vmText::_($res->shopper_group_desc);
+				$res->shopper_group_name = tsmText::_($res->shopper_group_name);
+				$res->shopper_group_desc = tsmText::_($res->shopper_group_desc);
 				//vmdebug('my default shoppergroup ',$res);
 				$default[$vendorId][$kind] =  $res;
 			}
@@ -218,7 +218,7 @@ class VirtueMartModelShopperGroup extends VmModel {
 
 				$db->setQuery('SELECT shopper_group_name FROM `#__virtuemart_shoppergroups`  WHERE `virtuemart_shoppergroup_id` = "'.(int)$id.'"');
 				$name = $db->loadResult();
-				vmError(vmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_DEFAULT',vmText::_($name),$id));
+				vmError(tsmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_DEFAULT',tsmText::_($name),$id));
 				continue;
 			}
 
@@ -226,7 +226,7 @@ class VirtueMartModelShopperGroup extends VmModel {
 			if($id == $anonymSgId->virtuemart_shoppergroup_id){
 				$db->setQuery('SELECT shopper_group_name FROM `#__virtuemart_shoppergroups`  WHERE `virtuemart_shoppergroup_id` = "'.(int)$id.'"');
 				$name = $db->loadResult();
-				vmError(vmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_DEFAULT',vmText::_($name),$id));
+				vmError(tsmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_DEFAULT',tsmText::_($name),$id));
 				continue;
 			}
 
@@ -235,7 +235,7 @@ class VirtueMartModelShopperGroup extends VmModel {
 			if($db->loadResult()){
 				$db->setQuery('SELECT shopper_group_name FROM `#__virtuemart_shoppergroups`  WHERE `virtuemart_shoppergroup_id` = "'.(int)$id.'"');
 				$name = $db->loadResult();
-				vmError(vmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_WITH_MEMBERS',vmText::_($name),$id));
+				vmError(tsmText::sprintf('com_tsmart_SHOPPERGROUP_DELETE_CANT_WITH_MEMBERS',tsmText::_($name),$id));
 				continue;
 			}
 

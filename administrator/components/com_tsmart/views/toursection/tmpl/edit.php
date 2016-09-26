@@ -29,7 +29,7 @@ AdminUIHelper::imitateTabs('start', "Tour section");
 
             <div class="col50">
                 <fieldset>
-                    <legend><?php echo vmText::_('Current tour section'); ?></legend>
+                    <legend><?php echo tsmText::_('Current tour section'); ?></legend>
                     <div class="admintable row-fluid">
                         <div class="span12">
                             <?php echo VmHTML::row_control('input', 'Tour section name', 'tour_section_name', $this->item->tour_section_name, 'class="required"'); ?>

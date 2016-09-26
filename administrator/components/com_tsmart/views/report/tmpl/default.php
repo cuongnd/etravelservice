@@ -29,18 +29,18 @@ else $addDateInfo = false;
 ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
     <div id="header">
-        <h2><?php echo vmText::sprintf('com_tsmart_REPORT_TITLE', vmJsApi::date( $this->from_period, 'LC',true) , vmJsApi::date( $this->until_period, 'LC',true) ); ?></h2>
+        <h2><?php echo tsmText::sprintf('com_tsmart_REPORT_TITLE', vmJsApi::date( $this->from_period, 'LC',true) , vmJsApi::date( $this->until_period, 'LC',true) ); ?></h2>
         <div id="filterbox">
 
             <table>
                 <tr>
                     <td align="left" width="100%">
-						<?php echo vmText::_('com_tsmart_ORDERSTATUS') . $this->lists['state_list']; ?>
-						<?php echo vmText::_('com_tsmart_REPORT_INTERVAL') . $this->lists['intervals']; ?>
-                        <?php echo vmText::_('com_tsmart_REPORT_SET_PERIOD') . $this->lists['select_date'];
+						<?php echo tsmText::_('com_tsmart_ORDERSTATUS') . $this->lists['state_list']; ?>
+						<?php echo tsmText::_('com_tsmart_REPORT_INTERVAL') . $this->lists['intervals']; ?>
+                        <?php echo tsmText::_('com_tsmart_REPORT_SET_PERIOD') . $this->lists['select_date'];
 
-                    echo vmText::_('com_tsmart_REPORT_FROM_PERIOD') .  vmJsApi::jDate($this->from_period, 'from_period');
-                    echo vmText::_('com_tsmart_REPORT_UNTIL_PERIOD') . vmJsApi::jDate($this->until_period, 'until_period');
+                    echo tsmText::_('com_tsmart_REPORT_FROM_PERIOD') .  vmJsApi::jDate($this->from_period, 'from_period');
+                    echo tsmText::_('com_tsmart_REPORT_UNTIL_PERIOD') . vmJsApi::jDate($this->until_period, 'until_period');
                         if(VmConfig::get('multix','none')!='none'){
                             $vendorId = vmConfig::isSuperVendor();
                             if(vmAccess::manager('managevendors')){
@@ -48,7 +48,7 @@ else $addDateInfo = false;
                             }
                         	echo ShopFunctions::renderVendorList($vendorId);
                         } ?>
-                        <button class="btn btn-small" onclick="this.form.period.value='';this.form.submit();"><?php echo vmText::_('com_tsmart_GO'); ?>
+                        <button class="btn btn-small" onclick="this.form.period.value='';this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?>
                         </button>
                     </td>
                 </tr>
@@ -142,7 +142,7 @@ else $addDateInfo = false;
             </tbody>
            <thead>
                 <tr>
-                    <th  class="right"><?php echo vmText::_('com_tsmart_TOTAL').' : '; ?></th>
+                    <th  class="right"><?php echo tsmText::_('com_tsmart_TOTAL').' : '; ?></th>
                     <th><?php echo $this->totalReport['number_of_ordersTotal']?></th>
                     <th><?php echo $this->totalReport['itemsSoldTotal'];?></th>
                     <th class="right"><?php echo $this->totalReport['revenueTotal_netto'];?></th>

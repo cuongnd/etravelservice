@@ -18,8 +18,8 @@
  */
 defined('_JEXEC') or die();
 
-if (!class_exists('VmTable'))
-    require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmtable.php');
+if (!class_exists('tsmTable'))
+    require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 
 /**
  * Calculator table class
@@ -28,7 +28,7 @@ if (!class_exists('VmTable'))
  * @author Max Milbers
  * @package		VirtueMart
  */
-class TablePaymentmethods extends VmTable {
+class TablePaymentmethods extends tsmTable {
 
     /** @var int Primary key */
     var $virtuemart_paymentmethod_id = 0;

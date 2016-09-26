@@ -18,7 +18,7 @@
 
 defined('_JEXEC') or die();
 
-if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablexarray.php');
+if(!class_exists('tsmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtablexarray.php');
 
 /**
  * Calculator table class
@@ -27,7 +27,7 @@ if(!class_exists('VmTableXarray'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmtablex
  * @author Cleanshooter(replica of product_categories by: Max Milbers)
  * @package		VirtueMart
  */
-class TableProduct_shoppergroups extends VmTableXarray {
+class TableProduct_shoppergroups extends tsmTableXarray {
 
 
 	/**

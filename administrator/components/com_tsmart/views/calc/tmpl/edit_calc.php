@@ -32,7 +32,7 @@ vmJsApi::jDate();
 
 <div class="col50">
 	<fieldset>
-	<legend><?php echo vmText::_('com_tsmart_CALC_DETAILS'); ?></legend>
+	<legend><?php echo tsmText::_('com_tsmart_CALC_DETAILS'); ?></legend>
 	<table class="admintable">
 		<?php echo VmHTML::row('input','com_tsmart_CALC_NAME','calc_name',$this->calc->calc_name,'class="required"'); ?>
 		<?php echo VmHTML::row('checkbox','com_tsmart_PUBLISHED','published',$this->calc->published); ?>
@@ -49,7 +49,7 @@ vmJsApi::jDate();
 		<tr>
 			<td width="110" class="key">
 				<label for="calc_categories">
-					<?php echo vmText::_('com_tsmart_CATEGORY'); ?>
+					<?php echo tsmText::_('com_tsmart_CATEGORY'); ?>
 				</label>
 			</td>
 			<td colspan="3">

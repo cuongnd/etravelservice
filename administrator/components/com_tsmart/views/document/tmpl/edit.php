@@ -28,7 +28,7 @@ AdminUIHelper::imitateTabs('start', "document");
 
         <div class="col50">
             <fieldset>
-                <legend><?php echo vmText::_('Current document'); ?></legend>
+                <legend><?php echo tsmText::_('Current document'); ?></legend>
                 <div class="admintable row-fluid">
                     <?php echo VmHTML::row_control('input', 'document name', 'title', $this->item->title, 'class="required"'); ?>
                     <?php echo VmHTML::image('Icon', 'icon', $this->item->icon, 'class="required"'); ?>
