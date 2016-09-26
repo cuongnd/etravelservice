@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Media
 * @author  Patrick Kohl
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,11 +31,11 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableCustoms extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_custom_id		= 0;
+	var $tsmart_custom_id		= 0;
 	/** @var int parent */
 	var $custom_parent_id		= 0;
 
-	var $virtuemart_vendor_id		= 0;
+	var $tsmart_vendor_id		= 0;
 
 	/** @var int(1)  1= only back-end display*/
 	var $admin_only		= 0;

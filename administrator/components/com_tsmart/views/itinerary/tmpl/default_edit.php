@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Currency
  * @author Max Milbers, RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -21,9 +21,9 @@ defined('_JEXEC') or die('Restricted access');
 $app=JFactory::getApplication();
 $input=$app->input;
 
-$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 $key=$input->get('key',array(),'array');
-$virtuemart_product_id=$key['virtuemart_product_id'];
+$tsmart_product_id=$key['virtuemart_product_id'];
 $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_itinerary_edit.less');
 ?>
@@ -56,7 +56,7 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
         <input type="hidden" value="itinerary" name="controller">
         <input type="hidden" value="itinerary" name="view">
         <input type="hidden" value="" name="task">
-        <input type="hidden" value="<?php echo $this->item->virtuemart_product_id?$this->item->virtuemart_product_id:$virtuemart_product_id ?>" name="virtuemart_product_id">
+        <input type="hidden" value="<?php echo $this->item->virtuemart_product_id?$this->item->virtuemart_product_id:$tsmart_product_id ?>" name="virtuemart_product_id">
         <input type="hidden" value="<?php echo $this->item->virtuemart_itinerary_id ?>" name="virtuemart_itinerary_id">
         <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
         <?php

@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage	ratings
 * @author
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -63,13 +63,13 @@ class TsmartViewRatings extends tsmViewAdmin {
 			case 'listreviews':
 				/* Get the data */
 				$this->addStandardDefaultViewLists($model);
-				$virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
-				if(is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0){
-					$virtuemart_product_id = (int)$virtuemart_product_id[0];
+				$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+				if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
+					$tsmart_product_id = (int)$tsmart_product_id[0];
 				} else {
-					$virtuemart_product_id = (int)$virtuemart_product_id;
+					$tsmart_product_id = (int)$tsmart_product_id;
 				}
-				$this->reviewslist = $model->getReviews($virtuemart_product_id, vmAccess::getVendorId());
+				$this->reviewslist = $model->getReviews($tsmart_product_id, vmAccess::getVendorId());
 
 				$lists = array();
 				$lists['filter_order'] = $mainframe->getUserStateFromRequest($option.'filter_order', 'filter_order', '', 'cmd');

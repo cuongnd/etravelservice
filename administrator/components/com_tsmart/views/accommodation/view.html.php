@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -39,7 +39,7 @@ class TsmartViewaccommodation extends tsmViewAdmin {
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 		$task=$app->input->getString('task','');
-		$virtuemart_product_id=$app->input->getInt('virtuemart_product_id',0);
+		$tsmart_product_id=$app->input->getInt('virtuemart_product_id',0);
 		$model = VmModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$this->virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
@@ -75,18 +75,18 @@ class TsmartViewaccommodation extends tsmViewAdmin {
 			if ($task == 'edit_item'||$task=='add_new_item') {
 				$app=JFactory::getApplication();
 				$input=$app->input;
-				$virtuemart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
-				$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+				$tsmart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
+				$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 
 				$cid	= vRequest::getInt( 'cid' );
 
-				$virtuemart_accommodation_id=$cid[0];
+				$tsmart_accommodation_id=$cid[0];
 				require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-				$this->list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+				$this->list_service_class=vmServiceclass::get_list_service_class_by_tour_id($tsmart_product_id);
 
 
 				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmaccommodation.php';
-				$this->list_hotel_selected_by_service_class_id_and_itinerary_id=tsmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($this->list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
+				$this->list_hotel_selected_by_service_class_id_and_itinerary_id=tsmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($this->list_service_class,$tsmart_itinerary_id,$tsmart_accommodation_id);
 			}
 
 		}

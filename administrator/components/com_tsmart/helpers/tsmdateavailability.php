@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -57,13 +57,13 @@ class tsmdateavailability
 
     }
 
-    public static function get_format_dateavailability_code($virtuemart_dateavailability_id,$day)
+    public static function get_format_dateavailability_code($tsmart_dateavailability_id,$day)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('dateavailability.virtuemart_dateavailability_id')
             ->from('#__virtuemart_dateavailability AS dateavailability')
-            ->where('dateavailability.virtuemart_dateavailability_id='.(int)$virtuemart_dateavailability_id)
+            ->where('dateavailability.virtuemart_dateavailability_id='.(int)$tsmart_dateavailability_id)
             ->innerJoin('#__virtuemart_products AS product ON product.virtuemart_product_id=dateavailability.virtuemart_product_id')
             ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=product.virtuemart_product_id')
             ->select('products_en_gb.product_name AS product_name')

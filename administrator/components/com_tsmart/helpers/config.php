@@ -1289,11 +1289,11 @@ class vmAccess {
 
 				$db= JFactory::getDbo();
 				$db->setQuery($q);
-				$virtuemart_vendor_id = $db->loadResult();
+				$tsmart_vendor_id = $db->loadResult();
 
-				if ($virtuemart_vendor_id) {
-					self::$_virtuemart_vendor_id[$uid] = $virtuemart_vendor_id;
-					vmdebug('Active vendor '.$virtuemart_vendor_id );
+				if ($tsmart_vendor_id) {
+					self::$_virtuemart_vendor_id[$uid] = $tsmart_vendor_id;
+					vmdebug('Active vendor '.$tsmart_vendor_id );
 				} else {
 					if(self::manager('core') or self::manager('managevendors')){
 						vmdebug('Active Mainvendor');

@@ -17,7 +17,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 defined('_JEXEC') or die();

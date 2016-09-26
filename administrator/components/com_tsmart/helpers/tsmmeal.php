@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -43,24 +43,24 @@ class vmmeal
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_meal_id_by_itinerary_id($virtuemart_itinerary_id=0)
+    public static function get_list_meal_id_by_itinerary_id($tsmart_itinerary_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_meal_id')
             ->from('#__virtuemart_itinerary_id_meal_id')
-            ->where('virtuemart_itinerary_id='.(int)$virtuemart_itinerary_id)
+            ->where('virtuemart_itinerary_id='.(int)$tsmart_itinerary_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
-    public static function get_list_meal_by_itinerary_id($virtuemart_itinerary_id=0)
+    public static function get_list_meal_by_itinerary_id($tsmart_itinerary_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('meal.*')
             ->from('#__virtuemart_itinerary_id_meal_id AS itinerary_id_meal_id')
             ->leftJoin('#__virtuemart_meal AS meal ON meal.virtuemart_meal_id=itinerary_id_meal_id.virtuemart_meal_id')
-            ->where('virtuemart_itinerary_id='.(int)$virtuemart_itinerary_id)
+            ->where('virtuemart_itinerary_id='.(int)$tsmart_itinerary_id)
         ;
         return $db->setQuery($query)->loadObjectList();
     }

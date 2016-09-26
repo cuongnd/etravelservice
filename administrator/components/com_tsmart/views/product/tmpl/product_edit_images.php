@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Product
 * @author RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -36,11 +36,11 @@ defined('_JEXEC') or die('Restricted access');
 			$tag = $jlang->getTag();
 			$imgUrl = 'http://www.pixelz.com/images/gmail.png';
 			if(strpos($tag,'de')!==FALSE){
-				$url = 'http://de.pixelz.com/virtuemart/';
+				$url = 'http://de.pixelz.com/tsmart/';
 			} else if(strpos($tag,'fr')!==FALSE){
-				$url = 'http://fr.pixelz.com/virtuemart/';
+				$url = 'http://fr.pixelz.com/tsmart/';
 			} else {
-				$url = 'http://uk.pixelz.com/virtuemart/';
+				$url = 'http://uk.pixelz.com/tsmart/';
 			}
 			echo '<a href="'.$url.'" target="_blank" alt="'.tsmText::_('com_tsmart_RTB_AD').'"><img  style="width: 150px;" src="'.$imgUrl.'" title="'.tsmText::_('com_tsmart_RTB_AD').'"></a>';
 		?>

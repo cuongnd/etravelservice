@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Media
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -33,8 +33,8 @@ if (!class_exists ('tsmTable')) {
 class TableMedias extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_media_id = 0;
-	var $virtuemart_vendor_id = 0;
+	var $tsmart_media_id = 0;
+	var $tsmart_vendor_id = 0;
 
 	/** @var string File title */
 	var $file_title = '';

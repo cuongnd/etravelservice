@@ -14,7 +14,7 @@ if( !defined( '_JEXEC' ) ) die('Restricted access');
 * other free or open source software licenses.
 * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
 *
-* http://virtuemart.org
+* http://tsmart.org
 */
 
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');

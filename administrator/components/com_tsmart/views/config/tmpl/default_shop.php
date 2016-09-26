@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Config
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -57,7 +57,7 @@ defined('_JEXEC') or die('Restricted access');?>
 			<td>
 				<?php echo $this->activeLanguages; ?>
 			 <span>
-				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','<a href="http://virtuemart.net/community/translations" target="_blank" >Translations</a>'); ?>
+				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','<a href="http://tsmart.net/community/translations" target="_blank" >Translations</a>'); ?>
 				</span></td>
 		</tr>
 		<?php

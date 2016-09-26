@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Product
  * @author Seyi, Max Milbers, Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -29,19 +29,19 @@ class VirtueMartModelWaitingList extends VmModel {
 	/**
 	 * Load the customers on the waitinglist
 	 */
-	public function getWaitingusers ($virtuemart_product_id, $is_new = TRUE) {
+	public function getWaitingusers ($tsmart_product_id, $is_new = TRUE) {
 
-		if (!$virtuemart_product_id) {
+		if (!$tsmart_product_id) {
 			return FALSE;
 		}
 
 		//Sanitize param
-		$virtuemart_product_id = (int)$virtuemart_product_id;
+		$tsmart_product_id = (int)$tsmart_product_id;
 
 		$db = JFactory::getDBO ();
 		$q = 'SELECT * FROM `#__virtuemart_waitingusers`
 				LEFT JOIN `#__users` ON `virtuemart_user_id` = `id`
-				WHERE `virtuemart_product_id`=' . $virtuemart_product_id . '
+				WHERE `virtuemart_product_id`=' . $tsmart_product_id . '
 				' . ($is_new ? ' AND `notified`=0 ' : '');
 		$db->setQuery ($q);
 		return $db->loadObjectList ();
@@ -57,27 +57,27 @@ class VirtueMartModelWaitingList extends VmModel {
 	 * @todo Update mail from
 	 * @todo Get the from name/email from the vendor
 	 */
-	public function notifyList ($virtuemart_product_id, $subject = '', $mailbody = '', $max_number = 0) {
+	public function notifyList ($tsmart_product_id, $subject = '', $mailbody = '', $max_number = 0) {
 
-		if (!$virtuemart_product_id) {
+		if (!$tsmart_product_id) {
 			return FALSE;
 		}
 
 		//sanitize id
-		$virtuemart_product_id = (int)$virtuemart_product_id;
+		$tsmart_product_id = (int)$tsmart_product_id;
 		$max_number = (int)$max_number;
 
 		if (!class_exists ('shopFunctionsF')) {
 			require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
 		}
 		$vars = array();
-		$waiting_users = $this->getWaitingusers ($virtuemart_product_id);
+		$waiting_users = $this->getWaitingusers ($tsmart_product_id);
 
 		/* Load the product details */
 		$db = JFactory::getDbo ();
 		$q = "SELECT l.product_name,product_in_stock FROM `#__virtuemart_products_" . VmConfig::$vmlang . "` l
 				JOIN `#__virtuemart_products` p ON p.virtuemart_product_id=l.virtuemart_product_id
-			   WHERE p.virtuemart_product_id = " . $virtuemart_product_id;
+			   WHERE p.virtuemart_product_id = " . $tsmart_product_id;
 		$db->setQuery ($q);
 		$item = $db->loadObject ();
 		$vars['productName'] = $item->product_name;
@@ -86,7 +86,7 @@ class VirtueMartModelWaitingList extends VmModel {
 			return FALSE;
 		}
 		*/
-		$url = JURI::root () . 'index.php?option=com_tsmart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id;
+		$url = JURI::root () . 'index.php?option=com_tsmart&view=productdetails&virtuemart_product_id=' . $tsmart_product_id;
 		$vars['link'] = '<a href="'. $url.'">'. $item->product_name.'</a>';
 
 
@@ -96,15 +96,15 @@ class VirtueMartModelWaitingList extends VmModel {
 		$vars['subject'] = $subject;
 		$vars['mailbody'] = $mailbody;
 
-		$virtuemart_vendor_id = 1;
+		$tsmart_vendor_id = 1;
 		$vendorModel = VmModel::getModel ('vendor');
-		$vendor = $vendorModel->getVendor ($virtuemart_vendor_id);
+		$vendor = $vendorModel->getVendor ($tsmart_vendor_id);
 		$vendorModel->addImages ($vendor);
 		$vars['vendor'] = $vendor;
 
-		$vars['vendorAddress']= shopFunctions::renderVendorAddress($virtuemart_vendor_id);
+		$vars['vendorAddress']= shopFunctions::renderVendorAddress($tsmart_vendor_id);
 
-		$vendorEmail = $vendorModel->getVendorEmail ($virtuemart_vendor_id);
+		$vendorEmail = $vendorModel->getVendorEmail ($tsmart_vendor_id);
 		$vars['vendorEmail'] = $vendorEmail;
 
 		$i = 0;

@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -73,7 +73,7 @@ class vmpaymentsetting
         return $db->setQuery($query)->loadObjectList();
     }
 
-    public static function get_list_payment_method_by_paymentsetting_id($virtuemart_paymentsetting_id)
+    public static function get_list_payment_method_by_paymentsetting_id($tsmart_paymentsetting_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);

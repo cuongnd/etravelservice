@@ -7,7 +7,7 @@
  * @subpackage product
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -140,29 +140,29 @@ class VirtueMartModelproduct extends VmModel {
             }
             return FALSE;
         }
-        $virtuemart_product_id=$this->virtuemart_product_id = $data['virtuemart_product_id'] = (int)$table_product->virtuemart_product_id;
+        $tsmart_product_id=$this->virtuemart_product_id = $data['virtuemart_product_id'] = (int)$table_product->virtuemart_product_id;
         if (empty($this->virtuemart_product_id)) {
             vmError('Product not stored, no id');
             return FALSE;
         }
 
-        if($virtuemart_product_id) {
+        if($tsmart_product_id) {
             $db = JFactory::getDbo();
             //inser to activity
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_activity_id')
-                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete activity in this tour', $err);
             }
             $list_activity_id = $data['list_activity_id'];
-            foreach ($list_activity_id as $virtuemart_activity_id) {
+            foreach ($list_activity_id as $tsmart_activity_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_activity_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_activity_id=' . (int)$virtuemart_activity_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_activity_id=' . (int)$tsmart_activity_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -174,18 +174,18 @@ class VirtueMartModelproduct extends VmModel {
             //inser to countries
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_country_id')
-                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete country in this tour', $err);
             }
             $list_virtuemart_country_id = $data['list_virtuemart_country_id'];
-            foreach ($list_virtuemart_country_id as $virtuemart_country_id) {
+            foreach ($list_virtuemart_country_id as $tsmart_country_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_country_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_country_id=' . (int)$virtuemart_country_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_country_id=' . (int)$tsmart_country_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -195,18 +195,18 @@ class VirtueMartModelproduct extends VmModel {
             //inser to tour class
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_service_class_id')
-                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete tour in tour class', $err);
             }
             $list_tour_service_class_id = $data['list_tour_service_class_id'];
-            foreach ($list_tour_service_class_id as $virtuemart_service_class_id) {
+            foreach ($list_tour_service_class_id as $tsmart_service_class_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_service_class_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_service_class_id=' . (int)$virtuemart_service_class_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_service_class_id=' . (int)$tsmart_service_class_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -216,7 +216,7 @@ class VirtueMartModelproduct extends VmModel {
             //inser to tour group size
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_group_size_id')
-                ->where('virtuemart_product_id=' . (int)$virtuemart_product_id);
+                ->where('virtuemart_product_id=' . (int)$tsmart_product_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
@@ -231,11 +231,11 @@ class VirtueMartModelproduct extends VmModel {
                 $list_group_size_id=array();
                 $list_group_size_id[]=2;
             }
-            foreach ($list_group_size_id as $virtuemart_group_size_id) {
+            foreach ($list_group_size_id as $tsmart_group_size_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_group_size_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_group_size_id=' . (int)$virtuemart_group_size_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_group_size_id=' . (int)$tsmart_group_size_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -245,7 +245,7 @@ class VirtueMartModelproduct extends VmModel {
 
 
         }
-        return $virtuemart_product_id;
+        return $tsmart_product_id;
 	}
 
 	function remove($ids){

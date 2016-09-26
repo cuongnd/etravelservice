@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -45,20 +45,20 @@ class TsmartViewPrice extends tsmViewAdmin {
 		$input=$app->input;
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-		$virtuemart_product_id=$app->input->get('virtuemart_product_id',0,'int');
-		$this->product=$model_product->getItem($virtuemart_product_id);
+		$tsmart_product_id=$app->input->get('virtuemart_product_id',0,'int');
+		$this->product=$model_product->getItem($tsmart_product_id);
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 
 			if($this->product->tour_methor=='tour_group')
 			{
-				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($virtuemart_product_id);
+				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($tsmart_product_id);
 
 			}else{
-				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($virtuemart_product_id);
+				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($tsmart_product_id);
 			}
 
 			$task = vRequest::getCmd('task', 'add');
@@ -82,11 +82,11 @@ class TsmartViewPrice extends tsmViewAdmin {
             $tour_id=$input->get('virtuemart_product_id',0,'int');
             $this->virtuemart_product_id=$tour_id;
 
-            $this->product=$model_product->getItem($virtuemart_product_id);
+            $this->product=$model_product->getItem($tsmart_product_id);
             $this->price = $model->getPrice();
 
 /*            //get markup
-            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
+            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup*/
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';

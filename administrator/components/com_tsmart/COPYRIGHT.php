@@ -6,14 +6,14 @@ if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not 
 * @subpackage core
 * @author Sören
 * @author Max Milbers
-* @copyright Copyright (C) 2004-2008 soeren - All rights reserved., 2010-2011 by the virtuemart team (addendum for vm2)
+* @copyright Copyright (C) 2004-2008 soeren - All rights reserved., 2010-2011 by the tsmart team (addendum for vm2)
 * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2, see COPYRIGHT.php
 * VirtueMart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
 *
-* http://virtuemart.net
+* http://tsmart.net
 */
 
 ?>

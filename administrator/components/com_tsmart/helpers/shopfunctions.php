@@ -92,7 +92,7 @@ class ShopFunctions {
 	 *
 	 * @author Max Milbers
 	 * @access public
-	 * @param int $virtuemart_shoppergroup_id the shopper group to pre-select
+	 * @param int $tsmart_shoppergroup_id the shopper group to pre-select
 	 * @param bool $multiple if the select list should allow multiple selections
 	 * @return string HTML select option list
 	 */
@@ -578,7 +578,7 @@ class ShopFunctions {
 
 		static $categoryTree = '';
 
-		$virtuemart_vendor_id = 1;
+		$tsmart_vendor_id = 1;
 
 		$categoryModel = VmModel::getModel ('category');
 		$level++;
@@ -864,7 +864,7 @@ class ShopFunctions {
 
 	/**
 	 * Creates an drop-down list with numbers from 1 to 31 or of the selected range,
-	 * dont use within virtuemart. It is just meant for paymentmethods
+	 * dont use within tsmart. It is just meant for paymentmethods
 	 *
 	 * @param string $list_name The name of the select element
 	 * @param string $selected_item The pre-selected value

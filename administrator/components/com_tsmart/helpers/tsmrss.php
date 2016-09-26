@@ -35,14 +35,14 @@ class vmRSS{
 
 	/**
 	 * @author Valerie Isaksen
-	 * Returns the RSS feed from Extensions.virtuemart.net
+	 * Returns the RSS feed from Extensions.tsmart.net
 	 * @return mixed
 	 */
 	public static $extFeeds = false;
 	static public function getExtensionsRssFeed($items =15, $cache_time = 2880) {
 		if (empty(self::$extFeeds)) {
 			try {
-				self::$extFeeds = self::getCPsRssFeed( "http://extensions.virtuemart.net/?format=feed&type=rss", $items,$cache_time );
+				self::$extFeeds = self::getCPsRssFeed( "http://extensions.tsmart.net/?format=feed&type=rss", $items,$cache_time );
 				//self::$extFeeds =  self::getRssFeed("http://extensions.virtuemart.net/?format=feed&type=rss", 15);
 			} catch (Exception $e) {
 				echo 'Where not able to parse extension feed';
@@ -53,14 +53,14 @@ class vmRSS{
 
 	/**
 	 * @author Valerie Isaksen
-	 * Returns the RSS feed from virtuemart.net
+	 * Returns the RSS feed from tsmart.net
 	 * @return mixed
 	 */
 	public static $vmFeeds = false;
 	static public function getVirtueMartRssFeed() {
  		if (empty(self::$vmFeeds)) {
 			try {
-				self::$vmFeeds =  self::getCPsRssFeed("http://virtuemart.net/news/list-all-news?format=feed&type=rss", 5, 240);
+				self::$vmFeeds =  self::getCPsRssFeed("http://tsmart.net/news/list-all-news?format=feed&type=rss", 5, 240);
 			} catch (Exception $e) {
 				echo 'Where not able to parse news feed';
 			}

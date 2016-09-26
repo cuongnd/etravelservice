@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -43,24 +43,24 @@ class vmroom
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_room_id_by_itinerary_id($virtuemart_itinerary_id=0)
+    public static function get_list_room_id_by_itinerary_id($tsmart_itinerary_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_room_id')
             ->from('#__virtuemart_itinerary_id_room_id')
-            ->where('virtuemart_itinerary_id='.(int)$virtuemart_itinerary_id)
+            ->where('virtuemart_itinerary_id='.(int)$tsmart_itinerary_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
-    public static function get_list_room_by_itinerary_id($virtuemart_itinerary_id=0)
+    public static function get_list_room_by_itinerary_id($tsmart_itinerary_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('room.*')
             ->from('#__virtuemart_itinerary_id_room_id AS itinerary_id_room_id')
             ->leftJoin('#__virtuemart_room AS room ON room.virtuemart_room_id=itinerary_id_room_id.virtuemart_room_id')
-            ->where('virtuemart_itinerary_id='.(int)$virtuemart_itinerary_id)
+            ->where('virtuemart_itinerary_id='.(int)$tsmart_itinerary_id)
         ;
         return $db->setQuery($query)->loadObjectList();
     }

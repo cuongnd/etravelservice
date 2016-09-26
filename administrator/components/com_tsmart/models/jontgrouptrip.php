@@ -7,7 +7,7 @@
  * @subpackage product
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -149,8 +149,8 @@ class VirtueMartModeljontgrouptrip extends VmModel {
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
-        $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
-        $virtuemart_departure_id=$this->getState('filter.virtuemart_departure_id');
+        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_departure_id=$this->getState('filter.virtuemart_departure_id');
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
         $query->select('departure.virtuemart_departure_id,departure.departure_date,departure.departure_code,departure.allow_passenger,departure.virtuemart_product_id')
@@ -162,7 +162,7 @@ class VirtueMartModeljontgrouptrip extends VmModel {
             ->where('tour_price.virtuemart_service_class_id=departure.virtuemart_service_class_id')
             ->select('tour_price.virtuemart_price_id')
             ->select('tour_price.full_charge_children1 AS tour_price_full_charge_children1,tour_price.full_charge_children2 AS tour_price_full_charge_children2,tour_price.tax')
-            ->where('departure.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('departure.virtuemart_product_id='.(int)$tsmart_product_id)
             ->where('tour_price.virtuemart_price_id IS NOT NULL')
             ->leftJoin('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.virtuemart_price_id=tour_price.virtuemart_price_id')
             ->select('
@@ -272,9 +272,9 @@ class VirtueMartModeljontgrouptrip extends VmModel {
                     mark_up_tour_promotion_price_id.type AS mark_up_promotion_type
             ')
         ;
-        if($virtuemart_departure_id)
+        if($tsmart_departure_id)
         {
-            $query->where('departure.virtuemart_departure_id='.(int)$virtuemart_departure_id);
+            $query->where('departure.virtuemart_departure_id='.(int)$tsmart_departure_id);
         }
         //echo $query->dump();
 		return $query;

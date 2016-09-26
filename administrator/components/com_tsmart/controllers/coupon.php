@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -56,17 +56,17 @@ class TsmartControllercoupon extends TsmController {
 	public function get_detail_hotel()
 	{
 		$input=JFactory::getApplication()->input;
-		$virtuemart_hotel_id=$input->getInt('virtuemart_hotel_id',0);
+		$tsmart_hotel_id=$input->getInt('virtuemart_hotel_id',0);
 		$db=JFactory::getDbo();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
-		$hotel=tsmcoupon::get_detail_hotel_by_hotel_id($virtuemart_hotel_id);
+		$hotel=tsmcoupon::get_detail_hotel_by_hotel_id($tsmart_hotel_id);
 		echo json_encode($hotel);
 		die;
 	}
 	public function get_tour_avail_by_hotel_id_first_itinerary()
 	{
 		$input=JFactory::getApplication()->input;
-		$virtuemart_hotel_id=$input->getInt('virtuemart_hotel_id',0);
+		$tsmart_hotel_id=$input->getInt('virtuemart_hotel_id',0);
 		$hotel_addon_type=$input->getString('hotel_addon_type','');
 		$db=JFactory::getDbo();
 
@@ -112,7 +112,7 @@ class TsmartControllercoupon extends TsmController {
 			->leftJoin('#__virtuemart_itinerary AS itinerary USING(virtuemart_product_id)')
 			->leftJoin('#__virtuemart_accommodation AS accommodation ON accommodation.virtuemart_itinerary_id=itinerary.virtuemart_itinerary_id')
 			->leftJoin('#__virtuemart_hotel_id_service_class_id_accommodation_id AS hotel_id_service_class_id_accommodation_id ON hotel_id_service_class_id_accommodation_id.virtuemart_accommodation_id=accommodation.virtuemart_accommodation_id')
-			->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$virtuemart_hotel_id)
+			->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$tsmart_hotel_id)
 			->where('itinerary.virtuemart_itinerary_id IN('.$a_list_itinerary_id.')')
 			->group('product.virtuemart_product_id')
 		;
@@ -125,19 +125,19 @@ class TsmartControllercoupon extends TsmController {
 	public function check_tour()
 	{
 		$app=JFactory::getApplication();
-		$virtuemart_product_id=$app->input->get('virtuemart_product_id',0);
+		$tsmart_product_id=$app->input->get('virtuemart_product_id',0);
 		$vail_from=$app->input->get('vail_from',0);
         $vail_from=JFactory::getDate($vail_from);
         $vail_to=$app->input->get('vail_to',0);
         $vail_to=JFactory::getDate($vail_to);
-        $virtuemart_hotel_addon_id=$app->input->get('virtuemart_hotel_addon_id',0);
+        $tsmart_hotel_addon_id=$app->input->get('virtuemart_hotel_addon_id',0);
         $hotel_addon_type=$app->input->getString('hotel_addon_type','');
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('count(*) AS total_record')
             ->from('#__virtuemart_hotel_addon_date_price AS hotel_addon_date_price')
-            ->where('hotel_addon_date_price.virtuemart_hotel_addon_id!='.(int)$virtuemart_hotel_addon_id)
-            ->where('hotel_addon_date_price.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('hotel_addon_date_price.virtuemart_hotel_addon_id!='.(int)$tsmart_hotel_addon_id)
+            ->where('hotel_addon_date_price.virtuemart_product_id='.(int)$tsmart_product_id)
             ->where('hotel_addon_date_price.hotel_addon_type='.$query->q($hotel_addon_type))
             ->where('(hotel_addon_date_price.date>='.$query->q($vail_from->toSql()).' AND hotel_addon_date_price.date<='.$query->q($vail_to->toSql()).')')
             ;

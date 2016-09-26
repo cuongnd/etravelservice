@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author RolandD, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -86,9 +86,9 @@ class VirtueMartModelRatings extends VmModel {
 		$whereString = '';
 		if(VmConfig::get('multix','none')!='none'){
 			$tables .= ' LEFT JOIN  `#__virtuemart_products` as p USING (`virtuemart_product_id`)';
-			$virtuemart_vendor_id = vmAccess::getVendorId();
-			if(!empty($virtuemart_vendor_id)){
-				$whereString = ' WHERE virtuemart_vendor_id="'.$virtuemart_vendor_id.'"';
+			$tsmart_vendor_id = vmAccess::getVendorId();
+			if(!empty($tsmart_vendor_id)){
+				$whereString = ' WHERE virtuemart_vendor_id="'.$tsmart_vendor_id.'"';
 			}
 		}
 
@@ -120,13 +120,13 @@ class VirtueMartModelRatings extends VmModel {
 
 		/* Add some variables for a new rating */
 		if (vRequest::getCmd('task') == 'add') {
-			$virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
-			if(is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0){
-				$virtuemart_product_id = (int)$virtuemart_product_id[0];
+			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
+				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
-				$virtuemart_product_id = (int)$virtuemart_product_id;
+				$tsmart_product_id = (int)$tsmart_product_id;
 			}
-			$ratings_data->virtuemart_product_id = $virtuemart_product_id;
+			$ratings_data->virtuemart_product_id = $tsmart_product_id;
 
 			/* User ID */
 			$user = JFactory::getUser();
@@ -138,16 +138,16 @@ class VirtueMartModelRatings extends VmModel {
 
 	/**
 	 * @author Max Milbers
-	 * @param $virtuemart_product_id
+	 * @param $tsmart_product_id
 	 * @return null
 	 */
-	function getReviews($virtuemart_product_id, $virtuemart_vendor_id = 0){
+	function getReviews($tsmart_product_id, $tsmart_vendor_id = 0){
 
-	    if (empty($virtuemart_product_id)) {
+	    if (empty($tsmart_product_id)) {
 		    return NULL;
 	    }
 		static $reviews = array();
-		$hash = VmConfig::$vmlang.$virtuemart_product_id.$this->_selectedOrderingDir.$this->_selectedOrdering;
+		$hash = VmConfig::$vmlang.$tsmart_product_id.$this->_selectedOrderingDir.$this->_selectedOrdering;
 		if(!isset($reviews[$hash])){
 			$vendorId = '';
 
@@ -155,15 +155,15 @@ class VirtueMartModelRatings extends VmModel {
 			$tables = ' FROM `#__virtuemart_rating_reviews` AS `pr`
 		LEFT JOIN `#__users` AS `u`	ON `pr`.`created_by` = `u`.`id`
 		LEFT JOIN `#__virtuemart_products_'.VmConfig::$vmlang.'` AS `l` ON `l`.`virtuemart_product_id` = `pr`.`virtuemart_product_id` ';
-			if(!empty($virtuemart_vendor_id)){
+			if(!empty($tsmart_vendor_id)){
 				$tables .= 'LEFT JOIN `#__virtuemart_products` AS `p` ON `p`.`virtuemart_product_id` = `pr`.`virtuemart_product_id` ';
 			}
 			$tables .= '
 		LEFT JOIN `#__virtuemart_rating_votes` AS `rv` on `rv`.`virtuemart_product_id`=`pr`.`virtuemart_product_id` and `rv`.`created_by`=`u`.`id`';
 
-			$whereString = ' WHERE  `l`.`virtuemart_product_id` = "'.$virtuemart_product_id.'" ';
-			if(!empty($virtuemart_vendor_id)){
-				$whereString .= ' AND `p`.virtuemart_vendor_id="'.$virtuemart_vendor_id.'"';
+			$whereString = ' WHERE  `l`.`virtuemart_product_id` = "'.$tsmart_product_id.'" ';
+			if(!empty($tsmart_vendor_id)){
+				$whereString .= ' AND `p`.virtuemart_vendor_id="'.$tsmart_vendor_id.'"';
 			}
 			$reviews[$hash] = $this->exeSortSearchListQuery(0,$select,$tables,$whereString,'',$this->_getOrdering());
 		}
@@ -280,14 +280,14 @@ class VirtueMartModelRatings extends VmModel {
 
 		//Check user_rating
 		$maxrating = VmConfig::get('vm_maximum_rating_scale',5);
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
+		$tsmart_product_id = vRequest::getInt('virtuemart_product_id',0);
 
 		$app = JFactory::getApplication();
 		if( $app->isSite() ){
 			$user = JFactory::getUser();
 			$userId = $user->id;
-			$allowReview = $this->allowReview($virtuemart_product_id);
-			$allowRating = $this->allowRating($virtuemart_product_id);
+			$allowReview = $this->allowReview($tsmart_product_id);
+			$allowRating = $this->allowRating($tsmart_product_id);
 		} else {
 			$userId = $data['created_by'];
 			$allowReview = true;
@@ -295,7 +295,7 @@ class VirtueMartModelRatings extends VmModel {
 		}
 
 
-		if(!empty($virtuemart_product_id)){
+		if(!empty($tsmart_product_id)){
 			//if ( !empty($data['virtuemart_product_id']) && !empty($userId)){
 
 			if(empty($data)) $data = vRequest::getPost();

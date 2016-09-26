@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -67,21 +67,21 @@ class VirtueMartModelhoteladdon extends VmModel {
         {
             $list_virtuemart_product_id=$item->list_virtuemart_product_id;
             $list_virtuemart_product_id=explode(',',$list_virtuemart_product_id);
-            $virtuemart_hotel_id=$item->virtuemart_hotel_id;
-            $virtuemart_hotel_addon_id=$item->virtuemart_hotel_addon_id;
+            $tsmart_hotel_id=$item->virtuemart_hotel_id;
+            $tsmart_hotel_addon_id=$item->virtuemart_hotel_addon_id;
 
             $list_tour_tour_class=array();
-            foreach($list_virtuemart_product_id AS $virtuemart_product_id) {
+            foreach($list_virtuemart_product_id AS $tsmart_product_id) {
                 $query = $db->getQuery(true);
                 $query->select('CONCAT("<a href=index.php?option=com_tsmart&view=product&task=edit&virtuemart_product_id=",products_en_gb.virtuemart_product_id,">",products_en_gb.product_name," </a>","(",GROUP_CONCAT(DISTINCT(service_class.service_class_name) SEPARATOR ","),"."," ",")") AS tour_tour_class')
                     ->from('#__virtuemart_hotel_id_service_class_id_accommodation_id  AS hotel_id_service_class_id_accommodation_id')
                     ->leftJoin('#__virtuemart_tour_id_service_class_id AS tour_id_service_class_id USING(virtuemart_service_class_id)')
                     ->leftJoin('#__virtuemart_service_class AS service_class ON service_class.virtuemart_service_class_id=tour_id_service_class_id.virtuemart_service_class_id')
-                    ->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$virtuemart_hotel_id)
+                    ->where('hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id='.(int)$tsmart_hotel_id)
                     ->leftJoin('#__virtuemart_hotel_addon AS hotel_addon ON hotel_addon.virtuemart_hotel_id=hotel_id_service_class_id_accommodation_id.virtuemart_hotel_id')
-                    ->where('hotel_addon.virtuemart_hotel_addon_id='.(int)$virtuemart_hotel_addon_id)
+                    ->where('hotel_addon.virtuemart_hotel_addon_id='.(int)$tsmart_hotel_addon_id)
                     ->leftJoin('#__virtuemart_tour_id_hotel_addon_id AS tour_id_hotel_addon_id ON tour_id_hotel_addon_id.virtuemart_hotel_addon_id=hotel_addon.virtuemart_hotel_addon_id')
-                    ->where('tour_id_hotel_addon_id.virtuemart_product_id='.(int)$virtuemart_product_id)
+                    ->where('tour_id_hotel_addon_id.virtuemart_product_id='.(int)$tsmart_product_id)
                     ->leftJoin('#__virtuemart_products AS products ON products.virtuemart_product_id=tour_id_hotel_addon_id.virtuemart_product_id')
                     ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=products.virtuemart_product_id')
                 ;
@@ -92,13 +92,13 @@ class VirtueMartModelhoteladdon extends VmModel {
             $item->tour_tour_class=implode(' ',$list_tour_tour_class);
         }
 
-        if ($virtuemart_product_id = $this->getState('filter.virtuemart_product_id'))
+        if ($tsmart_product_id = $this->getState('filter.virtuemart_product_id'))
         {
             foreach($items as $key=>&$item)
             {
                 $list_virtuemart_product_id=$item->list_virtuemart_product_id;
                 $list_virtuemart_product_id=explode(',',$list_virtuemart_product_id);
-                if(!in_array($virtuemart_product_id,$list_virtuemart_product_id))
+                if(!in_array($tsmart_product_id,$list_virtuemart_product_id))
                 {
                     unset($items[$key]);
                 }
@@ -180,8 +180,8 @@ class VirtueMartModelhoteladdon extends VmModel {
         $this->setState('filter.location_city', $location_city);
 
 
-        $virtuemart_product_id = $this->getUserStateFromRequest($this->context . '.filter.virtuemart_product_id', 'filter_virtuemart_product_id', '', 'int');
-        $this->setState('filter.virtuemart_product_id', $virtuemart_product_id);
+        $tsmart_product_id = $this->getUserStateFromRequest($this->context . '.filter.virtuemart_product_id', 'filter_virtuemart_product_id', '', 'int');
+        $this->setState('filter.virtuemart_product_id', $tsmart_product_id);
 
         $vail_from = $this->getUserStateFromRequest($this->context . '.filter.vail_from', 'filter_vail_from', '', 'String');
         $this->setState('filter.vail_from', $vail_from);
@@ -208,23 +208,23 @@ class VirtueMartModelhoteladdon extends VmModel {
 			return false;
 		}
 		$db=JFactory::getDbo();
-		$virtuemart_hotel_addon_id= parent::store($data);
-		if($virtuemart_hotel_addon_id) {
+		$tsmart_hotel_addon_id= parent::store($data);
+		if($tsmart_hotel_addon_id) {
 			//inser to excusionaddon
 			$query = $db->getQuery(true);
 			$query->delete('#__virtuemart_tour_id_hotel_addon_id')
-				->where('virtuemart_hotel_addon_id=' . (int)$virtuemart_hotel_addon_id);
+				->where('virtuemart_hotel_addon_id=' . (int)$tsmart_hotel_addon_id);
 			$db->setQuery($query)->execute();
 			$err = $db->getErrorMsg();
 			if (!empty($err)) {
 				vmError('can not delete tour in hotel_addon', $err);
 			}
 			$list_tour_id = $data['list_tour_id'];
-			foreach ($list_tour_id as $virtuemart_product_id) {
+			foreach ($list_tour_id as $tsmart_product_id) {
 				$query->clear()
 					->insert('#__virtuemart_tour_id_hotel_addon_id')
-					->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-					->set('virtuemart_hotel_addon_id=' . (int)$virtuemart_hotel_addon_id);
+					->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+					->set('virtuemart_hotel_addon_id=' . (int)$tsmart_hotel_addon_id);
 				$db->setQuery($query)->execute();
 				$err = $db->getErrorMsg();
 				if (!empty($err)) {
@@ -253,7 +253,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 					$hotel_addon_date_price_table->id=0;
 					$hotel_addon_date_price_table->jload(array('date'=>$date,'virtuemart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
 					$hotel_addon_date_price_table->date=$date;
-					$hotel_addon_date_price_table->virtuemart_hotel_addon_id=$virtuemart_hotel_addon_id;
+					$hotel_addon_date_price_table->virtuemart_hotel_addon_id=$tsmart_hotel_addon_id;
 					$hotel_addon_date_price_table->virtuemart_product_id=$tour_id;
 					$hotel_addon_date_price_table->hotel_addon_type=$hotel_addon_type;
 					$hotel_addon_date_price_table->single_room_net_price=$single_room->net_price;
@@ -287,7 +287,7 @@ class VirtueMartModelhoteladdon extends VmModel {
 
 
 		}
-		return $virtuemart_hotel_addon_id;
+		return $tsmart_hotel_addon_id;
 
 	}
 

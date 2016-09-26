@@ -1,7 +1,7 @@
 <?php
 
 /**
- * virtuemart table class, with some additional behaviours.
+ * tsmart table class, with some additional behaviours.
  * derived from JTable Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  *
  * @version $Id$
@@ -17,7 +17,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 defined('_JEXEC') or die();
 
@@ -721,7 +721,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 				}
 			}
 		}
-		vmdebug('VmTable developer notice, table ' . get_class($this) . ' means that there is no data to store. When you experience that something does not get stored as expected, please write in the forum.virtuemart.net',$properties);
+		vmdebug('VmTable developer notice, table ' . get_class($this) . ' means that there is no data to store. When you experience that something does not get stored as expected, please write in the forum.tsmart.net',$properties);
 		return false;
 	}
 
@@ -1653,7 +1653,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 			$multix = Vmconfig::get('multix', 'none');
 			//Lets check if the user is admin or the mainvendor
-			$virtuemart_vendor_id = false;
+			$tsmart_vendor_id = false;
 			//Todo removed Quickn Dirty, use check in derived class
 			if ($multix == 'none' and get_class($this) !== 'TableVmusers') {
 
@@ -1672,8 +1672,8 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 					$q = 'SELECT `virtuemart_vendor_id` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
 					if (!isset(self::$_cache[md5($q)])) {
 						$this->_db->setQuery($q);
-						self::$_cache[md5($q)] = $virtuemart_vendor_id = $this->_db->loadResult();
-					} else $virtuemart_vendor_id = self::$_cache[md5($q)];
+						self::$_cache[md5($q)] = $tsmart_vendor_id = $this->_db->loadResult();
+					} else $tsmart_vendor_id = self::$_cache[md5($q)];
 				} else {
 					$q = 'SELECT `virtuemart_vendor_id`,`user_is_vendor` FROM `' . $this->_tbl . '` WHERE `' . $this->_tbl_key . '`="' . $this->$tbl_key . '" ';
 					if (!isset(self::$_cache[md5($q)])) {
@@ -1683,7 +1683,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 					} else $vmuser = self::$_cache[md5($q)];
 
 					if ($vmuser and count($vmuser) === 2) {
-						$virtuemart_vendor_id = $vmuser[0];
+						$tsmart_vendor_id = $vmuser[0];
 						$user_is_vendor = $vmuser[1];
 
 						if ($multix == 'none') {
@@ -1706,19 +1706,19 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 					}
 				}
 
-				if (!$admin and !empty($virtuemart_vendor_id) and !empty($loggedVendorId) and $loggedVendorId != $virtuemart_vendor_id) {
+				if (!$admin and !empty($tsmart_vendor_id) and !empty($loggedVendorId) and $loggedVendorId != $tsmart_vendor_id) {
 					//Todo removed Quickn Dirty, use check in derived class
 					//This is the case when a vendor buys products of vendor1
 					if (strpos($this->_tbl,'virtuemart_order_items')===FALSE and strpos($this->_tbl,'virtuemart_carts')===FALSE) {
-						vmdebug('Blocked storing, logged vendor ' . $loggedVendorId . ' but data belongs to ' . $virtuemart_vendor_id,$this->_tbl);
+						vmdebug('Blocked storing, logged vendor ' . $loggedVendorId . ' but data belongs to ' . $tsmart_vendor_id,$this->_tbl);
 						return false;
 					} else {
-						$this->virtuemart_vendor_id = $virtuemart_vendor_id;
+						$this->virtuemart_vendor_id = $tsmart_vendor_id;
 					}
 
 				} else if (!$admin) {
-					if ($virtuemart_vendor_id) {
-						$this->virtuemart_vendor_id = $virtuemart_vendor_id;
+					if ($tsmart_vendor_id) {
+						$this->virtuemart_vendor_id = $tsmart_vendor_id;
 						vmdebug('Non admin is storing using loaded vendor_id');
 					} else {
 						if(empty($this->virtuemart_vendor_id)){
@@ -1729,10 +1729,10 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 				} else {
 					//Admins are allowed to do anything. We just trhow some messages
-					if (!empty($virtuemart_vendor_id) and $loggedVendorId != $virtuemart_vendor_id) {
+					if (!empty($tsmart_vendor_id) and $loggedVendorId != $tsmart_vendor_id) {
 						vmdebug('Admin with vendor id ' . $loggedVendorId . ' is using for storing vendor id ' . $this->virtuemart_vendor_id);
 					}
-					else if (empty($virtuemart_vendor_id) and empty($this->virtuemart_vendor_id)) {
+					else if (empty($tsmart_vendor_id) and empty($this->virtuemart_vendor_id)) {
 						if(strpos($this->_tbl,'virtuemart_vendors')===FALSE and strpos($this->_tbl,'virtuemart_vmusers')===FALSE){
 							$this->virtuemart_vendor_id = $loggedVendorId;
 							vmdebug('Fallback to '.$this->virtuemart_vendor_id.' for $loggedVendorId '.$loggedVendorId.': We run in multivendor mode and you did not set any vendor for '.$className.' and '.$this->_tbl);

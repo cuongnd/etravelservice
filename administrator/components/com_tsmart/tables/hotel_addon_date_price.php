@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -33,10 +33,10 @@ class TableHotel_addon_date_price extends tsmTableData {
 	/** @var int Primary key */
 	var $id				= 0;
 	var $hotel_addon_type			= '';
-	var $virtuemart_product_id			= 0;
+	var $tsmart_product_id			= 0;
 	var $date				= null;
 	var $single_room_net_price				= 0;
-	var $virtuemart_hotel_addon_id				= 0;
+	var $tsmart_hotel_addon_id				= 0;
 	var $single_room_mark_up_percent				= 0;
 	var $single_room_mark_up_amout				= 0;
 	var $single_room_tax				= 0;

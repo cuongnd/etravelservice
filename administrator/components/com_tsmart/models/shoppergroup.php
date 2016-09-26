@@ -7,7 +7,7 @@
 * @subpackage ShopperGroup
 * @author Markus Öhler
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -256,7 +256,7 @@ class VirtueMartModelShopperGroup extends VmModel {
 	 * @return array
 	 */
   	static function getShoppergroupById($id, $default_group = false) {
-    	$virtuemart_vendor_id = 1;
+    	$tsmart_vendor_id = 1;
     	$db = JFactory::getDBO();
 
     	$q =  'SELECT `#__virtuemart_shoppergroups`.`virtuemart_shoppergroup_id`, `#__virtuemart_shoppergroups`.`shopper_group_name`, `default` AS default_shopper_group FROM `#__virtuemart_shoppergroups`';
@@ -267,7 +267,7 @@ class VirtueMartModelShopperGroup extends VmModel {
       		$q .= '`#__virtuemart_shoppergroups`.`virtuemart_shoppergroup_id`=`#__virtuemart_vmuser_shoppergroups`.`virtuemart_shoppergroup_id`';
     	}
     	else {
-    		$q .= ' WHERE `#__virtuemart_shoppergroups`.`virtuemart_vendor_id`="'.(int)$virtuemart_vendor_id.'" AND `default`="2"';
+    		$q .= ' WHERE `#__virtuemart_shoppergroups`.`virtuemart_vendor_id`="'.(int)$tsmart_vendor_id.'" AND `default`="2"';
     	}
 
     	$db->setQuery($q);

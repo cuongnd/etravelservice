@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage User
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -122,9 +122,9 @@ class TsmartViewUser extends tsmViewAdmin {
 				$new = true;
 			}
 
-			$virtuemart_userinfo_id_BT = $model->getBTuserinfo_id($userId);
-			$userFieldsArray = $model->getUserInfoInUserFields($layoutName,'BT',$virtuemart_userinfo_id_BT,false);
-			$userFieldsBT = $userFieldsArray[$virtuemart_userinfo_id_BT];
+			$tsmart_userinfo_id_BT = $model->getBTuserinfo_id($userId);
+			$userFieldsArray = $model->getUserInfoInUserFields($layoutName,'BT',$tsmart_userinfo_id_BT,false);
+			$userFieldsBT = $userFieldsArray[$tsmart_userinfo_id_BT];
 
 			// Load the required scripts
 			if (count($userFieldsBT['scripts']) > 0) {
@@ -140,25 +140,25 @@ class TsmartViewUser extends tsmViewAdmin {
 			}
 
 			$this->assignRef('userFieldsBT', $userFieldsBT);
-			$this->assignRef('userInfoID', $virtuemart_userinfo_id_BT);
+			$this->assignRef('userInfoID', $tsmart_userinfo_id_BT);
 
 
 			$addrtype = vRequest::getCmd('addrtype');
-			$virtuemart_userinfo_id = 0;
+			$tsmart_userinfo_id = 0;
 			if ($layoutName == 'edit_shipto' or $task=='addST' or $addrtype=='ST') {
-				$virtuemart_userinfo_id = vRequest::getString('virtuemart_userinfo_id', '0','');
-				$userFieldsArray = $model->getUserInfoInUserFields($layoutName,'ST',$virtuemart_userinfo_id,false);
+				$tsmart_userinfo_id = vRequest::getString('virtuemart_userinfo_id', '0','');
+				$userFieldsArray = $model->getUserInfoInUserFields($layoutName,'ST',$tsmart_userinfo_id,false);
 				if($new ){
-					$virtuemart_userinfo_id = 0;
+					$tsmart_userinfo_id = 0;
 				} else {
 
 				}
-				$userFieldsST = $userFieldsArray[$virtuemart_userinfo_id];
+				$userFieldsST = $userFieldsArray[$tsmart_userinfo_id];
 				$this->assignRef('shipToFields', $userFieldsST);
-				vmdebug('hm ST $virtuemart_userinfo_id',$virtuemart_userinfo_id);
+				vmdebug('hm ST $tsmart_userinfo_id',$tsmart_userinfo_id);
 			}
 
-			$this->assignRef('shipToId', $virtuemart_userinfo_id);
+			$this->assignRef('shipToId', $tsmart_userinfo_id);
 			$this->assignRef('new', $new);
 
 			if (!$_new) {

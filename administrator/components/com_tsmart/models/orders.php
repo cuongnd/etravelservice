@@ -9,7 +9,7 @@
  * @author Max Milbers
  * @author Patrick Kohl
  * @author Valerie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -75,10 +75,10 @@ class VirtueMartModelOrders extends VmModel {
 	 * This function gets the secured order Number, to send with paiement
 	 *
 	 */
-	public function getOrderNumber($virtuemart_order_id){
+	public function getOrderNumber($tsmart_order_id){
 
 		$db = JFactory::getDBO();
-		$q = 'SELECT `order_number` FROM `#__virtuemart_orders` WHERE virtuemart_order_id="'.(int)$virtuemart_order_id.'"  ';
+		$q = 'SELECT `order_number` FROM `#__virtuemart_orders` WHERE virtuemart_order_id="'.(int)$tsmart_order_id.'"  ';
 		$db->setQuery($q);
 		$OrderNumber = $db->loadResult();
 		return $OrderNumber;
@@ -152,11 +152,11 @@ class VirtueMartModelOrders extends VmModel {
         }
         else {
             // If the user is logged in, we will check if the order belongs to him
-            $virtuemart_order_id = vRequest::getInt('virtuemart_order_id',$orderID) ;
-            if (!$virtuemart_order_id) {
-                $virtuemart_order_id = VirtueMartModelOrders::getOrderIdByOrderNumber(vRequest::getString('order_number'));
+            $tsmart_order_id = vRequest::getInt('virtuemart_order_id',$orderID) ;
+            if (!$tsmart_order_id) {
+                $tsmart_order_id = VirtueMartModelOrders::getOrderIdByOrderNumber(vRequest::getString('order_number'));
             }
-            $orderDetails = $this->getOrder($virtuemart_order_id);
+            $orderDetails = $this->getOrder($tsmart_order_id);
 
 			$user = JFactory::getUser();
 			if(!vmAccess::manager('orders')){
@@ -178,10 +178,10 @@ class VirtueMartModelOrders extends VmModel {
 	 * Load a single order, Attention, this function is not protected! Do the right manangment before, to be certain
      * we suggest to use getMyOrderDetails
 	 */
-	public function getOrder($virtuemart_order_id){
+	public function getOrder($tsmart_order_id){
 
 		//sanitize id
-		$virtuemart_order_id = (int)$virtuemart_order_id;
+		$tsmart_order_id = (int)$tsmart_order_id;
 		$db = JFactory::getDBO();
 		$order = array();
 
@@ -193,7 +193,7 @@ class VirtueMartModelOrders extends VmModel {
 			ON s.order_status_code = o.order_status
 			LEFT JOIN #__virtuemart_order_userinfos u
 			ON u.virtuemart_order_id = o.virtuemart_order_id
-			WHERE o.virtuemart_order_id=".$virtuemart_order_id;
+			WHERE o.virtuemart_order_id=".$tsmart_order_id;
 		$db->setQuery($q);
 		$order['details'] = $db->loadObjectList('address_type');
 		if($order['details']){
@@ -212,7 +212,7 @@ class VirtueMartModelOrders extends VmModel {
 		// Get the order history
 		$q = "SELECT *
 			FROM #__virtuemart_order_histories
-			WHERE virtuemart_order_id=".$virtuemart_order_id."
+			WHERE virtuemart_order_id=".$tsmart_order_id."
 			ORDER BY virtuemart_order_history_id ASC";
 		$db->setQuery($q);
 		$order['history'] = $db->loadObjectList();
@@ -227,7 +227,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
    		ON p.virtuemart_product_id = i.virtuemart_product_id)
    LEFT JOIN #__virtuemart_product_categories c
    ON p.virtuemart_product_id = c.virtuemart_product_id
-   WHERE `virtuemart_order_id`="'.$virtuemart_order_id.'" group by `virtuemart_order_item_id`';
+   WHERE `virtuemart_order_id`="'.$tsmart_order_id.'" group by `virtuemart_order_item_id`';
 //group by `virtuemart_order_id`'; Why ever we added this, it makes trouble, only one order item is shown then.
 // without group by we get the product 3 times, when it is in 3 categories and similar, so we need a group by
 //lets try group by `virtuemart_order_item_id`
@@ -271,7 +271,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 // Get the order items
 		$q = "SELECT  *
 			FROM #__virtuemart_order_calc_rules AS z
-			WHERE  virtuemart_order_id=".$virtuemart_order_id;
+			WHERE  virtuemart_order_id=".$tsmart_order_id;
 		$db->setQuery($q);
 		$order['calc_rules'] = $db->loadObjectList();
 		return $order;
@@ -317,12 +317,12 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		$where = array();
 
 
-		$virtuemart_vendor_id = vmAccess::isSuperVendor();
+		$tsmart_vendor_id = vmAccess::isSuperVendor();
 		if(vmAccess::manager('managevendors')){
 			vmdebug('Vendor is core.admin and should see all');
-			$virtuemart_vendor_id = vRequest::get('virtuemart_vendor_id',$virtuemart_vendor_id);
-			if($virtuemart_vendor_id){
-				$where[]= ' o.virtuemart_vendor_id = "'.$virtuemart_vendor_id.'" ';
+			$tsmart_vendor_id = vRequest::get('virtuemart_vendor_id',$tsmart_vendor_id);
+			if($tsmart_vendor_id){
+				$where[]= ' o.virtuemart_vendor_id = "'.$tsmart_vendor_id.'" ';
 			}
 			if(!empty($uid)){
 				$where[]= ' u.virtuemart_user_id = ' . (int)$uid.' ';
@@ -330,9 +330,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		}
 		else if( vmAccess::manager('orders')){
 			
-			vmdebug('Vendor is manager and should only see its own orders venodorId '.$virtuemart_vendor_id);
-			if(!empty($virtuemart_vendor_id)){
-				$where[]= ' (o.virtuemart_vendor_id = '.$virtuemart_vendor_id.' OR u.virtuemart_user_id = ' . (int)$uid.') ';
+			vmdebug('Vendor is manager and should only see its own orders venodorId '.$tsmart_vendor_id);
+			if(!empty($tsmart_vendor_id)){
+				$where[]= ' (o.virtuemart_vendor_id = '.$tsmart_vendor_id.' OR u.virtuemart_user_id = ' . (int)$uid.') ';
 				$uid = 0;
 			} else {
 				//We map here as fallback to vendor 1.
@@ -423,17 +423,17 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * @author Ondřej Spilka - used for item edit also
 	 * @author Maik Künnemann
 	 */
-	public function updateSingleItem($virtuemart_order_item_id, &$orderdata, $orderUpdate = false)
+	public function updateSingleItem($tsmart_order_item_id, &$orderdata, $orderUpdate = false)
 	{
-		$virtuemart_order_item_id = (int)$virtuemart_order_item_id;
-		//vmdebug('updateSingleItem',$virtuemart_order_item_id,$orderdata);
+		$tsmart_order_item_id = (int)$tsmart_order_item_id;
+		//vmdebug('updateSingleItem',$tsmart_order_item_id,$orderdata);
 		$table = $this->getTable('order_items');
-		if(!empty($virtuemart_order_item_id)){
-			$table->load($virtuemart_order_item_id);
+		if(!empty($tsmart_order_item_id)){
+			$table->load($tsmart_order_item_id);
 			$oldOrderStatus = $table->order_status;
 		}
 
-		//vmdebug('my order table ',$virtuemart_order_item_id,$table->virtuemart_order_id);
+		//vmdebug('my order table ',$tsmart_order_item_id,$table->virtuemart_order_id);
 		if(empty($oldOrderStatus)){
 			$oldOrderStatus = $orderdata->current_order_status;
 			if($orderUpdate and empty($oldOrderStatus)){
@@ -514,7 +514,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 		if ( $orderUpdate ) {
 
-			if ( empty($data['order_item_sku']) and !empty($virtuemart_order_item_id) )
+			if ( empty($data['order_item_sku']) and !empty($tsmart_order_item_id) )
 			{
 				//update product identification
 				$db = JFactory::getDBO();
@@ -525,7 +525,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 					' SET '.$oi.'.order_item_sku='.$protbl.'.product_sku, '.$oi.'.order_item_name='.$prolang.'.product_name
 					 WHERE '.$oi.'.virtuemart_product_id='.$protbl.'.virtuemart_product_id
 					 and '.$oi.'.virtuemart_product_id='.$prolang.'.virtuemart_product_id
-					 and '.$oi.'.virtuemart_order_item_id='.(int)$virtuemart_order_item_id;
+					 and '.$oi.'.virtuemart_order_item_id='.(int)$tsmart_order_item_id;
 				$db->setQuery($sql);
 				if ($db->execute() === false) {
 					vmError('updateSingleItem '.$sql,'Error updating order');
@@ -552,8 +552,8 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 			if(!empty($calc_rules))
 			{
 				foreach($calc_rules as $calc_kind => $calc_rule) {
-					foreach($calc_rule as $virtuemart_order_calc_rule_id => $calc_amount) {
-						$sql = 'UPDATE `#__virtuemart_order_calc_rules` SET `calc_amount`="'.$calc_amount.'" WHERE `virtuemart_order_calc_rule_id`="'.$virtuemart_order_calc_rule_id.'"';
+					foreach($calc_rule as $tsmart_order_calc_rule_id => $calc_amount) {
+						$sql = 'UPDATE `#__virtuemart_order_calc_rules` SET `calc_amount`="'.$calc_amount.'" WHERE `virtuemart_order_calc_rule_id`="'.$tsmart_order_calc_rule_id.'"';
 						$db->setQuery($sql);
 						if(isset($calc_amount)) $calc_rules_amount += $calc_amount;
 						if ($calc_kind == 'DBTaxRulesBill' || $calc_kind == 'DATaxRulesBill') {
@@ -657,10 +657,10 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		if ($orders) {
 			// $notify = vRequest::getVar('customer_notified', array()); // ???
 			// $comments = vRequest::getVar('comments', array()); // ???
-			foreach ($orders as $virtuemart_order_id => $order) {
-				if  ($order_id >0) $virtuemart_order_id= $order_id;
+			foreach ($orders as $tsmart_order_id => $order) {
+				if  ($order_id >0) $tsmart_order_id= $order_id;
 				$this->useDefaultEmailOrderStatus = false;
-				if($this->updateStatusForOneOrder($virtuemart_order_id,$order,true)){
+				if($this->updateStatusForOneOrder($tsmart_order_id,$order,true)){
 					$updated ++;
 				} else {
 					$error++;
@@ -678,17 +678,17 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 *
 	 * IMPORTANT: The $inputOrder can contain extra data by plugins
 	 *
-	 * @param $virtuemart_order_id
+	 * @param $tsmart_order_id
 	 * @param $inputOrder
 	 * @param bool $useTriggers
 	 * @return bool
 	 */
-	function updateStatusForOneOrder($virtuemart_order_id,$inputOrder,$useTriggers=true){
+	function updateStatusForOneOrder($tsmart_order_id,$inputOrder,$useTriggers=true){
 
 // 		vmdebug('updateStatusForOneOrder', $inputOrder);
 		/* Update the order */
 		$data = $this->getTable('orders');
-		$data->load($virtuemart_order_id);
+		$data->load($tsmart_order_id);
 		$old_order_status = $data->order_status;
 		if(empty($inputOrder['virtuemart_order_id'])){
 			unset($inputOrder['virtuemart_order_id']);
@@ -768,9 +768,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 					$order_item_data['current_order_status'] = $order_item_data['order_status'];
 					if (!isset($order_item_data['comments'])) $order_item_data['comments'] = '';
 					$order_item_data = (object)$order_item_data;
-					$order_item_data->virtuemart_order_id = $virtuemart_order_id;
+					$order_item_data->virtuemart_order_id = $tsmart_order_id;
 
-					//$this->updateSingleItem($order_item->virtuemart_order_item_id, $data->order_status, $order['comments'] , $virtuemart_order_id, $data->order_pass);
+					//$this->updateSingleItem($order_item->virtuemart_order_item_id, $data->order_status, $order['comments'] , $tsmart_order_id, $data->order_pass);
 					if(empty($item_id)){
 						$inputOrder['comments'] .= ' '.tsmText::sprintf('com_tsmart_ORDER_PRODUCT_ADDED',$order_item_data->order_item_name);
 					}
@@ -782,7 +782,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 				} else /*/
 				if ($task=='updatestatus' and $view=='orders') {
 					$lines = vRequest::getVar('orders');
-					$update_lines = $lines[$virtuemart_order_id]['update_lines'];
+					$update_lines = $lines[$tsmart_order_id]['update_lines'];
 				} else {
 					$update_lines = 1;
 				}
@@ -791,7 +791,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 					vmdebug('$update_lines '.$update_lines);
 					$q = 'SELECT virtuemart_order_item_id
 												FROM #__virtuemart_order_items
-												WHERE virtuemart_order_id="'.$virtuemart_order_id.'"';
+												WHERE virtuemart_order_id="'.$tsmart_order_id.'"';
 					$db = JFactory::getDBO();
 					$db->setQuery($q);
 					$order_items = $db->loadObjectList();
@@ -799,7 +799,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 // 				vmdebug('updateStatusForOneOrder',$data);
 						foreach ($order_items as $order_item) {
 
-							//$this->updateSingleItem($order_item->virtuemart_order_item_id, $data->order_status, $order['comments'] , $virtuemart_order_id, $data->order_pass);
+							//$this->updateSingleItem($order_item->virtuemart_order_item_id, $data->order_status, $order['comments'] , $tsmart_order_id, $data->order_pass);
 							$this->updateSingleItem($order_item->virtuemart_order_item_id, $data);
 						}
 					}
@@ -809,7 +809,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 			$inputOrder['comments'] = trim($inputOrder['comments']);
 			/* Update the order history */
-			$this->_updateOrderHist($virtuemart_order_id, $data->order_status, $inputOrder['customer_notified'], $inputOrder['comments']);
+			$this->_updateOrderHist($tsmart_order_id, $data->order_status, $inputOrder['customer_notified'], $inputOrder['comments']);
 
 			//We need a new invoice, therefore rename the old one.
 			$inv_os = VmConfig::get('inv_os',array('C'));
@@ -1200,9 +1200,9 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 		if (!empty($tableOrderItems->product_attribute)) {
 			if(!class_exists('VirtueMartModelCustomfields'))require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
-			$virtuemart_product_id = $tableOrderItems->virtuemart_product_id;
+			$tsmart_product_id = $tableOrderItems->virtuemart_product_id;
 			$product_attributes = json_decode($tableOrderItems->product_attribute,true);
-			foreach ($product_attributes as $virtuemart_customfield_id=>$param){
+			foreach ($product_attributes as $tsmart_customfield_id=>$param){
 				if ($param) {
 					if(is_array($param)){
 						reset($param);
@@ -1245,7 +1245,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * @param object $_cart array The cart data
 	 * @return boolean True on success
 	 */
-	private function _createOrderLines($virtuemart_order_id, $cart)
+	private function _createOrderLines($tsmart_order_id, $cart)
 	{
 		$_orderItems = $this->getTable('order_items');
 
@@ -1254,7 +1254,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 			$_orderItems->product_attribute = vmJsApi::safe_json_encode($product->customProductData);
 
 			$_orderItems->virtuemart_order_item_id = null;
-			$_orderItems->virtuemart_order_id = $virtuemart_order_id;
+			$_orderItems->virtuemart_order_id = $tsmart_order_id;
 
 			$_orderItems->virtuemart_vendor_id = $product->virtuemart_vendor_id;
 			$_orderItems->virtuemart_product_id = $product->virtuemart_product_id;
@@ -1495,14 +1495,14 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * Generate a unique ordernumber using getHumanToken, which is a random token
 	 * with only upper case chars and without 0 and O to prevent missreadings
 	 * @author Max Milbers
-	 * @param integer $virtuemart_vendor_id For the correct count
+	 * @param integer $tsmart_vendor_id For the correct count
 	 * @return string A unique ordernumber
 	 */
-	static public function genStdOrderNumber($virtuemart_vendor_id=1){
+	static public function genStdOrderNumber($tsmart_vendor_id=1){
 
 		$db = JFactory::getDBO();
 
-		$q = 'SELECT COUNT(1) FROM #__virtuemart_orders WHERE `virtuemart_vendor_id`="'.$virtuemart_vendor_id.'"';
+		$q = 'SELECT COUNT(1) FROM #__virtuemart_orders WHERE `virtuemart_vendor_id`="'.$tsmart_vendor_id.'"';
 		$db->setQuery($q);
 
 		//We can use that here, because the order_number is free to set, the invoice_number must often follow special rules
@@ -1523,11 +1523,11 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * @param integer $uid The user ID. Defaults to 0 for guests
 	 * @return string A unique ordernumber
 	 */
-	static public function generateOrderNumber($uid = 0,$length=4, $virtuemart_vendor_id=1) {
+	static public function generateOrderNumber($uid = 0,$length=4, $tsmart_vendor_id=1) {
 
 		$db = JFactory::getDBO();
 
-		$q = 'SELECT COUNT(1) FROM #__virtuemart_orders WHERE `virtuemart_vendor_id`="'.$virtuemart_vendor_id.'"';
+		$q = 'SELECT COUNT(1) FROM #__virtuemart_orders WHERE `virtuemart_vendor_id`="'.$tsmart_vendor_id.'"';
 		$db->setQuery($q);
 
 		//We can use that here, because the order_number is free to set, the invoice_number must often follow special rules
@@ -1614,10 +1614,10 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	/*
 	 * @author Valérie Isaksen
 	 */
-	function getInvoiceNumber($virtuemart_order_id){
+	function getInvoiceNumber($tsmart_order_id){
 
 		$db = JFactory::getDBO();
-		$q = 'SELECT `invoice_number` FROM `#__virtuemart_invoices` WHERE `virtuemart_order_id`= "'.$virtuemart_order_id.'" ';
+		$q = 'SELECT `invoice_number` FROM `#__virtuemart_invoices` WHERE `virtuemart_order_id`= "'.$tsmart_order_id.'" ';
 		$db->setQuery($q);
 		return $db->loadresult();
 	}
@@ -1629,7 +1629,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	 * @author Christopher Roussel, Valérie Isaksen, Max Milbers
 	 *
 	 */
-	public function notifyCustomer($virtuemart_order_id, $newOrderData = 0 ) {
+	public function notifyCustomer($tsmart_order_id, $newOrderData = 0 ) {
 
 		if (isset($newOrderData['customer_notified']) && $newOrderData['customer_notified']==0) {
 		    return true;
@@ -1639,7 +1639,7 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		//Important, the data of the order update mails, payments and invoice should
 		//always be in the database, so using getOrder is the right method
 		$orderModel=VmModel::getModel('orders');
-		$order = $orderModel->getOrder($virtuemart_order_id);
+		$order = $orderModel->getOrder($tsmart_order_id);
 
 		$payment_name = $shipment_name='';
 		if (!class_exists('vmPSPlugin')) require(VMPATH_PLUGINLIBS . DS . 'vmpsplugin.php');
@@ -1664,11 +1664,11 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		$vars['url'] = 'url';
 		if(!isset($newOrderData['doVendor'])) $vars['doVendor'] = false; else $vars['doVendor'] = $newOrderData['doVendor'];
 
-		$virtuemart_vendor_id = $order['details']['BT']->virtuemart_vendor_id;
+		$tsmart_vendor_id = $order['details']['BT']->virtuemart_vendor_id;
 		$vendorModel = VmModel::getModel('vendor');
-		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
+		$vendor = $vendorModel->getVendor($tsmart_vendor_id);
 		$vars['vendor'] = $vendor;
-		$vendorEmail = $vendorModel->getVendorEmail($virtuemart_vendor_id);
+		$vendorEmail = $vendorModel->getVendorEmail($tsmart_vendor_id);
 		$vars['vendorEmail'] = $vendorEmail;
 
 		// florian : added if pdf invoice are enabled
@@ -1777,10 +1777,10 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 	/*
 	 *remove product from order item table
-	*@var $virtuemart_order_id Order to clear
+	*@var $tsmart_order_id Order to clear
 	*/
-	function removeOrderItems ($virtuemart_order_id){
-		$q ='DELETE from `#__virtuemart_order_items` WHERE `virtuemart_order_id` = ' .(int) $virtuemart_order_id;
+	function removeOrderItems ($tsmart_order_id){
+		$q ='DELETE from `#__virtuemart_order_items` WHERE `virtuemart_order_id` = ' .(int) $tsmart_order_id;
 		$db = JFactory::getDBO();
 		$db->setQuery($q);
 
@@ -1865,11 +1865,11 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 	* @author Maik Künnemann
 	* @return boolean True is the update was successful, otherwise false.
 	*/ 
-	public function UpdateOrderHead($virtuemart_order_id, $_orderData)
+	public function UpdateOrderHead($tsmart_order_id, $_orderData)
 	{
 
 		$orderTable = $this->getTable('orders');
-		$orderTable->load($virtuemart_order_id);
+		$orderTable->load($tsmart_order_id);
 
 		if (!$orderTable->bindChecknStore($_orderData, true)){
 			return false;
@@ -1902,11 +1902,11 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 			}
 		}
 
-		$_userInfoData['virtuemart_order_id'] = $virtuemart_order_id;
+		$_userInfoData['virtuemart_order_id'] = $tsmart_order_id;
 		$_userInfoData['address_type'] = 'BT';
 
 		$order_userinfosTable = $this->getTable('order_userinfos');
-			$order_userinfosTable->load($virtuemart_order_id, 'virtuemart_order_id'," AND address_type='BT'");
+			$order_userinfosTable->load($tsmart_order_id, 'virtuemart_order_id'," AND address_type='BT'");
 		if (!$order_userinfosTable->bindChecknStore($_userInfoData, true)){
 			return false;
 		}
@@ -1926,17 +1926,17 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 			}
 		}
 
-		$_userInfoData['virtuemart_order_id'] = $virtuemart_order_id;
+		$_userInfoData['virtuemart_order_id'] = $tsmart_order_id;
 		$_userInfoData['address_type'] = 'ST';
 
 		$order_userinfosTable = $this->getTable('order_userinfos');
-			$order_userinfosTable->load($virtuemart_order_id, 'virtuemart_order_id'," AND address_type='ST'");
+			$order_userinfosTable->load($tsmart_order_id, 'virtuemart_order_id'," AND address_type='ST'");
 		if (!$order_userinfosTable->bindChecknStore($_userInfoData, true)){
 			return false;
 		}
 
 		$orderModel = VmModel::getModel('orders');
-		$order = $orderModel->getOrder($virtuemart_order_id);
+		$order = $orderModel->getOrder($tsmart_order_id);
 
 		$dispatcher = JDispatcher::getInstance();
 
@@ -1949,10 +1949,10 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 
 			$db = JFactory::getDBO();
 			$db->setQuery( 'SELECT `payment_element` FROM `#__virtuemart_paymentmethods` , `#__virtuemart_orders`
-					WHERE `#__virtuemart_paymentmethods`.`virtuemart_paymentmethod_id` = `#__virtuemart_orders`.`virtuemart_paymentmethod_id` AND `virtuemart_order_id` = ' . $virtuemart_order_id );
+					WHERE `#__virtuemart_paymentmethods`.`virtuemart_paymentmethod_id` = `#__virtuemart_orders`.`virtuemart_paymentmethod_id` AND `virtuemart_order_id` = ' . $tsmart_order_id );
 			$paymentTable = '#__virtuemart_payment_plg_'. $db->loadResult();
 
-			$db->setQuery("DELETE from `". $paymentTable ."` WHERE `virtuemart_order_id` = " . $virtuemart_order_id);
+			$db->setQuery("DELETE from `". $paymentTable ."` WHERE `virtuemart_order_id` = " . $tsmart_order_id);
 			if ($db->execute() === false) {
 				vmError($db->getError());
 				return false;
@@ -1967,10 +1967,10 @@ $q = 'SELECT virtuemart_order_item_id, product_quantity, order_item_name,
 		if($_orderData['old_virtuemart_shipmentmethod_id'] != $_orderData['virtuemart_shipmentmethod_id']) {
 
 			$db->setQuery( 'SELECT `shipment_element` FROM `#__virtuemart_shipmentmethods` , `#__virtuemart_orders`
-					WHERE `#__virtuemart_shipmentmethods`.`virtuemart_shipmentmethod_id` = `#__virtuemart_orders`.`virtuemart_shipmentmethod_id` AND `virtuemart_order_id` = ' . $virtuemart_order_id );
+					WHERE `#__virtuemart_shipmentmethods`.`virtuemart_shipmentmethod_id` = `#__virtuemart_orders`.`virtuemart_shipmentmethod_id` AND `virtuemart_order_id` = ' . $tsmart_order_id );
 			$shipmentTable = '#__virtuemart_shipment_plg_'. $db->loadResult();
 
-			$db->setQuery("DELETE from `". $shipmentTable ."` WHERE `virtuemart_order_id` = " . $virtuemart_order_id);
+			$db->setQuery("DELETE from `". $shipmentTable ."` WHERE `virtuemart_order_id` = " . $tsmart_order_id);
 			if ($db->execute() === false) {
 				vmError($db->getError());
 				return false;

@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -121,23 +121,23 @@ class VirtueMartModelPayment extends VmModel
 			vmWarn('Insufficient permissions to store payment');
 			return false;
 		}
-		$virtuemart_payment_id= parent::store($data);
-		if($virtuemart_payment_id) {
+		$tsmart_payment_id= parent::store($data);
+		if($tsmart_payment_id) {
 			//insert to tour in payment
 			$query = $db->getQuery(true);
 			$query->delete('#__virtuemart_tour_id_payment_id')
-				->where('virtuemart_payment_id=' . (int)$virtuemart_payment_id);
+				->where('virtuemart_payment_id=' . (int)$tsmart_payment_id);
 			$db->setQuery($query)->execute();
 			$err = $db->getErrorMsg();
 			if (!empty($err)) {
 				vmError('can not delete tour in payment', $err);
 			}
 			$list_tour_id = $data['list_tour_id'];
-			foreach ($list_tour_id as $virtuemart_product_id) {
+			foreach ($list_tour_id as $tsmart_product_id) {
 				$query->clear()
 					->insert('#__virtuemart_tour_id_payment_id')
-					->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-					->set('virtuemart_payment_id=' . (int)$virtuemart_payment_id);
+					->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+					->set('virtuemart_payment_id=' . (int)$tsmart_payment_id);
 				$db->setQuery($query)->execute();
 				$err = $db->getErrorMsg();
 				if (!empty($err)) {
@@ -149,18 +149,18 @@ class VirtueMartModelPayment extends VmModel
 			//insert to payment method in payment
 			$query = $db->getQuery(true);
 			$query->delete('#__virtuemart_payment_id_payment_method_id')
-				->where('virtuemart_payment_id=' . (int)$virtuemart_payment_id);
+				->where('virtuemart_payment_id=' . (int)$tsmart_payment_id);
 			$db->setQuery($query)->execute();
 			$err = $db->getErrorMsg();
 			if (!empty($err)) {
 				vmError('can not delete payment method in payment', $err);
 			}
 			$list_payment_method_id = $data['list_payment_method_id'];
-			foreach ($list_payment_method_id as $virtuemart_payment_method_id) {
+			foreach ($list_payment_method_id as $tsmart_payment_method_id) {
 				$query->clear()
 					->insert('#__virtuemart_payment_id_payment_method_id')
-					->set('virtuemart_payment_method_id=' . (int)$virtuemart_payment_method_id)
-					->set('virtuemart_payment_id=' . (int)$virtuemart_payment_id);
+					->set('virtuemart_payment_method_id=' . (int)$tsmart_payment_method_id)
+					->set('virtuemart_payment_id=' . (int)$tsmart_payment_id);
 				$db->setQuery($query)->execute();
 				$err = $db->getErrorMsg();
 				if (!empty($err)) {
@@ -170,7 +170,7 @@ class VirtueMartModelPayment extends VmModel
 			//end insert to payment method in payment
 		}
 
-		return $virtuemart_payment_id;
+		return $tsmart_payment_id;
 	}
 
 	function remove($ids)

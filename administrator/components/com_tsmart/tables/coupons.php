@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Coupon
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,8 +31,8 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableCoupons extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_coupon_id			 	= 0;
-	var $virtuemart_vendor_id	= 0;
+	var $tsmart_coupon_id			 	= 0;
+	var $tsmart_vendor_id	= 0;
 	/** @var varchar Coupon name */
 	var $coupon_code         	= '';
 	/** @var string Coupon percentage or total */

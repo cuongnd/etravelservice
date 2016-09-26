@@ -4,7 +4,7 @@
 * @package	VirtueMart
 * @subpackage product
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2011 - 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -22,13 +22,13 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableProduct_customfields extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_customfield_id		= 0;
+	var $tsmart_customfield_id		= 0;
 
 	/** @var int Product id */
-	var $virtuemart_product_id		= 0;
+	var $tsmart_product_id		= 0;
 
 	/** @var int group key */
-	var $virtuemart_custom_id		= 0;
+	var $tsmart_custom_id		= 0;
 
 	var $override = null;
 	var $disabler = null;

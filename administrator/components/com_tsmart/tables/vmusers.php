@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2010 - 2014 VirtueMart Team and authors. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -24,12 +24,12 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  class TableVmusers extends tsmTableData {
 
 	/** @var int Vendor ID */
-	var $virtuemart_user_id		= 0;
+	var $tsmart_user_id		= 0;
 	var $user_is_vendor 		= 0;
-	var $virtuemart_vendor_id 	= 0;
+	var $tsmart_vendor_id 	= 0;
 	var $customer_number 		= 0;
-	var $virtuemart_paymentmethod_id = 0;
-	var $virtuemart_shipmentmethod_id = 0;
+	var $tsmart_paymentmethod_id = 0;
+	var $tsmart_shipmentmethod_id = 0;
 	var $agreed					= 0;
 
 	function __construct(&$db) {

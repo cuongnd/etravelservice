@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Manufacturer category
 * @author Patrick Kohl
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,7 +31,7 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableManufacturercategories extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_manufacturercategories_id = 0;
+	var $tsmart_manufacturercategories_id = 0;
 	/** @var string manufacturer category name */
 	var $mf_category_name = '';
 	/** @var string manufacturer category description */

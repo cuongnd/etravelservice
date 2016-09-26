@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Currency
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -127,14 +127,14 @@ if ($saveOrder) {
                     $edit = $this->gridEdit($row, $i, 'virtuemart_tour_type_id', $editlink);
                     $delete = $this->grid_delete_in_line($row, $i, 'virtuemart_tour_type_id');
 
-                    $virtuemart_accommodation_id=$row->virtuemart_accommodation_id;
-                    $virtuemart_itinerary_id=$row->virtuemart_itinerary_id;
+                    $tsmart_accommodation_id=$row->virtuemart_accommodation_id;
+                    $tsmart_itinerary_id=$row->virtuemart_itinerary_id;
                     require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
                     $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($this->virtuemart_product_id);
                     require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
 
                     require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmaccommodation.php';
-                    $list_hotel_selected_by_service_class_id_and_itinerary_id=tsmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class,$virtuemart_itinerary_id,$virtuemart_accommodation_id);
+                    $list_hotel_selected_by_service_class_id_and_itinerary_id=tsmaccommodation::get_list_hotel_selected_by_service_class_id_and_itinerary_id_accommodation_id($list_service_class,$tsmart_itinerary_id,$tsmart_accommodation_id);
                     $rowspan=0;
                     foreach($list_hotel_selected_by_service_class_id_and_itinerary_id AS $service_class )
                     {

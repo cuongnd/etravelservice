@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -69,27 +69,27 @@ class VirtueMartModelCustomfields extends VmModel {
 	}
 
 
-	public static function getCustomEmbeddedProductCustomField($virtuemart_customfield_id){
+	public static function getCustomEmbeddedProductCustomField($tsmart_customfield_id){
 
 		static $_customFieldById = array();
 
-		if(!isset($_customFieldById[$virtuemart_customfield_id])){
+		if(!isset($_customFieldById[$tsmart_customfield_id])){
 			$db= JFactory::getDBO ();
 			$q = VirtueMartModelCustomfields::getProductCustomSelectFieldList();
-			if($virtuemart_customfield_id){
-				$q .= ' WHERE `virtuemart_customfield_id` ="' . (int)$virtuemart_customfield_id . '"';
+			if($tsmart_customfield_id){
+				$q .= ' WHERE `virtuemart_customfield_id` ="' . (int)$tsmart_customfield_id . '"';
 			}
 			$db->setQuery ($q);
-			$_customFieldById[$virtuemart_customfield_id] = $db->loadObject ();
-			if($_customFieldById[$virtuemart_customfield_id]){
-				VirtueMartModelCustomfields::bindCustomEmbeddedFieldParams($_customFieldById[$virtuemart_customfield_id],$_customFieldById[$virtuemart_customfield_id]->field_type);
+			$_customFieldById[$tsmart_customfield_id] = $db->loadObject ();
+			if($_customFieldById[$tsmart_customfield_id]){
+				VirtueMartModelCustomfields::bindCustomEmbeddedFieldParams($_customFieldById[$tsmart_customfield_id],$_customFieldById[$tsmart_customfield_id]->field_type);
 			}
 		}
 
-		return $_customFieldById[$virtuemart_customfield_id];
+		return $_customFieldById[$tsmart_customfield_id];
 	}
 
-	function getCustomEmbeddedProductCustomFields($productIds,$virtuemart_custom_id=0,$cartattribute=-1,$forcefront=FALSE){
+	function getCustomEmbeddedProductCustomFields($productIds,$tsmart_custom_id=0,$cartattribute=-1,$forcefront=FALSE){
 
 		$app = JFactory::getApplication();
 		$db= JFactory::getDBO ();
@@ -116,12 +116,12 @@ class VirtueMartModelCustomfields extends VmModel {
 		} else {
 			return $productCustomsCached;
 		}
-		if(!empty($virtuemart_custom_id)){
-			if(is_numeric($virtuemart_custom_id)){
-				$q .= ' AND c.`virtuemart_custom_id`= "' . (int)$virtuemart_custom_id.'" ';
+		if(!empty($tsmart_custom_id)){
+			if(is_numeric($tsmart_custom_id)){
+				$q .= ' AND c.`virtuemart_custom_id`= "' . (int)$tsmart_custom_id.'" ';
 			} else {
-				$virtuemart_custom_id = substr($virtuemart_custom_id,0,1); //just in case
-				$q .= ' AND c.`field_type`= "' .$virtuemart_custom_id.'" ';
+				$tsmart_custom_id = substr($tsmart_custom_id,0,1); //just in case
+				$q .= ' AND c.`field_type`= "' .$tsmart_custom_id.'" ';
 			}
 		}
 		if(!empty($cartattribute) and $cartattribute!=-1){
@@ -132,7 +132,7 @@ class VirtueMartModelCustomfields extends VmModel {
 			$forcefront = true;
 		}
 
-		if(!empty($virtuemart_custom_id) and $virtuemart_custom_id!==0){
+		if(!empty($tsmart_custom_id) and $tsmart_custom_id!==0){
 			$q .= ' ORDER BY field.`ordering` ASC';
 		} else {
 			if($forcefront or $app->isSite()){
@@ -169,10 +169,10 @@ class VirtueMartModelCustomfields extends VmModel {
 
 				$customfield_ids[] = $field->virtuemart_customfield_id;
 			}
-			$virtuemart_customfield_ids = array_unique( array_diff($customfield_ids,$customfield_override_ids));
+			$tsmart_customfield_ids = array_unique( array_diff($customfield_ids,$customfield_override_ids));
 
 			foreach ($productCustoms as $k =>$field) {
-				if(in_array($field->virtuemart_customfield_id,$virtuemart_customfield_ids)){
+				if(in_array($field->virtuemart_customfield_id,$tsmart_customfield_ids)){
 
 					if($forcefront and $field->disabler){
 						unset($productCustoms[$k]);
@@ -322,22 +322,22 @@ class VirtueMartModelCustomfields extends VmModel {
 
 		if(is_object($product)){
 			$product_id = $product->virtuemart_product_id;
-			$virtuemart_vendor_id = $product->virtuemart_vendor_id;
+			$tsmart_vendor_id = $product->virtuemart_vendor_id;
 		} else {
 
 			$product_id = $product;
-			$virtuemart_vendor_id = vmAccess::isSuperVendor();
-			vmdebug('displayProductCustomfieldBE product was not object, use for productId '.$product_id.' and $virtuemart_vendor_id = '.$virtuemart_vendor_id);
+			$tsmart_vendor_id = vmAccess::isSuperVendor();
+			vmdebug('displayProductCustomfieldBE product was not object, use for productId '.$product_id.' and $tsmart_vendor_id = '.$tsmart_vendor_id);
 		}
-		//vmdebug('displayProductCustomfieldBE',$product_id,$field,$virtuemart_vendor_id,$product);
+		//vmdebug('displayProductCustomfieldBE',$product_id,$field,$tsmart_vendor_id,$product);
 		//the option "is_cart_attribute" gives the possibility to set a price, there is no sense to set a price,
 		//if the custom is not stored in the order.
 		if ($field->is_input) {
 			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
 			if(!class_exists('VirtueMartModelCurrency')) require(VMPATH_ADMIN.DS.'models'.DS.'currency.php');
 			$vendor_model = VmModel::getModel('vendor');
-			//$virtuemart_vendor_id = 1;
-			$vendor = $vendor_model->getVendor($virtuemart_vendor_id);
+			//$tsmart_vendor_id = 1;
+			$vendor = $vendor_model->getVendor($tsmart_vendor_id);
 			$currency_model = VmModel::getModel('currency');
 			$vendor_currency = $currency_model->getCurrency($vendor->vendor_currency);
 
@@ -655,7 +655,7 @@ class VirtueMartModelCustomfields extends VmModel {
 				} else {
 					if(empty($field->custom_value)){
 						$q = 'SELECT `virtuemart_media_id` as value,`file_title` as text FROM `#__virtuemart_medias` WHERE `published`=1
-					AND (`virtuemart_vendor_id`= "' . $virtuemart_vendor_id . '" OR `shared` = "1")';
+					AND (`virtuemart_vendor_id`= "' . $tsmart_vendor_id . '" OR `shared` = "1")';
 						$db = JFactory::getDBO();
 						$db->setQuery ($q);
 						$options = $db->loadObjectList ();
@@ -773,7 +773,7 @@ class VirtueMartModelCustomfields extends VmModel {
 	public static function displayProductCustomfieldFE (&$product, &$customfields) {
 
 		$session = JFactory::getSession ();
-		$virtuemart_category_id = $session->get ('vmlastvisitedcategoryid', 0, 'vm');
+		$tsmart_category_id = $session->get ('vmlastvisitedcategoryid', 0, 'vm');
 
 
 
@@ -791,9 +791,9 @@ class VirtueMartModelCustomfields extends VmModel {
 			}
 		}
 
-		VirtueMartCustomFieldRenderer::renderCustomfieldsFE($product, $customfields, $virtuemart_category_id);
-		//renderCustomfieldsFE($product, $customfields, $virtuemart_category_id);
-		//shopFunctionsF::renderVmSubLayout('customfield',array('product' => &$product, 'customfields' => &$customfields, 'virtuemart_category_id' => $virtuemart_category_id,'dimensions' => self::$dimensions));
+		VirtueMartCustomFieldRenderer::renderCustomfieldsFE($product, $customfields, $tsmart_category_id);
+		//renderCustomfieldsFE($product, $customfields, $tsmart_category_id);
+		//shopFunctionsF::renderVmSubLayout('customfield',array('product' => &$product, 'customfields' => &$customfields, 'virtuemart_category_id' => $tsmart_category_id,'dimensions' => self::$dimensions));
 	}
 	/**
 	 * There are too many functions doing almost the same for my taste

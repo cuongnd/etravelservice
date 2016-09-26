@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -32,9 +32,9 @@ class TableWorldzones extends tsmTable {
 
 
 	/** @var int Primary key */
-	var $virtuemart_worldzone_id	= 0;
+	var $tsmart_worldzone_id	= 0;
 	/** @var int vendor id */
-	var $virtuemart_vendor_id		= 1;
+	var $tsmart_vendor_id		= 1;
 	/** @var string Currency name*/
 	var $zone_name           		= '';
 	/** @var char Currency code */

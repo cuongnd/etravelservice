@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,15 +31,15 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class Tablepromotion extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_promotion_price_id				= 0;
+	var $tsmart_promotion_price_id				= 0;
 	var $price_note				= 0;
 	var $sale_period_from				= null;
-	var $virtuemart_product_id				= null;
+	var $tsmart_product_id				= null;
 	var $sale_period_to				= null;
-	var $virtuemart_price_id				= 0;
+	var $tsmart_price_id				= 0;
 	var $title				= '';
 	var $tax				= 0;
-	var $virtuemart_service_class_id				= 0;
+	var $tsmart_service_class_id				= 0;
 	var $shared					= 0;
 	var $published				= 0;
 
@@ -59,18 +59,18 @@ class Tablepromotion extends tsmTableData {
 	}
     public function bindChecknStore(&$data, $preload = false)
     {
-        $virtuemart_product_id=$data['virtuemart_product_id'];
-        $virtuemart_service_class_id=$data['virtuemart_service_class_id'];
-        $virtuemart_promotion_price_id=$data['virtuemart_promotion_price_id'];
+        $tsmart_product_id=$data['virtuemart_product_id'];
+        $tsmart_service_class_id=$data['virtuemart_service_class_id'];
+        $tsmart_promotion_price_id=$data['virtuemart_promotion_price_id'];
         $sale_period_from=JFactory::getDate($data['sale_period_from']);
         $sale_period_to=JFactory::getDate($data['sale_period_to']);
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('COUNT(*)')
             ->from('#__virtuemart_tour_promotion_price AS tour_promotion_price')
-            ->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
-            ->where('virtuemart_promotion_price_id<>'.(int)$virtuemart_promotion_price_id)
+            ->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
+            ->where('virtuemart_promotion_price_id<>'.(int)$tsmart_promotion_price_id)
             ->where(
                 '((sale_period_from<='.$query->q($sale_period_from->toSql()).' AND sale_period_to>= '.$query->q($sale_period_from->toSql()).') OR (sale_period_from<='.$query->q($sale_period_to->toSql()).' AND sale_period_to>= '.$query->q($sale_period_to->toSql()).'))'
 

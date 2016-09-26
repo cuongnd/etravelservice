@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 defined('_JEXEC') or die();
@@ -849,7 +849,7 @@ class VmModel extends JModelList{
 			if(!$break){
 				$app = JFactory::getApplication();
 				$view = vRequest::getCmd('view');
-				if (empty($view)) $view = 'virtuemart';
+				if (empty($view)) $view = 'tsmart';
 				$app->setUserState( 'com_tsmart.'.$view.'.filter_order',$this->_selectedOrdering);
 			}
 		} else {
@@ -867,7 +867,7 @@ class VmModel extends JModelList{
 		if(empty($filter_order_Dir) or !in_array($filter_order_Dir, $this->_validFilterDir)){
 			$filter_order_Dir = $this->_selectedOrderingDir;
 			$view = vRequest::getCmd('view');
-			if (empty($view)) $view = 'virtuemart';
+			if (empty($view)) $view = 'tsmart';
 			$app = JFactory::getApplication();
 			$app->setUserState( 'com_tsmart.'.$view.'.filter_order_Dir',$filter_order_Dir);
 		}

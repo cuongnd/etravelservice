@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Product
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2009 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -24,21 +24,21 @@ if (!class_exists('tsmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsm
 class TableProducts extends tsmTable
 {
 
-    var $virtuemart_product_id = 0;
+    var $tsmart_product_id = 0;
     var $product_name = 0;
     var $tour_length = 0;
     var $start_city = 0;
     var $product_code = 0;
     var $end_city = 0;
-    var $virtuemart_tour_type_id = 0;
-    var $virtuemart_tour_style_id = 0;
-    var $virtuemart_physicalgrade_id = 0;
+    var $tsmart_tour_type_id = 0;
+    var $tsmart_tour_style_id = 0;
+    var $tsmart_physicalgrade_id = 0;
     var $min_person = 0;
     var $max_person = 0;
     var $min_age = 0;
     var $max_age = 0;
     var $price_type = '';
-    var $virtuemart_tour_section_id = 0;
+    var $tsmart_tour_section_id = 0;
     var $shared					= 0;
     var $published				= 0;
     function __construct($db)

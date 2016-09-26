@@ -221,7 +221,7 @@ class tsmUploader {
 	static function uploadFile($urlfolder, &$obj, $overwrite = false){
 
 		if(empty($urlfolder) OR strlen($urlfolder)<2){
-			vmError('Not able to upload file, give path/url empty/too short '.$urlfolder.' please correct path in your virtuemart config');
+			vmError('Not able to upload file, give path/url empty/too short '.$urlfolder.' please correct path in your tsmart config');
 			return false;
 		}
 		if(!class_exists('JFile')) require(VMPATH_LIBS.DS.'joomla'.DS.'filesystem'.DS.'file.php');

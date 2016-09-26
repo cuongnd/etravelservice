@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -93,7 +93,7 @@ class TsmartControllerPrice extends TsmController {
         $post = file_get_contents('php://input');
         $post = json_decode($post);
         $input=$app->input;
-        $virtuemart_price_id=$input->get('virtuemart_price_id',0,'int');
+        $tsmart_price_id=$input->get('virtuemart_price_id',0,'int');
         $model_price = VmModel::getModel('price');
         $post=(array)$post;
         $return_ajax=new stdClass();

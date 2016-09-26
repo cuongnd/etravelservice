@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author  Patrick Kohl
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -37,11 +37,11 @@ class TsmartViewMedia extends tsmViewAdmin {
 		$document =JFactory::getDocument();
 		$document->setMimeEncoding( 'application/json' );
 
-		if ($virtuemart_media_id = vRequest::getInt('virtuemart_media_id')) {
-			//JResponse::setHeader( 'Content-Disposition', 'attachment; filename="media'.$virtuemart_media_id.'.json"' );
+		if ($tsmart_media_id = vRequest::getInt('virtuemart_media_id')) {
+			//JResponse::setHeader( 'Content-Disposition', 'attachment; filename="media'.$tsmart_media_id.'.json"' );
 
 			$model = VmModel::getModel('Media');
-			$image = $model->createMediaByIds($virtuemart_media_id);
+			$image = $model->createMediaByIds($tsmart_media_id);
 // 			echo '<pre>'.print_r($image,1).'</pre>';
 			$this->json = $image[0];
 			//echo json_encode($this->json);

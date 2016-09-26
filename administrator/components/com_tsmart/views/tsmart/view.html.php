@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -29,7 +29,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
  * @package		VirtueMart
  * @author
  */
-class TsmartViewVirtuemart extends tsmViewAdmin {
+class TsmartViewTsmart extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -48,7 +48,7 @@ class TsmartViewVirtuemart extends tsmViewAdmin {
 		if($this->manager('report')){
 			vmSetStartTime('report');
 
-			$model = VmModel::getModel('virtuemart');
+			$model = VmModel::getModel('tsmart');
 
 			$nbrCustomers = $model->getTotalCustomers();
 			$this->nbrCustomers=$nbrCustomers;
@@ -68,7 +68,7 @@ class TsmartViewVirtuemart extends tsmViewAdmin {
 
 			/* Apply currency This must be done per order since it's vendor specific */
 			$_currencies = array(); // Save the currency data during this loop for performance reasons
-			foreach ($recentOrders as $virtuemart_order_id => $order) {
+			foreach ($recentOrders as $tsmart_order_id => $order) {
 
 				//This is really interesting for multi-X, but I avoid to support it now already, lets stay it in the code
 				if (!array_key_exists('v'.$order->virtuemart_vendor_id, $_currencies)) {
@@ -100,7 +100,7 @@ class TsmartViewVirtuemart extends tsmViewAdmin {
 						async: true,
 						cache: false,
 						dataType: "json",
-						url: vmSiteurl + "index.php?option=com_tsmart&view=virtuemart&task=feed",
+						url: vmSiteurl + "index.php?option=com_tsmart&view=tsmart&task=feed",
 						data: datas,
 						dataType: "html"
 					})

@@ -7,7 +7,7 @@
  * @subpackage airport
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -67,13 +67,13 @@ class VirtueMartModelItinerary extends VmModel {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+		$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
 		$query->select('itinerary.*,cityarea.city_area_name')
 			->from('#__virtuemart_itinerary AS itinerary')
-			->where('itinerary.virtuemart_product_id='.(int)$virtuemart_product_id)
+			->where('itinerary.virtuemart_product_id='.(int)$tsmart_product_id)
             ->leftJoin('#__virtuemart_cityarea AS cityarea USING(virtuemart_cityarea_id)')
 		;
 		$user = JFactory::getUser();

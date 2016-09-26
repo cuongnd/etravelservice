@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage language
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -22,7 +22,7 @@ $app = JFactory::getApplication();
 $input = $app->input;
 $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
 $cid = $input->get('cid', array(), 'array');
-$virtuemart_country_id = $input->get('virtuemart_country_id', 0, 'int');
+$tsmart_country_id = $input->get('virtuemart_country_id', 0, 'int');
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -112,7 +112,7 @@ AdminUIHelper::startAdminArea($this);
                     $cancel = $this->grid_cancel_in_line($row, $i, 'virtuemart_language_id');
                     if($show_edit_in_line==1)
                     {
-                        $show_edit=($row->virtuemart_country_id==$virtuemart_country_id);
+                        $show_edit=($row->virtuemart_country_id==$tsmart_country_id);
                     }
 
                     ?>

@@ -7,7 +7,7 @@
  * @package	VirtueMart
  * @subpackage Shipment
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -32,10 +32,10 @@ if (!class_exists('tsmTable'))
 class TableShipmentmethods extends tsmTable {
 
     /** @var int Primary key */
-    var $virtuemart_shipmentmethod_id = 0;
+    var $tsmart_shipmentmethod_id = 0;
 
     /** @var int Vendor ID */
-    var $virtuemart_vendor_id = 0;
+    var $tsmart_vendor_id = 0;
 
     /** @var int Shipment Joomla plugin I */
     var $shipment_jplugin_id = 0;

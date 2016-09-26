@@ -80,7 +80,7 @@
             //$('.pagination.pagination-toolbar').appendTo('.toolbar-pagination');
 
             view=plugin.settings.view;
-            if(view!='virtuemart') {
+            if(view!='tsmart') {
                 var tab_active_name=$('.header-main-menu li.active a').attr('href');
                 tab_active_name=tab_active_name.replace("#", "");
                 $('#admin-content').addClass(tab_active_name);

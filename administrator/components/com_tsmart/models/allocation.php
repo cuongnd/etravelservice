@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -167,16 +167,16 @@ class VirtueMartModeldeparture extends VmModel
         $list_mark_up_tour_departure_net_price2=array();
         foreach($list_mark_up_tour_departure_net_price as $mark_up_tour_departure_net_price)
         {
-            $virtuemart_tour_departure_price_id=$mark_up_tour_departure_net_price->virtuemart_tour_departure_price_id;
-            $list_mark_up_tour_departure_net_price2[$virtuemart_tour_departure_price_id][$mark_up_tour_departure_net_price->type]=$mark_up_tour_departure_net_price;
+            $tsmart_tour_departure_price_id=$mark_up_tour_departure_net_price->virtuemart_tour_departure_price_id;
+            $list_mark_up_tour_departure_net_price2[$tsmart_tour_departure_price_id][$mark_up_tour_departure_net_price->type]=$mark_up_tour_departure_net_price;
         }
         //t�nh gi� l?i c?a departure
         //1.t�nh gi� th?c sau khi departure
         foreach($list_departure_available as $key=> $departure_available)
         {
-            $virtuemart_departure_price_id=$departure_available->virtuemart_departure_price_id;
+            $tsmart_departure_price_id=$departure_available->virtuemart_departure_price_id;
 
-            $percent_price=$list_mark_up_tour_departure_net_price2[$virtuemart_departure_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_departure_net_price2[$tsmart_departure_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -218,7 +218,7 @@ class VirtueMartModeldeparture extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_departure_net_price2[$virtuemart_departure_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_departure_net_price2[$tsmart_departure_price_id]['amount'];
 
                 $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;
@@ -268,16 +268,16 @@ class VirtueMartModeldeparture extends VmModel
         $list_mark_up_tour_departure_price2=array();
         foreach($list_mark_up_tour_departure_price as $mark_up_tour_departure_price)
         {
-            $virtuemart_tour_departure_price_id=$mark_up_tour_departure_price->virtuemart_tour_departure_price_id;
-            $list_mark_up_tour_departure_price2[$virtuemart_tour_departure_price_id][$mark_up_tour_departure_price->type]=$mark_up_tour_departure_price;
+            $tsmart_tour_departure_price_id=$mark_up_tour_departure_price->virtuemart_tour_departure_price_id;
+            $list_mark_up_tour_departure_price2[$tsmart_tour_departure_price_id][$mark_up_tour_departure_price->type]=$mark_up_tour_departure_price;
         }
         //2.t�nh gi� th?c sau khi khi c� markup (c� ph?n l�i)
 
         foreach($list_departure_available as $key=> $departure_available)
         {
-            $virtuemart_departure_price_id=$departure_available->virtuemart_departure_price_id;
+            $tsmart_departure_price_id=$departure_available->virtuemart_departure_price_id;
 
-            $percent_price=$list_mark_up_tour_departure_price2[$virtuemart_departure_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_departure_price2[$tsmart_departure_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -319,7 +319,7 @@ class VirtueMartModeldeparture extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_departure_price2[$virtuemart_departure_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_departure_price2[$tsmart_departure_price_id]['amount'];
 
                 $price_senior=$list_departure_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;
@@ -419,16 +419,16 @@ class VirtueMartModeldeparture extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $virtuemart_price_id=$mark_up_tour_price->virtuemart_price_id;
-            $list_mark_up_tour_departure_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
+            $tsmart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $list_mark_up_tour_departure_price2[$tsmart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.t�nh gi� th?c sau khi khi c� markup basic (c� ph?n l�i)
 
         foreach($list_price_available as $key=> $price_available)
         {
-            $virtuemart_price_id=$price_available->virtuemart_departure_price_id;
+            $tsmart_price_id=$price_available->virtuemart_departure_price_id;
 
-            $percent_price=$list_mark_up_tour_price2[$virtuemart_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_price2[$tsmart_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -470,7 +470,7 @@ class VirtueMartModeldeparture extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_price2[$virtuemart_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_price2[$tsmart_price_id]['amount'];
 
                 $price_senior=$list_price_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;

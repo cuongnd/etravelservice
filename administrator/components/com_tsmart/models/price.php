@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -171,33 +171,33 @@ class VirtueMartModelPrice extends VmModel
 
     function store(&$data)
     {
-        $virtuemart_price_id = parent::store($data);
-        if ($virtuemart_price_id) {
-            $virtuemart_product_id = $data['virtuemart_product_id'];
+        $tsmart_price_id = parent::store($data);
+        if ($tsmart_price_id) {
+            $tsmart_product_id = $data['virtuemart_product_id'];
             $model_product = $this->getModel('product');
-            $product = $model_product->getItem($virtuemart_product_id);
+            $product = $model_product->getItem($tsmart_product_id);
             require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-            if ($virtuemart_price_id && $product->price_type != tsmGroupSize::FLAT_PRICE) {
+            if ($tsmart_price_id && $product->price_type != tsmGroupSize::FLAT_PRICE) {
                 $tour_price_by_tour_price_id = $data['tour_price_by_tour_price_id'];
-                $this->save_price_group_size_by_price_id($tour_price_by_tour_price_id, $virtuemart_price_id);
+                $this->save_price_group_size_by_price_id($tour_price_by_tour_price_id, $tsmart_price_id);
             } else {
                 $tour_price_by_tour_price_id = $data['tour_price_by_tour_price_id'];
 
-                $this->save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $virtuemart_price_id);
+                $this->save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $tsmart_price_id);
             }
             $amount = $data['amount'];
             $percent = $data['percent'];
-            $this->save_markup_price($amount, $percent, $virtuemart_price_id);
+            $this->save_markup_price($amount, $percent, $tsmart_price_id);
         }
-        return $virtuemart_price_id;
+        return $tsmart_price_id;
     }
 
-    public function save_price_group_size_by_price_id($tour_price_by_tour_price_id, $virtuemart_price_id)
+    public function save_price_group_size_by_price_id($tour_price_by_tour_price_id, $tsmart_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_group_size_id_tour_price_id')
-            ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
+            ->where('virtuemart_price_id=' . (int)$tsmart_price_id);
         if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
@@ -214,7 +214,7 @@ class VirtueMartModelPrice extends VmModel
                     $query->set("$key=" . (int)$value);
                 }
                 $query->set("price_extra_bed=" . (int)$price_extra_bed)
-                    ->set("virtuemart_price_id=$virtuemart_price_id")
+                    ->set("virtuemart_price_id=$tsmart_price_id")
                     ->set("virtuemart_group_size_id=$group_size_id");
                 if (!$db->setQuery($query)->execute()) {
                     throw new Exception(500, $db->getErrorMsg());
@@ -223,13 +223,13 @@ class VirtueMartModelPrice extends VmModel
         }
     }
 
-    public function save_markup_price($amount, $percent, $virtuemart_price_id)
+    public function save_markup_price($amount, $percent, $tsmart_price_id)
     {
 
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_mark_up_tour_price_id')
-            ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
+            ->where('virtuemart_price_id=' . (int)$tsmart_price_id);
         if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
@@ -241,7 +241,7 @@ class VirtueMartModelPrice extends VmModel
             foreach ($amount as $key => $value) {
                 $query->set("$key=" . (int)$value);
             }
-            $query->set("virtuemart_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_price_id=$tsmart_price_id")
                 ->set('type=' . $query->q('amount'));
             if (!$db->setQuery($query)->execute()) {
                 throw new Exception(500, $db->getErrorMsg());
@@ -253,7 +253,7 @@ class VirtueMartModelPrice extends VmModel
             foreach ($percent as $key => $value) {
                 $query->set("$key=" . (int)$value);
             }
-            $query->set("virtuemart_price_id=$virtuemart_price_id")
+            $query->set("virtuemart_price_id=$tsmart_price_id")
                 ->set('type=' . $query->q('percent'));
             if (!$db->setQuery($query)->execute()) {
                 throw new Exception(500, $db->getErrorMsg());
@@ -266,12 +266,12 @@ class VirtueMartModelPrice extends VmModel
         parent::populateState($ordering, $direction); // TODO: Change the autogenerated stub
     }
 
-    public function save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $virtuemart_price_id)
+    public function save_price_group_size_by_price_id_tour_private($tour_price_by_tour_price_id, $tsmart_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__virtuemart_group_size_id_tour_price_id')
-            ->where('virtuemart_price_id=' . (int)$virtuemart_price_id);
+            ->where('virtuemart_price_id=' . (int)$tsmart_price_id);
         if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
@@ -288,7 +288,7 @@ class VirtueMartModelPrice extends VmModel
                     $query->set("$key=" . (int)$value);
                 }
                 $query->set("price_extra_bed=" . (int)$price_extra_bed)
-                    ->set("virtuemart_price_id=$virtuemart_price_id")
+                    ->set("virtuemart_price_id=$tsmart_price_id")
                     ->set("virtuemart_group_size_id=$group_size_id");
                 if (!$db->setQuery($query)->execute()) {
                     throw new Exception(500, $db->getErrorMsg());

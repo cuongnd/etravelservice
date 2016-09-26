@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 * other free or open source software licenses.
 * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
 *
-* http://virtuemart.net
+* http://tsmart.net
 */
 $doc=JFactory::getDocument();
 JHtml::_('jquery.framework');
@@ -28,7 +28,7 @@ if (!class_exists( 'VmModel' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.p
 vmRam('Start');
 vmSetStartTime('Start');
 
-$_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+$_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
 VmConfig::loadJLang('com_tsmart');
 
@@ -54,7 +54,7 @@ if($_controller) {
 vmJsApi::jQuery(0);
 
 // Create the controller
-$_class = 'VirtueMartController'.ucfirst($_controller);
+$_class = 'TsmartController'.ucfirst($_controller);
 $controller = new $_class();
 
 // Perform the Request task

@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -50,14 +50,14 @@ class tsmcities
         return $list;
     }
 
-    public static function get_list_city_by_state_id($virtuemart_state_id)
+    public static function get_list_city_by_state_id($tsmart_state_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
             ->from('#__virtuemart_cityarea')
             ->leftJoin('#__virtuemart_states AS states USING(virtuemart_state_id)')
-            ->where('states.virtuemart_state_id='.(int)$virtuemart_state_id)
+            ->where('states.virtuemart_state_id='.(int)$tsmart_state_id)
         ;
         return $db->setQuery($query)->loadObjectList();
     }

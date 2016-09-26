@@ -7,7 +7,7 @@
  * @subpackage Config
  * @author Max Milbers
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -413,7 +413,7 @@ class VirtueMartModelConfig extends VmModel {
 			$p =  VMPATH_ROOT.DS;
 			if(strtolower($safePath) == strtolower($p)){
 				$safePath = '';
-				vmError('Do not use as safepath your virtuemart root folder');
+				vmError('Do not use as safepath your tsmart root folder');
 			}
 			$config->set('forSale_path',$safePath);
 		} else {
@@ -508,7 +508,7 @@ class VirtueMartModelConfig extends VmModel {
 	static public function checkVirtuemartInstalled(){
 
 		$db = JFactory::getDBO();
-		$query = 'SHOW TABLES LIKE "'.$db->getPrefix().'virtuemart%"';
+		$query = 'SHOW TABLES LIKE "'.$db->getPrefix().'tsmart%"';
 		$db->setQuery($query);
 		$vmTables = $db->loadColumn();
 		$err = $db->getError();
@@ -557,11 +557,11 @@ class VirtueMartModelConfig extends VmModel {
 	 */
 	static function readConfigFile(){
 
-		$_datafile = VMPATH_ADMIN.DS.'virtuemart.cfg';
+		$_datafile = VMPATH_ADMIN.DS.'tsmart.cfg';
 		if (!file_exists($_datafile)) {
 			if (file_exists(VMPATH_ADMIN.DS.'virtuemart_defaults.cfg-dist')) {
 				if(!class_exists('JFile')) require(VMPATH_LIBS.DS.'joomla'.DS.'filesystem'.DS.'file.php');
-				JFile::copy('virtuemart_defaults.cfg-dist','virtuemart.cfg',VMPATH_ADMIN);
+				JFile::copy('virtuemart_defaults.cfg-dist','tsmart.cfg',VMPATH_ADMIN);
 			} else {
 				vmWarn('The data file with the default configuration could not be found. You must configure the shop manually.');
 				return FALSE;

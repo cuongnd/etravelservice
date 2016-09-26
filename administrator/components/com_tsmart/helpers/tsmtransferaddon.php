@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -60,13 +60,13 @@ class tsmtransferaddon
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_tour_id_by_transfer_addon_id($virtuemart_transfer_addon_id=0)
+    public static function get_list_tour_id_by_transfer_addon_id($tsmart_transfer_addon_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_product_id')
             ->from('#__virtuemart_tour_id_transfer_addon_id')
-            ->where('virtuemart_transfer_addon_id='.(int)$virtuemart_transfer_addon_id)
+            ->where('virtuemart_transfer_addon_id='.(int)$tsmart_transfer_addon_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }

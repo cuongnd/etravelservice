@@ -7,7 +7,7 @@
  * @subpackage Userfields
  * @author Max Milbers
  * @author Oscar van Eijk
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -1123,10 +1123,10 @@ class VirtueMartModelUserfields extends VmModel {
 	 *
 	 * @param array $titles List of titles from the formdata
 	 * @param array $values List of values from the formdata
-	 * @param int $virtuemart_userfield_id ID of the userfield to relate
+	 * @param int $tsmart_userfield_id ID of the userfield to relate
 	 * @return array Data to bind to the userfield_values table
 	 */
-	private function postData2FieldValues($titles, $values, $virtuemart_userfield_id  ){
+	private function postData2FieldValues($titles, $values, $tsmart_userfield_id  ){
 
 		$_values = array();
 		if (is_array($titles) && is_array($values)) {
@@ -1134,7 +1134,7 @@ class VirtueMartModelUserfields extends VmModel {
 			foreach ($values as $i=>$val)
 			 {
 				$_values[$i] = array(
-					 'virtuemart_userfield_id'    => $virtuemart_userfield_id
+					 'virtuemart_userfield_id'    => $tsmart_userfield_id
 				,'fieldtitle' => $titles[$i]
 				,'fieldvalue' => $values[$i]
 				,'ordering'   => $i

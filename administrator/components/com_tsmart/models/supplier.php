@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -103,11 +103,11 @@ class VirtueMartModelsupplier extends VmModel {
 			vmWarn('Insufficient permissions to store supplier');
 			return false;
 		}
-		$virtuemart_supplier_id= parent::store($data);
-		if($virtuemart_supplier_id) {
+		$tsmart_supplier_id= parent::store($data);
+		if($tsmart_supplier_id) {
 			$db = JFactory::getDbo();
 		}
-		return $virtuemart_supplier_id;
+		return $tsmart_supplier_id;
 		//end insert group size
 
 	}

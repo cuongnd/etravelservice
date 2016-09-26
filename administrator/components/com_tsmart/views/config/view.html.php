@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Config
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -55,7 +55,7 @@ class TsmartViewConfig extends tsmViewAdmin {
 
 		$this->jTemplateList = ShopFunctions::renderTemplateList(tsmText::_('com_tsmart_ADMIN_CFG_JOOMLA_TEMPLATE_DEFAULT'));
 
-		$this->vmLayoutList = $model->getLayoutList('virtuemart');
+		$this->vmLayoutList = $model->getLayoutList('tsmart');
 
 		$this->cartLayoutList = $model->getLayoutList('cart',array('padded.php','perror.php'));
 		$this->categoryLayoutList = $model->getLayoutList('category');

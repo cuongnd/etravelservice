@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -32,8 +32,8 @@ class TableExcursion_ad_don_date_price extends tsmTableData {
 
 	/** @var int Primary key */
 	var $id				= 0;
-	var $virtuemart_excursion_addon_id			= 0;
-	var $virtuemart_product_id			= 0;
+	var $tsmart_excursion_addon_id			= 0;
+	var $tsmart_product_id			= 0;
 	var $excursion_payment_type			= 0;
 	var $date				= null;
 	var $data_price				= null;

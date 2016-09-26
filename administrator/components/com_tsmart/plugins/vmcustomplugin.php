@@ -8,7 +8,7 @@ defined ('_JEXEC') or die('Direct Access to ' . basename (__FILE__) . ' is not a
  * @subpackage Plugins
  * @author Oscar van Eijk
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -59,10 +59,10 @@ abstract class vmCustomPlugin extends vmPlugin {
 
 	}
 
-	function onDisplayEditBECustom ($virtuemart_custom_id, &$customPlugin) {
+	function onDisplayEditBECustom ($tsmart_custom_id, &$customPlugin) {
 
-		//if($this->plugin = $this->selectedThisByMethodId($this->_psType,$virtuemart_custom_id)){
-		if ($this->plugin = $this->selectedThisByMethodId ($virtuemart_custom_id)) {
+		//if($this->plugin = $this->selectedThisByMethodId($this->_psType,$tsmart_custom_id)){
+		if ($this->plugin = $this->selectedThisByMethodId ($tsmart_custom_id)) {
 
 			if (empty($this->plugin)) {
 				$this->plugin->custom_jplugin_id = NULL;

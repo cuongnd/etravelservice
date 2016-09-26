@@ -9,10 +9,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL,
 * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
 *
-* http://virtuemart.net
+* http://tsmart.net
 */
 
-//joomla 3 calls virtuemart.php as controller
-include JPATH_COMPONENT_ADMINISTRATOR.DS.'virtuemart.php';
+//joomla 3 calls tsmart.php as controller
+include JPATH_COMPONENT_ADMINISTRATOR.DS.'tsmart.php';
 
 // pure php no closing tag

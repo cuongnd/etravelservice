@@ -3,7 +3,7 @@
 
 
 --
--- Configuration data has been moved to virtuemart.cfg
+-- Configuration data has been moved to tsmart.cfg
 --
 
 --

@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage Currency
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -31,8 +31,8 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class Tablehotel_addon extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_hotel_addon_id				= 0;
-	var $virtuemart_hotel_id					= 0;
+	var $tsmart_hotel_addon_id				= 0;
+	var $tsmart_hotel_id					= 0;
 	var $hotel_addon_type					= null;
 	var $data_price					= null;
 	var $hotel_type					= null;

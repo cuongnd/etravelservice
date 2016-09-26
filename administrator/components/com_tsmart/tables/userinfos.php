@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author 	RickG, RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -32,12 +32,12 @@ class TableUserinfos extends tsmTableData {
 
 
 	/** @var int Primary key */
-	var $virtuemart_user_id = 0;
+	var $tsmart_user_id = 0;
 
 	/** @var int hidden userkey */
-	var $virtuemart_userinfo_id = 0;
-// 	var $virtuemart_state_id = '';
-// 	var $virtuemart_country_id = '';
+	var $tsmart_userinfo_id = 0;
+// 	var $tsmart_state_id = '';
+// 	var $tsmart_country_id = '';
 
 // 	var $user_is_vendor = 0;
 // 	var $address_type = null;

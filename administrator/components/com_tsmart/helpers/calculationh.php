@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
@@ -739,7 +739,7 @@ class calculationHelper {
 						$dbrule['subTotalPerTaxID'][$product->product_tax_id] += $this->_cart->cartPrices[$cprdkey]['subtotal_with_tax'];
 					} else {
 						$taxRules = array_merge($this->allrules[$product->virtuemart_vendor_id]['VatTax'],$this->_cart->cartData['taxRulesBill']);
-						foreach($taxRules as $virtuemart_calc_id => $rule){
+						foreach($taxRules as $tsmart_calc_id => $rule){
 							if(!empty($rule['calc_categories']) || !empty($rule['virtuemart_manufacturers'])) {
 								$setCat = !empty($rule['calc_categories']) ? array_intersect($rule['calc_categories'],$product->categories) : array();
 								$setMan = !empty($rule['virtuemart_manufacturers']) ? array_intersect($rule['virtuemart_manufacturers'],$product->virtuemart_manufacturer_id) : array();
@@ -1378,13 +1378,13 @@ class calculationHelper {
 		}
 
 		//Now set the option
-		$virtuemart_typemethod_id = 'virtuemart_'.$type.'method_id';
+		$tsmart_typemethod_id = 'virtuemart_'.$type.'method_id';
 
 		$valid = false;
 		if(!empty($this->_cart->cartData[$type])){
 
 			if(!empty($this->_cart->cartData[$type][0])){
-				$this->_cart->$virtuemart_typemethod_id = $this->_cart->cartData[$type][0][$virtuemart_typemethod_id];
+				$this->_cart->$tsmart_typemethod_id = $this->_cart->cartData[$type][0][$tsmart_typemethod_id];
 				$this->_cart->cartData[$type.'Name'] = tsmText::_($this->_cart->cartData[$type][0][$type.'Name']);
 				//Here the values then
 				$this->_cart->cartPrices[$type.'Value'] = $this->_cart->cartData[$type][0][$type.'Value']; //could be automatically set to a default set in the globalconfig

@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Currency
  * @author Max Milbers, RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -20,8 +20,8 @@
 defined('_JEXEC') or die('Restricted access');
 $app=JFactory::getApplication();
 $input=$app->input;
-$virtuemart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
-$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+$tsmart_itinerary_id=$input->getInt('virtuemart_itinerary_id',0);
+$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 ?>
 <div class="view-accommodation-edit">
     <form action="index.php" method="post" class="form-horizontal"  name="adminForm" id="adminForm">
@@ -60,9 +60,9 @@ $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
         </div>
 
         <input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->item->virtuemart_vendor_id; ?>"/>
-        <input type="hidden" name="virtuemart_itinerary_id" value="<?php echo $virtuemart_itinerary_id; ?>"/>
+        <input type="hidden" name="virtuemart_itinerary_id" value="<?php echo $tsmart_itinerary_id; ?>"/>
         <input type="hidden" name="virtuemart_accommodation_id" value="<?php echo $this->item->virtuemart_accommodation_id; ?>"/>
-        <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $virtuemart_product_id; ?>"/>
+        <input type="hidden" name="key[virtuemart_product_id]" value="<?php echo $tsmart_product_id; ?>"/>
 
         <input type="hidden" value="1" name="published">
         <input type="hidden" value="com_tsmart" name="option">

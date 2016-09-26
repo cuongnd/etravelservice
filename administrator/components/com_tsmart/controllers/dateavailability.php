@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -62,9 +62,9 @@ class TsmartControllerDateAvailability extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-        $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
+        $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-		$list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+		$list_service_class=vmServiceclass::get_list_service_class_by_tour_id($tsmart_product_id);
 		echo json_encode($list_service_class);
 		die;
 
@@ -76,9 +76,9 @@ class TsmartControllerDateAvailability extends TsmController {
 		$app=JFactory::getApplication();
 		$dateavailability_model=$this->getModel('dateavailability');
 		$input=$app->input;
-		$virtuemart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
-		$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
-        $item=$dateavailability_model->getdateavailability($virtuemart_service_class_id,$virtuemart_product_id);
+		$tsmart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
+		$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $item=$dateavailability_model->getdateavailability($tsmart_service_class_id,$tsmart_product_id);
         echo json_encode($item);
 		die;
 	}
@@ -91,12 +91,12 @@ class TsmartControllerDateAvailability extends TsmController {
 
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
-		$virtuemart_service_class_id=$data['virtuemart_service_class_id'];
-		$virtuemart_product_id=$data['virtuemart_product_id'];
+		$tsmart_service_class_id=$data['virtuemart_service_class_id'];
+		$tsmart_product_id=$data['virtuemart_product_id'];
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->delete('#__virtuemart_date_availability')
-			->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id.' AND virtuemart_product_id='.(int)$virtuemart_product_id);
+			->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id.' AND virtuemart_product_id='.(int)$tsmart_product_id);
 		$db->setQuery($query);
 		$ok=$db->execute();
 		$response=new stdClass();
@@ -110,8 +110,8 @@ class TsmartControllerDateAvailability extends TsmController {
 		{
 			$data1=$data;
 			$data1['date']=$date;
-			$virtuemart_dateavailability_id= $dateavailability_model->store($data1);
-			if(!$virtuemart_dateavailability_id)
+			$tsmart_dateavailability_id= $dateavailability_model->store($data1);
+			if(!$tsmart_dateavailability_id)
 			{
 				echo $dateavailability_model->getErrors();
 			}
@@ -123,10 +123,10 @@ class TsmartControllerDateAvailability extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$virtuemart_dateavailability_id=$input->get('virtuemart_dateavailability_id',0,'int');
+		$tsmart_dateavailability_id=$input->get('virtuemart_dateavailability_id',0,'int');
 		$tour_id=$input->get('tour_id',0,'int');
 		$model_dateavailability = VmModel::getModel('dateavailability');
-		if(!$model_dateavailability->remove(array($virtuemart_dateavailability_id)))
+		if(!$model_dateavailability->remove(array($tsmart_dateavailability_id)))
 		{
 			echo 'cannot delete item';
 			die;

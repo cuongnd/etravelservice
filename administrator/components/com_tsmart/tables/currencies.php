@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,9 +31,9 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class TableCurrencies extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_currency_id				= 0;
+	var $tsmart_currency_id				= 0;
 	/** @var int vendor id */
-	var $virtuemart_vendor_id					= 1;
+	var $tsmart_vendor_id					= 1;
 	/** @var string Currency name*/
 
 	var $currency_name 			= '';
@@ -49,7 +49,7 @@ class TableCurrencies extends tsmTableData {
 	var $currency_negative_style	= '';
 	var $currency_code	= '';
 	var $sign	= '';
-	var $virtuemart_country_id	= 0;
+	var $tsmart_country_id	= 0;
 	var $shared					= 0;
 	var $published				= 1;
 

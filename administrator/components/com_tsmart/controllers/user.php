@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage User
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -63,17 +63,17 @@ class TsmartControllerUser extends TsmController {
 
 	function removeAddressST(){
 
-		$virtuemart_userinfo_id = vRequest::getInt('virtuemart_userinfo_id');
-		$virtuemart_user_id = vRequest::getInt('virtuemart_user_id');
+		$tsmart_userinfo_id = vRequest::getInt('virtuemart_userinfo_id');
+		$tsmart_user_id = vRequest::getInt('virtuemart_user_id');
 
 		//Lets do it dirty for now
 		$userModel = VmModel::getModel('user');
-		vmdebug('removeAddressST',$virtuemart_user_id,$virtuemart_userinfo_id);
-		$userModel->setId($virtuemart_user_id[0]);
-		$userModel->removeAddress($virtuemart_userinfo_id);
+		vmdebug('removeAddressST',$tsmart_user_id,$tsmart_userinfo_id);
+		$userModel->setId($tsmart_user_id[0]);
+		$userModel->removeAddress($tsmart_userinfo_id);
 
 		$layout = vRequest::getCmd('layout','edit');
-		$this->setRedirect( 'index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]='.$virtuemart_user_id[0] );
+		$this->setRedirect( 'index.php?option=com_tsmart&view=user&task=edit&virtuemart_user_id[]='.$tsmart_user_id[0] );
 	}
 
 	function editshop(){

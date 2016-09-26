@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -54,27 +54,27 @@ class tsmDeparture
         return $db->loadObjectList();
 
     }
-    public static function get_list_departure_by_tour_id($virtuemart_product_id)
+    public static function get_list_departure_by_tour_id($tsmart_product_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('departure.*')
             ->from('#__virtuemart_departure AS departure')
             ->where('departure.virtuemart_departure_parent_id is not NULL')
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
             ;
         $db->setQuery($query);
         return $db->loadObjectList();
 
     }
 
-    public static function get_format_departure_code($virtuemart_departure_id,$day)
+    public static function get_format_departure_code($tsmart_departure_id,$day)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('departure.virtuemart_departure_id')
             ->from('#__virtuemart_departure AS departure')
-            ->where('departure.virtuemart_departure_id='.(int)$virtuemart_departure_id)
+            ->where('departure.virtuemart_departure_id='.(int)$tsmart_departure_id)
             ->innerJoin('#__virtuemart_products AS product ON product.virtuemart_product_id=departure.virtuemart_product_id')
             ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb ON products_en_gb.virtuemart_product_id=product.virtuemart_product_id')
             ->select('products_en_gb.product_name AS product_name')

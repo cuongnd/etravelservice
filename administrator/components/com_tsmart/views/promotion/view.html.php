@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -57,10 +57,10 @@ class TsmartViewpromotion extends tsmViewAdmin {
 
         $layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
-			$this->virtuemart_product_id=$virtuemart_product_id;
+			$tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
+			$this->virtuemart_product_id=$tsmart_product_id;
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 
 
 
@@ -93,30 +93,30 @@ class TsmartViewpromotion extends tsmViewAdmin {
 		} else {
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
 
-            $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
-            $this->virtuemart_product_id=$virtuemart_product_id;
+            $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
+            $this->virtuemart_product_id=$tsmart_product_id;
 
             $model_product = VmModel::getModel('product');
 			$this->list_tour = $model_product->getItems();
 
             $this->product=$model_product->getItem($this->virtuemart_product_id);
-            $virtuemart_price_id=$input->get('virtuemart_price_id',0,'int');
-			$model_promotion_price->setId($virtuemart_price_id);
+            $tsmart_price_id=$input->get('virtuemart_price_id',0,'int');
+			$model_promotion_price->setId($tsmart_price_id);
             $this->price = $model_promotion_price->get_promotion_price();
 
             //get markup
-            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($virtuemart_price_id);
+            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($virtuemart_product_id);
+			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');
             $this->addStandardDefaultViewCommandspromotion();
             $model_tourclass = VmModel::getModel('tourclass');
             $this->list_service_class_by_tour_id=$model_tourclass->getItems();
 
-			$this->promotion_prices = $model_promotion_price->get_list_promotion_price($virtuemart_product_id);
+			$this->promotion_prices = $model_promotion_price->get_list_promotion_price($tsmart_product_id);
             //$this->prices=JArrayHelper::pivot($this->prices,'service_class_name');
 
 		}

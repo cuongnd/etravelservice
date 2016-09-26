@@ -39,7 +39,7 @@ class VmMediaHandler {
 	var $setRole = false;
 	var $file_name = '';
 	var $file_extension = '';
-	var $virtuemart_media_id = '';
+	var $tsmart_media_id = '';
 
 
 	function __construct($id=0){
@@ -99,14 +99,14 @@ class VmMediaHandler {
 			vmInfo('com_tsmart_MEDIA_NO_PATH_TYPE',$type,$link );
 			//Todo add general media_path to config
 			//$relUrl = VmConfig::get('media_path');
-			$relUrl = 'images/stories/virtuemart/';
+			$relUrl = 'images/stories/tsmart/';
 			$this->setRole=true;
 			// 		} else if(!$choosed and empty($relUrl) and $this->file_is_forSale==0){
 		} else if(!$choosed and empty($relUrl) ){
 
 			vmWarn('com_tsmart_MEDIA_CHOOSE_TYPE',$this->file_title );
 			// 	vmError('Ignore this message, when it appears while the media synchronisation process, else report to http://forum.virtuemart.net/index.php?board=127.0 : cant create media of unknown type, a programmers error, used type ',$type);
-			$relUrl = 'images/stories/virtuemart/typeless/';
+			$relUrl = 'images/stories/tsmart/typeless/';
 			$this->setRole=true;
 
 		} else if(!$choosed and $this->file_is_forSale==1){
@@ -733,7 +733,7 @@ class VmMediaHandler {
 			$this->file_url_folder = $this->getMediaUrlByView($data['media_attributes']);	//media_roles
 			$this->file_url_folder_thumb = $this->file_url_folder.'resized/';
 
-			$typelessUrl = 'images/stories/virtuemart/typeless/'.$this->file_name;
+			$typelessUrl = 'images/stories/tsmart/typeless/'.$this->file_name;
 			vmdebug('the Urls',$data['media_roles'],$typelessUrl,$this->file_url_folder.$this->file_name);
 			if(!file_exists($this->file_url_folder.$this->file_name) and file_exists($typelessUrl)){
 				vmdebug('Execute move');
@@ -1041,14 +1041,14 @@ class VmMediaHandler {
 
 		$db->setQuery($q);
 
-		if ($virtuemart_media_ids = $db->loadColumn()) {
+		if ($tsmart_media_ids = $db->loadColumn()) {
 
 			$model = VmModel::getModel('Media');
 
 			$db->setQuery('SELECT FOUND_ROWS()');
 			$list['total'] = $db->loadResult();
 
-			$list['images'] = $model->createMediaByIds($virtuemart_media_ids, $type);
+			$list['images'] = $model->createMediaByIds($tsmart_media_ids, $type);
 			return $list;
 		}
 		else return array();

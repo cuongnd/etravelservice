@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Order status
 * @author Oscar van Eijk
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -32,9 +32,9 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableOrderstates extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_orderstate_id			= 0;
+	var $tsmart_orderstate_id			= 0;
 	/** @var int Vendor ID if the status is vendor specific */
-	var $virtuemart_vendor_id					= null;
+	var $tsmart_vendor_id					= null;
 	/** @var boolean */
 	/** @var char Order status Code */
 	var $order_status_code			= '';

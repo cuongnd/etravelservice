@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage Shipment
  * @author RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -35,7 +35,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 	/** @var integer Joomla plugin ID */
 	var $jplugin_id;
 	/** @var integer Vendor ID */
-	var $virtuemart_vendor_id;
+	var $tsmart_vendor_id;
 
 	/**
 	 * constructs a VmModel
@@ -242,7 +242,7 @@ class VirtueMartModelShipmentmethod extends VmModel {
 	 * Creates a clone of a given shipmentmethod id
 	 *
 	 * @author Valérie Isaksen
-	 * @param int $virtuemart_shipmentmethod_id
+	 * @param int $tsmart_shipmentmethod_id
 	 */
 
 	public function createClone ($id) {

@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -43,27 +43,27 @@ class TsmartControllerProduct extends TsmController {
 
 	public function ajax_get_list_tour_id_by_tour_type_id(){
 		$input=JFactory::getApplication()->input;
-		$virtuemart_tour_type_id=$input->getInt('virtuemart_tour_type_id');
+		$tsmart_tour_type_id=$input->getInt('virtuemart_tour_type_id');
 		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
-		$list_tour_type = vmproduct::get_list_product_by_tour_type_id($virtuemart_tour_type_id);
+		$list_tour_type = vmproduct::get_list_product_by_tour_type_id($tsmart_tour_type_id);
 		echo json_encode($list_tour_type);
 		die;
 
 	}
 	public function ajax_get_list_service_class_by_tour_id(){
 		$input=JFactory::getApplication()->input;
-		$virtuemart_product_id=$input->getInt('virtuemart_product_id');
+		$tsmart_product_id=$input->getInt('virtuemart_product_id');
 		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-		$list_service_class = vmserviceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+		$list_service_class = vmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
 		echo json_encode($list_service_class);
 		die;
 
 	}
 	public function ajax_get_list_departure_by_tour_id(){
 		$input=JFactory::getApplication()->input;
-		$virtuemart_product_id=$input->getInt('virtuemart_product_id');
+		$tsmart_product_id=$input->getInt('virtuemart_product_id');
 		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmdeparture.php';
-		$list_departure = tsmDeparture::get_list_departure_by_tour_id($virtuemart_product_id);
+		$list_departure = tsmDeparture::get_list_departure_by_tour_id($tsmart_product_id);
 		echo json_encode($list_departure);
 		die;
 
@@ -213,14 +213,14 @@ class TsmartControllerProduct extends TsmController {
 
 	public function massxref_sgrps_exe(){
 
-		$virtuemart_shoppergroup_ids = vRequest::getInt('virtuemart_shoppergroup_id');
+		$tsmart_shoppergroup_ids = vRequest::getInt('virtuemart_shoppergroup_id');
 
 		$session = JFactory::getSession();
 		$cids = json_decode($session->get('vm_product_ids', array(), 'vm'),true);
 
 		$productModel = VmModel::getModel('product');
 		foreach($cids as $cid){
-			$data = array('virtuemart_product_id' => $cid, 'virtuemart_shoppergroup_id' => $virtuemart_shoppergroup_ids);
+			$data = array('virtuemart_product_id' => $cid, 'virtuemart_shoppergroup_id' => $tsmart_shoppergroup_ids);
 			$data = $productModel->updateXrefAndChildTables ($data, 'product_shoppergroups');
 		}
 
@@ -233,14 +233,14 @@ class TsmartControllerProduct extends TsmController {
 
 	public function massxref_cats_exe(){
 
-		$virtuemart_cat_ids = vRequest::getInt('cid', array() );
+		$tsmart_cat_ids = vRequest::getInt('cid', array() );
 
 		$session = JFactory::getSession();
 		$cids = json_decode($session->get('vm_product_ids', array(), 'vm'),true);
 
 		$productModel = VmModel::getModel('product');
 		foreach($cids as $cid){
-			$data = array('virtuemart_product_id' => $cid, 'virtuemart_category_id' => $virtuemart_cat_ids);
+			$data = array('virtuemart_product_id' => $cid, 'virtuemart_category_id' => $tsmart_cat_ids);
 			$data = $productModel->updateXrefAndChildTables ($data, 'product_categories',TRUE);
 		}
 
@@ -339,11 +339,11 @@ class TsmartControllerProduct extends TsmController {
 
 	public function ajax_notifyUsers(){
 
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
-		if(is_array($virtuemart_product_id) and count($virtuemart_product_id) > 0){
-			$virtuemart_product_id = (int)$virtuemart_product_id[0];
+		$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+		if(is_array($tsmart_product_id) and count($tsmart_product_id) > 0){
+			$tsmart_product_id = (int)$tsmart_product_id[0];
 		} else {
-			$virtuemart_product_id = (int)$virtuemart_product_id;
+			$tsmart_product_id = (int)$tsmart_product_id;
 		}
 
 		$subject = vRequest::getVar('subject', '');
@@ -351,21 +351,21 @@ class TsmartControllerProduct extends TsmController {
 		$max_number = (int)vRequest::getVar('max_number', '');
 		
 		$waitinglist = VmModel::getModel('Waitinglist');
-		$waitinglist->notifyList($virtuemart_product_id,$subject,$mailbody,$max_number);
+		$waitinglist->notifyList($tsmart_product_id,$subject,$mailbody,$max_number);
 		exit;
 	}
 	
 	public function ajax_waitinglist() {
 
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
-		if(is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0){
-			$virtuemart_product_id = (int)$virtuemart_product_id[0];
+		$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+		if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
+			$tsmart_product_id = (int)$tsmart_product_id[0];
 		} else {
-			$virtuemart_product_id = (int)$virtuemart_product_id;
+			$tsmart_product_id = (int)$tsmart_product_id;
 		}
 
 		$waitinglistmodel = VmModel::getModel('waitinglist');
-		$waitinglist = $waitinglistmodel->getWaitingusers($virtuemart_product_id);
+		$waitinglist = $waitinglistmodel->getWaitingusers($tsmart_product_id);
 
 		if(empty($waitinglist)) $waitinglist = array();
 		

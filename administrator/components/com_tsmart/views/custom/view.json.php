@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author  Patrick Kohl
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -36,9 +36,9 @@ class TsmartViewCustom extends JViewLegacy {
 	function display($tpl = null) {
 
 		$db = JFactory::getDBO();
-		if ( $virtuemart_media_id = vRequest::getInt('virtuemart_media_id') ) {
+		if ( $tsmart_media_id = vRequest::getInt('virtuemart_media_id') ) {
 			//$db = JFactory::getDBO();
-			$query='SELECT `file_url`,`file_title` FROM `#__virtuemart_medias` where `virtuemart_media_id`='.$virtuemart_media_id;
+			$query='SELECT `file_url`,`file_title` FROM `#__virtuemart_medias` where `virtuemart_media_id`='.$tsmart_media_id;
 			$db->setQuery( $query );
 			$json = $db->loadObject();
 			if (isset($json->file_url)) {

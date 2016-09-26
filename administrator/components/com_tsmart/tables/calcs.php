@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Calculation tool
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2011- 2014 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -28,9 +28,9 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableCalcs extends tsmTable
 {
 	/** @var int Primary key */
-	var $virtuemart_calc_id					= 0;
+	var $tsmart_calc_id					= 0;
 	/** @var string VendorID of the rule creator */
-	var $virtuemart_vendor_id				= 0;
+	var $tsmart_vendor_id				= 0;
 	var $calc_jplugin_id            = 0;
 	//var $calc_element            = '';
 	/** @var string Calculation name */

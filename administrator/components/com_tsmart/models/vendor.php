@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author RolandD, RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -64,7 +64,7 @@ class VirtueMartModelVendor extends VmModel {
 			$vendorId = self::getVendorId ('user', $userId, $ownerOnly);
 			return $vendorId;
 		} else {
-			JError::raiseNotice (1, '$virtuemart_user_id empty, no user logged in');
+			JError::raiseNotice (1, '$tsmart_user_id empty, no user logged in');
 			return 0;
 		}
 
@@ -123,8 +123,8 @@ class VirtueMartModelVendor extends VmModel {
 	 * Find the user id given a vendor id
 	 *
 	 * @author Max Milbers
-	 * @param int $virtuemart_vendor_id
-	 * @return int $virtuemart_user_id
+	 * @param int $tsmart_vendor_id
+	 * @return int $tsmart_user_id
 	 */
 	static function getUserIdByVendorId ($vendorId) {
 
@@ -273,22 +273,22 @@ class VirtueMartModelVendor extends VmModel {
 		return $db->loadObjectList ();
 	}
 
-	function getUserIdByOrderId ($virtuemart_order_id) {
+	function getUserIdByOrderId ($tsmart_order_id) {
 
-		if (empty ($virtuemart_order_id)) {
+		if (empty ($tsmart_order_id)) {
 			return 0;
 		}
-		$virtuemart_order_id = (int)$virtuemart_order_id;
-		$q = "SELECT `virtuemart_user_id` FROM `#__virtuemart_orders` WHERE `virtuemart_order_id`='.$virtuemart_order_id'";
+		$tsmart_order_id = (int)$tsmart_order_id;
+		$q = "SELECT `virtuemart_user_id` FROM `#__virtuemart_orders` WHERE `virtuemart_order_id`='.$tsmart_order_id'";
 		$db = JFactory::getDBO();
 		$db->setQuery ($q);
 
 //		if($db->next_record()){
 		if ($db->execute ()) {
-//			$virtuemart_user_id = $db->f('virtuemart_user_id');
+//			$tsmart_user_id = $db->f('virtuemart_user_id');
 			return $db->loadResult ();
 		} else {
-			JError::raiseNotice (1, 'Error in DB $virtuemart_order_id ' . $virtuemart_order_id . ' dont have a virtuemart_user_id');
+			JError::raiseNotice (1, 'Error in DB $tsmart_order_id ' . $tsmart_order_id . ' dont have a virtuemart_user_id');
 			return 0;
 		}
 	}
@@ -338,9 +338,9 @@ class VirtueMartModelVendor extends VmModel {
 				break;
 		}
 		$db->setQuery ($q);
-		$virtuemart_vendor_id = $db->loadResult ();
-		if ($virtuemart_vendor_id) {
-			return $virtuemart_vendor_id;
+		$tsmart_vendor_id = $db->loadResult ();
+		if ($tsmart_vendor_id) {
+			return $tsmart_vendor_id;
 		} else {
 			return 0;
 //			if($type!='user'){
@@ -357,9 +357,9 @@ class VirtueMartModelVendor extends VmModel {
 	 *
 	 * @author Max Milbers
 	 */
-	public function getVendorName ($virtuemart_vendor_id = 1) {
+	public function getVendorName ($tsmart_vendor_id = 1) {
 		$db = JFactory::getDBO();
-		$query = 'SELECT `vendor_store_name` FROM `#__virtuemart_vendors_' . VmConfig::$vmlang . '` WHERE `virtuemart_vendor_id` = "' . (int)$virtuemart_vendor_id . '" ';
+		$query = 'SELECT `vendor_store_name` FROM `#__virtuemart_vendors_' . VmConfig::$vmlang . '` WHERE `virtuemart_vendor_id` = "' . (int)$tsmart_vendor_id . '" ';
 		$db->setQuery ($query);
 		if ($db->execute ()) {
 			return $db->loadResult ();
@@ -374,11 +374,11 @@ class VirtueMartModelVendor extends VmModel {
 	 * @author Max Milbers
 	 */
 
-	public function getVendorEmail ($virtuemart_vendor_id) {
+	public function getVendorEmail ($tsmart_vendor_id) {
 
-		$virtuemart_user_id = self::getUserIdByVendorId ((int)$virtuemart_vendor_id);
-		if (!empty($virtuemart_user_id)) {
-			$query = 'SELECT `email` FROM `#__users` WHERE `id` = "' . $virtuemart_user_id . '" ';
+		$tsmart_user_id = self::getUserIdByVendorId ((int)$tsmart_vendor_id);
+		if (!empty($tsmart_user_id)) {
+			$query = 'SELECT `email` FROM `#__users` WHERE `id` = "' . $tsmart_user_id . '" ';
 			$db = JFactory::getDBO();
 			$db->setQuery ($query);
 			if ($db->execute ()) {
@@ -390,14 +390,14 @@ class VirtueMartModelVendor extends VmModel {
 		return '';
 	}
 
-	public function getVendorAdressBT ($virtuemart_vendor_id) {
+	public function getVendorAdressBT ($tsmart_vendor_id) {
 
-		$userId = self::getUserIdByVendorId ($virtuemart_vendor_id);
+		$userId = self::getUserIdByVendorId ($tsmart_vendor_id);
 		$usermodel = VmModel::getModel ('user');
 // 		$usermodel->setId($userId);
-		$virtuemart_userinfo_id = $usermodel->getBTuserinfo_id ($userId);
+		$tsmart_userinfo_id = $usermodel->getBTuserinfo_id ($userId);
 		$vendorAddressBt = $this->getTable ('userinfos');
-		$vendorAddressBt->load ($virtuemart_userinfo_id);
+		$vendorAddressBt->load ($tsmart_userinfo_id);
 		return $vendorAddressBt;
 	}
 
@@ -407,13 +407,13 @@ class VirtueMartModelVendor extends VmModel {
 		if(!$this->_vendorFields){
 			$userId = VirtueMartModelVendor::getUserIdByVendorId ($this->_id);
 			$userModel = VmModel::getModel ('user');
-			$virtuemart_userinfo_id = $userModel->getBTuserinfo_id ($userId);
+			$tsmart_userinfo_id = $userModel->getBTuserinfo_id ($userId);
 
 			// this is needed to set the correct user id for the vendor when the user is logged
 			$userModel->getVendor($this->_id,FALSE);
 
-			$vendorFieldsArray = $userModel->getUserInfoInUserFields ('mail', 'BT', $virtuemart_userinfo_id, FALSE, TRUE);
-			$this->_vendorFields = $vendorFieldsArray[$virtuemart_userinfo_id];
+			$vendorFieldsArray = $userModel->getUserInfoInUserFields ('mail', 'BT', $tsmart_userinfo_id, FALSE, TRUE);
+			$this->_vendorFields = $vendorFieldsArray[$tsmart_userinfo_id];
 		}
 
 		return $this->_vendorFields;

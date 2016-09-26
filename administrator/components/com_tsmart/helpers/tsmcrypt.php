@@ -1,7 +1,7 @@
 <?php
 defined('VMPATH_ROOT') or die();
 /**
- * virtuemart encrypt class, with some additional behaviours.
+ * tsmart encrypt class, with some additional behaviours.
  *
  *
  * @package    VirtueMart
@@ -15,7 +15,7 @@ defined('VMPATH_ROOT') or die();
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 class tsmCrypt {

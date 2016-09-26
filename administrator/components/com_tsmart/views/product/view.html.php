@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -58,24 +58,24 @@ class TsmartViewProduct extends tsmViewAdmin
                 VmConfig::loadJLang('com_tsmart_shoppers', TRUE);
                 $model_country = VmModel::getModel('country');
                 $this->countries = $model_country->getItemList();
-                $virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
+                $tsmart_product_id = vRequest::getInt('virtuemart_product_id');
 
-                if (is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0) {
-                    $virtuemart_product_id = (int)$virtuemart_product_id[0];
+                if (is_array($tsmart_product_id) && count($tsmart_product_id) > 0) {
+                    $tsmart_product_id = (int)$tsmart_product_id[0];
                 } else {
-                    $virtuemart_product_id = (int)$virtuemart_product_id;
+                    $tsmart_product_id = (int)$tsmart_product_id;
                 }
 
-                $product = $model->getItem($virtuemart_product_id);
+                $product = $model->getItem($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                $product->virtuemart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
+                $product->virtuemart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-                $product->virtuemart_group_size_ids = tsmGroupSize::get_list_group_size_ids_by_tour_id($virtuemart_product_id);
+                $product->virtuemart_group_size_ids = tsmGroupSize::get_list_group_size_ids_by_tour_id($tsmart_product_id);
                 //$user = JFactory::getUser();
                 $superVendor = vmAccess::isSuperVendor();
                 if ($superVendor != 1 and $superVendor != $product->virtuemart_vendor_id) {
                     vmdebug('Product view.html.php ' . $superVendor, $product->virtuemart_vendor_id);
-                    JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=virtuemart', tsmText::_('com_tsmart_ALERTNOTAUTHOR'), 'error');
+                    JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=tsmart', tsmText::_('com_tsmart_ALERTNOTAUTHOR'), 'error');
                 }
                 if (!empty($product->product_parent_id)) {
                     $product_parent = $model->getProductSingle($product->product_parent_id, false);
@@ -110,7 +110,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 //Do we need the children? If there is a C customfield, we dont want them
                 $isCustomVariant = false;
                 foreach ($product->customfields as $custom) {
-                    if ($custom->field_type == 'C' and $custom->virtuemart_product_id == $virtuemart_product_id) {
+                    if ($custom->field_type == 'C' and $custom->virtuemart_product_id == $tsmart_product_id) {
                         $isCustomVariant = true;
                         break;
                     }
@@ -442,7 +442,7 @@ class TsmartViewProduct extends tsmViewAdmin
                 }
 
 
-                foreach ($productlist as $virtuemart_product_id => $product) {
+                foreach ($productlist as $tsmart_product_id => $product) {
                     $product->mediaitems = count($product->virtuemart_media_id);
                     $product->reviews = $productreviews->countReviewsForProduct($product->virtuemart_product_id);
 
@@ -502,7 +502,7 @@ class TsmartViewProduct extends tsmViewAdmin
                     JToolBarHelper::custom('cloneproduct', 'copy', 'copy', vmText::_('com_tsmart_PRODUCT_CLONE'), true);
                 }*/
                 // JToolBarHelper::custom('addrating', 'default', '', vmText::_('com_tsmart_ADD_RATING'), true);
-                $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+                $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
                 JToolBarHelper::divider();
                 if (vmAccess::manager($view . '.edit.state')) {
                     JToolBarHelper::publishList();

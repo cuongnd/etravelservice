@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Orders Order Calculation Rules
 * @author valérie Isaksen
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,16 +31,16 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableOrder_calc_rules extends tsmTable {
 
 	/** @var int Primary key */
-	var $virtuemart_order_calc_rule_id = 0;
+	var $tsmart_order_calc_rule_id = 0;
 	/** @var int Calculation ID */
-	var $virtuemart_calc_id = NULL;
+	var $tsmart_calc_id = NULL;
 	/** @var int Order ID */
-	var $virtuemart_order_id = NULL;
+	var $tsmart_order_id = NULL;
 
 	/** @var int Vendor ID */
-	var $virtuemart_vendor_id = NULL;
+	var $tsmart_vendor_id = NULL;
 	/** @var int Product ID */
-	var $virtuemart_order_item_id = NULL;
+	var $tsmart_order_item_id = NULL;
 	/** @var string Calculation Rule name name */
 	var $calc_rule_name = NULL;
 	/** @var int Product Quantity */

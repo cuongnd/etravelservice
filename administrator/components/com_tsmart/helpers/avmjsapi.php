@@ -1,6 +1,6 @@
 <?php
 /**
- * virtuemart table class, with some additional behaviours.
+ * tsmart table class, with some additional behaviours.
  *
  *
  * @package    VirtueMart
@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -801,7 +801,7 @@ jQuery(document).ready(function() { // GALT: Start listening for dynamic content
 			$refTime = 30;
 		}
 
-		$url = 'index.php?option=com_tsmart&view=virtuemart&task=keepalive';
+		$url = 'index.php?option=com_tsmart&view=tsmart&task=keepalive';
 		vmJsApi::addJScript('keepAliveTime','var sessMin = '.$refTime.';var vmAliveUrl = "'.$url.'";var maxlps = "'.$maxlps.'";var minlps = "'.$minlps.'";',false,true);
 		vmJsApi::addJScript('vmkeepalive',false, true, true);
 	}

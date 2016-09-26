@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 jimport('joomla.application.component.controller');
 if (!class_exists('ShopFunctions')) require(VMPATH_ADMIN.DS.'helpers'.DS.'shopfunctions.php');
@@ -70,7 +70,7 @@ class TsmController extends JControllerLegacy{
 	* This function is provide as a default implementation, in most cases
 	* you will need to override it in your own controllers.
 	*
-	* For the virtuemart core, we removed the "Get/Create the model"
+	* For the tsmart core, we removed the "Get/Create the model"
 	*
 	* @param   boolean  $cachable   If true, the view output will be cached
 	* @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.

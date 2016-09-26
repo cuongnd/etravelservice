@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -47,11 +47,11 @@ class TsmartViewProduct extends tsmViewAdmin {
 		$filter = vRequest::getVar('q', vRequest::getVar('term', false) );
 
 		$id = vRequest::getInt('id', false);
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',array());
-		if(is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0){
-			$product_id = (int)$virtuemart_product_id[0];
+		$tsmart_product_id = vRequest::getInt('virtuemart_product_id',array());
+		if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
+			$product_id = (int)$tsmart_product_id[0];
 		} else {
-			$product_id = (int)$virtuemart_product_id;
+			$product_id = (int)$tsmart_product_id;
 		}
 		//$customfield = $this->model->getcustomfield();
 		/* Get the task */

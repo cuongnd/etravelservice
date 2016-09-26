@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -54,7 +54,7 @@ class TsmartViewInventory extends tsmViewAdmin {
 		// Apply currency
 		$currencydisplay = CurrencyDisplay::getInstance();
 
-		foreach ($this->inventorylist as $virtuemart_product_id => $product) {
+		foreach ($this->inventorylist as $tsmart_product_id => $product) {
 
 			//TODO oculd be interesting to show the price for each product, and all stored ones $product->product_in_stock
 			$price = isset($product->allPrices[$product->selectedPrice]['product_price'])? $product->allPrices[$product->selectedPrice]['product_price']:0;

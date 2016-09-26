@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -222,7 +222,7 @@ class VirtueMartModelCustom extends VmModel {
 	 * Creates a clone of a given custom id
 	 *
 	 * @author Max Milbers
-	 * @param int $virtuemart_product_id
+	 * @param int $tsmart_product_id
 	 */
 
 	public function createClone($id){

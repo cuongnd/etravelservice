@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -43,13 +43,13 @@ class tsmactivities
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_activity_id_by_tour_id($virtuemart_product_id=0)
+    public static function get_list_activity_id_by_tour_id($tsmart_product_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_activity_id')
             ->from('#__virtuemart_tour_id_activity_id')
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }

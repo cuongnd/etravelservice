@@ -7,7 +7,7 @@
  * @package	VirtueMart
  * @subpackage updatesMigration
  * @author Max Milbers, RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -391,7 +391,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		if(VmConfig::get('dangeroustools', true)){
 
-			if(!class_exists('com_tsmartInstallerScript')) require(VMPATH_ADMIN . DS . 'install' . DS . 'script.virtuemart.php');
+			if(!class_exists('com_tsmartInstallerScript')) require(VMPATH_ADMIN . DS . 'install' . DS . 'script.tsmart.php');
 			$updater = new com_tsmartInstallerScript();
 			$updater->install(true);
 
@@ -426,7 +426,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			$jConfig['lifetime'] = 60;
 			$jConfig['list_limit'] = 25;
 			$jConfig['MetaDesc'] = 'VirtueMart works with Joomla! - the dynamic portal engine and content management system';
-			$jConfig['MetaKeys'] = 'virtuemart, vm2, joomla, Joomla';
+			$jConfig['MetaKeys'] = 'tsmart, vm2, joomla, Joomla';
 
 			$app = JFactory::getApplication();
 			$return = $jConfModel->save($jConfig);
@@ -454,7 +454,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 	 */
 	function updateDatabase(){
 		vRequest::vmCheckToken();
-		if(!class_exists('com_tsmartInstallerScript')) require(VMPATH_ADMIN . DS . 'install' . DS . 'script.virtuemart.php');
+		if(!class_exists('com_tsmartInstallerScript')) require(VMPATH_ADMIN . DS . 'install' . DS . 'script.tsmart.php');
 		$updater = new com_tsmartInstallerScript();
 		$updater->update(false);
 		$this->setRedirect($this->redirectPath, 'Database updated');

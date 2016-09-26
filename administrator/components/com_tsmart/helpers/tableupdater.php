@@ -5,14 +5,14 @@ defined('_JEXEC') or die('Restricted access');
  * @package VirtueMart
  * @subpackage core
  * @author Max Milbers
- * @copyright Copyright (C) 2014 by the virtuemart team - All rights reserved.
+ * @copyright Copyright (C) 2014 by the tsmart team - All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL 2, see COPYRIGHT.php
  * VirtueMart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 
@@ -108,7 +108,7 @@ class GenericTableUpdater extends VmModel{
 			$fields[$tblKey] = 'int(1) UNSIGNED NOT NULL';
 // 			vmdebug('createLanguageTables ',$translatableFields);
 			//set exceptions from normal shema here !
-			//Be aware that you can use this config settings, when declaring them in the virtuemart.cfg
+			//Be aware that you can use this config settings, when declaring them in the tsmart.cfg
 			if(VmConfig::get('dblayoutstrict',true)){
 				if($table=='products'){
 					$fields['product_s_desc'] = 'varchar('.VmConfig::get('dbpsdescsize',2000).') '.$linedefault;

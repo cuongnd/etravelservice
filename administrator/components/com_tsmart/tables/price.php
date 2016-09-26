@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,14 +31,14 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class TablePrice extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_price_id				= 0;
+	var $tsmart_price_id				= 0;
 	var $price_note				= 0;
 	var $sale_period_from				= null;
-	var $virtuemart_product_id				= null;
+	var $tsmart_product_id				= null;
 	var $sale_period_to				= null;
 	var $title				= '';
 	var $tax				= 0;
-	var $virtuemart_service_class_id				= 0;
+	var $tsmart_service_class_id				= 0;
 	var $full_charge_children1				= 0;
 	var $full_charge_children2				= 0;
 	var $shared					= 0;

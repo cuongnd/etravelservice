@@ -16,7 +16,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 // Load the view framework
 jimport('joomla.application.component.view');
@@ -49,7 +49,7 @@ class tsmViewAdmin extends JViewLegacy
     */
     public function display($tpl = null)
     {
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         $doc = JFactory::getDocument();
         $input = JFactory::getApplication()->input;
@@ -96,7 +96,7 @@ class tsmViewAdmin extends JViewLegacy
 
 
         }
-        if ($view == 'virtuemart' //Virtuemart view is always allowed since this is the page we redirect to in case the user does not have the rights
+        if ($view == 'tsmart' //Virtuemart view is always allowed since this is the page we redirect to in case the user does not have the rights
             or $view == 'about' //About view always displayed
             or $this->manager($view)
         ) {
@@ -138,7 +138,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -173,7 +173,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -208,7 +208,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -241,7 +241,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -274,7 +274,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -310,7 +310,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -345,7 +345,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -379,7 +379,7 @@ class tsmViewAdmin extends JViewLegacy
     {
 
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         JToolBarHelper::divider();
         if (vmAccess::manager($view . '.edit.state')) {
@@ -517,7 +517,7 @@ class tsmViewAdmin extends JViewLegacy
 
         // set list filters
         $option = vRequest::getCmd('option');
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         $app = JFactory::getApplication();
         $this->lists[$name] = $app->getUserStateFromRequest($option . '.' . $view . '.' . $name, $name, '', 'string');
@@ -560,7 +560,7 @@ class tsmViewAdmin extends JViewLegacy
     function addStandardEditViewCommands($id = 0, $object = null)
     {
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         if (!class_exists('JToolBarHelper')) require(JPATH_ADMINISTRATOR . DS . 'includes' . DS . 'toolbar.php');
 
@@ -731,7 +731,7 @@ class tsmViewAdmin extends JViewLegacy
     function addStandardEditViewCommandsPopup($id = 0, $object = null)
     {
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         if (!class_exists('JToolBarHelper')) require(JPATH_ADMINISTRATOR . DS . 'includes' . DS . 'toolbar.php');
 
@@ -902,7 +902,7 @@ class tsmViewAdmin extends JViewLegacy
     function addStandardEditViewCommandsNoValidate($id = 0, $object = null)
     {
 
-        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'virtuemart'));
+        $view = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
 
         if (!class_exists('JToolBarHelper')) require(JPATH_ADMINISTRATOR . DS . 'includes' . DS . 'toolbar.php');
 

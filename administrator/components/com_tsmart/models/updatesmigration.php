@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage updatesMigration
 * @author Max Milbers, RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -39,7 +39,7 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 
     	if(!class_exists('VmConnector')) require(VMPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'connection.php');
 
-		$url = "http://virtuemart.net/index2.php?option=com_versions&catid=1&myVersion={".VmConfig::getInstalledVersion()."}&task=latestversionastext";
+		$url = "http://tsmart.net/index2.php?option=com_versions&catid=1&myVersion={".VmConfig::getInstalledVersion()."}&task=latestversionastext";
 		$result = VmConnector::handleCommunication($url);
 
 		return $result;
@@ -51,9 +51,9 @@ class VirtueMartModelUpdatesMigration extends VmModel {
      */
     function determineStoreOwner() {
 		if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-		$virtuemart_user_id = VirtueMartModelVendor::getUserIdByVendorId(1);
-		if (isset($virtuemart_user_id) && $virtuemart_user_id > 0) {
-		    $this->_user = JFactory::getUser($virtuemart_user_id);
+		$tsmart_user_id = VirtueMartModelVendor::getUserIdByVendorId(1);
+		if (isset($tsmart_user_id) && $tsmart_user_id > 0) {
+		    $this->_user = JFactory::getUser($tsmart_user_id);
 		}
 		else {
 		    $this->_user = JFactory::getUser();
@@ -414,17 +414,17 @@ class VirtueMartModelUpdatesMigration extends VmModel {
 		    	$droppedTables[] = substr($table,strlen($prefix)-1);
 		    } else {
 		    	$errorTables[] = $table;
-		    	$app->enqueueMessage('Error drop virtuemart table ' . $table);
+		    	$app->enqueueMessage('Error drop tsmart table ' . $table);
 		    }
 		}
 
 
 		if(!empty($droppedTables)){
-			$app->enqueueMessage('Dropped virtuemart table ' . implode(', ',$droppedTables));
+			$app->enqueueMessage('Dropped tsmart table ' . implode(', ',$droppedTables));
 		}
 
 	    if(!empty($errorTables)){
-			$app->enqueueMessage('Error dropping virtuemart table ' . implode($errorTables,', '));
+			$app->enqueueMessage('Error dropping tsmart table ' . implode($errorTables,', '));
 			return false;
 		}
 

@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage UpdatesMigration
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -91,7 +91,7 @@ if($option=='com_tsmart'){
 		?>
 		<tr>
 			<td><span class="<?php echo $class ?>">
-				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','http://virtuemart.net/community/translations'); ?>
+				<?php echo tsmText::sprintf('com_tsmart_MORE_LANGUAGES','http://tsmart.net/community/translations'); ?>
 				</span>
 			</td>
 		</tr>

@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -110,23 +110,23 @@ class VirtueMartModelExcursionaddon extends VmModel
             vmWarn('Insufficient permissions to store excursionaddon');
             return false;
         }
-        $virtuemart_excursion_addon_id= parent::store($data);
-        if($virtuemart_excursion_addon_id) {
+        $tsmart_excursion_addon_id= parent::store($data);
+        if($tsmart_excursion_addon_id) {
             //inser to excusionaddon
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_excursion_addon_id')
-                ->where('virtuemart_excursion_addon_id=' . (int)$virtuemart_excursion_addon_id);
+                ->where('virtuemart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete tour in excursion_addon', $err);
             }
             $list_tour_id = $data['list_tour_id'];
-            foreach ($list_tour_id as $virtuemart_product_id) {
+            foreach ($list_tour_id as $tsmart_product_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_excursion_addon_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_excursion_addon_id=' . (int)$virtuemart_excursion_addon_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_excursion_addon_id=' . (int)$tsmart_excursion_addon_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -160,7 +160,7 @@ class VirtueMartModelExcursionaddon extends VmModel
                     $table_excursion_ad_don_date_price->id=0;
                     $table_excursion_ad_don_date_price->jload(array('date'=>$date,'virtuemart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
                     $table_excursion_ad_don_date_price->date=$date;
-                    $table_excursion_ad_don_date_price->virtuemart_hotel_addon_id=$virtuemart_hotel_addon_id;
+                    $table_excursion_ad_don_date_price->virtuemart_hotel_addon_id=$tsmart_hotel_addon_id;
                     $table_excursion_ad_don_date_price->virtuemart_product_id=$tour_id;
                     $table_excursion_ad_don_date_price->hotel_addon_type=$hotel_addon_type;
                     $table_excursion_ad_don_date_price->single_room_net_price=$single_room->net_price;
@@ -196,7 +196,7 @@ class VirtueMartModelExcursionaddon extends VmModel
 
         }
 
-        return $virtuemart_excursion_addon_id;
+        return $tsmart_excursion_addon_id;
     }
 
     function remove($ids)

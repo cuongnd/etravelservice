@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -93,21 +93,21 @@ class TsmartControllerpromotion extends TsmController {
         $post = json_decode($post);
 
         $input=$app->input;
-        $virtuemart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
+        $tsmart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
         $post->virtuemart_product_id=$post->virtuemart_product_id;
         $post=(array)$post;
         $return_ajax=new stdClass();
         $return_ajax->e=0;
-        $virtuemart_promotion_price_id=$model_promotion_price->store($post);
-        if(!$virtuemart_promotion_price_id)
+        $tsmart_promotion_price_id=$model_promotion_price->store($post);
+        if(!$tsmart_promotion_price_id)
         {
             $return_ajax->e=1;
             $return_ajax->m=$model_promotion_price->getErrors();
             echo json_encode($return_ajax);
             die;
         }
-        $promotion_item=$model_promotion_price->get_promotion_price($virtuemart_promotion_price_id);
+        $promotion_item=$model_promotion_price->get_promotion_price($tsmart_promotion_price_id);
         $promotion_item->sale_period=JHtml::_('date', $promotion_item->sale_period_from, 'd M. Y').'-'.JHtml::_('date', $promotion_item->sale_period_to, 'd M. Y');
         $promotion_item->modified_on=JHtml::_('date', $promotion_item->modified_on, 'd M. Y');
         $return_ajax->r=$promotion_item;
@@ -120,33 +120,33 @@ class TsmartControllerpromotion extends TsmController {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
-        $virtuemart_product_id=$input->get('virtuemart_product_id',0,'int');
+        $tsmart_product_id=$input->get('virtuemart_product_id',0,'int');
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $virtuemart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($virtuemart_product_id);
+        $tsmart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
         $return_item=new stdClass();
-        $return_item->virtuemart_service_class_ids=$virtuemart_service_class_ids;
+        $return_item->virtuemart_service_class_ids=$tsmart_service_class_ids;
         $view = &$this->getView('promotion', 'html', 'VirtuemartView');
         $modal_promotion=$this->getModel('promotion');
         $view->setModel($modal_promotion,true);
         $model_product=$this->getModel('product');
-        $product=$model_product->getItem($virtuemart_product_id);
+        $product=$model_product->getItem($tsmart_product_id);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         if($product->price_type!=tsmGroupSize::FLAT_PRICE)
         {
-            $list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_product_id);
+            $list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($tsmart_product_id);
             $return_item->list_tour_promotion_price_by_tour_promotion_price_id=$list_tour_promotion_price_by_tour_promotion_price_id;
             $view->assignRef('list_tour_price_by_tour_promotion_price_id',$list_tour_promotion_price_by_tour_promotion_price_id);
-            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
+            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tsmart_product_id);
             $view->assignRef('list_group_size_by_tour_id',$list_group_size_by_tour_id);
             $return_item->list_group_size_by_tour_id=$list_group_size_by_tour_id;
         }else{
-            $tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_product_id);
+            $tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tsmart_product_id);
             $return_item->tour_private_price_by_tour_promotion_price_id=$tour_private_price_by_tour_promotion_price_id;
             $view->assignRef('tour_private_price_by_tour_promotion_price_id',$tour_private_price_by_tour_promotion_price_id);
 
 
-            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
+            $list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tsmart_product_id);
             $view->assignRef('list_group_size_by_tour_id',$list_group_size_by_tour_id);
             $return_item->list_group_size_by_tour_id=$list_group_size_by_tour_id;
 
@@ -168,10 +168,10 @@ class TsmartControllerpromotion extends TsmController {
     public function ajax_get_list_base_price_by_service_class_id_and_tour_id(){
         $app=JFactory::getApplication();
         $input=$app->input;
-        $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
-        $virtuemart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
+        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_service_class_id=$input->getInt('virtuemart_service_class_id',0);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($virtuemart_product_id,$virtuemart_service_class_id);
+        $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($tsmart_product_id,$tsmart_service_class_id);
         echo json_encode($list_base_price_by_service_class_id_and_tour_id);
         die;
 
@@ -181,19 +181,19 @@ class TsmartControllerpromotion extends TsmController {
         $app=JFactory::getApplication();
         $input=$app->input;
         $view = &$this->getView('promotion', 'html', 'VirtuemartView');
-        $virtuemart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
+        $tsmart_promotion_price_id=$input->get('virtuemart_promotion_price_id',0,'int');
         $model_promotion_price = VmModel::getModel('promotion');
-        $model_promotion_price->setId($virtuemart_promotion_price_id);
+        $model_promotion_price->setId($tsmart_promotion_price_id);
         $promotion_price = $model_promotion_price->get_promotion_price();
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
-        $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
-        $virtuemart_product_id=$product->virtuemart_product_id;
+        $product=vmpromotion::get_product_by_promotion_price_id($tsmart_promotion_price_id);
+        $tsmart_product_id=$product->virtuemart_product_id;
 
 
         $return_item=new stdClass();
 
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($virtuemart_product_id);
+        $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($tsmart_product_id);
         $return_item->list_service_class=$list_service_class;
 
         $return_item->promotion_price=$promotion_price;
@@ -202,29 +202,29 @@ class TsmartControllerpromotion extends TsmController {
 
 
         $model_product = VmModel::getModel('product');
-        $product=$model_product->getItem($virtuemart_product_id);
+        $product=$model_product->getItem($tsmart_product_id);
         $return_item->tour=$product;
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
 
-        $product=vmpromotion::get_product_by_promotion_price_id($virtuemart_promotion_price_id);
+        $product=vmpromotion::get_product_by_promotion_price_id($tsmart_promotion_price_id);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         if($product->price_type!=tsmGroupSize::FLAT_PRICE)
         {
-            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($virtuemart_promotion_price_id);
+            $return_item->list_tour_promotion_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_promotion_price_id($tsmart_promotion_price_id);
             $view->assignRef('list_tour_promotion_price_by_tour_promotion_price_id',$return_item->list_tour_promotion_price_by_tour_promotion_price_id);
         }else{
-            $return_item->tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_promotion_price_id);
+            $return_item->tour_private_price_by_tour_promotion_price_id=vmpromotion::get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tsmart_promotion_price_id);
             $view->assignRef('tour_private_price_by_tour_promotion_price_id',$return_item->tour_private_price_by_tour_promotion_price_id);
         }
 
         //get markup
-        $return_item->list_promotion_mark_up=vmpromotion::get_list_mark_up_by_tour_promotion_price_id($virtuemart_promotion_price_id);
+        $return_item->list_promotion_mark_up=vmpromotion::get_list_mark_up_by_tour_promotion_price_id($tsmart_promotion_price_id);
         $return_item->list_promotion_mark_up=is_array($return_item->list_promotion_mark_up)?$return_item->list_promotion_mark_up:array($return_item->list_promotion_mark_up);
         $return_item->list_promotion_mark_up=JArrayHelper::pivot($return_item->list_promotion_mark_up,'type');
         $view->assignRef('list_promotion_mark_up',$return_item->list_promotion_mark_up);
         //end get markup
         //get markup
-        $return_item->list_promotion=vmpromotion::get_list_promotion_by_tour_promotion_price_id($virtuemart_promotion_price_id);
+        $return_item->list_promotion=vmpromotion::get_list_promotion_by_tour_promotion_price_id($tsmart_promotion_price_id);
 
 
         $return_item->list_promotion=is_array($return_item->list_promotion)?$return_item->list_promotion:array($return_item->list_promotion);
@@ -232,7 +232,7 @@ class TsmartControllerpromotion extends TsmController {
         $view->assignRef('list_promotion',$return_item->list_promotion);
         //end get markup
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($virtuemart_product_id);
+        $return_item->list_group_size_by_tour_id=vmpromotion::get_list_group_size_by_tour_id($tsmart_product_id);
         $view->assignRef('list_group_size_by_tour_id',$return_item->list_group_size_by_tour_id);
         ob_start();
         $input->set('tpl','price');

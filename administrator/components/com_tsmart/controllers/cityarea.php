@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -57,9 +57,9 @@ class TsmartControllercityarea extends TsmController {
 	{
 		$app=JFactory::getApplication();
 		$input=$app->input;
-		$virtuemart_state_id=$input->get('virtuemart_state_id',0,'int');
+		$tsmart_state_id=$input->get('virtuemart_state_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
-		$list_state=tsmcities::get_list_city_by_state_id($virtuemart_state_id);
+		$list_state=tsmcities::get_list_city_by_state_id($tsmart_state_id);
 		echo json_encode($list_state);
 		jexit();
 	}

@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -79,19 +79,19 @@ class TsmartViewpaymentsetting extends tsmViewAdmin {
 
 			//end get list payment method
 
-			$virtuemart_paymentsetting_id=$input->get('virtuemart_paymentsetting_id',0,'int');
-			if(!$virtuemart_paymentsetting_id)
+			$tsmart_paymentsetting_id=$input->get('virtuemart_paymentsetting_id',0,'int');
+			if(!$tsmart_paymentsetting_id)
 			{
 				$db=JFactory::getDbo();
 				$query=$db->getQuery(true);
 				$query->select('virtuemart_paymentsetting_id')
 					->from('#__virtuemart_paymentsetting')
 					;
-				$virtuemart_paymentsetting_id=$db->setQuery($query)->loadResult();
+				$tsmart_paymentsetting_id=$db->setQuery($query)->loadResult();
 			}
-			$this->item = $model->getItem($virtuemart_paymentsetting_id);
+			$this->item = $model->getItem($tsmart_paymentsetting_id);
 			//
-			$list_payment_method = vmpaymentsetting::get_list_payment_method_by_paymentsetting_id($virtuemart_paymentsetting_id);
+			$list_payment_method = vmpaymentsetting::get_list_payment_method_by_paymentsetting_id($tsmart_paymentsetting_id);
 			$this->assignRef('list_payment_method', $list_payment_method);
 
 		}

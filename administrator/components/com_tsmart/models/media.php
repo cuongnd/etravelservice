@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved by the author.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -68,11 +68,11 @@ class VirtueMartModelMedia extends VmModel {
 	 * Kind of getFiles, it creates a bunch of image objects by an array of virtuemart_media_id
 	 *
 	 * @author Max Milbers
-	 * @param int $virtuemart_media_id
+	 * @param int $tsmart_media_id
 	 * @param string $type
 	 * @param string $mime
 	 */
-	function createMediaByIds($virtuemart_media_ids,$type='',$mime='',$limit =0){
+	function createMediaByIds($tsmart_media_ids,$type='',$mime='',$limit =0){
 
 		if (!class_exists('VmMediaHandler')) require(VMPATH_ADMIN.DS.'helpers'.DS.'mediahandler.php');
 
@@ -82,16 +82,16 @@ class VirtueMartModelMedia extends VmModel {
 
 		static $_medias = array();
 
-		if(!empty($virtuemart_media_ids)){
-			if(!is_array($virtuemart_media_ids)) $virtuemart_media_ids = explode(',',$virtuemart_media_ids);
+		if(!empty($tsmart_media_ids)){
+			if(!is_array($tsmart_media_ids)) $tsmart_media_ids = explode(',',$tsmart_media_ids);
 
 			$data = $this->getTable('medias');
-			foreach($virtuemart_media_ids as $k => $virtuemart_media_id){
+			foreach($tsmart_media_ids as $k => $tsmart_media_id){
 				if($limit!==0 and $k==$limit and !empty($medias)) break; // never break if $limit = 0
-				if(is_object($virtuemart_media_id)){
-					$id = $virtuemart_media_id->virtuemart_media_id;
+				if(is_object($tsmart_media_id)){
+					$id = $tsmart_media_id->virtuemart_media_id;
 				} else {
-					$id = $virtuemart_media_id;
+					$id = $tsmart_media_id;
 				}
 				if(!empty($id)){
 					if (!isset($_medias[$id])) {
@@ -109,11 +109,11 @@ class VirtueMartModelMedia extends VmModel {
 							$lang =  JFactory::getLanguage();
 							if(in_array($lang->getTag(), $selectedLangue) || $data->file_lang == '') {
 								$_medias[$id] = VmMediaHandler::createMedia($data,$file_type,$mime);
-								if(is_object($virtuemart_media_id) && !empty($virtuemart_media_id->product_name)) $_medias[$id]->product_name = $virtuemart_media_id->product_name;
+								if(is_object($tsmart_media_id) && !empty($tsmart_media_id->product_name)) $_medias[$id]->product_name = $tsmart_media_id->product_name;
 							}
 						} else {
 							$_medias[$id] = VmMediaHandler::createMedia($data,$file_type,$mime);
-							if(is_object($virtuemart_media_id) && !empty($virtuemart_media_id->product_name)) $_medias[$id]->product_name = $virtuemart_media_id->product_name;
+							if(is_object($tsmart_media_id) && !empty($tsmart_media_id->product_name)) $_medias[$id]->product_name = $tsmart_media_id->product_name;
 						}
 					}
 					if (!empty($_medias[$id])) {
@@ -169,7 +169,7 @@ class VirtueMartModelMedia extends VmModel {
 	* @return object List of media objects
 	*/
 
-	function getFiles($onlyPublished=false, $noLimit=false, $virtuemart_product_id=null, $cat_id=null, $where=array(),$nbr=false){
+	function getFiles($onlyPublished=false, $noLimit=false, $tsmart_product_id=null, $cat_id=null, $where=array(),$nbr=false){
 
 		$this->_noLimit = $noLimit;
 
@@ -185,11 +185,11 @@ class VirtueMartModelMedia extends VmModel {
 		$groupBy ='';
 		$orderByTable = '';
 
-		if(!empty($virtuemart_product_id)){
+		if(!empty($tsmart_product_id)){
 			$mainTable = '`#__virtuemart_product_medias`';
 			$selectFields[] = ' `#__virtuemart_medias`.`virtuemart_media_id` as virtuemart_media_id ';
-			$joinTables[] = ' LEFT JOIN `#__virtuemart_medias` ON `#__virtuemart_medias`.`virtuemart_media_id`=`#__virtuemart_product_medias`.`virtuemart_media_id` and `virtuemart_product_id` = "'.$virtuemart_product_id.'"';
-			$whereItems[] = '`virtuemart_product_id` = "'.$virtuemart_product_id.'"';
+			$joinTables[] = ' LEFT JOIN `#__virtuemart_medias` ON `#__virtuemart_medias`.`virtuemart_media_id`=`#__virtuemart_product_medias`.`virtuemart_media_id` and `virtuemart_product_id` = "'.$tsmart_product_id.'"';
+			$whereItems[] = '`virtuemart_product_id` = "'.$tsmart_product_id.'"';
 
 			if($this->_selectedOrdering=='ordering'){
 				$orderByTable = '`#__virtuemart_product_medias`.';
@@ -323,22 +323,22 @@ class VirtueMartModelMedia extends VmModel {
 
 			$this -> setId($data['active_media_id']);
 
-			$virtuemart_media_id = $this->store($data);
+			$tsmart_media_id = $this->store($data);
 
-			if($virtuemart_media_id){
+			if($tsmart_media_id){
 				//added by Mike
-				$this->setId($virtuemart_media_id);
+				$this->setId($tsmart_media_id);
 
 				if(!empty($oldIds)){
 					if(!is_array($oldIds)) $oldIds = array($oldIds);
 
 					if(!empty($data['mediaordering']) && $data['media_action']=='upload'){
-						$data['mediaordering'][$virtuemart_media_id] = count($data['mediaordering']);
+						$data['mediaordering'][$tsmart_media_id] = count($data['mediaordering']);
 					}
-					$virtuemart_media_ids = array_merge( (array)$virtuemart_media_id,$oldIds);
-					$data['virtuemart_media_id'] = array_unique($virtuemart_media_ids);
+					$tsmart_media_ids = array_merge( (array)$tsmart_media_id,$oldIds);
+					$data['virtuemart_media_id'] = array_unique($tsmart_media_ids);
 				} else {
-					$data['virtuemart_media_id'] = $virtuemart_media_id;
+					$data['virtuemart_media_id'] = $tsmart_media_id;
 				}
 			}
 
@@ -411,8 +411,8 @@ class VirtueMartModelMedia extends VmModel {
 					$object = $this->createVoidMedia($type,$mime);
 				}
 
-				if(empty($object->virtuemart_media_id)) $virtuemart_media_id = null; else $virtuemart_media_id = $object->virtuemart_media_id;
-				$object->images = $this->createMediaByIds($virtuemart_media_id,$type,$mime,$limit);
+				if(empty($object->virtuemart_media_id)) $tsmart_media_id = null; else $tsmart_media_id = $object->virtuemart_media_id;
+				$object->images = $this->createMediaByIds($tsmart_media_id,$type,$mime,$limit);
 
 				//This should not be used in fact. It is for legacy reasons there.
 				if(isset($object->images[0]->file_url_thumb)){

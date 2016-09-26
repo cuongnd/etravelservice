@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author Seyi Awofadeju
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -30,9 +30,9 @@ if(!class_exists('tsmTable')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php
  */
 class TableWaitingUsers extends tsmTable {
 
-	var $virtuemart_waitinguser_id	= 0;
-	var $virtuemart_product_id		= 0;
-	var $virtuemart_user_id        	= 0;
+	var $tsmart_waitinguser_id	= 0;
+	var $tsmart_product_id		= 0;
+	var $tsmart_user_id        	= 0;
 	var $notify_email				= '';
 	var $notified         			= 0;
 	var $notify_date 				= '';

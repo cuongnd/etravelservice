@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -110,23 +110,23 @@ class VirtueMartModeltransferaddon extends VmModel
             vmWarn('Insufficient permissions to store transferaddon');
             return false;
         }
-        $virtuemart_transfer_addon_id= parent::store($data);
-        if($virtuemart_transfer_addon_id) {
+        $tsmart_transfer_addon_id= parent::store($data);
+        if($tsmart_transfer_addon_id) {
             //inser to excusionaddon
             $query = $db->getQuery(true);
             $query->delete('#__virtuemart_tour_id_transfer_addon_id')
-                ->where('virtuemart_transfer_addon_id=' . (int)$virtuemart_transfer_addon_id);
+                ->where('virtuemart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
             $db->setQuery($query)->execute();
             $err = $db->getErrorMsg();
             if (!empty($err)) {
                 vmError('can not delete tour in transfer_addon', $err);
             }
             $list_tour_id = $data['list_tour_id'];
-            foreach ($list_tour_id as $virtuemart_product_id) {
+            foreach ($list_tour_id as $tsmart_product_id) {
                 $query->clear()
                     ->insert('#__virtuemart_tour_id_transfer_addon_id')
-                    ->set('virtuemart_product_id=' . (int)$virtuemart_product_id)
-                    ->set('virtuemart_transfer_addon_id=' . (int)$virtuemart_transfer_addon_id);
+                    ->set('virtuemart_product_id=' . (int)$tsmart_product_id)
+                    ->set('virtuemart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
                 $db->setQuery($query)->execute();
                 $err = $db->getErrorMsg();
                 if (!empty($err)) {
@@ -136,7 +136,7 @@ class VirtueMartModeltransferaddon extends VmModel
             //end insert group size
         }
 
-        return $virtuemart_transfer_addon_id;
+        return $tsmart_transfer_addon_id;
     }
 
     function remove($ids)

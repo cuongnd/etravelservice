@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Orders
 * @author RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,11 +31,11 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class TableOrders extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_order_id = 0;
+	var $tsmart_order_id = 0;
 	/** @var int User ID */
-	var $virtuemart_user_id = 0;
+	var $tsmart_user_id = 0;
 	/** @var int Vendor ID */
-	var $virtuemart_vendor_id = 0;
+	var $tsmart_vendor_id = 0;
 	/** @var int Order number */
 	var $order_number = NULL;
 	var $order_pass = NULL;
@@ -82,9 +82,9 @@ class TableOrders extends tsmTableData {
 	/** @var char User currency rate */
 	var $user_currency_rate = NULL;
 	/** @var int Payment method ID */
-	var $virtuemart_paymentmethod_id = NULL;
+	var $tsmart_paymentmethod_id = NULL;
 	/** @var int Shipment method ID */
-	var $virtuemart_shipmentmethod_id = NULL;
+	var $tsmart_shipmentmethod_id = NULL;
 	/** @var string Users IP Address */
 	var $ip_address = 0;
 	/** @var char Order language */

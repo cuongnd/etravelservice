@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage Manufacturer
  * @author Patrick Kohl
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -81,8 +81,8 @@ class TsmartViewManufacturer extends tsmViewAdmin {
 			$this->manufacturers = $model->getManufacturers();
 			$this->pagination = $model->getPagination();
 
-			$virtuemart_manufacturercategories_id	= $mainframe->getUserStateFromRequest( 'com_tsmart.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
-			$this->lists['virtuemart_manufacturercategories_id'] =  JHtml::_('select.genericlist',   $categoryFilter, 'virtuemart_manufacturercategories_id', 'class="inputbox" onchange="this.form.submit()"', 'value', 'text', $virtuemart_manufacturercategories_id );
+			$tsmart_manufacturercategories_id	= $mainframe->getUserStateFromRequest( 'com_tsmart.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
+			$this->lists['virtuemart_manufacturercategories_id'] =  JHtml::_('select.genericlist',   $categoryFilter, 'virtuemart_manufacturercategories_id', 'class="inputbox" onchange="this.form.submit()"', 'value', 'text', $tsmart_manufacturercategories_id );
 
 		}
 

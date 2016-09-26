@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author Max Milbers, Valerie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -207,8 +207,8 @@ class TsmartControllerOrders extends TsmController {
 		if ($lastTask == 'updatestatus') {
 			// single order is in POST but we need an array
 			$order = array() ;
-			$virtuemart_order_id = vRequest::getInt('virtuemart_order_id');
-			$order[$virtuemart_order_id] = (vRequest::getRequest());
+			$tsmart_order_id = vRequest::getInt('virtuemart_order_id');
+			$order[$tsmart_order_id] = (vRequest::getRequest());
 
 			$result = $model->updateOrderStatus($order);
 		} else {
@@ -223,7 +223,7 @@ class TsmartControllerOrders extends TsmController {
 		if ($result['error'] > 0)
 		$msg .= tsmText::sprintf('com_tsmart_ORDER_NOT_UPDATED_SUCCESSFULLY', $result['error'] , $result['total']);
 		if ('updatestatus'== $lastTask ) {
-			$app->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$virtuemart_order_id , $msg);
+			$app->redirect('index.php?option=com_tsmart&view=orders&task=edit&virtuemart_order_id='.$tsmart_order_id , $msg);
 		}
 		else {
 			$app->redirect('index.php?option=com_tsmart&view=orders', $msg);

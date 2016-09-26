@@ -7,7 +7,7 @@
 * @subpackage Category
 * @author Max Milbers
 * @author jseros, RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -52,8 +52,8 @@ class VirtueMartModelCategory extends VmModel {
 	}
 
 
-	public function checkIfCached($virtuemart_category_id,$childs=TRUE){
-		return !empty($this->_cache[$virtuemart_category_id][(int)$childs]);
+	public function checkIfCached($tsmart_category_id,$childs=TRUE){
+		return !empty($this->_cache[$tsmart_category_id][(int)$childs]);
 	}
 
     /**
@@ -61,9 +61,9 @@ class VirtueMartModelCategory extends VmModel {
      *
      * @author RickG, jseros, Max Milbers
      */
-	public function getCategory($virtuemart_category_id=0,$childs=TRUE){
+	public function getCategory($tsmart_category_id=0,$childs=TRUE){
 
-		if(!empty($virtuemart_category_id)) $this->_id = (int)$virtuemart_category_id;
+		if(!empty($tsmart_category_id)) $this->_id = (int)$tsmart_category_id;
 		$childs = (int)$childs;
   		if (empty($this->_cache[$this->_id][$childs])) {
    			$this->_cache[$this->_id][$childs] = $this->getTable('categories');
@@ -103,11 +103,11 @@ class VirtueMartModelCategory extends VmModel {
     /**
 	 * Get the list of child categories for a given category, is cached
 	 *
-	 * @param int $virtuemart_category_id Category id to check for child categories
+	 * @param int $tsmart_category_id Category id to check for child categories
 	 * @return object List of objects containing the child categories
 	 *
 	 */
-	public function getChildCategoryList($vendorId, $virtuemart_category_id,$selectedOrdering = null, $orderDir = null, $useCache = true) {
+	public function getChildCategoryList($vendorId, $tsmart_category_id,$selectedOrdering = null, $orderDir = null, $useCache = true) {
 
 		if(empty($this) or get_class($this)!='VirtueMartModelCategory'){
 			$useCache = false;
@@ -146,7 +146,7 @@ class VirtueMartModelCategory extends VmModel {
 
 		static $_childCategoryList = array ();
 
-		$key = (int)$vendorId.'_'.(int)$virtuemart_category_id.$selectedOrdering.$orderDir.VmConfig::$vmlang ;
+		$key = (int)$vendorId.'_'.(int)$tsmart_category_id.$selectedOrdering.$orderDir.VmConfig::$vmlang ;
 		//We have here our internal key to preven calling of the cache
 		if (! array_key_exists ($key,$_childCategoryList)){
 			vmSetStartTime('com_tsmart_cats');
@@ -155,9 +155,9 @@ class VirtueMartModelCategory extends VmModel {
 				$cache = JFactory::getCache('com_tsmart_cats','callback');
 				$cache->setCaching(true);
 				//vmdebug('Calling cache getChildCategoryListObject');
-				$_childCategoryList[$key] = $cache->call( array( 'VirtueMartModelCategory', 'getChildCategoryListObject' ),$vendorId, $virtuemart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = $cache->call( array( 'VirtueMartModelCategory', 'getChildCategoryListObject' ),$vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
 			} else {
-				$_childCategoryList[$key] = VirtueMartModelCategory::getChildCategoryListObject($vendorId, $virtuemart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
+				$_childCategoryList[$key] = VirtueMartModelCategory::getChildCategoryListObject($vendorId, $tsmart_category_id, $selectedOrdering, $orderDir,VmConfig::$vmlang);
 			}
 
 			//vmTime('Time to load cats '.(int)$useCache,'com_tsmart_cats');
@@ -172,13 +172,13 @@ class VirtueMartModelCategory extends VmModel {
 	 *
 	 * @author Max Milbers
 	 * @param $vendorId
-	 * @param $virtuemart_category_id
+	 * @param $tsmart_category_id
 	 * @param null $selectedOrdering
 	 * @param null $orderDir
 	 * @param $lang
 	 * @return mixed
 	 */
-	static public function getChildCategoryListObject($vendorId, $virtuemart_category_id,$selectedOrdering = null, $orderDir = null,$lang=false) {
+	static public function getChildCategoryListObject($vendorId, $tsmart_category_id,$selectedOrdering = null, $orderDir = null,$lang=false) {
 
 		if(!$lang){
 			$lang = VmConfig::$vmlang;
@@ -219,7 +219,7 @@ class VirtueMartModelCategory extends VmModel {
 		}
 
 		$query .= ' LEFT JOIN `#__virtuemart_category_categories` as cx on c.`virtuemart_category_id` = cx.`category_child_id` ';
-		$query .= ' WHERE cx.`category_parent_id` = ' . (int)$virtuemart_category_id . ' ';
+		$query .= ' WHERE cx.`category_parent_id` = ' . (int)$tsmart_category_id . ' ';
 		if(empty($vendorId) and VmConfig::get('multix')!='none'){
 			$query .= ' AND c.`shared` = 1' ;
 		} else if(!empty($vendorId)){
@@ -286,12 +286,12 @@ class VirtueMartModelCategory extends VmModel {
 
 	}
 
-	public function rekurseCats($virtuemart_category_id,$level,$onlyPublished,$keyword,&$sortedCats,$deep=0){
+	public function rekurseCats($tsmart_category_id,$level,$onlyPublished,$keyword,&$sortedCats,$deep=0){
 		$level++;
 
-		if(($deep===0 or $level <= $deep) and $childs = $this->hasChildren($virtuemart_category_id)){
+		if(($deep===0 or $level <= $deep) and $childs = $this->hasChildren($tsmart_category_id)){
 
-			$childCats = self::getCategories($onlyPublished, $virtuemart_category_id, false, $keyword);
+			$childCats = self::getCategories($onlyPublished, $tsmart_category_id, false, $keyword);
 			if(!empty($childCats)){
 
 				$siblingCount = count($childCats);
@@ -488,15 +488,15 @@ class VirtueMartModelCategory extends VmModel {
      * Retrieve category child-parent relation record
      *
      * @author jseros
-     * @param int $virtuemart_category_id
+     * @param int $tsmart_category_id
      * @return object Record of parent relation
      */
-    public function getRelationInfo( $virtuemart_category_id = 0 ){
+    public function getRelationInfo( $tsmart_category_id = 0 ){
 
 		$db = JFactory::getDBO();
     	$query = 'SELECT `category_parent_id`, `ordering`
     			  FROM `#__virtuemart_category_categories`
-    			  WHERE `category_child_id` = '. (int)$virtuemart_category_id;
+    			  WHERE `category_child_id` = '. (int)$tsmart_category_id;
     	$db->setQuery($query);
 
     	return $db->loadObject();
@@ -646,38 +646,38 @@ class VirtueMartModelCategory extends VmModel {
 
 
 	/**
-	* Checks for children of the category $virtuemart_category_id
+	* Checks for children of the category $tsmart_category_id
 	*
-	* @param int $virtuemart_category_id the category ID to check
+	* @param int $tsmart_category_id the category ID to check
 	* @return boolean true when the category has childs, false when not
 	*/
-	public function hasChildren($virtuemart_category_id) {
+	public function hasChildren($tsmart_category_id) {
 
 		static $hasChildrenCache=array();
-		if(!isset($hasChildrenCache[$virtuemart_category_id])){
+		if(!isset($hasChildrenCache[$tsmart_category_id])){
 			$db = JFactory::getDBO();
 			$q = "SELECT `category_child_id`
 			FROM `#__virtuemart_category_categories`
-			WHERE `category_parent_id` = ".(int)$virtuemart_category_id;
+			WHERE `category_parent_id` = ".(int)$tsmart_category_id;
 			$db->setQuery($q);
 			$db->execute();
 			if ($db->getAffectedRows() > 0){
-				$hasChildrenCache[$virtuemart_category_id] = true;
+				$hasChildrenCache[$tsmart_category_id] = true;
 			} else {
-				$hasChildrenCache[$virtuemart_category_id] = false;
+				$hasChildrenCache[$tsmart_category_id] = false;
 			}
 		}
-		return $hasChildrenCache[$virtuemart_category_id];
+		return $hasChildrenCache[$tsmart_category_id];
 	}
 
 	/**
 	 * Creates a bulleted of the childen of this category if they exist
 	 *
 	 * @todo Add vendor ID
-	 * @param int $virtuemart_category_id the category ID to create the list of
+	 * @param int $tsmart_category_id the category ID to create the list of
 	 * @return array containing the child categories
 	 */
-	public function getParentsList($virtuemart_category_id) {
+	public function getParentsList($tsmart_category_id) {
 
 		$db = JFactory::getDBO();
 		$menu = JFactory::getApplication()->getMenu();
@@ -688,8 +688,8 @@ class VirtueMartModelCategory extends VmModel {
 			$menuItem = $menu->getItem($query['Itemid']);
 		}
 		$menuCatid = (empty($menuItem->query['virtuemart_category_id'])) ? 0 : $menuItem->query['virtuemart_category_id'];
-		if ($menuCatid == $virtuemart_category_id) return ;
-		$parents_id = array_reverse($this->getCategoryRecurse($virtuemart_category_id,$menuCatid));
+		if ($menuCatid == $tsmart_category_id) return ;
+		$parents_id = array_reverse($this->getCategoryRecurse($tsmart_category_id,$menuCatid));
 
 
 		$select = 'SELECT `virtuemart_category_id`, `category_name`';
@@ -732,7 +732,7 @@ class VirtueMartModelCategory extends VmModel {
 
 	private $categoryRecursed = 0;
 
-	public function getCategoryRecurse($virtuemart_category_id,$catMenuId,$idsArr=true ) {
+	public function getCategoryRecurse($tsmart_category_id,$catMenuId,$idsArr=true ) {
 
 		static $resId = array();
 
@@ -744,7 +744,7 @@ class VirtueMartModelCategory extends VmModel {
 			return false;
 		}
 
-		$hash = $virtuemart_category_id.'c'.$catMenuId;
+		$hash = $tsmart_category_id.'c'.$catMenuId;
 
 		if(isset($resId[$hash])){
 			$ids = $resId[$hash];
@@ -752,14 +752,14 @@ class VirtueMartModelCategory extends VmModel {
 			$db	= JFactory::getDBO();
 			$q = "SELECT `category_child_id` AS `child`, `category_parent_id` AS `parent`
 				FROM  #__virtuemart_category_categories AS `xref`
-				WHERE `xref`.`category_child_id`= ".(int)$virtuemart_category_id;
+				WHERE `xref`.`category_child_id`= ".(int)$tsmart_category_id;
 			$db->setQuery($q);
 			$ids = $resId[$hash] = $db->loadObject();
 		}
 
 		if (isset ($ids->child)) {
 			$idsArr[] = $ids->child;
-			if($ids->parent != 0 and $catMenuId != $virtuemart_category_id and $catMenuId != $ids->parent) {
+			if($ids->parent != 0 and $catMenuId != $tsmart_category_id and $catMenuId != $ids->parent) {
 				$this->categoryRecursed++;
 				$idsArr = $this->getCategoryRecurse($ids->parent,$catMenuId,$idsArr);
 			}

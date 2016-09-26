@@ -153,22 +153,22 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			// 			if(version_compare(JVERSION,'1.6.0','ge')) {
 
 			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'shipment');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'payment');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'category');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'category'.DS.'resized');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'manufacturer');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'manufacturer'.DS.'resized');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'product');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'product'.DS.'resized');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'forSale');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'forSale'.DS.'invoices');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'forSale'.DS.'resized');
-			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'virtuemart'.DS.'typeless');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'shipment');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'payment');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'category');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'category'.DS.'resized');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'manufacturer');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'manufacturer'.DS.'resized');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'product');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'product'.DS.'resized');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'forSale');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'forSale'.DS.'invoices');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'forSale'.DS.'resized');
+			$this->createIndexFolder(VMPATH_ROOT .DS. 'images'.DS.'stories'.DS.'tsmart'.DS.'typeless');
 
 
-			$dst = VMPATH_ROOT .DS. 'images' .DS. 'stories' .DS. 'virtuemart';
+			$dst = VMPATH_ROOT .DS. 'images' .DS. 'stories' .DS. 'tsmart';
 
 			$this->recurse_copy($src,$dst);
 
@@ -178,13 +178,13 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 			$this->checkAddDefaultShoppergroups();
 
-			$model->updateJoomlaUpdateServer('component','com_tsmart',$this->path.DS.'virtuemart.xml');
+			$model->updateJoomlaUpdateServer('component','com_tsmart',$this->path.DS.'tsmart.xml');
 
 			$this->deleteSwfUploader();
 
 			$this->displayFinished(false);
 
-			//include($this->path.DS.'install'.DS.'install.virtuemart.html.php');
+			//include($this->path.DS.'install'.DS.'install.tsmart.html.php');
 
 			// perhaps a redirect to updatesMigration here rather than the html file?
 			//			$parent->getParent()->setRedirectURL('index.php?option=com_tsmart&view=updatesMigration');
@@ -297,11 +297,11 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 			//copy sampel media
 			$src = $this->path .DS. 'assets' .DS. 'images' .DS. 'vmsampleimages';
 			if(JFolder::exists($src)){
-				$dst = VMPATH_ROOT .DS. 'images' .DS. 'stories' .DS. 'virtuemart';
+				$dst = VMPATH_ROOT .DS. 'images' .DS. 'stories' .DS. 'tsmart';
 				$this->recurse_copy($src,$dst);
 			}
 
-			$model->updateJoomlaUpdateServer('component','com_tsmart', $this->path.DS.'virtuemart.xml');
+			$model->updateJoomlaUpdateServer('component','com_tsmart', $this->path.DS.'tsmart.xml');
 			//fix joomla BE menu
 			//$model = VmModel::getModel('updatesmigration');
 			//$model->checkFixJoomlaBEMenuEntries();
@@ -781,7 +781,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 				$this->path = VMPATH_ADMIN;
 			}
 			//$this->loadVm();
-			//include($this->path.DS.'install'.DS.'uninstall.virtuemart.html.php');
+			//include($this->path.DS.'install'.DS.'uninstall.tsmart.html.php');
 
 			return true;
 		}

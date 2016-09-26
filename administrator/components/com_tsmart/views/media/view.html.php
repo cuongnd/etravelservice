@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -48,11 +48,11 @@ class TsmartViewMedia extends tsmViewAdmin {
 			$this->addStandardEditViewCommands();
         }
         else {
-			$virtuemart_product_id = vRequest::getInt('virtuemart_product_id');
-			if(is_array($virtuemart_product_id) && count($virtuemart_product_id) > 0){
-				$virtuemart_product_id = (int)$virtuemart_product_id[0];
+			$tsmart_product_id = vRequest::getInt('virtuemart_product_id');
+			if(is_array($tsmart_product_id) && count($tsmart_product_id) > 0){
+				$tsmart_product_id = (int)$tsmart_product_id[0];
 			} else {
-				$virtuemart_product_id = (int)$virtuemart_product_id;
+				$tsmart_product_id = (int)$tsmart_product_id;
 			}
         	$cat_id = vRequest::getInt('virtuemart_category_id',0);
 
@@ -78,7 +78,7 @@ class TsmartViewMedia extends tsmViewAdmin {
 				);
 			$this->lists['search_role'] = VmHTML::selectList('search_role', vRequest::getVar('search_role'),$options,1,'','onchange="this.form.submit();"');
 
-			$this->files = $model->getFiles(false,false,$virtuemart_product_id,$cat_id);
+			$this->files = $model->getFiles(false,false,$tsmart_product_id,$cat_id);
 
 			$this->pagination = $model->getPagination();
 

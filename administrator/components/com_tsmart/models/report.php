@@ -19,7 +19,7 @@ if (!defined ('_JEXEC')) {
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.org
+ * http://tsmart.org
  */
 
 if (!class_exists ('VmModel')) {
@@ -134,22 +134,22 @@ class VirtuemartModelReport extends VmModel {
 		$intervals = vRequest::getCmd ('intervals', 'day');
 		$filterorders = vRequest::getvar ('filter_order', 'intervals');
 		$orderdir = (vRequest::getCmd ('filter_order_Dir', NULL) == 'desc') ? 'desc' : '';
-		$virtuemart_product_id = vRequest::getInt ('virtuemart_product_id', FALSE);
+		$tsmart_product_id = vRequest::getInt ('virtuemart_product_id', FALSE);
 
 		if($cache){
 			$c = JFactory::getCache ('com_tsmart_revenue');
 			$c->setCaching (1);
 			$c->setLifeTime($cache);
-			return $c->call (array('VirtuemartModelReport', 'getRevenueDiag'),$vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id,$this->from_period,$this->until_period);
+			return $c->call (array('VirtuemartModelReport', 'getRevenueDiag'),$vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id,$this->from_period,$this->until_period);
 		} else {
-			return $this->getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id);
+			return $this->getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id);
 		}
 
 	}
 
-	static public function getRevenueDiag ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id,$from_period,$until_period) {
+	static public function getRevenueDiag ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id,$from_period,$until_period) {
 		$reportM = VmModel::getModel('report');
-		$report = $reportM->getRevenueSortListOrderQuery($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id);
+		$report = $reportM->getRevenueSortListOrderQuery($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id);
 
 		$rows = count( $report );
 		$intervalTitle='day';
@@ -205,7 +205,7 @@ class VirtuemartModelReport extends VmModel {
 		return array('report'=>$report,'js'=>$js);
 	}
 
-	function getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$virtuemart_product_id) {
+	function getRevenueSortListOrderQuery ($vendorId,$orderstates,$intervals,$filterorders,$orderdir,$tsmart_product_id) {
 		return;
 		$selectFields = array();
 		$mainTable = '';
@@ -331,8 +331,8 @@ class VirtuemartModelReport extends VmModel {
 		}
 
 
-		if ($virtuemart_product_id) {
-			$where[] = 'i.virtuemart_product_id = "' . $virtuemart_product_id . '" ';
+		if ($tsmart_product_id) {
+			$where[] = 'i.virtuemart_product_id = "' . $tsmart_product_id . '" ';
 		}
 
 		if (VmConfig::get ('multix', 'none') != 'none') {

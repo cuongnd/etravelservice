@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -43,13 +43,13 @@ class tsmcurrency
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_tour_id_by_currency_id($virtuemart_currency_id=0)
+    public static function get_list_tour_id_by_currency_id($tsmart_currency_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_product_id')
             ->from('#__virtuemart_tour_id_currency_id')
-            ->where('virtuemart_currency_id='.(int)$virtuemart_currency_id)
+            ->where('virtuemart_currency_id='.(int)$tsmart_currency_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }

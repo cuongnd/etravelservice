@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -44,14 +44,14 @@ class vmstates
         return $db->setQuery($query)->loadObjectList();
     }
 
-    public static function get_list_state_by_country_id($virtuemart_country_id=0)
+    public static function get_list_state_by_country_id($tsmart_country_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
             ->from('#__virtuemart_states')
             ->leftJoin('#__virtuemart_countries AS countries USING(virtuemart_country_id)')
-            ->where('countries.virtuemart_country_id='.(int)$virtuemart_country_id)
+            ->where('countries.virtuemart_country_id='.(int)$tsmart_country_id)
         ;
         return $db->setQuery($query)->loadObjectList();
     }

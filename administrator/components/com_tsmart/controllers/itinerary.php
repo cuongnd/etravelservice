@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -55,7 +55,7 @@ class TsmartControllerItinerary extends TsmController {
         $model = VmModel::getModel($this->_cname);
 
         $id = $model->store($data);
-        $virtuemart_product_id=$data['virtuemart_product_id'];
+        $tsmart_product_id=$data['virtuemart_product_id'];
         $msg = 'failed';
         if(!empty($id)) {
             $msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
@@ -63,7 +63,7 @@ class TsmartControllerItinerary extends TsmController {
         }
         else $type = 'error';
 
-        $redir = 'index.php?option=com_tsmart&view=itinerary&virtuemart_product_id='.$virtuemart_product_id;
+        $redir = 'index.php?option=com_tsmart&view=itinerary&virtuemart_product_id='.$tsmart_product_id;
         $this->setRedirect($redir, $msg,$type);
 	}
 }

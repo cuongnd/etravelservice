@@ -7,7 +7,7 @@
  * @subpackage Currency
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -48,14 +48,14 @@ class VirtueMartModelDateAvailability extends VmModel
      *
      * @author Max Milbers
      */
-    function getdateavailability($virtuemart_service_class_id,$virtuemart_product_id)
+    function getdateavailability($tsmart_service_class_id,$tsmart_product_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('date')
             ->from('#__virtuemart_date_availability')
-            ->where('virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_service_class_id='.(int)$tsmart_service_class_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
             ;
         $list=$db->setQuery($query)->loadColumn();
         return $list;
@@ -98,10 +98,10 @@ class VirtueMartModelDateAvailability extends VmModel
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         $app=JFactory::getApplication();
         $input=$app->input;
-        $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
         $db = JFactory::getDbo();
         $query=$db->getQuery(true);
-        $virtuemart_date_availability_id=$this->getState('filter.virtuemart_date_availability_id');
+        $tsmart_date_availability_id=$this->getState('filter.virtuemart_date_availability_id');
 
         $query->select('dateavailability.date')
             ->from('#__virtuemart_date_availability AS dateavailability')
@@ -122,13 +122,13 @@ class VirtueMartModelDateAvailability extends VmModel
             ->leftJoin('#__users AS users ON users.id=products.assign_user_id')
             ->select('users.name AS assign_user_name')
         ;
-        if($virtuemart_date_availability_id)
+        if($tsmart_date_availability_id)
         {
-            $query->where('dateavailability.virtuemart_date_availability_id='.(int)$virtuemart_date_availability_id);
+            $query->where('dateavailability.virtuemart_date_availability_id='.(int)$tsmart_date_availability_id);
         }
-        if($virtuemart_product_id)
+        if($tsmart_product_id)
         {
-            $query->where('dateavailability.virtuemart_product_id='.(int)$virtuemart_product_id);
+            $query->where('dateavailability.virtuemart_product_id='.(int)$tsmart_product_id);
         }
         $user = JFactory::getUser();
         $shared = '';
@@ -165,7 +165,7 @@ class VirtueMartModelDateAvailability extends VmModel
 
     public function save_dateavailability_item($data)
     {
-        $virtuemart_product_id=$data['tour_id'];
+        $tsmart_product_id=$data['tour_id'];
         $dateavailability_name=$data['dateavailability_name'];
         $tour_service_class_id=$data['tour_service_class_id'];
         if($dateavailability_name=='')
@@ -188,7 +188,7 @@ class VirtueMartModelDateAvailability extends VmModel
             }
         }
         //lấy ra group_size_id từ bản ghi đầu tiên
-        $virtuemart_group_size_id=reset($list_basic_available2)->virtuemart_group_size_id;
+        $tsmart_group_size_id=reset($list_basic_available2)->virtuemart_group_size_id;
         $list_date_available='"'.implode('","',$list_date_available).'"';
         //check exists data
         $db=JFactory::getDbo();
@@ -196,9 +196,9 @@ class VirtueMartModelDateAvailability extends VmModel
         $query->select('virtuemart_date_availability_id')
             ->from('#__virtuemart_dateavailability')
             ->where('dateavailability_date IN('.$list_date_available.')')
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
             ->where('virtuemart_service_class_id='.(int)$tour_service_class_id)
-            ->where('virtuemart_group_size_id='.(int)$virtuemart_group_size_id)
+            ->where('virtuemart_group_size_id='.(int)$tsmart_group_size_id)
             ;
         $list_virtuemart_date_availability_id=$db->setQuery($query)->loadObjectList();
         if(count($list_virtuemart_date_availability_id)>1)
@@ -206,9 +206,9 @@ class VirtueMartModelDateAvailability extends VmModel
             vmError('there are some dateavailability exists');
             return false;
         }
-        $virtuemart_date_availability_id=parent::store($data);
+        $tsmart_date_availability_id=parent::store($data);
         $db=JFactory::getDbo();
-        if(!$virtuemart_date_availability_id)
+        if(!$tsmart_date_availability_id)
         {
             vmError('can not save dateavailability '.$db->getErrorMsg());
             return false;
@@ -219,14 +219,14 @@ class VirtueMartModelDateAvailability extends VmModel
         $table_dateavailability->bind($data);
 
         $table_dateavailability->store();
-        $virtuemart_date_availability_id=$table_dateavailability->virtuemart_date_availability_id;
+        $tsmart_date_availability_id=$table_dateavailability->virtuemart_date_availability_id;
         //inser to group size
         foreach($list_basic_available2 as $item)
         {
             $table_dateavailability->virtuemart_date_availability_id=0;
             $table_dateavailability->published=1;
-            $table_dateavailability->virtuemart_date_availability_id=$virtuemart_date_availability_id;
-            $table_dateavailability->virtuemart_product_id=$virtuemart_product_id;
+            $table_dateavailability->virtuemart_date_availability_id=$tsmart_date_availability_id;
+            $table_dateavailability->virtuemart_product_id=$tsmart_product_id;
             $table_dateavailability->dateavailability_date=JFactory::getDate($item->date_select)->toSql();
             $table_dateavailability->virtuemart_service_class_id=$item->service_class_id;
             $table_dateavailability->virtuemart_group_size_id=$item->virtuemart_group_size_id;
@@ -250,7 +250,7 @@ class VirtueMartModelDateAvailability extends VmModel
                 vmError('can not insert group size in this tour',$err);
             }
         }
-        $table_dateavailability->delete($virtuemart_date_availability_id);
+        $table_dateavailability->delete($tsmart_date_availability_id);
         $err = $db->getErrorMsg();
         if(!empty($err)){
             vmError('can not insert group size in this tour',$err);
@@ -275,8 +275,8 @@ class VirtueMartModelDateAvailability extends VmModel
             vmError('please set tour ');
             return false;
         }
-        $virtuemart_service_class_id=$data['tour_service_class_id'];
-        if($virtuemart_service_class_id==0)
+        $tsmart_service_class_id=$data['tour_service_class_id'];
+        if($tsmart_service_class_id==0)
         {
             vmError('please set tour class ');
             return false;
@@ -355,7 +355,7 @@ class VirtueMartModelDateAvailability extends VmModel
 			ON dateavailability_price.virtuemart_dateavailability_price_id=group_size_id_tour_dateavailability_price_id.virtuemart_tour_dateavailability_price_id')
             ->select('dateavailability_price.*')
             ->where('dateavailability_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('dateavailability_price.virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
+            ->where('dateavailability_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
             ->where('group_size_id_tour_dateavailability_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
         ;
 
@@ -405,8 +405,8 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_dateavailability_net_price2=array();
         foreach($list_mark_up_tour_dateavailability_net_price as $mark_up_tour_dateavailability_net_price)
         {
-            $virtuemart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_net_price->virtuemart_tour_dateavailability_price_id;
-            $list_mark_up_tour_dateavailability_net_price2[$virtuemart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_net_price->type]=$mark_up_tour_dateavailability_net_price;
+            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_net_price->virtuemart_tour_dateavailability_price_id;
+            $list_mark_up_tour_dateavailability_net_price2[$tsmart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_net_price->type]=$mark_up_tour_dateavailability_net_price;
         }
         if(count($list_dateavailability_available)==0)
         {
@@ -416,9 +416,9 @@ class VirtueMartModelDateAvailability extends VmModel
         //1.tính giá thực sau khi dateavailability
         foreach($list_dateavailability_available as $key=> $dateavailability_available)
         {
-            $virtuemart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
+            $tsmart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
 
-            $percent_price=$list_mark_up_tour_dateavailability_net_price2[$virtuemart_dateavailability_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_dateavailability_net_price2[$tsmart_dateavailability_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -460,7 +460,7 @@ class VirtueMartModelDateAvailability extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_dateavailability_net_price2[$virtuemart_dateavailability_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_dateavailability_net_price2[$tsmart_dateavailability_price_id]['amount'];
 
                 $price_senior=$list_dateavailability_available[$key]->price_senior;
                 $price_senior=$price_senior-$amount_price->senior;
@@ -514,16 +514,16 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_dateavailability_price2=array();
         foreach($list_mark_up_tour_dateavailability_price as $mark_up_tour_dateavailability_price)
         {
-            $virtuemart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_price->virtuemart_tour_dateavailability_price_id;
-            $list_mark_up_tour_dateavailability_price2[$virtuemart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_price->type]=$mark_up_tour_dateavailability_price;
+            $tsmart_tour_dateavailability_price_id=$mark_up_tour_dateavailability_price->virtuemart_tour_dateavailability_price_id;
+            $list_mark_up_tour_dateavailability_price2[$tsmart_tour_dateavailability_price_id][$mark_up_tour_dateavailability_price->type]=$mark_up_tour_dateavailability_price;
         }
         //2.tính giá thực sau khi khi có markup (có phần lãi)
 
         foreach($list_dateavailability_available as $key=> $dateavailability_available)
         {
-            $virtuemart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
+            $tsmart_dateavailability_price_id=$dateavailability_available->virtuemart_dateavailability_price_id;
 
-            $percent_price=$list_mark_up_tour_dateavailability_price2[$virtuemart_dateavailability_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_dateavailability_price2[$tsmart_dateavailability_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -565,7 +565,7 @@ class VirtueMartModelDateAvailability extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_dateavailability_price2[$virtuemart_dateavailability_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_dateavailability_price2[$tsmart_dateavailability_price_id]['amount'];
 
                 $price_senior=$list_dateavailability_available[$key]->price_senior;
                 $price_senior=$price_senior+$amount_price->senior;
@@ -644,7 +644,7 @@ class VirtueMartModelDateAvailability extends VmModel
 			ON tour_price.virtuemart_price_id=group_size_id_tour_price_id.virtuemart_price_id')
             ->select('tour_price.*')
             ->where('tour_price.virtuemart_product_id='.(int)$tour_id)
-            ->where('tour_price.virtuemart_service_class_id='.(int)$virtuemart_service_class_id)
+            ->where('tour_price.virtuemart_service_class_id='.(int)$tsmart_service_class_id)
             ->where('group_size_id_tour_price_id.virtuemart_group_size_id='.(int)$group_size->virtuemart_group_size_id)
         ;
 
@@ -703,16 +703,16 @@ class VirtueMartModelDateAvailability extends VmModel
         $list_mark_up_tour_price2=array();
         foreach($list_mark_up_tour_price as $mark_up_tour_price)
         {
-            $virtuemart_price_id=$mark_up_tour_price->virtuemart_price_id;
-            $list_mark_up_tour_price2[$virtuemart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
+            $tsmart_price_id=$mark_up_tour_price->virtuemart_price_id;
+            $list_mark_up_tour_price2[$tsmart_price_id][$mark_up_tour_price->type]=$mark_up_tour_price;
         }
         //2.tính giá thực sau khi khi có markup basic (có phần lãi)
 
         foreach($list_price_available as $key=> $price_available)
         {
-            $virtuemart_price_id=$price_available->virtuemart_price_id;
+            $tsmart_price_id=$price_available->virtuemart_price_id;
 
-            $percent_price=$list_mark_up_tour_price2[$virtuemart_price_id]['percent'];
+            $percent_price=$list_mark_up_tour_price2[$tsmart_price_id]['percent'];
             if(
                 $percent_price->senior!=0
                 ||$percent_price->adult!=0
@@ -754,7 +754,7 @@ class VirtueMartModelDateAvailability extends VmModel
 
             }else{
 
-                $amount_price=$list_mark_up_tour_price2[$virtuemart_price_id]['amount'];
+                $amount_price=$list_mark_up_tour_price2[$tsmart_price_id]['amount'];
 
                 $price_senior=$list_price_available[$key]->price_senior;
                 $price_senior=$price_senior+$amount_price->senior;
@@ -859,11 +859,11 @@ class VirtueMartModelDateAvailability extends VmModel
         return $return;
     }
 
-    public function create_children_dateavailability($virtuemart_date_availability_id)
+    public function create_children_dateavailability($tsmart_date_availability_id)
     {
         $query=$this->_db->getQuery(true);
         $query->delete('#__virtuemart_dateavailability')
-            ->where('virtuemart_dateavailability_parent_id='.(int)$virtuemart_date_availability_id);
+            ->where('virtuemart_dateavailability_parent_id='.(int)$tsmart_date_availability_id);
         $this->_db->setQuery($query);
         $ok = $this->_db->execute();
         if (!$ok) {
@@ -872,7 +872,7 @@ class VirtueMartModelDateAvailability extends VmModel
         }
 
         $table_dateavailability=$this->getTable();
-        $table_dateavailability->load($virtuemart_date_availability_id);
+        $table_dateavailability->load($tsmart_date_availability_id);
         $date_type=$table_dateavailability->date_type;
         if($date_type=='day_select')
         {
@@ -897,8 +897,8 @@ class VirtueMartModelDateAvailability extends VmModel
             $table_dateavailability->dateavailability_date = $day;
             $day=JFactory::getDate($day);
             $table_dateavailability->virtuemart_date_availability_id = 0;
-            $table_dateavailability->dateavailability_code =tsmdateavailability::get_format_dateavailability_code($virtuemart_date_availability_id,$day);
-            $table_dateavailability->virtuemart_dateavailability_parent_id = $virtuemart_date_availability_id;
+            $table_dateavailability->dateavailability_code =tsmdateavailability::get_format_dateavailability_code($tsmart_date_availability_id,$day);
+            $table_dateavailability->virtuemart_dateavailability_parent_id = $tsmart_date_availability_id;
             $ok = $table_dateavailability->store();
             if (!$ok) {
                 $this->setError($table_dateavailability->getErrors());

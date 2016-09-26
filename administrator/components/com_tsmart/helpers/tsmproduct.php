@@ -46,7 +46,7 @@ class vmproduct
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_product_by_tour_type_id($virtuemart_tour_type_id)
+    public static function get_list_product_by_tour_type_id($tsmart_tour_type_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
@@ -54,14 +54,14 @@ class vmproduct
             ->from('#__virtuemart_products AS products')
             ->innerJoin('#__virtuemart_products_en_gb AS products_en_gb USING(virtuemart_product_id)')
             ->group('products.virtuemart_product_id')
-            ->where('products.virtuemart_tour_type_id='.(int)$virtuemart_tour_type_id)
+            ->where('products.virtuemart_tour_type_id='.(int)$tsmart_tour_type_id)
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_html_tour_information(&$view,$virtuemart_product_id=0)
+    public static function get_html_tour_information(&$view,$tsmart_product_id=0)
     {
         $product_model=VmModel::getModel('product');
-        $product = $product_model->getItem($virtuemart_product_id);
+        $product = $product_model->getItem($tsmart_product_id);
         $db=JFactory::getDbo();
 
 

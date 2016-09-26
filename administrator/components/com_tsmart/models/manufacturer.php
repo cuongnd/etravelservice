@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Manufacturer
 * @author Patrick Kohl, Max Milbers
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -132,12 +132,12 @@ class VirtueMartModelManufacturer extends VmModel {
 		$option	= 'com_tsmart';
 
 		$view = vRequest::getCmd('view','');
-		$virtuemart_manufacturercategories_id	= $app->getUserStateFromRequest( $option.'.'.$view.'.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
+		$tsmart_manufacturercategories_id	= $app->getUserStateFromRequest( $option.'.'.$view.'.virtuemart_manufacturercategories_id', 'virtuemart_manufacturercategories_id', 0, 'int' );
 		$search = $app->getUserStateFromRequest( $option.'.'.$view.'.search', 'search', '', 'string' );
 
 		static $_manufacturers = array();
 
-		$hash = $search.json_encode($virtuemart_manufacturercategories_id).VmConfig::$vmlang.(int)$onlyPublished.(int)$this->_noLimit.(int)$getMedia;
+		$hash = $search.json_encode($tsmart_manufacturercategories_id).VmConfig::$vmlang.(int)$onlyPublished.(int)$this->_noLimit.(int)$getMedia;
 
 		if (array_key_exists ($hash, $_manufacturers)) {
 			vmdebug('Return cached getManufacturers');
@@ -145,8 +145,8 @@ class VirtueMartModelManufacturer extends VmModel {
 		}
 
 		$where = array();
-		if ($virtuemart_manufacturercategories_id > 0) {
-			$where[] .= ' `m`.`virtuemart_manufacturercategories_id` = '. $virtuemart_manufacturercategories_id;
+		if ($tsmart_manufacturercategories_id > 0) {
+			$where[] .= ' `m`.`virtuemart_manufacturercategories_id` = '. $tsmart_manufacturercategories_id;
 		}
 
 		$joinedTables = ' FROM `#__virtuemart_manufacturers` as m';
@@ -184,7 +184,7 @@ class VirtueMartModelManufacturer extends VmModel {
 		return $_manufacturers[$hash];
 	}
 
-	static function getManufacturersOfProductsInCategory($virtuemart_category_id,$vmlang,$mlang = false){
+	static function getManufacturersOfProductsInCategory($tsmart_category_id,$vmlang,$mlang = false){
 
 		if($mlang){
 			$query = 'SELECT DISTINCT IFNULL(l.`mf_name`,ld.mf_name) as mf_name,IFNULL(l.`virtuemart_manufacturer_id`,ld.`virtuemart_manufacturer_id`) as virtuemart_manufacturer_id
@@ -198,12 +198,12 @@ LEFT JOIN `#__virtuemart_manufacturers_'.$vmlang.'` as l using (`virtuemart_manu
 
 		$query .= ' INNER JOIN `#__virtuemart_product_manufacturers` AS pm using (`virtuemart_manufacturer_id`)';
 		$query .= ' INNER JOIN `#__virtuemart_products` as p ON p.`virtuemart_product_id` = pm.`virtuemart_product_id` ';
-		if ($virtuemart_category_id) {
+		if ($tsmart_category_id) {
 			$query .= ' INNER JOIN `#__virtuemart_product_categories` as c ON c.`virtuemart_product_id` = pm.`virtuemart_product_id` ';
 		}
 		$query .= ' WHERE p.`published` =1';
-		if ($virtuemart_category_id) {
-			$query .= ' AND c.`virtuemart_category_id` =' . (int)$virtuemart_category_id;
+		if ($tsmart_category_id) {
+			$query .= ' AND c.`virtuemart_category_id` =' . (int)$tsmart_category_id;
 		}
 		$query .= ' ORDER BY `mf_name`';
 		$db = JFactory::getDBO();

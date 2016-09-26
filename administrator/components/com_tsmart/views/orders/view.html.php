@@ -6,7 +6,7 @@
  * @package	VirtueMart
  * @subpackage
  * @author
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -59,8 +59,8 @@ class TsmartViewOrders extends tsmViewAdmin {
 			$userFieldsModel = VmModel::getModel('userfields');
 
 			// Get the data
-			$virtuemart_order_id = vRequest::getInt('virtuemart_order_id');
-			$order = $orderModel->getOrder($virtuemart_order_id);
+			$tsmart_order_id = vRequest::getInt('virtuemart_order_id');
+			$order = $orderModel->getOrder($tsmart_order_id);
 
 			if(empty($order['details'])){
 				JFactory::getApplication()->redirect('index.php?option=com_tsmart&view=orders',tsmText::_('com_tsmart_ORDER_NOTFOUND'));;
@@ -195,7 +195,7 @@ class TsmartViewOrders extends tsmViewAdmin {
 
 			if ($orderslist) {
 
-			    foreach ($orderslist as $virtuemart_order_id => $order) {
+			    foreach ($orderslist as $tsmart_order_id => $order) {
 
 				    if(!empty($order->order_currency)){
 					    $currency = $order->order_currency;

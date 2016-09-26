@@ -12,7 +12,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.org
+ * http://tsmart.org
  */
 
 if( !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not allowed.' );
@@ -1083,7 +1083,7 @@ class Migrator extends VmModel{
 					// //custom select or create it
 					// $q = 'SELECT `virtuemart_custom_id` FROM `#__virtuemart_customs` as c WHERE c.field_type ="V" and c.`custom_title` ="'.$attrib['attribute_name'].'" ';
 					// $this->_db->setQuery($q);
-					// if (!$virtuemart_custom_id = $this->_db->loadResult()) {
+					// if (!$tsmart_custom_id = $this->_db->loadResult()) {
 					// $customModel = VmModel::getModel('Custom');
 					// $attrib['custom_title'] = $attrib['attribute_name'];
 					// $attrib['custom_value'] = $attrib['attribute_value'];
@@ -1212,11 +1212,11 @@ class Migrator extends VmModel{
 										WHERE `file_title`="' .  $this->_db->escape($filename) . '"
 										AND `file_type`="' . $this->_db->escape($type) . '"';
 			$this->_db->setQuery($q);
-			$virtuemart_media_id = $this->_db->loadResult();
+			$tsmart_media_id = $this->_db->loadResult();
 
-			if(!empty($virtuemart_media_id)){
-				$this->mediaIdFilename[$type][$filename] = $virtuemart_media_id;
-				return $virtuemart_media_id;
+			if(!empty($tsmart_media_id)){
+				$this->mediaIdFilename[$type][$filename] = $tsmart_media_id;
+				return $tsmart_media_id;
 			} else {
 
 				// 				vmdebug('No media found for '.$type.' '.$filename);
@@ -1768,7 +1768,7 @@ class Migrator extends VmModel{
 	}
 
 	/**
-	 * Method to restore all virtuemart tables in a database with a given prefix
+	 * Method to restore all tsmart tables in a database with a given prefix
 	 *
 	 * @access	public
 	 * @param	string	Old table prefix
@@ -1832,7 +1832,7 @@ class Migrator extends VmModel{
 	 * Roughly taken from the forum, a bit rewritten by Max Milbers to use the joomla database
 	 * Thank you raycarter
 	 *
-	 * http://forum.virtuemart.net/index.php?topic=102083.0
+	 * http://forum.tsmart.net/index.php?topic=102083.0
 	 * @author raycarter
 	 */
 
@@ -1948,8 +1948,8 @@ class Migrator extends VmModel{
 	 * Roughly taken from the forum, a bit rewritten by Max Milbers to use the joomla database
 	 * Thank you oneforallsoft
 	 *
-	 * http://forum.virtuemart.net/index.php?topic=116403.0
-	 * http://www.oneforallsoft.com/related-products-missing-after-virtuemart-upgrade/
+	 * http://forum.tsmart.net/index.php?topic=116403.0
+	 * http://www.oneforallsoft.com/related-products-missing-after-tsmart-upgrade/
 	 * @author oneforallsoft
 	 */
 	function portVm1RelatedProducts(){

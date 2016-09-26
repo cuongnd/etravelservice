@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage
 * @author RolandD
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -32,8 +32,8 @@ class TableRatings extends tsmTable {
 
 	/** @var int Product ID */
 
-	var $virtuemart_rating_id	= 0;
-	var $virtuemart_product_id           = 0;
+	var $tsmart_rating_id	= 0;
+	var $tsmart_product_id           = 0;
 
 	var $rates         					= 0;
 	var $ratingcount      				= 0;

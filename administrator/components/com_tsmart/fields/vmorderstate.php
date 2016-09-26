@@ -5,7 +5,7 @@ defined('_JEXEC') or die();
  * @package    VirtueMart
  * @subpackage Plugins  - Elements
  * @author Valérie Isaksen
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (C) 2004-2015 Virtuemart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant

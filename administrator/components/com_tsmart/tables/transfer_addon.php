@@ -6,7 +6,7 @@
 * @package	VirtueMart
 * @subpackage Currency
 * @author RickG
-* @link http://www.virtuemart.net
+* @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * VirtueMart is free software. This version may have been modified pursuant
@@ -31,9 +31,9 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class Tabletransfer_addon extends tsmTableData {
 
 	/** @var int Primary key */
-	var $virtuemart_transfer_addon_id				= 0;
+	var $tsmart_transfer_addon_id				= 0;
 	var $transfer_addon_name					= null;
-	var $virtuemart_cityarea_id					= 0;
+	var $tsmart_cityarea_id					= 0;
 	var $passenger_age_from					= 0;
 	var $passenger_age_to					= 0;
 	var $data_price					= null;

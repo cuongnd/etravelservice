@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -51,20 +51,20 @@ class vmpromotion
      *
      * @since   11.1
      */
-    public static function get_list_group_size_by_tour_id($virtuemart_product_id)
+    public static function get_list_group_size_by_tour_id($tsmart_product_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('group_size.virtuemart_group_size_id,CONCAT(group_size.group_name,"(",group_size.from,"-",group_size.to,")") AS group_name,group_size.type AS group_type')
             ->from('#__virtuemart_tour_id_group_size_id AS tour_id_group_size_id')
             ->leftJoin('#__virtuemart_group_size AS group_size ON group_size.virtuemart_group_size_id=tour_id_group_size_id.virtuemart_group_size_id')
-            ->where('tour_id_group_size_id.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('tour_id_group_size_id.virtuemart_product_id='.(int)$tsmart_product_id)
             ->where('group_size.virtuemart_group_size_id!=0')
             ->order('group_size.from')
 
         ;
         $model_product = VmModel::getModel('product');
-        $product=$model_product->getItem($virtuemart_product_id);
+        $product=$model_product->getItem($tsmart_product_id);
 
         if($product->price_type=='multi_price')
         {
@@ -82,13 +82,13 @@ class vmpromotion
             ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tour_price_id);
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
-    public static function get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($virtuemart_promotion_price_id)
+    public static function get_list_tour_promotion_price_by_tour_price_id_for_promotion_price($tsmart_promotion_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('group_size_id_tour_promotion_price_id.*')
             ->from('#__virtuemart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id')
-            ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$virtuemart_promotion_price_id)
+            ->where('group_size_id_tour_promotion_price_id.virtuemart_promotion_price_id=' . (int)$tsmart_promotion_price_id)
         ;
         return $db->setQuery($query)->loadObjectList('virtuemart_group_size_id');
     }
@@ -124,14 +124,14 @@ class vmpromotion
 
     }
 
-    public static function get_product_by_promotion_price_id($virtuemart_promotion_price_id)
+    public static function get_product_by_promotion_price_id($tsmart_promotion_price_id)
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('product.*')
             ->from('#__virtuemart_products AS product')
             ->innerJoin('#__virtuemart_tour_promotion_price AS tour_promotion_price ON tour_promotion_price.virtuemart_product_id=product.virtuemart_product_id')
-            ->where('tour_promotion_price.virtuemart_promotion_price_id=' . (int)$virtuemart_promotion_price_id);
+            ->where('tour_promotion_price.virtuemart_promotion_price_id=' . (int)$tsmart_promotion_price_id);
         return $db->setQuery($query)->loadObject();
     }
 

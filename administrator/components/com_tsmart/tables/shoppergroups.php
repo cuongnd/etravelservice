@@ -22,8 +22,8 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
 class TableShoppergroups extends tsmTable
 {
 
-	var $virtuemart_shoppergroup_id	 = 0;
-	var $virtuemart_vendor_id = 0;
+	var $tsmart_shoppergroup_id	 = 0;
+	var $tsmart_vendor_id = 0;
 	var $shopper_group_name  = '';
 	var $shopper_group_desc  = '';
 	var $sgrp_additional = 0;

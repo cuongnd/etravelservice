@@ -14,7 +14,7 @@
  * other free or open source software licenses.
  * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
- * http://virtuemart.net
+ * http://tsmart.net
  */
 
 /**
@@ -45,13 +45,13 @@ class vmServiceclass
     }
 
 
-    public static function get_list_service_class_ids_by_tour_id($virtuemart_product_id=0)
+    public static function get_list_service_class_ids_by_tour_id($tsmart_product_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('virtuemart_service_class_id')
             ->from('#__virtuemart_tour_id_service_class_id')
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
             ;
         return $db->setQuery($query)->loadColumn();
     }
@@ -64,14 +64,14 @@ class vmServiceclass
             ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_service_class_by_tour_id($virtuemart_product_id=0)
+    public static function get_list_service_class_by_tour_id($tsmart_product_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('service_class.*')
             ->from('#__virtuemart_tour_id_service_class_id')
             ->leftJoin('#__virtuemart_service_class AS service_class USING(virtuemart_service_class_id)')
-            ->where('virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('virtuemart_product_id='.(int)$tsmart_product_id)
             ;
         return $db->setQuery($query)->loadObjectList();
     }

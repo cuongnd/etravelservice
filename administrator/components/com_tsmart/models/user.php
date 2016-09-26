@@ -8,7 +8,7 @@
  * @author Oscar van Eijk
  * @author Max Milbers
  * @author    RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -1544,14 +1544,14 @@ class VirtueMartModelUser extends VmModel
         return $_status;
     }
 
-    function removeAddress($virtuemart_userinfo_id)
+    function removeAddress($tsmart_userinfo_id)
     {
 
         $db = JFactory::getDBO();
 
-        if (isset($virtuemart_userinfo_id) and $this->_id != 0) {
+        if (isset($tsmart_userinfo_id) and $this->_id != 0) {
             //$userModel -> deleteAddressST();
-            $q = 'DELETE FROM #__virtuemart_userinfos  WHERE virtuemart_user_id="' . $this->_id . '" AND virtuemart_userinfo_id="' . (int)$virtuemart_userinfo_id . '"';
+            $q = 'DELETE FROM #__virtuemart_userinfos  WHERE virtuemart_user_id="' . $this->_id . '" AND virtuemart_userinfo_id="' . (int)$tsmart_userinfo_id . '"';
             $db->setQuery($q);
             if ($db->execute()) {
                 vmInfo('Address has been successfully deleted.');

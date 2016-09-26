@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage
  * @author
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -27,7 +27,7 @@ $now = getdate();
 $nowstring = $now["hours"] . ":" . substr('0' . $now["minutes"], -2) . ' ' . $now["mday"] . "." . $now["mon"] . "." . $now["year"];
 $search_order = vRequest::getVar('search_order', '>');
 $search_type = vRequest::getVar('search_type', 'product');
-// OSP in view.html.php $virtuemart_category_id = vRequest::getInt('virtuemart_category_id', false);
+// OSP in view.html.php $tsmart_category_id = vRequest::getInt('virtuemart_category_id', false);
 if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_product_name = 'com_tsmart_PRODUCT_CHILDREN_LIST'; else $col_product_name = 'com_tsmart_PRODUCT_NAME';
 
 ?>

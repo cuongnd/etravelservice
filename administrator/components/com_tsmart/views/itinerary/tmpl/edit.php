@@ -6,7 +6,7 @@
  * @package    VirtueMart
  * @subpackage Currency
  * @author Max Milbers, RickG
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -22,7 +22,7 @@ $app=JFactory::getApplication();
 $input=$app->input;
 $task = $input->getString('task', '');
 echo $task;
-$virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+$tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_itinerary_edit.less');
 AdminUIHelper::startAdminArea($this);
@@ -57,10 +57,10 @@ AdminUIHelper::imitateTabs('start', "itinerary");
         <input type="hidden" name="virtuemart_itinerary_id"
                value="<?php echo $this->item->virtuemart_itinerary_id; ?>"/>
         <?php echo VmHTML::inputHidden(array(
-            'key[virtuemart_product_id]'=>$virtuemart_product_id
+            'key[virtuemart_product_id]'=>$tsmart_product_id
         )); ?>
         <?php echo VmHTML::inputHidden(array(
-            'virtuemart_product_id'=>$virtuemart_product_id
+            'virtuemart_product_id'=>$tsmart_product_id
         )); ?>
 
         <?php echo $this->addStandardHiddenToForm(); ?>

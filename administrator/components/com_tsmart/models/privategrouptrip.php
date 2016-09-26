@@ -7,7 +7,7 @@
  * @subpackage product
  * @author RickG
  * @author Max Milbers
- * @link http://www.virtuemart.net
+ * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * VirtueMart is free software. This version may have been modified pursuant
@@ -153,13 +153,13 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
 	{
         $app=JFactory::getApplication();
         $input=$app->input;
-        $virtuemart_product_id=$input->getInt('virtuemart_product_id',0);
+        $tsmart_product_id=$input->getInt('virtuemart_product_id',0);
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
         $query->select('service_class.service_class_name,tour_price.virtuemart_product_id')
             ->from('#__virtuemart_service_class AS service_class')
             ->innerJoin('#__virtuemart_tour_price AS tour_price ON tour_price.virtuemart_service_class_id=service_class.virtuemart_service_class_id')
-            ->where('tour_price.virtuemart_product_id='.(int)$virtuemart_product_id)
+            ->where('tour_price.virtuemart_product_id='.(int)$tsmart_product_id)
             ->leftJoin('#__virtuemart_itinerary AS itinerary ON itinerary.virtuemart_product_id=tour_price.virtuemart_product_id')
             ->select('count(distinct itinerary.virtuemart_itinerary_id) AS total_day ')
             ->leftJoin('#__virtuemart_cityarea AS cityarea ON cityarea.virtuemart_cityarea_id=itinerary.virtuemart_cityarea_id')
@@ -189,7 +189,7 @@ class VirtueMartModelPrivategrouptrip extends VmModel {
         $query2->select('MIN(group_size_id_tour_price_id2.price_adult)')
             ->from('#__virtuemart_group_size_id_tour_price_id AS group_size_id_tour_price_id2')
             ->leftJoin('#__virtuemart_tour_price AS tour_price2 ON tour_price2.virtuemart_price_id=group_size_id_tour_price_id2.virtuemart_price_id')
-            ->where('(tour_price2.virtuemart_product_id ='.(int)$virtuemart_product_id.' AND tour_price2.virtuemart_service_class_id=service_class.virtuemart_service_class_id)')
+            ->where('(tour_price2.virtuemart_product_id ='.(int)$tsmart_product_id.' AND tour_price2.virtuemart_service_class_id=service_class.virtuemart_service_class_id)')
         ;
         if ($start_date = $this->getState('filter.start_date'))
         {
