@@ -1883,7 +1883,7 @@ class VmHtml
      * @param string $name
      * @param string $value
      */
-    public static function input($name, $value, $class = '', $readonly = false, $size = '30', $maxlength = '255', $more = '')
+    public static function input($name, $value, $class = '', $readonly = false, $size = '', $maxlength = '255', $more = '')
     {
         return '<input type="text" ' . $readonly . ' ' . $class . ' id="' . $name . '" name="' . $name . '" size="' . $size . '" maxlength="' . $maxlength . '" value="' . ($value) . '" />' . $more;
     }

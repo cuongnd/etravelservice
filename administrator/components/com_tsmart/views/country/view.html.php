@@ -34,7 +34,6 @@ class TsmartViewCountry extends tsmViewAdmin {
     function display($tpl = null) {
 
 		tsmConfig::loadJLang('com_tsmart_countries');
-
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 

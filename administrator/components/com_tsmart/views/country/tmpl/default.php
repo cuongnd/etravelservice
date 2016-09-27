@@ -70,7 +70,10 @@ $states = tsmText::_('com_tsmart_STATE_S');
 
                     </th>
                     <th>
-                        <?php echo $this->sort('country_name','Country name') ?>
+                        <?php echo $this->sort('country_name',JText::_('GEO_COUNTRY_NAME')) ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('country_flaf',JText::_('GEO_COUNTRY_FLAG')) ?>
                     </th>
                     <th>
                         <?php echo $this->sort('code','code') ?>

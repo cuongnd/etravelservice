@@ -103,7 +103,6 @@ AdminUIHelper::startAdminArea($this);
                 }
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
-
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_currency_id);
                     $published = $this->gridPublished($row, $i);
 
@@ -148,21 +147,21 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('currency_name', $this->currency_name); ?>
+                                <?php echo VmHTML::input('currency_name', $row->currency_name); ?>
                             <?php } else { ?>
                                 <?php echo $row->currency_name ?>
                             <?php } ?>
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('currency_code', $this->currency_code); ?>
+                                <?php echo VmHTML::input('currency_code', $row->currency_code); ?>
                             <?php } else { ?>
                                 <?php echo $row->currency_code ?>
                             <?php } ?>
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('sign', $this->sign); ?>
+                                <?php echo VmHTML::input('sign', $row->sign); ?>
                             <?php } else { ?>
                                 <?php echo $row->sign ?>
                             <?php } ?>

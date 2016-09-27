@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 * @version $Id$
 */
 
-if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
+if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcontroller.php');
 
 /**
  * tsmart default administrator controller

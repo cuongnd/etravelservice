@@ -19,7 +19,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 * @version $Id: about.php 2641 2010-11-09 19:25:13Z milbo $
 */
 
-if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
+if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcontroller.php');
 
 /**
  * tsmart default administrator controller

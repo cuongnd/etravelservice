@@ -22,7 +22,7 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 tsmConfig::loadConfig();
 
-if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmController.php');
+if (!class_exists( 'TsmController' )) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcontroller.php');
 if (!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
 vmRam('Start');
@@ -51,16 +51,15 @@ if($_controller) {
 	}
 }
 
+
 vmJsApi::jQuery(0);
 
 // Create the controller
 $_class = 'TsmartController'.ucfirst($_controller);
 $controller = new $_class();
 
-
 // Perform the Request task
 $controller->execute(vRequest::getCmd('task', $_controller));
-
 vmTime($_class.' Finished task '.$_controller,'Start');
 vmRam('End');
 vmRamPeak('Peak');

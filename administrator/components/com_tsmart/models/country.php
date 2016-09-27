@@ -99,7 +99,6 @@ class tsmartModelcountry extends tmsModel {
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
 		return $query;
 	}
 
