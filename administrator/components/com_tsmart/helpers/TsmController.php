@@ -171,7 +171,6 @@ class TsmController extends JControllerLegacy{
 		vRequest::vmCheckToken();
 			
 		if($data===0) $data = vRequest::getRequest();
-
 		$model = tmsModel::getModel($this->_cname);
 		$id = $model->store($data);
 
@@ -225,7 +224,6 @@ class TsmController extends JControllerLegacy{
 		$input=$app->input;
 		$post=$input->getArray();
 		unset($post['option']);
-		unset($post['view']);
 		unset($post['controller']);
 		unset($post['task']);
 		$this->setRedirect($this->redirectPath.'&'.http_build_query($post).'&show_edit_in_line=1');

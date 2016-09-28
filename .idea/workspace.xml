@@ -1,86 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="005faef6-c3e3-45ed-9aee-59b5f7053b36" name="Default" comment="co">
+    <list default="true" id="005faef6-c3e3-45ed-9aee-59b5f7053b36" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/assets/less/asianventure-edit-inline.less" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/assets/less/asianventure-edit-inline.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/about.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/about.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/accommodation.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/accommodation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/activity.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/activity.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/airport.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/airport.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/allocation.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/allocation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/calc.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/calc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/category.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/category.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/cityarea.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/cityarea.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/config.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/country.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/country.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/coupon.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/coupon.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency2.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency3.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency3.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency4.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency4.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency5.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency5.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency6.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency6.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency7.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency7.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency8.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency8.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency9.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/currency9.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/custom.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/custom.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/dateavailability.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/dateavailability.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/departure.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/departure.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/document.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/document.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/excursionaddon.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/excursionaddon.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/faq.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/faq.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/general.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/general.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/groupsize.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/groupsize.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/highlight.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/highlight.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/hotel.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/hotel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/hoteladdon.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/hoteladdon.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/inventory.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/inventory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/itinerary.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/itinerary.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/language.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/language.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/log.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/log.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/manufacturer.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/manufacturer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/manufacturercategories.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/manufacturercategories.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/media.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/media.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/orders.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/orders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/orderstatus.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/orderstatus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/payment.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/payment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/paymentmethod.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/paymentmethod.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/paymentsetting.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/paymentsetting.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/physicalgrade.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/physicalgrade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/plugin.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/plugin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/price.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/price.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/product.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/promotion.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/promotion.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/ratings.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/ratings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/relation.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/relation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/report.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/report.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/room.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/room.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/serviceclass.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/serviceclass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/servicetype.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/servicetype.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/shipmentmethod.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/shipmentmethod.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/shoppergroup.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/shoppergroup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/state.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/state.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/supplier.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/supplier.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourclass.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourclass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/toursection.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/toursection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourstyle.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourstyle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourtype.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tourtype.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/transferaddon.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/transferaddon.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/translate.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/translate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tsmart.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/tsmart.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/updatesmigration.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/updatesmigration.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/user.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/userfields.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/userfields.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/utility.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/controllers/utility.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/helpers/html.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/helpers/html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/language/en-GB/en-GB.com_tsmart.ini" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/language/en-GB/en-GB.com_tsmart.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/models/country.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/models/country.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/models/currency.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/models/currency.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/tsmart.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/tsmart.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/views/country/tmpl/default.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/views/country/tmpl/default.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/views/country/view.html.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/views/country/view.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/views/currency/tmpl/default.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/views/currency/tmpl/default.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/administrator/components/com_tsmart/helpers/TsmController.php" afterPath="$PROJECT_DIR$/administrator/components/com_tsmart/helpers/TsmController.php" />
     </list>
     <ignored path="joom336.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -226,6 +150,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="cuongnd &lt;nguyendinhcuong@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -1059,7 +988,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="SearchEverywhereHistoryKey" value="administrator\components\com_tsmart\helpers\tsmController.php&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_tsmart/helpers/tsmController.php&#10;administrator\components\com_tsmart\tsmart.php&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_tsmart/admin.tsmart.php&#10;jcompone&#9;null&#9;null&#10;jmenu&#9;null&#9;null&#10;router&#9;null&#9;null&#10;juti&#9;null&#9;null&#10;jtable&#9;null&#9;null&#10;addStandardDefaultViewCommandsDeparture&#9;null&#9;null&#10;ajax_get_list_service_class_by_tour_id&#9;null&#9;null&#10;VmTableData&#9;null&#9;null&#10;submitbutton&#9;null&#9;null&#10;tabletour&#9;null&#9;null&#10;JPAth&#9;null&#9;null&#10;ConfigViewCmsHtml&#9;null&#9;null&#10;jfielde&#9;null&#9;null&#10;jtableme&#9;null&#9;null&#10;jstate&#9;null&#9;null&#10;jhtml&#9;null&#9;null&#10;vmhtm&#9;null&#9;null&#10;location_city&#9;null&#9;null&#10;adminui&#9;null&#9;null&#10;chosen&#9;FILE&#9;file://H:/project/etravelservice/media/jui/css/chosen.css&#10;updateObject&#9;null&#9;null&#10;jcom&#9;null&#9;null&#10;bindChecknStore&#9;null&#9;null&#10;insertObject&#9;null&#9;null&#10;vmproduct&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/helpers/vmproduct.php&#10;ui&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/helpers/adminui.php&#10;datepicker&#9;null&#9;null&#10;Jhtml&#9;null&#9;null&#10;controller/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/controllers/price.php&#10;table/price&#9;FILE&#9;file://H:/project/etravelservice/administrator/components/com_virtuemart/tables/price.php&#10;jbeha&#9;null&#9;null&#10;behavior&#9;null&#9;null&#10;head.php&#9;FILE&#9;file://H:/project/joom336/libraries/joomla/document/html/renderer/head.php" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../itemplatepro.com" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
@@ -1411,7 +1340,13 @@
       <option name="project" value="LOCAL" />
       <updated>1468495489702</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="co">
+      <created>1474961271174</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1474961271174</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1430,9 +1365,11 @@
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25340393" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18154311" sideWeight="0.7719054" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.4974293" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22392212" sideWeight="0.5051414" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39761093" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44709897" sideWeight="0.49485862" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45904437" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20196672" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
@@ -1446,11 +1383,9 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.49170125" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="92" y="92" width="1416" height="676" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261745" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.107093185" sideWeight="0.49485862" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1514,6 +1449,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5384617">
           <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1549,6 +1485,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5384617">
           <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1570,6 +1507,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1474878799953" expanded="true" signature="44436:44469" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1591,6 +1531,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5384617">
           <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1612,6 +1553,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5384617">
           <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1711,6 +1653,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23639774">
           <caret line="700" column="20" selection-start-line="700" selection-start-column="20" selection-end-line="700" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1759,12 +1702,12 @@
         <state vertical-scroll-proportion="-8.730769">
           <caret line="282" column="45" selection-start-line="282" selection-start-column="45" selection-end-line="282" selection-end-column="52" />
           <folding>
-            <element signature="e#27385#27406#0#HTML" expanded="true" />
-            <element signature="e#39476#39497#0#HTML" expanded="true" />
-            <element signature="e#40022#40043#0#HTML" expanded="true" />
-            <element signature="e#40566#40587#0#HTML" expanded="true" />
-            <element signature="e#55640#55695#0#HTML" expanded="true" />
-            <element signature="e#56037#56092#0#HTML" expanded="true" />
+            <element signature="e#27385#27406#0#HTML" expanded="false" />
+            <element signature="e#39476#39497#0#HTML" expanded="false" />
+            <element signature="e#40022#40043#0#HTML" expanded="false" />
+            <element signature="e#40566#40587#0#HTML" expanded="false" />
+            <element signature="e#55640#55695#0#HTML" expanded="false" />
+            <element signature="e#56037#56092#0#HTML" expanded="false" />
             <marker date="1474881023874" expanded="true" signature="6798:7074" placeholder="..." />
             <marker date="1474881023874" expanded="true" signature="6827:6866" placeholder="{...}" />
             <marker date="1474881023874" expanded="true" signature="6909:6945" placeholder="{...}" />
@@ -1787,6 +1730,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.307692">
           <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1794,6 +1738,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.735849">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
