@@ -51,7 +51,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 		$config = JFactory::getConfig();
 
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $this->list_service_class = vmServiceclass::get_list_service_class();
+        $this->list_service_class = tsmserviceclass::get_list_service_class();
 
 
 

@@ -604,7 +604,7 @@ class VmHtml
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $list_service_class = vmServiceclass::get_list_tour_service_class();
+        $list_service_class = tsmserviceclass::get_list_tour_service_class();
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
         $list_products = vmproduct::get_list_product();
 
@@ -2184,12 +2184,12 @@ XML;
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.js');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_service_class/html_select_language.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_service_class)) {
             require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-            $list_service_class = vmServiceclass::get_list_service_class();
+            $list_service_class = tsmserviceclass::get_list_service_class();
         }
 
         $id_element = 'html_select_service_class_' . $name;
@@ -2200,7 +2200,7 @@ XML;
                 $('#<?php  echo $id_element ?>').html_select_service_class({
                     list_tour:<?php echo json_encode($list_service_class) ?>,
                     select_name: "<?php echo $name ?>",
-                    tsmart_product_id:<?php echo $default ? $default : 0 ?>
+                    tsmart_language_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -2217,6 +2217,98 @@ XML;
                 <?php foreach ($list_service_class as $service_class) { ?>
                     <option <?php echo $service_class->tsmart_service_class_id == $default ? ' selected ' : '' ?>
                         value="<?php echo $service_class->tsmart_service_class_id ?>"><?php echo $service_class->service_class_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_currency($list_currency = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_currency/html_select_currency.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_currency/html_select_currency.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_currency)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcurrency.php';
+            $list_currency = tsmcurrency::get_list_currency();
+        }
+
+        $id_element = 'html_select_service_class_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_currency({
+                    list_tour:<?php echo json_encode($list_currency) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_language_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select currency') ?></option>
+                <?php foreach ($list_currency as $currency) { ?>
+                    <option <?php echo $currency->tsmart_currency_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $currency->tsmart_currency_id ?>"><?php echo $currency->currency_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_language($list_language = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_language/html_select_language.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_language/html_select_language.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_language)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmlanguage.php';
+            $list_language = tsmlanguage::get_list_language();
+        }
+
+        $id_element = 'html_select_language_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_language({
+                    list_language:<?php echo json_encode($list_language) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_language_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = JUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select Language') ?></option>
+                <?php foreach ($list_language as $language) { ?>
+                    <option <?php echo $language->tsmart_language_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $language->tsmart_language_id ?>"><?php echo $language->language_name ?></option>
                 <?php } ?>
             </select>
         </div>

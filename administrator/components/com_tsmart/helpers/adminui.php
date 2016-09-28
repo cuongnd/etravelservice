@@ -277,7 +277,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
 
                 <?php if(!$hide_toolbar){ ?>
                 <?php
-                    if($view=='country'||$view=='state'||$view=='cityarea'){
+                    if(in_array($view,array('country','state','city','currency','language'))){
                         echo self::show_tab_geo($view,$tsmart_product_id);
                         ?>
                         <div class="vm-title tab-geo row-fluid">
@@ -799,12 +799,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" ><a href="index.php?option=com_tsmart">Daskboard</a>
                 </li>
-                <li role="presentation" class="<?php echo $view=='country'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=country" aria-controls="geo_country"
-                                           ><?php echo JText::_('GEO_COUNTRY') ?></a></li>
-                <li role="presentation" class="<?php echo $view=='state'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=state" aria-controls="geo_state" role="tab"
-                                           ><?php echo JText::_('GEO_STATE') ?></a></li>
-                <li role="presentation" class="<?php echo $view=='cityarea'?'active':'' ?> "><a href="index.php?option=com_tsmart&view=cityarea" aria-controls="geo_state" role="tab"
-                                           ><?php echo JText::_('GEO_CITY') ?></a></li>
+                <li role="presentation" ><a href="#geo_manager"
+                                           ><?php echo JText::_('Geo Manager') ?></a></li>
 
             </ul>
 
@@ -813,36 +809,24 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                 <div role="tabpanel" class="tab-pane active" id="daskboard">
 
                 </div>
-                <div role="tabpanel" class="tab-pane" id="geo_country">
+                <div role="tabpanel" class="tab-pane" id="geo_manager">
                     <div class="row-fluid">
-                        <div class="span12">
-                            <ul style="display: none" class="ul_sub_menu">
+                        <div class="span2">
+                            <ul  class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=currency"><span
+                                            class="icon-palette" title=""></span><?php echo JText::_('Currency') ?></a></li>
+                                <li><a href="index.php?option=com_tsmart&view=language"><span
+                                            class="icon-palette" title=""></span><?php echo JText::_('Language') ?></a></li>
                                 <li><a href="index.php?option=com_tsmart&view=country"><span
-                                            class="icon-palette" title=""></span>GEO country</a></li>
+                                            class="icon-palette" title=""></span><?php echo JText::_('Geo Country') ?></a></li>
                             </ul>
                         </div>
-                    </div>
-
-
-                </div>
-                <div role="tabpanel" class="tab-pane" id="geo_state">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <ul style="display: none" class="ul_sub_menu">
-                                <li><a href="index.php?option=com_tsmart&view=sate"><span
-                                            class="icon-palette" title=""></span>GEO state</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div role="tabpanel" class="tab-pane" id="geo_cityarea">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <ul style="display: none" class="ul_sub_menu">
-                                <li><a href="index.php?option=com_tsmart&view=cityarea"><span
-                                            class="icon-palette" title=""></span>GEO City</a></li>
+                        <div class="span2">
+                            <ul  class="ul_sub_menu">
+                                <li><a href="index.php?option=com_tsmart&view=state"><span
+                                            class="icon-palette" title=""></span><?php echo JText::_('Geo State') ?></a></li>
+                                <li><a href="index.php?option=com_tsmart&view=city"><span
+                                            class="icon-palette" title=""></span><?php echo JText::_('Geo City') ?></a></li>
                             </ul>
                         </div>
                     </div>

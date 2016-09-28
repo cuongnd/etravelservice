@@ -42,7 +42,7 @@
             var $option = '<option value="0">Please select service class</option>';
             $dialog_departure_edit_form.find('#tsmart_service_class_id').append($option);
             $.each(list_service_class, function (index, item_service_class) {
-                var $option = '<option  '+(item_service_class.tsmart_product_id==departure_item.tsmart_product_id?' selected ':'') +' value="' + item_service_class.tsmart_product_id + '">' + item_service_class.service_class_name + '</option>';
+                var $option = '<option  '+(item_service_class.tsmart_language_id==departure_item.tsmart_language_id?' selected ':'') +' value="' + item_service_class.tsmart_language_id + '">' + item_service_class.service_class_name + '</option>';
                 $dialog_departure_edit_form.find('#tsmart_service_class_id').append($option);
             });
             $dialog_departure_edit_form.find('#tsmart_service_class_id').trigger('change');
@@ -361,7 +361,7 @@
                             option: 'com_tsmart',
                             controller: 'departure',
                             task: 'ajax_get_list_service_class_by_tour_id',
-                            tsmart_product_id: tsmart_product_id
+                            tsmart_language_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -617,7 +617,7 @@
         };
         plugin.fill_data = function () {
             var departure_item=plugin.settings.departure_item;
-            $dialog_departure_edit_form.find('select[name="tsmart_product_id"]').val(departure_item.tsmart_product_id);
+            $dialog_departure_edit_form.find('select[name="tsmart_product_id"]').val(departure_item.tsmart_language_id);
             $dialog_departure_edit_form.find('select[name="tsmart_product_id"]').trigger('change');
             $dialog_departure_edit_form.find('input[name="departure_name"]').val(departure_item.departure_name);
             $dialog_departure_edit_form.find('textarea[name="note"]').val(departure_item.note);

@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmlanguage
+class tsmlanguage
 {
     /**
      * javascript strings
@@ -34,7 +34,7 @@ class vmlanguage
      */
     protected static $strings = array();
 
-    public static function get_cities()
+    public static function get_list_language()
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);

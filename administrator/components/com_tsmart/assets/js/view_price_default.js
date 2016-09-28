@@ -138,7 +138,7 @@
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                 var disable_dates=[];
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_product_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -172,7 +172,7 @@
                 console.log(list_price);
                 var min_sale_period_from=new Date();
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_product_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -214,7 +214,7 @@
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                 var disable_dates=[];
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_product_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -520,7 +520,7 @@
                 {
                     for(var i=0;i<list_price.length;i++){
                         var item=list_price[i];
-                        if(item.tsmart_price_id!=tsmart_price_id && tsmart_service_class_id==item.tsmart_product_id)
+                        if(item.tsmart_price_id!=tsmart_price_id && tsmart_service_class_id==item.tsmart_language_id)
                         {
                             var item_sale_period_from=new Date(item.sale_period_from);
                             var item_sale_period_to=new Date(item.sale_period_to);
@@ -710,7 +710,7 @@
             if(typeof range_of_date!="undefined") {
                 range_of_date.set_date(result.price.sale_period_from,result.price.sale_period_to);
             }
-            $('select[name="tsmart_service_class_id"]').val(result.price.tsmart_product_id);
+            $('select[name="tsmart_service_class_id"]').val(result.price.tsmart_language_id);
             $('select[name="tsmart_service_class_id"]').trigger("change");
             if(price_type!=flat_price&& list_tour_price_by_tour_price_id!=null && (typeof list_tour_price_by_tour_price_id!="undefined") && list_tour_price_by_tour_price_id.length)
             {

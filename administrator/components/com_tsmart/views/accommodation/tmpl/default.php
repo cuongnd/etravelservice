@@ -130,7 +130,7 @@ if ($saveOrder) {
                     $tsmart_accommodation_id=$row->tsmart_accommodation_id;
                     $tsmart_itinerary_id=$row->tsmart_itinerary_id;
                     require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                    $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($this->tsmart_product_id);
+                    $list_service_class=tsmserviceclass::get_list_service_class_by_tour_id($this->tsmart_product_id);
                     require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
 
                     require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmaccommodation.php';

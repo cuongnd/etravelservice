@@ -1,11 +1,11 @@
 (function ($) {
 
     // here we go!
-    $.html_select_type_percent_or_amount = function (element, options) {
+    $.html_select_language = function (element, options) {
 
         // plugin's default options
         var defaults = {
-            list_tour:[],
+            list_language:[],
             select_name:"",
             tsmart_language_id:0
         }
@@ -21,27 +21,27 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            var list_service_class=plugin.settings.list_tour;
+            var list_service_class=plugin.settings.list_language;
             var select_name=plugin.settings.select_name;
-            var tsmart_service_class_id=plugin.settings.tsmart_language_id;
+            var tsmart_language_id=plugin.settings.tsmart_language_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
             });
-            plugin.select2.val(tsmart_service_class_id).trigger("change")
+            plugin.select2.val(tsmart_language_id).trigger("change")
         };
         plugin.init();
 
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.html_select_type_percent_or_amount = function (options) {
+    $.fn.html_select_language = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('html_select_type_percent_or_amount')) {
-                var plugin = new $.html_select_type_percent_or_amount(this, options);
-                $(this).data('html_select_type_percent_or_amount', plugin);
+            if (undefined == $(this).data('html_select_language')) {
+                var plugin = new $.html_select_language(this, options);
+                $(this).data('html_select_language', plugin);
 
             }
 

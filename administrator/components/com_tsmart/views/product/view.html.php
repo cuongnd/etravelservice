@@ -68,7 +68,7 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 $product = $model->getItem($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                $product->tsmart_service_class_ids = vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
+                $product->tsmart_service_class_ids = tsmserviceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
                 $product->tsmart_group_size_ids = tsmGroupSize::get_list_group_size_ids_by_tour_id($tsmart_product_id);
                 //$user = JFactory::getUser();
@@ -81,7 +81,7 @@ class TsmartViewProduct extends tsmViewAdmin
                     $product_parent = $model->getProductSingle($product->product_parent_id, false);
                 }
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                $this->tour_service_class = vmServiceclass::get_list_tour_service_class();
+                $this->tour_service_class = tsmserviceclass::get_list_tour_service_class();
 
                 $customfields = tmsModel::getModel('Customfields');
 
@@ -267,8 +267,8 @@ class TsmartViewProduct extends tsmViewAdmin
 
                 //get tour_type
                 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-                $list_tour_service_class = vmServiceclass::get_list_tour_service_class();
-                $product->list_tour_service_class_id = vmServiceclass::get_list_service_class_ids_by_tour_id($product->tsmart_product_id);
+                $list_tour_service_class = tsmserviceclass::get_list_tour_service_class();
+                $product->list_tour_service_class_id = tsmserviceclass::get_list_service_class_ids_by_tour_id($product->tsmart_product_id);
                 $this->assignRef('list_tour_service_class', $list_tour_service_class);
                 //end get tour_type
 

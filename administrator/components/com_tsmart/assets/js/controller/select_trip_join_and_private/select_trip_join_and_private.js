@@ -7,7 +7,7 @@
         var defaults = {
             list_tour: [],
             select_name: "",
-            tsmart_product_id: 0
+            tsmart_language_id: 0
         }
 
         // current instance of the object
@@ -23,7 +23,7 @@
             $element.find('.list_tour label').hide();
             for (var i = 0; i < list_tour.length; i++) {
                 var tour = list_tour[i];
-                $element.find('.list_tour label[data-tsmart_product_id="' + tour.tsmart_product_id + '"]').show();
+                $element.find('.list_tour label[data-tsmart_product_id="' + tour.tsmart_language_id + '"]').show();
             }
         };
         plugin.update_select_service_class = function (list_service_class) {
@@ -101,7 +101,7 @@
                                 option: 'com_tsmart',
                                 controller: 'product',
                                 task: 'ajax_get_list_service_class_by_tour_id',
-                                tsmart_product_id: tsmart_product_id
+                                tsmart_language_id: tsmart_product_id
                             };
                             return dataPost;
                         })(),
@@ -134,7 +134,7 @@
                                 option: 'com_tsmart',
                                 controller: 'product',
                                 task: 'ajax_get_list_departure_by_tour_id',
-                                tsmart_product_id: tsmart_product_id
+                                tsmart_language_id: tsmart_product_id
                             };
                             return dataPost;
                         })(),
@@ -164,7 +164,7 @@
             plugin.settings = $.extend({}, defaults, options);
             var list_tour = plugin.settings.list_tour;
             var select_name = plugin.settings.select_name;
-            var tsmart_product_id = plugin.settings.tsmart_product_id;
+            var tsmart_product_id = plugin.settings.tsmart_language_id;
             plugin.add_event_change_tour_type();
             plugin.add_event_change_tour();
         };

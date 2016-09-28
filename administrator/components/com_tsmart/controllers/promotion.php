@@ -122,7 +122,7 @@ class TsmartControllerpromotion extends TsmController {
         $input=$app->input;
         $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $tsmart_service_class_ids=vmServiceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
+        $tsmart_service_class_ids=tsmserviceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
         $return_item=new stdClass();
         $return_item->tsmart_service_class_ids=$tsmart_service_class_ids;
         $view = &$this->getView('promotion', 'html', 'tsmartView');
@@ -193,7 +193,7 @@ class TsmartControllerpromotion extends TsmController {
         $return_item=new stdClass();
 
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-        $list_service_class=vmServiceclass::get_list_service_class_by_tour_id($tsmart_product_id);
+        $list_service_class=tsmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
         $return_item->list_service_class=$list_service_class;
 
         $return_item->promotion_price=$promotion_price;

@@ -54,7 +54,7 @@ class TsmartControllerProduct extends TsmController {
 		$input=JFactory::getApplication()->input;
 		$tsmart_product_id=$input->getInt('tsmart_product_id');
 		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
-		$list_service_class = vmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
+		$list_service_class = tsmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
 		echo json_encode($list_service_class);
 		die;
 

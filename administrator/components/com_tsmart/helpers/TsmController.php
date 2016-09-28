@@ -40,7 +40,7 @@ class TsmController extends JControllerLegacy{
 		$this->registerTask('apply','save');
 
 		//tsmartController
-		$this->_cname = strtolower(substr(get_class( $this ), 20));
+		$this->_cname = strtolower(substr(get_class( $this ), 16));
 		$this->mainLangKey = tsmText::_('com_tsmart_'.strtoupper($this->_cname));
 		$this->redirectPath = 'index.php?option=com_tsmart&view='.$this->_cname;
 		$app=JFactory::getApplication();
@@ -169,7 +169,7 @@ class TsmController extends JControllerLegacy{
 	function save($data = 0){
 
 		vRequest::vmCheckToken();
-			
+		$input=JFactory::getApplication()->input;
 		if($data===0) $data = vRequest::getRequest();
 		$model = tmsModel::getModel($this->_cname);
 		$id = $model->store($data);

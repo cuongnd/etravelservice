@@ -71,6 +71,12 @@ class tsmartModelcountry extends tmsModel {
 		$query->select('country.*,COUNT(states.tsmart_state_id) AS total_state')
 			->from('#__tsmart_countries AS country')
 			->leftJoin('#__tsmart_states AS states using (tsmart_country_id)')
+			->leftJoin('#__tsmart_currencies AS currency using (tsmart_currency_id)')
+			->select('currency.currency_name')
+
+			->leftJoin('#__tsmart_language AS language using (tsmart_language_id)')
+			->select('language.language_name')
+
 			->group('country.tsmart_country_id')
 		;
 		$user = JFactory::getUser();

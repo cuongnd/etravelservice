@@ -39,53 +39,46 @@ $states = tsmText::_('com_tsmart_STATE_S');
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <div id="header">
-            <div id="filterbox">
-                <table>
-                    <tr>
-                        <td align="left" width="100%">
-                            <?php echo tsmText::_('com_tsmart_FILTER') ?>:
-                            &nbsp;<input type="text" value="<?php echo vRequest::getVar('filter_country'); ?>"
-                                         name="filter_country" size="25"/>
-                            <button class="btn btn-small"
-                                    onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="resultscounter"><?php echo $this->pagination->getResultsCounter(); ?></div>
-        </div>
         <div id="editcell">
             <div class="vm-page-nav">
 
             </div>
-            <table class="adminlist table table-striped" id="country_list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped table-bordered" id="country_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
                                                        onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_country_id','Id') ; ?></label>
-
-
-
                     </th>
                     <th>
                         <?php echo $this->sort('country_name',JText::_('GEO_COUNTRY_NAME')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_flaf',JText::_('GEO_COUNTRY_FLAG')) ?>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_FLAG')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('code','code') ?>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_LANGUAGE')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('phone_code','Phone code') ?>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_CURRENCY')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('state_number','State number') ?>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_ALPHA2')) ?>
                     </th>
-                    <th width="20">
-                        <?php echo tsmText::_('Action'); ?>
+                    <th>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_ALPHA3')) ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_NUMERIC')) ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_PCODE')) ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_NO_STATE')) ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('country_flag',JText::_('Action')) ?>
                     </th>
 <!--                    <th width="1%" class="nowrap center hidden-phone">
                         <?php /*echo $this->sort('ordering', 'ordering'); */?>
@@ -130,20 +123,60 @@ $states = tsmText::_('com_tsmart_STATE_S');
                             <?php } ?>
 
                         </td>
-                        <td align="left">
+                        <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::image('flag', $row->flag, 'class="required"'); ?>
                                 <?php echo VmHTML::input('country_name', $row->country_name, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?><a href="<?php echo $editlink; ?>"><?php echo $row->country_name ?> </a>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->country_name ?> </a>
+                            <?php } ?>
+
+                        </td>
+                        <td align="left">
+
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('flag', $row->flag, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?>
                             <?php } ?>
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('code', $row->code, 'class="required"'); ?>
+                                <?php echo VmHTML::select_language(array(), 'tsmart_language_id', $row->tsmart_language_id, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo $row->code ?>
+                                <?php echo $row->langue_name ?>
                             <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::select_currency(array(), 'tsmart_currency_id', $row->tsmart_currency_id, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->currency_name ?>
+                            <?php } ?>
+                        </td>
+
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('iso2', $row->iso2, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->iso2 ?>
+                            <?php } ?>
+
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('iso3', $row->iso3, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->iso3 ?>
+                            <?php } ?>
+
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('iso_number', $row->iso_number, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->iso_number ?>
+                            <?php } ?>
+
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>

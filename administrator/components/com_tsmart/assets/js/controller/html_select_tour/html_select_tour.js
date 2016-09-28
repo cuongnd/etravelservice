@@ -7,7 +7,7 @@
         var defaults = {
             list_tour:[],
             select_name:"",
-            tsmart_product_id:0
+            tsmart_language_id:0
         }
 
         // current instance of the object
@@ -23,7 +23,7 @@
             plugin.settings = $.extend({}, defaults, options);
             var list_tour=plugin.settings.list_tour;
             var select_name=plugin.settings.select_name;
-            var tsmart_product_id=plugin.settings.tsmart_product_id;
+            var tsmart_product_id=plugin.settings.tsmart_language_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
             });

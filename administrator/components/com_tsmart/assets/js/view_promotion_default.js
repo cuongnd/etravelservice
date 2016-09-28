@@ -16,7 +16,7 @@
             list_base_price_by_service_class_id_and_tour_id: [],
             display_format: 'DD-MM-YYYY',
             promotion_price:{
-                tsmart_product_id:0,
+                tsmart_language_id:0,
                 tsmart_price_id:'',
                 sale_period_from:new Date(),
                 sale_period_to:new Date()
@@ -129,7 +129,7 @@
             var $option = '<option value="0">Please select service class</option>';
             $promotion_price_form.find('#tsmart_service_class_id').append($option);
             $.each(list_service_class, function (index, item_service_class) {
-                var $option = '<option  '+(item_service_class.tsmart_product_id==promotion_price.tsmart_product_id?' selected ':'') +' value="' + item_service_class.tsmart_product_id + '">' + item_service_class.service_class_name + '</option>';
+                var $option = '<option  '+(item_service_class.tsmart_language_id==promotion_price.tsmart_language_id?' selected ':'') +' value="' + item_service_class.tsmart_language_id + '">' + item_service_class.service_class_name + '</option>';
                 $promotion_price_form.find('#tsmart_service_class_id').append($option);
             });
             $promotion_price_form.find('#tsmart_service_class_id').trigger('change');
@@ -215,7 +215,7 @@
                         plugin.settings.list_tour=response.list_tour;
                         plugin.settings.tour= response.tour;
                         plugin.settings.promotion_price= response.promotion_price;
-                        var tsmart_product_id = response.tour.tsmart_product_id;
+                        var tsmart_product_id = response.tour.tsmart_language_id;
                         plugin.update_service_class(response.list_tour);
                         plugin.update_value_calendar();
                         $promotion_price_form.find("#tsmart_product_id").val(tsmart_product_id);
@@ -580,8 +580,8 @@
                             option: 'com_tsmart',
                             controller: 'promotion',
                             task: 'ajax_get_list_base_price_by_service_class_id_and_tour_id',
-                            tsmart_product_id: tsmart_product_id,
-                            tsmart_product_id: tsmart_service_class_id
+                            tsmart_language_id: tsmart_product_id,
+                            tsmart_language_id: tsmart_service_class_id
 
                         };
                         return dataPost;
@@ -650,7 +650,7 @@
                             option: 'com_tsmart',
                             controller: 'promotion',
                             task: 'ajax_get_change_tour',
-                            tsmart_product_id: tsmart_product_id
+                            tsmart_language_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -678,7 +678,7 @@
                         $promotion_price_form.find('#tsmart_service_class_id').append($option);
                         $.each(response.tsmart_service_class_ids, function (index, tsmart_service_class_id) {
                             $.each(list_service_class, function (index, item_service_class) {
-                                if (item_service_class.tsmart_product_id == tsmart_service_class_id) {
+                                if (item_service_class.tsmart_language_id == tsmart_service_class_id) {
                                     var $option = '<option value="' + tsmart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
                                     $promotion_price_form.find('#tsmart_service_class_id').append($option);
                                 }
@@ -836,7 +836,7 @@
 
 
 
-            $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.tsmart_product_id);
+            $promotion_price_form.find('select[name="service_class_id"]').val(result.promotion_price.tsmart_language_id);
             $promotion_price_form.find('select[name="service_class_id"]').trigger("liszt:updated.chosen");
             var price_type = result.tour.price_type;
             if (price_type == 'tour_group') {

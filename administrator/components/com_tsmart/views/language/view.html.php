@@ -1,10 +1,10 @@
 <?php
 /**
 *
-* language View
+* Country View
 *
 * @package	tsmart
-* @subpackage language
+* @subpackage Country
 * @author RickG
 * @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
@@ -23,75 +23,45 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewadmin.php');
 
 /**
- * HTML View class for maintaining the list of currencies
+ * HTML View class for maintaining the list of countries
  *
  * @package	tsmart
- * @subpackage language
- * @author RickG, Max Milbers
+ * @subpackage Country
+ * @author RickG
  */
-class TsmartViewlanguage extends tsmViewAdmin {
+class TsmartViewCountry extends tsmViewAdmin {
 
-	function display($tpl = null) {
+    function display($tpl = null) {
 
-		// Load the helper(s)
-
-
+		tsmConfig::loadJLang('com_tsmart_countries');
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = tmsModel::getModel();
+		$model = tmsModel::getModel('country');
+		$zoneModel = tmsModel::getModel('worldzones');
+		$this->SetViewTitle();
 
-
-		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$cid	= vRequest::getInt( 'cid' );
-
-			$task = vRequest::getCmd('task', 'add');
-
-			if($task!='add' && !empty($cid) && !empty($cid[0])){
-				$cid = (int)$cid[0];
-			} else {
-				$cid = 0;
-			}
-
-			$model->setId($cid);
-			$this->item = $model->getItem();
-			$this->SetViewTitle('',$this->item->title);
+			$this->country = $model->getData();
+			$this->wzsList = $zoneModel->getWorldZonesSelectList();
 			$this->addStandardEditViewCommands();
-			//get state
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
-			$states = vmstates::get_states();
-			$this->assignRef('states', $states);
-			//end get state
+		}
+		else {
 
+			$this->addStandardDefaultViewCommandsEditInline(true,false);
 
-		} else {
-
-			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsEditInline(false,false,true);
+			//First the view lists, it sets the state of the model
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
-			//get state
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
-			$list_state = vmstates::get_states();
-			$this->assignRef('list_state', $list_state);
-			//end get state
-
-			//get country
-			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcountries.php';
-			$list_country = tsmcountries::get_countries();
-			$this->assignRef('list_country', $list_country);
-			//end get country
-
-
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
+			$filter_country = vRequest::getCmd('filter_country', false);
+			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
 		}
 
 		parent::display($tpl);
-	}
+    }
 
 }
 // pure php no closing tag

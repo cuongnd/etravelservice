@@ -39,8 +39,12 @@ class TableCountries extends tsmTable {
 	var $country_name           = '';
 	/** @var char 3 character country code */
 	var $country_3_code         = '';
+	var $iso2         = '';
+	var $iso3         = '';
     /** @var char 2 character country code */
-	var $country_2_code         = '';
+	var $tsmart_currency_id         = '';
+	var $tsmart_language_id         = '';
+	var $iso_number         = '';
 	var $code         = '';
 	var $phone_code         = '';
 	var $state_number         = '';

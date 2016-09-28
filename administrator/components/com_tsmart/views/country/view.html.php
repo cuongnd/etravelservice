@@ -56,6 +56,7 @@ class TsmartViewCountry extends tsmViewAdmin {
 
 			$filter_country = vRequest::getCmd('filter_country', false);
 			$this->items = $model->getItemList();
+
 			$this->pagination = $model->getPagination();
 
 		}

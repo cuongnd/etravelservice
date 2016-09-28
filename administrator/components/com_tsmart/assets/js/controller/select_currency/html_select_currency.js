@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.html_select_type_percent_or_amount = function (element, options) {
+    $.html_select_currency = function (element, options) {
 
         // plugin's default options
         var defaults = {
@@ -34,14 +34,14 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.html_select_type_percent_or_amount = function (options) {
+    $.fn.html_select_currency = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('html_select_type_percent_or_amount')) {
-                var plugin = new $.html_select_type_percent_or_amount(this, options);
-                $(this).data('html_select_type_percent_or_amount', plugin);
+            if (undefined == $(this).data('html_select_currency')) {
+                var plugin = new $.html_select_currency(this, options);
+                $(this).data('html_select_currency', plugin);
 
             }
 
