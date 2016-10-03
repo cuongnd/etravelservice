@@ -1256,6 +1256,7 @@ header.header {
 
 .ul_sub_menu {
     list-style: none;
+    padding-left: 30px;
 }
 
 .subhead.subhead-fixed {

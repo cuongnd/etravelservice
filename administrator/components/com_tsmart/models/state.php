@@ -68,12 +68,14 @@ class tsmartModelstate extends tmsModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('state.*,countries.flag AS country_flag,countries.country_name,COUNT(cityarea.tsmart_cityarea_id) AS total_city')
+		$query->select('state.*, countries.flag AS country_flag,countries.country_name,COUNT(cityarea.tsmart_cityarea_id) AS total_city')
 			->from('#__tsmart_states AS state')
 			->leftJoin('#__tsmart_countries AS countries   using (tsmart_country_id)')
 			->leftJoin('#__tsmart_cityarea AS cityarea using (tsmart_state_id)')
 			->group('state.tsmart_state_id')
-			//->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+			->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
+			->leftJoin('#__tsmart_airport AS airport ON airport.tsmart_cityarea_id=cityarea.tsmart_cityarea_id')
+			->select('GROUP_CONCAT(airport.airport_name,"(",airport.ata_code,")") AS list_airport_name')
 
 		;
 		$user = JFactory::getUser();

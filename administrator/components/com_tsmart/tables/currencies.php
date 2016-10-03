@@ -37,11 +37,12 @@ class TableCurrencies extends tsmTableData {
 	/** @var string Currency name*/
 
 	var $currency_name 			= '';
-	var $currency_code_2		= '';
-	var $currency_code_3		= '';
 	var $currency_numeric_code	= 0;
 	var $currency_exchange_rate = 0.0;
 	var $currency_symbol		= '';
+	var $image		= '';
+	var $hex_symbol		= '';
+	var $iso_code		= '';
 	var $currency_decimal_place		= 0;
 	var $currency_decimal_symbol		= '';
 	var $currency_thousands		= '';

@@ -49,7 +49,7 @@ AdminUIHelper::startAdminArea($this);
             <div class="vm-page-nav">
 
             </div>
-            <table class="adminlist table table-striped" id="city_area_list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped table-bordered" id="city_area_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
@@ -57,13 +57,13 @@ AdminUIHelper::startAdminArea($this);
                                                        onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_transfer_addon_id','Id') ; ?></label>
                     </th>
                     <th>
-                        <?php echo $this->sort('city_area_name', 'City area name'); ?>
+                        <?php echo $this->sort('city_area_name', JText::_('GEO_CITY_NAME')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('phone_code', 'Phone code'); ?>
+                        <?php echo $this->sort('phone_code',JText::_('GEO_CITY_PHONE_CODE')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('total_airport', 'Airports'); ?>
+                        <?php echo $this->sort('list_airport',JText::_('GEO_CITY_LIST_AIRPORT') ); ?>
                     </th>
                     <?php if(!$show_edit_in_line){ ?>
                     <th>
@@ -146,7 +146,7 @@ AdminUIHelper::startAdminArea($this);
 
                         </td>
                         <td>
-                            <?php echo $row->total_airport ?>
+                            <?php echo $row->list_airport ?>
                         </td>
                         <?php if(!$show_edit_in_line){ ?>
                         <td>

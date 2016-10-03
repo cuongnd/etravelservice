@@ -1,10 +1,10 @@
 <?php
 /**
 *
-* Country View
+* language View
 *
 * @package	tsmart
-* @subpackage Country
+* @subpackage language
 * @author RickG
 * @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
@@ -26,24 +26,29 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
  * HTML View class for maintaining the list of countries
  *
  * @package	tsmart
- * @subpackage Country
+ * @subpackage language
  * @author RickG
  */
-class TsmartViewCountry extends tsmViewAdmin {
+class tsmartViewlanguage extends tsmViewAdmin {
 
     function display($tpl = null) {
 
+
+
+
 		tsmConfig::loadJLang('com_tsmart_countries');
+		//co
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
-		$model = tmsModel::getModel('country');
+		$model = tmsModel::getModel('language');
 		$zoneModel = tmsModel::getModel('worldzones');
 		$this->SetViewTitle();
 
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
-			$this->country = $model->getData();
+			$this->language = $model->getData();
+
 			$this->wzsList = $zoneModel->getWorldZonesSelectList();
 			$this->addStandardEditViewCommands();
 		}
@@ -54,7 +59,7 @@ class TsmartViewCountry extends tsmViewAdmin {
 			//First the view lists, it sets the state of the model
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
-			$filter_country = vRequest::getCmd('filter_country', false);
+			$filter_language = vRequest::getCmd('filter_language', false);
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 

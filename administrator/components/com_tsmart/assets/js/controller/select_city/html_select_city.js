@@ -5,7 +5,9 @@
 
         // plugin's default options
         var defaults = {
-            state_element:''
+            element_name:'',
+            state_element:'',
+            default:0
         }
 
         // current instance of the object
@@ -17,7 +19,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
-        plugin.set_list_state_province = function (tsmart_state_id) {
+        plugin.set_list_city = function (tsmart_state_id) {
             $.ajax({
                 type: "GET",
                 url: 'index.php',
@@ -49,7 +51,9 @@
                     item.tsmart_cityarea_id=0;
                     item.city_area_name='Select city';
                     response.unshift(item);
-                    $.set_date_selected(response,'tsmart_cityarea_id','city_area_name',$element);
+                    var element_name=plugin.settings.element_name;
+                    var tsmart_cityarea_id=$element.val();
+                    $.set_date_selected(response,'tsmart_cityarea_id','city_area_name',$element,tsmart_cityarea_id);
                     $element.trigger("liszt:updated");
                 }
             });
@@ -58,12 +62,14 @@
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var state_element=plugin.settings.state_element;
+
             $(state_element).change(function(){
                 var tsmart_state_id=$(this).val();
-                plugin.set_list_state_province(tsmart_state_id);
+                plugin.set_list_city(tsmart_state_id);
             });
-            var tsmart_country_id=$(state_element).val();
-            plugin.set_list_state_province(tsmart_country_id);
+            var tsmart_state_id=$(state_element).val();
+
+            plugin.set_list_city(tsmart_state_id);
 
         }
 

@@ -5,7 +5,8 @@
 
         // plugin's default options
         var defaults = {
-            country_element:'',
+            state_element:'',
+            tsmart_state_id:0,
         }
 
         // current instance of the object
@@ -60,8 +61,7 @@
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
-            plugin.settings.tsmart_state_id=$element.val();
-            var country_element=plugin.settings.country_element;
+            var country_element=plugin.settings.state_element;
             $(country_element).change(function(){
                 var tsmart_country_id=$(this).val();
                 plugin.set_list_state_province(tsmart_country_id);

@@ -61,7 +61,7 @@ class TsmartViewairport extends tsmViewAdmin {
 			$this->addStandardEditViewCommands();
 			//get state
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
-			$states = vmstates::get_states();
+			$states = tmartstates::get_states();
 			$this->assignRef('states', $states);
 			//end get state
 
@@ -74,7 +74,7 @@ class TsmartViewairport extends tsmViewAdmin {
 
 			//get state
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
-			$list_state = vmstates::get_states();
+			$list_state = tmartstates::get_states();
 			$this->assignRef('list_state', $list_state);
 			//end get state
 

@@ -4,7 +4,7 @@
  * Description
  *
  * @package    tsmart
- * @subpackage Country
+ * @subpackage language
  * @author RickG
  * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
@@ -16,7 +16,7 @@
  * @version $Id: default.php 8534 2014-10-28 10:23:03Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_country_default.less');
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_language_default.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $app = JFactory::getApplication();
@@ -29,8 +29,8 @@ $saveOrder = $listOrder == 'ordering';
 if ($saveOrder)
 {
 
-    $saveOrderingUrl = 'index.php?option=com_tsmart&controller=country&task=saveOrderAjax&tmpl=component';
-    JHtml::_('sortablelist.sortable', 'country_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+    $saveOrderingUrl = 'index.php?option=com_tsmart&controller=language&task=saveOrderAjax&tmpl=component';
+    JHtml::_('sortablelist.sortable', 'language_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
 
@@ -43,42 +43,24 @@ $states = tsmText::_('com_tsmart_STATE_S');
             <div class="vm-page-nav">
 
             </div>
-            <table class="adminlist table table-striped" id="country_list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped table-bordered" id="language_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_country_id','Id') ; ?></label>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_language_id','Id') ; ?></label>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_name',JText::_('GEO_COUNTRY_NAME')) ?>
+                        <?php echo $this->sort('language_name',JText::_('GEO_LANGUAGE_NAME')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_FLAG')) ?>
+                        <?php echo $this->sort('language_flag',JText::_('GEO_LANGUAGE_IMAGE')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_LANGUAGE')) ?>
+                        <?php echo $this->sort('language_flag',JText::_('GEO_LANGUAGE_SYMBOL')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_CURRENCY')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_ALPHA2')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_ALPHA3')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_ISO_NUMERIC')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_PCODE')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('GEO_COUNTRY_NO_STATE')) ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country_flag',JText::_('Action')) ?>
+                        <?php echo $this->sort('language_flag',JText::_('Action')) ?>
                     </th>
 <!--                    <th width="1%" class="nowrap center hidden-phone">
                         <?php /*echo $this->sort('ordering', 'ordering'); */?>
@@ -101,22 +83,22 @@ $states = tsmText::_('com_tsmart_STATE_S');
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_country_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_language_id);
                     $published = $this->gridPublished($row, $i);
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=country&task=edit_in_line&cid[]=' . $row->tsmart_country_id);
-                    $edit = $this->gridEdit($row, $i, 'tsmart_country_id', $editlink);
-                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=country&task=save_in_line&cid[]=' . $row->tsmart_country_id);
-                    $save = $this->grid_save_in_line($row, $i, 'tsmart_country_id', $save_link);
-                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_country_id');
-                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_country_id');
-                    $show_edit = ($show_edit_in_line == 1 && in_array($row->tsmart_country_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=language&task=edit_in_line&cid[]=' . $row->tsmart_language_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_language_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=language&task=save_in_line&cid[]=' . $row->tsmart_language_id);
+                    $save = $this->grid_save_in_line($row, $i, 'tsmart_language_id', $save_link);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_language_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_language_id');
+                    $show_edit = ($show_edit_in_line == 1 && in_array($row->tsmart_language_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
 
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::inputHidden(array(tsmart_country_id => $row->tsmart_country_id)); ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_language_id => $row->tsmart_language_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>
@@ -125,53 +107,26 @@ $states = tsmText::_('com_tsmart_STATE_S');
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('country_name', $row->country_name, 'class="required"'); ?>
+                                <?php echo VmHTML::input('language_name', $row->language_name, 'class="required"'); ?>
                             <?php } else { ?>
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->country_name ?> </a>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->language_name ?> </a>
                             <?php } ?>
 
                         </td>
                         <td align="left">
 
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::image('flag', $row->flag, 'class="required"'); ?>
+                                <?php echo VmHTML::image('image', $row->image, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->image, 'class="required"',20,20); ?>
                             <?php } ?>
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::select_currency(array(), 'tsmart_currency_id', $row->tsmart_currency_id, 'class="required"'); ?>
+                                <?php echo VmHTML::input('symbol', $row->symbol, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo $row->currency_name ?>
+                                <?php echo $row->symbol ?>
                             <?php } ?>
-                        </td>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->phone_code ?>
-                            <?php } ?>
-
-                        </td>
-                        <td>
-                            <?php echo $row->total_state ?>
-
-                        </td>
-                        <td>
-                            <?php echo $row->total_state ?>
-
-                        </td>
-                        <td>
-                            <?php echo $row->total_state ?>
-
-                        </td>
-                        <td>
-                            <?php echo $row->total_state ?>
-
-                        </td>
-                        <td>
-                            <?php echo $row->total_state ?>
 
                         </td>
                         <td align="center" width="70">
@@ -216,8 +171,8 @@ $states = tsmText::_('com_tsmart_STATE_S');
         <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>"/>
         <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>"/>
         <input type="hidden" name="option" value="com_tsmart"/>
-        <input type="hidden" name="controller" value="country"/>
-        <input type="hidden" name="view" value="country"/>
+        <input type="hidden" name="controller" value="language"/>
+        <input type="hidden" name="view" value="language"/>
         <input type="hidden" name="task" value=""/>
         <input type="hidden" name="boxchecked" value="0"/>
         <?php echo JHtml::_('form.token'); ?>

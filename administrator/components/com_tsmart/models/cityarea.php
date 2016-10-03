@@ -73,6 +73,7 @@ class tsmartModelcityarea extends tmsModel {
 			->leftJoin('#__tsmart_states AS state   using (tsmart_state_id)')
 			->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=state.tsmart_country_id')
 			->leftJoin('#__tsmart_airport AS airport   using (tsmart_cityarea_id)')
+			->select('GROUP_CONCAT(airport.airport_name) AS list_airport')
 			->group('cityarea.tsmart_cityarea_id')
 			//->leftJoin('#__tsmart_cityareas AS cityareas ON cityareas.tsmart_cityarea_id=cityarea.tsmart_cityarea_id')
 

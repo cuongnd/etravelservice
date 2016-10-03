@@ -143,7 +143,7 @@ $states = tsmText::_('com_tsmart_STATE_S');
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::select_language(array(), 'tsmart_language_id', $row->tsmart_language_id, 'class="required"'); ?>
                             <?php } else { ?>
-                                <?php echo $row->langue_name ?>
+                                <?php echo $row->language_name ?>
                             <?php } ?>
                         </td>
                         <td>

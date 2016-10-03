@@ -36,16 +36,8 @@ class TableLanguage extends tsmTableData {
 	var $tsmart_vendor_id					= 1;
 	/** @var string Currency name*/
 	var $language_name 			= '';
-	var $currency_numeric_code	= 0;
-	var $currency_exchange_rate = 0.0;
-	var $currency_symbol		= '';
-	var $currency_decimal_place		= 0;
-	var $currency_decimal_symbol		= '';
-	var $currency_thousands		= '';
-	var $currency_positive_style	= '';
-	var $currency_negative_style	= '';
-	var $sign	= '';
-	var $tsmart_country_id	= 0;
+	var $symbol 			= '';
+	var $image 			= '';
 	var $shared					= 0;
 	var $published				= 1;
 

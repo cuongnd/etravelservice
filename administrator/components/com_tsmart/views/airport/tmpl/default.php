@@ -48,7 +48,7 @@ AdminUIHelper::startAdminArea($this);
             <div class="vm-page-nav">
 
             </div>
-            <table class="adminlist table table-striped" id="city_area_list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped table-bordered" id="city_area_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
@@ -109,7 +109,6 @@ AdminUIHelper::startAdminArea($this);
                 }
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
-
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_airport_id);
                     $published = $this->gridPublished($row, $i);
 
@@ -178,7 +177,7 @@ AdminUIHelper::startAdminArea($this);
                             <td align="left">
                                 <?php if ($show_edit) { ?>
                                     <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
-                                    <?php echo VmHTML::select('tsmart_country_id', $this->list_country,$this->item->tsmart_country_id,'', 'tsmart_country_id','country_name'); ?>
+                                    <?php echo VmHTML::select('tsmart_country_id', $this->list_country,$row->tsmart_country_id,'', 'tsmart_country_id','country_name'); ?>
                                 <?php } else { ?>
                                     <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                     <?php echo $row->country_name ?>
@@ -187,14 +186,14 @@ AdminUIHelper::startAdminArea($this);
                             </td>
                             <td align="left">
                                 <?php if ($show_edit) { ?>
-                                    <?php echo VmHTML::select_state_province('tsmart_state_id', $this->list_state_province,$this->item->tsmart_state_id,'', 'tsmart_state_id','state_name','select[name="tsmart_country_id"]'); ?>
+                                    <?php echo VmHTML::select_state_province('tsmart_state_id', $this->list_state_province,$row->tsmart_state_id,'', 'tsmart_state_id','state_name','select[name="tsmart_country_id"]'); ?>
                                 <?php } else { ?>
                                     <?php echo $row->state_name ?>
                                 <?php } ?>
                             </td>
                             <td align="left">
                                 <?php if ($show_edit) { ?>
-                                    <?php echo VmHTML::select_city('tsmart_cityarea_id', $this->list_city_area,$this->item->tsmart_cityarea_id,'', 'tsmart_cityarea_id','city_area_name','select[name="tsmart_state_id"]'); ?>
+                                    <?php echo VmHTML::select_city('tsmart_cityarea_id', $this->list_city_area,$row->tsmart_cityarea_id,'', 'tsmart_cityarea_id','city_area_name','select[name="tsmart_state_id"]'); ?>
                                 <?php } else { ?>
                                     <?php echo $row->city_area_name ?>
                                 <?php } ?>

@@ -39,18 +39,11 @@ AdminUIHelper::startAdminArea($this);
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('currency', 'search'); ?>
-                </td>
-            </tr>
-        </table>
         <div id="editcell">
             <div class="vm-page-nav">
 
             </div>
-            <table class="adminlist table table-striped" id="city_area_list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped table-bordered" id="city_area_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
@@ -58,25 +51,19 @@ AdminUIHelper::startAdminArea($this);
                                                        onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_transfer_addon_id','Id') ; ?></label>
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'Country name'); ?>
+                        <?php echo $this->sort('currency_name',JText::_('GEO_CURRENCY_NAME') ); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('iso2', 'ISO2'); ?>
+                        <?php echo $this->sort('currency_code',JText::_('GEO_CURRENCY_CODE')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('iso3', 'ISO3'); ?>
+                        <?php echo $this->sort('Sign', JText::_('GEO_CURRENCY_SYMBOL')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('Flag', 'flag'); ?>
+                        <?php echo $this->sort('image', JText::_('GEO_CURRENCY_SYMBOL_IMAGE')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('currency_name', 'currency name'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('currency_code', 'currency code'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('Sign', 'sign'); ?>
+                        <?php echo $this->sort('image', JText::_('GEO_CURRENCY_HAX_SYMBOL')); ?>
                     </th>
                     <th width="1%" class="nowrap center hidden-phone">
                         <?php echo $this->sort('ordering', 'ordering'); ?>
@@ -131,21 +118,6 @@ AdminUIHelper::startAdminArea($this);
 
                         </td>
                         <td align="left">
-                            <?php echo $row->country_name; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->iso2; ?>
-
-                        </td>
-                        <td align="left">
-                            <?php echo $row->iso3; ?>
-
-                        </td>
-                        <td align="left">
-                            <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?>
-
-                        </td>
-                        <td align="left">
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::input('currency_name', $row->currency_name); ?>
                             <?php } else { ?>
@@ -154,16 +126,31 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('currency_code', $row->currency_code); ?>
+                                <?php echo VmHTML::input('iso_code', $row->iso_code); ?>
                             <?php } else { ?>
-                                <?php echo $row->currency_code ?>
+                                <?php echo $row->iso_code ?>
                             <?php } ?>
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('sign', $row->sign); ?>
+                                <?php echo VmHTML::input('currency_symbol', $row->currency_symbol); ?>
                             <?php } else { ?>
-                                <?php echo $row->sign ?>
+                                <?php echo $row->currency_symbol ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
+
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('image', $row->image, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->image, 'class="required"',20,20); ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('hex_symbol', $row->hex_symbol); ?>
+                            <?php } else { ?>
+                                <?php echo $row->hex_symbol ?>
                             <?php } ?>
                         </td>
                         <td align="left">

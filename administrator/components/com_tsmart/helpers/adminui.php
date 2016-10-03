@@ -277,12 +277,12 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
 
                 <?php if(!$hide_toolbar){ ?>
                 <?php
-                    if(in_array($view,array('country','state','city','currency','language'))){
+                    if(in_array($view,array('country','state','cityarea','currency','language','airport'))){
                         echo self::show_tab_geo($view,$tsmart_product_id);
                         ?>
                         <div class="vm-title tab-geo row-fluid">
                             <div class="span2 ">
-                                <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
+                                <h3 class="title_page"><?php echo JText::_($vmView->getName()) ?></h3>
                             </div>
                         </div>
                         <div class="vm_toolbar"></div>
@@ -292,7 +292,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                         ?>
                         <div class="vm-title row-fluid">
                             <div class="span2 offset8">
-                                <h2 class="title_page"><?php echo JText::_($vmView->getName()) ?></h2>
+                                <h3 class="title_page"><?php echo JText::_($vmView->getName()) ?></h3>
                             </div>
                         </div>
                         <div class="vm_toolbar"></div>
@@ -825,8 +825,10 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                             <ul  class="ul_sub_menu">
                                 <li><a href="index.php?option=com_tsmart&view=state"><span
                                             class="icon-palette" title=""></span><?php echo JText::_('Geo State') ?></a></li>
-                                <li><a href="index.php?option=com_tsmart&view=city"><span
+                                <li><a href="index.php?option=com_tsmart&view=cityarea"><span
                                             class="icon-palette" title=""></span><?php echo JText::_('Geo City') ?></a></li>
+                                <li><a href="index.php?option=com_tsmart&view=airport"><span
+                                            class="icon-palette" title=""></span><?php echo JText::_('Airport') ?></a></li>
                             </ul>
                         </div>
                     </div>
@@ -933,7 +935,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                     </li>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=document&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
-                                                class="im-screen"></i>Documents</a>
+                                                class="im-screen"></i> Documents</a>
                                     </li>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=tourprice&tsmart_product_id=<?php echo $tsmart_product_id ?>'><i
@@ -990,7 +992,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                     </li>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=asign'><i
-                                                class="im-screen"></i>Asign</a>
+                                                class="im-screen"></i><?php echo JText::_('Asign') ?></a>
                                     </li>
                                 </ul>
                             </li>
@@ -999,7 +1001,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <ul>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=departure'><i
-                                                class="im-screen"></i>departure</a>
+                                                class="im-screen"></i><?php echo JText::_('departure') ?></a>
                                     </li>
                                 </ul>
                             </li>
@@ -1009,11 +1011,11 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <ul>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=orders'><i
-                                                class="im-screen"></i>Reservation listing</a>
+                                                class="im-screen"></i><?php echo JText::_('Reservation listing')?></a>
                                     </li>
                                     <li>
                                         <a href='index.php?option=com_tsmart&view=passenger'><i
-                                                class="im-screen"></i>Passenger manager</a>
+                                                class="im-screen"></i><?php echo JText::_('Passenger manager')?></a>
                                     </li>
 
                                 </ul>

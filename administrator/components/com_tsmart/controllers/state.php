@@ -58,7 +58,7 @@ class TsmartControllerState extends TsmController {
 		$input=$app->input;
 		$tsmart_country_id=$input->get('tsmart_country_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmstates.php';
-		$list_state=vmstates::get_list_state_by_country_id($tsmart_country_id);
+		$list_state=tmartstates::get_list_state_by_country_id($tsmart_country_id);
 		echo json_encode($list_state);
 		jexit();
 	}

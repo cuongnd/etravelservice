@@ -58,7 +58,7 @@ class TsmartControllercityarea extends TsmController {
 		$app=JFactory::getApplication();
 		$input=$app->input;
 		$tsmart_state_id=$input->get('tsmart_state_id',0,'int');
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcities.php';
 		$list_state=tsmcities::get_list_city_by_state_id($tsmart_state_id);
 		echo json_encode($list_state);
 		jexit();

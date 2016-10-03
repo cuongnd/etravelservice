@@ -37,6 +37,10 @@ class TableStates extends tsmTable {
 	/** @var integer Zone id */
 	/** @var string State name */
 	var $state_name           	= '';
+	var $phone_code           	= '';
+	var $iso_alpha2           	= '';
+	var $zip_code           	= '';
+	var $flag 	          	= '';
 	/** @var char 3 character state code */
 	var $state_3_code         	= '';
     /** @var char 2 character state code */

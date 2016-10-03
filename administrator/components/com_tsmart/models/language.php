@@ -68,9 +68,8 @@ class tsmartModelLanguage extends tmsModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('language.*,countries.country_name,countries.iso2,countries.iso3,countries.tsmart_country_id AS tsmart_country_id,countries.flag')
-			->from('#__tsmart_countries AS countries')
-			->leftJoin('#__tsmart_language AS language using (tsmart_country_id)')
+		$query->select('language.*')
+			->from('#__tsmart_language AS language')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -89,7 +88,7 @@ class tsmartModelLanguage extends tmsModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'countries.country_name');
+		$orderCol = $this->state->get('list.ordering', 'language.tsmart_language_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'language.ordering')

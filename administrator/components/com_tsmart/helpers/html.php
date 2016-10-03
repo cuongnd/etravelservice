@@ -371,20 +371,24 @@ class VmHtml
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
-    public static function select_state_province($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $country_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function select_state_province($name, $list_state, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $country_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.less');
         $input = JFactory::getApplication()->input;
-
+        if (empty($list_state)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
+            $list_state = tmartstates::get_states();
+        }
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_state_province({
-                    country_element: '<?php echo $country_element ?>'
+                    state_element: '<?php echo $country_element ?>',
+                    tsmart_state_id:<?php echo $default ?>
                 });
             });
         </script>
@@ -396,14 +400,14 @@ class VmHtml
 
         if ($zero == true) {
             $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
-            $options = array_merge(array($option), $options);
+            $list_state = array_merge(array($option), $list_state);
         }
         if ($chosenDropDowns) {
             vmJsApi::chosenDropDowns();
             $attrib .= ' class="vm-chzn-select"';
 
         }
-        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+        return VmHtml::genericlist($list_state, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
     public static function location_city($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
@@ -714,20 +718,26 @@ class VmHtml
         return $html;
     }
 
-    public static function select_city($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $state_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function select_city($name="tsmart_cityarea_id", $list_city, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $state_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_city/html_select_city.js');
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_city/html_select_city.less');
         $input = JFactory::getApplication()->input;
-
+        if (empty($list_city)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcities.php';
+            $list_city = tsmcities::get_cities();
+        }
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_city({
-                    state_element: '<?php echo $state_element ?>'
+                    element_name:"<?php echo  $name ?>",
+                    state_element: '<?php echo $state_element ?>',
+                    default:<?php echo $default ?>
+
                 });
             });
         </script>
@@ -739,14 +749,14 @@ class VmHtml
 
         if ($zero == true) {
             $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
-            $options = array_merge(array($option), $options);
+            $list_city = array_merge(array($option), $list_city);
         }
         if ($chosenDropDowns) {
             vmJsApi::chosenDropDowns();
             $attrib .= ' class="vm-chzn-select"';
 
         }
-        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+        return VmHtml::genericlist($list_city, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
     public static function select_percent_amount($type_name, $amount_name, $type, $amount)

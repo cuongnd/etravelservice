@@ -39,7 +39,7 @@ class tsmlanguage
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
-            ->from('#__tsmart_cityarea')
+            ->from('#__tsmart_language')
             ;
         return $db->setQuery($query)->loadObjectList();
     }

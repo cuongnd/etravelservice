@@ -31,7 +31,8 @@ if ($saveOrder) {
     JHtml::_('sortablelist.sortable', 'state_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-
+$doc=JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_state_default.less');
 AdminUIHelper::startAdminArea($this);
 
 ?>
@@ -50,21 +51,31 @@ AdminUIHelper::startAdminArea($this);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('states.sate_name', 'Sate name'); ?>
+                        <?php echo $this->sort('states.sate_name',JText::_('GEO_STATE_NAME')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('phone_code', 'Phone code'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('country.country_name', 'Country'); ?>
+                        <?php echo $this->sort('country.country_name',JText::_('GEO_COUNTRY_NAME')); ?>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('total_city', 'City number'); ?>
+                        <?php echo $this->sort('states.flag',JText::_('GEO_STATE_FLAG')); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('states.flag',JText::_('GEO_STATE_ISO_ALPHA2')); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('states.zip_code',JText::_('GEO_STATE_ZIP_CODE')); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('states.phone_code',JText::_('GEO_STATE_PHONE_CODE')); ?>
+                    </th>
+
+                    <th>
+                        <?php echo $this->sort('total_city', 'No number'); ?>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('total_airport', 'airport number'); ?>
+                        <?php echo $this->sort('total_airport', JText::_('List airport')); ?>
 
                     </th>
                     <th width="70px">
@@ -113,17 +124,42 @@ AdminUIHelper::startAdminArea($this);
                         </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->phone_code; ?>
-                            <?php } ?>
-                        </td>
-                        <td align="left">
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?><?php echo VmHTML::select('tsmart_country_id', $this->list_country, $row->tsmart_country_id, '', 'tsmart_country_id', 'country_name'); ?>
+                                <?php echo VmHTML::select('tsmart_country_id', $this->list_country, $row->tsmart_country_id, '', 'tsmart_country_id', 'country_name'); ?>
                             <?php } else { ?>
                                 <?php echo VmHTML::show_image(JUri::root().'/'.$row->country_flag, 'class="required"',20,20); ?>
                                 <?php echo $row->country_name; ?>
+                            <?php } ?>
+
+                        </td>
+                        <td align="left">
+
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('flag', $row->flag, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->flag, 'class="required"',20,20); ?>
+                            <?php } ?>
+                        </td>
+
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('iso_alpha2', $row->iso_alpha2, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->iso_alpha2; ?>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('zip_code', $row->zip_code, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->zip_code ?>
+                            <?php } ?>
+
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->phone_code ?>
                             <?php } ?>
 
                         </td>
@@ -132,7 +168,7 @@ AdminUIHelper::startAdminArea($this);
 
                         </td>
                         <td>
-                            <?php echo $row->total_airport; ?>
+                            <?php echo $row->list_airport_name; ?>
 
                         </td>
                         <td>
