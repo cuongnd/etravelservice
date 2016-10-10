@@ -354,6 +354,7 @@ abstract class JHtml
 						else
 						{
 							$files[] = $strip . '-uncompressed.' . $ext;
+
 						}
 					}
 

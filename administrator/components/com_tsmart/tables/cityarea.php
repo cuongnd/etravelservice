@@ -34,6 +34,8 @@ class Tablecityarea extends tsmTableData {
 	var $tsmart_cityarea_id				= 0;
 	var $tsmart_state_id				= 0;
 	var $city_area_name				= "";
+	var $city_abbr 	          	= '';
+
 	var $airport_code				= "";
 	var $phone_code				= "";
 	var $shared					= 0;

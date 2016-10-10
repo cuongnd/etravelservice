@@ -22,7 +22,7 @@ $app = JFactory::getApplication();
 $input = $app->input;
 $show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
 $cid = $input->get('cid', array(), 'array');
-$tsmart_country_id = $input->get('tsmart_country_id', 0, 'int');
+$tsmart_currency_id = $input->get('tsmart_currency_id', 0, 'int');
 $listOrder = $this->escape($this->lists['filter_order']);
 $listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
@@ -93,7 +93,7 @@ AdminUIHelper::startAdminArea($this);
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_currency_id);
                     $published = $this->gridPublished($row, $i);
 
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=currency&task=edit_in_line&tsmart_country_id='.$row->tsmart_country_id.'&cid[]=' . $row->tsmart_currency_id);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=currency&task=edit_in_line&tsmart_currency_id='.$row->tsmart_currency_id.'&cid[]=' . $row->tsmart_currency_id);
                     $edit = $this->gridEdit($row, $i, 'tsmart_currency_id', $editlink);
                     $save_link = JROUTE::_('index.php?option=com_tsmart&view=currency&task=save_in_line&cid[]=' . $row->tsmart_currency_id);
                     $save = $this->grid_save_in_line($row, $i, 'tsmart_currency_id', $save_link);
@@ -101,7 +101,7 @@ AdminUIHelper::startAdminArea($this);
                     $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_currency_id');
                     if($show_edit_in_line==1)
                     {
-                        $show_edit=($row->tsmart_country_id==$tsmart_country_id);
+                        $show_edit=($row->tsmart_currency_id==$tsmart_currency_id);
                     }
 
                     ?>
@@ -109,7 +109,6 @@ AdminUIHelper::startAdminArea($this);
                         <td class="admin-checkbox">
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::inputHidden(array(tsmart_currency_id => $row->tsmart_currency_id)); ?>
-                                <?php echo VmHTML::inputHidden(array(tsmart_country_id => $row->tsmart_country_id)); ?>
                                 <?php echo $checked ?>
                             <?php } else { ?>
                                 <?php echo $checked ?>

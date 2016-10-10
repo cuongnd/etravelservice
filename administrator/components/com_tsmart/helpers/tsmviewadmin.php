@@ -1107,6 +1107,7 @@ class tsmViewAdmin extends JViewLegacy
         $app=JFactory::getApplication();
         $input=$app->input;
         $ui_dialog_id=$input->get('ui_dialog_id','','string');
+        $layout=$input->get('layout','','string');
         $iframe_id=$input->get('iframe_id','','string');
         $link_reload=$input->get('link_reload','','string');
         $reload_ui_dialog_id=$input->get('reload_ui_dialog_id','','string');
@@ -1141,6 +1142,7 @@ class tsmViewAdmin extends JViewLegacy
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="controller" value="' . $controller . '" />
 		<input type="hidden" name="view" value="' . $controller . '" />
+		<input type="hidden" name="layout" value="' . $layout . '" />
 
 		' . JHtml::_('form.token');
     }

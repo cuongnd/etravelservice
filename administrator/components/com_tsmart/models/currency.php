@@ -88,12 +88,12 @@ class tsmartModelCurrency extends tmsModel {
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'currencies.currency_name');
+		$orderCol = $this->state->get('list.ordering', 'currencies.tsmart_currency_id');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'currencies.ordering')
 		{
-			$orderCol = $db->quoteName('currencies.currency_name') . ' ' . $orderDirn . ', ' . $db->quoteName('currencies.ordering');
+			$orderCol = $db->quoteName('currencies.tsmart_currency_id') . ' ' . $orderDirn . ', ' . $db->quoteName('currencies.ordering');
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

@@ -530,7 +530,7 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                         <div class="span2">
                             <ul class="ul_sub_menu">
                                 <li><a href='index.php?option=com_tsmart&view=general'><i
-                                            class="im-screen"></i>general setup</a></li>
+                                            class="im-screen"></i><?php echo JText::_('general setup') ?></a></li>
                                 <li><a href="index.php?option=com_tsmart&view=template"><span
                                             class="icon-palette" title=""></span>Template</a></li>
 
@@ -560,6 +560,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <li><a href="index.php?option=com_tsmart&view=paymentsetting"><span class="icon-palette" title=""></span>Payment</a>
                                 </li>
                                 <li><a href="index.php?option=com_tsmart&view=paymentmethod"><span class="icon-palette" title=""></span>Payment Method</a>
+                                </li>
+                                <li><a href="index.php?option=com_tsmart&view=general&layout=passenger"><span class="icon-palette" title=""></span><?php echo JText::_('Passenger type') ?></a>
                                 </li>
                             </ul>
                         </div>

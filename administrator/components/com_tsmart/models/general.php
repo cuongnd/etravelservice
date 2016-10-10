@@ -70,6 +70,13 @@ class tsmartModelGeneral extends tmsModel {
 	 */
 
 	function store(&$data){
+		$tsmart_general_id=$data['tsmart_general_id'];
+		if($tsmart_general_id)
+		{
+			$general=$this->getItem($tsmart_general_id);
+			$result = array_merge( $general->params->toArray(),$data['params']);
+			$data['params']=json_encode($result);
+		}
 		if(!vmAccess::manager('general')){
 			vmWarn('Insufficient permissions to store general');
 			return false;

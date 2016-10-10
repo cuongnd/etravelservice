@@ -61,6 +61,9 @@ AdminUIHelper::startAdminArea($this);
                         <?php echo $this->sort('states.flag',JText::_('GEO_STATE_FLAG')); ?>
                     </th>
                     <th>
+                        <?php echo $this->sort('states.flag',JText::_('GEO_STATE_ABBR')); ?>
+                    </th>
+                    <th>
                         <?php echo $this->sort('states.flag',JText::_('GEO_STATE_ISO_ALPHA2')); ?>
                     </th>
                     <th>
@@ -140,6 +143,13 @@ AdminUIHelper::startAdminArea($this);
                             <?php } ?>
                         </td>
 
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('state_abbr', $row->state_abbr, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->state_abbr; ?>
+                            <?php } ?>
+                        </td>
                         <td align="left">
                             <?php if ($show_edit) { ?>
                                 <?php echo VmHTML::input('iso_alpha2', $row->iso_alpha2, 'class="required"'); ?>

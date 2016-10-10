@@ -1887,6 +1887,35 @@ class VmHtml
     }
 
     /**
+     * Creating rows with boolean list
+     *
+     * @author Patrick Kohl
+     * @param string $label
+     * @param string $name
+     * @param string $value
+     *
+     */
+    public static function activelist($name, $value, $class = 'class="inputbox"')
+    {
+        return JHtml::_('select.booleanlist', $name, $class, $value,JText::_('Active'),JText::_('Unactive')) ;
+    }
+    public static function bootstrap_activelist($name, $value, $class = 'class="inputbox"')
+    {
+        ob_start();
+        ?>
+        <div class="checkbox checkbox-primary">
+            <input id="checkbox" type="checkbox" checked>
+        </div>
+
+        <div class="checkbox checkbox-success">
+            <input id="checkbox" type="checkbox">
+        </div>
+        <?php
+        $html=ob_get_clean();
+        return $html;
+    }
+
+    /**
      * Creating rows with input fields
      *
      * @param string $text

@@ -50,9 +50,6 @@ class TsmartControllerGeneral extends TsmController {
 	 */
 	function save($data = 0){
 		$data = vRequest::getRequest();
-		$params = new Registry;
-		$params->loadArray($data['params']);
-		$data['params']=$params->toString();
 		parent::save($data);
 	}
 }

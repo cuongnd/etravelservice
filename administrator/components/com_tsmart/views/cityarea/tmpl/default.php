@@ -62,6 +62,11 @@ AdminUIHelper::startAdminArea($this);
                     <th>
                         <?php echo $this->sort('phone_code',JText::_('GEO_CITY_PHONE_CODE')); ?>
                     </th>
+
+                    <th>
+                        <?php echo $this->sort('phone_code',JText::_('GEO_CITY_ABBR')); ?>
+                    </th>
+
                     <th>
                         <?php echo $this->sort('list_airport',JText::_('GEO_CITY_LIST_AIRPORT') ); ?>
                     </th>
@@ -145,6 +150,14 @@ AdminUIHelper::startAdminArea($this);
                             <?php } ?>
 
                         </td>
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('city_abbr', $row->city_abbr, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->city_abbr; ?>
+                            <?php } ?>
+                        </td>
+
                         <td>
                             <?php echo $row->list_airport ?>
                         </td>

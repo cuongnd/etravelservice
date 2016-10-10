@@ -41,6 +41,7 @@ class TableStates extends tsmTable {
 	var $iso_alpha2           	= '';
 	var $zip_code           	= '';
 	var $flag 	          	= '';
+	var $state_abbr 	          	= '';
 	/** @var char 3 character state code */
 	var $state_3_code         	= '';
     /** @var char 2 character state code */

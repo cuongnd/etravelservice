@@ -41,11 +41,13 @@ class TsmController extends JControllerLegacy{
 
 		//tsmartController
 		$this->_cname = strtolower(substr(get_class( $this ), 16));
+
 		$this->mainLangKey = tsmText::_('com_tsmart_'.strtoupper($this->_cname));
 		$this->redirectPath = 'index.php?option=com_tsmart&view='.$this->_cname;
 		$app=JFactory::getApplication();
 		$keys=$app->input->get('key',array(),'array');
-
+		$layout=$app->input->getString('layout','');
+		$layout=$layout?"&layout=$layout":'';
 		$add_redirect=array();
 		foreach($keys as $key=>$value)
 		{
@@ -56,6 +58,7 @@ class TsmController extends JControllerLegacy{
 
 		$add_redirect=$add_redirect!=''?"&$add_redirect":'';
 		$this->redirectPath.=$add_redirect;
+		$this->redirectPath.=$layout;
 		$task = explode ('.',vRequest::getCmd( 'task'));
 		if ($task[0] == 'toggle') {
 			$val = (isset($task[2])) ? $task[2] : NULL;
@@ -205,6 +208,7 @@ class TsmController extends JControllerLegacy{
 
 			}
 		}
+
 		$this->setRedirect($redir, $msg,$type);
 	}
 	function show_parent_popup()

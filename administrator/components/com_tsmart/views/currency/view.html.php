@@ -69,7 +69,7 @@ class TsmartViewcurrency extends tsmViewAdmin {
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsEditInline(false,false,true);
+			$this->addStandardDefaultViewCommandsEditInline(true,false,true);
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 			//get state

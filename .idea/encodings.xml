@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/administrator/components/com_virtuemart/models/departure.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/administrator/templates/hathor/ajax_json.php" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/administrator/templates/isis/ajax_json.php" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
