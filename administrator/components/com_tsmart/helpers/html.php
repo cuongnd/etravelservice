@@ -394,7 +394,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
 
@@ -439,7 +439,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
 
@@ -488,7 +488,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -535,7 +535,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -578,7 +578,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
 
@@ -630,7 +630,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
 
@@ -743,7 +743,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
 
@@ -781,7 +781,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -834,7 +834,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -876,7 +876,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -925,7 +925,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -973,7 +973,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -1028,7 +1028,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -1128,7 +1128,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         $list_room = array(
             'single_room' => 'Single room',
@@ -1195,7 +1195,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -1269,7 +1269,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -1337,7 +1337,7 @@ class VmHtml
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
 
@@ -1385,7 +1385,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
 
 
@@ -1436,7 +1436,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         $key = 'value';
         $text = 'text';
@@ -1536,7 +1536,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         $attrib .= ' disable_chosen="true" ';
         $html = VmHtml::genericlist($options, $name, $attrib, $key, $text, $list_selected, false, $tranlsate);
@@ -1901,17 +1901,52 @@ class VmHtml
     }
     public static function bootstrap_activelist($name, $value, $class = 'class="inputbox"')
     {
-        ob_start();
-        ?>
-        <div class="checkbox checkbox-primary">
-            <input id="checkbox" type="checkbox" checked>
-        </div>
+        $doc = JFactory::getDocument();
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/bootstrap_activelist/bootstrap_activelist.less');
+        $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/controller/bootstrap_activelist/bootstrap_activelist.js');
+        $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/plugin/icheck-1.x/icheck.js');
+        $doc->addStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/plugin/icheck-1.x/skins/all.css');
 
-        <div class="checkbox checkbox-success">
-            <input id="checkbox" type="checkbox">
+        ob_start();
+        $id_element='bootstrap_activelist_'.$name;
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/utility.php';
+        $id_element=TSMUtility::clean($id_element);
+        $clean_name=TSMUtility::clean($name);
+
+        ?>
+        <div id="<?php echo $id_element ?>" class="bootstrap_activelist">
+            <ul class="list">
+                <li>
+                    <input type="radio" id="<?php echo $clean_name ?>-minimal-radio-1" name="<?php echo $name ?>" value="<?php echo $value ?>" <?php echo $value==false?'checked':'' ?>>
+                    <label for="<?php echo $clean_name ?>-minimal-radio-1"><?php echo JText::_('Active') ?></label>
+                </li>
+                <li>
+                    <input  type="radio" id="<?php echo $clean_name ?>-minimal-radio-2" name="<?php echo $name ?>"  <?php echo $value==true?'checked':'' ?> >
+                    <label for="<?php echo $clean_name ?>-minimal-radio-2"><?php echo JText::_('Unactive') ?></label>
+                </li>
+            </ul>
         </div>
         <?php
         $html=ob_get_clean();
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').bootstrap_activelist({
+
+                });
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = TSMUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+
+
+
+
+
         return $html;
     }
 
@@ -1951,7 +1986,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
@@ -1977,7 +2012,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
@@ -2007,7 +2042,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
@@ -2068,7 +2103,7 @@ class VmHtml
         </script>
         <?php
         $js_content = ob_get_clean();
-        $js_content = JUtility::remove_string_javascript($js_content);
+        $js_content = TSMUtility::remove_string_javascript($js_content);
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
@@ -2245,7 +2280,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2291,7 +2326,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2337,7 +2372,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2376,7 +2411,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2416,7 +2451,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2451,7 +2486,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2524,7 +2559,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2647,7 +2682,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -2847,7 +2882,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -3081,7 +3116,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -3256,7 +3291,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -3357,7 +3392,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -3654,7 +3689,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -3775,7 +3810,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -3860,7 +3895,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         $list_list_transfer = array_chunk($list_transfer, 2);
         ob_start();
@@ -3955,7 +3990,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -4072,7 +4107,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -4209,7 +4244,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
@@ -4296,7 +4331,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();
@@ -4451,7 +4486,7 @@ XML;
         </script>
         <?php
         $script_content = ob_get_clean();
-        $script_content = JUtility::remove_string_javascript($script_content);
+        $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
 
         ob_start();

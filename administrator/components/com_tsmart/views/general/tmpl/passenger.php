@@ -36,7 +36,7 @@ $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
-$doc->addStyleSheet(JUri::root().'media/system/js/awesome-bootstrap-checkbox-master/awesome-bootstrap-checkbox.css');
+
 AdminUIHelper::startAdminArea($this);
 ob_start();
 ?>
@@ -49,7 +49,7 @@ ob_start();
     </script>
 <?php
 $js_content = ob_get_clean();
-$js_content = JUtility::remove_string_javascript($js_content);
+$js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 $list_passenger_type=array('senior','adult','teen','children_1','children_2','infant');
 
@@ -72,7 +72,7 @@ $list_passenger_type=array('senior','adult','teen','children_1','children_2','in
                 </div>
                 <div class="span2">
                     <div class="activelist">
-                        <?php echo VmHTML::bootstrap_activelist('params['.$passenger_type.'_state]', $this->config->params->get($passenger_type.'_state',true),' class="checkbox checkbox-primary"'); ?>
+                        <?php echo VmHTML::bootstrap_activelist('params['.$passenger_type.'_state]', $this->config->params->get($passenger_type.'_state',true),' '); ?>
                     </div>
                 </div>
                 <div class="span6">

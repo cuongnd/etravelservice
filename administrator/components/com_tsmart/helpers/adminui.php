@@ -124,7 +124,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
     </script>
     <?php
     $js_content = ob_get_clean();
-    $js_content = JUtility::remove_string_javascript($js_content);
+    require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/utility.php';
+    $js_content = TSMUtility::remove_string_javascript($js_content);
     $doc->addScriptDeclaration($js_content);
 
 
@@ -562,6 +563,8 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                                 <li><a href="index.php?option=com_tsmart&view=paymentmethod"><span class="icon-palette" title=""></span>Payment Method</a>
                                 </li>
                                 <li><a href="index.php?option=com_tsmart&view=general&layout=passenger"><span class="icon-palette" title=""></span><?php echo JText::_('Passenger type') ?></a>
+                                </li>
+                                <li><a href="index.php?option=com_tsmart&view=company"><span class="icon-palette" title=""></span><?php echo JText::_('Company infomation') ?></a>
                                 </li>
                             </ul>
                         </div>

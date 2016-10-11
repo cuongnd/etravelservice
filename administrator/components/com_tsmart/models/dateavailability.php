@@ -880,7 +880,7 @@ class tsmartModelDateAvailability extends tmsModel
         }else{
             $sale_period_from=$table_dateavailability->sale_period_from;
             $sale_period_to=$table_dateavailability->sale_period_to;
-            $days_seleted=JUtility::dateRange($sale_period_from,$sale_period_to);
+            $days_seleted=TSMUtility::dateRange($sale_period_from,$sale_period_to);
             $weekly=$table_dateavailability->weekly;
             $weekly=explode(',',$weekly);
             foreach($days_seleted as $key=> $day)

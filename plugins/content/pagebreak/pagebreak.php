@@ -143,7 +143,7 @@ class PlgContentPagebreak extends JPlugin
 				{
 					if ($page && @$matches[$page - 1][2])
 					{
-						$attrs = JUtility::parseAttributes($matches[$page - 1][1]);
+						$attrs = TSMUtility::parseAttributes($matches[$page - 1][1]);
 
 						if (@$attrs['title'])
 						{
@@ -208,7 +208,7 @@ class PlgContentPagebreak extends JPlugin
 					if ($key >= 1)
 					{
 						$match = $matches[$key - 1];
-						$match = (array) JUtility::parseAttributes($match[0]);
+						$match = (array) TSMUtility::parseAttributes($match[0]);
 
 						if (isset($match['alt']))
 						{
@@ -289,7 +289,7 @@ class PlgContentPagebreak extends JPlugin
 
 			if (@$bot[0])
 			{
-				$attrs2 = JUtility::parseAttributes($bot[0]);
+				$attrs2 = TSMUtility::parseAttributes($bot[0]);
 
 				if (@$attrs2['alt'])
 				{

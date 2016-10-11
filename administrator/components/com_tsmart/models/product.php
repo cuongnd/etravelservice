@@ -126,7 +126,7 @@ class tsmartModelproduct extends tmsModel {
         }
         if(!$table_product->tsmart_product_id || $table_product->product_code=='' ||$table_product->product_code==0)
         {
-            $data['product_code']= strtolower(JUtility::random_code(6));
+            $data['product_code']= strtolower(TSMUtility::random_code(6));
         }
 
         $stored = $table_product->bindChecknStore ($data, false);

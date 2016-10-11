@@ -416,7 +416,7 @@ ob_start();
     </script>
 <?php
 $js_content = ob_get_clean();
-$js_content = JUtility::remove_string_javascript($js_content);
+$js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 
 ?>
