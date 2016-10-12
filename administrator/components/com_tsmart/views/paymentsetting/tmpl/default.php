@@ -56,7 +56,7 @@ $doc->addScriptDeclaration($js_content);
 
 ?>
 <div class="view-paymentsetting-default">
-    <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
+    <form action="index.php" method="post" class="form-horizontal" name="adminForm" id="adminForm">
         <!--<table>
 		<tr>
 			<td width="100%">
@@ -70,27 +70,27 @@ $doc->addScriptDeclaration($js_content);
             </div>
             <div class="main-payment-setting" >
                 <div class="row-fluid">
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('select','Default currency', 'tsmart_currency_id', $this->currencies ,$this->item->tsmart_currency_id,'','tsmart_currency_id', 'currency_name',true) ; ?>
-                        <?php echo VmHTML::row_control('input_percent','Credit card fee ( if any by % )','credit_card_fee',$this->item->credit_card_fee); ?>
-                        <?php echo VmHTML::row_control('select_percent_amount','Deposit Amount','deposit_type', 'deposit_amount',$this->item->deposit_type ,$this->item->deposit_amount) ; ?>
-                        <?php echo VmHTML::row_control('select_amount_percent','Balance 1 Terms','balance_day_1', 'balance_percent_1',$this->item->balance_day_1 ,$this->item->balance_percent_1,false) ; ?>
-                    </div>
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('select','Config mode', 'config_mode', $this->list_config_mode ,$this->item->config_mode,'','tsmart_state_id', 'state_name',true) ; ?>
-                        <?php echo VmHTML::row_control('input_number','Deposit term','deposit_term',$this->item->deposit_term); ?>
-                        <?php echo VmHTML::row_control('select_amount_percent','Balance 2 Terms','balance_day_2', 'balance_percent_2',$this->item->balance_day_2 ,$this->item->balance_percent_2,false) ; ?>
-                        <?php echo VmHTML::row_control('select_amount_percent','Balance 3 Terms','balance_day_3', 'balance_percent_3',$this->item->balance_day_3 ,$this->item->balance_percent_3,false) ; ?>
+                    <div class="span6">
+                        <?php echo VmHTML::row_control('select',JText::_('Currency'), 'tsmart_currency_id', $this->currencies ,$this->item->tsmart_currency_id,'','tsmart_currency_id', 'currency_name',true) ; ?>
+                        <?php echo VmHTML::row_control('select',JText::_('Confirmation mode') , 'config_mode', $this->list_config_mode ,$this->item->config_mode,'','tsmart_state_id', 'state_name',true) ; ?>
+                        <?php echo VmHTML::row_control('input_number',JText::_('Deposit term'),'deposit_term',$this->item->deposit_term); ?>
+                        <?php echo VmHTML::row_control('input_percent',JText::_('Credit card fee ( if any by % )'),'credit_card_fee',$this->item->credit_card_fee); ?>
+                        <?php echo VmHTML::row_control('input','Rule Note',JText::_('rule_note'),$this->item->rule_note,'class="required"'); ?>
 
                     </div>
-                    <div class="span4">
-                        <?php echo VmHTML::row_control('select','Hold seat', 'hold_seat', $this->hold_seat_type ,$this->item->hold_seat,'') ; ?>
-                        <?php echo VmHTML::row_control('input','Rule Note','rule_note',$this->item->rule_note,'class="required"'); ?>
+                    <div class="span6">
+                        <?php echo VmHTML::row_control('select',JText::_('Hold seat'), 'hold_seat', $this->hold_seat_type ,$this->item->hold_seat,'') ; ?>
+                        <?php echo VmHTML::row_control('select_percent_amount',JText::_('Deposit Amount'),'deposit_type', 'deposit_amount',$this->item->deposit_type ,$this->item->deposit_amount) ; ?>
+                        <?php echo VmHTML::row_control('select_amount_percent','Balance 1 Terms','balance_day_1', 'balance_percent_1',$this->item->balance_day_1 ,$this->item->balance_percent_1,false) ; ?>
+                        <?php echo VmHTML::row_control('select_amount_percent','Balance 2 Terms','balance_day_2', 'balance_percent_2',$this->item->balance_day_2 ,$this->item->balance_percent_2,false) ; ?>
+                        <?php echo VmHTML::row_control('select_amount_percent','Balance 3 Terms','balance_day_3', 'balance_percent_3',$this->item->balance_day_3 ,$this->item->balance_percent_3,false) ; ?>
                         <?php echo VmHTML::row_basic('list_checkbox', 'Payment option', 'list_payment_method_id', $this->list_payment_method, $this->item->list_payment_method_id, '', 'tsmart_paymentmethod_id', 'payment_name', true,true,true,4); ?>
 
                     </div>
                 </div>
+                <div class="footer"></div>
             </div>
+
         </div>
         <input type="hidden" name="tsmart_paymentsetting_id"
                value="<?php echo $this->item->tsmart_paymentsetting_id; ?>"/>

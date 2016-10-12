@@ -64,7 +64,7 @@ AdminUIHelper::startAdminArea($this);
                         <?php echo $this->sort('states.flag',JText::_('GEO_STATE_ABBR')); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('states.flag',JText::_('GEO_STATE_ISO_ALPHA2')); ?>
+                        <?php echo $this->sort('states.flag',JText::_('GEO_STATE_TABLE_HEADER_TITLE_ISO_ALPHA2')); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('states.zip_code',JText::_('GEO_STATE_ZIP_CODE')); ?>

@@ -91,6 +91,7 @@ class tsmViewAdmin extends JViewLegacy
             </script>
             <?php
             $js_content = ob_get_clean();
+            require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/utility.php';
             $js_content = TSMUtility::remove_string_javascript($js_content);
             $doc->addScriptDeclaration($js_content);
 
