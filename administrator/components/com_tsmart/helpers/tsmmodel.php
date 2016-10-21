@@ -877,23 +877,34 @@ class tmsModel extends JModelList{
 		return $this->_selectedOrderingDir;
 	}
 
+	public function getPagination()
+	{
+		// Get a storage key.
+		$store = $this->getStoreId('getPagination');
+
+		// Try to load the data from internal storage.
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpagination.php';
+		// Create the pagination object.
+		$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
+		$page = new TSMPagination($this->getTotal(), $this->getStart(), $limit);
+
+		// Add the object to the internal cache.
+		$this->cache[$store] = $page;
+
+		return $this->cache[$store];
+	}
+
+
 
 	/**
 	 * Loads the pagination
 	 *
 	 * @author Max Milbers
 	 */
-	public function getPagination($perRow = 5) {
-
-		if(!class_exists('VmPagination')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmpagination.php');
-		if(empty($this->_limit) ){
-			$this->setPaginationLimits();
-		}
-
-		$this->_pagination = new VmPagination($this->_total , $this->_limitStart, $this->_limit , $perRow );
-
-		return $this->_pagination;
-	}
 
 	public function setPaginationLimits(){
 

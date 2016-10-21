@@ -33,16 +33,9 @@ if ($saveOrder) {
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('tour type', 'search'); ?>
-                </td>
-            </tr>
-        </table>
         <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
             <table id="tour_type_list" class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
@@ -137,14 +130,6 @@ if ($saveOrder) {
                     $k = 1 - $k;
                 }
                 ?>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                        <?php echo $this->pagination->getLimitBox(); ?>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
 

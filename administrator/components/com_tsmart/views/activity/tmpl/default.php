@@ -4,7 +4,7 @@
  * Description
  *
  * @package    tsmart
- * @subpackage Currency
+ * @subpackage activity
  * @author RickG
  * @link http://www.tsmart.net
  * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
@@ -15,138 +15,181 @@
  * other free or open source software licenses.
  * @version $Id: default.php 8534 2014-10-28 10:23:03Z Milbo $
  */
-
+$doc=JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_activity_default.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
-AdminUIHelper::startAdminArea($this);
+$app = JFactory::getApplication();
+$input = $app->input;
+$show_edit_in_line = $input->get('show_edit_in_line', 0, 'int');
+$cid = $input->get('cid', array(), 'array');
 $listOrder = $this->escape($this->lists['filter_order']);
-$listDirn = $this->escape($this->lists['filter_order_Dir']);
+$listDirn  = $this->escape($this->lists['filter_order_Dir']);
 $saveOrder = $listOrder == 'ordering';
-if ($saveOrder) {
+if ($saveOrder)
+{
 
     $saveOrderingUrl = 'index.php?option=com_tsmart&controller=activity&task=saveOrderAjax&tmpl=component';
     JHtml::_('sortablelist.sortable', 'activity_list', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
+
+AdminUIHelper::startAdminArea($this);
+$states = tsmText::_('com_tsmart_STATE_S');
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-<!--        <table>
-            <tr>
-                <td width="100%">
-                    <?php /*echo $this->displayDefaultViewSearch('activity', 'search'); */?>
-                </td>
-            </tr>
-        </table>
--->        <div id="editcell">
+        <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
-            <table id="activity_list" class="adminlist table table-bordered table-striped" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped" id="activity_list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_transfer_addon_id', 'Id'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('title', 'Tour activity name'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('icon', 'Icon'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('meta_title', 'Meta title'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('key_word', 'Key word'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('description', 'Description'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('ordering', 'ordering'); ?>
-                        <?php if ($saveOrder) : ?>
-                            <?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); ?>
-                        <?php endif; ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php  echo $this->sort('tsmart_activity_id','Id') ; ?></label>
+
+
 
                     </th>
-
-                    <th width="70px">
+                    <th>
+                        <?php echo $this->sort('activity_name','activity name') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('Icon','Icon') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('meta_title','Meta title') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('keyword','Keyword') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('description','Description') ?>
+                    </th>
+                    <th width="20">
                         <?php echo tsmText::_('Action'); ?>
                     </th>
-                    <?php /*	<th width="10">
-				<?php echo vmText::_('com_tsmart_SHARED'); ?>
-			</th> */ ?>
+                    <!--                    <th width="1%" class="nowrap center hidden-phone">
+                        <?php /*echo $this->sort('ordering', 'ordering'); */?>
+                        <?php /*if ($saveOrder) : */?>
+                            <?php /*echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); */?>
+                        <?php /*endif; */?>
+                    </th>
+-->
                 </tr>
                 </thead>
                 <?php
                 $k = 0;
+                $add_new = $show_edit_in_line == 1 && count($cid) == 0;
+                if ($add_new) {
+                    $item = new stdClass();
+                    $item->published = 1;
+                    array_unshift($this->items, $item);
+                }
+
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_activity_id);
                     $published = $this->gridPublished($row, $i);
-
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=activity&task=show_parent_popup&cid[]=' . $row->tsmart_activity_id.'&add_new_popup=1');
-                    $edit = $this->gridEdit($row, 'tsmart_activity_id', $i,$editlink);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=activity&task=edit_in_line&cid[]=' . $row->tsmart_activity_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_activity_id', $editlink);
+                    $save_link = JROUTE::_('index.php?option=com_tsmart&view=activity&task=save_in_line&cid[]=' . $row->tsmart_activity_id);
+                    $save = $this->grid_save_in_line($row, $i, 'tsmart_activity_id', $save_link);
                     $delete = $this->grid_delete_in_line($row, $i, 'tsmart_activity_id');
+                    $cancel = $this->grid_cancel_in_line($row, $i, 'tsmart_activity_id');
+                    $show_edit = ($show_edit_in_line == 1 && in_array($row->tsmart_activity_id, $cid)) || ($show_edit_in_line == 1 && count($cid) == 0 && $i == 0);
+
 
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
-                            <?php echo $checked; ?>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::inputHidden(array(tsmart_activity_id => $row->tsmart_activity_id)); ?>
+                                <?php echo $checked ?>
+                            <?php } else { ?>
+                                <?php echo $checked ?>
+                            <?php } ?>
+
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('activity_name', $row->activity_name, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->activity_name ?> </a>
+                            <?php } ?>
                         </td>
                         <td align="left">
-                            <?php echo VmHTML::show_image(JUri::root() . '/' . $row->icon, 'class="required"', 40, 40); ?>
+
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('icon', $row->icon, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->icon, 'class="required"',20,20); ?>
+                            <?php } ?>
                         </td>
-                        <td align="left">
-                            <?php echo $row->meta_title; ?>
+
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('meta_title', $row->meta_title , 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->meta_title  ?>
+                            <?php } ?>
                         </td>
-                        <td align="left">
-                            <?php echo $row->key_word; ?>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('key_word', $row->key_word, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->key_word ?>
+                            <?php } ?>
                         </td>
-                        <td align="left">
-                            <?php echo $row->description; ?>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('description', $row->description, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->description ?>
+                            <?php } ?>
+
                         </td>
-                        <td align="left">
+                        <td align="center" width="70">
+                            <?php if ($show_edit) { ?>
+                                <?php echo $add_new ? '' : $published; ?>
+                                <?php echo $save; ?>
+                                <?php echo $cancel; ?>
+                                <?php echo VmHTML::inputHidden(array(published => $row->published)); ?>
+
+                            <?php } else { ?>
+                                <?php echo $published; ?>
+                                <?php echo $edit; ?>
+                                <?php echo $delete; ?>
+                            <?php } ?>
+
+                        </td>
+                        <!--                        <td>
                             <span class="sortable-handler">
 								<span class="icon-menu"></span>
 							</span>
-                            <?php if ($saveOrder) : ?>
-                                <input type="text" style="display:none" name="order[]" size="5"
-                                       value="<?php echo $row->ordering; ?>" class="width-20 text-area-order "/>
-                            <?php endif; ?>
-
+                            <?php /*if ($saveOrder) : */?>
+                                <input type="text" style="display:none" name="order[]" size="5" value="<?php /*echo $row->ordering; */?>" class="width-20 text-area-order " />
+                            <?php /*endif; */?>
+                            <?php /*//echo $row->ordering */?>
 
                         </td>
-
-                        <td align="center">
-                            <?php echo $published; ?>
-                            <?php echo $edit; ?>
-                            <?php echo $delete; ?>
-                        </td>
-                    </tr>
+-->                    </tr>
                     <?php
                     $k = 1 - $k;
                 }
                 ?>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                        <?php echo $this->pagination->getLimitBox(); ?>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
-
-        <?php echo $this->addStandardHiddenToForm(); ?>
+        <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>"/>
+        <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>"/>
+        <input type="hidden" name="option" value="com_tsmart"/>
+        <input type="hidden" name="controller" value="activity"/>
+        <input type="hidden" name="view" value="activity"/>
+        <input type="hidden" name="task" value=""/>
+        <input type="hidden" name="boxchecked" value="0"/>
         <?php echo JHtml::_('form.token'); ?>
     </form>
 

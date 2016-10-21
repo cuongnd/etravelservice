@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ftp.viethandtravel.com" uploadOnCheckin="0397aaf8-f6b1-4873-90fa-e8c9ac2cc2d9">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ftp.viethandtravel.com" uploadOnCheckin="0397aaf8-f6b1-4873-90fa-e8c9ac2cc2d9">
     <serverData>
       <paths name="ftp.viethandtravel.com">
         <serverdata>
@@ -11,5 +11,6 @@
       </paths>
     </serverData>
     <option name="myUploadOnCheckinName" value="ftp.viethandtravel.com" />
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

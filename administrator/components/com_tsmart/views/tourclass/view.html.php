@@ -41,11 +41,12 @@ class TsmartViewtourclass extends tsmViewAdmin {
 
 		$model = tmsModel::getModel();
 
+
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
 			$cid	= vRequest::getInt( 'cid' );
-			$this->view_height=1200;
+
 			$task = vRequest::getCmd('task', 'add');
 
 			if($task!='add' && !empty($cid) && !empty($cid[0])){
@@ -56,17 +57,14 @@ class TsmartViewtourclass extends tsmViewAdmin {
 
 			$model->setId($cid);
 			$this->item = $model->getItem();
-			$this->SetViewTitle('',$this->item->service_class_name);
-			$this->addStandardEditViewCommandsPopup();
+			$this->SetViewTitle('',$this->item->title);
+			$this->addStandardDefaultViewCommandsEditInline();
 
 		} else {
 
-
-
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsPopup();
+			$this->addStandardDefaultViewCommandsEditInline();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
-
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();
 

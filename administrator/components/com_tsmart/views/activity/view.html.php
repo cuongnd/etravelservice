@@ -29,7 +29,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewActivity extends tsmViewAdmin {
+class TsmartViewactivity extends tsmViewAdmin {
 
 	function display($tpl = null) {
 
@@ -38,11 +38,10 @@ class TsmartViewActivity extends tsmViewAdmin {
 
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
-        $this->view_height=1300;
+
 		$model = tmsModel::getModel();
 
-		$doc=JFactory::getDocument();
-		$doc->setTitle('Activity');
+
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -59,12 +58,12 @@ class TsmartViewActivity extends tsmViewAdmin {
 			$model->setId($cid);
 			$this->item = $model->getItem();
 			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommands();
+			$this->addStandardEditViewCommandsPopup();
 
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommandsPopup();
+			$this->addStandardDefaultViewCommands();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();

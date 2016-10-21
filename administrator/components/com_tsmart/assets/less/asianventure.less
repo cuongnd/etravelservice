@@ -16,6 +16,10 @@
     {
       color: #007799;
     }
+    >li:first-child a
+    {
+      padding-left:0px;
+    }
   }
   .tab-content
   {
@@ -50,12 +54,13 @@
 #admin-content
 {
   background: #fff;
+  padding-bottom: 100px;
 }
 .vm-title.row-fluid
 {
   background: #fff;
   padding: 0;
-  margin-top:70px ;
+  margin-top:0px ;
 }
 .vm_toolbar
 {
@@ -92,26 +97,6 @@
   }
   .toolbar-pagination
   {
-    .pagination ul
-    {
-      border: none;
-      box-shadow:none;
-      border-radius: 0;
-    }
-    .pagination ul > li > a
-    {
-      border: none;
-      box-shadow:none;
-      border-radius: 0;
-      background: none;
-      padding: 10px;
-    }
-    .pagination ul > li:first-child > a,.pagination ul > li:last-child > a
-    {
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 10px;
-    }
 
   }
 }
@@ -122,7 +107,8 @@
 #adminForm
 {
   background: #fff;
-
+  margin-left: 23px;
+  margin-right: 23px;
   .table-bordered
   {
     border-radius: 0;
@@ -139,6 +125,28 @@
   .select-button-toggle
   {
     margin: 0;
+  }
+}
+#admin-content {
+  > .vm-title > .content-vm-title, > .header-main-menu > .content-header-main-menu, > .toolbar-top2 >.content-toolbar-top2, > .toolbar-top3 >.content-toolbar-top3, > .toolbar-top5 >.content-toolbar-top5 {
+
+    padding-left: 23px;
+    padding-right: 23px;
+  }
+  > .header-main-menu > .content-header-main-menu
+  {
+    .nav-header-main-menu
+    {
+      margin-left: -23px;
+      margin-right: -23px;
+      padding: 0 23px;
+    }
+    .tab-content-header-main-menu
+    {
+      margin-left: -23px;
+      margin-right: -23px;
+      padding: 0 23px;
+    }
   }
 }
 .toolbar-top2
@@ -169,6 +177,16 @@
   font-family: Arial;
   font-size: 11px;
 }
+#adminForm {
+  .adminlist.table {
+    tfoot {
+      td:last-child {
+        border-bottom-right-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+      }
+    }
+  }
+}
 .vm-title .title_page
 {
   background: #eff5fc none repeat scroll 0 0;
@@ -190,7 +208,22 @@
   background: linear-gradient(to bottom,  #ffffff 0%, #f3f3f3 100%,#ffffff 0%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 );
   border: 1px #ccc solid;
-  height: 35px;
+  height: 45px;
+  .table-pagination
+  {
+    padding: 5px;
+    .list-footer
+    {
+
+    }
+    .limit-box
+    {
+      .text-item-per-page
+      {
+        line-height: 25px;
+      }
+    }
+  }
 }
 #adminForm
 {
@@ -213,6 +246,35 @@
   .table-bordered tr:last-child td
   {
     border-bottom: 1px solid #dddddd;
+  }
+  .table-bordered thead:first-child tr:first-child > th:first-child,
+  .table-bordered tbody:first-child tr:first-child > td:first-child,
+  .table-bordered tbody:first-child tr:first-child > th:first-child {
+    -webkit-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+  }
+
+  .table-bordered thead:first-child tr:first-child > th:last-child,
+  .table-bordered tbody:first-child tr:first-child > td:last-child,
+  .table-bordered tbody:first-child tr:first-child > th:last-child {
+    -webkit-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+  }
+
+  .table-bordered thead:last-child tr:last-child > th:first-child,
+  .table-bordered tbody:last-child tr:last-child > td:first-child,
+  .table-bordered tbody:last-child tr:last-child > th:first-child,
+  .table-bordered tfoot:last-child tr:last-child > td:first-child,
+  .table-bordered tfoot:last-child tr:last-child > th:first-child {
+    -webkit-border-bottom-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+  }
+  .table-bordered thead:last-child tr:last-child > th:last-child, .table-bordered tbody:last-child tr:last-child > td:last-child, .table-bordered tbody:last-child tr:last-child > th:last-child, .table-bordered tfoot:last-child tr:last-child > td:last-child, .table-bordered tfoot:last-child tr:last-child > th:last-child
+  {
+    border-bottom-right-radius:0px;
   }
 
 }
@@ -290,3 +352,110 @@ body
 {
   position: relative;
 }
+@media screen and (max-width: 1366px) and (min-width: 520px) {
+  .container-main.container-fluid {
+    width: 100%;
+    padding-left:0;
+    padding-right:0;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 1800px) and (min-width: 1367px) {
+  .container-main.container-fluid {
+    width: 80%;
+    padding-left:0;
+    padding-right:0;
+    margin: 0 auto;
+  }
+}
+.footer
+{
+  height: 150px;
+  background: #012f51;
+}
+
+.pagination {
+  margin: 20px 0;
+}
+.tsm_pagination {
+  ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    *zoom: 1;
+  }
+
+  ul > li {
+    display: inline;
+  }
+
+  ul > li > a,
+  ul > li > span {
+    float: left;
+    padding: 8px 6px 2px 4px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #b6b6b6;
+    [class^="icon-"],[class*=" icon-"]
+    {
+      font-size: 22px;
+    }
+  }
+  ul > li > a[data-original-title="Start"],
+  ul > li > a[data-original-title="Previous"],
+  ul > li > a[data-original-title="Next"],
+  ul > li > a[data-original-title="End"],
+  ul > li.first > a,
+  ul > li.previous > a,
+  ul > li.next > a,
+  ul > li.last > a
+  {
+    border: 1px solid #b6b6b6;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+
+  ul > li > a[data-original-title="Previous"], ul > li.previous > a
+  {
+    padding: 8px 10px 2px 1px;
+  }
+
+  ul > li > a[data-original-title="Next"],ul > li.next > a
+  {
+    padding: 8px 5px 2px;
+  }
+  ul > li > a:hover,
+  ul > li > a:focus,
+  ul > .active > a,
+  ul > .active > span {
+
+  }
+
+  ul > .active > a,
+  ul > .active > span {
+    color: #999999;
+    cursor: default;
+  }
+
+  ul > .disabled > span,
+  ul > .disabled > a,
+  ul > .disabled > a:hover,
+  ul > .disabled > a:focus {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+  }
+
+  ul > li:first-child > a,
+  ul > li:first-child > span {
+  }
+
+  ul > li:last-child > a,
+  ul > li:last-child > span {
+  }
+
+}
+
+
+

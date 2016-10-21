@@ -6250,8 +6250,8 @@ less.env = less.env || (location.hostname == '127.0.0.1' ||
                         location.port.length > 0         ||
                         isFileProtocol                   ? 'development'
                                                          : 'production');
-
-var logLevel = {
+    less.env='development';
+    var logLevel = {
     info: 2,
     errors: 1,
     none: 0

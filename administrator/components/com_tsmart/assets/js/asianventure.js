@@ -86,7 +86,7 @@
                 $('#admin-content').addClass(tab_active_name);
                 if(tab_active_name=='logistic'||tab_active_name=='setup_system')
                 {
-                    $('.title_page').closest('div').removeClass('offset8').addClass('offset1');
+                    //$('.title_page').closest('div').removeClass('offset8').addClass('offset1');
                 }else if(tab_active_name=='tour_build')
                 {
                     $('.vm_toolbar').insertAfter($('.buid-information'));

@@ -39,25 +39,9 @@ $states = tsmText::_('com_tsmart_STATE_S');
 ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <div id="header">
-            <div id="filterbox">
-                <table>
-                    <tr>
-                        <td align="left" width="100%">
-                            <?php echo tsmText::_('com_tsmart_FILTER') ?>:
-                            &nbsp;<input type="text" value="<?php echo vRequest::getVar('filter_toursection'); ?>"
-                                         name="filter_toursection" size="25"/>
-                            <button class="btn btn-small"
-                                    onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="resultscounter"><?php echo $this->pagination->getResultsCounter(); ?></div>
-        </div>
         <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
             <table class="adminlist table table-striped" id="toursection_list" cellspacing="0" cellpadding="0">
                 <thead>
@@ -137,30 +121,35 @@ $states = tsmText::_('com_tsmart_STATE_S');
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->tour_section_name ?> </a>
                             <?php } ?>
                         </td>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('code', $row->code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->code ?>
-                            <?php } ?>
-                        </td>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('code', $row->code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->code ?>
-                            <?php } ?>
-                        </td>
-                        <td>
-                            <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('phone_code', $row->phone_code, 'class="required"'); ?>
-                            <?php } else { ?>
-                                <?php echo $row->phone_code ?>
-                            <?php } ?>
+                        <td align="left">
 
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('icon', $row->icon, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->icon, 'class="required"',20,20); ?>
+                            <?php } ?>
+                        </td>
+
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('meta_title', $row->meta_title , 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->meta_title  ?>
+                            <?php } ?>
                         </td>
                         <td>
-                            <?php echo $row->total_state ?>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('key_word', $row->key_word, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->key_word ?>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::input('description', $row->description, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo $row->description ?>
+                            <?php } ?>
 
                         </td>
                         <td align="center" width="70">
@@ -192,14 +181,6 @@ $states = tsmText::_('com_tsmart_STATE_S');
                     $k = 1 - $k;
                 }
                 ?>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                        <?php echo $this->pagination->getLimitBox(); ?>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
         <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>"/>

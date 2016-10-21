@@ -32,7 +32,7 @@ class TableActivity extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_activity_id				= 0;
-	var $title				= "";
+	var $activity_name				= "";
 	var $icon				= "";
 	var $meta_title				= "";
 	var $key_word				= "";

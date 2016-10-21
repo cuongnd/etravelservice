@@ -18,7 +18,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 $doc=JFactory::getDocument();
 JHtml::_('jquery.framework');
 $doc->addScript(JUri::root().'/media/system/js/jquery.utility.js');
-$doc->addLessStyleSheet(JUri::root().'media/jui/bootstrap-3.3.7/less/bootstrap.less');
+//$doc->addLessStyleSheet(JUri::root().'media/jui/bootstrap-3.3.7/less/bootstrap.less');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 tsmConfig::loadConfig();

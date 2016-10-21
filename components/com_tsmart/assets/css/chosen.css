@@ -30,25 +30,19 @@
 /* @end */
 /* @group Single Chosen */
 .chzn-container-single .chzn-single {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  padding: 0 0 0 8px;
-  height: 23px;
+  background: #ebebeb none repeat scroll 0 0 padding-box;
   border: 1px solid #aaa;
   border-radius: 5px;
-  background-color: #fff;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #f6f6f6), color-stop(52%, #eeeeee), color-stop(100%, #f4f4f4));
-  background: -webkit-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
-  background: -moz-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
-  background: -o-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
-  background: linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
-  background-clip: padding-box;
-  box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   color: #444;
+  display: block;
+  height: 23px;
+  line-height: 25px;
+  overflow: hidden;
+  padding: 4px 20px;
+  position: relative;
   text-decoration: none;
   white-space: nowrap;
-  line-height: 24px;
 }
 .chzn-container-single .chzn-default {
   color: #999;
@@ -81,7 +75,7 @@
 }
 .chzn-container-single .chzn-single div {
   position: absolute;
-  top: 0;
+  top: 4px;
   right: 0;
   display: block;
   width: 18px;

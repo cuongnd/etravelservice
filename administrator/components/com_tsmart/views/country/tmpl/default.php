@@ -38,10 +38,10 @@ AdminUIHelper::startAdminArea($this);
 $states = tsmText::_('com_tsmart_STATE_S');
 ?>
 
-    <form action="index.php" method="post" name="adminForm" id="adminForm">
+    <form action="index.php?option=com_tsmart&view=country" method="post" name="adminForm" id="adminForm">
         <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
             <table class="adminlist table table-striped table-bordered" id="country_list" cellspacing="0" cellpadding="0">
                 <thead>
@@ -221,9 +221,8 @@ $states = tsmText::_('com_tsmart_STATE_S');
                 ?>
                 <tfoot>
                 <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                        <?php echo $this->pagination->getLimitBox(); ?>
+                    <td colspan="11">
+                        &nbsp;
                     </td>
                 </tr>
                 </tfoot>
