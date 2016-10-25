@@ -33,6 +33,8 @@ class TableGroup_size extends tsmTableData {
 	/** @var int Primary key */
 	var $tsmart_group_size_id				= 0;
 	var $group_name				= "";
+	var $icon				= "";
+	var $description				= "";
 	var $from					= 0;
 	var $to					= 0;
 	var $shared					= 0;

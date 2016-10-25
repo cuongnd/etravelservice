@@ -28,18 +28,15 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class TableFaq extends tsmTableData {
+class Tablecategoryfaq extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_faq_id				= 0;
 	var $tsmart_categoryfaq_id				= 0;
-	var $faq_name				= "";
-	var $answer				= "";
+	var $categoryfaq_name				= "";
 	var $icon				= "";
 	var $meta_title				= "";
 	var $key_word				= "";
 	var $description				= "";
-
 	var $shared					= 0;
 	var $published				= 0;
 
@@ -49,7 +46,7 @@ class TableFaq extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_faq', 'tsmart_faq_id', $db);
+		parent::__construct('#__tsmart_categoryfaq', 'tsmart_categoryfaq_id', $db);
 
 
 		$this->setLoggable();

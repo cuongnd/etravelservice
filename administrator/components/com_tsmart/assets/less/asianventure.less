@@ -29,12 +29,13 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e7eaef',GradientType=0 );
     min-height: 50px;
     margin-bottom: 0px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #8b9097;
+    box-shadow: 0px 4px 4px #c6c9cd;
     a{
       color: #666666;
       line-height: 25px;
       text-transform: capitalize;
-      font-size: 15px;
+      font-size: 17px;
     }
     a:hover{
       text-decoration: none;
@@ -146,6 +147,20 @@
       margin-left: -23px;
       margin-right: -23px;
       padding: 0 23px;
+      .group
+      {
+        background: url("../images/boder.png") right bottom no-repeat ;
+        min-height: 85px;
+        .ul_sub_menu
+        {
+          padding-left: 0;
+          padding: 12px 25px;
+        }
+      }
+      .group:last-child
+      {
+        background:none;
+      }
     }
   }
 }

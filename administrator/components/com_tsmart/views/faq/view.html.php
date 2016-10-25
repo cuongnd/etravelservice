@@ -35,13 +35,13 @@ class TsmartViewfaq extends tsmViewAdmin {
 
 		// Load the helper(s)
 
-		$app=JFactory::getApplication();
+
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
 		$model = tmsModel::getModel();
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-		$this->tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
+
+
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -58,12 +58,17 @@ class TsmartViewfaq extends tsmViewAdmin {
 			$model->setId($cid);
 			$this->item = $model->getItem();
 			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
+			$this->addStandardDefaultViewCommandsEditInline();
 
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			$this->addStandardDefaultViewCommandsEditInline();
+
+			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcategoryfaq.php';
+			$list_categoryfaq = tsmcategoryfaq::get_list_categoryfaq();
+			$this->assignRef('list_categoryfaq', $list_categoryfaq);
+
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();

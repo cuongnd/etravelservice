@@ -19,7 +19,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_tourtype_edit.less');
+$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_categoryfaq_edit.less');
 AdminUIHelper::startAdminArea($this);
 AdminUIHelper::imitateTabs('start', "Tour section");
 ?>
@@ -32,7 +32,7 @@ AdminUIHelper::imitateTabs('start', "Tour section");
                     <legend><?php echo tsmText::_('Current tour section'); ?></legend>
                     <div class="admintable row-fluid">
                         <div class="span12">
-                            <?php echo VmHTML::row_control('input', 'Tour section name', 'tourtype_name', $this->item->tourtype_name, 'class="required"'); ?>
+                            <?php echo VmHTML::row_control('input', 'Tour section name', 'categoryfaq_name', $this->item->categoryfaq_name, 'class="required"'); ?>
                             <?php echo VmHTML::row_control('booleanlist', 'com_tsmart_PUBLISHED', 'published', $this->item->published); ?>
 
                         </div>
@@ -42,7 +42,7 @@ AdminUIHelper::imitateTabs('start', "Tour section");
 
             </div>
             <input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->item->tsmart_vendor_id; ?>"/>
-            <input type="hidden" name="tsmart_hotel_id" value="<?php echo $this->item->tsmart_tourtype_id; ?>"/>
+            <input type="hidden" name="tsmart_hotel_id" value="<?php echo $this->item->tsmart_categoryfaq_id; ?>"/>
             <?php echo $this->addStandardHiddenToForm(); ?>
         </form>
 

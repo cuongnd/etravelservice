@@ -32,7 +32,7 @@ class TableTour_type extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_tour_type_id				= 0;
-	var $title				= "";
+	var $tour_type_name				= "";
 	var $icon				= "";
 	var $meta_title				= "";
 	var $key_word				= "";

@@ -41,7 +41,7 @@ class TsmartViewphysicalgrade extends tsmViewAdmin {
 
 		$model = tmsModel::getModel();
 
-        $this->view_height=1300;
+
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
@@ -58,12 +58,12 @@ class TsmartViewphysicalgrade extends tsmViewAdmin {
 			$model->setId($cid);
 			$this->item = $model->getItem();
 			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommands();
+			$this->addStandardEditViewCommandsPopup();
 
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			$this->addStandardDefaultViewCommandsEditInline();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();

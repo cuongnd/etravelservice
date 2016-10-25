@@ -32,7 +32,11 @@ class Tablephysicalgrade extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_physicalgrade_id				= 0;
-	var $title				= "";
+	var $physicalgrade_name				= "";
+	var $icon				= "";
+	var $meta_title				= "";
+	var $key_word				= "";
+	var $description				= "";
 	var $shared					= 0;
 	var $published				= 0;
 

@@ -28,7 +28,7 @@ if(!class_exists('tmsModel'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php'
  * @package	tsmart
  * @subpackage Currency
  */
-class tsmartModelgroupsize extends tmsModel {
+class tsmartModelcategoryfaq extends tmsModel {
 
 
 	/**
@@ -38,7 +38,7 @@ class tsmartModelgroupsize extends tmsModel {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->setMainTable('group_size');
+		$this->setMainTable('categoryfaq');
 	}
 
 	/**
@@ -49,12 +49,26 @@ class tsmartModelgroupsize extends tmsModel {
 	function getItem($id=0) {
 		return $this->getData($id);
 	}
+
+
+	/**
+	 * Retireve a list of currencies from the database.
+	 * This function is used in the backend for the currency listing, therefore no asking if enabled or not
+	 * @author Max Milbers
+	 * @return object List of currency objects
+	 */
+	function getItemList($search='') {
+		//echo $this->getListQuery()->dump();
+		$data=parent::getItems();
+		return $data;
+
+	}
 	function getListQuery()
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('group_size.*')
-			->from('#__tsmart_group_size AS group_size')
+		$query->select('categoryfaq.*')
+			->from('#__tsmart_categoryfaq AS categoryfaq')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -69,28 +83,14 @@ class tsmartModelgroupsize extends tmsModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('group_size.group_name LIKE '.$search);
+			$query->where('categoryfaq.title LIKE '.$search);
 		}
 		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
-		$query->order('group_size.'.$this->_selectedOrdering.' '.$this->_selectedOrderingDir);
-		//echo $query->dump();
+		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
 		return $query;
 	}
 
-
-	/**
-	 * Retireve a list of currencies from the database.
-	 * This function is used in the backend for the currency listing, therefore no asking if enabled or not
-	 * @author Max Milbers
-	 * @return object List of currency objects
-	 */
-	function getItemList($search='') {
-
-		echo $this->getListQuery()->dump();
-		$data=parent::getItems();
-		return $data;
-	}
 
 
 	/**
@@ -102,17 +102,16 @@ class tsmartModelgroupsize extends tmsModel {
 	 */
 
 	function store(&$data){
-		if(!vmAccess::manager('groupsize')){
-			vmWarn('Insufficient permissions to store groupsize');
+		if(!vmAccess::manager('categoryfaq')){
+			vmWarn('Insufficient permissions to store categoryfaq');
 			return false;
 		}
-
 		return parent::store($data);
 	}
 
 	function remove($ids){
-		if(!vmAccess::manager('groupsize')){
-			vmWarn('Insufficient permissions to remove groupsize');
+		if(!vmAccess::manager('categoryfaq')){
+			vmWarn('Insufficient permissions to remove categoryfaq');
 			return false;
 		}
 		return parent::remove($ids);

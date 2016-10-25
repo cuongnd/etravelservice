@@ -31,8 +31,8 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class TableTour_style extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_tour_style_id				= 0;
-	var $title				= "";
+	var $tsmart_tourstyle_id				= 0;
+	var $tourstyle_name				= "";
 	var $icon				= "";
 	var $meta_title				= "";
 	var $key_word				= "";
@@ -48,7 +48,7 @@ class TableTour_style extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_tour_style', 'tsmart_tour_style_id', $db);
+		parent::__construct('#__tsmart_tour_style', 'tsmart_tourstyle_id', $db);
 
 
 		$this->setLoggable();

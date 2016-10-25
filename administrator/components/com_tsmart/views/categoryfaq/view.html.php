@@ -29,7 +29,7 @@ if(!class_exists('tsmViewAdmin'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmviewad
  * @subpackage Currency
  * @author RickG, Max Milbers
  */
-class TsmartViewtourtype extends tsmViewAdmin {
+class TsmartViewcategoryfaq extends tsmViewAdmin {
 
 	function display($tpl = null) {
 

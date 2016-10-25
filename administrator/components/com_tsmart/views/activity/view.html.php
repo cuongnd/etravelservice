@@ -63,7 +63,7 @@ class TsmartViewactivity extends tsmViewAdmin {
 		} else {
 
 			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
+			$this->addStandardDefaultViewCommandsEditInline();
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList(vRequest::getCmd('search', false));
 			$this->pagination = $model->getPagination();

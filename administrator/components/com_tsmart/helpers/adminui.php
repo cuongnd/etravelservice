@@ -596,74 +596,66 @@ static function startAdminArea($vmView, $selectText = 'com_tsmart_DRDOWN_AVA2ALL
                     </div>
                     <div role="tabpanel" class="tab-pane" id="logistic">
                         <div class="row-fluid">
-                            <div class="span2">
-                                <ul class="ul_sub_menu">
-                                    <li><a href="index.php?option=com_tsmart&view=country"><span
-                                                class="icon-palette" title=""></span>GEO contry</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=state"><span
-                                                class="icon-palette" title=""></span>state/province</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=cityarea"><span
-                                                class="icon-palette" title=""></span>city/area</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=airport"><span
-                                                class="icon-palette" title=""></span>airport</a></li>
-                                </ul>
+                            <div class="span12">
+                                <div class="pull-left group">
+                                    <ul class="ul_sub_menu">
+                                        <li><a href="index.php?option=com_tsmart&view=groupsize"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Group size') ?></a></li>
+
+                                        <li><a href="index.php?option=com_tsmart&view=tourclass"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Service class') ?></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pull-left group">
+                                    <ul class="ul_sub_menu">
+                                        <li><a href="index.php?option=com_tsmart&view=tourtype"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Trip type') ?></a></li>
+                                        <li><a href="index.php?option=com_tsmart&view=activity"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Trip activity') ?></a></li>
+
+
+                                        <!-- Single button -->
+
+                                    </ul>
+                                </div>
+                                <div class="pull-left group">
+                                    <ul class="ul_sub_menu">
+                                        <li><a href="index.php?option=com_tsmart&view=toursection"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Tour section') ?></a>
+                                        </li>
+
+                                        <li><a href="index.php?option=com_tsmart&view=physicalgrade"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Physical grade') ?></a></li>
+
+
+                                    </ul>
+                                </div>
+                                <div class="pull-left group">
+                                    <ul class="ul_sub_menu">
+                                        <li><a href="index.php?option=com_tsmart&view=tourstyle"><span
+                                                    class="icon-palette" title=""></span><?php echo JText::_('Trip style') ?></a></li>
+
+                                        <li class="btn-group">
+                                            <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false"><span class="icon-palette" title=""></span>
+                                                <?php echo JText::_('Add FAQs') ?> </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="index.php?option=com_tsmart&view=categoryfaq"></span>Faqs category</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="index.php?option=com_tsmart&view=faq">Faqs Manager</a>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+
+
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="span2">
-                                <ul class="ul_sub_menu">
-                                    <li><a href="index.php?option=com_tsmart&view=tourclass"><span
-                                                class="icon-palette" title=""></span>Tour class</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=activity"><span
-                                                class="icon-palette" title=""></span>Activities</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=toursection"><span
-                                                class="icon-palette" title=""></span>tour section</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="span2">
-                                <ul class="ul_sub_menu">
-                                    <li><a href="index.php?option=com_tsmart&view=tourtype"><span
-                                                class="icon-palette" title=""></span>Tour type</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=tourstyle"><span
-                                                class="icon-palette" title=""></span>Tour style</a></li>
 
-                                    <li class="btn-group">
-                                        <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                           aria-expanded="false"><span class="icon-palette" title=""></span>
-                                            Service supplier </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="index.php?option=com_tsmart&view=supplier"></span>supplier manager</a>
-                                            </li>
-
-                                            <li>
-                                                <a href="index.php?option=com_tsmart&view=servicetype">service field list</a>
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                    <!-- Single button -->
-
-                                </ul>
-                            </div>
-                            <div class="span2">
-                                <ul class="ul_sub_menu">
-                                    <li><a href="index.php?option=com_tsmart&view=hotel"><span
-                                                class="icon-palette" title=""></span>Hotel</a>
-                                        <ul style="display: none" class="dropdown-menu">
-                                            <li>
-                                                <a href="index.php?option=com_tsmart&view=room"></span>Room</a>
-                                            </li>
-
-                                        </ul>
-
-                                    </li>
-                                    <li><a href="index.php?option=com_tsmart&view=groupsize"><span
-                                                class="icon-palette" title=""></span>Tour group size</a></li>
-                                    <li><a href="index.php?option=com_tsmart&view=physicalgrade"><span
-                                                class="icon-palette" title=""></span>physical grade</a></li>
-
-                                </ul>
-                            </div>
                         </div>
 
                     </div>

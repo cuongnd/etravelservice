@@ -68,8 +68,9 @@ class tsmartModelfaq extends tmsModel {
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('faq.*')
+		$query->select('faq.*,categoryfaq.categoryfaq_name')
 			->from('#__tsmart_faq AS faq')
+			->leftJoin('#__tsmart_categoryfaq AS categoryfaq ON categoryfaq.tsmart_categoryfaq_id=faq.tsmart_categoryfaq_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';

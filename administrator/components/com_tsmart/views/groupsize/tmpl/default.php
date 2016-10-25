@@ -59,17 +59,23 @@ AdminUIHelper::startAdminArea($this);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('group_name', 'group_name'); ?>
+                        <?php echo $this->sort('group_name', JText::_('group name')); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('icon', JText::_('icon')); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('type', 'type'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('from', 'From'); ?>
+                        <?php echo $this->sort('from',JText::_('Min person')); ?>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('to', 'To'); ?>
+                        <?php echo $this->sort('to',JText::_('Max person')); ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('description',JText::_('Description')); ?>
                     </th>
                     <th width="10">
                         <?php echo tsmText::_('Action'); ?>
@@ -130,6 +136,14 @@ AdminUIHelper::startAdminArea($this);
                             <?php } ?>
                         </td>
                         <td align="left">
+
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::image('icon', $row->icon, 'class="required"'); ?>
+                            <?php } else { ?>
+                                <?php echo VmHTML::show_image(JUri::root().'/'.$row->icon, 'class="required"',20,20); ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
                             <?php if( $row->type!='flat_price'){ ?>
                             <?php if ($show_edit) { ?>
 
@@ -159,6 +173,13 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo VmHTML::input_number('to', $row->to, 'required'); ?>
                             <?php } else { ?>
                                 <?php echo $row->type=='flat_price'?'none':$row->to ?>
+                            <?php } ?>
+                        </td>
+                        <td align="left">
+                            <?php if ($show_edit) { ?>
+                                <?php echo VmHTML::textarea('description', $row->description,80,3); ?>
+                            <?php } else { ?>
+                                <?php echo $row->description ?>
                             <?php } ?>
                         </td>
 
