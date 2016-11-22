@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  */
@@ -23,6 +23,7 @@ class AkeebaViewConfwiz extends F0FViewHtml
 		$aeconfig = Factory::getConfiguration();
 
 		// Load the Configuration Wizard Javascript file
+		AkeebaStrapper::addJSfile('media://com_akeeba/js/backup.js');
 		AkeebaStrapper::addJSfile('media://com_akeeba/js/confwiz.js');
 
 		$this->setLayout('wizard');

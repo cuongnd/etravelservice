@@ -34,6 +34,11 @@ class Tableroom extends tsmTableData {
 	var $tsmart_room_id				= 0;
 	var $tsmart_hotel_id				= 0;
 	var $room_name				= "";
+	var $room_view				= "";
+	var $single_room_price				= "";
+	var $double_room_price				= "";
+	var $extra_beb_price				= "";
+	var $description				= "";
 	var $image1				= "";
 	var $image2				= "";
 	var $facilities				= "";

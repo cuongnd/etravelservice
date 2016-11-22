@@ -1,0 +1,197 @@
+// Core variables and mixins
+@import "../../../../../../../templates/protostar/less/variables.less"; // Custom for this template
+@import "../../../../../../../templates/protostar/less/template_rtl.less"; // Specific for rtl
+@import "../../../../../../../media/jui/less/mixins.less";
+
+.html_build_aobject{
+  @gridColumns:             12;
+  @gridColumnWidth:         400px;
+  @gridGutterWidth:         0px;
+  @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+  // 1200px min
+  @gridColumnWidth1200:     70px;
+  @gridGutterWidth1200:     20px;
+  @gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
+
+  // 768px-979px
+  @gridColumnWidth768:      42px;
+  @gridGutterWidth768:      20px;
+  @gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+
+
+  // Fluid grid
+  // -------------------------
+  @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
+  @fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+
+  // 1200px min
+  @fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
+  @fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
+
+  // 768px-979px
+  @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
+  @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+
+  #grid > .fluid(@fluidGridColumnWidth, @fluidGridGutterWidth);
+}
+
+.html_build_aobject {
+  input, select {
+    width: 80px;
+  }
+  ul.list-passenger {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+  .passenger-title{
+    border-bottom: 1px solid #000000;
+    line-height: 40px;
+    color: #00A1DF;
+
+  }
+  .item-aobject {
+    padding: 10px;
+  }
+  .item-aobject:nth-child(2n+1) {
+  }
+  .item-aobject:nth-child(2n) {
+
+  }
+  .item-aobject {
+    position: relative;
+    margin-top: 10px;
+  }
+  .item-aobject .move-aobject {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  .ui-state-highlight {
+    height: 30px;
+    line-height: 1.2em;
+  }
+  .html_build_aobject_list_aobject .ui-state-highlight {
+    height: 300px;
+    line-height: 1.2em;
+  }
+  .error
+  {
+    border: red solid 1px;
+  }
+  .list-aobject.error,.list-passenger.error
+  {
+    border: red solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  .list-passenger
+  {
+    list-style: decimal;
+  }
+  .aobjecting-list
+  {
+    .table-aobjecting-list{
+      border-radius: 0;
+      border-width:1px;
+      border-color: #000;
+      border-style:solid;
+      .column-header-item,.row-item-column
+      {
+        border-right: 1px #000 solid;
+      }
+      .column-header-item
+      {
+        border: none;
+      }
+      .div-item-aobject
+      {
+        .column-header-item:last-child,.row-item-column:last-child
+        {
+        }
+      }
+      .thead
+      {
+        .column-header-item
+        {
+          padding: 10px;
+          font-weight: bold;
+        }
+
+      }
+      .tbody
+      {
+        .row-item-column
+        {
+          padding: 10px;
+          min-height: 38px;
+        }
+
+        .div-item-aobject:nth-of-type(2n+1){
+          background: #F4F4F4;
+        }
+        .div-item-aobject
+        {
+          .passenger-item,.bed_note
+          {
+            padding: 5px;
+          }
+        }
+
+      }
+    }
+  }
+
+  .passenger-service-list
+  {
+    .table-service-list{
+      border-radius: 0;
+      .row-item-column
+      {
+        border-right: 1px #000 solid;
+        border-bottom: 1px #000 solid;
+      }
+      .div-item-aobject
+      {
+        .column-header-item:last-child,.row-item-column:last-child
+        {
+        }
+      }
+      .thead
+      {
+        text-transform: uppercase;
+        .column-header-item
+        {
+          padding: 10px;
+          font-weight: bold;
+        }
+        border-bottom: 1px #000 solid;
+
+      }
+      .tbody
+      {
+        border-left: 1px solid #000;
+        border-bottom: 1px solid #000;
+        .row-item-column
+        {
+          padding: 10px;
+          min-height: 38px;
+        }
+
+        .div-item-aobject:nth-of-type(2n+1){
+
+        }
+        .div-item-aobject
+        {
+          .passenger-item,.bed_note
+          {
+            padding: 5px;
+          }
+        }
+
+      }
+    }
+  }
+
+}

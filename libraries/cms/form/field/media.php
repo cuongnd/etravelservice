@@ -203,8 +203,10 @@ class JFormFieldMedia extends JFormField
 			// Load the modal behavior script.
 			JHtml::_('behavior.modal');
 
+
 			// Include jQuery
 			JHtml::_('jquery.framework');
+
 
 			// Build the script.
 			$script = array();

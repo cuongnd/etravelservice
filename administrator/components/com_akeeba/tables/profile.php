@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  * @since 1.3
  */
@@ -29,7 +29,7 @@ class AkeebaTableProfile extends F0FTable
 	{
 		if(!$this->description)
 		{
-			$this->setError(JText::_('TABLE_PROFILE_NODESCRIPTION'));
+			$this->setError(JText::_('COM_AKEEBA_PROFILE_ERR_NODESCRIPTION'));
 			return false;
 		}
 
@@ -48,7 +48,7 @@ class AkeebaTableProfile extends F0FTable
 		$result = parent::onBeforeDelete($oid);
 		if($result) {
 			if($oid == 1) {
-				$this->setError(JText::_('TABLE_PROFILE_CANNOTDELETEDEFAULT'));
+				$this->setError(JText::_('COM_AKEEBA_PROFILE_ERR_CANNOTDELETEDEFAULT'));
 				$result = false;
 			}
 		}

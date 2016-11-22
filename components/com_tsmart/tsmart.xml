@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="component" version="2.5">
+    <name>tsmart</name>
+    <creationDate>November 10 2015</creationDate>
+    <author>The tsmart Development Team</author>
+    <authorEmail>max|at|tsmart.net</authorEmail>
+    <authorUrl>http://www.tsmart.net</authorUrl>
+    <copyright>Copyright (C) 2004-2015 tsmart Team. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version status="MINOR">3.0.12</version>
+    <description></description>
+
+    <scriptfile>install/script.tsmart.php</scriptfile>
+    <installfile>install/script.tsmart.php</installfile>
+    <uninstallfile>install/script.tsmart.php</uninstallfile>
+
+    <!-- Site Main File Copy Section -->
+    <files folder="components/com_tsmart">
+        <filename>router.php</filename>
+        <filename>tsmart.php</filename>
+        <folder>assets</folder>
+        <folder>controllers</folder>
+        <folder>sublayouts</folder>
+        <folder>helpers</folder>
+        <folder>language</folder>
+        <folder>views</folder>
+    </files>
+    <administration>
+        <!-- Administration Menu Section -->
+        <menu img="../components/com_tsmart/assets/images/vmgeneral/menu_icon.png" >com_tsmart</menu>
+        <submenu>
+            <menu link="option=com_tsmart&amp;view=category" img="components/com_tsmart/assets/images/icon_16/menu-icon16-categories.png">com_tsmart_MENU_CATEGORIES</menu>
+            <menu link="option=com_tsmart&amp;view=product" img="components/com_tsmart/assets/images/icon_16/menu-icon16-products.png">com_tsmart_MENU_PRODUCTS</menu>
+            <menu link="option=com_tsmart&amp;view=orders" img="components/com_tsmart/assets/images/icon_16/menu-icon16-orders.png">com_tsmart_MENU_ORDERS</menu>
+            <menu link="option=com_tsmart&amp;view=report" img="components/com_tsmart/assets/images/icon_16/menu-icon16-report.png">com_tsmart_MENU_REPORT</menu>
+            <menu link="option=com_tsmart&amp;view=user" img="components/com_tsmart/assets/images/icon_16/menu-icon16-shoppers.png">com_tsmart_MENU_USERS</menu>
+            <menu link="option=com_tsmart&amp;view=manufacturer" img="components/com_tsmart/assets/images/icon_16/menu-icon16-manufacturers.png">com_tsmart_MENU_MANUFACTURERS</menu>
+            <menu link="option=com_tsmart&amp;view=user&amp;task=editshop" img="components/com_tsmart/assets/images/icon_16/menu-icon16-shop.png">com_tsmart_MENU_STORE</menu>
+            <menu link="option=com_tsmart&amp;view=media" img="components/com_tsmart/assets/images/icon_16/menu-icon16-media.png">com_tsmart_MENU_MEDIAFILES</menu>
+            <menu link="option=com_tsmart&amp;view=shipmentmethod" img="components/com_tsmart/assets/images/icon_16/menu-icon16-shipmentmethods.png">com_tsmart_MENU_SHIPMENTMETHODS</menu>
+            <menu link="option=com_tsmart&amp;view=paymentmethod" img="components/com_tsmart/assets/images/icon_16/menu-icon16-paymentmethods.png">com_tsmart_MENU_PAYMENTMETHODS</menu>
+            <menu link="option=com_tsmart&amp;view=config" img="components/com_tsmart/assets/images/icon_16/menu-icon16-config.png">com_tsmart_MENU_CONFIGURATION</menu>
+        </submenu>
+        <!-- Administration Main File Copy Section -->
+        <files folder="administrator/components/com_tsmart">
+            <filename>tsmart.php</filename>
+            <filename>admin.tsmart.php</filename>
+            <filename>changelog.php</filename>
+            <filename>COPYRIGHT.php</filename>
+            <filename>version.php</filename>
+            <filename>tsmart_defaults.cfg-dist</filename>
+            <filename>config.xml</filename>
+            <filename>access.xml</filename>
+            <folder>assets</folder>
+            <folder>controllers</folder>
+            <folder>fields</folder>
+            <folder>helpers</folder>
+            <folder>install</folder>
+            <folder>language</folder>
+            <folder>models</folder>
+            <folder>plugins</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+    </administration>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="tsmart3 Update Site"><![CDATA[http://tsmart.net/releases/vm3/tsmart_update.xml]]></server>
+    </updateservers>
+</extension>

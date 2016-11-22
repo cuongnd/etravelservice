@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  * @since 1.3
  */
@@ -9,7 +9,6 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
 
 /**
@@ -103,7 +102,29 @@ class AkeebaViewCpanel extends F0FViewHtml
 	 */
 	public $statsIframe = '';
 
-	protected function onBrowse($tpl = null) {
+	/**
+	 * If front-end backup is enabled and the secret word has an issue (too insecure) we populate this variable
+	 *
+	 * @var  string
+	 */
+	public $frontEndSecretWordIssue = '';
+
+	/**
+	 * In case the existing Secret Word is insecure we generate a new one. This variable contains the new Secret Word.
+	 *
+	 * @var  string
+	 */
+	public $newSecretWord = '';
+
+    /**
+     * Is the mbstring extension installed and enabled? This is required by Joomla and Akeeba Backup to correctly work
+     * 
+     * @var bool
+     */
+    public $checkMbstring = true;
+
+	protected function onBrowse($tpl = null)
+    {
 		// Used in F0F 2.0, where this actually works as expected
 		$this->onAdd($tpl);
 	}
@@ -113,7 +134,7 @@ class AkeebaViewCpanel extends F0FViewHtml
 		/** @var AkeebaModelCpanels $model */
 		$model = $this->getModel();
 
-		$aeconfig = Factory::getConfiguration();
+		$session = JFactory::getSession();
 
 		// Load the helper classes
 		$this->loadHelper('utils');
@@ -125,22 +146,30 @@ class AkeebaViewCpanel extends F0FViewHtml
 
 		$statmodel = new AkeebaModelStatistics();
 
-		$this->profileid = $model->getProfileID(); // Active profile ID
-		$this->profilelist = $model->getProfilesList(); // List of available profiles
+		$this->profileid         = $model->getProfileID();               // Active profile ID
+		$this->profilelist       = $model->getProfilesList();            // List of available profiles
 		$this->quickIconProfiles = $model->getQuickIconProfiles();
-		$this->statuscell = $statusHelper->getStatusCell(); // Backup status
-		$this->detailscell = $statusHelper->getQuirksCell(); // Details (warnings)
-		$this->statscell = $statmodel->getLatestBackupDetails();
+		$this->statuscell        = $statusHelper->getStatusCell();       // Backup status
+		$this->detailscell       = $statusHelper->getQuirksCell();       // Details (warnings)
+		$this->statscell         = $statmodel->getLatestBackupDetails();
+		$this->fixedpermissions  = $model->fixMediaPermissions();        // Fix media/com_akeeba permissions
+        $this->checkMbstring     = $model->checkMbstring();
 
-		$this->fixedpermissions = $model->fixMediaPermissions(); // Fix media/com_akeeba permissions
-
-		$this->needsdlid = $model->needsDownloadID();
+		$this->needsdlid            = $model->needsDownloadID();
 		$this->needscoredlidwarning = $model->mustWarnAboutDownloadIDInCore();
-		$this->extension_id = $model->getState('extension_id', 0, 'int');
+		$this->extension_id         = $model->getState('extension_id', 0, 'int');
+
+		$this->frontEndSecretWordIssue = $model->getFrontendSecretWordError();
+		$this->newSecretWord           = $session->get('newSecretWord', null, 'akeeba.cpanel');
 
 		// Should I ask for permission to display desktop notifications?
-		JLoader::import('joomla.application.component.helper');
-		$this->desktop_notifications = \Akeeba\Engine\Util\Comconfig::getValue('desktop_notifications', '0') ? 1 : 0;
+		if (!class_exists('AkeebaHelperParams'))
+		{
+			require_once JPATH_ADMINISTRATOR . '/components/com_akeeba/helpers/params.php';
+		}
+
+		$params = new AkeebaHelperParams();
+		$this->desktop_notifications = $params->get('desktop_notifications', '0') ? 1 : 0;
 
 		$this->statsIframe = F0FModel::getTmpInstance('Stats', 'AkeebaModel')->collectStatistics(true);
 

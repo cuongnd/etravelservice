@@ -61,7 +61,7 @@ class TsmartViewpayment extends tsmViewAdmin {
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmpayment.php';
 			$this->item->list_tour_id = vmPayment::get_list_tour_id_by_payment_id($this->item->tsmart_payment_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-			$this->list_tour = vmproduct::get_list_product();
+			$this->list_tour = tsmproduct::get_list_product();
 			//end get list tour
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcurrency.php';
 			$list_currency = tsmcurrency::get_list_currency();

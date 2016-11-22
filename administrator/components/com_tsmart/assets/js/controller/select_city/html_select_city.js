@@ -53,7 +53,7 @@
                     response.unshift(item);
                     var element_name=plugin.settings.element_name;
                     var tsmart_cityarea_id=$element.val();
-                    $.set_date_selected(response,'tsmart_cityarea_id','city_area_name',$element,tsmart_cityarea_id);
+                    $.set_data_selected(response,'tsmart_cityarea_id','city_area_name',$element,tsmart_cityarea_id);
                     $element.trigger("liszt:updated");
                 }
             });

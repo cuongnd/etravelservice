@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  * @since 1.3
  */
@@ -33,7 +33,7 @@ else
 	
 	<div class="control-group">
 		<label class="control-label" for="description">
-			<?php echo JHTML::_('tooltip', JText::_('PROFILE_LABEL_DESCRIPTION_TOOLTIP'), '', '', JText::_('PROFILE_LABEL_DESCRIPTION')) ?>
+			<?php echo JHTML::_('tooltip', JText::_('COM_AKEEBA_PROFILES_LABEL_DESCRIPTION_TOOLTIP'), '', '', JText::_('COM_AKEEBA_PROFILES_LABEL_DESCRIPTION')) ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="description" class="span6" id="description" value="<?php echo $description; ?>" />

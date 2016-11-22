@@ -122,7 +122,7 @@ class tsmartModelpromotion extends tmsModel
             ->select('tour_service_class.service_class_name')
             ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_promotion_price.tsmart_product_id')
             ->innerJoin('#__tsmart_tour_type AS tour_type ON tour_type.tsmart_tour_type_id=products.tsmart_tour_type_id')
-            ->select('tour_type.title AS tour_type_name')
+            ->select('tour_type.tour_type_name AS tour_type_name')
             ->leftJoin('#__tsmart_products_'.tsmConfig::$vmlang.' AS language_products ON language_products.tsmart_product_id=products.tsmart_product_id')
             ;
         if($tsmart_product_id)

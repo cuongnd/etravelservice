@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @since     1.3
  */
@@ -23,7 +23,7 @@ class AkeebaViewProfiles extends F0FViewHtml
 		$this->loadHelper('utils');
 
 		// Add a spacer, a help button and show the template
-		JToolBarHelper::spacer();
+		JToolbarHelper::spacer();
 
 		parent::display($tpl);
 	}
@@ -49,7 +49,7 @@ class AkeebaViewProfiles extends F0FViewHtml
 		// Get Sort By fields
 		$this->sortFields = array(
 			'id'          => JText::_('JGRID_HEADING_ID'),
-			'description' => JText::_('PROFILE_COLLABEL_DESCRIPTION'),
+			'description' => JText::_('COM_AKEEBA_PROFILES_COLLABEL_DESCRIPTION'),
 		);
 
 		return parent::onBrowse($tpl);

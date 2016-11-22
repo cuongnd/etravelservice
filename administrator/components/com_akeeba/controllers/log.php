@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     1.3
@@ -10,7 +10,6 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
 
 /**

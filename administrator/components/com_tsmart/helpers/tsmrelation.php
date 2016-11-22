@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmrelation
+class tsmrelation
 {
     /**
      * javascript strings
@@ -42,6 +42,17 @@ class vmrelation
             ->from('#__tsmart_relation')
             ;
         return $db->setQuery($query)->loadObjectList();
+    }
+
+    public static function get_product_id_by_relation_id($tsmart_related_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('tsmart_product_id')
+            ->from('#__tsmart_tour_id_related_id')
+            ->where('tsmart_related_id='.(int)$tsmart_related_id)
+        ;
+        return $db->setQuery($query)->loadColumn();
     }
 
 

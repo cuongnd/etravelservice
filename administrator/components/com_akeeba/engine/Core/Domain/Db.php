@@ -2,7 +2,7 @@
 /**
  * Akeeba Engine
  * The modular PHP5 site backup engine
- * @copyright Copyright (c)2006-2015 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2006-2016 Nicholas K. Dionysopoulos
  * @license   GNU GPL version 3 or, at your option, any later version
  * @package   akeebaengine
  *
@@ -13,10 +13,11 @@ namespace Akeeba\Engine\Core\Domain;
 // Protection against direct access
 defined('AKEEBAENGINE') or die();
 
-use Psr\Log\LogLevel;
 use Akeeba\Engine\Base\Part;
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Dump\Base as DumpBase;
+use Akeeba\Engine\Factory;
+use Akeeba\Engine\Platform;
+use Psr\Log\LogLevel;
 
 /**
  * Multiple database backup engine.
@@ -107,6 +108,8 @@ class Db extends Part
 			$root = array_shift($rootkeys);
 			$registry->set('volatile.database.root', $root);
 
+			Factory::getLog()->log(LogLevel::DEBUG, __CLASS__ . " :: Now backing up $root");
+
 			$this->database_config = array_shift($this->database_list);
 			$this->database_config['root'] = $root;
 			$this->database_config['process_empty_prefix'] = ($root == '[SITEDB]') ? true : false;
@@ -193,8 +196,8 @@ class Db extends Part
 			Factory::getLog()->log(LogLevel::DEBUG, __CLASS__ . " :: Writing databases.ini contents");
 
 			$archiver = Factory::getArchiverEngine();
-			$virtudeparture = (Factory::getEngineParamsProvider()->getScriptingParameter('db.saveasname', 'normal') == 'short') ? '' : $this->installerSettings->sqlroot;
-			$archiver->addVirtualFile('databases.ini', $virtudeparture, $databasesINI);
+			$virtualLocation = (Factory::getEngineParamsProvider()->getScriptingParameter('db.saveasname', 'normal') == 'short') ? '' : $this->installerSettings->sqlroot;
+			$archiver->addVirtualFile('databases.ini', $virtualLocation, $databasesINI);
 
 			// Error propagation
 			$this->propagateFromObject($archiver);
@@ -272,6 +275,7 @@ class Db extends Part
 		$this->databases_ini = '';
 
 		$blankOutPass = Factory::getConfiguration()->get('engine.dump.common.blankoutpass', 0);
+		$siteRoot     = Factory::getConfiguration()->get('akeeba.platform.newroot', '');
 
 		// Loop through databases list
 		foreach ($this->dumpedDatabases as $definition)
@@ -281,6 +285,13 @@ class Db extends Part
 			$dboInstance = Factory::getDatabase($definition);
 			$type = $dboInstance->name;
 			$tech = $dboInstance->getDriverType();
+
+			// If the database is a sqlite one, we have to process the database name which contains the path
+			// At the moment we only handle the case where the db file is UNDER site root
+			if ($tech == 'sqlite')
+			{
+				$definition['database'] = str_replace($siteRoot, '#SITEROOT#', $definition['database']);
+			}
 
 			if ($blankOutPass)
 			{

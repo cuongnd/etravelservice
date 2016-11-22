@@ -56,9 +56,15 @@ AdminUIHelper::imitateTabs('start', "hotel");
                 <div class="addition-info">
                     <div class="row-fluid">
                         <div class="span12">
-                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview); ?>
-                            <?php echo VmHTML::row_control('editor', 'Hotel info', 'facility_info', $this->item->description); ?>
-                            <?php echo VmHTML::row_control('editor', 'Room info', 'room_info', $this->item->description); ?>
+<<<<<<< master
+                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+                            <?php echo VmHTML::row_control('editor', 'Hotel info', 'facility_info', $this->item->description,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+                            <?php echo VmHTML::row_control('editor', 'Room info', 'room_info', $this->item->description,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+=======
+                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            <?php echo VmHTML::row_control('editor', 'Hotel info', 'facility_info', $this->item->description,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            <?php echo VmHTML::row_control('editor', 'Room info', 'room_info', $this->item->description,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+>>>>>>> local
                         </div>
                     </div>
                 </div>

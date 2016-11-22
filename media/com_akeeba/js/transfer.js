@@ -1,8 +1,9 @@
 /**
  * Akeeba Backup
- * The modular PHP5 site backup software solution
- * @copyright Copyright (c)2009-2015 Nicholas K. Dionysopoulos
- * @license GNU GPL version 3 or, at your option, any later version
+ *
+ * @package    akeeba
+ * @copyright  Copyright (c)2009-2016 Nicholas K. Dionysopoulos
+ * @license    GNU GPL version 3 or, at your option, any later version
  **/
 
 // Object initialisation
@@ -72,7 +73,7 @@ if (typeof akeeba.Transfer == 'undefined')
         $('#akeeba-transfer-btn-url').attr('disabled', 'disabled');
         $('#akeeba-transfer-loading').show();
 
-        doAjax({
+        akeeba.System.doAjax({
             'task': 'checkUrl',
             'url': url
         },
@@ -223,7 +224,7 @@ if (typeof akeeba.Transfer == 'undefined')
         };
 
         // Do AJAX call & Render results
-        doAjax(
+        akeeba.System.doAjax(
             data,
             function (data)
             {
@@ -403,7 +404,7 @@ if (typeof akeeba.Transfer == 'undefined')
         };
 
         // Do AJAX call & Render results
-        doAjax(
+        akeeba.System.doAjax(
             data,
             function (data)
             {
@@ -511,7 +512,7 @@ if (typeof akeeba.Transfer == 'undefined')
         };
 
         // Construct the query
-        doAjax(
+        akeeba.System.doAjax(
             data,
             function (res)
             {
@@ -570,7 +571,7 @@ if (typeof akeeba.Transfer == 'undefined')
         };
 
         // Construct the query
-        doAjax(
+        akeeba.System.doAjax(
             data,
             function (res)
             {
@@ -612,7 +613,7 @@ if (typeof akeeba.Transfer == 'undefined')
         };
 
         // Construct the query
-        doAjax(
+        akeeba.System.doAjax(
             data,
             function (res)
             {

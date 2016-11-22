@@ -30,7 +30,7 @@ if ($saveOrder) {
 }
 $doc=JFactory::getDocument();
 $doc->addScript(JUri::root().'/administrator/components/com_tsmart/assets/js/view_hotel_default.js');
-$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_hotel_default.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_hotel_default.less');
 $input = JFactory::getApplication()->input;
 
 $task=$input->get('task','');
@@ -53,13 +53,6 @@ $doc->addScriptDeclaration($js_content);
 ?>
 <div class="view-hotel-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('hotel', 'search'); ?>
-                </td>
-            </tr>
-        </table>
         <div id="editcell">
             <div class="vm-page-nav">
 
@@ -151,7 +144,7 @@ $doc->addScriptDeclaration($js_content);
                         </td>
                         <td align="left">
                             <a href="index.php?option=com_tsmart&amp;view=airport"><span title="" class="icon-eye"></span></a>
-                            <a   href="index.php?option=com_tsmart&amp;view=room&key[tsmart_hotel_id]=<?php echo $row->tsmart_hotel_id ?>"><span title="" class="icon-edit"></span></a>
+                            <a   href="index.php?option=com_tsmart&amp;view=room&key[tsmart_hotel_id]=<?php echo $row->tsmart_hotel_id ?>&tsmart_hotel_id=<?php echo $row->tsmart_hotel_id ?>" class=" <?php echo $row->total_room?' existed-room ':'' ?>" title="<?php echo $row->total_room?' existed room ':'' ?>"><span title="" class="icon-edit"></span></a>
                         </td>
 <!--                        <td align="left">
                             <span class="sortable-handler">

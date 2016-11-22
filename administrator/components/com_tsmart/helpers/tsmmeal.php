@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmmeal
+class tmsmeal
 {
     /**
      * javascript strings
@@ -63,6 +63,28 @@ class vmmeal
             ->where('tsmart_itinerary_id='.(int)$tsmart_itinerary_id)
         ;
         return $db->setQuery($query)->loadObjectList();
+    }
+    public static function get_list_activity_by_itinerary_id($tsmart_itinerary_id=0)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('activity.*')
+            ->from('#__tsmart_itinerary_id_activity_id AS itinerary_id_activity_id')
+            ->leftJoin('#__tsmart_activity AS activity ON activity.tsmart_activity_id=itinerary_id_activity_id.tsmart_activity_id')
+            ->where('tsmart_itinerary_id='.(int)$tsmart_itinerary_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+    public static function get_list_activity_id_by_itinerary_id($tsmart_itinerary_id=0)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('activity.tsmart_activity_id')
+            ->from('#__tsmart_itinerary_id_activity_id AS itinerary_id_activity_id')
+            ->leftJoin('#__tsmart_activity AS activity ON activity.tsmart_activity_id=itinerary_id_activity_id.tsmart_activity_id')
+            ->where('tsmart_itinerary_id='.(int)$tsmart_itinerary_id)
+        ;
+        return $db->setQuery($query)->loadColumn();
     }
 
 

@@ -24,10 +24,10 @@
             var list_tour=plugin.settings.list_tour;
             var select_name=plugin.settings.select_name;
             var tsmart_product_id=plugin.settings.tsmart_language_id;
-            plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
+            plugin.select2=$element.select2({
 
             });
-            plugin.select2.val(tsmart_product_id).trigger("change")
+            //plugin.select2.val(tsmart_product_id).trigger("change")
         };
         plugin.init();
 

@@ -76,7 +76,7 @@ class tsmartModelAccommodation extends tmsModel {
 			->where('itinerary.tsmart_product_id='.(int)$tsmart_product_id)
 			->leftJoin('#__tsmart_accommodation AS accommodation USING(tsmart_itinerary_id)')
 			->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
-			->group('itinerary.tsmart_itinerary_id')
+			->group('cityarea.tsmart_cityarea_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -139,13 +139,6 @@ class tsmartModelAccommodation extends tmsModel {
                     throw new Exception($this->_db->getErrorMsg());
                 }
 				foreach($list_hotel as $key=> $tsmart_hotel_id){
-					if(!is_numeric($key))
-					{
-						$key=explode(':',$key);
-						$key=$key[1];
-					}else{
-						$key=0;
-					}
                     $tsmart_service_class_id=$tsmart_service_class_id?$tsmart_service_class_id:0;
                     $tsmart_hotel_id=$tsmart_hotel_id?$tsmart_hotel_id:0;
 					$table_hotel_id_service_class_id_accommodation_id=$this->getTable('hotel_id_service_class_id_accommodation_id');
@@ -160,6 +153,41 @@ class tsmartModelAccommodation extends tmsModel {
 					if(count($errors))
 					{
 						throw new Exception($table_hotel_id_service_class_id_accommodation_id->getError());
+					}
+
+				}
+
+			}
+
+			$list_room_service_class=$data['list_room_service_class'];
+
+			foreach($list_room_service_class as $tsmart_service_class_id=>$list_room){
+                $query=$this->_db->getQuery(true);
+                $query->delete('#__tsmart_room_id_service_class_id_accommodation_id')
+                    ->where('tsmart_service_class_id='.(int)$tsmart_service_class_id)
+                    ->where('tsmart_accommodation_id='.(int)$tsmart_accommodation_id)
+                    ;
+                $this->_db->setQuery($query);
+                $ok=$this->_db->execute();
+                if(!$ok)
+                {
+                    throw new Exception($this->_db->getErrorMsg());
+                }
+				foreach($list_room as $key=> $tsmart_room_id){
+                    $tsmart_service_class_id=$tsmart_service_class_id?$tsmart_service_class_id:0;
+                    $tsmart_room_id=$tsmart_room_id?$tsmart_room_id:0;
+					$table_room_id_service_class_id_accommodation_id=$this->getTable('room_id_service_class_id_accommodation_id');
+					$table_room_id_service_class_id_accommodation_id->tsmart_service_class_id=$tsmart_service_class_id;
+					$table_room_id_service_class_id_accommodation_id->tsmart_room_id=$tsmart_room_id;
+					$table_room_id_service_class_id_accommodation_id->tsmart_accommodation_id=$tsmart_accommodation_id;
+                    if($tsmart_room_id&&$tsmart_service_class_id&&$tsmart_accommodation_id)
+                    {
+                        $table_room_id_service_class_id_accommodation_id->store(true);
+                    }
+					$errors=$table_room_id_service_class_id_accommodation_id->getErrors();
+					if(count($errors))
+					{
+						throw new Exception($table_room_id_service_class_id_accommodation_id->getError());
 					}
 
 				}

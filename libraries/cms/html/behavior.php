@@ -38,6 +38,7 @@ abstract class JHtmlBehavior
 	 */
 	public static function framework($extras = false, $debug = null)
 	{
+
 		$type = $extras ? 'more' : 'core';
 
 		// Only load once
@@ -58,7 +59,7 @@ abstract class JHtmlBehavior
 			static::framework(false, $debug);
 		}
 
-		JHtml::_('script', 'system/mootools-' . $type . '.js', false, true, false, false, $debug);
+		JHtml::_('script', 'system/mootools-' . $type . '-uncompressed.js', false, true, false, false, $debug);
 
 		// Keep loading core.js for BC reasons
 		static::core();

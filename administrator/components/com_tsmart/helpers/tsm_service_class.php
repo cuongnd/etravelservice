@@ -51,15 +51,5 @@ class tsm_service_class
 	 *
 	 * @since   11.1
 	 */
-		public static function get_list_service_class_by_tour_id($tour_id)
-		{
-			$db=JFactory::getDbo();
-			$query=$db->getQuery(true);
-			$query->select('tour_service_class.tsmart_service_class_id,tour_service_class.service_class_name')
-				->from('#__tsmart_tour_id_service_class_id AS tour_id_service_class_id')
-				->leftJoin('#__tsmart_service_class AS tour_service_class ON tour_service_class.tsmart_service_class_id=tour_id_service_class_id.tsmart_service_class_id')
-				->where('tour_id_service_class_id.tsmart_product_id='.(int)$tour_id);
-			return $db->setQuery($query)->loadObjectList();
-		}
 
 }

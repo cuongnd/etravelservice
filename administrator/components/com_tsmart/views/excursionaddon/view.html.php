@@ -62,7 +62,7 @@ class TsmartViewExcursionaddon extends tsmViewAdmin {
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
 			$this->item->list_tour_id = tsmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->tsmart_excursion_addon_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-			$list_tour = vmproduct::get_list_product();
+			$list_tour = tsmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
 
@@ -82,9 +82,9 @@ class TsmartViewExcursionaddon extends tsmViewAdmin {
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcities.php';
 			$this->list_cityarea=tsmcities::get_city_state_country();
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmexcursionaddon.php';
 			$this->list_excursion_payment_type=tsmexcursionaddon::get_list_excursion_payment_type();
 			if($task=='edit_item')
 			{
@@ -105,7 +105,7 @@ class TsmartViewExcursionaddon extends tsmViewAdmin {
 				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmexcursionaddon.php';
 				$this->item->list_tour_id = tsmexcursionaddon::get_list_tour_id_by_excursion_addon_id($this->item->tsmart_excursion_addon_id);
 				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-				$list_tour = vmproduct::get_list_product();
+				$list_tour = tsmproduct::get_list_product();
 				$this->assignRef('list_tour', $list_tour);
 				//end get list tour
 

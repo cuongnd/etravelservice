@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  * @since 1.3
  */
@@ -20,6 +20,8 @@ class AkeebaViewConfig extends F0FViewHtml
 {
 	public function onAdd($tpl = null)
 	{
+        AkeebaStrapper::addJSfile('media://com_akeeba/js/configuration.js');
+
 		$media_folder = JUri::base().'../media/com_akeeba/';
 
 		// Get a JSON representation of GUI data

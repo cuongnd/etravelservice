@@ -27,6 +27,7 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            $('.buid-information').insertBefore($('.vm_toolbar'));
             var task=plugin.settings.task;
             if(task=='edit'||task=='add')
             {

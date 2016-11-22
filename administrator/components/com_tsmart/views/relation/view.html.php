@@ -42,34 +42,10 @@ class TsmartViewRelation extends tsmViewAdmin {
 		$model = tmsModel::getModel();
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
 		$this->tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
-		$config = JFactory::getConfig();
-		$layoutName = vRequest::getCmd('layout', 'default');
-		if ($layoutName == 'edit') {
-			$cid	= vRequest::getInt( 'cid' );
-
-			$task = vRequest::getCmd('task', 'add');
-
-			if($task!='add' && !empty($cid) && !empty($cid[0])){
-				$cid = (int)$cid[0];
-			} else {
-				$cid = 0;
-			}
-
-			$model->setId($cid);
-			$this->item = $model->getItem();
-			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
-
-		} else {
-
-			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
-			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
-
-		}
-
+		$this->item = $model->getItem();
+		require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/tsmrelation.php';
+		$this->item->list_tsmart_product_id=tsmrelation::get_product_id_by_relation_id($this->item->tsmart_related_id);
+		JToolBarHelper::save('save','save');
 		parent::display($tpl);
 	}
 

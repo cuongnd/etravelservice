@@ -2,7 +2,7 @@
 /**
  * @package     FrameworkOnFramework
  * @subpackage  template
- * @copyright   Copyright (C) 2010 - 2015 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 // Protect from unauthorized access
@@ -157,16 +157,16 @@ class F0FTemplateUtils
 		if (isset($altFiles['alternate']))
 		{
 			$currentLocation = realpath(dirname($localFile));
-			$normdeparture = realpath(dirname($altFiles['normal']));
+			$normalLocation = realpath(dirname($altFiles['normal']));
 			$alternateLocation = realpath(dirname($altFiles['alternate']));
 
-			if ($currentLocation == $normdeparture)
+			if ($currentLocation == $normalLocation)
 			{
 				$lessCompiler->importDir = array($alternateLocation, $currentLocation);
 			}
 			else
 			{
-				$lessCompiler->importDir = array($currentLocation, $normdeparture);
+				$lessCompiler->importDir = array($currentLocation, $normalLocation);
 			}
 		}
 

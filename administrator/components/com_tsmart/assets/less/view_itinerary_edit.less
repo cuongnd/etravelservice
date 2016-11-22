@@ -1,9 +1,48 @@
 .view-itinerary-edit {
   .form-horizontal .controls
   {
-    margin-left:100px;
+    margin-left:190px;
+    input[type="text"]
+    {
+      width: 96%;
+    }
+    .select2-container
+    {
+      width: 98% !important;
+    }
+  }
+  .form-horizontal .control-label
+  {
+    width: 190px;
+    text-transform: uppercase;
+  }
+  .select-image
+  {
+    .controls
+    {
+      margin-left:0;
+    }
+    .control-label
+    {
+      width:0;
+      text-transform: uppercase;
+    }
   }
 }
+#edit_admin_form
+{
+  border: 1px #ceced0 solid;
+
+  background: #e0e0e0;
+  background: -moz-linear-gradient(left, #e0e0e0 0%, #ebebeb 0%, #ebebeb 28%, #ffffff 22%, #ffffff 36%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #e0e0e0), color-stop(0%, #ebebeb), color-stop(22%, #ebebeb), color-stop(22%, #ffffff), color-stop(36%, #ffffff));
+  background: -webkit-linear-gradient(left, #e0e0e0 0%, #ebebeb 0%, #ebebeb 22%, #ffffff 22%, #ffffff 36%);
+  background: -o-linear-gradient(left, #e0e0e0 0%, #ebebeb 0%, #ebebeb 22%, #ffffff 22%, #ffffff 36%);
+  background: -ms-linear-gradient(left, #e0e0e0 0%, #ebebeb 0%, #ebebeb 22%, #ffffff 22%, #ffffff 36%);
+  background: linear-gradient(to right, #e0e0e0 0%, #ebebeb 0%, #ebebeb 22%, #ffffff 22%, #ffffff 36%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e0e0', endColorstr='#ffffff', GradientType=1 );      padding: 10px;
+}
+
 .control-group.list_meal_id .controls
 {
   width: 78%;

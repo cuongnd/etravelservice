@@ -71,9 +71,12 @@ class tsmartModelhotel extends tmsModel {
 		$query->select('hotel.*')
 			->from('#__tsmart_hotel AS hotel')
             ->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
+            ->leftJoin('#__tsmart_room AS room USING(tsmart_hotel_id)')
             ->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')
             ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
             ->select('CONCAT(cityarea.city_area_name,",",states.state_name,",",countries.country_name) AS location')
+           	->select('COUNT(room.tsmart_room_id) AS total_room')
+			->group('hotel.tsmart_hotel_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';

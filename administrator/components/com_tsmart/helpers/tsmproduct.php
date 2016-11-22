@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmproduct
+class tsmproduct
 {
     /**
      * javascript strings
@@ -107,7 +107,7 @@ class vmproduct
         $product->end_city=$db->setQuery($query)->loadResult();
 
         $query=$db->getQuery(true);
-        $query->select('tour_type.title')
+        $query->select('tour_type.tour_type_name')
             ->from('#__tsmart_tour_type AS tour_type')
             ->where('tour_type.tsmart_tour_type_id='.(int)$product->tsmart_tour_type_id)
             ;
@@ -115,7 +115,7 @@ class vmproduct
 
 
         $query=$db->getQuery(true);
-        $query->select('tour_style.title')
+        $query->select('tour_style.tour_style_name')
             ->from('#__tsmart_tour_style AS tour_style')
             ->where('tour_style.tsmart_tour_style_id='.(int)$product->tsmart_tour_style_id)
             ;
@@ -123,7 +123,7 @@ class vmproduct
 
 
         $query=$db->getQuery(true);
-        $query->select('physicalgrade.title')
+        $query->select('physicalgrade.physicalgrade_name')
             ->from('#__tsmart_physicalgrade AS physicalgrade')
             ->where('physicalgrade.tsmart_physicalgrade_id='.(int)$product->tsmart_physicalgrade_id)
             ;

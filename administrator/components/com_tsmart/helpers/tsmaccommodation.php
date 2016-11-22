@@ -54,8 +54,25 @@ class tsmaccommodation
                 ->where('hotel_id_service_class_id_accommodation_id.tsmart_accommodation_id='.(int)$tsmart_accommodation_id)
                 ->where('hotel_id_service_class_id_accommodation_id.tsmart_service_class_id='.(int)$service_class->tsmart_service_class_id)
             ;
-            $service_class->list_hotel=$db->setQuery($query)->loadObjectList();
+            $list_hotel=$db->setQuery($query)->loadObjectList();
+
+            $query = $db->getQuery(true);
+            $query->select('room_id_service_class_id_accommodation_id.*')
+                ->from('#__tsmart_room_id_service_class_id_accommodation_id AS room_id_service_class_id_accommodation_id')
+                ->where('room_id_service_class_id_accommodation_id.tsmart_accommodation_id='.(int)$tsmart_accommodation_id)
+                ->where('room_id_service_class_id_accommodation_id.tsmart_service_class_id='.(int)$service_class->tsmart_service_class_id)
+            ;
+            $list_room=$db->setQuery($query)->loadObjectList();
+            if(count($list_room))
+            {
+                for($i=0;$i<count($list_hotel);$i++){
+                    $list_hotel[$i]->room_item=$list_room[$i];
+                }
+            }
+
+            $service_class->list_hotel=$list_hotel;
         }
+
         return $list_service_class;
     }
 

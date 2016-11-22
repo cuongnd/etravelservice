@@ -52,9 +52,13 @@ $js_content = ob_get_clean();
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 ?>
+<<<<<<< master
+<?php echo vmproduct::get_html_tour_information($this,$this->tsmart_product_id); ?>
+=======
+<?php echo tsmproduct::get_html_tour_information($this,$this->tsmart_product_id); ?>
+>>>>>>> local
+<div class="view-itinerary-default ">
 
-<div class="view-itinerary-default form-tour-build">
-    <?php echo vmproduct::get_html_tour_information($this,$this->tsmart_product_id); ?>
 
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <div id="editcell">
@@ -87,10 +91,7 @@ $doc->addScriptDeclaration($js_content);
                         <?php echo $this->sort('full_description', 'Full description'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('trip_note1', 'Trip note 1'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('trip_note2', 'Trip note 2'); ?>
+                        <?php echo $this->sort('trip_note', 'Trip note'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('meal_selection', 'Meal selection'); ?>
@@ -141,18 +142,16 @@ $doc->addScriptDeclaration($js_content);
                         <td align="left">
                             <?php echo $row->city_area_name; ?>
                         </td>
-                        <td align="left">
-                            <?php echo $row->brief_itinerary; ?>
+                        <td align="left" style="text-align: center">
+                            <?php echo VmHTML::show_tip('short_description'.$i,$row->short_description); ?>
+
                         </td>
-                        <td align="left">
-                            <?php echo $row->full_itinerary; ?>
+                        <td align="left" style="text-align: center">
+                            <?php echo VmHTML::show_tip('full_description'.$i,$row->full_description); ?>
                         </td>
 
-                        <td align="left">
-                            <?php echo $row->trip_note1; ?>
-                        </td>
-                        <td align="left">
-                            <?php echo $row->trip_note2; ?>
+                        <td align="left" style="text-align: center">
+                            <?php echo VmHTML::show_tip('show-trip-note'.$i,$row->trip_note); ?>
                         </td>
                         <td align="left">
                             <?php echo $row->list_meal; ?>

@@ -46,8 +46,16 @@ class tsmartModelRelation extends tmsModel {
 	 *
 	 * @author Max Milbers
 	 */
-	function getItem($id=0) {
-		return $this->getData($id);
+	function getItem() {
+		$app=JFactory::getApplication();
+		$tsmart_product_id=$app->input->get('tsmart_product_id',0,'int');
+		$db=JFactory::getDbo();
+		$query=$db->getQuery(true);
+		$query->select('related.*')
+			->from('#__tsmart_related AS related')
+			->where('related.tsmart_product_id='.(int)$tsmart_product_id)
+			;
+		return $db->setQuery($query)->loadObject();
 	}
 
 
@@ -106,7 +114,51 @@ class tsmartModelRelation extends tmsModel {
 			vmWarn('Insufficient permissions to store relation');
 			return false;
 		}
-		return parent::store($data);
+		$db=JFactory::getDbo();
+		$ok= parent::store($data);
+		if($ok) {
+			//inser to tour
+			$tsmart_related_id=$data['tsmart_related_id'];
+			$query = $db->getQuery(true);
+
+			$query->delete('#__tsmart_tour_id_related_id')
+				->where('tsmart_related_id=' . (int)$tsmart_related_id);
+
+			$db->setQuery($query)->execute();
+
+			$err = $db->getErrorMsg();
+
+			if (!empty($err)) {
+
+				vmError('can not delete tour in this related', $err);
+
+			}
+
+			$list_tsmart_product_id = $data['list_tsmart_product_id'];
+
+			foreach ($list_tsmart_product_id as $tsmart_product_id) {
+
+				$query->clear()
+					->insert('#__tsmart_tour_id_related_id')
+					->set('tsmart_related_id=' . (int)$tsmart_related_id)
+					->set('tsmart_product_id=' . (int)$tsmart_product_id);
+
+				$db->setQuery($query)->execute();
+
+				$err = $db->getErrorMsg();
+
+				if (!empty($err)) {
+
+					vmError('can not insert tour in this related', $err);
+
+				}
+
+			}
+
+			//end inser tour
+		}
+		return $ok;
+
 	}
 
 	function remove($ids){

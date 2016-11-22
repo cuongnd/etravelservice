@@ -461,7 +461,7 @@ class tsmViewAdmin extends JViewLegacy
 
     function addJsJoomlaSubmitButtonNoValidate($validate = false)
     {
-
+        return;
         static $done = array(false, false);
         if (!$done[$validate]) {
             if ($validate) {
@@ -1107,6 +1107,7 @@ class tsmViewAdmin extends JViewLegacy
     {
         $app=JFactory::getApplication();
         $input=$app->input;
+        $key=$input->get('key',array(),'array');
         $ui_dialog_id=$input->get('ui_dialog_id','','string');
         $layout=$input->get('layout','','string');
         $iframe_id=$input->get('iframe_id','','string');
@@ -1118,6 +1119,13 @@ class tsmViewAdmin extends JViewLegacy
         if (!$controller) $controller = vRequest::getCmd('view');
         $option = vRequest::getCmd('option', 'com_tsmart');
         $show_in_parent_window = vRequest::getInt('show_in_parent_window', 0);
+        ob_start();
+        foreach($key as $key=>$value)
+        {
+            ?>
+            <input type="hidden" name="<?php echo $key ?>" value="<?php echo $value ?>" />
+            <?php
+        }
         $hidden = '';
         if (array_key_exists('filter_order', $this->lists)) {
             $hidden = '
@@ -1129,7 +1137,7 @@ class tsmViewAdmin extends JViewLegacy
             $hidden .= '<input type="hidden" name="manage" value="1" />';
         }
 
-        return $hidden . '
+         $hidden .='
 		<input type="hidden" name="task" value="' . $task . '" />
 		<input type="hidden" name="show_in_parent_window" value="' . $show_in_parent_window . '" />
 		<input type="hidden" name="key[ui_dialog_id]" value="' . $ui_dialog_id . '" />
@@ -1146,6 +1154,8 @@ class tsmViewAdmin extends JViewLegacy
 		<input type="hidden" name="layout" value="' . $layout . '" />
 
 		' . JHtml::_('form.token');
+        echo $hidden;
+        return ob_get_clean();
     }
 
     public function addStandardHiddenToForm1($controller = null, $task = '')

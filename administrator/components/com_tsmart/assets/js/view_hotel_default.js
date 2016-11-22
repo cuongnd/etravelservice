@@ -35,7 +35,7 @@
                     dialogClass:'asian-dialog-form',
                     modal: true,
                     width: 900,
-                    title: 'itinerary',
+                    title: 'Build hotel',
                     show: {effect: "blind", duration: 800},
                     appendTo: 'body'
                 });

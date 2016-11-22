@@ -332,6 +332,11 @@ Array.implement({
 	},
 
 	each: function(fn, bind){
+		if(typeof fn!="function")
+		{
+			console.log(fn);
+			throw "fn is not a function";
+		}
 		Array.forEach(this, fn, bind);
 		return this;
 	}

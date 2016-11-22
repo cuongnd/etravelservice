@@ -1,0 +1,162 @@
+// Core variables and mixins
+@import "../../../../../../../templates/protostar/less/variables.less"; // Custom for this template
+@import "../../../../../../../templates/protostar/less/template_rtl.less"; // Specific for rtl
+@import "../../../../../../../media/jui/less/mixins.less";
+
+.html_edit_passenger_in_order{
+  @gridColumns:             12;
+  @gridColumnWidth:         400px;
+  @gridGutterWidth:         0px;
+  @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+  // 1200px min
+  @gridColumnWidth1200:     70px;
+  @gridGutterWidth1200:     20px;
+  @gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
+
+  // 768px-979px
+  @gridColumnWidth768:      42px;
+  @gridGutterWidth768:      20px;
+  @gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+
+
+  // Fluid grid
+  // -------------------------
+  @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
+  @fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+
+  // 1200px min
+  @fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
+  @fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
+
+  // 768px-979px
+  @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
+  @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+
+  #grid > .fluid(@fluidGridColumnWidth, @fluidGridGutterWidth);
+}
+
+.html_edit_passenger_in_order {
+  .toolbar{
+    padding: 5px;
+    background-color: #f2f0f0;
+    background-image: -moz-linear-gradient(center top , #fdfcfc, #fbf9f9 50%, #f7f5f6 50%, #f2f0f0);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #ccc;
+    .title{
+      line-height: 25px;
+      text-transform: uppercase;
+    }
+  }
+  .header
+  {
+    margin-bottom: 0px;
+  }
+  .body .column
+  {
+    .btn-link{
+      padding: 0px;
+    }
+  }
+  .header .column,.body .column
+  {
+    border-right:1px solid #ccc ;
+    padding: 10px 5px;
+    min-height: 45px;
+  }
+  .header ,.body
+  {
+    .id
+    {
+      text-align: center;
+    }
+  }
+  .header .column
+  {
+    min-height: 40px;
+    text-transform: uppercase;
+    color: #017898;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  border: 1px solid #ccc;
+  input, select {
+    width: 80px;
+  }
+  ul.list-passenger {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+  .passenger-title{
+    border-bottom: 1px solid #000000;
+    line-height: 40px;
+    color: #00A1DF;
+
+  }
+  .row-item {
+    padding: 0px 0px;
+  }
+  .row-item:nth-child(2n+1) {
+    background: #f2f2f2;
+  }
+  .row-item:nth-child(2n) {
+
+  }
+  .row-item {
+    position: relative;
+    margin-top: 0px;
+
+
+  }
+  .row-item .move-aobject {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  .ui-state-highlight {
+    height: 30px;
+    line-height: 1.2em;
+  }
+  .html_build_aobject_list_aobject .ui-state-highlight {
+    height: 300px;
+    line-height: 1.2em;
+  }
+  .error
+  {
+    border: red solid 1px;
+  }
+  .list-aobject.error,.list-passenger.error
+  {
+    border: red solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  .list-passenger
+  {
+    list-style: decimal;
+  }
+
+
+}
+#edit_passenger
+{
+  .form-horizontal
+  {
+    .control-label
+    {
+      width:80px ;
+    }
+    .controls
+    {
+      margin-left:90px;
+    }
+  }
+  .modal-body
+  {
+    max-height: none;
+    overflow-y: scroll;
+    max-height: 300px;
+
+  }
+}

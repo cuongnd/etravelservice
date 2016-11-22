@@ -1,4 +1,117 @@
 <?php die();?>
+Akeeba Backup 4.7.4
+================================================================================
+- Removed Dropbox API v1 integration. The v1 API is going to be discontinued by Dropbox, see https://blogs.dropbox.com/developers/2016/06/api-v1-deprecated/ Please use the Dropbox API v2 integration instead.
++ Restoration: a warning is displayed if the database table name prefix contains uppercase characters
+~ Workaround for sites with upper- or mixed-case prefixes / table names on MySQL servers running on case-insensitive filesystems and lower_case_table_names = 1 (default on Windows)
+~ You will get a warning if you try to backup sites with upper- or mixed-case prefixes as this can cause major restoration issues.
+# [MEDIUM] Multi db view wasn't saving the values
+
+Akeeba Backup 4.7.3
+================================================================================
+! Compatibility issues with PHP 5.3
+# [HIGH] JSON API (remote) backups were broken if used a profile other than 1.
+# [LOW] Database dump could fail on servers where the get_magic_quotes_runtime function is not available
+
+Akeeba Backup 4.7.2
+================================================================================
+! Multipart backups are broken
++ Automatic detection and working around of temporary data load failure
+# [HIGH] The backup would immediately fail in many cases due to a partially backported feature from Akeeba Backup 5
+# [MEDIUM] Sometimes the back-end wouldn't load complaining that a class is already loaded
+
+Akeeba Backup 4.7.1
+================================================================================
+! Too many update sites were being removed while trying to set up the 5.0 update site
+
+Akeeba Backup 4.7.0
+================================================================================
++ Improved detection and removal of duplicate update sites
+- Google Drive: Removed "Download to browser" feature since it's not supported
+~ Remove obsolete FOF 2.x update site if it exists
+~ More rigorous handling of database driver interconnect
+~ ANGIE (restoration script): Reset APC cache after the restoration is complete (NB! Only if you use ANGIE's Remove Installation Directory feature)
+# [HIGH] Joomla! "Conservative" cache bug: you could not enter the Download ID when prompted
+# [HIGH] Joomla! "Conservative" cache bug: you could not apply the proposed Secret Word when prompted
+# [HIGH] Joomla! "Conservative" cache bug: component Options (e.g. Download ID, Secret Word, front-end backup feature) would be forgotten on the next page load
+# [HIGH] Joomla! "Conservative" cache bug: the "How do I restore" popup can never be made to not display
+# [MEDIUM] Fixed Rackspace CloudFiles when using a region different then London
+# [LOW] The "How to restore" modal would appear every time you saved the component's Options
+
+Akeeba Backup 4.6.1
+================================================================================
+! Update failure on ancient servers lacking UTF8MB4 support
+
+Akeeba Backup 4.6.0
+================================================================================
+! Fatal exceptions when using PDOMySQL under certain conditions, e.g. installing the component when the SQL mode is set to strict
++ UTF8MB4 support for our own database tables (requires Joomla! 3.5 and a PHP/MySQL environment with UTF8MB4 support)
++ Google Drive integration
++ ANGIE: Warning message when you're trying to use a complex database password which may cause database restoration failure.
++ ANGIE: Improved UTF8MB4 support detection
++ ANGIE: Ability to downgrade UTF8MB4 data to UTF8
++ Added warning if the mbstring PHP extension is not installed
+# [MEDIUM] Fixed recording of backup end time when a post-processing engine is used
+
+Akeeba Backup 4.5.5
+================================================================================
+! The file integrity check feature would fail on some hosts due to Joomla!'s installer being broken. The feature was removed.
+
+Akeeba Backup 4.5.4
+================================================================================
+# [HIGH] The Quickicon plugin was missing a folder, making it impossible to configure which backup profile it should use for one click backups.
+# [HIGH] The icon module for Joomla! 1.6/1.7 was causing problems in Joomla! 3. This module is now removed.
+# [MEDIUM] Built-in update would fail under Joomla! 1.5/1.6/1.7/2.5
+# [LOW] Under Joomla! 1.5/1.6/1.7/2.5 the "Update available" message would be displayed even if running the latest version
+
+Akeeba Backup 4.5.3
+================================================================================
+! The System – Akeeba Backup Update Check plugin caused Admin Tools to fail with a white page
+
+Akeeba Backup 4.5.2
+================================================================================
+! Joomla! 3.5 breaks CLI scripts, workaround applied
++ Backup check quick icon module for Joomla! 1.6/1.7
++ The backup check quick icon now launches a single click backup
++ Added option to automatically exclude hosting web stats (e.g. Webalyzer)
+~ Improved display of backup check quick icon module
+~ Disable CLI script workaround necessary only under Joomla! 3.4.7 on all other versions of Joomla!
+# [HIGH] Static Initialization Vector (derived from the encryption key) for Rijndael-128 encryption in JPS files and app settings weakened the encryption strength
+# [HIGH] ANGIE for Drupal 7: Fixed fatal error in setup page
+# [MEDIUM] Some servers with problematic libcurl implementations are unable to use Dropbox API v2, always receiving an error message.
+# [MEDIUM] Upload to OneDrive occasionally fails when their API doesn't report the folder creation correctly
+# [MEDIUM] ANGIE for Wordpress: Fixed data replacement in case-sensitive filesystems
+# [LOW] A fatal error is recorded in the PHP error log if you try to access a front-end view which doesn't exist
+
+Akeeba Backup 4.5.1
+================================================================================
+# [HIGH] Joomla! 3.4.7 has a major bug which prevents CLI (CRON) scripts from executing
+# [HIGH] Possible backup failure when the database being backed up is of a different type (e.g. PostgreSQL vs MySQL) than the one containing the backup profile configuration
+# [HIGH] The Configuration Wizard popup is illegible under Joomla! 3.x
+# [HIGH] MySQL error on Joomla! 1.6 when updating statistics
+# [MEDIUM] Automatic update CLI script throws fatal error
+# [MEDIUM] Test FTP Connection results didn't display properly under Joomla! 3.x
+# [MEDIUM] Test SFTP Connection results didn't display properly under Joomla! 1.x / 2.5
+# [LOW] "Copy" label untranslated in Profiles page under Joomla! 1.6
+
+Akeeba Backup 4.5.0
+================================================================================
+! Front-end and remote backup features will be DISABLED if we detect an insecure Secret Word
++ Automatically run ALICE if an error occurs during the last domain of a backup
++ Added textual output to ALICE so it could be included in support tickets
++ Support for Amazon S3's Standard- Infrequent Access storage type
++ Integrated updater (optional for Joomla! 3.2+, mandatory for Joomla! 1.x/2.x/3.0/3.1)
+~ More stable Site Transfer Wizard thanks to improved transfer chunk size calculations
+~ Now compatible with Joomla! 1.7, 2.5, 3.0, 3.1, 3.2, 3.3, 3.4 and 3.5 running on PHP 5.3.03+, 5.4, 5.5 and 5.6.
+# [HIGH] ANGIE for Drupal: Fixed endless loop while trying to read the configuration
+# [LOW] Site Transfer Wizard, bad performance of the test FTP/SFTP servers could lead to an instant error when accessing this feature
+# [LOW] Notice thrown by the auto-update CLI script
+# [LOW] Low encoding of media folder permissions check could show an erroneous message on some sites (thanks Angel!)
+# [LOW] Someone who already knows your Secret Word can store XSS in the database if the remote backup is enabled and you're not using Joomla!'s or Admin Tools' .htaccess file (discovered by Calum Hutton, NCC Group)
+# [LOW] Open redirection in back-end backups (discovered by Calum Hutton, NCC Group)
+# [LOW] ANGIE for Wordpress: Fixed missing version number
+# [LOW] ANGIE for Wordpress: Fixed missing email address in site setup
+
 Akeeba Backup 4.4.3
 ================================================================================
 + One-click backup icons. Select which profiles to display as one-click icons in Akeeba Backup's control panel

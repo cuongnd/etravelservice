@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     1.3
@@ -21,7 +21,7 @@ class AkeebaControllerCpanel extends F0FController
 {
 	public function execute($task)
 	{
-		if (!in_array($task, array('switchprofile', 'disablephpwarning', 'updateinfo', 'fastcheck', 'applydlid')))
+		if (!in_array($task, array('switchprofile', 'disablephpwarning', 'updateinfo', 'applydlid', 'resetSecretWord')))
 		{
 			$task = 'browse';
 		}
@@ -34,7 +34,6 @@ class AkeebaControllerCpanel extends F0FController
 
 		if ($result)
 		{
-			$params = JComponentHelper::getParams('com_akeeba');
 			$model  = $this->getThisModel();
 			$view   = $this->getThisView();
 
@@ -45,6 +44,13 @@ class AkeebaControllerCpanel extends F0FController
 			$aeconfig = Factory::getConfiguration();
 
 			// Invalidate stale backups
+			if (!class_exists('AkeebaHelperParams'))
+			{
+				require_once JPATH_ADMINISTRATOR . '/components/com_akeeba/helpers/params.php';
+			}
+
+			$params = new AkeebaHelperParams();
+
 			Factory::resetState(array(
 				'global' => true,
 				'log'    => false,
@@ -55,6 +61,7 @@ class AkeebaControllerCpanel extends F0FController
 			Platform::getInstance()->load_configuration();
 
 			// Let's make sure the temporary and output directories are set correctly and writable...
+			/** @var AkeebaModelConfwiz $wizmodel */
 			$wizmodel = F0FModel::getAnInstance('Confwiz', 'AkeebaModel');
 			$wizmodel->autofixDirectories();
 
@@ -86,7 +93,7 @@ class AkeebaControllerCpanel extends F0FController
 
 		if (!is_numeric($newProfile) || ($newProfile <= 0))
 		{
-			$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba', JText::_('PANEL_PROFILE_SWITCH_ERROR'), 'error');
+			$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba', JText::_('COM_AKEEBA_CPANEL_PROFILE_SWITCH_ERROR'), 'error');
 
 			return true;
 		}
@@ -103,7 +110,7 @@ class AkeebaControllerCpanel extends F0FController
 		{
 			$url = JUri::base() . 'index.php?option=com_akeeba';
 		}
-		$this->setRedirect($url, JText::_('PANEL_PROFILE_SWITCH_OK'));
+		$this->setRedirect($url, JText::_('COM_AKEEBA_CPANEL_PROFILE_SWITCH_OK'));
 	}
 
 	public function disablephpwarning()
@@ -115,7 +122,7 @@ class AkeebaControllerCpanel extends F0FController
 		}
 
 		// Fetch the component parameters
-		$db  = JFactory::getDbo();
+		$db  = F0FPlatform::getInstance()->getDbo();
 		$sql = $db->getQuery(true)
 				  ->select($db->qn('params'))
 				  ->from($db->qn('#__extensions'))
@@ -156,19 +163,36 @@ class AkeebaControllerCpanel extends F0FController
 
 	public function updateinfo()
 	{
+		$result = '';
+
 		/** @var AkeebaModelUpdates $updateModel */
 		$updateModel = F0FModel::getTmpInstance('Updates', 'AkeebaModel');
-		$updateInfo  = (object)$updateModel->getUpdates();
+		$infoArray   = $updateModel->getUpdates();
+		$updateInfo  = (object)$infoArray;
 
 		$result = '';
+
+		$updateMethod = $updateModel->getUpdateMethod();
+
+		switch ($updateMethod)
+		{
+			case 'joomla':
+				$updateUrl = 'index.php?option=com_installer&view=update';
+				break;
+
+			default:
+			case 'classic':
+				$updateUrl = 'index.php?option=com_akeeba&view=update';
+				break;
+		}
 
 		if ($updateInfo->hasUpdate)
 		{
 			$strings = array(
-				'header'  => JText::sprintf('COM_AKEEBA_CPANEL_MSG_UPDATEFOUND', $updateInfo->version),
-				'button'  => JText::sprintf('COM_AKEEBA_CPANEL_MSG_UPDATENOW', $updateInfo->version),
-				'infourl' => $updateInfo->infoURL,
-				'infolbl' => JText::_('COM_AKEEBA_CPANEL_MSG_MOREINFO'),
+					'header'  => JText::sprintf('COM_AKEEBA_CPANEL_MSG_UPDATEFOUND', $updateInfo->version),
+					'button'  => JText::sprintf('COM_AKEEBA_CPANEL_MSG_UPDATENOW', $updateInfo->version),
+					'infourl' => $updateInfo->infoURL,
+					'infolbl' => JText::_('COM_AKEEBA_CPANEL_MSG_MOREINFO'),
 			);
 
 			$result = <<<ENDRESULT
@@ -178,7 +202,7 @@ class AkeebaControllerCpanel extends F0FController
 			{$strings['header']}
 		</h3>
 		<p>
-			<a href="index.php?option=com_installer&view=update" class="btn btn-primary">
+			<a href="$updateUrl" class="btn btn-primary">
 				{$strings['button']}
 			</a>
 			<a href="{$strings['infourl']}" target="_blank" class="btn btn-small btn-info">
@@ -190,19 +214,6 @@ ENDRESULT;
 		}
 
 		echo '###' . $result . '###';
-
-		// Cut the execution short
-		JFactory::getApplication()->close();
-	}
-
-	public function fastcheck()
-	{
-		/** @var AkeebaModelCpanels $model */
-		$model = $this->getThisModel();
-
-		$result = $model->fastCheckFiles();
-
-		echo '###' . ($result ? 'true' : 'false') . '###';
 
 		// Cut the execution short
 		JFactory::getApplication()->close();
@@ -228,18 +239,15 @@ ENDRESULT;
 		{
 			$msg = null;
 			$msgType = null;
+			
+			if (!class_exists('AkeebaHelperParams'))
+			{
+				require_once JPATH_ADMINISTRATOR . '/components/com_akeeba/helpers/params.php';
+			}
 
-			JLoader::import('joomla.application.component.helper');
-			$params = JComponentHelper::getParams('com_akeeba');
+			$params = new AkeebaHelperParams();
 			$params->set('update_dlid', $dlid);
-
-			$db = JFactory::getDbo();
-
-			$sql = $db->getQuery(true)
-				->update($db->qn('#__extensions'))
-				->set($db->qn('params') . ' = ' . $db->q($params->toString('JSON')))
-				->where($db->qn('element') . " = " . $db->q('com_akeeba'));
-			$db->setQuery($sql)->execute();
+			$params->save();
 		}
 
 		// Redirect back to the control panel
@@ -254,5 +262,44 @@ ENDRESULT;
 			$url = JUri::base() . 'index.php?option=com_akeeba';
 		}
 		$this->setRedirect($url, $msg, $msgType);
+	}
+
+	/**
+	 * Reset the Secret Word for front-end and remote backup
+	 *
+	 * @return  void
+	 */
+	public function resetSecretWord()
+	{
+		// CSRF prevention
+		if ($this->csrfProtection)
+		{
+			$this->_csrfProtection();
+		}
+
+		if (!class_exists('AkeebaHelperParams'))
+		{
+			require_once JPATH_ADMINISTRATOR . '/components/com_akeeba/helpers/params.php';
+		}
+
+		$params = new AkeebaHelperParams();
+
+		$session = JFactory::getSession();
+		$newSecret = $session->get('newSecretWord', null, 'akeeba.cpanel');
+
+		if (empty($newSecret))
+		{
+			$random = new \Akeeba\Engine\Util\RandomValue();
+			$newSecret = $random->generateString(32);
+			$session->set('newSecretWord', $newSecret, 'akeeba.cpanel');
+		}
+
+		$params->set('frontend_secret_word', $newSecret);
+		$params->save();
+
+		$msg = JText::sprintf('COM_AKEEBA_CPANEL_MSG_FESECRETWORD_RESET', $newSecret);
+
+		$url = 'index.php?option=com_akeeba';
+		$this->setRedirect($url, $msg);
 	}
 }

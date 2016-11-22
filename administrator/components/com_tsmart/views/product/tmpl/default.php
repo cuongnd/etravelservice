@@ -33,42 +33,6 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
 ?>
     <div class="view-product-default">
         <form action="index.php"  method="post" name="adminForm" id="adminForm">
-            <div id="header">
-                <div id="filterbox">
-                    <table class="">
-                        <tr>
-                            <td align="left">
-                                <?php echo tsmText::_('com_tsmart_FILTER') ?>:
-                                <select class="inputbox" id="tsmart_category_id" name="tsmart_category_id"
-                                        onchange="this.form.submit(); return false;">
-                                    <option
-                                        value=""><?php echo tsmText::sprintf('com_tsmart_SELECT', tsmText::_('com_tsmart_CATEGORY')); ?></option>
-                                    <?php echo $this->category_tree; ?>
-                                </select>
-
-
-                                <?php echo tsmText::_('com_tsmart_PRODUCT_LIST_SEARCH_BY_DATE') ?>&nbsp;
-                                <input type="text" value="<?php echo vRequest::getVar('filter_product'); ?>"
-                                       name="filter_product" size="25"/>
-                                <?php
-                                echo $this->lists['search_type'];
-                                echo $this->lists['search_order'];
-                                echo vmJsApi::jDate(vRequest::getVar('search_date', $nowstring), 'search_date');
-                                echo $this->lists['vendors'];
-                                ?>
-                                <button class="btn btn-small"
-                                        onclick="this.form.submit();"><?php echo tsmText::_('com_tsmart_GO'); ?></button>
-                                <button class="btn btn-small"
-                                        onclick="document.adminForm.filter_product.value=''; document.adminForm.search_type.options[0].selected = true;"><?php echo tsmText::_('com_tsmart_RESET'); ?></button>
-
-                            </td>
-
-                        </tr>
-                    </table>
-                </div>
-                <div id="resultscounter"><?php echo $this->pagination->getResultsCounter(); ?></div>
-
-            </div>
 
             <div class="product table_product" style="text-align: left;">
                 <?php

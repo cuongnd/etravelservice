@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 1.3
@@ -14,30 +14,30 @@ defined('_JEXEC') or die();
 </div>
 
 <div class="alert alert-info">
-	<strong><?php echo JText::_('CPANEL_PROFILE_TITLE'); ?></strong>
+	<strong><?php echo JText::_('COM_AKEEBA_CPANEL_PROFILE_TITLE'); ?></strong>
 	#<?php echo $this->profileid; ?> <?php echo $this->profilename; ?>
 </div>
 
 <div class="well form-inline">
 	<div>
-		<label><?php echo JText::_('DBFILTER_LABEL_ROOTDIR') ?></label>
+		<label><?php echo JText::_('COM_AKEEBA_DBFILTER_LABEL_ROOTDIR') ?></label>
 		<span><?php echo $this->root_select; ?></span>
 	</div>
 	<div id="addnewfilter">
-		<label><?php echo JText::_('FSFILTER_LABEL_ADDNEWFILTER') ?></label>
-		<button class="btn" onclick="dbfilter_addnew('tables'); return false;"><?php echo JText::_('DBFILTER_TYPE_TABLES') ?></button>
-		<button class="btn" onclick="dbfilter_addnew('tabledata'); return false;"><?php echo JText::_('DBFILTER_TYPE_TABLEDATA') ?></button>
+		<label><?php echo JText::_('COM_AKEEBA_FILEFILTERS_LABEL_ADDNEWFILTER') ?></label>
+		<button class="btn" onclick="akeeba.Dbfilters.addNew('tables'); return false;"><?php echo JText::_('COM_AKEEBA_DBFILTER_TYPE_TABLES') ?></button>
+		<button class="btn" onclick="akeeba.Dbfilters.addNew('tabledata'); return false;"><?php echo JText::_('COM_AKEEBA_DBFILTER_TYPE_TABLEDATA') ?></button>
 	</div>
 </div>
 
-	
+
 <fieldset>
 	<div id="ak_list_container">
 		<table id="ak_list_table" class="table table-striped">
 			<thead>
 				<tr>
-					<td width="250px"><?php echo JText::_('FILTERS_LABEL_TYPE') ?></td>
-					<td><?php echo JText::_('FILTERS_LABEL_FILTERITEM') ?></td>
+					<td width="250px"><?php echo JText::_('COM_AKEEBA_FILEFILTERS_LABEL_TYPE') ?></td>
+					<td><?php echo JText::_('COM_AKEEBA_FILEFILTERS_LABEL_FILTERITEM') ?></td>
 				</tr>
 			</thead>
 			<tbody id="ak_list_contents">
@@ -53,16 +53,15 @@ defined('_JEXEC') or die();
 function akeeba_active_root_changed()
 {
 	(function($){
-		dbfilter_load_tab($('#active_root').val());
+        akeeba.Dbfilters.loadTab($('#active_root').val());
 	})(akeeba.jQuery);
 }
 
 akeeba.jQuery(document).ready(function($){
 	// Set the AJAX proxy URL
-	akeeba_ajax_url = '<?php echo AkeebaHelperEscape::escapeJS('index.php?option=com_akeeba&view=dbef&task=ajax') ?>';
-	// Set the media root
-	akeeba_ui_theme_root = '<?php echo $this->mediadir ?>';
-	// Create the dialog
+    akeeba.System.params.AjaxURL = '<?php echo AkeebaHelperEscape::escapeJS('index.php?option=com_akeeba&view=dbef&task=ajax') ?>';
+
+    // Create the dialog
 	$("#dialog").dialog({
 		autoOpen: false,
 		closeOnEscape: false,
@@ -74,28 +73,28 @@ akeeba.jQuery(document).ready(function($){
 		show: 'slide'
 	});
 	// Create an AJAX error trap
-	akeeba_error_callback = function( message ) {
+    akeeba.System.params.errorCallback = function( message ) {
 		var dialog_element = $("#dialog");
 		dialog_element.html(''); // Clear the dialog's contents
-		dialog_element.dialog('option', 'title', '<?php echo AkeebaHelperEscape::escapeJS(JText::_('CONFIG_UI_AJAXERRORDLG_TITLE')) ?>');
-		$(document.createElement('p')).html('<?php echo AkeebaHelperEscape::escapeJS(JText::_('CONFIG_UI_AJAXERRORDLG_TEXT')) ?>').appendTo(dialog_element);
+		dialog_element.dialog('option', 'title', '<?php echo AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_CONFIG_UI_AJAXERRORDLG_TITLE')) ?>');
+		$(document.createElement('p')).html('<?php echo AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_CONFIG_UI_AJAXERRORDLG_TEXT')) ?>').appendTo(dialog_element);
 		$(document.createElement('pre')).html( message ).appendTo(dialog_element);
 		dialog_element.dialog('open');
 	};
 	// Push translations
-	akeeba_translations['UI-ROOT'] = '<?php echo AkeebaHelperEscape::escapeJS(JText::_('FILTERS_LABEL_UIROOT')) ?>';
-	akeeba_translations['UI-ERROR-FILTER'] = '<?php echo AkeebaHelperEscape::escapeJS(JText::_('FILTERS_LABEL_UIERRORFILTER')) ?>';
+    akeeba.Dbfilters.translations['UI-ROOT'] = '<?php echo AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_FILEFILTERS_LABEL_UIROOT')) ?>';
+    akeeba.Dbfilters.translations['UI-ERROR-FILTER'] = '<?php echo AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_FILEFILTERS_LABEL_UIERRORFILTER')) ?>';
 <?php
 	$filters = array('tables', 'tabledata');
 	foreach($filters as $type)
 	{
-		echo "\takeeba_translations['UI-FILTERTYPE-".strtoupper($type)."'] = '".
-			AkeebaHelperEscape::escapeJS(JText::_('DBFILTER_TYPE_'.strtoupper($type))).
+		echo "\takeeba.Dbfilters.translations['UI-FILTERTYPE-".strtoupper($type)."'] = '".
+			AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_DBFILTER_TYPE_'.strtoupper($type))).
 			"';\n";
 	}
 ?>
 	// Bootstrap the page display
 	var data = JSON.parse('<?php echo AkeebaHelperEscape::escapeJS($this->json,"'"); ?>');
-	dbfilter_render_tab(data);
+    akeeba.Dbfilters.renderTab(data);
 });
 </script>

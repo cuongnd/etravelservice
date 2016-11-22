@@ -45,14 +45,14 @@ $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/datepick
 $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/view_price_default.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/base.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/datepicker/css/clean.css');
-$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_price_default.less');
+$doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/less/view_price.less');
 
 
 AdminUIHelper::startAdminArea($this);
 
 ?>
 <div class="view-price-default">
-    <?php echo vmproduct::get_html_tour_information($this,$this->tsmart_product_id); ?>
+    <?php echo tsmproduct::get_html_tour_information($this,$this->tsmart_product_id); ?>
     <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate ">
         <div class="row-fluid" style="padding-top: 0px">
             <div class="span12">

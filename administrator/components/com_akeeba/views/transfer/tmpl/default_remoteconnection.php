@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 3.3
@@ -21,7 +21,7 @@ akeeba.jQuery(document).ready(function(){
 });
 JS;
 
-JFactory::getApplication()->getDocument()->addScriptDeclaration($js);
+JFactory::getDocument()->addScriptDeclaration($js);
 
 ?>
 
@@ -168,7 +168,7 @@ JFactory::getApplication()->getDocument()->addScriptDeclaration($js);
 						   placeholder="public_html"/>
 					<!--
 					<button class="btn" type="button" id="akeeba-transfer-ftp-directory-browse">
-						<?php echo JText::_('CONFIG_UI_BROWSE'); ?>
+						<?php echo JText::_('COM_AKEEBA_CONFIG_UI_BROWSE'); ?>
 					</button>
 					<button class="btn" type="button" id="akeeba-transfer-ftp-directory-detect">
 						<?php echo JText::_('COM_AKEEBA_TRANSFER_BTN_FTP_DETECT'); ?>

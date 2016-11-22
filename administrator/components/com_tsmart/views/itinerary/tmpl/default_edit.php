@@ -33,9 +33,13 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
             <div class="admintable row-fluid">
                 <div class="span12">
                     <?php echo VmHTML::row_control('input', 'Day title', 'title', $this->item->title, 'class="required"'); ?>
+<<<<<<< master
                     <?php echo VmHTML::row_control('location_city','overnight', 'tsmart_cityarea_id',$this->item->tsmart_cityarea_id,'') ; ?>
-                    <?php echo VmHTML::row_control('editor', 'Short description', 'short_description', $this->item->brief_itinerary,'',90,4); ?>
-                    <?php echo VmHTML::row_control('editor', 'Full description', 'full_description', $this->item->meta_title,'',90,4); ?>
+
+
+
+                    <?php echo VmHTML::row_control('editor', 'Short description', 'short_description', $this->item->brief_itinerary,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+                    <?php echo VmHTML::row_control('editor', 'Full description', 'full_description', $this->item->meta_title,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
 
 
                     <?php echo VmHTML::row_control('textarea', 'Trip note 1', 'trip_note1', $this->item->trip_note1,'',90,4); ?>
@@ -43,8 +47,17 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
                     <?php echo VmHTML::row_control_v_1('list_checkbox', 'Meal','list_meal_id', 'list_meal_id', $this->list_meal, $this->item->list_meal_id, '', 'tsmart_meal_id', 'title', false); ?>
                     <?php echo VmHTML::image('Photo 1', 'photo1', $this->item->photo1, 'class="required"'); ?>
                     <?php echo VmHTML::image('Photo 2', 'photo2', $this->item->photo2, 'class="required"'); ?>
+=======
+                    <?php echo VmHTML::row_control('location_city','Overnight', 'tsmart_cityarea_id',$this->item->tsmart_cityarea_id,'') ; ?>
+                    <?php echo VmHTML::row_control('editor', 'Short description', 'short_description', $this->item->short_description,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                    <?php echo VmHTML::row_control('editor', 'Full description', 'full_description', $this->item->full_description,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                    <?php echo VmHTML::row_control('editor', JText::_('Write day trip note'), 'trip_note', $this->item->trip_note,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                    <?php echo VmHTML::row_control_v_1('list_checkbox', 'Meal','list_meal_id','list_meal_id', $this->list_meal, $this->item->list_meal_id, '', 'tsmart_meal_id', 'meal_name', 3); ?>
+                    <?php echo VmHTML::row_control('image', 'Photo 1', 'photo1', $this->item->photo1,'class="select-image"'); ?>
+                    <?php echo VmHTML::row_control('image', 'Photo 2', 'photo2', $this->item->photo2,'class="select-image"'); ?>
+                    <?php echo VmHTML::row_control('select_activity',JText::_('Select activity'), 'list_activity_id[]',$this->item->list_activity_id,'multiple="multiple"') ; ?>
+>>>>>>> local
                     <?php echo VmHTML::row_control('booleanlist', 'com_tsmart_PUBLISHED', 'published', $this->item->published); ?>
-
                 </div>
 
 

@@ -3,7 +3,7 @@
  * Akeeba Engine
  * The modular PHP5 site backup engine
  *
- * @copyright Copyright (c)2006-2015 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2006-2016 Nicholas K. Dionysopoulos
  * @license   GNU GPL version 3 or, at your option, any later version
  * @package   akeebaengine
  *
@@ -14,10 +14,10 @@ namespace Akeeba\Engine\Core\Domain;
 // Protection against direct access
 defined('AKEEBAENGINE') or die();
 
-use Psr\Log\LogLevel;
 use Akeeba\Engine\Base\Part;
 use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
+use Psr\Log\LogLevel;
 
 /**
  * Backup finalization domain
@@ -89,17 +89,11 @@ class Finalization extends Part
 
 		if (is_array($customHandlers) && !empty($customHandlers))
 		{
-			// Pop the second update_statistics call
-			$oldItem = array_pop($this->action_queue);
-
 			foreach ($customHandlers as $handler)
 			{
 				$this->action_handlers[] = $handler;
 			}
-
-			// Push the second update_statistics call
-			$this->action_handlers[] = $oldItem;
-		}
+        }
 
 		// Do we have a custom action queue set in volatile.core.finalization.action_queue?
 		$customQueue = $configuration->get('volatile.core.finalization.action_queue', null);
@@ -363,7 +357,7 @@ class Finalization extends Part
 			if (empty($subject))
 			{
 				// Get the default subject
-				$subject = Platform::getInstance()->translate('EMAIL_SUBJECT_OK');
+				$subject = Platform::getInstance()->translate('COM_AKEEBA_COMMON_EMAIL_SUBJECT_OK');
 			}
 			else
 			{
@@ -374,8 +368,8 @@ class Finalization extends Part
 			// Do we need a default body?
 			if (empty($body))
 			{
-				$body = Platform::getInstance()->translate('EMAIL_BODY_OK');
-				$info_source = Platform::getInstance()->translate('EMAIL_BODY_INFO');
+				$body = Platform::getInstance()->translate('COM_AKEEBA_COMMON_EMAIL_BODY_OK');
+				$info_source = Platform::getInstance()->translate('COM_AKEEBA_COMMON_EMAIL_BODY_INFO');
 				$body .= "\n\n" . sprintf($info_source, $profile_number, $num_parts) . "\n\n";
 				$body .= $parts_list;
 			}
@@ -650,6 +644,17 @@ class Finalization extends Part
 
 		// Post-process the file
 		$this->setSubstep('kickstart.php');
+
+		if (!@file_exists($filename) || !is_file($filename))
+		{
+			Factory::getLog()->log(LogLevel::WARNING, "Failed to upload kickstart.php. File $filename is missing");
+
+			$this->setWarning('Failed to upload kickstart.php. Missing file ' . $filename);
+
+			// Indicate we're done.
+			return true;
+		}
+
 		$result = $post_proc->processPart($filename, 'kickstart.php');
 		$this->propagateFromObject($post_proc);
 

@@ -2,7 +2,7 @@
 /**
  * @package    FrameworkOnFramework
  * @subpackage controller
- * @copyright   Copyright (C) 2010 - 2015 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -479,6 +479,13 @@ class F0FController extends F0FUtilsObject
 		foreach ($rMethods as $rMethod)
 		{
 			$mName = $rMethod->getName();
+
+			// If the developer screwed up and declared one of the helper method public do NOT make them available as
+			// tasks.
+			if ((substr($mName, 0, 8) == 'onBefore') || (substr($mName, 0, 7) == 'onAfter') || substr($mName, 0, 1) == '_')
+			{
+				continue;
+			}
 
 			// Add default display method if not explicitly declared.
 			if (!in_array($mName, $xMethods) || in_array($mName, $iMethods))
@@ -1049,8 +1056,9 @@ class F0FController extends F0FUtilsObject
 				$groups = $user->groups;
 			}
 
-			// Set up safe URL parameters
+			$importantParameters = array();
 
+			// Set up safe URL parameters
 			if (!is_array($urlparams))
 			{
 				$urlparams = array(
@@ -1090,6 +1098,9 @@ class F0FController extends F0FUtilsObject
 				{
 					// Add your safe url parameters with variable type as value {@see JFilterInput::clean()}.
 					$registeredurlparams->$key = $value;
+
+					// Add the URL-important parameters into the array
+					$importantParameters[$key] = $this->input->get($key, null, $value);
 				}
 
 				if (version_compare(JVERSION, '3.0', 'ge'))
@@ -1103,7 +1114,7 @@ class F0FController extends F0FUtilsObject
 			}
 
 			// Create the cache ID after setting the registered URL params, as they are used to generate the ID
-			$cacheId = md5(serialize(array(JCache::makeId(), $view->getName(), $this->doTask, $groups)));
+			$cacheId = md5(serialize(array(JCache::makeId(), $view->getName(), $this->doTask, $groups, $importantParameters)));
 
 			// Get the cached view or cache the current view
 			$cache->get($view, 'display', $cacheId);
@@ -3353,7 +3364,7 @@ class F0FController extends F0FUtilsObject
 		// Joomla! 1.5/1.6/1.7/2.5 (classic Joomla! API) method
 		if (method_exists('JUtility', 'getToken'))
 		{
-			$token    = TSMUtility::getToken();
+			$token    = JUtility::getToken();
 			$hasToken = $this->input->get($token, false, 'none') == 1;
 
 			if (!$hasToken)

@@ -33,7 +33,7 @@
 
             var task=plugin.settings.task;
             console.log(task);
-            if(task=='add_new_item'||task=='edit_item')
+            if(task=='add'||task=='edit')
             {
 
                 $element.find( ".view-accommodation-edit" ).dialog({

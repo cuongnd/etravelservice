@@ -84,7 +84,7 @@ class tsmartModelTourtype extends tmsModel {
 		if ($search) {
 			$db = JFactory::getDBO();
 			$search = '"%' . $db->escape($search, true) . '%"';
-			$query->where('tour_type.title LIKE '.$search);
+			$query->where('tour_type.tour_type_name LIKE '.$search);
 		}
 		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');

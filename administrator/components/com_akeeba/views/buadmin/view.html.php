@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     1.3
@@ -10,7 +10,6 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
 
 /**
@@ -49,23 +48,23 @@ class AkeebaViewBuadmin extends F0FViewHtml
 
 		if (AKEEBA_PRO && ($task == 'default'))
 		{
-			$bar = JToolBar::getInstance('toolbar');
-			$bar->appendButton('Link', 'restore', JText::_('DISCOVER'), 'index.php?option=com_akeeba&view=discover');
-			JToolBarHelper::publish('restore', JText::_('STATS_LABEL_RESTORE'));
+			$bar = JToolbar::getInstance('toolbar');
+			$bar->appendButton('Link', 'restore', JText::_('COM_AKEEBA_DISCOVER'), 'index.php?option=com_akeeba&view=discover');
+			JToolbarHelper::publish('restore', JText::_('COM_AKEEBA_BUADMIN_LABEL_RESTORE'));
 		}
 
 		if (($task == 'default'))
 		{
-			JToolBarHelper::editList('showcomment', JText::_('STATS_LOG_EDITCOMMENT'));
+			JToolbarHelper::editList('showcomment', JText::_('COM_AKEEBA_BUADMIN_LOG_EDITCOMMENT'));
 
 			$pModel                  = F0FModel::getTmpInstance('Profiles', 'AkeebaModel');
 			$enginesPerPprofile      = $pModel->getPostProcessingEnginePerProfile();
 			$this->enginesPerProfile = $enginesPerPprofile;
 		}
-		JToolBarHelper::spacer();
+		JToolbarHelper::spacer();
 
 		// "Show warning first" download button. Joomlantastic!
-		$confirmationText = AkeebaHelperEscape::escapeJS(JText::_('STATS_LOG_DOWNLOAD_CONFIRM'), "'\n");
+		$confirmationText = AkeebaHelperEscape::escapeJS(JText::_('COM_AKEEBA_BUADMIN_LOG_DOWNLOAD_CONFIRM'), "'\n");
 		$baseURI          = JUri::base();
 		$js               = <<<JS
 
@@ -127,7 +126,7 @@ JS;
 		$profiles = $profilesModel->getItemList(true, 'id');
 
 		$profilesList = array(
-			JHtml::_('select.option', '', '–' . JText::_('STATS_LABEL_PROFILEID') . '–')
+			JHtml::_('select.option', '', '–' . JText::_('COM_AKEEBA_BUADMIN_LABEL_PROFILEID') . '–')
 		);
 
 		if (!empty($profiles))

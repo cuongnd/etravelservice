@@ -138,7 +138,7 @@
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                 var disable_dates=[];
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_service_class_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -172,7 +172,7 @@
                 console.log(list_price);
                 var min_sale_period_from=new Date();
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_service_class_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -214,7 +214,7 @@
                 var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
                 var disable_dates=[];
                 $.each(list_price,function(index,item){
-                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_language_id==tsmart_service_class_id)
+                    if(item.tsmart_price_id!=tsmart_price_id && item.tsmart_service_class_id==tsmart_service_class_id)
                     {
                         var sale_period_from=new Date(item.sale_period_from);
                         var sale_period_to=new Date(item.sale_period_to);
@@ -459,7 +459,7 @@
                                 $row.attr('data-price_id',result.tsmart_price_id);
                                 $row.data('price_id',result.tsmart_price_id);
                                 $row.find('span.item-id').html(result.tsmart_price_id);
-                                $row.find('input[name="row_tsmart_price_id[]"]').val(result.tsmart_price_id);
+                                $row.find('input[name="tsmart_price_id[]"]').val(result.tsmart_price_id);
                                 if( result.service_class !=null && typeof result.service_class !="undefined")
                                 {
                                     $row.find('td.service_class_name').html(result.service_class.service_class_name);
@@ -520,7 +520,7 @@
                 {
                     for(var i=0;i<list_price.length;i++){
                         var item=list_price[i];
-                        if(item.tsmart_price_id!=tsmart_price_id && tsmart_service_class_id==item.tsmart_language_id)
+                        if(item.tsmart_price_id!=tsmart_price_id && tsmart_service_class_id==item.tsmart_service_class_id)
                         {
                             var item_sale_period_from=new Date(item.sale_period_from);
                             var item_sale_period_to=new Date(item.sale_period_to);
@@ -576,7 +576,7 @@
                                 $row.attr('data-price_id',result.tsmart_price_id);
                                 $row.data('price_id',result.tsmart_price_id);
                                 $row.find('span.item-id').html(result.tsmart_price_id);
-                                $row.find('input[name="row_tsmart_price_id[]"]').val(result.tsmart_price_id);
+                                $row.find('input[name="tsmart_price_id[]"]').val(result.tsmart_price_id);
                                 if( result.service_class !=null && typeof result.service_class !="undefined")
                                 {
                                     $row.find('td.service_class_name').html(result.service_class.service_class.service_class_name);
@@ -612,6 +612,7 @@
                     $.ajax({
                         type: "GET",
                         url: 'index.php',
+                        dataType: "json",
                         data: (function () {
 
                             dataPost = {
@@ -634,7 +635,13 @@
 
 
                             });
+
                             $( "#price-form" ).dialog( "open" );
+                            $('.'+plugin.settings.dialog_class).find('input.number').val(0);
+                            plugin.fill_data(response);
+
+                            $('input[name="tsmart_price_id"]').val(0);
+                            plugin.updata_price();
                         }
                     });
 
@@ -702,15 +709,19 @@
 
             }
             $('input[name="tax"]').val(result.price.tax);
-            $('textarea[name="price_note"]').val(result.price.price_note.trim());
-            $('input[name="sale_period_from"]').val(result.price.sale_period_from);
-
-            $('input[name="sale_period_to"]').val(result.price.sale_period_to);
+            $('textarea[name="price_note"]').val(String(result.price.price_note).trim());
+            if(result.price.sale_period_from!=null)
+            {
+                $('input[name="sale_period_from"]').val(result.price.sale_period_from);
+            }
+            if(result.price.sale_period_to!=null) {
+                $('input[name="sale_period_to"]').val(result.price.sale_period_to);
+            }
             var range_of_date= $('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
-            if(typeof range_of_date!="undefined") {
+            if(typeof range_of_date!="undefined" && result.price.sale_period_to!=null && result.price.sale_period_to!=null) {
                 range_of_date.set_date(result.price.sale_period_from,result.price.sale_period_to);
             }
-            $('select[name="tsmart_service_class_id"]').val(result.price.tsmart_language_id);
+            $('select[name="tsmart_service_class_id"]').val(result.price.tsmart_service_class_id);
             $('select[name="tsmart_service_class_id"]').trigger("change");
             if(price_type!=flat_price&& list_tour_price_by_tour_price_id!=null && (typeof list_tour_price_by_tour_price_id!="undefined") && list_tour_price_by_tour_price_id.length)
             {

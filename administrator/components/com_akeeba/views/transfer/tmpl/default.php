@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 3.3
@@ -12,17 +12,17 @@ defined('_JEXEC') or die();
 
 /** @var  $this  AkeebaViewTransfer */
 
-$translations = [
-	'UI-BROWSE'	=> JText::_('CONFIG_UI_BROWSE'),
-	'UI-CONFIG'	=> JText::_('CONFIG_UI_CONFIG'),
-	'UI-REFRESH'	=> JText::_('CONFIG_UI_REFRESH'),
-	'UI-FTPBROWSER-TITLE'	=> JText::_('CONFIG_UI_FTPBROWSER_TITLE'),
-	'UI-ROOT'	=> JText::_('FILTERS_LABEL_UIROOT'),
-	'UI-TESTFTP-OK'	=> JText::_('CONFIG_DIRECTFTP_TEST_OK'),
-	'UI-TESTFTP-FAIL'	=> JText::_('CONFIG_DIRECTFTP_TEST_FAIL'),
-	'UI-TESTSFTP-OK'	=> JText::_('CONFIG_DIRECTSFTP_TEST_OK'),
-	'UI-TESTSFTP-FAIL'	=> JText::_('CONFIG_DIRECTSFTP_TEST_FAIL'),
-];
+$translations = array(
+	'UI-BROWSE'	=> JText::_('COM_AKEEBA_CONFIG_UI_BROWSE'),
+	'UI-CONFIG'	=> JText::_('COM_AKEEBA_CONFIG_UI_CONFIG'),
+	'UI-REFRESH'	=> JText::_('COM_AKEEBA_CONFIG_UI_REFRESH'),
+	'UI-FTPBROWSER-TITLE'	=> JText::_('COM_AKEEBA_CONFIG_UI_FTPBROWSER_TITLE'),
+	'UI-ROOT'	=> JText::_('COM_AKEEBA_FILEFILTERS_LABEL_UIROOT'),
+	'UI-TESTFTP-OK'	=> JText::_('COM_AKEEBA_CONFIG_DIRECTFTP_TEST_OK'),
+	'UI-TESTFTP-FAIL'	=> JText::_('COM_AKEEBA_CONFIG_DIRECTFTP_TEST_FAIL'),
+	'UI-TESTSFTP-OK'	=> JText::_('COM_AKEEBA_CONFIG_DIRECTSFTP_TEST_OK'),
+	'UI-TESTSFTP-FAIL'	=> JText::_('COM_AKEEBA_CONFIG_DIRECTSFTP_TEST_FAIL'),
+);
 
 $js = <<< JS
 akeeba.jQuery(document).ready(function(){
@@ -52,7 +52,7 @@ akeeba.jQuery(document).ready(function(){
 });
 JS;
 
-JFactory::getApplication()->getDocument()->addScriptDeclaration($js);
+JFactory::getDocument()->addScriptDeclaration($js);
 
 echo $this->loadAnyTemplate('admin:com_akeeba/transfer/default_dialogs');
 echo $this->loadAnyTemplate('admin:com_akeeba/transfer/default_prerequisites');

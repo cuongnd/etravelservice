@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 3.3
@@ -38,7 +38,7 @@ defined('_JEXEC') or die();
 				<?php if (empty($this->latestBackup)): ?>
 					<a href="index.php?option=com_akeeba&view=backup" class="btn btn-success"
 					   id="akeeba-transfer-btn-backup">
-						<?php echo JText::_('BACKUP_LABEL_START'); ?>
+						<?php echo JText::_('COM_AKEEBA_BACKUP_LABEL_START'); ?>
 					</a>
 				<?php endif; ?>
 			</td>

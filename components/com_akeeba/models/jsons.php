@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     3.0
@@ -30,7 +30,7 @@ if (!defined('AKEEBA_BACKUP_ORIGIN'))
 
 class AkeebaModelJsons extends F0FModel
 {
-	const    STATUS_OK               = 200; // Normal reply
+	const    COM_AKEEBA_CPANEL_LBL_STATUS_OK               = 200; // Normal reply
 
 	const    STATUS_NOT_AUTH         = 401; // Invalid credentials
 
@@ -40,7 +40,7 @@ class AkeebaModelJsons extends F0FModel
 
 	const    STATUS_INVALID_METHOD   = 405; // Unknown JSON method
 
-	const    STATUS_ERROR            = 500; // An error occurred
+	const    COM_AKEEBA_CPANEL_LBL_STATUS_ERROR            = 500; // An error occurred
 
 	const    STATUS_NOT_IMPLEMENTED  = 501; // Not implemented feature
 
@@ -75,6 +75,15 @@ class AkeebaModelJsons extends F0FModel
 	{
 		// Check if we're activated
 		$enabled = Platform::getInstance()->get_platform_configuration_option('frontend_enable', 0);
+
+		// Is the Secret Key strong enough?
+		$validKey = $this->serverKey();
+
+		if (!\Akeeba\Engine\Util\Complexify::isStrongEnough($validKey, false))
+		{
+			$enabled = false;
+		}
+
 		if (!$enabled)
 		{
 			$this->data          = 'Access denied';
@@ -91,7 +100,7 @@ class AkeebaModelJsons extends F0FModel
 		{
 			// Could not decode JSON
 			$this->data          = 'JSON decoding error';
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return $this->getResponse();
@@ -376,202 +385,114 @@ class AkeebaModelJsons extends F0FModel
 
 	private function _apiStartBackup($config)
 	{
+		$filter = \JFilterInput::getInstance();
+
 		// Get the passed configuration values
 		$defConfig = array(
 			'profile'     => 1,
 			'description' => '',
 			'comment'     => '',
 			'backupid'    => null,
+			'overrides'   => array(),
 		);
 
-		$config = array_merge($defConfig, $config);
+		$defConfig = array_merge($defConfig, $config);
 
-		$profile     = $config['profile'];
-		$description = $config['description'];
-		$comment     = $config['comment'];
-		$backupid    = $config['backupid'];
-
-		// Nuke the factory
-		Factory::nuke();
-
-		// Set the profile
-		$profile = (int) $profile;
-
-		if (!is_numeric($profile))
-		{
-			$profile = 1;
-		}
-
-		if (strtoupper($backupid) == '[DEFAULT]')
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true)
-			            ->select('MAX(' . $db->qn('id') . ')')
-			            ->from($db->qn('#__ak_stats'));
-
-			try
-			{
-				$maxId = $db->setQuery($query)->loadResult();
-			}
-			catch (Exception $e)
-			{
-				$maxId = 0;
-			}
-
-			$backupid = 'id' . ($maxId + 1);
-		}
-		elseif (empty($backupid))
-		{
-			$backupid = null;
-		}
+		$profile     = (int) $defConfig['profile'];
+		$profile     = max(1, $profile); // Make sure $profile is a positive integer >= 1
+		$description = $filter->clean($defConfig['description'], 'string');
+		$comment     = $filter->clean($defConfig['comment'], 'string');
+		$backupid    = $filter->clean($defConfig['backupid'], 'cmd');
+		$backupid    = empty($backupid) ? null : $backupid; // Otherwise the Engine doesn't set a backup ID
+		$overrides   = $filter->clean($defConfig['overrides'], 'array');
 
 		$session = JFactory::getSession();
 		$session->set('profile', $profile, 'akeeba');
+		define('AKEEBA_PROFILE', $profile);
+
+		/**
+		 * DO NOT REMOVE!
+		 *
+		 * The Model will only try to load the configuration after nuking the factory. This causes Profile 1 to be
+		 * loaded first. Then it figures out it needs to load a different profile and it does – but the protected keys
+		 * are NOT replaced, meaning that certain configuration parameters are not replaced. Most notably, the chain.
+		 * This causes backups to behave weirdly. So, DON'T REMOVE THIS UNLESS WE REFACTOR THE MODEL.
+		 */
 		Platform::getInstance()->load_configuration($profile);
 
-		// Check if there are critical issues preventing the backup
-		if (!Factory::getConfigurationChecks()->getShortStatus())
-		{
-			$configChecks = Factory::getConfigurationChecks()->getDetailedStatus();
+		/** @var AkeebaModelBackups $model */
+		$model = F0FModel::getTmpInstance('Backups', 'AkeebaModel');
+		$model->setState('tag', AKEEBA_BACKUP_ORIGIN);
+		$model->setState('backupid', $backupid);
+		$model->setState('description', $description);
+		$model->setState('comment', $comment);
 
-			foreach ($configChecks as $checkItem)
-			{
-				if ($checkItem['severity'] != 'critical')
-				{
-					continue;
-				}
+		$array = $model->startBackup($overrides);
 
-				$this->status        = self::STATUS_ERROR;
-				$this->encapsulation = self::ENCAPSULATION_RAW;
-
-				return 'Failed configuration check Q' . $checkItem['code'] . ': ' . $checkItem['description'] . '. Please refer to https://www.akeebabackup.com/warnings/q' . $checkItem['code'] . '.html for more information and troubleshooting instructions.';
-			}
-		}
-
-		// Use the default description if none specified
-		if (empty($description))
-		{
-			JLoader::import('joomla.utilities.date');
-			$dateNow = new JDate();
-			/*
-			$user = JFactory::getUser();
-			$userTZ = $user->getParam('timezone',0);
-			$dateNow->setOffset($userTZ);
-			*/
-			$description = JText::_('BACKUP_DEFAULT_DESCRIPTION') . ' ' . $dateNow->format(JText::_('DATE_FORMAT_LC2'), true);
-		}
-
-		// Start the backup
-		Factory::resetState(array(
-			'maxrun' => 0
-		));
-
-		Factory::getTempFiles()->deleteTempFiles();
-
-		$tempVarsTag = AKEEBA_BACKUP_ORIGIN;
-		$tempVarsTag .= empty($backupid) ? '' : ('.' . $backupid);
-
-		Factory::getFactoryStorage()->reset($tempVarsTag);
-
-		Factory::loadState(AKEEBA_BACKUP_ORIGIN, $backupid);
-		$kettenrad = Factory::getKettenrad();
-		$kettenrad->setBackupId($backupid);
-
-		$options = array(
-			'description' => $description,
-			'comment'     => $comment,
-			'tag'         => AKEEBA_BACKUP_ORIGIN
-		);
-		$kettenrad->setup($options); // Setting up the engine
-		$array = $kettenrad->tick(); // Initializes the init domain
-
-		try
-		{
-			Factory::saveState(AKEEBA_BACKUP_ORIGIN, $backupid);
-		}
-		catch (\RuntimeException $e)
-		{
-			$array['Error'] = $e->getMessage();
-		}
-
-		$array = $kettenrad->getStatusArray();
 		if ($array['Error'] != '')
 		{
 			// A backup error had occurred. Why are we here?!
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
-			return 'A backup error had occurred: ' . $array['Error'];
+			return 'A backup error has occurred: ' . $array['Error'];
 		}
-		else
-		{
-			$statistics        = Factory::getStatistics();
-			$array['BackupID'] = $statistics->getId();
-			$array['HasRun']   = 1; // Force the backup to go on.
-			return $array;
-		}
+
+		$statistics        = Factory::getStatistics();
+		$array['BackupID'] = $statistics->getId();
+
+		// Remote clients expect a boolean, not an integer.
+		$array['HasRun'] = ($array['HasRun'] === 0);
+
+		return $array;
 	}
 
 	private function _apiStepBackup($config)
 	{
+		$filter = \JFilterInput::getInstance();
+
 		$defConfig = array(
 			'profile'  => null,
 			'tag'      => AKEEBA_BACKUP_ORIGIN,
 			'backupid' => null,
 		);
-		$config    = array_merge($defConfig, $config);
 
-		$profile  = $config['profile'];
-		$tag      = $config['tag'];
-		$backupid = $config['backupid'];
+		$defConfig = array_merge($defConfig, $config);
+
+		$profile  = $filter->clean($defConfig['profile'], 'int');
+		$tag      = $filter->clean($defConfig['tag'], 'cmd');
+		$backupid = $filter->clean($defConfig['backupid'], 'cmd');
+
+		$session = JFactory::getSession();
 
 		// Try to set the profile from the setup parameters
 		if (!empty($profile))
 		{
-			$registry = Factory::getConfiguration();
-			$session  = JFactory::getSession();
-			$session->set('profile', $profile, 'akeeba');
+			$session->set('profile', $profile);
+			define('AKEEBA_PROFILE', $profile);
 		}
 
-		Factory::loadState($tag, $backupid);
-		$kettenrad = Factory::getKettenrad();
-		$kettenrad->setBackupId($backupid);
+		/** @var AkeebaModelBackups $model */
+		$model = F0FModel::getTmpInstance('Backups', 'AkeebaModel');
 
-		$registry = Factory::getConfiguration();
-		$session  = JFactory::getSession();
-		$session->set('profile', $registry->activeProfile, 'akeeba');
-
-		$array             = $kettenrad->tick();
-		$ret_array         = $kettenrad->getStatusArray();
-		$array['Progress'] = $ret_array['Progress'];
-
-		try
-		{
-			Factory::saveState(AKEEBA_BACKUP_ORIGIN, $backupid);
-		}
-		catch (\RuntimeException $e)
-		{
-			$array['Error'] = $e->getMessage();
-		}
+		$model->setState('tag', $tag);
+		$model->setState('backupid', $backupid);
+		$array = $model->stepBackup(false);
 
 		if ($array['Error'] != '')
 		{
 			// A backup error had occurred. Why are we here?!
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
-			return 'A backup error had occurred: ' . $array['Error'];
+			return 'A backup error has occurred: ' . $array['Error'];
 		}
-		elseif ($array['HasRun'] == false)
-		{
-			Factory::nuke();
-			Factory::getFactoryStorage()->reset();
-		}
-		else
-		{
-			$statistics        = Factory::getStatistics();
-			$array['BackupID'] = $statistics->getId();
-		}
+
+		$statistics        = Factory::getStatistics();
+		$array['BackupID'] = $statistics->getId();
+
+		// Remote clients expect a boolean, not an integer.
+		$array['HasRun'] = ($array['HasRun'] === 0);
 
 		return $array;
 	}
@@ -707,7 +628,7 @@ class AkeebaModelJsons extends F0FModel
 		if ($fp === false)
 		{
 			// Could not read file
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return 'Error reading backup archive';
@@ -717,7 +638,7 @@ class AkeebaModelJsons extends F0FModel
 		if (fseek($fp, $seekPos, SEEK_SET) === - 1)
 		{
 			// Could not seek to position
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return 'Error reading specified segment';
@@ -728,7 +649,7 @@ class AkeebaModelJsons extends F0FModel
 		if ($buffer === false)
 		{
 			// Could not read
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return 'Error reading specified segment';
@@ -778,7 +699,7 @@ class AkeebaModelJsons extends F0FModel
 		$result = $model->delete();
 		if (!$result)
 		{
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return $model->getError();
@@ -806,7 +727,7 @@ class AkeebaModelJsons extends F0FModel
 		$result = $model->deleteFile();
 		if (!$result)
 		{
-			$this->status        = self::STATUS_ERROR;
+			$this->status        = self::COM_AKEEBA_CPANEL_LBL_STATUS_ERROR;
 			$this->encapsulation = self::ENCAPSULATION_RAW;
 
 			return $model->getError();

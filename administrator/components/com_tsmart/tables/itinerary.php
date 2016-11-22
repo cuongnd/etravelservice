@@ -33,12 +33,12 @@ class Tableitinerary extends tsmTableData {
 	/** @var int Primary key */
 	var $tsmart_itinerary_id				= 0;
 	var $title				= "";
+	var $overnight				= 0;
 	var $short_description				= "";
 	var $full_description				= "";
 	var $tsmart_cityarea_id				= 0;
 	var $tsmart_product_id				= 0;
-	var $trip_note1				= "";
-	var $trip_note2				= "";
+	var $trip_note				= "";
 	var $photo1				= "";
 	var $photo2				= "";
 	var $shared					= 0;

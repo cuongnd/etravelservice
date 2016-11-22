@@ -60,10 +60,18 @@ class TsmartViewitinerary extends tsmViewAdmin {
         $this->pagination = $model->getPagination();
         if($task=='edit'||$task=='add')
         {
-            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcities.php';
+<<<<<<< master
+=======
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmmeal.php';
+            $this->list_meal=tmsmeal::get_list_meal();
+
+>>>>>>> local
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcities.php';
             $this->item=$model->getItem();
             $cities = tsmcities::get_cities();
             $this->assignRef('cities', $cities);
+			$this->item->list_meal_id=tmsmeal::get_list_meal_id_by_itinerary_id($this->item->tsmart_itinerary_id);
+			$this->item->list_activity_id=tmsmeal::get_list_activity_id_by_itinerary_id($this->item->tsmart_itinerary_id);
         }
 
 

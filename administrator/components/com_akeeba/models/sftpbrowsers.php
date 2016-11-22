@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     3.0
@@ -150,7 +150,7 @@ class AkeebaModelSftpbrowsers extends F0FModel
 
 		if (!is_resource($handle))
 		{
-			$this->setError(JText::_('SFTPBROWSER_ERROR_NOACCESS'));
+			$this->setError(JText::_('COM_AKEEBA_SFTPBROWSER_ERROR_NOACCESS'));
 
 			return false;
 		}

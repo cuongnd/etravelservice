@@ -67,11 +67,17 @@ class tsmartModelroom extends tmsModel {
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-
-		$query->select('room.*,hotel.tsmart_hotel_id,hotel.title AS hotel_name')
+		$input=JFactory::getApplication()->input;
+		$tsmart_hotel_id=$input->getInt('tsmart_hotel_id',0);
+		$query->select('room.*,hotel.tsmart_hotel_id,hotel.hotel_name AS hotel_name')
 			->from('#__tsmart_room AS room')
 			->leftJoin('#__tsmart_hotel AS hotel using (tsmart_hotel_id)')
+
 		;
+		if($tsmart_hotel_id)
+		{
+			$query->where('room.tsmart_hotel_id='.(int)$tsmart_hotel_id);
+		}
 		$user = JFactory::getUser();
 		$shared = '';
 		if (vmAccess::manager()) {
@@ -98,7 +104,7 @@ class tsmartModelroom extends tmsModel {
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
+		echo $query->dump();
 		return $query;
 	}
 

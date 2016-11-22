@@ -2,7 +2,7 @@
 /**
  * Akeeba Engine
  * The modular PHP5 site backup engine
- * @copyright Copyright (c)2006-2015 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2006-2016 Nicholas K. Dionysopoulos
  * @license   GNU GPL version 3 or, at your option, any later version
  * @package   akeebaengine
  */
@@ -12,8 +12,8 @@ namespace Akeeba\Engine\Driver;
 // Protection against direct access
 defined('AKEEBAENGINE') or die();
 
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Driver\Query\Mysql as QueryMysql;
+use Akeeba\Engine\Factory;
 
 /**
  * MySQL classic driver for Akeeba Engine
@@ -125,7 +125,13 @@ class Mysql extends Base
 		// If auto-select is enabled select the given database.
 		if ($this->selectDatabase && !empty($this->_database))
 		{
-			$this->select($this->_database);
+			if (!$this->select($this->_database))
+			{
+				$this->errorNum = 3;
+				$this->errorMsg = "Cannot select database {$this->_database}";
+
+				return;
+			}
 		}
 
 		$this->setUTF();
@@ -493,7 +499,10 @@ class Mysql extends Base
 				$this->errorMsg = (string)mysql_error($this->connection) . ' SQL=' . $query;
 
 				// Throw the normal query exception.
-				throw new \RuntimeException($this->errorMsg, $this->errorNum);
+				if ($this->errorNum != 0)
+				{
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
+				}
 			}
 		}
 

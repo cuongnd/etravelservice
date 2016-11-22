@@ -31,12 +31,13 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
 class TableRelation extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_relation_id				= 0;
-	var $title				= "";
-	var $icon				= "";
-	var $meta_title				= "";
-	var $key_word				= "";
-	var $description				= "";
+	var $tsmart_related_id				= 0;
+	var $tsmart_product_id				= 0;
+	var $related_style				= 0;
+	var $related_activity				= 0;
+	var $related_country 				= 0;
+	var $related_promotion 				= 0;
+	var $product_display 				= "";
 
 	var $shared					= 0;
 	var $published				= 0;
@@ -47,7 +48,7 @@ class TableRelation extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_relation', 'tsmart_relation_id', $db);
+		parent::__construct('#__tsmart_related', 'tsmart_related_id', $db);
 
 
 		$this->setLoggable();

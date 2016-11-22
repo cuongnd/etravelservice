@@ -25,7 +25,8 @@ class TableProducts extends tsmTable
 {
 
     var $tsmart_product_id = 0;
-    var $product_name = 0;
+    var $product_name = '';
+    var $tour_operator = '';
     var $tour_length = 0;
     var $start_city = 0;
     var $product_code = 0;
@@ -33,6 +34,20 @@ class TableProducts extends tsmTable
     var $tsmart_tour_type_id = 0;
     var $tsmart_tour_style_id = 0;
     var $tsmart_physicalgrade_id = 0;
+    var $meta_title = 0;
+    var $meta_keyword = 0;
+    var $travel_route = 0;
+    var $latitude = 0;
+    var $longitude = 0;
+    var $location = "";
+    var $image_map = 0;
+    var $radius = 0;
+    var $meta_description = 0;
+    var $trip_high_light = 0;
+    var $trip_overview = 0;
+    var $important_note = 0;
+    var $trip_policy = 0;
+    var $term_condition = 0;
     var $min_person = 0;
     var $max_person = 0;
     var $min_age = 0;
@@ -45,7 +60,23 @@ class TableProducts extends tsmTable
     {
         parent::__construct('#__tsmart_products', 'tsmart_product_id', $db);
         $this->setUniqueName('product_name');
-        $this->setTranslatable(array('product_name'));
+        $this->setTranslatable(array(
+            'product_name',
+            'meta_title',
+            'meta_keyword',
+            'travel_route',
+            'meta_description',
+            'trip_high_light',
+            'trip_overview',
+            'important_note',
+            'trip_policy',
+            'activity_description',
+            'inclusions',
+            'exclusions',
+            'trip_note_heading',
+            'trip_note_content',
+            'term_condition'
+        ));
         $this->setLoggable();
 
         $this->setOrderable();

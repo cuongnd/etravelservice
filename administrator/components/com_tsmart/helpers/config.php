@@ -470,10 +470,14 @@ function logInfo ($text, $type = 'message') {
 
 /**
  * We use this Class STATIC not dynamically !
+ * @property  _path_upload_file_photo
  */
 class tsmConfig {
 
 	// instance of class
+	public static $_list_allow_file=array('doc', 'pdf', 'docx','txt');
+	public static $_list_allow_image_type=array('gif', 'jpg', 'png','bmp');
+	public static $list_editor_plugin_disable=array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode','filelink','doclink');
 	private static $_jpConfig = NULL;
 	private static $_debug = NULL;
 	private static $_secret = NULL;
@@ -499,6 +503,8 @@ class tsmConfig {
 	public static $langs = array();
 	public static $langCount = 0;
 	public static $mType = 'info';
+	public static $_path_upload_file_document= 'administrator/components/com_tsmart/uploads/';
+	public static $_path_upload_file_photo= 'administrator/components/com_tsmart/photo_upload/';
 	var $_params = array();
 	var $_raw = array();
 	public static $installed = false;

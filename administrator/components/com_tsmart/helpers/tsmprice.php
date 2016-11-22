@@ -120,10 +120,6 @@ class vmprice
 		$list_price_type[]=$item;
 
 
-		$item=new stdClass();
-		$item->value="both_options";
-		$item->text="Both options";
-		$list_price_type[]=$item;
 
 		return $list_price_type;
 	}

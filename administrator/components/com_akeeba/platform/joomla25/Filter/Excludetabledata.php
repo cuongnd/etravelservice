@@ -3,7 +3,7 @@
  * Akeeba Engine
  * The modular PHP5 site backup engine
  *
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU GPL version 3 or, at your option, any later version
  * @package   akeebaengine
  *
@@ -13,8 +13,6 @@ namespace Akeeba\Engine\Filter;
 
 // Protection against direct access
 defined('AKEEBAENGINE') or die();
-
-use Akeeba\Engine\Factory;
 
 /**
  * Subdirectories exclusion filter. Excludes temporary, cache and backup output

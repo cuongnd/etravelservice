@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmroom
+class tsmroom
 {
     /**
      * javascript strings
@@ -43,6 +43,18 @@ class vmroom
             ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_list_room_by_hotel_id($tsmart_hotel_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_room AS room')
+            ->where('room.tsmart_hotel_id='.(int)$tsmart_hotel_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+
+
     public static function get_list_room_id_by_itinerary_id($tsmart_itinerary_id=0)
     {
         $db=JFactory::getDbo();

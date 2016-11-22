@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     1.3
@@ -10,42 +10,41 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
 
 class AkeebaViewTransfer extends F0FViewHtml
 {
 	/** @var   array|null  Latest backup information */
-	public $latestBackup = [];
+	public $latestBackup = array();
 
 	/** @var   string  Date of the latest backup, human readable */
 	public $lastBackupDate = '';
 
 	/** @var   array  Space required on the target server */
-	public $spaceRequired = [
+	public $spaceRequired = array(
 		'size'   => 0,
 		'string' => '0.00 Kb'
-	];
+	);
 
 	/** @var   string  The URL to the site we are restoring to (from the session) */
 	public $newSiteUrl = '';
 
 	/** @var   array  Results of support and firewall status of the known file transfer methods */
-	public $ftpSupport = [
-		'supported'	=> [
+	public $ftpSupport = array(
+		'supported'	=> array(
 			'ftp'	=> false,
 			'ftps'	=> false,
 			'sftp'	=> false,
-		],
-		'firewalled'	=> [
+		),
+		'firewalled'	=> array(
 			'ftp'	=> false,
 			'ftps'	=> false,
 			'sftp'	=> false
-		]
-	];
+		)
+	);
 
 	/** @var   array  Available transfer options, for use by JHTML */
-	public $transferOptions = [];
+	public $transferOptions = array();
 
 	/** @var   bool  Do I have supported but firewalled methods? */
 	public $hasFirewalledMethods = false;
@@ -123,6 +122,7 @@ class AkeebaViewTransfer extends F0FViewHtml
 
 		$this->transferOptions  = $this->getTransferMethodOptions();
 
+		/*
 		foreach ($this->ftpSupport['firewalled'] as $method => $isFirewalled)
 		{
 			if ($isFirewalled && $this->ftpSupport['supported'][$method])
@@ -132,6 +132,7 @@ class AkeebaViewTransfer extends F0FViewHtml
 				break;
 			}
 		}
+		*/
 
 		return true;
 	}
@@ -143,7 +144,7 @@ class AkeebaViewTransfer extends F0FViewHtml
 	 */
 	private function getTransferMethodOptions()
 	{
-		$options = [];
+		$options = array();
 
 		foreach ($this->ftpSupport['supported'] as $method => $supported)
 		{

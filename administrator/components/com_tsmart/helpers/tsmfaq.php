@@ -43,6 +43,17 @@ class tsmfaq
             ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_list_faq_by_categoryfaq_id($tsmart_categoryfaq_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('faq.*')
+            ->from('#__tsmart_faq AS faq')
+            ->where('faq.tsmart_categoryfaq_id='.(int)$tsmart_categoryfaq_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+
 
 
 }

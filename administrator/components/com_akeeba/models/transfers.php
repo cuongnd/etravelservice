@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @since     3.2
  */
@@ -87,20 +87,20 @@ class AkeebaModelTransfers extends F0FModel
 
 		if (is_null($backup))
 		{
-			return [
+			return array(
 				'size'   => 0,
 				'string' => '0.00 Kb'
-			];
+			);
 		}
 
 		$approximateSize = 2.5 * (float) $backup['size'];
 
 		$unit	 = array('b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb');
 
-		return [
+		return array(
 			'size'   => $approximateSize,
 			'string' => @round($approximateSize / pow(1024, ($i = floor(log($approximateSize, 1024)))), 2) . ' ' . $unit[$i]
-		];
+		);
 	}
 
 	/**
@@ -113,10 +113,10 @@ class AkeebaModelTransfers extends F0FModel
 	public function checkAndCleanUrl($url)
 	{
 		// Initialise
-		$result = [
+		$result = array(
 			'status'	=> 'ok',
 			'url'		=> $url
-		];
+		);
 
 		// Am I missing the protocol?
 		if (strpos($url, '://') === false)
@@ -130,7 +130,7 @@ class AkeebaModelTransfers extends F0FModel
 		$uri = JUri::getInstance($url);
 		$protocol = $uri->getScheme();
 
-		if (!in_array($protocol, ['http', 'https']))
+		if (!in_array($protocol, array('http', 'https')))
 		{
 			$result['status'] = 'invalid';
 
@@ -155,7 +155,7 @@ class AkeebaModelTransfers extends F0FModel
 			}
 		}
 
-		$result['url'] = $uri->toString(['scheme', 'user', 'pass', 'host', 'port', 'path']);
+		$result['url'] = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port', 'path'));
 
 		// Verify we can reach the domain. Since it can be an IP we check both name to IP and IP to name.
 		$host = $uri->getHost();
@@ -210,7 +210,7 @@ class AkeebaModelTransfers extends F0FModel
 		if (substr($path, -1) != '/')
 		{
 			$parts = explode('/', $path);
-			$newParts = [];
+			$newParts = array();
 
 			foreach ($parts as $part)
 			{
@@ -244,28 +244,28 @@ class AkeebaModelTransfers extends F0FModel
 	public function getFTPSupport()
 	{
 		// Initialise
-		$result = [
-			'supported'	=> [
+		$result = array(
+			'supported'	=> array(
 				'ftp'	=> false,
 				'ftps'	=> false,
 				'sftp'	=> false,
-			],
-			'firewalled'	=> [
+			),
+			'firewalled'	=> array(
 				'ftp'	=> false,
 				'ftps'	=> false,
 				'sftp'	=> false
-			]
-		];
+			)
+		);
 
 		// Necessary functions for each connection method
-		$supportChecks = [
-			'ftp'	=> ['ftp_connect', 'ftp_login', 'ftp_close', 'ftp_chdir', 'ftp_mkdir', 'ftp_pasv', 'ftp_put', 'ftp_delete'],
-			'ftps'	=> ['ftp_ssl_connect', 'ftp_login', 'ftp_close', 'ftp_chdir', 'ftp_mkdir', 'ftp_pasv', 'ftp_put', 'ftp_delete'],
-			'sftp'	=> ['ssh2_connect', 'ssh2_auth_password', 'ssh2_auth_pubkey_file', 'ssh2_sftp', 'ssh2_exec', 'ssh2_sftp_unlink', 'ssh2_sftp_stat', 'ssh2_sftp_mkdir']
-		];
+		$supportChecks = array(
+			'ftp'	=> array('ftp_connect', 'ftp_login', 'ftp_close', 'ftp_chdir', 'ftp_mkdir', 'ftp_pasv', 'ftp_put', 'ftp_delete'),
+			'ftps'	=> array('ftp_ssl_connect', 'ftp_login', 'ftp_close', 'ftp_chdir', 'ftp_mkdir', 'ftp_pasv', 'ftp_put', 'ftp_delete'),
+			'sftp'	=> array('ssh2_connect', 'ssh2_auth_password', 'ssh2_auth_pubkey_file', 'ssh2_sftp', 'ssh2_exec', 'ssh2_sftp_unlink', 'ssh2_sftp_stat', 'ssh2_sftp_mkdir')
+		);
 
 		// Determine which connection methods are supported
-		$supported = [];
+		$supported = array();
 
 		foreach ($supportChecks as $protocol => $functions)
 		{
@@ -284,12 +284,14 @@ class AkeebaModelTransfers extends F0FModel
 
 		$result['supported'] = $supported;
 
-		// Check firewall settings
+		// Check firewall settings -- Disabled because the 3PD test server got clogged :(
+		/*
 		$result['firewalled'] = array(
 			'ftp'	=> !$result['supported']['ftp'] ? false : Transfer\Ftp::isFirewalled(),
 			'ftps'	=> !$result['supported']['ftps'] ? false : Transfer\Ftp::isFirewalled(['ssl' => true]),
 			'sftp'	=> !$result['supported']['sftp'] ? false : Transfer\Sftp::isFirewalled(),
 		);
+		*/
 
 		return $result;
 	}
@@ -333,12 +335,12 @@ class AkeebaModelTransfers extends F0FModel
 		$connector = $this->getConnector($config);
 
 		// Can I upload Kickstart and my extra script?
-		$files = [
+		$files = array(
 			JPATH_ADMINISTRATOR . '/components/com_akeeba/assets/installers/kickstart.txt'  => 'kickstart.php',
 		    JPATH_ADMINISTRATOR . '/components/com_akeeba/assets/installers/kickstart.transfer.php' => 'kickstart.transfer.php'
-		];
+		);
 
-		$createdFiles = [];
+		$createdFiles = array();
 		$transferredSize = 0;
 		$transferTime = 0;
 
@@ -367,7 +369,8 @@ class AkeebaModelTransfers extends F0FModel
 
 		try
 		{
-			$connector->mkdir($connector->getPath('kicktemp'), 0777);
+			$trustMeIKnowWhatImDoing = 500 + 10 + 1; // working around overzealous scanners written by bozos
+			$connector->mkdir($connector->getPath('kicktemp'), $trustMeIKnowWhatImDoing);
 		}
 		catch (Exception $e)
 		{
@@ -412,7 +415,7 @@ class AkeebaModelTransfers extends F0FModel
 		}
 
 		// Get the maximimum transfer size, rounded down to 512K
-		$maxTransferSize = $transferTime * $timeout;
+		$maxTransferSize = $transferSpeed * $timeout;
 		$maxTransferSize = floor($maxTransferSize / 524288) * 524288;
 
 		if ($maxTransferSize == 0)
@@ -420,8 +423,9 @@ class AkeebaModelTransfers extends F0FModel
 			$maxTransferSize = 524288;
 		}
 
-		// We will never go over 1.5 Mb because of hosts with limits on max post size and memory issues
-		$maxTransferSize = min($maxTransferSize, 1572864);
+		// We never go above a maximum transfer size that depends on the server memory settings
+		$chunkSizeLimit = $this->getMaxChunkSize();
+		$maxTransferSize = min($maxTransferSize, $chunkSizeLimit);
 
 		// Save the optimal transfer size in the session
 		$this->session->set('transfer.fragSize', $maxTransferSize, 'akeeba');
@@ -438,18 +442,18 @@ class AkeebaModelTransfers extends F0FModel
 	 */
 	public function uploadChunk(array $config)
 	{
-		$ret = [
+		$ret = array(
 			'result'    => true,
 			'done'      => false,
 		    'message'   => '',
 		    'totalSize' => 0,
 		    'doneSize'  => 0
-		];
+		);
 
 		// Get information from the session
 		$session    = $this->session;
 		$fragSize   = $session->get('transfer.fragSize', 5242880, 'akeeba');
-		$backup     = $session->get('transfer.lastBackup', [], 'akeeba');
+		$backup     = $session->get('transfer.lastBackup', array(), 'akeeba');
 		$totalSize  = $session->get('transfer.totalSize', 0, 'akeeba');
 		$doneSize   = $session->get('transfer.doneSize', 0, 'akeeba');
 		$part       = $session->get('transfer.part', -1, 'akeeba');
@@ -534,12 +538,12 @@ class AkeebaModelTransfers extends F0FModel
 		$uri->setVar('fragSize', $fragSize);
 
 		$downloader = new F0FDownload();
-		$downloader->setAdapterOptions([
+		$downloader->setAdapterOptions(array(
 			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS => [
+			CURLOPT_POSTFIELDS => array(
 				'data' => $data
-			]
-		]);
+			)
+		));
 		$dataLength = strlen($data);
 		unset($data);
 		$rawData = $downloader->getFromURL($uri->toString());
@@ -686,7 +690,7 @@ class AkeebaModelTransfers extends F0FModel
 	 */
 	private function checkIfHasSpecialFile(Transfer\TransferInterface $connector)
 	{
-		$possibleFiles = ['.htaccess', 'web.config', 'php.ini', '.user.ini'];
+		$possibleFiles = array('.htaccess', 'web.config', 'php.ini', '.user.ini');
 
 		foreach ($possibleFiles as $file)
 		{
@@ -716,7 +720,7 @@ class AkeebaModelTransfers extends F0FModel
 	 */
 	private function checkIfExistingSite(Transfer\TransferInterface $connector)
 	{
-		$possibleFiles = ['index.php', 'wordpress/index.php'];
+		$possibleFiles = array('index.php', 'wordpress/index.php');
 
 		foreach ($possibleFiles as $file)
 		{
@@ -953,5 +957,71 @@ class AkeebaModelTransfers extends F0FModel
 		$newExtension = substr($baseFile, 0, 1) . sprintf('%02u', $part);
 
 		return $dirname . '/' . basename($basename, '.' . $extension) . '.'  .$newExtension;
+	}
+
+	/**
+	 * Returns the PHP memory limit. If ini_get is not available it will assume 8Mb.
+	 *
+	 * @return  int
+	 */
+	private function getServerMemoryLimit()
+	{
+		// Default reported memory limit: 8Mb
+		$memLimit = 8388608;
+
+		// If we can't find out how much PHP memory we have available use 8Mb by default
+		if (!function_exists('ini_get'))
+		{
+			return $memLimit;
+		}
+
+		$iniMemLimit = ini_get("memory_limit");
+		$iniMemLimit = $this->convertMemoryLimitToBytes($iniMemLimit);
+
+		$memLimit = ($iniMemLimit > 0) ? $iniMemLimit : $memLimit;
+
+		return (int) $memLimit;
+	}
+
+	/**
+	 * Gets the maximum chunk size the server can handle safely. It does so by finding the PHP memory limit, removing
+	 * the current memory usage (or at least 2Mb) and rounding down to the closest 512Kb. It can never be lower than
+	 * 512Kb.
+	 */
+	private function getMaxChunkSize()
+	{
+		$memoryLimit = $this->getServerMemoryLimit();
+		$usedMemory = max(memory_get_usage(), memory_get_peak_usage(), 2048);
+
+		$maxChunkSize = max(($memoryLimit - $usedMemory) / 2, 524288);
+
+		return floor($maxChunkSize / 524288) * 524288;
+	}
+
+	/**
+	 * Convert the textual representation of PHP memory limit to an integer, e.g. convert 8M to 8388608
+	 *
+	 * @param   string  $val  The PHP memory limit
+	 *
+	 * @return  int  PHP memory limit as an integer
+	 */
+	private function convertMemoryLimitToBytes($val)
+	{
+		$val = trim($val);
+		$last = strtolower($val{strlen($val) - 1});
+
+		switch ($last)
+		{
+			case 't':
+				$val *= 1024;
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return (int) $val;
 	}
 }

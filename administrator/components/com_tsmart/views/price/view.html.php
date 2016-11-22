@@ -101,8 +101,8 @@ class TsmartViewPrice extends tsmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vm_service_class.php';
-            $this->list_service_class_by_tour_id=tsm_service_class::get_list_service_class_by_tour_id($tour_id);
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
+            $this->list_service_class_by_tour_id=tsmserviceclass::get_list_service_class_by_tour_id($tour_id);
 
 			$this->prices = $model->getPricesListByTourid($tour_id);
             //$this->prices=JArrayHelper::pivot($this->prices,'service_class_name');

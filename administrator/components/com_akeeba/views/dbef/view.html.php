@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 1.3
@@ -20,6 +20,9 @@ class AkeebaViewDbef extends F0FViewHtml
 {
 	public function onBrowse($tpl = null)
 	{
+        AkeebaStrapper::addJSfile('media://com_akeeba/js/fsfilter.js');
+        AkeebaStrapper::addJSfile('media://com_akeeba/js/dbef.js');
+
 		$model = $this->getModel();
 
 		$task = $model->getState('browse_task', 'normal');
@@ -27,12 +30,12 @@ class AkeebaViewDbef extends F0FViewHtml
 		// Add custom submenus
 		$toolbar = F0FToolbar::getAnInstance($this->input->get('option','com_foobar','cmd'), $this->config);
 		$toolbar->appendLink(
-			JText::_('FILTERS_LABEL_NORMALVIEW'),
+			JText::_('COM_AKEEBA_FILEFILTERS_LABEL_NORMALVIEW'),
 			JUri::base().'index.php?option=com_akeeba&view=dbef&task=normal',
 			($task == 'normal')
 		);
 		$toolbar->appendLink(
-			JText::_('FILTERS_LABEL_TABULARVIEW'),
+			JText::_('COM_AKEEBA_FILEFILTERS_LABEL_TABULARVIEW'),
 			JUri::base().'index.php?option=com_akeeba&view=dbef&task=tabular',
 			($task == 'tabular')
 		);
@@ -56,7 +59,7 @@ class AkeebaViewDbef extends F0FViewHtml
 			}
 		}
 		$site_root = '[SITEDB]';
-		$attribs = 'onchange="akeeba_active_root_changed();"';
+		$attribs = 'onchange="akeeba.Dbfilters.activeRootChanged ();"';
 		$this->root_select = JHTML::_('select.genericlist', $options, 'root', $attribs, 'value', 'text', $site_root, 'active_root');
 		$this->roots = $roots;
 

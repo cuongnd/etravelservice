@@ -1,0 +1,7 @@
+/administrator/cache
+/installation
+/cache
+<<<<<<< master
+=======
+/administrator/components/com_akeeba/backup
+>>>>>>> local

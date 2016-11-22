@@ -32,20 +32,23 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
                     <h3>Hotel detail</h3>
                     <div class="row-fluid">
                         <div class="span6">
-                            <?php echo VmHTML::input( 'hotel_name', $this->item->hotel_name, ' placeholder="hotel name" '); ?>
-                            <?php echo VmHTML::input( 'title', $this->item->star_rating, ' placeholder="Star  rating"'); ?>
-                            <?php echo VmHTML::location_city('tsmart_cityarea_id',$this->item->tsmart_cityarea_id,'') ; ?>
-                            <?php echo VmHTML::input( 'address', $this->item->address, ' placeholder="Address"'); ?>
-                            <?php echo VmHTML::input( 'google_map', $this->item->google_map, ' placeholder="Google map"'); ?>
-                            <?php echo VmHTML::input( 'add_photo', $this->item->add_photo, ' placeholder="Add photo"'); ?>
+                            <?php echo VmHTML::row_control('input',JText::_('write hotel name'), 'hotel_name', $this->item->hotel_name, ' placeholder="hotel name" '); ?>
+                            <?php echo VmHTML::row_control('location_city',JText::_('City location'),'tsmart_cityarea_id',$this->item->tsmart_cityarea_id,'') ; ?>
+                            <?php echo VmHTML::row_control( 'image',JText::_('Hotel photo 1'),'image1', $this->item->image1, ' placeholder="'.JText::_('Hotel photo 1').'"'); ?>
+                            <?php echo VmHTML::row_control( 'image',JText::_('Hotel photo 2'),'image2', $this->item->image2, ' placeholder="'.JText::_('Hotel photo 2').'"'); ?>
+                            <?php echo VmHTML::row_control( 'image',JText::_('Hotel photo 3'),'image3', $this->item->image3, ' placeholder="'.JText::_('Hotel photo 3').'"'); ?>
+                            <?php echo VmHTML::row_control( 'image',JText::_('Hotel photo 4'),'image4', $this->item->image4, ' placeholder="'.JText::_('Hotel photo 4').'"'); ?>
+                            <?php echo VmHTML::row_control( 'image',JText::_('Hotel photo 5'),'image5', $this->item->image5, ' placeholder="'.JText::_('Hotel photo 5').'"'); ?>
                         </div>
                         <div class="span6">
-                            <?php echo VmHTML::input( 'tel_number', $this->item->tel_number, ' placeholder="Tell number"'); ?>
-                            <?php echo VmHTML::input( 'fax_number', $this->item->fax_number, ' placeholder="fax number"'); ?>
-                            <?php echo VmHTML::input( 'email', $this->item->email, ' placeholder="E-mail add"'); ?>
-                              <?php echo VmHTML::input( 'website', $this->item->website, ' placeholder="Website"'); ?>
-                            <?php echo VmHTML::input( 'reviews_api', $this->item->reviews_api, ' placeholder="reviews API"'); ?>
-                            <?php echo VmHTML::input( 'hotel_code', $this->item->hotel_code, ' placeholder="Hotel code"'); ?>
+                            <?php echo VmHTML::row_control( 'input',JText::_('hotel address'),'address', $this->item->address, ' placeholder="Address"'); ?>
+                            <?php echo VmHTML::row_control( 'input',JText::_('Star rating'),'star_rating', $this->item->star_rating, ' placeholder="'.JText::_('Star ratting').'"'); ?>
+                            <?php echo VmHTML::row_control('input',JText::_('Hotel telephone'), 'tel_number', $this->item->tel_number, ' placeholder="Tell number"'); ?>
+                            <?php echo VmHTML::row_control( 'input',JText::_('Hotel fax'),'fax_number', $this->item->fax_number, ' placeholder="fax number"'); ?>
+                            <?php echo VmHTML::row_control( 'input',JText::_('Hotel email'),'email', $this->item->email, ' placeholder="E-mail add"'); ?>
+                              <?php echo VmHTML::row_control('input',JText::_('Hotel website'), 'website', $this->item->website, ' placeholder="Website"'); ?>
+                            <?php echo VmHTML::row_control('input',JText::_('Review API'), 'reviews_api', $this->item->reviews_api, ' placeholder="reviews API"'); ?>
+                            <?php echo VmHTML::row_control('input',JText::_('Review rand'), 'review_rand', $this->item->review_rand, ' placeholder="Hotel review rand"'); ?>
 
                         </div>
                     </div>
@@ -54,9 +57,15 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
                 <div class="addition-info">
                     <div class="row-fluid">
                         <div class="span12">
-                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview); ?>
-                            <?php echo VmHTML::row_control('editor', 'Hotel info', 'facility_info', $this->item->description); ?>
-                            <?php echo VmHTML::row_control('editor', 'Room info', 'room_info', $this->item->description); ?>
+<<<<<<< master
+                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+                            <?php echo VmHTML::row_control('editor', 'Hotel facility', 'facility_info', $this->item->facility_info,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+                            <?php echo VmHTML::row_control('editor', 'Room facility', 'room_facility', $this->item->room_facility,'40%', 20, 10, 20, array('image', 'pagebreak', 'readmore', 'article', 'helix_shortcode')); ?>
+=======
+                            <?php echo VmHTML::row_control('editor', 'Overview', 'overview', $this->item->overview,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            <?php echo VmHTML::row_control('editor', 'Hotel facility', 'facility_info', $this->item->facility_info,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            <?php echo VmHTML::row_control('editor', 'Room facility', 'room_facility', $this->item->room_facility,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+>>>>>>> local
                         </div>
                     </div>
                 </div>

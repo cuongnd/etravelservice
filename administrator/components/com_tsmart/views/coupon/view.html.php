@@ -62,7 +62,7 @@ class TsmartViewcoupon extends tsmViewAdmin {
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/vmcoupon.php';
 			$this->item->list_tour_id = tsmcoupon::get_list_tour_id_by_hotel_addon_id($this->item->tsmart_hotel_addon_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-			$list_tour = vmproduct::get_list_product();
+			$list_tour = tsmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
 
@@ -82,7 +82,7 @@ class TsmartViewcoupon extends tsmViewAdmin {
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
             $this->state=$model->getState();
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcities.php';
 			$this->list_cityarea=tsmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
 			$this->list_hotel_addon_type=tsmcoupon::get_list_hotel_addon_type();
@@ -91,7 +91,7 @@ class TsmartViewcoupon extends tsmViewAdmin {
 			require_once  JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmhotel.php';
 
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-            $list_tour = vmproduct::get_list_product();
+            $list_tour = tsmproduct::get_list_product();
             $this->assignRef('list_tour', $list_tour);
 
 

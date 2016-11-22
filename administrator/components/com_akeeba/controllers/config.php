@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @since     1.3
  */
@@ -72,7 +72,7 @@ class AkeebaControllerConfig extends AkeebaControllerDefault
 			));
 		}
 
-		$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba&view=config', JText::_('CONFIG_SAVE_OK'));
+		$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba&view=config', JText::_('COM_AKEEBA_CONFIG_SAVE_OK'));
 	}
 
 	/**
@@ -82,7 +82,7 @@ class AkeebaControllerConfig extends AkeebaControllerDefault
 	public function save()
 	{
 		$this->apply();
-		$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba', JText::_('CONFIG_SAVE_OK'));
+		$this->setRedirect(JUri::base() . 'index.php?option=com_akeeba', JText::_('COM_AKEEBA_CONFIG_SAVE_OK'));
 	}
 
 	/**

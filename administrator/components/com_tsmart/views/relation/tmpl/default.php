@@ -46,16 +46,13 @@ if ($saveOrder) {
 
 
 ?>
-    <div class="view-relation-default form-tour-build">
+    <div class="view-relation-default">
+<<<<<<< master
         <?php echo vmproduct::get_html_tour_information($this, $this->tsmart_product_id); ?>
+=======
+        <?php echo tsmproduct::get_html_tour_information($this, $this->tsmart_product_id); ?>
+>>>>>>> local
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-            <table>
-                <tr>
-                    <td width="100%">
-                        <?php echo $this->displayDefaultViewSearch('tour type', 'search'); ?>
-                    </td>
-                </tr>
-            </table>
             <div id="editcell">
                 <div class="vm-page-nav">
 
@@ -63,107 +60,58 @@ if ($saveOrder) {
                 <table id="tour_type_list" class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr>
-                        <th class="admin-checkbox">
-                            <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                           onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_transfer_addon_id', 'Id'); ?>
+                        <th>
+                            <?php echo JText::_('Related style') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('title', 'title'); ?>
+                            <?php echo JText::_('Related activity') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('icon', 'Icon'); ?>
+                            <?php echo JText::_('Related country') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('meta_title', 'Meta title'); ?>
+                            <?php echo JText::_('Promotion') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('key_word', 'Key word'); ?>
+                            <?php echo JText::_('Customized listing') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('description', 'Description'); ?>
+                            <?php echo JText::_('Display') ?>
                         </th>
-                        <th>
-                            <?php echo $this->sort('ordering', 'ordering'); ?>
-                            <?php if ($saveOrder) : ?>
-                                <?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'saveOrder'); ?>
-                            <?php endif; ?>
-
-                        </th>
-
-                        <th width="70">
-                            <?php echo tsmText::_('Action'); ?>
-                        </th>
-                        <?php /*	<th width="10">
-				<?php echo vmText::_('com_tsmart_SHARED'); ?>
-			</th> */ ?>
                     </tr>
                     </thead>
-                    <?php
-                    $k = 0;
-                    for ($i = 0, $n = count($this->items); $i < $n; $i++) {
-                        $row = $this->items[$i];
-
-                        $checked = JHtml::_('grid.id', $i, $row->tsmart_tour_type_id);
-                        $published = $this->gridPublished($row, $i);
-
-                        $editlink = JROUTE::_('index.php?option=com_tsmart&view=relation&task=show_parent_popup&cid[]=' . $row->tsmart_tour_type_id);
-                        $edit = $this->gridEdit($row, $i, 'tsmart_tour_type_id', $editlink);
-                        $delete = $this->grid_delete_in_line($row, $i, 'tsmart_tour_type_id');
-
-                        ?>
-                        <tr class="row<?php echo $k; ?>">
-                            <td class="admin-checkbox">
-                                <?php echo $checked; ?>
-                            </td>
-                            <td align="left">
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
-                            </td>
-                            <td align="left">
-                                <?php echo VmHTML::show_image(JUri::root() . '/' . $row->icon, 'class="required"', 40, 40); ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->meta_title; ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->key_word; ?>
-                            </td>
-                            <td align="left">
-                                <?php echo $row->description; ?>
-                            </td>
-                            <td align="left">
-                            <span class="sortable-handler">
-								<span class="icon-menu"></span>
-							</span>
-                                <?php if ($saveOrder) : ?>
-                                    <input type="text" style="display:none" name="order[]" size="5"
-                                           value="<?php echo $row->ordering; ?>" class="width-20 text-area-order "/>
-                                <?php endif; ?>
-
-
-                            </td>
-
-
-                            <td align="center">
-                                <?php echo $published; ?>
-                                <?php echo $edit; ?>
-                                <?php echo $delete; ?>
-                            </td>
-                        </tr>
-                        <?php
-                        $k = 1 - $k;
-                    }
-                    ?>
-                    <tfoot>
-                    <tr>
-                        <td colspan="10">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                            <?php echo $this->pagination->getLimitBox(); ?>
+                    <tr >
+                        <td align="left">
+                            <input <?php echo $this->item->related_style?'checked':'' ?>  type="checkbox" value="1" name="related_style"  >
                         </td>
+                        <td align="left">
+                            <input type="checkbox" <?php echo $this->item->related_activity?'checked':'' ?> value="1" name="related_activity"  >
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" <?php echo $this->item->related_country?'checked':'' ?> value="1" name="related_country"  >
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" <?php echo $this->item->related_promotion?'checked':'' ?> value="1" name="related_promotion"  >
+                        </td>
+                        <td align="left">
+                            <?php echo VmHTML::select_tour('list_tsmart_product_id[]', $this->item->list_tsmart_product_id,' multiple="multiple" '); ?>
+                        </td>
+                        <td align="left">
+                            <?php echo VmHTML::product_display('product_display', $this->item->product_display,''); ?>
+
+                        </td>
+
+
                     </tr>
-                    </tfoot>
+
+
                 </table>
             </div>
-
+            <?php echo VmHTML::inputHidden(array(
+                'key[tsmart_product_id]'=>$this->tsmart_product_id
+            )); ?>
+            <input type="hidden" name="tsmart_product_id" value="<?php echo $this->tsmart_product_id ?>">
+            <input type="hidden" name="tsmart_related_id" value="<?php echo $this->item->tsmart_related_id ?>">
             <?php echo $this->addStandardHiddenToForm(); ?>
             <?php echo JHtml::_('form.token'); ?>
         </form>

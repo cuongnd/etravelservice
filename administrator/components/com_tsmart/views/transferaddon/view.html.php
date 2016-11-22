@@ -62,7 +62,7 @@ class TsmartViewtransferaddon extends tsmViewAdmin {
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
 			$this->item->list_tour_id = tsmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->tsmart_transfer_addon_id);
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-			$list_tour = vmproduct::get_list_product();
+			$list_tour = tsmproduct::get_list_product();
 			$this->assignRef('list_tour', $list_tour);
 			//end get list tour
 
@@ -82,7 +82,7 @@ class TsmartViewtransferaddon extends tsmViewAdmin {
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();
 
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcities.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcities.php';
 			$this->list_cityarea=tsmcities::get_city_state_country();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
 			$this->list_transfer_type=tsmtransferaddon::get_list_transfer_type();
@@ -106,7 +106,7 @@ class TsmartViewtransferaddon extends tsmViewAdmin {
 				require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtransferaddon.php';
 				$this->list_tour_id = tsmtransferaddon::get_list_tour_id_by_transfer_addon_id($this->item->tsmart_transfer_addon_id);
 				require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmproduct.php';
-				$list_tour = vmproduct::get_list_product();
+				$list_tour = tsmproduct::get_list_product();
 				$this->assignRef('list_tour', $list_tour);
 				//end get list tour
 

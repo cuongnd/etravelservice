@@ -1,7 +1,7 @@
 <?php
 /**
  * @package    AkeebaBackup
- * @copyright  Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright  Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license    GNU General Public License version 3, or later
  *
  */
@@ -73,7 +73,8 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 	protected $installation_queue = array(
 		// modules => { (folder) => { (module) => { (position), (published) } }* }*
 		'modules' => array(
-			'admin' => array(),
+			'admin' => array(
+			),
 			'site'  => array()
 		),
 		// plugins => { (folder) => { (element) => (published) }* }*
@@ -95,12 +96,12 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 	 */
 	protected $uninstallation_queue = array(
 		// modules => { (folder) => { (module) }* }*
-		/*
 		'modules' => array(
-			'admin' => array(),
+			'admin' => array(
+				'akeebabackup'
+			),
 			'site'  => array()
 		),
-		*/
 		// plugins => { (folder) => { (element) }* }*
 		'plugins' => array(
 			'system' => array(
@@ -214,6 +215,11 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 			// Additional ANGIE installers which are not used in Core
 			'administrator/components/com_akeeba/assets/installers/angie-generic.jpa',
 			'administrator/components/com_akeeba/assets/installers/angie-generic.ini',
+			// Integrity check
+			'administrator/components/com_akeeba/fileslist.php',
+			'administrator/components/com_akeeba/controllers/checkfile.php',
+			// Post-install messages helper
+			'administrator/components/com_akeeba/helpers/postinstall.php',
 		),
 		'folders' => array(
 			// Plugins
@@ -239,6 +245,8 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 			'administrator/components/com_akeeba/views/upload',
 			'administrator/components/com_akeeba/engine/Dump/Reverse',
 			'administrator/components/com_akeeba/engine/Postproc/Connector',
+			// Integrity check
+			'administrator/components/com_akeeba/views/checkfiles',
 		)
 	);
 
@@ -360,6 +368,9 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 			'administrator/components/com_akeeba/engine/Postproc/Connector/Amazons3.php',
 			'administrator/components/com_akeeba/engine/Postproc/S3.php',
 			'administrator/components/com_akeeba/engine/Postproc/s3.ini',
+
+			// Obsolete remains of the legacy Live Update system
+			'administrator/components/com_akeeba/assets/xmlslurp/xmlslurp.php',
 		),
 		'folders' => array(
 			// Directories used in version 4.1 and earlier
@@ -397,6 +408,12 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 			// Obsolete Amazon S3 integration
 			'administrator/components/com_akeeba/engine/Postproc/Connector/Amazon',
 			'administrator/components/com_akeeba/engine/Postproc/Connector/Amazons3',
+
+			// Obsolete remains of the legacy Live Update system
+			'administrator/components/com_akeeba/assets/xmlslurp',
+
+			// Obsolete Comconfig helper class
+			'administrator/components/com_akeeba/platform/joomla25/Util',
 		)
 	);
 
@@ -418,14 +435,14 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 	 *
 	 * @var   string
 	 */
-	protected $minimumPHPVersion = '5.4.0';
+	protected $minimumPHPVersion = '5.3.3';
 
 	/**
 	 * The minimum Joomla! version required to install this extension
 	 *
 	 * @var   string
 	 */
-	protected $minimumJoomlaVersion = '3.3.1';
+	protected $minimumJoomlaVersion = '1.6.0';
 
 	/**
 	 * Runs on installation
@@ -538,6 +555,8 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 
 		$this->uninstallObsoletePostinstallMessages();
 
+		$this->removeFOFUpdateSites();
+
 		// Make sure the two plugins folders exist in Core release and are empty
 		if (!$this->isPaid)
 		{
@@ -555,7 +574,7 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 		// If this is a new installation tell it to NOT mark the backup profiles as configured.
 		if (defined('AKEEBA_THIS_IS_INSTALLATION_FROM_SCRATCH'))
 		{
-			$db = JFactory::getDbo();
+			$db = F0FPlatform::getInstance()->getDbo();
 			$query = $db->getQuery(true)
 				->select($db->qn('params'))
 				->from($db->qn('#__extensions'))
@@ -588,6 +607,18 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 	{
 		$this->warnAboutJSNPowerAdmin();
 
+		if (!defined('AKEEBA_PRO'))
+		{
+			define('AKEEBA_PRO', '0');
+		}
+
+		$videoTutorialURL = 'https://www.akeebabackup.com/videos/1212-akeeba-backup-core.html';
+
+		if (AKEEBA_PRO)
+		{
+			$videoTutorialURL = 'https://www.akeebabackup.com/videos/1213-akeeba-backup-for-joomla-pro.html';
+		}
+
 		?>
 		<img src="../media/com_akeeba/icons/logo-48.png" width="48" height="48" alt="Akeeba Backup" align="right"/>
 
@@ -605,7 +636,7 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 		<fieldset>
 			<p>
 				We strongly recommend watching our
-				<a href="https://www.akeebabackup.com/videos/63-video-tutorials/1529-akeeba-backup-video-course-with-brian-teeman.html">video
+				<a href="<?php echo $videoTutorialURL ?>">video
 				tutorials</a> before using this component.
 			</p>
 
@@ -647,7 +678,7 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 
 	private function uninstallObsoletePostinstallMessages()
 	{
-		$db = JFactory::getDbo();
+		$db = F0FPlatform::getInstance()->getDbo();
 
 		$obsoleteTitleKeys = array(
 			// Remove "Upgrade profiles to ANGIE"
@@ -685,7 +716,7 @@ class Com_AkeebaInstallerScript extends F0FUtilsInstallscript
 	 */
 	private function warnAboutJSNPowerAdmin()
 	{
-		$db = JFactory::getDbo();
+		$db = F0FPlatform::getInstance()->getDbo();
 		$query = $db->getQuery(true)
 			->select('COUNT(*)')
 			->from($db->qn('#__extensions'))
@@ -753,7 +784,10 @@ HTML;
 		$jlang->load('com_akeeba' . '.override', $paths[1], 'en-GB', true);
 
 		// Load the version file
-		@include_once JPATH_ADMINISTRATOR . '/components/com_akeeba/version.php';
+		if (!defined('AKEEBA_PRO'))
+		{
+			@include_once JPATH_ADMINISTRATOR . '/components/com_akeeba/version.php';
+		}
 
 		if (!defined('AKEEBA_PRO'))
 		{
@@ -788,7 +822,7 @@ HTML;
 		$this->loadAkeebaEngine();
 
 		// Get a list of backup profiles
-		$db = JFactory::getDbo();
+		$db = F0FPlatform::getInstance()->getDbo();
 		$query = $db->getQuery(true)
 					->select($db->qn('id'))
 					->from($db->qn('#__ak_profiles'));
@@ -858,5 +892,25 @@ HTML;
 				\Akeeba\Engine\Platform::getInstance()->save_configuration($profile);
 			}
 		}
+	}
+
+	/**
+	 * Remove FOF 2.x update sites
+	 */
+	private function removeFOFUpdateSites()
+	{
+		$db = F0FPlatform::getInstance()->getDbo();
+		$query = $db->getQuery(true)
+					->delete($db->qn('#__update_sites_extensions'))
+					->where($db->qn('location') . ' = ' . $db->q('http://cdn.akeebabackup.com/updates/fof.xml'));
+		try
+		{
+			$db->setQuery($query)->execute();
+		}
+		catch (\Exception $e)
+		{
+			// Do nothing on failure
+		}
+
 	}
 }

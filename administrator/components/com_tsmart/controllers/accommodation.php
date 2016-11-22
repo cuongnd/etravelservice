@@ -43,15 +43,38 @@ class TsmartControllerAccommodation extends TsmController {
 
 	}
 
-	/**
-	 * We want to allow html so we need to overwrite some request data
-	 *
-	 * @author Max Milbers
-	 */
 	function save($data = 0){
 
-		$data = vRequest::getRequest();
-		parent::save($data);
+		$input=JFactory::getApplication()->input;
+		$data=$input->getArray();
+		$model = tmsModel::getModel($this->_cname);
+		$id = $model->store($data);
+		$tsmart_product_id=$data['tsmart_product_id'];
+		$msg = 'failed';
+		if(!empty($id)) {
+			$msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
+			$type = 'message';
+		}
+		else $type = 'error';
+
+		$redir = 'index.php?option=com_tsmart&view=accommodation&tsmart_product_id='.$tsmart_product_id.'&key[tsmart_product_id]='.$tsmart_product_id;
+		$this->setRedirect($redir, $msg,$type);
 	}
+	function cancel($data = 0){
+
+		$input=JFactory::getApplication()->input;
+		$data=$input->getArray();
+		$tsmart_product_id=$data['tsmart_product_id'];
+		$msg = 'cancel';
+		if(!empty($id)) {
+			$msg = tsmText::sprintf('com_tsmart_STRING_SAVED',$this->mainLangKey);
+			$type = 'message';
+		}
+		else $type = 'info';
+
+		$redir = 'index.php?option=com_tsmart&view=room&tsmart_product_id='.$tsmart_product_id.'&key[tsmart_product_id]='.$tsmart_product_id;
+		$this->setRedirect($redir, $msg,$type);
+	}
+
 }
 // pure php no closing tag

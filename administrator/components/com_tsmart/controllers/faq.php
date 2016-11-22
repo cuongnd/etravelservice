@@ -42,6 +42,16 @@ class TsmartControllerFaq extends TsmController {
 
 
 	}
+	function ajax_get_list_question_by_categoryfaq_id()
+	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+		$tsmart_categoryfaq_id=$input->get('tsmart_categoryfaq_id',0,'int');
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmfaq.php';
+		$list_question=tsmfaq::get_list_faq_by_categoryfaq_id($tsmart_categoryfaq_id);
+		echo json_encode($list_question);
+		jexit();
+	}
 
 	/**
 	 * We want to allow html so we need to overwrite some request data

@@ -417,11 +417,11 @@ class tsmartModelCustomfields extends tmsModel {
 
 					if($soption->voption!='clabels'){
 
-						foreach($sorted as $vmProductId){
-							if(empty($vmProductId) or $vmProductId['vm_product_id']==$product_id){
+						foreach($sorted as $tsmproductId){
+							if(empty($tsmproductId) or $tsmproductId['vm_product_id']==$product_id){
 								continue;
 							}
-							$product = $productModel->getProductSingle($vmProductId['vm_product_id'],false);
+							$product = $productModel->getProductSingle($tsmproductId['vm_product_id'],false);
 							$voption = trim($product->{$soption->voption});
 
 							if(!empty($voption)) {

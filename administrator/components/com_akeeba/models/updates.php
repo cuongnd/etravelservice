@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  * @since 3.2.5
  */
@@ -15,19 +15,36 @@ defined('_JEXEC') or die();
 class AkeebaModelUpdates extends F0FUtilsUpdate
 {
 	/**
+	 * The name of the package for which updates are registered
+	 *
+	 * @var  string
+	 */
+	protected $packageName = 'pkg_akeeba';
+
+	/**
+	 * Obsolete update site locations
+	 *
+	 * @var  array
+	 */
+	protected $obsoleteUpdateSiteLocations = array(
+		'http://cdn.akeebabackup.com/updates/abpro.xml',
+		'http://cdn.akeebabackup.com/updates/abcore.xml',
+		'http://cdn.akeebabackup.com/updates/fof.xml',
+	);
+
+	/**
 	 * Public constructor. Initialises the protected members as well.
 	 *
 	 * @param array $config
 	 */
 	public function __construct($config = array())
 	{
-		parent::__construct($config);
-
 		$isPro = defined('AKEEBA_PRO') ? AKEEBA_PRO : 0;
 
 		JLoader::import('joomla.application.component.helper');
-		$dlid = \Akeeba\Engine\Util\Comconfig::getValue('update_dlid', '');
-		$this->extraQuery = null;
+		$dlid = F0FUtilsConfigHelper::getComponentConfigurationValue('com_akeeba', 'update_dlid', '');
+
+		$extraQuery = null;
 
 		// If I have a valid Download ID I will need to use a non-blank extra_query in Joomla! 3.2+
 		if (preg_match('/^([0-9]{1,}:)?[0-9a-f]{32}$/i', $dlid))
@@ -35,320 +52,474 @@ class AkeebaModelUpdates extends F0FUtilsUpdate
 			// Even if the user entered a Download ID in the Core version. Let's switch his update channel to Professional
 			$isPro = true;
 
-			$this->extraQuery = 'dlid=' . $dlid;
+			$extraQuery = 'dlid=' . $dlid;
 		}
 
-		$this->updateSiteName = 'Akeeba Backup ' . ($isPro ? 'Professional' : 'Core');
-		$this->updateSite = 'http://cdn.akeebabackup.com/updates/ab' . ($isPro ? 'pro' : 'core') . '.xml';
+		$mergeConfig = array(
+			'update_component'  => $this->packageName,
+			'update_component_description' => 'Akeeba Backup ' . ($isPro ? 'Professional' : 'Core'),
+			'update_version' => defined('AKEEBA_VERSION') ? AKEEBA_VERSION : 'dev',
+			'update_site' => 'http://cdn.akeebabackup.com/updates/pkgakeeba' . ($isPro ? 'pro' : 'core') . '.xml',
+			'update_extraquery' => $extraQuery,
+			'update_sitename' => 'Akeeba Backup ' . ($isPro ? 'Professional' : 'Core'),
+		);
+
+		if (!is_array($config))
+		{
+			$config = array();
+		}
+
+		$config = array_merge($mergeConfig, $config);
+
+		parent::__construct($config);
+
+		$this->extension_id = $this->findExtensionId($this->packageName, 'package');
+
+		if (!$this->extension_id)
+		{
+			$this->createFakePackageExtension();
+			$this->extension_id = $this->findExtensionId($this->packageName, 'package');
+		}
+
+		$this->createFakePackageManifest();
 	}
 
-    public function autoupdate()
-    {
-        $return = array(
-            'message' => ''
-        );
+	public function refreshUpdateSite()
+	{
+		$this->removeObsoleteComponentUpdateSites();
 
-        // First of all let's check if there are any updates
-        $updateInfo = (object)$this->getUpdates(true);
+		parent::refreshUpdateSite();
+	}
 
-        // There are no updates, there's no point in continuing
-        if(!$updateInfo->hasUpdate)
-        {
-            return array(
-                'message' => array("No available updates found")
-            );
-        }
+	/**
+	 * Performs an automatic update or send an update notification email, depending on the user's options. Installing
+	 * updates only works on Joomla! 1.6 or later. Sending update notification emails works on Joomla! 1.5 or later.
+	 *
+	 * @return   array  Just a 'message' key for now with an array of all the update result messages
+	 */
+	public function autoupdate()
+	{
+		$return = array(
+			'message' => ''
+		);
 
-        $return['message'][] = "Update detected, version: ".$updateInfo->version;
+		// First of all let's check if there are any updates
+		$updateInfo = (object)$this->getUpdates(true);
 
-        // Ok, an update is found, what should I do?
-        $params = JComponentHelper::getParams('com_akeeba');
-        $autoupdate = $params->get('autoupdateCli', 1);
+		// There are no updates, there's no point in continuing
+		if (!$updateInfo->hasUpdate)
+		{
+			return array(
+				'message' => array("No available updates found")
+			);
+		}
 
-        // Let's notifiy the user
-        if($autoupdate == 1 || $autoupdate == 2)
-        {
-            $email = $params->get('notificationEmail');
+		$return['message'][] = "Update detected, version: " . $updateInfo->version;
 
-            if(!$email)
-            {
-                $return['message'][] = "There isn't an email for notifications, no notification will be sent.";
-            }
-            else
-            {
-                // Ok, I can send it out, but before let's check if the user set any frequency limit
-                $numfreq    = $params->get('notificationFreq', 1);
-                $freqtime   = $params->get('notificationTime', 'day');
-                $lastSend   = $this->getLastSend();
-                $shouldSend = false;
+		// Ok, an update is found, what should I do?
+		$autoupdate = F0FUtilsConfigHelper::getComponentConfigurationValue($this->component, 'autoupdateCli', 1);
 
-                if(!$numfreq)
-                {
-                    $shouldSend = true;
-                }
-                else
-                {
-                    $check = strtotime('-'.$numfreq.' '.$freqtime);
+		// Let's notifiy the user
+		if ($autoupdate == 1 || $autoupdate == 2)
+		{
+			$email = F0FUtilsConfigHelper::getComponentConfigurationValue($this->component, 'notificationEmail');
 
-                    if($lastSend < $check)
-                    {
-                        $shouldSend = true;
-                    }
-                    else
-                    {
-                        $return['message'][] = "Frequency limit hit, I won't send any email";
-                    }
-                }
+			if (!$email)
+			{
+				$return['message'][] = "There isn't an email for notifications, no notification will be sent.";
+			}
+			else
+			{
+				// Ok, I can send it out, but before let's check if the user set any frequency limit
+				$numfreq    =
+					F0FUtilsConfigHelper::getComponentConfigurationValue($this->component, 'notificationFreq', 1);
+				$freqtime   =
+					F0FUtilsConfigHelper::getComponentConfigurationValue($this->component, 'notificationTime', 'day');
+				$lastSend   = $this->getLastSend();
+				$shouldSend = false;
 
-                if($shouldSend)
-                {
-                    if($this->sendNotificationEmail($updateInfo->version, $email))
-                    {
-                        $return['message'][] = "E-mail(s) correctly sent";
-                    }
-                    else
-                    {
-                        $return['message'][] = "An error occurred while sending e-mail(s). Please double check your settings";
-                    }
+				if (!$numfreq)
+				{
+					$shouldSend = true;
+				}
+				else
+				{
+					$check = strtotime('-' . $numfreq . ' ' . $freqtime);
 
-                    $this->setLastSend();
-                }
-            }
-        }
+					if ($lastSend < $check)
+					{
+						$shouldSend = true;
+					}
+					else
+					{
+						$return['message'][] = "Frequency limit hit, I won't send any email";
+					}
+				}
 
-        // Let's download and install the latest version
-        if($autoupdate == 1 || $autoupdate == 3)
-        {
-            if(F0FModel::getTmpInstance('Cpanels', 'AkeebaModel')->needsDownloadID())
-            {
-                $return['message'][] = "You have to enter the DownloadID in order to update your pro version";
-            }
-            else
-            {
-                $return['message'][] = $this->updateComponent();
-            }
-        }
+				if ($shouldSend)
+				{
+					if ($this->doSendNotificationEmail($updateInfo->version, $email))
+					{
+						$return['message'][] = "E-mail(s) correctly sent";
+					}
+					else
+					{
+						$return['message'][] =
+							"An error occurred while sending e-mail(s). Please double check your settings";
+					}
 
-        return $return;
-    }
+					$this->setLastSend();
+				}
+			}
+		}
 
-    private function sendNotificationEmail($version, $email)
-    {
-        $email_subject	= <<<ENDSUBJECT
-THIS EMAIL IS SENT FROM YOUR SITE "[SITENAME]" - Update available
-ENDSUBJECT;
+		// Let's download and install the latest version
+		if ($autoupdate == 1 || $autoupdate == 3)
+		{
+			if (F0FModel::getTmpInstance('Cpanels', 'AkeebaModel')->needsDownloadID())
+			{
+				$return['message'][] = "You have to enter the DownloadID in order to update your pro version";
+			}
+			else
+			{
+				$return['message'][] = $this->doUpdateComponent();
+			}
+		}
 
-        $email_body = <<<ENDBODY
-This email IS NOT sent by the authors of Akeeba Backup. It is sent automatically
-by your own site, [SITENAME]
+		return $return;
+	}
 
-================================================================================
-UPDATE INFORMATION
-================================================================================
+	/**
+	 * Get the timestamp of the last notification email sent from the database
+	 *
+	 * @return  int  The timestamp
+	 */
+	private function getLastSend()
+	{
+		$raw = $this->getCommonParameter('lastsend', 0);
 
-Your site has determined that there is an updated version of Akeeba Backup
-available for download.
+		return (int) $raw;
+	}
 
-New version number: [VERSION]
+	/**
+	 * Set the timestamp of the last notification email sent to the database
+	 *
+	 * @return  void
+	 */
+	private function setLastSend()
+	{
+		$now = time();
 
-This email is sent to you by your site to remind you of this fact. The authors
-of the software will never contact you about available updates.
+		$this->setCommonParameter('lastsend', $now);
+	}
 
-================================================================================
-WHY AM I RECEIVING THIS EMAIL?
-================================================================================
+	/**
+	 * Does the user need to provide FTP credentials? It also registers any FTP credentials provided in the URL.
+	 *
+	 * @return  bool  True if the user needs to provide FTP credentials
+	 */
+	public function needsFTPCredentials()
+	{
+		// Determine wether FTP credentials have been passed along with the current request
+		JLoader::import('joomla.client.helper');
 
-This email has been automatically sent by a CLI script you, or the person who built
-or manages your site, has installed and explicitly activated. This script looks
-for updated versions of the software and sends an email notification to all
-Super Users. You will receive several similar emails from your site, up to 6
-times per day, until you either update the software or disable these emails.
+		$user = $this->input->get('username', null, 'raw');
+		$pass = $this->input->get('password', null, 'raw');
 
-To disable these emails, please contact your site administrator.
+		if (!(($user == '') && ($pass == '')))
+		{
+			// Add credentials to the session
+			if (JClientHelper::setCredentials('ftp', $user, $pass))
+			{
+				return false;
+			}
 
-If you do not understand what this means, please do not contact the authors of
-the software. They are NOT sending you this email and they cannot help you.
-Instead, please contact the person who built or manages your site.
+			return true;
+		}
 
-================================================================================
-WHO SENT ME THIS EMAIL?
-================================================================================
+		return !JClientHelper::hasCredentials('ftp');
+	}
 
-This email is sent to you by your own site, [SITENAME]
+	/**
+	 * Removes the obsolete update sites for the component, since now we're dealing with a package.
+	 *
+	 * Controlled by componentName, packageName and obsoleteUpdateSiteLocations
+	 *
+	 * Depends on getExtensionId, getUpdateSitesFor
+	 *
+	 * @return  void
+	 */
+	protected function removeObsoleteComponentUpdateSites()
+	{
+		// Initialize
+		$deleteIDs      = array();
 
-ENDBODY;
+		// Get component ID
+		$componentID = $this->findExtensionId('com_akeeba', 'component');
 
-        $jconfig  = JFactory::getConfig();
-        $sitename = $jconfig->get('sitename');
+		// Get package ID
+		$packageID = $this->findExtensionId('pkg_akeeba', 'package');
 
-        $substitutions = array(
-            '[VERSION]'			=> $version,
-            '[SITENAME]'		=> $sitename
-        );
+		// Update sites for old extension ID (all)
+		$deleteIDs = array();
 
-        $email_subject = str_replace(array_keys($substitutions), array_values($substitutions), $email_subject);
-        $email_body    = str_replace(array_keys($substitutions), array_values($substitutions), $email_body);
+		if ($componentID)
+		{
+			// Old component packages
+			$moreIDs   = $this->getUpdateSitesFor($componentID, null);
 
-        $mailer = JFactory::getMailer();
+			if (is_array($moreIDs) && count($moreIDs))
+			{
+				$deleteIDs = array_merge($deleteIDs, $moreIDs);
+			}
 
-        $mailfrom = $jconfig->get('mailfrom');
-        $fromname = $jconfig->get('fromname');
+			// Obsolete update sites
+			$moreIDs   = $this->getUpdateSitesFor(null, $componentID, $this->obsoleteUpdateSiteLocations);
 
-        $mailer->setSender(array( $mailfrom, $fromname ));
-        $mailer->addRecipient($email);
-        $mailer->setSubject($email_subject);
-        $mailer->setBody($email_body);
+			if (is_array($moreIDs) && count($moreIDs))
+			{
+				$deleteIDs = array_merge($deleteIDs, $moreIDs);
+			}
+		}
 
-        return $mailer->Send();
-    }
+		// Update sites for any but current extension ID, location matching any of the obsolete update sites
+		if ($packageID)
+		{
+			// Update sites for all of the current extension ID update sites
+			$moreIDs   = $this->getUpdateSitesFor($packageID, null);
 
-    private function updateComponent()
-    {
-        JLoader::import('joomla.updater.update');
+			if (is_array($moreIDs) && count($moreIDs))
+			{
+				$deleteIDs = array_merge($deleteIDs, $moreIDs);
+			}
 
-        $db = JFactory::getDbo();
+			$deleteIDs = array_unique($deleteIDs);
 
-        $update_site = array_shift($this->getUpdateSiteIds());
+			// Remove the last update site
+			if (count($deleteIDs))
+			{
+				$lastID = array_pop($moreIDs);
+				$pos = array_search($lastID, $deleteIDs);
+				unset($deleteIDs[$pos]);
+			}
+		}
 
-        $query = $db->getQuery(true)
-                    ->select($db->qn('update_id'))
-                    ->from($db->qn('#__updates'))
-                    ->where($db->qn('update_site_id').' = '.$update_site);
+		$db        = JFactory::getDbo();
+		$deleteIDs = array_unique($deleteIDs);
 
-        $uid = $db->setQuery($query)->loadResult();
+		if (empty($deleteIDs) || !count($deleteIDs))
+		{
+			return;
+		}
 
-        $update = new JUpdate();
-        $instance = JTable::getInstance('update');
-        $instance->load($uid);
-        $update->loadFromXML($instance->detailsurl);
+		$deleteIDs = array_map(array($db, 'q'), $deleteIDs);
 
-        if (isset($update->get('downloadurl')->_data))
-        {
-            $url = trim($update->downloadurl->_data);
+		$query = $db->getQuery(true)
+		            ->delete($db->qn('#__update_sites'))
+		            ->where($db->qn('update_site_id') . ' IN(' . implode(',', $deleteIDs) . ')');
 
-            $extra_query = $instance->extra_query;
+		try
+		{
+			$db->setQuery($query)->execute();
+		}
+		catch (Exception $e)
+		{
+			// Do nothing.
+		}
 
-            if ($extra_query)
-            {
-                if (strpos($url, '?') === false)
-                {
-                    $url .= '?';
-                }
-                else
-                {
-                    $url .= '&amp;';
-                }
+		$query = $db->getQuery(true)
+		            ->delete($db->qn('#__update_sites_extensions'))
+		            ->where($db->qn('update_site_id') . ' IN(' . implode(',', $deleteIDs) . ')');
 
-                $url .= $extra_query;
-            }
-        }
-        else
-        {
-            return "No download URL found inside XML manifest";
-        }
+		try
+		{
+			$db->setQuery($query)->execute();
+		}
+		catch (Exception $e)
+		{
+			// Do nothing.
+		}
+	}
 
-        $config		= JFactory::getConfig();
-        $tmp_dest	= $config->get('tmp_path');
+	/**
+	 * Gets the ID of an extension
+	 *
+	 * @param   string  $element  Extension element, e.g. com_foo, mod_foo, lib_foo, pkg_foo or foo (CAUTION: plugin, file!)
+	 * @param   string  $type     Extension type: component, module, library, package, plugin or file
+	 * @param   null    $folder   Plugins: plugin folder. Modules: admin/site
+	 *
+	 * @return  int  Extension ID or 0 on failure
+	 */
+	protected function findExtensionId($element, $type = 'component', $folder = null)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
+		            ->select($db->qn('extension_id'))
+		            ->from($db->qn('#__extensions'))
+		            ->where($db->qn('element') . ' = ' . $db->q($element))
+		            ->where($db->qn('type') . ' = ' . $db->q($type));
 
-        if(!$tmp_dest)
-        {
-            return "Joomla temp directory is empty, please set it before continuing";
-        }
-        elseif(!JFolder::exists($tmp_dest))
-        {
-            return "Joomla temp directory does not exists, please set the correct path before continuing";
-        }
+		// Plugin? We should look for a folder
+		if ($type == 'plugin')
+		{
+			$folder = empty($folder) ? 'system' : $folder;
 
-        $p_file = JInstallerHelper::downloadPackage($url);
+			$query->where($db->qn('folder') . ' = ' . $db->q($folder));
+		}
 
-        if(!$p_file)
-        {
-            return "An error occurred while trying to download the latest version, double check your Download ID";
-        }
+		// Module? Use the folder to determine if it's site or admin module.
+		if ($type == 'module')
+		{
+			$folder = empty($folder) ? 'site' : $folder;
 
-        // Unpack the downloaded package file
-        $package	= JInstallerHelper::unpack($tmp_dest . '/' . $p_file);
+			$query->where($db->qn('client_id') . ' = ' . $db->q(($folder == 'site') ? 0 : 1));
+		}
 
-        if(!$package)
-        {
-            return "An error occurred while unpacking the file, please double check your Joomla temp directory";
-        }
+		try
+		{
+			$id = $db->setQuery($query, 0, 1)->loadResult();
+		}
+		catch (Exception $e)
+		{
+			$id = 0;
+		}
 
-        $installer = new JInstaller;
-        $installed = $installer->install($package['extractdir']);
+		return empty($id) ? 0 : (int) $id;
+	}
 
-        // Let's cleanup the downloaded archive and the temp folder
-        if(JFolder::exists($package['extractdir']))
-        {
-            JFolder::delete($package['extractdir']);
-        }
+	/**
+	 * Returns the update site IDs matching the criteria below. All criteria are optional but at least one must be
+	 * defined for the method call to make any sense.
+	 *
+	 * @param   int|null  $includeEID  The update site must belong to this extension ID
+	 * @param   int|null  $excludeEID  The update site must NOT belong to this extension ID
+	 * @param   array     $locations   The update site must match one of these locations
+	 *
+	 * @return  array  The IDs of the update sites
+	 */
+	protected function getUpdateSitesFor($includeEID = null, $excludeEID = null, $locations = array())
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
+		            ->select($db->qn('s.update_site_id'))
+		            ->from($db->qn('#__update_sites', 's'));
 
-        if(JFile::exists($package['packagefile']))
-        {
-            JFile::delete($package['packagefile']);
-        }
+		if (!empty($locations))
+		{
+			$quotedLocations = array_map(array($db, 'q'), $locations);
+			$query->where($db->qn('location') . 'IN(' . implode(',', $quotedLocations) . ')');
+		}
 
-        if($installed)
-        {
-            return "Component successfully updated";
-        }
-        else
-        {
-            return "An error occurred while trying to update the component";
-        }
-    }
+		if (!empty($includeEID) || !empty($excludeEID))
+		{
+			$query->innerJoin($db->qn('#__update_sites_extensions', 'e') . 'ON(' . $db->qn('e.update_site_id') .
+			                  ' = ' . $db->qn('s.update_site_id') . ')'
+			);
+		}
 
-    private function getLastSend()
-    {
-        $db = JFactory::getDbo();
+		if (!empty($includeEID))
+		{
+			$query->where($db->qn('e.extension_id') . ' = ' . $db->q($includeEID));
+		}
+		elseif (!empty($excludeEID))
+		{
+			$query->where($db->qn('e.extension_id') . ' != ' . $db->q($excludeEID));
+		}
 
-        $query = $db->getQuery(true)
-                    ->select($db->qn('lastupdate'))
-                    ->from($db->qn('#__ak_storage'))
-                    ->where($db->qn('tag').' = '.$db->q('akeeba_autoupdate_lastsend'));
-        $result = $db->setQuery($query)->loadResult();
+		try
+		{
+			$ret = $db->setQuery($query)->loadColumn();
+		}
+		catch (Exception $e)
+		{
+			$ret = null;
+		}
 
-        if(!$result)
-        {
-            return 0;
-        }
-        else
-        {
-            $date = new JDate($result);
+		return empty($ret) ? array() : $ret;
+	}
 
-            return $date->toUnix();
-        }
-    }
+	protected function createFakePackageExtension()
+	{
+		$db = $this->getDbo();
 
-    private function setLastSend()
-    {
-        $db = JFactory::getDbo();
+		$query = $db->getQuery(true)
+		            ->insert($db->qn('#__extensions'))
+		            ->columns(array(
+			            $db->qn('name'), $db->qn('type'), $db->qn('element'), $db->qn('folder'), $db->qn('client_id'),
+			            $db->qn('enabled'), $db->qn('access'), $db->qn('protected'), $db->qn('manifest_cache'),
+			            $db->qn('params'), $db->qn('custom_data'), $db->qn('system_data'), $db->qn('checked_out'),
+			            $db->qn('checked_out_time'), $db->qn('ordering'), $db->qn('state')
+		            ))
+		            ->values(array(
+			            $db->q('Akeeba Backup package') . ',' .
+			            $db->q('package') . ',' .
+			            $db->q('pkg_akeeba') . ',' .
+			            $db->q('') . ',' .
+			            $db->q(0) . ',' .
+			            $db->q(1) . ',' .
+			            $db->q(1) . ',' .
+			            $db->q(0) . ',' .
+			            $db->q('{"name":"Akeeba Backup package","type":"package","creationDate":"2016-04-21","author":"Nicholas K. Dionysopoulos","copyright":"Copyright (c)2006-2016 Akeeba Ltd \/ Nicholas K. Dionysopoulos","authorEmail":"","authorUrl":"","version":"' . $this->version . '","description":"Akeeba Backup installation package, for updating from version 4.x only","group":"","filename":"pkg_akeeba"}') . ',' .
+			            $db->q('{}') . ',' .
+			            $db->q('') . ',' .
+			            $db->q('') . ',' .
+			            $db->q(0) . ',' .
+			            $db->q($db->getNullDate()) . ',' .
+			            $db->q(0) . ',' .
+			            $db->q(0)
+		            ));
 
-        $now = new JDate();
+		try
+		{
+			$db->setQuery($query)->execute();
+		}
+		catch (\Exception $e)
+		{
+			// Your database if FUBAR.
+			return;
+		}
 
-        $query = $db->getQuery(true)
-                    ->select('COUNT(*)')
-                    ->from($db->qn('#__ak_storage'))
-                    ->where($db->qn('tag').' = '.$db->q('akeeba_autoupdate_lastsend'));
-        $count = $db->setQuery($query)->loadResult();
+		$this->createFakePackageManifest();
+	}
 
-        if($count)
-        {
-            $query = $db->getQuery(true)
-                        ->update($db->qn('#__ak_storage'))
-                        ->set($db->qn('lastupdate').' = '.$db->q($now->toSql()))
-                        ->where($db->qn('tag').' = '.$db->q('akeeba_autoupdate_lastsend'));
-            $db->setQuery($query)->execute();
-        }
-        else
-        {
-            $data = (object) array(
-                'tag'        => 'akeeba_autoupdate_lastsend',
-                'lastupdate' => $now->toSql(),
-                'data'       => null
-            );
+	protected function createFakePackageManifest()
+	{
+		$path = JPATH_ADMINISTRATOR . '/manifests/packages/pkg_akeeba.xml';
 
-            $db->insertObject('#__ak_storage', $data);
-        }
-    }
+		if (file_exists($path))
+		{
+			return;
+		}
+
+
+		$content = <<< XML
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3.0" type="package" method="upgrade">
+    <name>Akeeba Backup package</name>
+    <author>Nicholas K. Dionysopoulos</author>
+    <creationDate>2016-04-20</creationDate>
+    <packagename>akeeba</packagename>
+    <version>{$this->version}</version>
+    <url>https://www.akeebabackup.com</url>
+    <packager>Akeeba Ltd</packager>
+    <packagerurl>https://www.akeebabackup.com</packagerurl>
+    <copyright>Copyright (c)2006-2016 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
+    <license>GNU GPL v3 or later</license>
+    <description>Akeeba Backup installation package v.revD5C5D46</description>
+
+    <files>
+        <file type="component" id="com_akeeba">com_akeeba-pro.zip</file>
+        <file type="file" id="file_akeeba">file_akeeba-pro.zip</file>
+        <file type="plugin" group="quickicon" id="akeebabackup">plg_quickicon_akeebabackup.zip</file>
+        <file type="plugin" group="system" id="akeebaupdatecheck">plg_system_akeebaupdatecheck.zip</file>
+        <file type="plugin" group="system" id="backuponupdate">plg_system_backuponupdate.zip</file>
+    </files>
+
+    <scriptfile>script.akeeba.php</scriptfile>
+</extension>
+XML;
+
+		JLoader::import('joomla.filesystem.file');
+		JFile::write($path, $content);
+	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license GNU General Public License version 3, or later
  *
  * @since 1.3
@@ -13,8 +13,8 @@ use Akeeba\Engine\Base\Object;
 use Akeeba\Engine\Core\Domain\Finalization;
 use Akeeba\Engine\Factory;
 use Akeeba\Engine\Platform;
-use Psr\Log\LogLevel;
 use JText;
+use Psr\Log\LogLevel;
 
 // Protection against direct access
 defined('AKEEBAENGINE') or die();

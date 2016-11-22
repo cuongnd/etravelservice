@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     4.4.0
@@ -11,7 +11,6 @@
 defined('_JEXEC') or die();
 
 use Akeeba\Engine\Platform;
-use Akeeba\Engine\Factory;
 
 class AkeebaControllerTransfer extends AkeebaControllerDefault
 {
@@ -19,7 +18,7 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 	protected $session = null;
 
 	/** @var   array  The tasks this controller is allowed to use */
-	private $allowedTasks = ['wizard', 'checkUrl', 'applyConnection', 'initialiseUpload', 'upload', 'reset'];
+	private $allowedTasks = array('wizard', 'checkUrl', 'applyConnection', 'initialiseUpload', 'upload', 'reset');
 
 	/**
 	 * Overridden constructor; lets us inject a different session
@@ -90,9 +89,9 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 		$url = $this->input->get('url', '', 'raw');
 
 		/** @var AkeebaModelTransfers $model */
-		$model = $this->getThisModel([
+		$model = $this->getThisModel(array(
 			'savestate' => 1
-		]);
+		));
 		$result = $model->checkAndCleanUrl($url);
 
 		$session = $this->session;
@@ -109,10 +108,10 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 	 */
 	public function applyConnection()
 	{
-		$result = (object)[
+		$result = (object) array(
 			'status'    => true,
 			'message'   => '',
-		];
+		);
 
 		// Get the parameters from the request
 		$transferOption = $this->input->getCmd('method', 'ftp');
@@ -167,10 +166,10 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 		}
 		catch (Exception $e)
 		{
-			$result = (object)[
+			$result = (object) array(
 				'status'    => false,
 				'message'   => $e->getMessage(),
-			];
+			);
 		}
 
 		@ob_end_clean();
@@ -183,10 +182,10 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 	 */
 	public function initialiseUpload()
 	{
-		$result = (object)[
+		$result = (object) array(
 			'status'    => true,
 			'message'   => '',
-		];
+		);
 
 		/** @var AkeebaModelTransfers $model */
 		$model = $this->getThisModel();
@@ -198,10 +197,10 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 		}
 		catch (Exception $e)
 		{
-			$result = (object)[
+			$result = (object) array(
 				'status'    => false,
 				'message'   => $e->getMessage(),
-			];
+			);
 		}
 
 		@ob_end_clean();
@@ -229,13 +228,13 @@ class AkeebaControllerTransfer extends AkeebaControllerDefault
 		}
 		catch (Exception $e)
 		{
-			$uploadResult = (object)[
+			$uploadResult = (object) array(
 				'status'    => false,
 				'message'   => $e->getMessage(),
 				'totalSize' => 0,
 				'doneSize'  => 0,
 				'done'      => false
-			];
+			);
 		}
 
 		$result = (object)$uploadResult;

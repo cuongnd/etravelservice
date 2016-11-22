@@ -84,7 +84,7 @@
          */
         $.each(settings, function (k, val) {
             if (typeof val === 'function') {
-                settings[k] = val($this, settings, k);
+                //settings[k] = val($this, settings, k);
             } else if (typeof $this.autoNumeric[val] === 'function') {
                 /**
                  * calls the attached function from the html5 data example: data-a-sign="functionName"

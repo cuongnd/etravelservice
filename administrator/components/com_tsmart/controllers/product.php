@@ -45,7 +45,7 @@ class TsmartControllerProduct extends TsmController {
 		$input=JFactory::getApplication()->input;
 		$tsmart_tour_type_id=$input->getInt('tsmart_tour_type_id');
 		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmproduct.php';
-		$list_tour_type = vmproduct::get_list_product_by_tour_type_id($tsmart_tour_type_id);
+		$list_tour_type = tsmproduct::get_list_product_by_tour_type_id($tsmart_tour_type_id);
 		echo json_encode($list_tour_type);
 		die;
 

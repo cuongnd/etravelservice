@@ -5,7 +5,7 @@
 
         // plugin's default options
         var defaults = {
-            cities:[]
+            activities:[]
         }
 
         // current instance of the object
@@ -25,14 +25,12 @@
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            var cities=plugin.settings.cities;
+            var cities=plugin.settings.activities;
             var vituemart_cityarea_id=plugin.settings.vituemart_cityarea_id;
-            plugin.select2=$element.select2({
-                data:cities,
-                templateResult:plugin.set_select2_template_result,
-                templateSelection:plugin.set_lect2_template_selection
+            $element.select2({
+               
             });
-            plugin.select2.val(vituemart_cityarea_id).trigger("change")
+            //plugin.select2.val(vituemart_cityarea_id).trigger("change")
         }
 
         plugin.init();

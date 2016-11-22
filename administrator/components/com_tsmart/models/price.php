@@ -107,7 +107,7 @@ class tsmartModelPrice extends tmsModel
             ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=tour_price.tsmart_product_id')
             ->select('products.price_type')
             ->innerJoin('#__tsmart_tour_type AS tour_type ON tour_type.tsmart_tour_type_id=products.tsmart_tour_type_id')
-            ->select('tour_type.title AS tour_type_name')
+            ->select('tour_type.tour_type_name AS tour_type_name')
             ->order('tour_price.sale_period_from,tour_price.sale_period_to,tour_service_class.ordering')
         ;
         echo $query->dump();

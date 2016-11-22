@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaBackup
- * @copyright Copyright (c)2009-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2009-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  *
  * @since     1.3
@@ -11,7 +11,6 @@
 defined('_JEXEC') or die();
 
 use Akeeba\Engine\Platform;
-use Akeeba\Engine\Factory;
 
 /**
  * The Backup controller class
@@ -86,7 +85,7 @@ class AkeebaControllerBackup extends AkeebaControllerDefault
 			$model->setState('jpskey', $this->input->get('jpskey', '', 'raw', 2));
 			$model->setState('angiekey', $this->input->get('angiekey', '', 'raw', 2));
 			$model->setState('returnurl', $this->input->get('returnurl', '', 'raw', 2));
-			$model->setState('backupid', $this->input->get('backupid', null, 'string', 2));
+			$model->setState('backupid', $this->input->get('backupid', null, 'cmd'));
 		}
 
 		return $result;
@@ -103,7 +102,7 @@ class AkeebaControllerBackup extends AkeebaControllerDefault
 		$model->setState('comment', $this->input->get('comment', '', 'html', 2));
 		$model->setState('jpskey', $this->input->get('jpskey', '', 'raw', 2));
 		$model->setState('angiekey', $this->input->get('angiekey', '', 'raw', 2));
-		$model->setState('backupid', $this->input->get('backupid', null, 'string', 2));
+		$model->setState('backupid', $this->input->get('backupid', null, 'cmd'));
 		$model->setState('tag', $this->input->get('tag', 'backend', 'cmd'));
 		$model->setState('errorMessage', $this->input->getString('errorMessage', ''));
 
