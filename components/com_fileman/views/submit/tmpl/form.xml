@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_FILEMAN_VIEW_SUBMIT">
+		<message>
+			<![CDATA[COM_FILEMAN_VIEW_SUBMIT_DESCRIPTION]]>
+		</message>
+	</layout>
+	<state>
+		<name>COM_FILEMAN_VIEW_SUBMIT</name>
+		<description>COM_FILEMAN_VIEW_SUBMIT_DESCRIPTION</description>
+		<params addpath="/components/com_fileman/elements">
+			<param name="folder" type="folders" default="" label="SUBMIT_FOLDER"
+				show_root="1"
+				description="SUBMIT_FOLDER_DESCRIPTION" />
+			<param name="notification_emails" type="textarea" label="SUBMIT_NOTIFY"
+				rows="5"
+				description="SUBMIT_NOTIFY_DESCRIPTION" />
+		</params>
+	</state>
+	<fields name="params" addfieldpath="/components/com_fileman/elements">
+		<fieldset name="basic">
+			<field name="folder" type="folders17" label="SUBMIT_FOLDER"
+				show_root="1"
+				description="SUBMIT_FOLDER_DESCRIPTION" />
+			<field name="notification_emails" type="textarea" label="SUBMIT_NOTIFY"
+				rows="5"
+				description="SUBMIT_NOTIFY_DESCRIPTION" />
+		</fieldset>
+	</fields>
+</metadata>

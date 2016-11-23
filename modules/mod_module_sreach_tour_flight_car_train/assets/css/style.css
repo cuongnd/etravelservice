@@ -1,14 +1,14 @@
-.moduletablemodule_sreach_tour_flight_car_train
-{
-    position: relative;
-}
-.mod_module_sreach_tour_flight_car_train
-{
-    position: absolute;
-    z-index: 99;
-    top: -150px;
-    background: #efe9e9;
-    border-radius: 5px;
-    left: 20%;
-    padding: 20px;
+.moduletablemodule_sreach_tour_flight_car_train
+{
+    position: relative;
+}
+.mod_module_sreach_tour_flight_car_train
+{
+    position: absolute;
+    z-index: 99;
+    top: -150px;
+    background: #efe9e9;
+    border-radius: 5px;
+    left: 20%;
+    padding: 20px;
 }

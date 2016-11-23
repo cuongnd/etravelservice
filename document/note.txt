@@ -1,9 +1,9 @@
-note:
-payment rule: 
-deposit 
-1.Nếu deposit 100%, thì các balance 1,2,3 disable
-2.Nếu deposit amount=totla cost, thì các balance 1,2,3 disable
-balance:
-1.balance 1: nếu set giá trị 100% thì balance 2,3 disable
-2.balance 2: nếu set giá trị balance1+balance2= 100% thì balance 3 disable
+note:
+payment rule: 
+deposit 
+1.Nếu deposit 100%, thì các balance 1,2,3 disable
+2.Nếu deposit amount=totla cost, thì các balance 1,2,3 disable
+balance:
+1.balance 1: nếu set giá trị 100% thì balance 2,3 disable
+2.balance 2: nếu set giá trị balance1+balance2= 100% thì balance 3 disable
 3.nếu balance1+balance2+balance3<100% hoặc >100% thì yêu cầu nhập lại

@@ -210,44 +210,44 @@ interface  OffAmazonPaymentsService_Interface
     
     
     
-    /**
-     * Get Billing Agreement Details
-     *
-     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest request
-     * or OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest object itself
-     * @see OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest
-     * @return OffAmazonPaymentsService_Model_GetBillingAgreementDetailsResponse OffAmazonPaymentsService_Model_GetBillingAgreementDetailsResponse
-     *
-     * @throws OffAmazonPaymentsService_Exception
-     */
+    /**
+     * Get Billing Agreement Details
+     *
+     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest request
+     * or OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest object itself
+     * @see OffAmazonPaymentsService_Model_GetBillingAgreementDetailsRequest
+     * @return OffAmazonPaymentsService_Model_GetBillingAgreementDetailsResponse OffAmazonPaymentsService_Model_GetBillingAgreementDetailsResponse
+     *
+     * @throws OffAmazonPaymentsService_Exception
+     */
     public function getBillingAgreementDetails($request);
     
     
     
-    /**
-     * Set Billing Agreement Details
-     *
-     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest request
-     * or OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest object itself
-     * @see OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest
-     * @return OffAmazonPaymentsService_Model_SetBillingAgreementDetailsResponse OffAmazonPaymentsService_Model_SetBillingAgreementDetailsResponse
-     *
-     * @throws OffAmazonPaymentsService_Exception
-     */
+    /**
+     * Set Billing Agreement Details
+     *
+     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest request
+     * or OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest object itself
+     * @see OffAmazonPaymentsService_Model_SetBillingAgreementDetailsRequest
+     * @return OffAmazonPaymentsService_Model_SetBillingAgreementDetailsResponse OffAmazonPaymentsService_Model_SetBillingAgreementDetailsResponse
+     *
+     * @throws OffAmazonPaymentsService_Exception
+     */
     public function setBillingAgreementDetails($request);
     
     
     
-    /**
-     * Confirm Billing Agreement
-     *
-     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest request
-     * or OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest object itself
-     * @see OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest
-     * @return OffAmazonPaymentsService_Model_ConfirmBillingAgreementResponse OffAmazonPaymentsService_Model_ConfirmBillingAgreementResponse
-     *
-     * @throws OffAmazonPaymentsService_Exception
-     */
+    /**
+     * Confirm Billing Agreement
+     *
+     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest request
+     * or OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest object itself
+     * @see OffAmazonPaymentsService_Model_ConfirmBillingAgreementRequest
+     * @return OffAmazonPaymentsService_Model_ConfirmBillingAgreementResponse OffAmazonPaymentsService_Model_ConfirmBillingAgreementResponse
+     *
+     * @throws OffAmazonPaymentsService_Exception
+     */
     public function confirmBillingAgreement($request);
     
     
@@ -266,30 +266,30 @@ interface  OffAmazonPaymentsService_Interface
     
     
     
-    /**
-     * Authorize On Billing Agreement
-     *
-     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest request
-     * or OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest object itself
-     * @see OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest
-     * @return OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementResponse OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementResponse
-     *
-     * @throws OffAmazonPaymentsService_Exception
-     */
+    /**
+     * Authorize On Billing Agreement
+     *
+     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest request
+     * or OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest object itself
+     * @see OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementRequest
+     * @return OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementResponse OffAmazonPaymentsService_Model_AuthorizeOnBillingAgreementResponse
+     *
+     * @throws OffAmazonPaymentsService_Exception
+     */
     public function authorizeOnBillingAgreement($request);
     
     
     
-    /**
-     * Close Billing Agreement
-     *
-     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_CloseBillingAgreementRequest request
-     * or OffAmazonPaymentsService_Model_CloseBillingAgreementRequest object itself
-     * @see OffAmazonPaymentsService_Model_CloseBillingAgreementRequest
-     * @return OffAmazonPaymentsService_Model_CloseBillingAgreementResponse OffAmazonPaymentsService_Model_CloseBillingAgreementResponse
-     *
-     * @throws OffAmazonPaymentsService_Exception
-     */
+    /**
+     * Close Billing Agreement
+     *
+     * @param mixed $request array of parameters for OffAmazonPaymentsService_Model_CloseBillingAgreementRequest request
+     * or OffAmazonPaymentsService_Model_CloseBillingAgreementRequest object itself
+     * @see OffAmazonPaymentsService_Model_CloseBillingAgreementRequest
+     * @return OffAmazonPaymentsService_Model_CloseBillingAgreementResponse OffAmazonPaymentsService_Model_CloseBillingAgreementResponse
+     *
+     * @throws OffAmazonPaymentsService_Exception
+     */
     public function closeBillingAgreement($request);
 
 }

@@ -1,2 +1,2 @@
-// Hack to make jStat global for all tests.
-jStat = require('../dist/jstat.js').jStat;
+// Hack to make jStat global for all tests.
+jStat = require('../dist/jstat.js').jStat;

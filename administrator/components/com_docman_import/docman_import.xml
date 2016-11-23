@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>com_docman_import</name>
+    <author>Joomlatools</author>
+    <creationDate>October 2013</creationDate>
+    <copyright>Copyright (C) 2011 - 2013 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+	<version>2.0.2</version>
+	<description><![CDATA[DOCman Import | Shared in <a href="http://redbitz.com" target="_blank">REdBitZ.COM</a>]]></description>
+    
+
+    <media folder="media">
+        <folder>com_docman_import</folder>
+    </media>
+
+	<administration>
+		<menu>COM_DOCMAN_IMPORT</menu>
+
+		<files folder="administrator/components/com_docman_import">
+			<filename>docman_import.php</filename>
+            <filename>dispatcher.php</filename>
+			<folder>controllers</folder>
+            <folder>databases</folder>
+            <folder>install</folder>
+            <folder>language</folder>
+            <folder>views</folder>
+        </files>
+	</administration>
+</extension>

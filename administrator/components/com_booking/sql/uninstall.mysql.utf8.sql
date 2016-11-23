@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `#__tour`;
+DROP TABLE IF EXISTS `#__tour`;

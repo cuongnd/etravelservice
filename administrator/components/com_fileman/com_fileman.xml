@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0.0" method="upgrade">
+	<identifier>com:fileman</identifier>
+	<name>FILEman</name>
+    <author>Joomlatools</author>
+    <creationDate>June 2013</creationDate>
+    <copyright>Copyright (C) 2011 - 2013 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+	<version>1.0.0RC7</version>
+	<description><![CDATA[Fileman | Shared in <a href="http://redbitz.com" target="_blank">REdBitZ.COM</a>]]></description>
+    
+
+	<files folder="site/components/com_fileman">
+		<filename>aliases.php</filename>
+		<filename>fileman.php</filename>
+		<filename>router.php</filename>
+
+		<folder>controllers</folder>
+		<folder>elements</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>parameters</folder>
+		<folder>templates</folder>
+		<folder>views</folder>
+	</files>
+
+    <media folder="media">
+        <folder>com_fileman</folder>
+    </media>
+
+    <scriptfile>install/script.php</scriptfile>
+    <installfile>install/install.php</installfile>
+    <uninstallfile>install/uninstall.php</uninstallfile>
+
+	<!-- Administrator back-end section -->
+	<administration>
+		<!-- Administration menu -->
+		<menu view="files">COM_FILEMAN</menu>
+		<!-- Back-end files -->
+		<files folder="administrator/components/com_fileman">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>fileman.php</filename>
+			<filename>dispatcher.php</filename>
+			<filename>init.php</filename>
+            <filename>version.php</filename>
+
+			<folder>controllers</folder>
+			<folder>databases</folder>
+			<folder>install</folder>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>templates</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="administrator/language">
+			<language tag="en-GB">en-GB/en-GB.com_fileman.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_fileman.menu.ini</language>
+		</languages>
+
+	</administration>
+
+    <dependencies>
+    	<dependency type="component" element="com_files">extensions/com_files</dependency>
+    	<dependency type="plugin" element="filelink" folder="editors-xtd">extensions/plg_editorsxtd_filelink</dependency>
+    </dependencies>
+
+    <deleted>
+        <file>administrator/components/com_fileman/views/files/tmpl/app/templates_details.php</file>
+        <file>administrator/components/com_fileman/views/files/tmpl/app/templates_icons.php</file>
+        <file>components/com_fileman/views/file/raw.php</file>
+        <folder>media/com_fileman/css/files</folder>
+        <file>media/com_fileman/css/files.css</file>
+        <file>media/com_fileman/css/gallery.css</file>
+        <file>media/com_fileman/css/table.css</file>
+        <file>media/com_fileman/images/arrow.png</file>
+
+        <file>administrator/components/com_files/config.xml</file>
+        <folder>administrator/components/com_files/helpers/phpthumb</folder>
+        <folder>administrator/components/com_files/mixins/mimetypes</folder>
+        <file>media/com_files/images/glyphicons-halflings.png</file>
+        <file>media/com_files/images/grid.png</file>
+        <file>media/com_files/images/grid_active.png</file>
+        <file>media/com_files/images/list.png</file>
+        <file>media/com_files/images/list_active.png</file>
+    </deleted>
+</extension>

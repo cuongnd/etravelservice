@@ -1,3 +1,3 @@
-afterEach(function () {
-  window.scrollTo(0, 0)
-});
+afterEach(function () {
+  window.scrollTo(0, 0)
+});
