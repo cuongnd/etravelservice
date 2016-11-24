@@ -103,6 +103,7 @@ class tsmartModelPayment extends tmsModel
 		if(empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
 		if(empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
 		$query->order($this->_selectedOrdering.' '.$this->_selectedOrderingDir);
+		echo $query->dump();
 		return $query;
 	}
 

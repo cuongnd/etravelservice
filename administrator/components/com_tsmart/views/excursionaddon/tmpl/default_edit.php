@@ -40,54 +40,65 @@ $doc->addScriptDeclaration($js_content);
 <div class="view-excursionaddon-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
         <div class="row-fluid">
-            <div class="span4">
-                <h3> Service name</h3>
+            <div class="span12">
+                <h3 class="title"><?php echo JText::_('Excursion information') ?></h3>
             </div>
-            <div class="span8">
-                <?php echo VmHTML::input( 'excursion_addon_name', $this->item->excursion_addon_name, 'class="required" placeholder="excursion name" '); ?>
-                <br/>
-                <?php echo VmHTML::location_city('tsmart_cityarea_id', $this->list_cityarea, $this->item->tsmart_cityarea_id, '', 'tsmart_cityarea_id', 'full_city'); ?>
-                <h3>Edit term</h3>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <?php echo VmHTML::list_radio('excursion_payment_type', $this->list_excursion_payment_type, $this->item->excursion_payment_type); ?>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo VmHTML::row_control('input', 'Excursion name','excursion_addon_name', $this->item->excursion_addon_name, 'class="required" placeholder="excursion name" '); ?>
+                <?php echo VmHTML::row_control('input', 'Excursion name','excursion_addon_name', $this->item->excursion_addon_name, 'class="required" placeholder="excursion name" '); ?>
+            </div>
+            <div class="span6">
+                <?php echo VmHTML::row_control('location_city', JText::_('Location'),'tsmart_cityarea_id',  $this->item->tsmart_cityarea_id, ''); ?>
+                <?php echo VmHTML::row_control('textarea', 'Excursion note','excursion_note', $this->item->excursion_note,'',100,4); ?>
 
-                    </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo VmHTML::row_control('editor', JText::_('Excursion programs'), 'itinerary', $this->item->itinerary, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo VmHTML::row_control('editor',  JText::_('Excursion services'), 'inclusion', $this->item->inclusion, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+            </div>
+        </div>
+        <div class="excursionaddon-body">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3 class="title"><?php echo JText::_('Edit transfer terms') ?></h3>
                 </div>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
-                    </div>
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
+            </div>
 
-                    </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
                 </div>
-                <h3>Edit price</h3>
+                <div class="span6">
+                    <?php echo VmHTML::row_control('list_radio', 'Addon payment type','excursion_payment_type', $this->list_excursion_payment_type, $this->item->excursion_payment_type); ?>
+                </div>
             </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2"></div>
-            <div class="span10">
-                <?php echo VmHTML::edit_price_add_on('data_price',$this->item->data_price); ?>
 
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::edit_price_add_on('data_price',$this->item->data_price); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_basic('select_table_tour', 'select tour apply', 'list_tour_id',array(), $this->item->list_tour_id); ?>
+                </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'Itinerary', 'itinerary', $this->item->itinerary, '100%', 10); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'inclusion', 'inclusion', $this->item->inclusion, '100%', 10); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->item->list_tour_id, '', 'tsmart_product_id', 'product_name', false); ?>
-            </div>
-        </div>
+
 
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
         <?php echo VmHTML::inputHidden(array(tsmart_excursion_addon_id => $this->item->tsmart_excursion_addon_id)); ?>

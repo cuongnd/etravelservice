@@ -54,45 +54,46 @@ $doc->addScriptDeclaration($js_content);
 
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <h3 class="title">Edit Transfer term</h3>
+        <div class="transferaddon-body">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3 class="title">Edit Transfer term</h3>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
+                </div>
+                <div class="span6">
+                    <?php echo VmHTML::row_control('list_radio', 'Addon payment type','transfer_payment_type', $this->list_transfer_payment_type, $this->item->transfer_payment_type); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::edit_price_add_on('data_price',$this->item->data_price); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('editor', 'Itinerary', 'itinerary', $this->item->itinerary, '100%',20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('editor', 'inclusion', 'inclusion', $this->item->inclusion, '100%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_basic('select_table_tour', 'select tour apply', 'list_tour_id',array(), $this->item->list_tour_id); ?>
+                </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span6">
-                <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
-            </div>
-            <div class="span6">
-                <?php echo VmHTML::row_control('list_radio', 'Addon payment type','transfer_payment_type', $this->list_transfer_payment_type, $this->item->transfer_payment_type); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::edit_price_add_on('data_price',$this->item->data_price); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'Itinerary', 'itinerary', $this->item->itinerary, '100%',20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_control('editor', 'inclusion', 'inclusion', $this->item->inclusion, '100%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_basic('select_table_tour', 'select tour apply', 'list_tour_id',array(), $this->item->list_tour_id); ?>
-            </div>
-        </div>
-
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
         <?php echo VmHTML::inputHidden(array(tsmart_transfer_addon_id => $this->item->tsmart_transfer_addon_id)); ?>
         <input type="hidden" value="1" name="published">
