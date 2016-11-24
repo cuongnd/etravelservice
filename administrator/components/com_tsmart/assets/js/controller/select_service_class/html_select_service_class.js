@@ -24,10 +24,7 @@
             var list_service_class=plugin.settings.list_tour;
             var select_name=plugin.settings.select_name;
             var tsmart_service_class_id=plugin.settings.tsmart_language_id;
-            plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
-            });
-            plugin.select2.val(tsmart_service_class_id).trigger("change")
         };
         plugin.init();
 
