@@ -54,7 +54,7 @@ $doc->addScriptDeclaration($js_content);
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
             <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
@@ -150,13 +150,6 @@ $doc->addScriptDeclaration($js_content);
                     $k = 1 - $k;
                 }
                 ?>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
         <input type="hidden" name="boxchecked" value="0" />

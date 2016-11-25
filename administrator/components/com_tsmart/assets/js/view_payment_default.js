@@ -29,7 +29,7 @@
             plugin.settings = $.extend({}, defaults, options);
             $('.buid-information').insertBefore($('.vm_toolbar'));
             var task=plugin.settings.task;
-            if(task=='edit'||task=='add')
+            if(task=='edit'||task=='add_new_item')
             {
 
                 $element.find( ".view-payment-edit" ).dialog({

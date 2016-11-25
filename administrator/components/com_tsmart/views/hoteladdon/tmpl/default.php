@@ -69,7 +69,7 @@ array_unshift($this->list_tour,$option);
         </div>
         <div id="editcell">
             <div class="vm-page-nav">
-
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
             </div>
             <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
@@ -81,19 +81,25 @@ array_unshift($this->list_tour,$option);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('hotel_name', 'Transfer name'); ?>
+                        <?php echo $this->sort('hotel_name', 'hotel name'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('created_on', 'Create date'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('location', 'Location'); ?>
+                        <?php echo $this->sort('tsmart_cityarea_id', 'Location'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('price', 'Price'); ?>
                     </th>
                     <th>
                         <?php echo JText::_('Valid period') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Amend date') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->sort('hotel_payment_type', 'hotel payment type'); ?>
                     </th>
                     <th>
                         <?php echo JText::_('Application') ?>
@@ -128,7 +134,7 @@ array_unshift($this->list_tour,$option);
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_name; ?></a>
                             </td>
                             <td align="left">
-                                <?php echo JHtml::_('date', $row->created_on, 'd M. Y'); ?>
+                                <?php echo JHtml::_('date', $row->created_on, tsmConfig::$date_format); ?>
                             </td>
                             <td align="left">
                                 <a href="/administrator/index.php?option=com_tsmart&view=cityarea&task=edit_item&cid[]=<?php echo $row->tsmart_cityarea_id; ?>"><?php echo $row->city_area_name; ?></a>
@@ -137,9 +143,15 @@ array_unshift($this->list_tour,$option);
                                 <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>
                             </td>
                             <td align="left">
-                                <?php echo JHtml::_('date', $row->vail_from, 'd M. Y'); ?>
+                                <?php echo JHtml::_('date', $row->vail_from, tsmConfig::$date_format); ?>
                                 <br>
-                                <?php echo JHtml::_('date', $row->vail_to, 'd M. Y'); ?>
+                                <?php echo JHtml::_('date', $row->vail_to,tsmConfig::$date_format); ?>
+                            </td>
+                            <td align="left">
+                                <?php echo JHtml::_('date', $row->modified_on ,tsmConfig::$date_format); ?>
+                            </td>
+                            <td align="left">
+                                <?php echo JText::_($row->hotel_payment_type); ?>
                             </td>
                             <td align="left">
                                 <?php echo $row->list_tour; ?>
@@ -155,13 +167,6 @@ array_unshift($this->list_tour,$option);
                     }
                 }
                 ?>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
         <input type="hidden" value="" name="task">

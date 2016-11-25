@@ -346,11 +346,7 @@ class VmHtml
             $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
             $options = array_merge(array($option), $options);
         }
-        if ($chosenDropDowns) {
-            JHtml::_('formbehavior.chosen');
-            $attrib .= ' class="vm-chzn-select"';
 
-        }
         return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
@@ -1649,6 +1645,9 @@ class VmHtml
     public static function genericlist($data, $name, $attribs = null, $optKey = 'value', $optText = 'text', $selected = null, $idtag = false,
                                        $translate = false)
     {
+        $doc=JFactory::getDocument();
+        $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.jquery.js');
+        $doc->addStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.css');
         // Set default options
         $options = array_merge(JHtml::$formatOptions, array('format.depth' => 0, 'id' => false));
         if (is_array($attribs) && func_num_args() == 3) {
@@ -1681,6 +1680,23 @@ class VmHtml
         $baseIndent = str_repeat($options['format.indent'], $options['format.depth']++);
         $html = $baseIndent . '<select' . ($id !== '' ? ' id="' . $id . '"' : '') . ' name="' . $name . '"' . $attribs . '>' . $options['format.eol']
             . self::options($data, $options) . $baseIndent . '</select>' . $options['format.eol'];
+
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+
+                $('select[name="<?php echo $name ?>"]').chosen({
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+
         return $html;
     }
 
@@ -2098,9 +2114,9 @@ class VmHtml
         return ob_get_clean();
     }
 
-    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 100, $more = '', $option = array())
+    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 10000, $more = '', $option = array())
     {
-
+        $value=is_numeric($value)?$value:0;
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
         $js_content = '';
@@ -2123,9 +2139,92 @@ class VmHtml
         ob_start();
         ?>
         <input type="text" value="<?php echo $value ?>" <?php echo $readonly ? 'readonly' : '' ?>
-               class="inputbox <?php echo $class ?>   input_number_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
+               class="inputbox   input_number_<?php echo $name ?>" id="input_number_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
                data-v-max="<?php echo $max ?>">
         <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        <?php
+        return ob_get_clean();
+    }
+    public static function balance_term($name_balance_of_day,$name_percent_balance_of_day, $value_balance_of_day=0,$value_percent_balance_of_day,$number_min=0,$number_max=1000,$percent_min=0,$percent_max=100,$readonly=false)
+    {
+
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/balance_term/jquery.balance_term.js');
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/balance_term/style.balance_term.less');
+        $id_element="balance_term_".$name_balance_of_day.'_'.$name_percent_balance_of_day;
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').balance_term({
+                    name_balance_of_day:"<?php echo $name_balance_of_day ?>",
+                    name_percent_balance_of_day:"<?php echo $name_percent_balance_of_day ?>"
+                });
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = TSMUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="balance-term">
+            <input type="text" value="<?php echo $value_balance_of_day ?>"    <?php echo $readonly ? 'readonly' : '' ?>
+                   class="inputbox inputbox_number    input_number_<?php echo $name_balance_of_day ?>  pull-left" data-v-min="<?php echo $number_min ?>"
+                   data-v-max="<?php echo $number_max ?>"
+                   >
+            <input type="text" value="<?php echo $value_percent_balance_of_day ?>" <?php echo $readonly ? 'readonly' : '' ?>
+                   class="inputbox inputbox_percent    input_number_<?php echo $name_percent_balance_of_day ?>    pull-left" data-v-min="<?php echo $percent_min ?>"
+                   data-v-max="<?php echo $percent_max ?>" data-a-sign="%"
+                   >
+            <input type="hidden" class="" value="<?php echo $value_balance_of_day ?>" name="<?php echo $name_balance_of_day ?>" id="<?php echo $name_balance_of_day ?>">
+            <input type="hidden" class="" value="<?php echo $value_percent_balance_of_day ?>" name="<?php echo $name_percent_balance_of_day ?>" id="<?php echo $name_percent_balance_of_day ?>">
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+    public static function hold_seat_option($name_hold_seat, $name_hold_seat_hours, $value_hold_seat=0, $value_hold_seat_hours)
+    {
+
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/hold_seat_option/jquery.hold_seat_option.js');
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/hold_seat_option/style.hold_seat_option.less');
+        $id_element="hold_seat_option_".$name_hold_seat.'_'.$name_hold_seat_hours;
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').hold_seat_option({
+                    name_hold_seat:"<?php echo $name_hold_seat ?>",
+                    name_hold_seat_hours:"<?php echo $name_hold_seat_hours ?>"
+                });
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = TSMUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        $list_hold_seat_hours=array(6,12,18,24,30,36,42,48);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="hold_seat_option">
+            <select class="pull-left" id="<?php echo $name_hold_seat ?>" name="<?php echo $name_hold_seat ?>">
+                <option value=""><?php echo JText::_('please select') ?></option>
+                <option <?php echo $value_hold_seat==1?'selected':'' ?>  value="1"><?php echo JText::_('Yes') ?></option>
+                <option <?php echo $value_hold_seat==0?'selected':'' ?> value="0"><?php echo JText::_('no') ?></option>
+            </select>
+            <select <?php echo $value_hold_seat==1?'':'disabled' ?>  class="pull-left" id="<?php echo $name_hold_seat_hours ?>" name="<?php echo $name_hold_seat_hours ?>">
+                <option value=""><?php echo JText::_('please select hours') ?></option>
+                <?php foreach($list_hold_seat_hours as $hours){ ?>
+                    <option <?php echo $value_hold_seat_hours==$hours?'selected':'' ?> value="<?php echo $hours ?>"><?php echo $hours ?>h</option>
+                <?php } ?>
+            </select>
+        </div>
         <?php
         return ob_get_clean();
     }

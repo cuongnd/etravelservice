@@ -49,7 +49,6 @@ class TsmartControllerPayment extends TsmController {
 	 * @author Max Milbers
 	 */
 	function save($data = 0){
-
 		$data = vRequest::getRequest();
 		parent::save($data);
 	}

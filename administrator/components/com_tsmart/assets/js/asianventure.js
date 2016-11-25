@@ -32,6 +32,7 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.set_event_task = function (self) {
+            console.log('dddddddddddđ');
             var option= plugin.settings.option;
             var $form = self.closest('form');
             var task = self.data('jtask');

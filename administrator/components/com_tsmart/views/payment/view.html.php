@@ -55,7 +55,7 @@ class TsmartViewpayment extends tsmViewAdmin {
 		$this->items = $model->getItemList(vRequest::getCmd('search', false));
 		$this->pagination = $model->getPagination();
 
-		if($task=='edit'||$task=='add'){
+		if($task=='edit'||$task=='add_new_item'){
 			$cid	= vRequest::getInt( 'cid' );
 
 			$task = vRequest::getCmd('task', 'add');

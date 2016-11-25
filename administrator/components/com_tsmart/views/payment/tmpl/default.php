@@ -28,16 +28,9 @@ AdminUIHelper::startAdminArea($this);
 ?>
     <div class="view-payment-default">
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-            <table>
-                <tr>
-                    <td width="100%">
-                        <?php echo $this->displayDefaultViewSearch('payment', 'search'); ?>
-                    </td>
-                </tr>
-            </table>
             <div id="editcell">
                 <div class="vm-page-nav">
-
+                    <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
                 </div>
                 <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                     <thead>
@@ -58,28 +51,25 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('Currency', 'currency'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('vat', 'Vat'); ?>
-                        </th>
-                        <th>
                             <?php echo $this->sort('cancel_fee', 'c.c Fee'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('amount', 'DEP Amount'); ?>
+                            <?php echo $this->sort('amount', 'com.mode'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('dep_term', 'DEP term'); ?>
+                            <?php echo $this->sort('dep_term', 'deposit term'); ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('bal_term', 'BAL term'); ?>
+                            <?php echo JText::_('Balance 1') ?>
                         </th>
                         <th>
-                            <?php echo $this->sort('mode', 'CON. Mode'); ?>
+                            <?php echo JText::_('Balance 2') ?>
                         </th>
                         <th>
                             <?php echo tsmText::_('Application'); ?>
                         </th>
                         <th width="10">
-                            <?php echo tsmText::_('com_tsmart_PUBLISHED'); ?>
+                            <?php echo tsmText::_('Action'); ?>
                         </th>
                         <?php /*	<th width="10">
 				<?php echo vmText::_('com_tsmart_SHARED'); ?>
@@ -104,31 +94,32 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $checked; ?>
                             </td>
                             <td align="left">
-                                <a href="<?php echo $editlink; ?>"><?php echo $row->title; ?></a>
+                                <a href="<?php echo $editlink; ?>"><?php echo $row->payment_name; ?></a>
                             </td>
                             <td align="left">
-                                <?php echo $row->created_on; ?>
+                                <?php echo JHtml::_('date', $row->created_on,tsmConfig::$date_format); ?>
                             </td>
                             <td align="left">
                                 <?php echo $row->currency_symbol; ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->vat; ?>
-                            </td>
-                            <td align="left">
                                 <?php echo $row->cancel_fee; ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->amount; ?>
+                                <?php echo $row->mode ; ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->dep_term; ?>
+                                <?php
+                                $deposit_amount_type=$row->deposit_amount_type=="number"?$row->currency_symbol:'%';
+                                ?>
+                                <?php echo JText::sprintf('%s%s %s days',$row->amount,$deposit_amount_type,$row->deposit_of_day); ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->bal_term; ?>
+
+                                <?php echo JText::sprintf('%s %s days',$row->percent_balance_of_day_1.'%',$row->balance_of_day_1); ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->mode; ?>
+                                <?php echo JText::sprintf('%s %s days',$row->percent_balance_of_day_2.'%',$row->balance_of_day_2); ?>
                             </td>
                             <td align="left">
                                 <?php echo $row->list_tour; ?>
@@ -143,13 +134,7 @@ AdminUIHelper::startAdminArea($this);
                         $k = 1 - $k;
                     }
                     ?>
-                    <tfoot>
-                    <tr>
-                        <td colspan="10">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                        </td>
-                    </tr>
-                    </tfoot>
+
                 </table>
             </div>
 
@@ -163,7 +148,7 @@ AdminUIHelper::startAdminArea($this);
             <?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
-        if ($task == 'edit' || $task == 'add') {
+        if ($task == 'edit' || $task == 'add_new_item') {
             echo $this->loadTemplate('edit');
         }
         ?>
