@@ -41,10 +41,21 @@ class TsmartViewpayment extends tsmViewAdmin {
 
 		$model = tmsModel::getModel();
 
-
+		$app=JFactory::getApplication();
+		$task=$app->input->getString('task','');
 		$config = JFactory::getConfig();
+		$this->setLayout('default');
 		$layoutName = vRequest::getCmd('layout', 'default');
-		if ($layoutName == 'edit') {
+		$this->SetViewTitle();
+		JToolBarHelper::publishList();
+		JToolBarHelper::unpublishList();
+		JToolBarHelper::editList();
+		JToolBarHelper::addNew('add_new_item');
+		JToolBarHelper::deleteList();		$this->addStandardDefaultViewLists($model,0,'ASC');
+		$this->items = $model->getItemList(vRequest::getCmd('search', false));
+		$this->pagination = $model->getPagination();
+
+		if($task=='edit'||$task=='add'){
 			$cid	= vRequest::getInt( 'cid' );
 
 			$task = vRequest::getCmd('task', 'add');
@@ -82,18 +93,8 @@ class TsmartViewpayment extends tsmViewAdmin {
 
 			//end get list mode payment
 			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
-
-		} else {
-
-			$this->SetViewTitle();
-			$this->addStandardDefaultViewCommands();
-			$this->addStandardDefaultViewLists($model,0,'ASC');
-			$this->items = $model->getItemList(vRequest::getCmd('search', false));
-			$this->pagination = $model->getPagination();
-
+			
 		}
-
 		parent::display($tpl);
 	}
 

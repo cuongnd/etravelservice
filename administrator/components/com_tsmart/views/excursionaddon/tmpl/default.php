@@ -52,13 +52,6 @@ $doc->addScriptDeclaration($js_content);
 ?>
 <div class="view-excursionaddon-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('excursionaddon', 'search'); ?>
-                </td>
-            </tr>
-        </table>
         <div id="editcell">
             <div class="vm-page-nav">
 
@@ -73,7 +66,7 @@ $doc->addScriptDeclaration($js_content);
 
                     </th>
                     <th>
-                        <?php echo $this->sort('hotel_name', 'Transfer name'); ?>
+                        <?php echo $this->sort('excursion_addon_name', 'Excursion name'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('created_on', 'Create date'); ?>
@@ -86,6 +79,12 @@ $doc->addScriptDeclaration($js_content);
                     </th>
                     <th>
                         <?php echo JText::_('Valid period') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Amend date') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Payment type') ?>
                     </th>
                     <th>
                         <?php echo JText::_('Application') ?>
@@ -117,7 +116,7 @@ $doc->addScriptDeclaration($js_content);
                             <a href="<?php echo $editlink; ?>"><?php echo $row->excursion_addon_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo JHtml::_('date', $row->created_on,'d M. Y'); ?>
+                            <?php echo JHtml::_('date', $row->created_on,tsmConfig::$date_format); ?>
                         </td>
                         <td align="left">
                             <?php echo $row->city_area_name; ?>
@@ -126,12 +125,20 @@ $doc->addScriptDeclaration($js_content);
                             <a href="javascript:void(0)"><span title="" class="icon-eye"></span></a>
                         </td>
                         <td align="left">
-                            <?php echo JHtml::_('date', $row->vail_from,'d M. Y'); ?>
+                            <?php echo JHtml::_('date', $row->vail_from,tsmConfig::$date_format); ?>
                             <br>
-                            <?php echo JHtml::_('date', $row->vail_to,'d M. Y'); ?>
+                            <?php echo JHtml::_('date', $row->vail_to,tsmConfig::$date_format); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->tours; ?>
+                            <?php echo JHtml::_('date', $row->modified_on,tsmConfig::$date_format); ?>
+
+                        </td>
+                        <td align="left">
+                            <?php echo JText::_($row->excursion_payment_type); ?>
+
+                        </td>
+                        <td align="left">
+                            <?php echo $row->list_tour; ?>
                         </td>
                         <td align="center">
                             <?php echo $published; ?>

@@ -142,7 +142,7 @@ array_unshift($this->list_tour,$option);
                                 <?php echo JHtml::_('date', $row->vail_to, 'd M. Y'); ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->tour_tour_class; ?>
+                                <?php echo $row->list_tour; ?>
                             </td>
                             <td align="center">
                                 <?php echo $published; ?>

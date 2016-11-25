@@ -32,7 +32,7 @@ class TablePayment extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_payment_id				= 0;
-	var $title				= "";
+	var $payment_name				= "";
 	var $vat				= "";
 	var $tsmart_currency_id				= 0;
 	var $credit_card_fee				= "";

@@ -74,6 +74,15 @@ class tsmartModelExcursionaddon extends tmsModel
             ->leftJoin('me1u8_tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
             ->select('cityarea.city_area_name AS city_area_name')
         ;
+        //get list tour apply
+        $query1=$db->getQuery(true);
+        $query1->select('GROUP_CONCAT(products_en_gb.product_name)')
+            ->from('#__tsmart_tour_id_excursion_addon_id AS tour_id_excursion_addon_id')
+            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+            ->where('tour_id_excursion_addon_id.tsmart_excursion_addon_id=excursion_addon.tsmart_excursion_addon_id')
+        ;
+        $query->select("($query1) AS list_tour");
+
         $user = JFactory::getUser();
         $shared = '';
         if (vmAccess::manager()) {
@@ -147,50 +156,6 @@ class tsmartModelExcursionaddon extends tmsModel
             require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
             $data_price = up_json_decode($data_price, false, 512, JSON_PARSE_JAVASCRIPT);
             $item_mark_up_type=$data_price->item_mark_up_type;
-            foreach($list_tour_id as $tour_id)
-            {
-
-                $single_room=$data_price->items->single_room;
-                $double_twin_room=$data_price->items->double_twin_room;
-                $triple_room=$data_price->items->triple_room;
-
-                while ($vail_from->getTimestamp() <= $vail_to->getTimestamp()) {
-
-                    $date=$vail_from->format('Y-m-d');
-                    $table_excursion_ad_don_date_price->id=0;
-                    $table_excursion_ad_don_date_price->jload(array('date'=>$date,'tsmart_product_id'=>$tour_id,'hotel_addon_type'=>$hotel_addon_type));
-                    $table_excursion_ad_don_date_price->date=$date;
-                    $table_excursion_ad_don_date_price->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
-                    $table_excursion_ad_don_date_price->tsmart_product_id=$tour_id;
-                    $table_excursion_ad_don_date_price->hotel_addon_type=$hotel_addon_type;
-                    $table_excursion_ad_don_date_price->single_room_net_price=$single_room->net_price;
-                    $table_excursion_ad_don_date_price->doulble_twin_room_net_price=$double_twin_room->net_price;
-                    $table_excursion_ad_don_date_price->triple_room_net_price=$triple_room->net_price;
-
-                    //tax
-                    $table_excursion_ad_don_date_price->single_room_tax=$single_room->tax;
-                    $table_excursion_ad_don_date_price->doulble_twin_room_tax=$double_twin_room->tax;
-                    $table_excursion_ad_don_date_price->triple_room_tax=$triple_room->tax;
-                    if($item_mark_up_type=='percent')
-                    {
-                        $table_excursion_ad_don_date_price->single_room_mark_up_percent=$single_room->mark_up_percent;
-                        $table_excursion_ad_don_date_price->doulble_twin_room_mark_up_percent=$double_twin_room->mark_up_percent;
-                        $table_excursion_ad_don_date_price->triple_room_mark_up_percent=$triple_room->mark_up_percent;
-                    }else{
-                        $table_excursion_ad_don_date_price->single_room_mark_up_amout=$single_room->mark_up_amount;
-                        $table_excursion_ad_don_date_price->doulble_twin_room_mark_up_amount=$double_twin_room->mark_up_amount;
-                        $table_excursion_ad_don_date_price->triple_room_mark_up_amout=$triple_room->mark_up_amount;
-                    }
-                    $ok=$table_excursion_ad_don_date_price->store();
-                    if(!$ok)
-                    {
-                        throw new  Exception($table_excursion_ad_don_date_price->getError());
-                    }
-                    $vail_from->modify('+1 day');
-
-                }
-
-            }
 
 
 

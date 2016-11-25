@@ -41,56 +41,64 @@ $doc->addScriptDeclaration($js_content);
 <div class="view-hoteladdon-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
         <div class="row-fluid">
-            <div class="span4">
-                <h3> Service name</h3>
-            </div>
-            <div class="span8">
-                <?php echo VmHTML::select('tsmart_hotel_id', $this->list_hotel,$this->item->tsmart_hotel_id,' ', 'tsmart_hotel_id','hotel_name'); ?>
-                <br/>
-                <?php echo VmHTML::input( 'location', $this->hotel->city_area_name, ' placeholder="location" readonly '); ?>
-
-
-
-                <h3>Edit term</h3>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <?php echo VmHTML::list_radio('hotel_addon_type', $this->list_hotel_addon_type, $this->item->hotel_addon_type); ?>
-
-                    </div>
-                    <div class="span6">
-                        <?php echo VmHTML::list_radio('hotel_payment_type', $this->list_hotel_payment_type, $this->item->hotel_payment_type); ?>
-
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
-                    </div>
-                    <div class="span6">
-                        <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
-
-                    </div>
-                </div>
-                <h3>Edit price</h3>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2"></div>
-            <div class="span10">
-                <?php echo VmHTML::edit_price_hotel_add_on('data_price',$this->item->data_price); ?>
-                <?php echo VmHTML::row_control('textarea', 'term & policy','term_policy',$this->item->term_policy); ?>
-            </div>
-        </div>
-        <div class="row-fluid">
             <div class="span12">
-                <?php echo VmHTML::row_control('textarea_view', 'Hotel overview','hotel_overview',$this->hotel->description,array('style'=>'width:98%')); ?>
+                <h3 class="title"><?php echo JText::_('Hotel information') ?></h3>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo VmHTML::row_control('select', JText::_('Hotel name'),'tsmart_hotel_id', $this->list_hotel,$this->item->tsmart_hotel_id,' ', 'tsmart_hotel_id','hotel_name'); ?>
+                <?php echo VmHTML::row_control('list_radio', 'Add night type','hotel_addon_type', $this->list_hotel_addon_type, $this->item->hotel_addon_type); ?>
+            </div>
+            <div class="span6">
+                <?php echo VmHTML::row_control('input', 'Hotel location','location', $this->hotel->city_area_name, ' placeholder="location" readonly '); ?>
+                <?php echo VmHTML::row_control('select_service_class', 'Service class',array(),'tsmart_service_class_id',$this->item->tsmart_service_class_id,''); ?>
+
             </div>
         </div>
         <div class="row-fluid">
-            <div class="span12">
-                <?php echo VmHTML::row_basic('list_checkbox', 'select tour apply', 'list_tour_id', $this->list_tour, $this->tour_id_seletecd, '', 'tsmart_product_id', 'product_name', false); ?>
+            <div class="span6">
+                <?php echo VmHTML::row_control('textarea', 'Included service','included_service', $this->item->included_service,'',100,4); ?>
+            </div>
+            <div class="span6">
+                <?php echo VmHTML::row_control('textarea', 'Hotel note','hoteladdon_note', $this->item->hoteladdon_note,'',100,4); ?>
+
             </div>
         </div>
+        <div class="hoteladdon-body">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3 class="title"><?php echo JText::_('Edit hotel terms') ?></h3>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
+                </div>
+                <div class="span6">
+                    <?php echo VmHTML::list_radio('hotel_payment_type', $this->list_hotel_payment_type, $this->item->hotel_payment_type); ?>
+
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::edit_price_hotel_add_on('data_price',$this->item->data_price); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?php echo VmHTML::row_basic('select_table_tour', 'select tour apply', 'list_tour_id',array(), $this->item->list_tour_id); ?>
+                </div>
+            </div>
+
+        </div>
+
 
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
         <?php echo VmHTML::inputHidden(array(tsmart_hotel_addon_id => $this->item->tsmart_hotel_addon_id)); ?>

@@ -47,18 +47,11 @@ ob_start();
 $js_content = ob_get_clean();
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-
+$format_date=tsmConfig::$date_format;// 'd-m-Y';
 
 ?>
 <div class="view-transferaddon-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table>
-            <tr>
-                <td width="100%">
-                    <?php echo $this->displayDefaultViewSearch('transferaddon', 'search'); ?>
-                </td>
-            </tr>
-        </table>
         <div id="editcell">
             <div class="vm-page-nav">
 
@@ -85,16 +78,19 @@ $doc->addScriptDeclaration($js_content);
                         <?php echo $this->sort('price', 'Price'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('start_date', 'Start date'); ?>
+                        <?php echo JText::_('Valid period') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('end_date', 'End date'); ?>
+                        <?php echo $this->sort('modified_on', 'Amend date'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('description', 'Description'); ?>
                     </th>
                     <th>
                         <?php echo JText::_('Application') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Add on type') ?>
                     </th>
                     <th width="70">
                         <?php echo tsmText::_('Action'); ?>
@@ -123,25 +119,30 @@ $doc->addScriptDeclaration($js_content);
                             <a href="<?php echo $editlink; ?>"><?php echo $row->transfer_addon_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo $row->created_on; ?>
+                            <?php echo JHtml::_('date', $row->created_on, $format_date); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->location; ?>
+                            <?php echo $row->city_area_name; ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->price; ?>
+                            <span class="icon-eye"></span>
                         </td>
                         <td align="left">
-                            <?php echo $row->start_date; ?>
+                            <?php echo JHtml::_('date', $row->vail_from, $format_date); ?>
+                            <br/>
+                            <?php echo JHtml::_('date', $row->vail_to, $format_date); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->end_date; ?>
+                            <?php echo JHtml::_('date', $row->modified_on, $format_date); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->description; ?>
+                            <?php echo $row->transfer_note; ?>
                         </td>
                         <td align="left">
                             <?php echo $row->list_tour; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo JText::_($row->transfer_type) ; ?>
                         </td>
                         <td align="center">
                             <?php echo $published; ?>

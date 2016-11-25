@@ -45,6 +45,18 @@ class TsmartViewExcursionaddon extends tsmViewAdmin {
 		$task = $input->get('task');
 		$config = JFactory::getConfig();
 		$layoutName = vRequest::getCmd('layout', 'default');
+
+		JToolBarHelper::publishList();
+
+		JToolBarHelper::unpublishList();
+
+		JToolBarHelper::editList();
+
+		JToolBarHelper::addNew('add_new_item');
+
+		JToolBarHelper::deleteList();
+
+
 		if ($layoutName == 'edit') {
 			$cid	= vRequest::getInt( 'cid' );
 
@@ -67,17 +79,9 @@ class TsmartViewExcursionaddon extends tsmViewAdmin {
 			//end get list tour
 
 
-			$this->SetViewTitle('',$this->item->title);
-			$this->addStandardEditViewCommandsPopup();
 
 		} else {
 			$this->SetViewTitle();
-			JToolBarHelper::publishList();
-			JToolBarHelper::unpublishList();
-			JToolBarHelper::editList();
-			JToolBarHelper::addNew('add_new_item');
-			JToolBarHelper::deleteList();
-
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			$this->items = $model->getItemList();
 			$this->pagination = $model->getPagination();

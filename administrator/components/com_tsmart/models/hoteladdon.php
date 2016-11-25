@@ -115,7 +115,7 @@ class tsmartModelhoteladdon extends tmsModel {
 		$query=$db->getQuery(true);
 
 		$query1=$db->getQuery(true);
-		$query1->select('GROUP_CONCAT(products_en_gb.tsmart_product_id)')
+		$query1->select('GROUP_CONCAT(products_en_gb.product_name)')
 			->from('#__tsmart_products_en_gb AS products_en_gb')
 			->leftJoin('#__tsmart_products AS products  USING(tsmart_product_id)')
 			->leftJoin('#__tsmart_tour_id_hotel_addon_id AS tour_id_hotel_addon_id1 USING(tsmart_product_id)')
@@ -126,7 +126,7 @@ class tsmartModelhoteladdon extends tmsModel {
 			->from('#__tsmart_hotel_addon AS hotel_addon')
 			->leftJoin('#__tsmart_hotel AS hotel USING(tsmart_hotel_id)')
 			->leftJoin('#__tsmart_cityarea AS cityarea ON cityarea.tsmart_cityarea_id=hotel.tsmart_cityarea_id')
-			->select('('.$query1.') AS list_tsmart_product_id')
+			->select('('.$query1.') AS list_tour')
 		;
 		$user = JFactory::getUser();
 		$shared = '';

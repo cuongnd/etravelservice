@@ -347,7 +347,7 @@ class VmHtml
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
-            vmJsApi::chosenDropDowns();
+            JHtml::_('formbehavior.chosen');
             $attrib .= ' class="vm-chzn-select"';
 
         }
@@ -365,7 +365,7 @@ class VmHtml
             $options = array_merge(array($option), $options);
         }
         if ($chosenDropDowns) {
-            vmJsApi::chosenDropDowns();
+            JHtml::_('formbehavior.chosen');
             $attrib .= ' class="vm-chzn-select"';
 
         }

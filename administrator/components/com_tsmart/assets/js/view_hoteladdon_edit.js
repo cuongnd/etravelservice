@@ -41,15 +41,15 @@
 
             });
             $element.find('#select_from_date_to_date_vail_from_vail_to').on('apply.daterangepicker', function(ev, picker) {
-                $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
+                //$element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
                 $element.find('input[name="hotel_addon_type"]').prop('checked', false);
             });
 
 
-            $element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
+            //$element.find('input[name="list_tour_id[]"]:not(:checked)').prop('disabled', true).hide().closest('.checkbox').hide();
             $element.find('select[name="tsmart_hotel_id"]').change(function(){
                 $element.find('input[name="hotel_addon_type"]').prop('checked', false);
-                $element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
+                //$element.find('input[name="list_tour_id[]"]').prop('disabled', true).hide().closest('.checkbox').hide();
                 var tsmart_hotel_id=$(this).val();
                 if(tsmart_hotel_id==0||tsmart_hotel_id==""||typeof tsmart_hotel_id=="undefined")
                 {

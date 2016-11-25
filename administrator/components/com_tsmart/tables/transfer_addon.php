@@ -41,6 +41,7 @@ class Tabletransfer_addon extends tsmTableData {
 	var $transfer_payment_type				= null;
 	var $vail_from				= null;
 	var $vail_to				= null;
+	var $transfer_note				= null;
 	var $itinerary				= null;
 	var $inclusion				= null;
 	var $shared					= 0;

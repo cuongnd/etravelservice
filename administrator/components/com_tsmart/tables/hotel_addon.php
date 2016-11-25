@@ -41,7 +41,9 @@ class Tablehotel_addon extends tsmTableData {
 	var $vail_to				= null;
 	var $passenger_age_from				= null;
 	var $passenger_age_to				= null;
-	var $term_policy				= null;
+	var $hoteladdon_note				= null;
+	var $included_service 				= null;
+	var $tsmart_service_class_id 				= null;
 	var $shared					= 0;
 
 	var $published				= 0;

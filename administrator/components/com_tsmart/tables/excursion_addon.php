@@ -38,6 +38,7 @@ class TableExcursion_addon extends tsmTableData {
 	var $passenger_age_to					= 0;
 	var $data_price					= null;
 	var $excursion_payment_type				= null;
+	var $photo				= null;
 	var $vail_from				= null;
 	var $vail_to				= null;
 	var $itinerary				= null;

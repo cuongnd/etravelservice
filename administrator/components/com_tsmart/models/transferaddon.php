@@ -74,6 +74,15 @@ class tsmartModeltransferaddon extends tmsModel
             ->leftJoin('me1u8_tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
             ->select('cityarea.city_area_name AS city_area_name')
         ;
+        //get list tour apply
+        $query1=$db->getQuery(true);
+        $query1->select('GROUP_CONCAT(products_en_gb.product_name)')
+            ->from('#__tsmart_tour_id_transfer_addon_id AS tour_id_transfer_addon_id')
+            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+            ->where('tour_id_transfer_addon_id.tsmart_transfer_addon_id=transfer_addon.tsmart_transfer_addon_id')
+        ;
+        $query->select("($query1) AS list_tour");
+
         $user = JFactory::getUser();
         $shared = '';
         if (vmAccess::manager()) {

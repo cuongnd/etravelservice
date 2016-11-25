@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.view_itinerary_default = function (element, options) {
+    $.view_payment_default = function (element, options) {
 
         // plugin's default options
         var defaults = {
@@ -27,15 +27,16 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            $('.buid-information').insertBefore($('.vm_toolbar'));
             var task=plugin.settings.task;
             if(task=='edit'||task=='add')
             {
 
-                $element.find( ".view-itinerary-edit" ).dialog({
+                $element.find( ".view-payment-edit" ).dialog({
                     dialogClass:'asian-dialog-form',
                     modal: true,
                     width: 900,
-                    title: 'itinerary',
+                    title: 'Payment',
                     show: {effect: "blind", duration: 800},
                     appendTo: 'body'
                 });
@@ -48,14 +49,14 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_itinerary_default = function (options) {
+    $.fn.view_payment_default = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('view_itinerary_default')) {
-                var plugin = new $.view_itinerary_default(this, options);
-                $(this).data('view_itinerary_default', plugin);
+            if (undefined == $(this).data('view_payment_default')) {
+                var plugin = new $.view_payment_default(this, options);
+                $(this).data('view_payment_default', plugin);
 
             }
 

@@ -58,7 +58,7 @@ abstract class JHtmlFormbehavior
 		{
 			$options['disable_search_threshold'] = 10;
 		}
-
+		$options['width'] = "100%";
 		if (!isset($options['allow_single_deselect']))
 		{
 			$options['allow_single_deselect'] = true;
