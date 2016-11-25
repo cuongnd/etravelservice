@@ -480,7 +480,51 @@ class VmHtml
                 <?php foreach ($list_tour_type as $tour_type) { ?>
                     <option <?php echo $tour_type->tsmart_tour_type_id == $default ? ' selected ' : '' ?>
                         value="<?php echo $tour_type->tsmart_tour_type_id ?>"
-                        data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->title ?></option>
+                        data-price_type="<?php echo $tour_type->price_type ?>"><?php echo $tour_type->tour_type_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_tour_style($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.less');
+        $input = JFactory::getApplication()->input;
+        require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmtourstyle.php';
+        $list_tour_style = tsmtourstyle::get_list_tour_style();
+        $id_element = 'html_select_tour_style_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_tour_style({
+                    list_tour_style:<?php echo json_encode($list_tour_style) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_tour_type_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select tour type') ?></option>
+                <?php foreach ($list_tour_style as $tour_style) { ?>
+                    <option <?php echo $tour_style->tsmart_tour_style_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $tour_style->tsmart_tour_style_id ?>"
+                        data-price_type="<?php echo $tour_style->price_type ?>"><?php echo $tour_style->tour_style_name ?></option>
                 <?php } ?>
             </select>
         </div>

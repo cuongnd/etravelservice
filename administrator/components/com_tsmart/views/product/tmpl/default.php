@@ -19,8 +19,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 AdminUIHelper::startAdminArea($this);
-$doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/assets/less/view_product_default.less');
+$doc = JFactory::getDocument();
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_product_default.less');
+$doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/view_produc_default.js');
 /* Load some variables */
 $search_date = vRequest::getVar('search_date', null); // Changed search by date
 $now = getdate();
@@ -32,7 +33,17 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
 
 ?>
     <div class="view-product-default">
-        <form action="index.php"  method="post" name="adminForm" id="adminForm">
+        <form action="index.php" method="post" name="adminForm" id="adminForm">
+            <div class="row-fluid filter filter-product">
+                <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
+                <?php echo VmHTML::row_control('input', 'trip name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+                <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.filter_trip_code'))); ?>
+                <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type', $this->state->get('filter.trip_type')); ?>
+                <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style', $this->state->get('filter.trip_style')); ?>
+                <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
+                <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
+
+            </div>
 
             <div class="product table_product" style="text-align: left;">
                 <?php
@@ -48,7 +59,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
 
                 ?>
                 <div class="vm-page-nav">
-
+                    <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
                 </div>
                 <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                     <thead>
@@ -56,20 +67,15 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                         <th class="admin-checkbox"><input type="checkbox" name="toggle" value=""
                                                           onclick="Joomla.checkAll(this)"/></th>
 
-                        <th width="20%"><?php echo $this->sort('product_name', $col_product_name) ?> </th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('tour code'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('tour type'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('tour style'); ?></th>
+                        <th width="20%"><?php echo $this->sort('product_name', 'Trip name') ?> </th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Trip code'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Trip type'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Trip style'); ?></th>
                         <th style="min-width:40px;"><?php echo tsmText::_('Start end city'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('price'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('hotel'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Creation'); ?></th>
+                        <th style="min-width:40px;"><?php echo tsmText::_('Promo'); ?></th>
                         <th style="min-width:40px;"><?php echo tsmText::_('add ons'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('Payment'); ?></th>
-                        <th style="min-width:40px;"><?php echo tsmText::_('Added'); ?></th>
                         <th style="min-width:40px;"><?php echo tsmText::_('assigns'); ?></th>
-                        <th width="40px"><?php echo $this->sort('product_special', 'com_tsmart_PRODUCT_FORM_SPECIAL'); ?> </th>
-                        <th width="40px"><?php echo $this->sort('published'); ?></th>
-                        <th><?php echo $this->sort('p.tsmart_product_id', 'com_tsmart_ID') ?></th>
                         <th align="right"><?php echo JText::_('Action') ?></th>
                     </tr>
                     </thead>
@@ -112,35 +118,18 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                 <td>
                                     <?php echo $product->start_end_cicty ?></td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=price&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    <?php echo JHtml::_('date', $row->created_on, tsmConfig::$date_format); ?>
+                                </td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=hotel&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    Y
+                                </td>
                                 <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=addons&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
-                                <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=payment&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
-                                <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
-                                <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=departure&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
-                                <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=discount&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
-                                <td>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_tsmart&view=asign&tsmart_product_id=' . $product->tsmart_product_id) ?>"><span
-                                            class="icon-edit"></span></a><span class="icon-eye"></span></td>
+                                    Y
+                                </td>
 
-
-                                <!-- published -->
-                                <td align="center"><?php echo $published; ?></td>
+                                <td align="center"><?php echo $row->asign_name; ?></td>
                                 <!-- Vendor name -->
-                                <td align="right"><?php echo JText::_('Action') ?></td>
+                                <td align="right"><?php echo JText::_('') ?></td>
                             </tr>
                             <?php
                             $k = 1 - $k;
@@ -149,13 +138,6 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                     }
                     ?>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="16">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                        </td>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
             <!-- Hidden Fields -->
@@ -202,4 +184,16 @@ if ($this->tsmart_category_id) { ?>
 
 
 /// END PRODUCT ORDER HACK
+
+
+ob_start();
 ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-product-default').view_product_default({});
+        });
+    </script>
+<?php
+$js_content = ob_get_clean();
+$js_content = TSMUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
