@@ -50,7 +50,36 @@ class tsmartModelDeparture extends tmsModel
      */
     function getdeparture($departure_id = 0)
     {
-        return $this->getData($departure_id);
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('deapature.*')
+            ->from('#__tsmart_departure AS deapature')
+            ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id=deapature.tsmart_product_id')
+            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb ON products_en_gb.tsmart_product_id=deapature.tsmart_product_id')
+            ->select('products_en_gb.product_name')
+            ->select('products.product_code')
+            ->select('products.tour_operator')
+            ->leftJoin('#__tsmart_tour_style AS tour_style ON tour_style.tsmart_tour_style_id=products.tsmart_tour_style_id')
+            ->select('tour_style.tour_style_name')
+            ->leftJoin('#__tsmart_cityarea AS start_cityarea ON start_cityarea.tsmart_cityarea_id=products.start_city')
+            ->select('start_cityarea.city_area_name AS start_city_name')
+
+
+            ->leftJoin('#__tsmart_cityarea AS end_cityarea ON end_cityarea.tsmart_cityarea_id=products.start_city')
+            ->select('end_cityarea.city_area_name AS end_city_name')
+
+            ->leftJoin('#__tsmart_physicalgrade AS physicalgrade ON physicalgrade.tsmart_physicalgrade_id=products.tsmart_physicalgrade_id')
+            ->select('physicalgrade.physicalgrade_name')
+
+            ->leftJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=deapature.tsmart_service_class_id')
+            ->select('service_class.service_class_name')
+            ->leftJoin('#__tsmart_tour_id_payment_id AS tour_id_payment_id ON tour_id_payment_id.tsmart_product_id=deapature.tsmart_product_id')
+            ->leftJoin('#__tsmart_payment AS payment ON payment.tsmart_payment_id=tour_id_payment_id.tsmart_payment_id')
+            ->select('payment.*')
+            ->where('deapature.tsmart_departure_id='.(int)$departure_id)
+            ;
+        $db->setQuery($query);
+        return $db->loadObject();
     }
 
 
@@ -94,7 +123,7 @@ class tsmartModelDeparture extends tmsModel
         $query=$db->getQuery(true);
         $tsmart_departure_id=$this->getState('filter.tsmart_departure_id');
 
-        $query->select('departure.tsmart_departure_id,departure.departure_name,departure.departure_code,departure.departure_date,departure.sale_period_from,departure.sale_period_to,departure.published,products_en_gb.product_name,service_class.service_class_name')
+        $query->select('departure.tsmart_departure_id,departure.departure_name,departure.departure_code,departure.assign_user_id,departure.departure_date,departure.sale_period_from,departure.sale_period_to,departure.published,products_en_gb.product_name,service_class.service_class_name')
             ->select('departure.min_space,departure.max_space')
             ->from('#__tsmart_departure AS departure')
             ->leftJoin('#__tsmart_products AS products USING(tsmart_product_id)')
@@ -106,9 +135,9 @@ class tsmartModelDeparture extends tmsModel
             ->leftJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id')
             ->select('tour_price.tax')
             ->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id.tsmart_group_size_id')
-            ->where('group_size.type='.$query->q(tsmGroupSize::FLAT_PRICE))
+            //->where('group_size.type='.$query->q(tsmGroupSize::FLAT_PRICE))
 
-            ->where('tour_price.tsmart_product_id=departure.tsmart_product_id')
+            //->where('tour_price.tsmart_product_id=departure.tsmart_product_id')
             ->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id')
             ->select('group_size_id_tour_price_id.price_adult')
             ->leftJoin('#__tsmart_mark_up_tour_price_id AS mark_up_tour_price_id ON  mark_up_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id')
@@ -175,6 +204,7 @@ class tsmartModelDeparture extends tmsModel
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
         $query->group('departure.tsmart_departure_id');
+        echo $query->dump();
         return $query;
     }
 
@@ -891,6 +921,7 @@ class tsmartModelDeparture extends tmsModel
         }else{
             $sale_period_from=$table_departure->sale_period_from;
             $sale_period_to=$table_departure->sale_period_to;
+            require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.php';
             $days_seleted=TSMUtility::dateRange($sale_period_from,$sale_period_to);
             $weekly=$table_departure->weekly;
             $weekly=explode(',',$weekly);

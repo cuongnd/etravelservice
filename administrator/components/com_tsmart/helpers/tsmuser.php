@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class tsmHotel
+class tsmuser
 {
     /**
      * javascript strings
@@ -34,23 +34,16 @@ class tsmHotel
      */
     protected static $strings = array();
 
-    public static function get_list_hotel(){
+    public static function get_list_user()
+    {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('*')
-            ->from('#__tsmart_hotel AS hotel')
-        ;
+            ->from('#__users')
+            ;
         return $db->setQuery($query)->loadObjectList();
     }
-    public static function get_list_hotel_by_cityarea_id($tsmart_cityarea_id=0){
-        $db=JFactory::getDbo();
-        $query=$db->getQuery(true);
-        $query->select('*')
-            ->from('#__tsmart_hotel AS hotel')
-            ->where('hotel.tsmart_cityarea_id='.(int)$tsmart_cityarea_id)
-        ;
-        return $db->setQuery($query)->loadObjectList();
-    }
+
 
 
 }

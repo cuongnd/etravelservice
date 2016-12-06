@@ -57,7 +57,8 @@ class TableDeparture extends tsmTableData {
 	var $allow_passenger				= '';
 	var $sale_period_open_before				= 0;
 	var $sale_period_close_before				= 0;
-	var $departure_code				= '';
+	var $departure_code				= null;
+	var $assign_user_id				= null;
 
 	/**
 	 * @author Max Milbers

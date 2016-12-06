@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.html_select_date = function (element, options) {
+    $.ahtml_select_date = function (element, options) {
 
         // plugin's default options
         var defaults = {

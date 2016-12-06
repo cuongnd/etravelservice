@@ -37,9 +37,9 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
             <div class="row-fluid filter filter-product">
                 <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
                 <?php echo VmHTML::row_control('input', 'trip name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
-                <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.filter_trip_code'))); ?>
-                <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type', $this->state->get('filter.trip_type')); ?>
-                <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style', $this->state->get('filter.trip_style')); ?>
+                <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+                <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type_id', $this->state->get('filter.trip_type_id')); ?>
+                <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
                 <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
                 <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
 

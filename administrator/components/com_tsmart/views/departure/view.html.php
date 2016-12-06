@@ -55,8 +55,7 @@ class TsmartViewDeparture extends tsmViewAdmin {
 			}
 
 			$model->setId($cid);
-			$this->departure = $model->getdeparture();
-
+			$this->departure = $model->getdeparture($cid);
 
 
 			$this->SetViewTitle('',$this->departure->departure_name);
@@ -74,7 +73,7 @@ class TsmartViewDeparture extends tsmViewAdmin {
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 
 			$this->list_departure = $model->getItemList(vRequest::getCmd('search'));
-
+			$this->state=$model->getState();
 			$this->pagination = $model->getPagination();
 
 		}

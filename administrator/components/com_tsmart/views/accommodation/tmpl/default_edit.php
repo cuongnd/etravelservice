@@ -56,7 +56,7 @@ $tsmart_product_id=$input->getInt('tsmart_product_id',0);
                                         $element_hotel_name='list_hotel_service_class['.$service_class->tsmart_service_class_id.']['.$i.']';
                                         $element_room_name='list_room_service_class['.$service_class->tsmart_service_class_id.']['.$i.']';
                                         ?>
-                                        <?php echo VmHTML::select($element_hotel_name, $this->list_hotel,$hotel_service_class->tsmart_hotel_id,'', 'tsmart_hotel_id','hotel_name'); ?>
+                                        <?php echo VmHTML::select($element_hotel_name, tsmHotel::get_list_hotel_by_cityarea_id($this->itinerary->tsmart_cityarea_id),$hotel_service_class->tsmart_hotel_id,'', 'tsmart_hotel_id','hotel_name'); ?>
                                     </div>
                                     <div class="span6">
                                         <?php echo VmHTML::select_room($element_room_name, $this->list_room,$hotel_service_class->room_item->tsmart_room_id,'', 'tsmart_room_id','room_name','select[name="'.$element_hotel_name.'"]'); ?>

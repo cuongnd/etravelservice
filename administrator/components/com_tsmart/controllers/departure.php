@@ -90,16 +90,17 @@ class TsmartControllerDeparture extends TsmController {
 		$min_max_space=explode(';',$min_max_space);
 		$data['min_space']=$min_max_space[0];
 		$data['max_space']=$min_max_space[1];
+		$data['tsmart_departure_parent_id']=$data['tsmart_departure_parent_id']==0?null:$data['tsmart_departure_parent_id'];
         $data['allow_passenger']=implode(',',$data['allow_passenger']);
         $data['weekly']=implode(',',$data['weekly']);
         $days_seleted=$data['days_seleted'];
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
         $data['days_seleted']=implode(',',$days_seleted);
-        if(!$data['tsmart_departure_id'])
-        {
-            $data['departure_code']=JUserHelper::genRandomPassword();
-        }
+		if($data['tsmart_departure_parent_id']){
+			unset($data['days_seleted']);
+		}
+
         $tsmart_departure_id= $departure_model->store($data);
         if(!$tsmart_departure_id)
         {
@@ -112,6 +113,23 @@ class TsmartControllerDeparture extends TsmController {
             $departure_model->create_children_departure($tsmart_departure_id);
         }
         echo json_encode($item);
+        die;
+	}
+	function ajax_save_departure_assign_user()
+	{
+		$app=JFactory::getApplication();
+		$departure_table=tsmTable::getInstance('departure','Table');
+		$data=$app->input->getArray();
+        $departure_table->load($data['tsmart_departure_id']);
+		$departure_table->assign_user_id=$data['assign_user_id'];
+		$response=new stdClass();
+		$response->e=0;
+        if(!$departure_table->store())
+        {
+			$response->e=1;
+			$response->m=$departure_table->getError();
+        }
+        echo json_encode($response);
         die;
 	}
 	public function ajax_remove_item()

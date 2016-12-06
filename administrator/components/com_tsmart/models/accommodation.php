@@ -75,8 +75,9 @@ class tsmartModelAccommodation extends tmsModel {
 			->from('#__tsmart_itinerary AS itinerary')
 			->where('itinerary.tsmart_product_id='.(int)$tsmart_product_id)
 			->leftJoin('#__tsmart_accommodation AS accommodation USING(tsmart_itinerary_id)')
-			->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
-			->group('cityarea.tsmart_cityarea_id')
+			->leftJoin('#__tsmart_cityarea AS cityarea ON cityarea.tsmart_cityarea_id=itinerary.tsmart_cityarea_id')
+			->where('itinerary.tsmart_cityarea_id is not null')
+			->group('itinerary.tsmart_cityarea_id')
 		;
 		$user = JFactory::getUser();
 		$shared = '';
@@ -102,7 +103,7 @@ class tsmartModelAccommodation extends tmsModel {
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
+		echo $query->dump();
 		return $query;
 	}
 

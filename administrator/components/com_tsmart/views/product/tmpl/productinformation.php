@@ -45,8 +45,8 @@ $i = 0;
                 <?php echo VmHTML::row_control('text_view', 'Tour type', $view->product->tour_type, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('text_view', 'Tour stype', $view->product->tour_style, 'class="required"'); ?>
                 <?php echo VmHTML::row_control('text_view', 'Difficulty grade', $view->product->physicalgrade, 'class="required"'); ?>
-                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max pers', $view->product->min_person,$view->product->max_person,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
-                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max age', $view->product->min_age,$view->product->max_age,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
+                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max pers', $view->product->min_person,$view->product->max_person,'to', 'style="width:65px"',' style="width:65px" '); ?>
+                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max age', $view->product->min_age,$view->product->max_age,'to', 'style="width:65px"',' style="width:65px" '); ?>
 
 
             </fieldset>

@@ -49,6 +49,53 @@ class VmHtml
         self::$_usedId[$id] = 1;
         return $id;
     }
+    public static function product_display($name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $options = array();
+        for($i=1;$i<=10;$i++)
+        {
+            $options[] = array($key => "$i", $text => $i);
+
+        }
+        return VmHtml::genericlist($options, $name, $attrib, $key, $text, $default, false, $tranlsate);
+    }
+
+    public static function select_room($name="tsmart_room_id", $list_room, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $hotel_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_room/html_select_room.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_room/html_select_room.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_room)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmroom.php';
+            $list_room = tsmroom::get_list_room();
+        }
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('select[name="<?php echo $name ?>"]').html_select_room({
+                    element_name:"<?php echo  $name ?>",
+                    state_element: '<?php echo $hotel_element ?>',
+                    default:<?php echo (int)$default ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        if ($zero == true) {
+            $option = array($key => "0", $text => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
+            $list_room = array_merge(array($option), $list_room);
+        }
+        if ($chosenDropDowns) {
+            vmJsApi::chosenDropDowns();
+            $attrib .= ' class="vm-chzn-select"';
+        }
+        return VmHtml::genericlist($list_room, $name, $attrib, $key, $text, $default, false, $tranlsate);
+    }
 
     /**
      * Converts all special chars to html entities
@@ -507,7 +554,7 @@ class VmHtml
                 $('#<?php  echo $id_element ?>').html_select_tour_style({
                     list_tour_style:<?php echo json_encode($list_tour_style) ?>,
                     select_name: "<?php echo $name ?>",
-                    tsmart_tour_type_id:<?php echo $default ? $default : 0 ?>
+                    tsmart_tour_style_id:<?php echo $default ? $default : 0 ?>
                 });
             });
         </script>
@@ -524,7 +571,7 @@ class VmHtml
                 <?php foreach ($list_tour_style as $tour_style) { ?>
                     <option <?php echo $tour_style->tsmart_tour_style_id == $default ? ' selected ' : '' ?>
                         value="<?php echo $tour_style->tsmart_tour_style_id ?>"
-                        data-price_type="<?php echo $tour_style->price_type ?>"><?php echo $tour_style->tour_style_name ?></option>
+                        ><?php echo $tour_style->tour_style_name ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -2600,6 +2647,52 @@ XML;
                 <?php foreach ($list_language as $language) { ?>
                     <option <?php echo $language->tsmart_language_id == $default ? ' selected ' : '' ?>
                         value="<?php echo $language->tsmart_language_id ?>"><?php echo $language->language_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_user_name($list_user = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_user/html_select_user.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_user/html_select_user.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_user)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmuser.php';
+            $list_user = tsmuser::get_list_user();
+        }
+
+        $id_element = 'html_select_user_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_user({
+                    list_user:<?php echo json_encode($list_user) ?>,
+                    select_name: "<?php echo $name ?>",
+                    user_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" <?php echo $attrib ?> >
+            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="user">
+                <option value=""><?php echo JText::_('please select user') ?></option>
+                <?php foreach ($list_user as $user) { ?>
+                    <option <?php echo $user->id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $user->id ?>"><?php echo $user->name ?></option>
                 <?php } ?>
             </select>
         </div>

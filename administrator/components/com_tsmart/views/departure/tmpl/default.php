@@ -72,6 +72,7 @@ ob_start();
     </script>
 <?php
 $js_content = ob_get_clean();
+require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.php';
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 AdminUIHelper::startAdminArea($this);
@@ -79,13 +80,20 @@ AdminUIHelper::startAdminArea($this);
 ?>
     <div class="view-departure-default">
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-            <table>
-                <tr>
-                    <td width="100%">
-                        <?php echo $this->displayDefaultViewSearch('com_tsmart_CURRENCY', 'search'); ?>
-                    </td>
-                </tr>
-            </table>
+            <div class="row-fluid filter filter-product">
+                <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
+                <?php echo VmHTML::row_control('input',JText::_('Departure name'), 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+                <?php echo VmHTML::row_control('input', JText::_('Departure code'), 'filter_departure_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+                <?php echo VmHTML::row_control('select_tour', 'trip name', 'filter_product_id', $this->state->get('filter.product_id')); ?>
+                <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
+                <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
+                <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
+
+            </div>
+            <div class="vm-page-nav">
+                <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
+            </div>
+
             <div id="editcell">
                 <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                     <thead>
@@ -124,8 +132,8 @@ AdminUIHelper::startAdminArea($this);
                             <?php echo $this->sort('currency_name', 'Discount'); ?>
                         </th>
 
-                        <th>
-                            <?php echo $this->sort('currency_name', 'Asign'); ?>
+                        <th width="20%">
+                            <?php echo $this->sort('assign_user_id', 'Asign'); ?>
                         </th>
                         <th colspan="2">Action</th>
                         <?php /*	<th width="10">
@@ -183,9 +191,9 @@ AdminUIHelper::startAdminArea($this);
                             <td>
 
                             <td>
-                                <?php echo $row->asign_name ?></span>
+                                <?php echo VmHTML::select_user_name(array(), 'assign_user_id_'.$row->tsmart_departure_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
                             </td>
-                            <td><a href="javascript:void(0)" class="edit-departure">
+                            <td><a href="<?php echo $editlink ?>" class="edit-departure">
                                     <span class="icon-edit icon-white"></span>
                                 </a>
                                 <a href="javascript:void(0)" class=" publish-departure">
@@ -206,13 +214,6 @@ AdminUIHelper::startAdminArea($this);
                         $k = 1 - $k;
                     }
                     ?>
-                    <tfoot>
-                    <tr>
-                        <td colspan="10">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                        </td>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
 
@@ -508,6 +509,8 @@ AdminUIHelper::startAdminArea($this);
                 </div>
             </div>
             <input type="hidden" id="tsmart_departure_id" name="tsmart_departure_id"
+                   value="0"/>
+            <input type="hidden" id="tsmart_departure_parent_id" name="tsmart_departure_parent_id"
                    value="0"/>
             <input type="hidden" id="published" name="published"
                    value="1"/>

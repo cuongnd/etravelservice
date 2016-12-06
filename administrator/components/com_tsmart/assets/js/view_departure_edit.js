@@ -220,28 +220,6 @@
             });
 
 
-            $element.find(".departure-edit-form").dialog({
-                autoOpen: false,
-                modal: true,
-                width: 800,
-                appendTo: 'body',
-                dialogClass: "dialog-departure-edit-form",
-                //closeOnEscape: false,
-                open: function(event, ui) {
-                    var is_load_ajax_get_departure=plugin.settings.is_load_ajax_get_departure;
-                    if(is_load_ajax_get_departure==0)
-                    {
-                        plugin.settings.departure_item=defaults.departure_item;
-                        plugin.fill_data();
-                        plugin.update_layout_departure();
-                    }
-                    var range_of_date = $dialog_departure_edit_form.find('#select_from_date_to_date_sale_period_from_sale_period_to').data('html_select_range_of_date');
-                    range_of_date.on_change=function(start, end) {
-                        plugin.update_calendar_price(start, end);
-                    };
-                }
-
-            });
             $("#min_max_space").ionRangeSlider({
                 min: 1,
                 max: 40,

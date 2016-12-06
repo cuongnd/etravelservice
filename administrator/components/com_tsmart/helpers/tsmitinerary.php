@@ -34,6 +34,15 @@ class tsmitinerary
      */
     protected static $strings = array();
 
+    public static function get_itinerary_by_itinerary_id($tsmart_itinerary_id=0){
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_itinerary AS itinerary')
+            ->where('itinerary.tsmart_itinerary_id='.(int)$tsmart_itinerary_id)
+        ;
+        return $db->setQuery($query)->loadObject();
+    }
 
 
 }

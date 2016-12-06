@@ -54,7 +54,7 @@
                     var element_name=plugin.settings.element_name;
                     var tsmart_room_id=$element.val();
                     $.set_data_selected(response,'tsmart_room_id','room_name',$element,tsmart_room_id);
-                    $element.trigger("liszt:updated");
+                    $element.trigger("chosen:updated");
                 }
             });
 

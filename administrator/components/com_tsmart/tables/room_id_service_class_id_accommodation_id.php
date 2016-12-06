@@ -44,7 +44,7 @@ class Tableroom_id_service_class_id_accommodation_id extends tsmTableData {
         $keys=(object)array(
            'tsmart_accommodation_id','tsmart_room_id','tsmart_service_class_id'
         );
-		parent::__construct('#__tsmart_room_id_service_class_id_accommodation_id', $keys, $db);
+		parent::__construct('#__tsmart_room_id_service_class_id_accommodation_id', 'id', $db);
 
 	}
 
