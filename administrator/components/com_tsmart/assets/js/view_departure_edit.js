@@ -220,66 +220,6 @@
             });
 
 
-            $("#min_max_space").ionRangeSlider({
-                min: 1,
-                max: 40,
-                from: 1,
-                to: 40,
-                type: 'double',
-                grid: true,
-                grid_num: 10,
-                keyboard:true,
-                keyboard_step:1
-            });
-            var max_date=365;
-            $("#sale_period_open_before").ionRangeSlider({
-                min: 1,
-                max: max_date,
-                from: 1,
-                to: max_date,
-                type: 'single',
-                grid: true,
-                grid_num: 10,
-                keyboard:true,
-                keyboard_step:1
-            });
-            $("#sale_period_close_before").ionRangeSlider({
-                min: 1,
-                max: max_date,
-                from: 1,
-                to: max_date,
-                type: 'single',
-                grid: true,
-                grid_num: 10,
-                keyboard:true,
-                keyboard_step:1
-            });
-            $("#g_guarantee").ionRangeSlider({
-                min: 1,
-                max: 10,
-                from: 1,
-                to: 10,
-                type: 'single',
-                grid: true,
-                grid_num: 10,
-                keyboard:true,
-                keyboard_step:1
-            });
-            $("#limited_space").ionRangeSlider({
-                min: 1,
-                max: 40,
-                from: 1,
-                to: 40,
-                type: 'single',
-                grid: true,
-                grid_num: 10,
-                keyboard:true,
-                keyboard_step:1,
-                onFinish: function (data) {
-
-                }
-            });
-            $('#daterange_vail_period_from_to').daterangepicker({});
             $element.find('.assign_user_id select.user').data('is_first',true);
             $element.find('.assign_user_id select.user').change(function () {
                 var is_first=$(this).data('is_first');

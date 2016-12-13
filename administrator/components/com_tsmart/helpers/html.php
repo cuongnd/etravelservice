@@ -212,8 +212,8 @@ class VmHtml
             $label = tsmText::_($label);
         }
         $label = '<label class="control-label">' . $label . '</label>';
-
-        $html = ' <div class="control-group ">' . $label;
+        $name=reset($args);
+        $html = ' <div id="control-group-'.$name.'" class="control-group ">' . $label;
         if ($func[1] == 'radioList') {
             $html .= '<fieldset class="checkboxes">';
         }
@@ -454,41 +454,55 @@ class VmHtml
         return VmHtml::genericlist($list_state, $name, $attrib, $key, $text, $default, false, $tranlsate);
     }
 
-    public static function location_city($name, $default = '0', $attrib = "onchange='submit();'")
+    public static function location_city($name, $default = '0')
     {
-
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
         $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_location_city/html_select_select_location_city.js');
-        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_location_city/html_select_select_location_city.less');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.less');
         $input = JFactory::getApplication()->input;
-
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmcities.php';
         $cities = tsmcities::get_cities();
-        $option = array('vituemart_cityarea_id' => '', 'city_area_name' => 'Please select location');
+        $option = array('vituemart_cityarea_id' => '', 'full_city' => 'Please select location');
         array_unshift($cities, $option);
+
+        $id_element = 'html_select_location_city_' . $name;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-
+                $('#<?php  echo $id_element ?>').html_select_location_city({
+                    list_location_city:<?php echo json_encode($cities) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_cityarea_id:<?php echo $default ? $default : 0 ?>
+                });
             });
         </script>
         <?php
         $script_content = ob_get_clean();
         $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
-        $html = VmHtml::genericlist($cities, $name, $attrib, 'tsmart_cityarea_id', 'full_city', $default, false);
+
         ob_start();
         ?>
-        <div class="html_select_select_location_city">
-            <?php echo $html ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select tour type') ?></option>
+                <?php foreach ($cities as $city) { ?>
+                    <option <?php echo $city->tsmart_cityarea_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $city->tsmart_cityarea_id ?>"
+                        ><?php echo $city->full_city ?></option>
+                <?php } ?>
+            </select>
         </div>
         <?php
         $html = ob_get_clean();
         return $html;
+
+
+
     }
 
     public static function select_tour_type($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
@@ -1475,6 +1489,82 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
+    public static function allow_passenger($name, $list_selected = array(), $attrib = "onchange='submit();'", $column = 3)
+    {
+        $list_passenger=array(
+            senior=>JText::_('senior'),
+            adult=>JText::_('adult'),
+            teen=>JText::_('teen'),
+            child_1=>JText::_('child_1'),
+            child_2=>JText::_('child_2'),
+            infant=>JText::_('infant')
+        );
+        $list_options = array_chunk($list_passenger, $column);
+        ob_start();
+        ?>
+        <?php foreach ($list_options as $list_passenger) { ?>
+        <div class="row-fluid">
+            <?php foreach ($list_passenger as $key=>$person) { ?>
+                <div class="span<?php echo round(12 / $column) ?>">
+                    <label class="checkbox">
+                        <input
+                            name="<?php echo $name ?>[]" <?php echo in_array($key, $list_selected) ? 'checked' : '' ?>
+                            value="<?php echo $key ?>" type="checkbox"> <?php echo $person ?>
+                    </label>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function number_state($name, $min=0, $max=100, $current=50, $current_color='#990100', $full_color='#ff9900')
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/number_state/jquery.number_state.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/number_state/style.number_state.less');
+        $id_element="number_state_$name";
+        $left=(($current-$min)/($max-$min))*100;
+        ob_start();
+        ?>
+        <div id="<?php echo  $id_element ?>" class="number-state">
+            <div class="slider-number-state">
+                <div class="top">
+                    <div class="min"><?php echo $min ?></div>
+                    <div class="current pull-left" style="width: <?php echo $left ?>%; ?>"><?php echo $current ?></div>
+                    <div class="max"><?php echo $max ?></div>
+                </div>
+                <div class="bottom" style="background:<?php echo $full_color ?> ">
+                    <div class="current pull-left" style="width: <?php echo $left ?>%;background: <?php echo $current_color ?>">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <?php
+        $html = ob_get_clean();
+
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').number_state({
+                    min:<?php echo (int)$min ?>,
+                    max:<?php echo (int)$max ?>,
+                    current:<?php echo (int)$current ?>,
+                    left_color:"<?php echo $current_color ?>",
+                    right_color:"<?php echo $full_color ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        return $html;
+    }
 
     public static function list_checkbox_group_size($name, $list_selected = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
@@ -2273,6 +2363,48 @@ class VmHtml
                    >
             <input type="hidden" class="" value="<?php echo $value_balance_of_day ?>" name="<?php echo $name_balance_of_day ?>" id="<?php echo $name_balance_of_day ?>">
             <input type="hidden" class="" value="<?php echo $value_percent_balance_of_day ?>" name="<?php echo $name_percent_balance_of_day ?>" id="<?php echo $name_percent_balance_of_day ?>">
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+    public static function range_of_integer($name_input_from, $name_input_to, $value_input_from=0, $value_input_to, $number_min_input_from=0, $number_max_input_from=1000, $number_min_input_to=0, $number_max_input_to=1000, $readonly=false)
+    {
+
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/range_of_integer/jquery.range_of_integer.js');
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/range_of_integer/style.range_of_integer.less');
+        $id_element="range_of_integer_".$name_input_from.'_'.$name_input_to;
+        $js_content = '';
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').range_of_integer({
+                    name_input_from:"<?php echo $name_input_from ?>",
+                    name_input_to:"<?php echo $name_input_to ?>"
+                });
+
+            });
+        </script>
+        <?php
+        $js_content = ob_get_clean();
+        $js_content = TSMUtility::remove_string_javascript($js_content);
+        $doc->addScriptDeclaration($js_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="range_of_interger">
+            <input type="text" value="<?php echo $value_input_from ?>"    <?php echo $readonly ? 'readonly' : '' ?>
+                   class="inputbox inputbox_number    input_number_<?php echo $name_input_from ?>  pull-left" data-v-min="<?php echo $number_min_input_from ?>"
+                   data-v-max="<?php echo $number_max_input_from ?>"
+                   >
+            <div class="to"><?php echo JText::_('To') ?></div>
+            <input type="text" value="<?php echo $value_input_to ?>" <?php echo $readonly ? 'readonly' : '' ?>
+                   class="inputbox inputbox_percent    input_number_<?php echo $name_input_to ?>    pull-left" data-v-min="<?php echo $number_min_input_to ?>"
+                   data-v-max="<?php echo $number_max_input_to ?>"
+                   >
+            <input type="hidden" class="" value="<?php echo $value_input_from ?>" name="<?php echo $name_input_from ?>" id="<?php echo $name_input_from ?>">
+            <input type="hidden" class="" value="<?php echo $value_input_to ?>" name="<?php echo $name_input_to ?>" id="<?php echo $name_input_to ?>">
         </div>
         <?php
         return ob_get_clean();

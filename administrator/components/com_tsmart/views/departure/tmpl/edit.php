@@ -61,7 +61,6 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-m
 $doc->addStyleSheet(JUri::root() . '/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css');
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_departure_edit.less');
-
 $js_content = '';
 ob_start();
 ?>
@@ -85,7 +84,7 @@ AdminUIHelper::startAdminArea($this);
                     <h3 class="title"><?php echo JText::_('Departure information') ?></h3>
                     <div class="row-fluid ">
                         <div class="span4">
-                            <fieldset>
+                            <fieldset class="trip-detail">
                                 <legend><?php echo JText::_('Trip detail') ?></legend>
                                 <?php echo VmHTML::row_control('text_view', JText::_('Trip name'),$this->departure->product_name, 'class="required"'); ?>
                                 <?php echo VmHTML::row_control('text_view', JText::_('Trip code'),$this->departure->product_code, 'class="required"'); ?>
@@ -98,17 +97,17 @@ AdminUIHelper::startAdminArea($this);
 
                         </div>
                         <div class="span4">
-                            <fieldset>
+                            <fieldset class="departure-date">
                                 <legend><?php echo JText::_('departure date') ?></legend>
                                 <?php echo VmHTML::row_control('input',JText::_('Departure name'),'departure_name',$this->departure->departure_name,'class="required"'); ?>
 
                                 <?php echo VmHTML::row_control('text_view', JText::_('Departure code'),$this->departure->departure_code, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_date',JText::_('Departure date'),'departure_date',$this->departure->service_class_name,'mm/dd/yy'); ?>
+                                <?php echo VmHTML::row_control('text_view', JText::_('Departure date'),$this->departure->departure_date, 'class="required icon-date"'); ?>
 
                                 <?php echo VmHTML::row_control('text_view', JText::_('Service class'),$this->departure->service_class_name, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view_from_to', JText::_('Min-Max space'), $this->departure->min_space,$this->departure->max_space,'to', 'style="width:65px"',' style="width:65px" '); ?>
-                                <?php echo VmHTML::row_control('text_view_from_to', JText::_('Open close sale'), $this->departure->min_space,$this->departure->max_space,'to', 'style="width:65px"',' style="width:65px" '); ?>
-                                <?php echo VmHTML::row_control('text_view_from_to', JText::_('G-L space'), $this->departure->g_guarantee,$this->departure->limited_space,'to', 'style="width:65px"',' style="width:65px" '); ?>
+                                <?php echo VmHTML::row_control('range_of_integer', JText::_('Min-Max space'),'min_space','max_space', $this->departure->min_space,$this->departure->max_space); ?>
+                                <?php echo VmHTML::row_control('range_of_integer', JText::_('Open close sale'),'min_space','max_space', $this->departure->min_space,$this->departure->max_space); ?>
+                                <?php echo VmHTML::row_control('range_of_integer', JText::_('G-L space'),'g_guarantee','limited_space', $this->departure->g_guarantee,$this->departure->limited_space); ?>
 
 
                             </fieldset>
@@ -116,122 +115,119 @@ AdminUIHelper::startAdminArea($this);
                         <div class="span4">
                             <fieldset >
                                 <legend><?php echo JText::_('Hold seat') ?></legend>
-                                <?php echo VmHTML::view_list(array($view->product->tour_section)); ?>
+                                <div class="hold-seat">
+                                    <div class="line-1 row-fluid">
+                                        <div class="pull-left"><?php echo $this->departure->hold_seat?JText::_('Accepted'):JText::_('NotAccepted') ?></div>
+                                        <div class="pull-right"><?php echo $this->departure->hold_seat?JText::sprintf('Time: %s hours',$this->departure->hold_seat_hours):JText::_('None') ?></div>
+                                    </div>
+                                    <div class="line-2 row-fluid">
+                                        <div class="pull-left"><?php echo $this->departure->hold_seat?JText::sprintf('Hold seat'):JText::_('None') ?></div>
+                                        <div class="pull-right"><?php echo $this->departure->hold_seat?JText::sprintf('Number: %s persons',4):JText::_('None') ?></div>
+                                    </div>
+                                </div>
                             </fieldset>
-                            <fieldset class="list_tour_service_class">
+                            <fieldset class="">
                                 <legend><?php echo JText::_('Payment rule') ?></legend>
-                                <?php echo VmHTML::view_list($view->product->list_tour_service_class); ?>
+                                <div class="payment-rule">
+                                    <div class="line row-fluid">
+                                        <?php
+                                        $amount=$this->departure->amount;
+                                        $amount=$this->departure->deposit_amount_type=="percent"?"$amount%":"US$ $amount";
+                                        ?>
+                                        <div class="pull-left"><?php echo JText::sprintf('Deposit: %s',$amount) ?></div>
+                                        <div class="pull-right"><?php echo JText::sprintf('Cancel: %s days',$this->departure->cancellation_of_day) ?></div>
+                                    </div>
+                                    <div class="line row-fluid">
+                                        <div class="pull-left"><?php echo JText::sprintf('Balance 1: %s',$this->departure->percent_balance_of_day_1) ?></div>
+                                        <div class="pull-right"><?php echo JText::sprintf('Date: %s days',$this->departure->balance_of_day_1) ?></div>
+                                    </div>
+                                    <div class="line row-fluid">
+                                        <div class="pull-left"><?php echo JText::sprintf('Balance 2: %s',$this->departure->percent_balance_of_day_2) ?></div>
+                                        <div class="pull-right"><?php echo JText::sprintf('Date: %s days',$this->departure->balance_of_day_2) ?></div>
+                                    </div>
+                                    <div class="line row-fluid">
+                                        <div class="pull-left"><?php echo JText::sprintf('Balance 3: %s',$this->departure->percent_balance_of_day_3) ?></div>
+                                        <div class="pull-right"><?php echo JText::sprintf('Date: %s days',$this->departure->balance_of_day_3) ?></div>
+                                    </div>
+                                </div>
+
                             </fieldset>
+                            <fieldset >
+                                <legend><?php echo JText::_('Allow passenger') ?></legend>
+                                <div class="allow-passenger">
+                                    <?php echo VmHTML::allow_passenger('allow_passenger', explode(',',$this->departure->allow_passenger), '', 3); ?>
+                                </div>
+                            </fieldset>
+
                         </div>
                     </div>
 
                 </div>
 
                 <div class="depature-information-seat-price form-horizontal">
-                    <h3 class="title"><?php echo JText::_('General information edit') ?></h3>
+                    <h3 class="title"><?php echo JText::_('Seat and price management') ?></h3>
+                    <div class="price-status">
                     <div class="row-fluid ">
-                        <div class="span4">
-                            <fieldset>
-                                <legend>General</legend>
-                                <?php echo VmHTML::row_control('text_view', 'Tour name', $view->product->product_name.'('.$view->product->product_code.')', 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'Tour length', $view->product->tour_length, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'Tour countries', $view->product->list_country, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'start city', $view->product->start_city, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'end city', $view->product->end_city, 'class="required"'); ?>
-                            </fieldset>
+                        <div class="span6">
+                            <ul class="list-price">
+                                <li class="price"><span class="title head">&nbsp;</span> <span class="sale-price head"><?php echo JText::_('sale price') ?></span> <span class="discount-price head"><?php echo JText::_('discount price') ?></span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for adult') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for senior') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for teener') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for child 6-11 years') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for child 2-5 years') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('price for child <2 years') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('Private room') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('Extra bed') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                                <li class="price"><span class="title"><?php echo JText::_('room fee include child 6-11 years price') ?></span> <span class="sale-price">US$ 1500</span> <span class="discount-price">US$ 1500</span></li>
+                            </ul>
+                        </div>
+                        <div class="span6">
+                            <?php echo VmHTML::row_control('number_state', JText::_('Open space'),'open_space',$this->departure->g_guarantee,$this->departure->limited_space,$this->departure->limited_space,'#990100','#ff9900'); ?>
+                            <?php echo VmHTML::row_control('number_state', JText::_('Sold out'),'sold_out',0,$this->departure->limited_space,14,'#0033fe','#ccc'); ?>
+                            <?php echo VmHTML::row_control('number_state', JText::_('Hold seat'),'hold_seat',0,$this->departure->limited_space,2,'#0033fe','#ccc'); ?>
+                            <?php echo VmHTML::row_control('number_state', JText::_('Request'),'request',0,$this->departure->limited_space,5,'#ff9900','#ccc'); ?>
 
                         </div>
-                        <div class="span4">
-                            <fieldset>
-                                <legend>Particularity</legend>
-
-                                <?php echo VmHTML::row_control('text_view', 'Tour type', $view->product->tour_type, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'Tour stype', $view->product->tour_style, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view', 'Difficulty grade', $view->product->physicalgrade, 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max pers', $view->product->min_person,$view->product->max_person,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
-                                <?php echo VmHTML::row_control('text_view_from_to', 'Min Max age', $view->product->min_age,$view->product->max_age,$text='to', 'style="width:65px"',' style="width:65px" '); ?>
-
-
-                            </fieldset>
+                    </div>
+                    </div>
+                    <div class="promotion-info form-vertical">
+                        <div class="row-fluid ">
+                            <div class="span12">
+                                <?php echo VmHTML::row_control('editor', 'Operator info', 'operator_info', $this->item->operator_info,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            </div>
                         </div>
-                        <div class="span4">
-                            <fieldset >
-                                <legend>Tour Section</legend>
-                                <?php echo VmHTML::view_list(array($view->product->tour_section)); ?>
-                            </fieldset>
-                            <fieldset class="list_tour_service_class">
-                                <legend>Service class</legend>
-                                <?php echo VmHTML::view_list($view->product->list_tour_service_class); ?>
-                            </fieldset>
+                    </div>
+                    <div class="departure-note form-vertical">
+                        <div class="row-fluid ">
+                            <div class="span12">
+                                <?php echo VmHTML::row_control('editor', 'Departure note', 'departure_note', $this->item->departure_note,'40%', 20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls-center">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <a class="btn btn-small btn-success pull-right save-close-price">
+                                    <span class="icon-save icon-white"></span>
+                                    Save&close
+                                </a>
+                                <button class="btn btn-small btn-success pull-right apply-price">
+                                    <span class="icon-apply icon-white"></span>
+                                    apply
+                                </button>
+                                <button class="btn btn-small btn-success pull-right cancel-price">
+                                    <span class="icon-cancel icon-white"></span>
+                                    Cancel
+                                </button>
+
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
 
-                <div class="row-fluid">
-                    <div class="span6 ">
-
-                        <label>Select tour name</label>
-                        <select id="tsmart_product_id" name="tsmart_product_id" disable_chosen="true" required
-                                style="width: 300px">
-                            <option value="">select tour</option>
-                            <?php foreach ($this->list_tour as $tour) { ?>
-                                <option
-                                    value="<?php echo $tour->tsmart_product_id ?>"><?php echo $tour->product_name ?></option>
-                            <?php } ?>
-                        </select>
-
-                        <label>Select Service Class</label>
-                        <select id="tsmart_service_class_id" disable_chosen="true" required
-                                name="tsmart_service_class_id" style="width: 300px">
-                            <option value="">select service</option>
-                            <?php foreach ($this->list_tour_class as $tour_service_class) { ?>
-                                <option
-                                    value="<?php echo $tour_service_class->tsmart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
-                            <?php } ?>
-                        </select>
-                        <label>Departure name</label>
-                        <input type="text" size="16"
-                               value="<?php echo $this->departure->departure_name ?>"
-                               id="departure_name"
-                               name="departure_name" required
-                               class="inputbox">
-                        <div class="range-of-date">
-                            <label>Vaild period</label>
-                            <?php echo VmHTML::range_of_date('sale_period_from', 'sale_period_to', '', ''); ?>
-                        </div>
-                        <label>Departure Note</label>
-                        <textarea name="note" id="note">
-                            <?php echo $this->departure->departure_note ?>
-                        </textarea>
-
-
-                    </div>
-                    <div class="span6">
-                        <label>Setup space</label>
-                        <input type="text" id="min_max_space" required name="min_max_space">
-                        <label>Sale period open before</label>
-                        <input type="text" id="sale_period_open_before" required name="sale_period_open_before"/>
-                        <label>Sale period close before</label>
-                        <input type="text" id="sale_period_close_before" required name="sale_period_close_before"/>
-
-                        <label>G-Guarantee</label>
-                        <input type="text" size="16"
-                               value="<?php echo $this->departure->g_guarantee ?>"
-                               id="g_guarantee" name="g_guarantee"
-                               class="inputbox number" required="true">
-                        <label>L-limit space</label>
-
-                        <input type="text" size="16"
-                               value="<?php echo $this->departure->limited_space ?>"
-                               id="limited_space" name="limited_space"
-                               class="inputbox number" required="true">
-
-
-
-                    </div>
-                </div>
             </div>
             <input type="hidden" id="tsmart_departure_id" name="tsmart_departure_id"
                    value="0"/>
@@ -241,23 +237,6 @@ AdminUIHelper::startAdminArea($this);
                    value="1"/>
 
             <?php echo $this->addStandardHiddenToForm('departure', 'ajax_save_departure_item'); ?>
-            <div class="row-fluid">
-                <div class="span12">
-                    <a class="btn btn-small btn-success pull-right save-close-price">
-                        <span class="icon-save icon-white"></span>
-                        Save&close
-                    </a>
-                    <button class="btn btn-small btn-success pull-right apply-price">
-                        <span class="icon-apply icon-white"></span>
-                        apply
-                    </button>
-                    <button class="btn btn-small btn-success pull-right cancel-price">
-                        <span class="icon-cancel icon-white"></span>
-                        Cancel
-                    </button>
-
-                </div>
-            </div>
 
         </form>
     </div>

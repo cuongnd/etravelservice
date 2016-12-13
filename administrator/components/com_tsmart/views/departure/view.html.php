@@ -59,7 +59,6 @@ class TsmartViewDeparture extends tsmViewAdmin {
 
 
 			$this->SetViewTitle('',$this->departure->departure_name);
-			$this->addStandardEditViewCommands();
 
 		} else {
 			$model_product = tmsModel::getModel('product');

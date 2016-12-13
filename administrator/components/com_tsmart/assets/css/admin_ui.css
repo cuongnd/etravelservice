@@ -290,7 +290,6 @@ dl#system-message dd .vmdebug {
 
 /* Inputs */
 .tsmart-admin-area fieldset input {
-    float: none !important;
     clear: none;
     display: inline-block;
 }

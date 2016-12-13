@@ -84,7 +84,7 @@ class TsmartViewcoupon extends tsmViewAdmin {
             $this->state=$model->getState();
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcities.php';
 			$this->list_cityarea=tsmcities::get_city_state_country();
-			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
+			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcoupon.php';
 			$this->list_hotel_addon_type=tsmcoupon::get_list_hotel_addon_type();
 			$this->list_hotel_payment_type=tsmcoupon::get_list_hotel_payment_type();
 			$this->list_hotel_addon_service_class=tsmcoupon::get_list_hotel_addon_service_class();

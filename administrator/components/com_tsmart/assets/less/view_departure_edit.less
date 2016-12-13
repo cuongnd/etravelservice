@@ -82,21 +82,47 @@
       text-transform: uppercase;
     }
   }
+  ul.list-price
+  {
+    margin-top: 35px;
+    list-style: none;
+    text-transform: uppercase;
+    li.price
+    {
+      line-height:29px;
+      font-weight: bold;
+      span.title
+      {
+        border-bottom: 1px solid #ccc;
+        color: #962b3b;
+        margin-right: 10px;
+        display: block;
+        width: 295px;
+        float: left;
+      }
+      span.sale-price
+      {
+        margin-right: 10px;
+      }
+      span.sale-price,span.discount-price
+      {
+        float: left;
+        border-bottom: 1px solid #ccc;
+        width: 115px;
+      }
+      span.title.head, span.sale-price.head,span.discount-price.head
+      {
+        border-bottom: none;
+      }
+    }
+  }
 }
 #status
 {
   display: none;
 }
 
-.dialog-allocation-edit-form {
-  input.number {
-    width: 40px;
-  }
-  .form-departure td {
-    padding: 2px;
-  }
 
-}
 ul.myErrorClass, input.myErrorClass, textarea.myErrorClass, select.myErrorClass {
   border-width: 1px !important;
   border-style: solid !important;
@@ -126,4 +152,97 @@ label.myErrorClass {
   }
 
 }
+.departure-edit-form
+{
+  .hold-seat
+  {
+    padding: 0px 15px;
+    padding-top: 0;
+    .line-2
+    {
+      margin-top: 5px;
+    }
+  }
 
+  .payment-rule
+  {
+    padding: 0px 15px;
+    padding-top: 0;
+    .line
+    {
+      margin-top: 5px;
+      &:first-child
+      {
+        margin-top: 0;
+      }
+    }
+  }
+  .depature-information {
+     .controls {
+      margin-left: 110px;
+      input.text-view,#departure_name {
+        width: 90%;
+      }
+       .range_of_interger .inputbox
+       {
+         width: 38%;
+       }
+    }
+    fieldset.trip-detail,fieldset.departure-date
+    {
+      height: 340px;
+    }
+  }
+  .depature-information-seat-price {
+     .controls {
+      margin-left: 110px;
+
+    }
+    fieldset.trip-detail,fieldset.departure-date
+    {
+      height: 340px;
+    }
+    #control-group-operator_info,#control-group-departure_note
+    {
+      .controls {
+        margin-left:inherit;
+        text-transform: uppercase;
+
+
+      }
+    }
+  }
+  #control-group-open_space,#control-group-sold_out,#control-group-hold_seat,#control-group-request
+  {
+    >.control-label
+    {
+      margin-top: 34px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+  .price-status,.promotion-info,.departure-note
+  {
+    background: #fff;
+    padding: 10px;
+  }
+  .promotion-info,.departure-note
+  {
+    margin-top: 20px;
+  }
+  #control-group-sold_out,#control-group-hold_seat,#control-group-request
+  {
+    .slider-number-state
+    {
+      .min
+      {
+        visibility:hidden;
+      }
+    }
+  }
+  .controls-center
+  {
+    margin-top: 20px;
+  }
+
+}
