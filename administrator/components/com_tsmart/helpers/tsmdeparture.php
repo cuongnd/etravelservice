@@ -54,6 +54,20 @@ class tsmDeparture
         return $db->loadObjectList();
 
     }
+    public static function get_list_departure_exclude_parent_departure()
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('departure.*')
+            ->from('#__tsmart_departure AS departure')
+            ->leftJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=departure.tsmart_service_class_id')
+            ->select('service_class.service_class_name')
+            ->where('departure.tsmart_departure_parent_id is not NULL')
+            ;
+        $db->setQuery($query);
+        return $db->loadObjectList();
+
+    }
     public static function get_list_departure_by_tour_id($tsmart_product_id)
     {
         $db=JFactory::getDbo();
@@ -65,6 +79,19 @@ class tsmDeparture
             ;
         $db->setQuery($query);
         return $db->loadObjectList();
+
+    }
+    public static function get_list_departure_id_by_tour_id_exclude_parent_departure($tsmart_product_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('departure.tsmart_departure_id')
+            ->from('#__tsmart_departure AS departure')
+            ->where('departure.tsmart_departure_parent_id is not NULL')
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
+            ;
+        $db->setQuery($query);
+        return $db->loadColumn();
 
     }
 

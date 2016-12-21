@@ -83,8 +83,10 @@
             view=plugin.settings.view;
             if(view!='tsmart') {
                 var tab_active_name=$('.header-main-menu li.active a').attr('href');
-                tab_active_name=tab_active_name.replace("#", "");
-                $('#admin-content').addClass(tab_active_name);
+                if(typeof tab_active_name!="undefined") {
+                    tab_active_name = tab_active_name.replace("#", "");
+                    $('#admin-content').addClass(tab_active_name);
+                }
                 if(tab_active_name=='logistic'||tab_active_name=='setup_system')
                 {
                     //$('.title_page').closest('div').removeClass('offset8').addClass('offset1');

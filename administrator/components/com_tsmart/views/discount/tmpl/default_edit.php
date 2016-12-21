@@ -18,13 +18,13 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $doc = JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_coupon_edit.less');
+$doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_discount_edit.less');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/view_coupon_edit.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/view_discount_edit.js');
 
 $this->item->model_price=$this->item->model_price?$this->item->model_price:'flat_price';
 ?>
-<div class="view-coupon-edit">
+<div class="view-discount-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
         <div class="general-information">
             <div class="row-fluid">
@@ -34,32 +34,24 @@ $this->item->model_price=$this->item->model_price?$this->item->model_price:'flat
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?php echo VmHTML::row_control('input', 'Coupon name', 'coupon_name', $this->item->coupon_name, ' placeholder="Coupon name"  '); ?>
+                    <?php echo VmHTML::row_control('input', 'discount name', 'discount_name', $this->item->discount_name, ' placeholder="discount name"  '); ?>
                 </div>
                 <div class="span6">
-                    <?php echo VmHTML::row_control('generate_code', 'Generate code', 'coupon_code', $this->item->coupon_code,'coupon','get_coupon_code',$this->item->coupon_code?true:false); ?>
+                    <?php echo VmHTML::row_control('generate_code', 'Generate code', 'discount_code', $this->item->discount_code,'discount','get_discount_code',$this->item->discount_code?true:false); ?>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span6">
                     <?php echo VmHTML::row_control('image', 'Add photo', 'image', $this->item->image); ?>
-                    <?php echo VmHTML::row_control('range_of_date', 'Set validity', 'coupon_start_date','coupon_expiry_date', $this->item->coupon_start_date,$this->item->coupon_expiry_date); ?>
+                    <?php echo VmHTML::row_control('range_of_date', 'Set validity', 'discount_start_date','discount_expiry_date', $this->item->discount_start_date,$this->item->discount_expiry_date); ?>
                 </div>
                 <div class="span6">
-                    <?php echo VmHTML::row_control('textarea', 'Coupon description', 'description', $this->item->description); ?>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6">
-                    <?php echo VmHTML::row_control('input_number', 'Number of user', 'coupon_used', $this->item->coupon_used); ?>
-                </div>
-                <div class="span6">
-                    <?php echo VmHTML::row_control('input_number', 'Use per customer', 'use_per_customer', $this->item->use_per_customer); ?>
+                    <?php echo VmHTML::row_control('textarea', 'discount description', 'description', $this->item->description); ?>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?php echo VmHTML::row_control('input_percent_or_amount', 'Coupon value', 'coupon_value','percent_or_total',$this->item->coupon_value, $this->item->percent_or_total); ?>
+                    <?php echo VmHTML::row_control('input_percent_or_amount', 'discount value', 'discount_value','percent_or_total',$this->item->discount_value, $this->item->percent_or_total); ?>
 
                 </div>
                 <div class="span6">
@@ -67,7 +59,7 @@ $this->item->model_price=$this->item->model_price?$this->item->model_price:'flat
                         <div class="exclude-title" ><?php echo JText::_('Exclude') ?></div>
                         <div class="row-fluid">
                             <div class="pull-left">
-                                <?php echo VmHTML::row_control('checkbox', 'Coupon products', 'exclude_coupon_product',$this->item->exclude_coupon_product); ?>
+                                <?php echo VmHTML::row_control('checkbox', 'discount products', 'exclude_discount_product',$this->item->exclude_discount_product); ?>
                             </div>
                             <div class="pull-right">
                                 <?php echo VmHTML::row_control('checkbox', 'Discount products', 'exclude_discount_product', $this->item->exclude_discount_product); ?>
@@ -117,11 +109,11 @@ $this->item->model_price=$this->item->model_price?$this->item->model_price:'flat
         </div>
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
         <?php echo VmHTML::inputHidden(array(tsmart_hotel_addon_id => $this->item->tsmart_hotel_addon_id)); ?>
-        <input type="hidden" value="<?php echo $this->item->tsmart_coupon_id  ?>" name="tsmart_coupon_id">
+        <input type="hidden" value="<?php echo $this->item->tsmart_discount_id  ?>" name="tsmart_discount_id">
         <input type="hidden" value="1" name="published">
         <input type="hidden" value="com_tsmart" name="option">
-        <input type="hidden" value="coupon" name="controller">
-        <input type="hidden" value="coupon" name="view">
+        <input type="hidden" value="discount" name="controller">
+        <input type="hidden" value="discount" name="view">
         <input type="hidden" value="save" name="task">
         <?php echo JHtml::_('form.token'); ?>
         <div class="toolbar pull-right">
@@ -137,7 +129,7 @@ $this->item->model_price=$this->item->model_price?$this->item->model_price:'flat
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            $('.view-coupon-edit').view_coupon_edit({
+            $('.view-discount-edit').view_discount_edit({
                 model_price:"<?php echo $this->item->model_price ?>",
                 tsmart_product_id:<?php echo $this->item->tsmart_product_id ?>
             });

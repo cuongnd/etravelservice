@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class tsmcoupon
+class tsmdiscount
 {
     /**
      * javascript strings
@@ -34,110 +34,110 @@ class tsmcoupon
      */
     protected static $strings = array();
 
-    public static function get_list_service_class_id_by_coupon_id($tsmart_coupon_id=0)
+    public static function get_list_service_class_id_by_discount_id($tsmart_discount_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('tsmart_service_class_id')
-            ->from('#__tsmart_coupon_id_service_class_id')
-            ->where('tsmart_coupon_id='.(int)$tsmart_coupon_id)
+            ->from('#__tsmart_discount_id_service_class_id')
+            ->where('tsmart_discount_id='.(int)$tsmart_discount_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
-    public static function get_list_departure_id_by_coupon_id($tsmart_coupon_id=0)
+    public static function get_list_departure_id_by_discount_id($tsmart_discount_id=0)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('tsmart_departure_id')
-            ->from('#__tsmart_coupon_id_departure_id')
-            ->where('tsmart_coupon_id='.(int)$tsmart_coupon_id)
+            ->from('#__tsmart_discount_id_departure_id')
+            ->where('tsmart_discount_id='.(int)$tsmart_discount_id)
         ;
         return $db->setQuery($query)->loadColumn();
     }
-    public static function get_detail_coupon_by_coupon_id($vituemart_coupon_id=0){
+    public static function get_detail_discount_by_discount_id($vituemart_discount_id=0){
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('coupon.*,cityarea.city_area_name')
-            ->from('#__tsmart_coupon AS coupon')
+        $query->select('discount.*,cityarea.city_area_name')
+            ->from('#__tsmart_discount AS discount')
             ->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
-            ->where('coupon.tsmart_coupon_id='.(int)$vituemart_coupon_id)
+            ->where('discount.tsmart_discount_id='.(int)$vituemart_discount_id)
         ;
 
         return $db->setQuery($query)->loadObject();
     }
 
-    public static function get_list_coupon_payment_type()
+    public static function get_list_discount_payment_type()
     {
-        $list_coupon_payment_type=array(
+        $list_discount_payment_type=array(
             'instant_payment'=>'Instant payment',
             'last_payment'=>'Last transfer'
         );
-        $a_list_coupon_payment_type=array();
-        foreach($list_coupon_payment_type as $key=>$text)
+        $a_list_discount_payment_type=array();
+        foreach($list_discount_payment_type as $key=>$text)
         {
             $a_item=new stdClass();
             $a_item->value=$key;
             $a_item->text=$text;
-            $a_list_coupon_payment_type[]=$a_item;
+            $a_list_discount_payment_type[]=$a_item;
         }
-        return $a_list_coupon_payment_type;
+        return $a_list_discount_payment_type;
 
     }
 
-    public static function get_list_coupon_type()
+    public static function get_list_discount_type()
     {
-        $list_coupon_type=array(
+        $list_discount_type=array(
             'pre_transfer'=>'Pre night',
             'post_transfer'=>'Post night'
         );
-        $a_list_coupon_type=array();
-        foreach($list_coupon_type as $key=>$text)
+        $a_list_discount_type=array();
+        foreach($list_discount_type as $key=>$text)
         {
             $a_item=new stdClass();
             $a_item->value=$key;
             $a_item->text=$text;
-            $a_list_coupon_type[]=$a_item;
+            $a_list_discount_type[]=$a_item;
         }
-        return $a_list_coupon_type;
+        return $a_list_discount_type;
 
     }
 
-    public static function get_list_coupon_service_class()
+    public static function get_list_discount_service_class()
     {
-        $list_coupon_type=array(
+        $list_discount_type=array(
             'budget'=>'budget',
             'standard'=>'standard',
             'superior'=>'superior',
             'deluxe'=>'deluxe',
             'Luxury'=>'Luxury'
         );
-        $a_list_coupon_type=array();
-        foreach($list_coupon_type as $key=>$text)
+        $a_list_discount_type=array();
+        foreach($list_discount_type as $key=>$text)
         {
             $a_item=new stdClass();
             $a_item->value=$key;
             $a_item->text=$text;
-            $a_list_coupon_type[]=$a_item;
+            $a_list_discount_type[]=$a_item;
         }
-        return $a_list_coupon_type;
+        return $a_list_discount_type;
     }
 
-    public static function get_coupon_by_coupon_code($coupon_code)
+    public static function get_discount_by_discount_code($discount_code)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('coupons.*')
-            ->from('#__tsmart_coupons AS coupons')
-            ->where('coupons.coupon_code='.$query->q($coupon_code))
-            ->where('coupons.coupon_start_date<='.$query->q($db->getNullDate()))
-            ->where('coupons.coupon_expiry_date>='.$query->q($db->getNullDate()))
-            ->leftJoin('#__tsmart_orders AS orders ON orders.coupon_code='.$query->q($coupon_code))
-            ->select('COUNT(orders.coupon_code) AS total_use')
+        $query->select('discounts.*')
+            ->from('#__tsmart_discounts AS discounts')
+            ->where('discounts.discount_code='.$query->q($discount_code))
+            ->where('discounts.discount_start_date<='.$query->q($db->getNullDate()))
+            ->where('discounts.discount_expiry_date>='.$query->q($db->getNullDate()))
+            ->leftJoin('#__tsmart_orders AS orders ON orders.discount_code='.$query->q($discount_code))
+            ->select('COUNT(orders.discount_code) AS total_use')
         ;
-        $coupon=$db->setQuery($query)->loadObject();
-        if($coupon->total_use>=$coupon->coupon_use_amout)
+        $discount=$db->setQuery($query)->loadObject();
+        if($discount->total_use>=$discount->discount_use_amout)
             return null;
-        return $coupon;
+        return $discount;
     }
 
 

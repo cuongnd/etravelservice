@@ -1424,7 +1424,7 @@ class VmHtml
 
         return $html;
     }
-    public static function select_table_tour($name,$list_products=array(), $list_selected = array())    {
+    public static function select_table_tour($name,$list_products=array(), $list_selected = array(),$multiple=true)    {
         $doc=JFactory::getDocument();
         $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_tour/style.less');
         $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_tour/select_table_tour.js');
@@ -1433,7 +1433,7 @@ class VmHtml
             $list_products = tsmproduct::get_list_product();
         }
         $html = '';
-        $id_element="check-table-row-".$name;
+        $id_element="select_table_tour_".$name;
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>" class="check-table-row">
@@ -1447,14 +1447,73 @@ class VmHtml
             </div>
             <div class="body">
                 <?php foreach ($list_products as $product) { ?>
-                    <div class="tr-row">
+                    <div class="tr-row" data-tsmart_product_id="<?php echo $product->tsmart_product_id ?>">
                         <div class="column no"><span class="item"><?php echo $product->tsmart_product_id ?></span></div>
                         <div class="column id"><span class="item"><?php echo $product->product_code ?></span></div>
                         <div class="column trip_name"><span class="item"><?php echo $product->product_name ?></span></div>
                         <div class="column application">
+                            <input class="input-application"
+                                name="<?php echo $name ?><?php echo $multiple?'[]':'' ?>" <?php echo in_array($product->tsmart_product_id, $list_selected) ? 'checked' : '' ?>
+                                value="<?php echo $product->tsmart_product_id ?>" type="<?php echo $multiple?'checkbox':'radio' ?>">
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+
+        </div>
+        <?php
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').select_table_tour({
+                    list_products:<?php echo json_encode($list_products) ?>
+
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+
+        $html = ob_get_clean();
+
+        return $html;
+    }
+    public static function select_table_service_class($name, $list_service_class=array(), $list_selected = array())    {
+        $doc=JFactory::getDocument();
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_service_class/style.less');
+        $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_service_class/select_table_service_class.js');
+        if(empty($list_service_class)) {
+            require_once JPATH_ROOT .DS. 'administrator/components/com_tsmart/helpers/tsmserviceclass.php';
+            $list_service_class = tsmserviceclass::get_list_tour_service_class();
+        }
+        $html = '';
+        $id_element="select_table_service_class_".$name;
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="select-table-service-class">
+            <div class="head">
+                <div class="tr-row">
+                    <div class="column no"><span class="item"><?php echo JText::_('no') ?></span></div>
+                    <div class="column id"><span class="item"><?php echo JText::_('id') ?></span></div>
+                    <div class="column trip_name"><span class="item"><?php echo JText::_('service class name') ?></span></div>
+                    <div class="column application"><span class="item"><?php echo JText::_('application') ?></span></div>
+                </div>
+            </div>
+            <div class="body">
+                <?php foreach ($list_service_class as $service_class) { ?>
+                    <div class="tr-row" data-tsmart_service_class_id="<?php echo $service_class->tsmart_service_class_id ?>">
+                        <div class="column no"><span class="item"><?php echo $service_class->tsmart_service_class_id ?></span></div>
+                        <div class="column id"><span class="item"><?php echo $service_class->product_name ?></span></div>
+                        <div class="column trip_name"><span class="item"><?php echo $service_class->service_class_name ?></span></div>
+                        <div class="column application">
                             <input
-                                name="<?php echo $name ?>[]" <?php echo in_array($product->tsmart_product_id, $list_selected) ? 'checked' : '' ?>
-                                value="<?php echo $product->tsmart_product_id ?>" type="checkbox">
+                                name="<?php echo $name ?>[]" class="input-application" <?php echo in_array($service_class->tsmart_service_class_id, $list_selected) ? 'checked' : '' ?>
+                                value="<?php echo $service_class->tsmart_service_class_id ?>" type="checkbox">
                         </div>
                     </div>
                 <?php } ?>
@@ -1463,6 +1522,79 @@ class VmHtml
         </div>
         <?php
         $html = ob_get_clean();
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').select_table_service_class({
+                    list_service_class:<?php echo json_encode($list_service_class) ?>
+
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        return $html;
+    }
+    public static function select_table_departure_date($name, $list_departure_date=array(), $list_selected = array())    {
+        $doc=JFactory::getDocument();
+        $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_departure_date/style.less');
+        $doc->addScript(JUri::root().'administrator/components/com_tsmart/assets/js/controller/select_table_departure_date/select_table_departure_date.js');
+        if(empty($list_departure_date)) {
+            require_once JPATH_ROOT .DS. 'administrator/components/com_tsmart/helpers/tsmdeparture.php';
+            $list_departure_date = tsmDeparture::get_list_departure_exclude_parent_departure();
+        }
+        $html = '';
+        $id_element="select_table_departure_date_".$name;
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="select-table-departure-date">
+            <div class="head">
+                <div class="tr-row">
+                    <div class="column no"><span class="item"><?php echo JText::_('no') ?></span></div>
+                    <div class="column id"><span class="item"><?php echo JText::_('id') ?></span></div>
+                    <div class="column trip_name"><span class="item"><?php echo JText::_('departure name') ?></span></div>
+                    <div class="column service_class_name"><span class="item"><?php echo JText::_('Service class name') ?></span></div>
+                    <div class="column application"><span class="item"><?php echo JText::_('application') ?></span></div>
+                </div>
+            </div>
+            <div class="body">
+                <?php foreach ($list_departure_date as $departure) { ?>
+                    <div class="tr-row" data-tsmart_departure_id="<?php echo $departure->tsmart_departure_id ?>">
+                        <div class="column no"><span class="item"><?php echo $departure->tsmart_departure_id ?></span></div>
+                        <div class="column id"><span class="item"><?php echo $departure->departure_code ?></span></div>
+                        <div class="column departure_name"><span class="item"><?php echo $departure->departure_name ?></span></div>
+                        <div class="column service_class_name"><span class="item"><?php echo $departure->service_class_name ?></span></div>
+                        <div class="column application">
+                            <input
+                                name="<?php echo $name ?>[]" class="input-application" <?php echo in_array($departure->tsmart_departure_id, $list_selected) ? 'checked' : '' ?>
+                                value="<?php echo $departure->tsmart_departure_id ?>" type="checkbox">
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+
+        </div>
+
+        <?php
+        $html = ob_get_clean();
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_element ?>').select_table_departure_date({
+                    list_departure_date:<?php echo json_encode($list_departure_date) ?>
+
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
 
         return $html;
     }
@@ -1698,7 +1830,7 @@ class VmHtml
         $list_options = array_chunk($options, $column);
         ob_start();
         ?>
-        <div id="<?php echo $id ?>" class="list-radio-box">
+        <div id="<?php echo $id ?>" class="list-radio-box price_type">
             <?php foreach ($list_options as $options) { ?>
                 <div class="row-fluid">
                     <?php foreach ($options as $option) { ?>
@@ -1708,8 +1840,9 @@ class VmHtml
                                     name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
                                     value="<?php echo $option->$key ?>" type="radio">
                                 <br/>
-                                <?php echo $option->$text ?>
+
                             </label>
+                            <div class="label"><?php echo $option->$text ?></div>
                         </div>
                     <?php } ?>
                 </div>
@@ -2740,6 +2873,144 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
+    public static function select_group_product($name, $default = '0',$list_group_product = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_group_product)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmart.php';
+            $list_group_product = tsmart::get_list_group_product();
+        }
+
+        $id_element = 'html_select_group_product_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_group_product({
+                    list_group_product:<?php echo json_encode($list_group_product) ?>,
+                    select_name: "<?php echo $name ?>",
+                    group_product:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select group product') ?></option>
+                <?php foreach ($list_group_product as $key=> $group_product) { ?>
+                    <option <?php echo $key == $default ? ' selected ' : '' ?>
+                        value="<?php echo $key ?>"><?php echo $group_product ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_trip_type($name, $default = '0', $list_trip_type = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_trip_type)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmart.php';
+            $list_trip_type = tsmart::get_list_trip_type();
+        }
+
+        $id_element = 'html_select_group_product_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_trip_type({
+                    list_trip_type:<?php echo json_encode($list_trip_type) ?>,
+                    select_name: "<?php echo $name ?>",
+                    trip_type:"<?php echo $default  ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select group product') ?></option>
+                <?php foreach ($list_trip_type as $key=> $trip_type) { ?>
+                    <option <?php echo $key == $default ? ' selected ' : '' ?>
+                        value="<?php echo $key ?>"><?php echo $trip_type ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+    public static function select_model_price($name, $default = '0', $list_model_price = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_model_price)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
+            $list_model_price = vmprice::get_list_price_type();
+        }
+
+        $id_element = 'html_select_group_product_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_trip_type({
+                    list_trip_type:<?php echo json_encode($list_model_price) ?>,
+                    select_name: "<?php echo $name ?>",
+                    trip_type:"<?php echo $default  ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>">
+            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+                <option value=""><?php echo JText::_('please select model price') ?></option>
+                <?php foreach ($list_model_price as $key=> $price_type) { ?>
+                    <option <?php echo $price_type->value == $default ? ' selected ' : '' ?>
+                        value="<?php echo $price_type->value ?>"><?php echo $price_type->text ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
     public static function select_language($list_language = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
@@ -2869,6 +3140,63 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
+    public static function input_percent_or_amount($name_of_value_percent_or_amount, $name_of_type_percent_or_amount, $value_of_percent_or_amount, $value_of_type, $min_amount=0, $max_amount=1000, $min_percent=0, $max_percent=100, $readonly=false)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.less');
+        $input = JFactory::getApplication()->input;
+        if(!in_array($value_of_type,array('percent','amount')))
+        {
+            $value_of_type="percent";
+        }
+        $id_element = 'input_percent_or_amount_' . $name_of_value_percent_or_amount.'_'.$name_of_type_percent_or_amount;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').input_percent_or_amount({
+                    name_of_value_percent_or_amount:"<?php echo $name_of_value_percent_or_amount ?>",
+                    name_of_type_percent_or_amount:"<?php echo $name_of_type_percent_or_amount ?>",
+                    value_of_percent_or_amount:<?php echo (float)$value_of_percent_or_amount ?>,
+                    value_of_type:"<?php echo $value_of_type ?>",
+                    min_amount:<?php echo (float)$min_amount ?>,
+                    max_amount:<?php echo (float)$max_amount ?>,
+                    min_percent:<?php echo (float)$min_percent ?>,
+                    max_percent:<?php echo (float)$max_percent ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="input_percent_or_amount">
+            <div class="pull-left">
+                <input type="text" value="<?php echo $value_of_percent_or_amount ?>" <?php echo $readonly ? 'readonly' : '' ?>
+                       class="inputbox input_number_or_percent   input_number_or_percent_<?php echo $name_of_value_percent_or_amount ?>" id="input_number_<?php echo $name_of_value_percent_or_amount ?>" data-v-min="<?php echo $value_of_type=='percent'?$min_percent:$min_amount ?>"
+                       data-v-max="<?php echo $value_of_type=='percent'?$max_percent:$max_amount ?>" data-a-sign="<?php echo $value_of_type=='percent'?'%':'' ?>">
+                <input type="hidden" value="<?php echo $value_of_percent_or_amount ?>" name="<?php echo $name_of_value_percent_or_amount ?>" id="<?php echo $name_of_value_percent_or_amount ?>">
+            </div>
+            <div class="pull-left">
+                <select disable_chosen="true" class="type_percent_or_amount" id="<?php echo $name_of_type_percent_or_amount ?>" name="<?php echo $name_of_type_percent_or_amount ?>">
+                    <option value="percent" <?php echo $value_of_type=='percent'?'selected':'' ?>  ><?php echo JText::_('percent') ?></option>
+                    <option value="amount" <?php echo $value_of_type=='amount'?'selected':'' ?>><?php echo JText::_('amount') ?></option>
+                </select>
+
+            </div>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
 
     public static function select_range_of_date($list_rang_of_date = array(), $name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
@@ -2912,7 +3240,7 @@ XML;
         return $html;
     }
 
-    public static function generate_code($name, $default = '0')
+    public static function generate_code($name, $default = '0',$controller='tsmart',$task='get_code',$read_only=false)
     {
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/generate_code/html_generate_code.js');
@@ -2923,7 +3251,11 @@ XML;
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('#<?php  echo $id_element ?>').html_generate_code({});
+                $('#<?php  echo $id_element ?>').html_generate_code({
+                    controller:"<?php echo $controller ?>",
+                    task:"<?php echo $task ?>",
+                    read_only:<?php echo json_encode($read_only)  ?>
+                });
             });
         </script>
         <?php
@@ -2935,10 +3267,10 @@ XML;
         ?>
         <div class="html_generate_code" id="<?php echo $id_element ?>">
             <div class="row-fluid">
-                <div class="span8">
-                    <input name="<?php echo $name ?>" value="<?php echo $default ?>" type="text" class="code">
+                <div class="pull-left">
+                    <input name="<?php echo $name ?>" value="<?php echo $default ?>" <?php echo $read_only?' readonly ':'' ?>  type="text" class="code">
                 </div>
-                <div class="span4">
+                <div class="pull-left">
                     <button type="button" class="btn generate_code"><?php echo JText::_('Go') ?></button>
                 </div>
             </div>

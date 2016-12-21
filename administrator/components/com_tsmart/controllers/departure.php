@@ -69,6 +69,17 @@ class TsmartControllerDeparture extends TsmController {
 		die;
 
 	}
+	function ajax_get_list_departure_date_by_tour_id()
+	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+        $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
+		require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/tsmdeparture.php';
+		$list_departure_id=tsmDeparture::get_list_departure_id_by_tour_id_exclude_parent_departure($tsmart_product_id);
+		echo json_encode($list_departure_id);
+		die;
+
+	}
 
 
 	function ajax_get_departure_item()

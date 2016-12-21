@@ -199,6 +199,14 @@
   font-size: 11px;
 }
 #adminForm {
+  .table-striped tbody > tr:nth-child(2n) > td, .table-striped tbody > tr:nth-child(2n) > th
+  {
+    background: #f9f9f9;
+  }
+  .table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) > th
+  {
+      background: none;
+  }
   .adminlist.table {
     tfoot {
       td:last-child {
@@ -246,6 +254,12 @@
   .table-bordered
   {
     border-style:none;
+    th{
+      background: #fafafa;
+      text-transform: uppercase;
+      color: #066498;
+    }
+
   }
   .table-bordered thead:first-child tr:first-child > th:first-child, .table-bordered tbody:first-child tr:first-child > td:first-child, .table-bordered tbody:first-child tr:first-child > th:first-child
   {

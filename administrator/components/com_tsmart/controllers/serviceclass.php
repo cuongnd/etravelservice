@@ -70,5 +70,13 @@ class TsmartControllerServiceclass extends TsmController {
 		echo json_encode($list_departure_available2);
 		die;
 	}
+	function get_service_class_id_by_product_id(){
+		$input=JFactory::getApplication()->input;
+		$tsmart_product_id=$input->getInt('tsmart_product_id');
+		require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
+		$list_service_class_id = tsmserviceclass::get_list_service_class_ids_by_tour_id($tsmart_product_id);
+		echo json_encode($list_service_class_id);
+		die;
+	}
 }
 // pure php no closing tag

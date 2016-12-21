@@ -6,7 +6,7 @@
         // plugin's default options
         var defaults = {
             name_balance_of_day:'',
-            name_percent_balance_of_day:''
+            name_of_input_number_or_percent:''
         }
 
         // current instance of the object
@@ -21,7 +21,7 @@
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             var name_balance_of_day=plugin.settings.name_balance_of_day;
-            var name_percent_balance_of_day=plugin.settings.name_percent_balance_of_day;
+            var name_of_input_number_or_percent=plugin.settings.name_of_input_number_or_percent;
 
             $element.find('input.inputbox_number').autoNumeric('init').change(function () {
                 var value_of_this = $(this).autoNumeric('get');
@@ -29,9 +29,9 @@
 
 
             });
-            $element.find('input.inputbox_percent').autoNumeric('init').change(function () {
+            $element.find('input.input_number_or_percent').autoNumeric('init').change(function () {
                 var value_of_this = $(this).autoNumeric('get');
-                $('input[name="'+name_percent_balance_of_day+'"]').val(value_of_this).trigger("change");
+                $('input[name="'+name_of_input_number_or_percent+'"]').val(value_of_this).trigger("change");
             });
 
 

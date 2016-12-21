@@ -1,11 +1,13 @@
 (function ($) {
 
     // here we go!
-    $.view_coupon_default = function (element, options) {
+    $.html_select_trip_type = function (element, options) {
 
         // plugin's default options
         var defaults = {
-            task:''
+            list_group_product:[],
+            select_name:"",
+            group_product:0
         }
 
         // current instance of the object
@@ -18,38 +20,27 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
-
             plugin.settings = $.extend({}, defaults, options);
-            var task=plugin.settings.task;
-            if(task=='add_new_item'||task=='edit_item')
-            {
-
-                $element.find( ".view-coupon-edit" ).dialog({
-                    dialogClass:'asian-dialog-form',
-                    modal: true,
-                    width: 900,
-                    title: 'Coupon build',
-                    show: {effect: "blind", duration: 800},
-                    appendTo: 'body'
-                });
-            }
-
-
-        }
-
+            var list_service_class=plugin.settings.list_group_product;
+            var select_name=plugin.settings.select_name;
+            var group_product=plugin.settings.group_product;
+            plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
+            });
+            plugin.select2.val(group_product).trigger("change")
+        };
         plugin.init();
 
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_coupon_default = function (options) {
+    $.fn.html_select_trip_type = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('view_coupon_default')) {
-                var plugin = new $.view_coupon_default(this, options);
-                $(this).data('view_coupon_default', plugin);
+            if (undefined == $(this).data('html_select_trip_type')) {
+                var plugin = new $.html_select_trip_type(this, options);
+                $(this).data('html_select_trip_type', plugin);
 
             }
 

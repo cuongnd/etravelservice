@@ -93,6 +93,9 @@ class TsmartViewPrice extends tsmViewAdmin {
 			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
             if(!count($this->list_group_size_by_tour_id))
             {
+				$app->enqueueMessage('there are no group size setup, please setup group size first');
+				$app->redirect('index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id='.$tsmart_product_id);
+				return false;
                 throw new Exception('there are no group size setup');
                 return false;
             }

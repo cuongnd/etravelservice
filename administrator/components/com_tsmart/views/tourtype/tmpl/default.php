@@ -63,7 +63,7 @@ $states = tsmText::_('com_tsmart_STATE_S');
                         <?php echo $this->sort('meta_title',JText::_('Meta title')) ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('keyword',JText::_('Meta Keyword')) ?>
+                        <?php echo $this->sort('keyword',JText::_('Is joint tour')) ?>
                     </th>
                     <th>
                         <?php echo $this->sort('description','Description') ?>
@@ -139,7 +139,7 @@ $states = tsmText::_('com_tsmart_STATE_S');
                         </td>
                         <td>
                             <?php if ($show_edit) { ?>
-                                <?php echo VmHTML::input('key_word', $row->key_word, 'class="required"'); ?>
+                                quest yes or no
                             <?php } else { ?>
                                 <?php echo $row->key_word ?>
                             <?php } ?>

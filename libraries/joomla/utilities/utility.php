@@ -85,9 +85,16 @@ class JUtility
 
 	}
 
-    public static function random_code($length=6)
+    public static function random_code($length=6,$type="number")
     {
-        $salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		if($type=="number")
+		{
+			$salt = "0123456789";
+		}elseif($type=="character"){
+			$salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		}else{
+			$salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		}
         $base = strlen($salt);
         $makepass = '';
 

@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.view_coupon_default = function (element, options) {
+    $.view_discount_default = function (element, options) {
 
         // plugin's default options
         var defaults = {
@@ -24,11 +24,11 @@
             if(task=='add_new_item'||task=='edit_item')
             {
 
-                $element.find( ".view-coupon-edit" ).dialog({
+                $element.find( ".view-discount-edit" ).dialog({
                     dialogClass:'asian-dialog-form',
                     modal: true,
                     width: 900,
-                    title: 'Coupon build',
+                    title: 'discount build',
                     show: {effect: "blind", duration: 800},
                     appendTo: 'body'
                 });
@@ -42,14 +42,14 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_coupon_default = function (options) {
+    $.fn.view_discount_default = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('view_coupon_default')) {
-                var plugin = new $.view_coupon_default(this, options);
-                $(this).data('view_coupon_default', plugin);
+            if (undefined == $(this).data('view_discount_default')) {
+                var plugin = new $.view_discount_default(this, options);
+                $(this).data('view_discount_default', plugin);
 
             }
 

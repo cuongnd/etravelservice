@@ -29,7 +29,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcontr
  * @subpackage Currency
  * @author RickG, Max Milbers, Patrick Kohl
  */
-class TsmartControllercoupon extends TsmController {
+class TsmartControllerdiscount extends TsmController {
 
 	/**
 	 * Method to display the view
@@ -53,27 +53,27 @@ class TsmartControllercoupon extends TsmController {
 		$data = vRequest::getRequest();
 		parent::save($data);
 	}
-	public function get_detail_coupon()
+	public function get_detail_discount()
 	{
 		$input=JFactory::getApplication()->input;
-		$tsmart_coupon_id=$input->getInt('tsmart_coupon_id',0);
+		$tsmart_discount_id=$input->getInt('tsmart_discount_id',0);
 		$db=JFactory::getDbo();
-		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmcoupon.php';
-		$coupon=tsmcoupon::get_detail_coupon_by_coupon_id($tsmart_coupon_id);
-		echo json_encode($coupon);
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmdiscount.php';
+		$discount=tsmdiscount::get_detail_discount_by_discount_id($tsmart_discount_id);
+		echo json_encode($discount);
 		die;
 	}
-	public function get_coupon_code(){
+	public function get_discount_code(){
 		$response=new stdClass();
-		$response->code="CO-".JUtility::random_code(6,'number');
+		$response->code="DC-".JUtility::random_code(6,'number');
 		echo json_encode($response);
 		die;
 	}
-	public function get_tour_avail_by_coupon_id_first_itinerary()
+	public function get_tour_avail_by_discount_id_first_itinerary()
 	{
 		$input=JFactory::getApplication()->input;
-		$tsmart_coupon_id=$input->getInt('tsmart_coupon_id',0);
-		$coupon_addon_type=$input->getString('coupon_addon_type','');
+		$tsmart_discount_id=$input->getInt('tsmart_discount_id',0);
+		$discount_addon_type=$input->getString('discount_addon_type','');
 		$db=JFactory::getDbo();
 
 		$query=$db->getQuery(true);
@@ -94,10 +94,10 @@ class TsmartControllercoupon extends TsmController {
 				if (!isset($list_itinerary_id[$key])) {
 					$list_itinerary_id[$key] = $item;
 				} elseif ($list_itinerary_id[$key]->tsmart_product_id = $itinerary->tsmart_product_id ) {
-					if($coupon_addon_type=='pre_transfer'&&$list_itinerary_id[$key]->ordering > $itinerary->ordering)
+					if($discount_addon_type=='pre_transfer'&&$list_itinerary_id[$key]->ordering > $itinerary->ordering)
 					{
 						$list_itinerary_id[$key] = $item;
-					}elseif($coupon_addon_type=='post_transfer'&&$list_itinerary_id[$key]->ordering < $itinerary->ordering)
+					}elseif($discount_addon_type=='post_transfer'&&$list_itinerary_id[$key]->ordering < $itinerary->ordering)
 					{
 						$list_itinerary_id[$key] = $item;
 					}
@@ -117,8 +117,8 @@ class TsmartControllercoupon extends TsmController {
 			->from('#__tsmart_products AS product')
 			->leftJoin('#__tsmart_itinerary AS itinerary USING(tsmart_product_id)')
 			->leftJoin('#__tsmart_accommodation AS accommodation ON accommodation.tsmart_itinerary_id=itinerary.tsmart_itinerary_id')
-			->leftJoin('#__tsmart_coupon_id_service_class_id_accommodation_id AS coupon_id_service_class_id_accommodation_id ON coupon_id_service_class_id_accommodation_id.tsmart_accommodation_id=accommodation.tsmart_accommodation_id')
-			->where('coupon_id_service_class_id_accommodation_id.tsmart_coupon_id='.(int)$tsmart_coupon_id)
+			->leftJoin('#__tsmart_discount_id_service_class_id_accommodation_id AS discount_id_service_class_id_accommodation_id ON discount_id_service_class_id_accommodation_id.tsmart_accommodation_id=accommodation.tsmart_accommodation_id')
+			->where('discount_id_service_class_id_accommodation_id.tsmart_discount_id='.(int)$tsmart_discount_id)
 			->where('itinerary.tsmart_itinerary_id IN('.$a_list_itinerary_id.')')
 			->group('product.tsmart_product_id')
 		;
@@ -136,16 +136,16 @@ class TsmartControllercoupon extends TsmController {
         $vail_from=JFactory::getDate($vail_from);
         $vail_to=$app->input->get('vail_to',0);
         $vail_to=JFactory::getDate($vail_to);
-        $tsmart_coupon_addon_id=$app->input->get('tsmart_coupon_addon_id',0);
-        $coupon_addon_type=$app->input->getString('coupon_addon_type','');
+        $tsmart_discount_addon_id=$app->input->get('tsmart_discount_addon_id',0);
+        $discount_addon_type=$app->input->getString('discount_addon_type','');
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('count(*) AS total_record')
-            ->from('#__tsmart_coupon_addon_date_price AS coupon_addon_date_price')
-            ->where('coupon_addon_date_price.tsmart_coupon_addon_id!='.(int)$tsmart_coupon_addon_id)
-            ->where('coupon_addon_date_price.tsmart_product_id='.(int)$tsmart_product_id)
-            ->where('coupon_addon_date_price.coupon_addon_type='.$query->q($coupon_addon_type))
-            ->where('(coupon_addon_date_price.date>='.$query->q($vail_from->toSql()).' AND coupon_addon_date_price.date<='.$query->q($vail_to->toSql()).')')
+            ->from('#__tsmart_discount_addon_date_price AS discount_addon_date_price')
+            ->where('discount_addon_date_price.tsmart_discount_addon_id!='.(int)$tsmart_discount_addon_id)
+            ->where('discount_addon_date_price.tsmart_product_id='.(int)$tsmart_product_id)
+            ->where('discount_addon_date_price.discount_addon_type='.$query->q($discount_addon_type))
+            ->where('(discount_addon_date_price.date>='.$query->q($vail_from->toSql()).' AND discount_addon_date_price.date<='.$query->q($vail_to->toSql()).')')
             ;
         $db->setQuery($query);
         $total_record=$db->loadResult();

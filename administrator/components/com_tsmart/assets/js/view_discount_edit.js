@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.view_coupon_edit = function (element, options) {
+    $.view_discount_edit = function (element, options) {
 
         // plugin's default options
         var defaults = {
@@ -168,14 +168,14 @@
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.view_coupon_edit = function (options) {
+    $.fn.view_discount_edit = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('view_coupon_edit')) {
-                var plugin = new $.view_coupon_edit(this, options);
-                $(this).data('view_coupon_edit', plugin);
+            if (undefined == $(this).data('view_discount_edit')) {
+                var plugin = new $.view_discount_edit(this, options);
+                $(this).data('view_discount_edit', plugin);
 
             }
 
