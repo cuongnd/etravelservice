@@ -7,7 +7,7 @@ $current_date = date("Y-m-d");
 if (($product->product_in_stock - $product->product_ordered) < 1) {
 	if ($product_available_date != '0000-00-00' and $current_date < $product_available_date) {
 	?>	<div class="availability">
-		<?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_AVAILABLE_DATE') .': '. JHtml::_('date', $product->product_available_date, tsmText::_('DATE_FORMAT_LC4')); ?>
+		<?php echo tsmText::_('com_tsmart_PRODUCT_AVAILABLE_DATE') .': '. JHtml::_('date', $product->product_available_date, tsmText::_('DATE_FORMAT_LC4')); ?>
 	</div>
 	<?php
 	} else if ($stockhandle == 'risetime' and tsmConfig::get('rised_availability') and empty($product->product_availability)) {
@@ -25,7 +25,7 @@ if (($product->product_in_stock - $product->product_ordered) < 1) {
 }
 else if ($product_available_date != '0000-00-00' and $current_date < $product_available_date) {
 	?>	<div class="availability">
-		<?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_AVAILABLE_DATE') .': '. JHtml::_('date', $product->product_available_date, tsmText::_('DATE_FORMAT_LC4')); ?>
+		<?php echo tsmText::_('com_tsmart_PRODUCT_AVAILABLE_DATE') .': '. JHtml::_('date', $product->product_available_date, tsmText::_('DATE_FORMAT_LC4')); ?>
 	</div>
 <?php
 }

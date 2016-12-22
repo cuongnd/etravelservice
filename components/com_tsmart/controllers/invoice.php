@@ -3,14 +3,14 @@
  *
  * Controller for the front end Orderviews
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,11 +26,11 @@ if(!class_exists('VmPdf'))require(VMPATH_SITE.DS.'helpers'.DS.'vmpdf.php');
 jimport('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartControllerInvoice extends JControllerLegacy
+class TsmartControllerInvoice extends JControllerLegacy
 {
 
 	public function __construct()
@@ -38,8 +38,8 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		parent::__construct();
 		$this->useSSL = tsmConfig::get('useSSL',0);
 		$this->useXHTML = false;
-		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
-		tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 	}
 
 	/**
@@ -68,11 +68,11 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 			// Create the invoice PDF file on disk and send that back
 			$orderDetails = $this->getOrderDetails();
 			if(!$orderDetails){
-				$app->redirect(JRoute::_('/index.php?option=com_virtuemart'));
+				$app->redirect(JRoute::_('/index.php?option=com_tsmart'));
 			}
 			$fileLocation = $this->getInvoicePDF($orderDetails, 'invoice',$layout);
 			if(!$fileLocation){
-				$app->redirect(JRoute::_('/index.php?option=com_virtuemart'),'Invoice not created');
+				$app->redirect(JRoute::_('/index.php?option=com_tsmart'),'Invoice not created');
 			}
 			$fileName = basename ($fileLocation);
 
@@ -150,7 +150,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 
 			$orderId = $orderModel->getOrderIdByOrderPass($orderNumber,$orderPass);
 			if(empty($orderId)){
-				vmDebug ('Invalid order_number/password '.vmText::_('COM_VIRTUEMART_RESTRICTED_ACCESS'));
+				vmDebug ('Invalid order_number/password '.vmText::_('com_tsmart_RESTRICTED_ACCESS'));
 				return 0;
 			}
 			$orderDetails = $orderModel->getOrder($orderId);
@@ -162,16 +162,16 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 			$cuid = $_currentUser->get('id');
 
 			// If the user is logged in, we will check if the order belongs to him
-			$virtuemart_order_id = vRequest::getInt('virtuemart_order_id',0) ;
-			if (!$virtuemart_order_id) {
-				$virtuemart_order_id = VirtueMartModelOrders::getOrderIdByOrderNumber(vRequest::getString('order_number'));
+			$tsmart_order_id = vRequest::getInt('tsmart_order_id',0) ;
+			if (!$tsmart_order_id) {
+				$tsmart_order_id = tsmartModelOrders::getOrderIdByOrderNumber(vRequest::getString('order_number'));
 			}
-			$orderDetails = $orderModel->getOrder($virtuemart_order_id);
+			$orderDetails = $orderModel->getOrder($tsmart_order_id);
 
 			if(!vmAccess::manager('orders') ) {
-				if(!empty($orderDetails['details']['BT']->virtuemart_user_id)){
-					if ($orderDetails['details']['BT']->virtuemart_user_id != $cuid) {
-						echo 'view '.vmText::_('COM_VIRTUEMART_RESTRICTED_ACCESS');
+				if(!empty($orderDetails['details']['BT']->tsmart_user_id)){
+					if ($orderDetails['details']['BT']->tsmart_user_id != $cuid) {
+						echo 'view '.vmText::_('com_tsmart_RESTRICTED_ACCESS');
 						return ;
 					}
 				}
@@ -189,7 +189,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 
 		$pdf = new VmVendorPDF();
 		$pdf->AddPage();
-		$pdf->PrintContents(tsmText::_('COM_VIRTUEMART_PDF_SAMPLEPAGE'));
+		$pdf->PrintContents(tsmText::_('com_tsmart_PDF_SAMPLEPAGE'));
 		$pdf->Output("vminvoice_sample.pdf", 'I');
 		JFactory::getApplication()->close();
 	}
@@ -240,7 +240,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		}
 
 		//We come from the be, so we need to load the FE language
-		tsmConfig::loadJLang('com_virtuemart',true);
+		tsmConfig::loadJLang('com_tsmart',true);
 
 		$this->addViewPath( VMPATH_SITE.DS.'views' );
 		$view = $this->getView($viewName, $format);
@@ -252,7 +252,7 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		$templateName = VmTemplate::setTemplate($template);
 
 		if(!empty($templateName)){
-			$TemplateOverrideFolder = JPATH_SITE.DS."templates".DS.$templateName.DS."html".DS."com_virtuemart".DS."invoice";
+			$TemplateOverrideFolder = JPATH_SITE.DS."templates".DS.$templateName.DS."html".DS."com_tsmart".DS."invoice";
 			if(file_exists($TemplateOverrideFolder)){
 				$view->addTemplatePath( $TemplateOverrideFolder);
 			}
@@ -266,14 +266,14 @@ class VirtueMartControllerInvoice extends JControllerLegacy
 		$view->showHeaderFooter = false;
 
 		$vendorModel = tmsModel::getModel('vendor');
-		$virtuemart_vendor_id = 1;	//We could set this automatically by the vendorId stored in the order.
-		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
+		$tsmart_vendor_id = 1;	//We could set this automatically by the vendorId stored in the order.
+		$vendor = $vendorModel->getVendor($tsmart_vendor_id);
 		
 		$metadata = array (
-			'title' => tsmText::sprintf('COM_VIRTUEMART_INVOICE_TITLE',
+			'title' => tsmText::sprintf('com_tsmart_INVOICE_TITLE',
 				$vendor->vendor_store_name, $view->invoiceNumber, 
 				$orderDetails['details']['BT']->order_number),
-			'keywords' => tsmText::_('COM_VIRTUEMART_INVOICE_CREATOR'));
+			'keywords' => tsmText::_('com_tsmart_INVOICE_CREATOR'));
 
 		return VmPdf::createVmPdf($view, $path, 'F', $metadata);
 	}

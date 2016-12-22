@@ -5,14 +5,14 @@ defined('_JEXEC') or die('');
 *
 * Template for the shopping cart
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Cart
 * @author Max Milbers
 *
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -20,10 +20,10 @@ defined('_JEXEC') or die('');
 echo '<div class="vm-wrap vm-order-done">';
 
 if (vRequest::getBool('display_title',true)) {
-	echo '<h3>'.tsmText::_('COM_VIRTUEMART_CART_ORDERDONE_THANK_YOU').'</h3>';
+	echo '<h3>'.tsmText::_('com_tsmart_CART_ORDERDONE_THANK_YOU').'</h3>';
 }
 
-$this->html = vRequest::get('html', tsmText::_('COM_VIRTUEMART_ORDER_PROCESSED') );
+$this->html = vRequest::get('html', tsmText::_('com_tsmart_ORDER_PROCESSED') );
 echo $this->html;
 
 if (vRequest::getBool('display_loginform',true)) {

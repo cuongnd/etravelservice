@@ -3,14 +3,14 @@
  *
  * Show the product details page
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author Max Milbers
  * @todo handle child products
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -76,15 +76,15 @@ if (!tsmConfig::get('use_as_catalog', 0)  ) { ?>
 	// Display the quantity box
 	$stockhandle = tsmConfig::get ('stockhandle', 'none');
 	if (($stockhandle == 'disableit' or $stockhandle == 'disableadd') and ($product->product_in_stock - $product->product_ordered) < 1) { ?>
-		<a href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $product->virtuemart_product_id); ?>" class="notify"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NOTIFY') ?></a><?php
+		<a href="<?php echo JRoute::_ ('index.php?option=com_tsmart&view=productdetails&layout=notify&tsmart_product_id=' . $product->tsmart_product_id); ?>" class="notify"><?php echo tsmText::_ ('com_tsmart_CART_NOTIFY') ?></a><?php
 	} else {
 		$tmpPrice = (float) $product->prices['costPrice'];
 		if (!( tsmConfig::get('askprice', true) and empty($tmpPrice) ) ) { ?>
 			<?php if ($product->orderable) { ?>
-				<!-- <label for="quantity<?php echo $product->virtuemart_product_id; ?>" class="quantity_box"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY'); ?>: </label> -->
+				<!-- <label for="quantity<?php echo $product->tsmart_product_id; ?>" class="quantity_box"><?php echo tsmText::_ ('com_tsmart_CART_QUANTITY'); ?>: </label> -->
 				<span class="quantity-box">
 				<input type="text" class="quantity-input js-recalculate" name="quantity[]"
-					data-errStr="<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED')?>"
+					data-errStr="<?php echo tsmText::_ ('com_tsmart_WRONG_AMOUNT_ADDED')?>"
 					value="<?php echo $init; ?>" init="<?php echo $init; ?>" step="<?php echo $step; ?>" <?php echo $maxOrder; ?> />
 			</span>
 				<span class="quantity-controls js-recalculate">
@@ -98,7 +98,7 @@ if (!tsmConfig::get('use_as_catalog', 0)  ) { ?>
 				<?php echo $addtoCartButton ?>
 				</span> <?php
 			} ?>
-			<input type="hidden" name="virtuemart_product_id[]" value="<?php echo $product->virtuemart_product_id ?>"/>
+			<input type="hidden" name="tsmart_product_id[]" value="<?php echo $product->tsmart_product_id ?>"/>
 			<noscript><input type="hidden" name="task" value="add"/></noscript> <?php
 		}
 	} ?>

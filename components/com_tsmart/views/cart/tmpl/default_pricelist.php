@@ -6,13 +6,13 @@
 	border="0"
 	width="100%">
 <tr>
-	<th class="vm-cart-item-name" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_NAME') ?></th>
-	<th class="vm-cart-item-sku" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_SKU') ?></th>
-	<th	class="vm-cart-item-basicprice" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_PRICE') ?></th>
-	<th	class="vm-cart-item-quantity" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_QUANTITY') ?></th>
+	<th class="vm-cart-item-name" ><?php echo tsmText::_ ('com_tsmart_CART_NAME') ?></th>
+	<th class="vm-cart-item-sku" ><?php echo tsmText::_ ('com_tsmart_CART_SKU') ?></th>
+	<th	class="vm-cart-item-basicprice" ><?php echo tsmText::_ ('com_tsmart_CART_PRICE') ?></th>
+	<th	class="vm-cart-item-quantity" ><?php echo tsmText::_ ('com_tsmart_CART_QUANTITY') ?></th>
 
 	<?php if (tsmConfig::get ('show_tax')) {
-		$tax = tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_TAX_AMOUNT');
+		$tax = tsmText::_ ('com_tsmart_CART_SUBTOTAL_TAX_AMOUNT');
 		if(!empty($this->cart->cartData['VatTax'])){
 			if(count($this->cart->cartData['VatTax']) < 2) {
 				reset($this->cart->cartData['VatTax']);
@@ -23,8 +23,8 @@
 		?>
 	<th class="vm-cart-item-tax" ><?php echo "<span  class='priceColor2'>" . $tax . '</span>' ?></th>
 	<?php } ?>
-	<th class="vm-cart-item-discount" ><?php echo "<span  class='priceColor2'>" . tsmText::_ ('COM_VIRTUEMART_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
-	<th class="vm-cart-item-total" ><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?></th>
+	<th class="vm-cart-item-discount" ><?php echo "<span  class='priceColor2'>" . tsmText::_ ('com_tsmart_CART_SUBTOTAL_DISCOUNT_AMOUNT') . '</span>' ?></th>
+	<th class="vm-cart-item-total" ><?php echo tsmText::_ ('com_tsmart_CART_TOTAL') ?></th>
 </tr>
 
 <?php
@@ -37,7 +37,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 <tr valign="top" class="sectiontableentry<?php echo $i ?>">
 	<input type="hidden" name="cartpos[]" value="<?php echo $pkey ?>">
 	<td class="vm-cart-item-name" >
-		<?php if ($prow->virtuemart_media_id) { ?>
+		<?php if ($prow->tsmart_media_id) { ?>
 		<span class="cart-images">
 						 <?php
 			if (!empty($prow->images[0])) {
@@ -75,15 +75,15 @@ foreach ($this->cart->products as $pkey => $prow) {
 					$step=1;
 				?>
 		   <input type="text"
-				  onblur="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				  onclick="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				  onchange="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				  onsubmit="Virtuemart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('COM_VIRTUEMART_WRONG_AMOUNT_ADDED',true)?>');"
-				  title="<?php echo  tsmText::_('COM_VIRTUEMART_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
+				  onblur="tsmart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('com_tsmart_WRONG_AMOUNT_ADDED',true)?>');"
+				  onclick="tsmart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('com_tsmart_WRONG_AMOUNT_ADDED',true)?>');"
+				  onchange="tsmart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('com_tsmart_WRONG_AMOUNT_ADDED',true)?>');"
+				  onsubmit="tsmart.checkQuantity(this,<?php echo $step?>,'<?php echo tsmText::_ ('com_tsmart_WRONG_AMOUNT_ADDED',true)?>');"
+				  title="<?php echo  tsmText::_('com_tsmart_CART_UPDATE') ?>" class="quantity-input js-recalculate" size="3" maxlength="4" name="quantity[<?php echo $pkey; ?>]" value="<?php echo $prow->quantity ?>" />
 
-			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  tsmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" ></button>
+			<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  tsmText::_ ('com_tsmart_CART_UPDATE') ?>" ></button>
 
-			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo tsmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" ></button>
+			<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo tsmText::_ ('com_tsmart_CART_DELETE') ?>" ></button>
 	</td>
 
 	<?php if (tsmConfig::get ('show_tax')) { ?>
@@ -117,7 +117,7 @@ foreach ($this->cart->products as $pkey => $prow) {
 	</td>
 </tr>
 <tr class="sectiontableentry1">
-	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('com_tsmart_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
 	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"><?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $this->cart->cartPrices, FALSE, false, true) . "</span>" ?></td>
@@ -168,8 +168,8 @@ foreach ($this->cart->cartData['DBTaxRulesBill'] as $rule) {
 	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
 	<?php } ?>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?></td>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?> </td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?></td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?> </td>
 </tr>
 	<?php
 	if ($i) {
@@ -187,10 +187,10 @@ foreach ($this->cart->cartData['taxRulesBill'] as $rule) {
 <tr class="sectiontableentry<?php echo $i ?>">
 	<td colspan="4" align="right"><?php echo $rule['calc_name'] ?> </td>
 	<?php if (tsmConfig::get ('show_tax')) { ?>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?> </td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?> </td>
 	<?php } ?>
 	<td align="right"><?php ?> </td>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?> </td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?> </td>
 </tr>
 	<?php
 	if ($i) {
@@ -209,8 +209,8 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 	<td align="right"></td>
 
 	<?php } ?>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?>  </td>
-	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['virtuemart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['virtuemart_calc_id'] . 'Diff'], FALSE); ?> </td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?>  </td>
+	<td align="right"><?php echo $this->currencyDisplay->createPriceDiv ($rule['tsmart_calc_id'] . 'Diff', '', $this->cart->cartPrices[$rule['tsmart_calc_id'] . 'Diff'], FALSE); ?> </td>
 </tr>
 	<?php
 	if ($i) {
@@ -223,13 +223,13 @@ foreach ($this->cart->cartData['DATaxRulesBill'] as $rule) {
 if ( 	tsmConfig::get('oncheckout_opc',true) or
 	!tsmConfig::get('oncheckout_show_steps',false) or
 	(!tsmConfig::get('oncheckout_opc',true) and tsmConfig::get('oncheckout_show_steps',false) and
-		!empty($this->cart->virtuemart_shipmentmethod_id) )
+		!empty($this->cart->tsmart_shipmentmethod_id) )
 ) { ?>
 <tr class="sectiontableentry1" style="vertical-align:top;">
 	<?php if (!$this->cart->automaticSelectedShipment) { ?>
 		<td colspan="4" style="align:left;vertical-align:top;">
 			<?php
-				echo '<h3>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h3>';
+				echo '<h3>'.tsmText::_ ('com_tsmart_CART_SELECTED_SHIPMENT').'</h3>';
 				echo $this->cart->cartData['shipmentName'].'<br/>';
 
 		if (!empty($this->layoutName) and $this->layoutName == 'default') {
@@ -238,16 +238,16 @@ if ( 	tsmConfig::get('oncheckout_opc',true) or
 				echo $this->loadTemplate('shipment');
 				$this->setLayout($previouslayout);
 			} else {
-				echo JHtml::_('link', JRoute::_('index.php?option=com_virtuemart&view=cart&task=edit_shipment', $this->useXHTML, $this->useSSL), $this->select_shipment_text, 'class=""');
+				echo JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=cart&task=edit_shipment', $this->useXHTML, $this->useSSL), $this->select_shipment_text, 'class=""');
 			}
 		} else {
-			echo tsmText::_ ('COM_VIRTUEMART_CART_SHIPPING');
+			echo tsmText::_ ('com_tsmart_CART_SHIPPING');
 		}
 		echo '</td>';
 	} else {
 	?>
 	<td colspan="4" style="align:left;vertical-align:top;">
-		<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_SHIPMENT').'</h4>'; ?>
+		<?php echo '<h4>'.tsmText::_ ('com_tsmart_CART_SELECTED_SHIPMENT').'</h4>'; ?>
 		<?php echo $this->cart->cartData['shipmentName']; ?>
 	</td>
 	<?php } ?>
@@ -262,14 +262,14 @@ if ( 	tsmConfig::get('oncheckout_opc',true) or
 <?php if ($this->cart->pricesUnformatted['salesPrice']>0.0 and
 	( 	tsmConfig::get('oncheckout_opc',true) or
 		!tsmConfig::get('oncheckout_show_steps',false) or
-		( (!tsmConfig::get('oncheckout_opc',true) and tsmConfig::get('oncheckout_show_steps',false) ) and !empty($this->cart->virtuemart_paymentmethod_id))
+		( (!tsmConfig::get('oncheckout_opc',true) and tsmConfig::get('oncheckout_show_steps',false) ) and !empty($this->cart->tsmart_paymentmethod_id))
 	)
 ) { ?>
 <tr class="sectiontableentry1" style="vertical-align:top;">
 	<?php if (!$this->cart->automaticSelectedPayment) { ?>
 		<td colspan="4" style="align:left;vertical-align:top;">
 			<?php
-				echo '<h3>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h3>';
+				echo '<h3>'.tsmText::_ ('com_tsmart_CART_SELECTED_PAYMENT').'</h3>';
 				echo $this->cart->cartData['paymentName'].'<br/>';
 
 		if (!empty($this->layoutName) && $this->layoutName == 'default') {
@@ -278,15 +278,15 @@ if ( 	tsmConfig::get('oncheckout_opc',true) or
 				echo $this->loadTemplate('payment');
 				$this->setLayout($previouslayout);
 			} else {
-				echo JHtml::_('link', JRoute::_('index.php?option=com_virtuemart&view=cart&task=editpayment', $this->useXHTML, $this->useSSL), $this->select_payment_text, 'class=""');
+				echo JHtml::_('link', JRoute::_('index.php?option=com_tsmart&view=cart&task=editpayment', $this->useXHTML, $this->useSSL), $this->select_payment_text, 'class=""');
 			}
 		} else {
-		echo tsmText::_ ('COM_VIRTUEMART_CART_PAYMENT');
+		echo tsmText::_ ('com_tsmart_CART_PAYMENT');
 	} ?> </td>
 
 	<?php } else { ?>
 		<td colspan="4" style="align:left;vertical-align:top;" >
-			<?php echo '<h4>'.tsmText::_ ('COM_VIRTUEMART_CART_SELECTED_PAYMENT').'</h4>'; ?>
+			<?php echo '<h4>'.tsmText::_ ('com_tsmart_CART_SELECTED_PAYMENT').'</h4>'; ?>
 			<?php echo $this->cart->cartData['paymentName']; ?> </td>
 	<?php } ?>
 	<?php if (tsmConfig::get ('show_tax')) { ?>
@@ -303,7 +303,7 @@ if ( 	tsmConfig::get('oncheckout_opc',true) or
 	</td>
 </tr>
 <tr class="sectiontableentry2">
-	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL') ?>:</td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('com_tsmart_CART_TOTAL') ?>:</td>
 
 	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"> <?php echo "<span  class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('billTaxAmount', '', $this->cart->cartPrices['billTaxAmount'], FALSE) . "</span>" ?> </td>
@@ -316,7 +316,7 @@ if ($this->totalInPaymentCurrency) {
 ?>
 
 <tr class="sectiontableentry2">
-	<td colspan="4" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOTAL_PAYMENT') ?>:</td>
+	<td colspan="4" align="right"><?php echo tsmText::_ ('com_tsmart_CART_TOTAL_PAYMENT') ?>:</td>
 
 	<?php if (tsmConfig::get ('show_tax')) { ?>
 	<td align="right"></td>
@@ -334,7 +334,7 @@ if(!empty($this->cart->cartData)){
 		if (!tsmConfig::get ('show_tax') or $c>1) {
 			if($c>0){
 				?><tr class="sectiontableentry2">
-				<td colspan="5" align="right"><?php echo tsmText::_ ('COM_VIRTUEMART_TOTAL_INCL_TAX') ?></td>
+				<td colspan="5" align="right"><?php echo tsmText::_ ('com_tsmart_TOTAL_INCL_TAX') ?></td>
 
 				<?php if (tsmConfig::get ('show_tax')) { ?>
 					<td ></td>

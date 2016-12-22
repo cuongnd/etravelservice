@@ -3,13 +3,13 @@
  *
  * Handle the category view
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2013 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2013 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,7 +24,7 @@ if (!class_exists ('VmView')) {
 	require(VMPATH_SITE . DS . 'helpers' . DS . 'vmview.php');
 }
 
-class VirtueMartViewVirtueMart extends VmView {
+class TsmartViewtsmart extends VmView {
 
 	public function display ($tpl = NULL) {
 
@@ -98,30 +98,30 @@ class VirtueMartViewVirtueMart extends VmView {
 				}
 			}
 			if ($feed_show_prices == 1  and  $show_prices == 1) {
-				$description .= $currency->createPriceDiv ('variantModification', 'COM_VIRTUEMART_PRODUCT_VARIANT_MOD', $product->prices);
+				$description .= $currency->createPriceDiv ('variantModification', 'com_tsmart_PRODUCT_VARIANT_MOD', $product->prices);
 				if (round ($product->prices['basePriceWithTax'], $currency->_priceConfig['salesPrice'][1]) != $product->prices['salesPrice']) {
-					$description .= '<span class="price-crossed" >' . $currency->createPriceDiv ('basePriceWithTax', 'COM_VIRTUEMART_PRODUCT_BASEPRICE_WITHTAX', $product->prices) . "</span>";
+					$description .= '<span class="price-crossed" >' . $currency->createPriceDiv ('basePriceWithTax', 'com_tsmart_PRODUCT_BASEPRICE_WITHTAX', $product->prices) . "</span>";
 				}
 				if (round ($product->prices['salesPriceWithDiscount'], $currency->_priceConfig['salesPrice'][1]) != $product->prices['salesPrice']) {
-					$description .= $currency->createPriceDiv ('salesPriceWithDiscount', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITH_DISCOUNT', $product->prices);
+					$description .= $currency->createPriceDiv ('salesPriceWithDiscount', 'com_tsmart_PRODUCT_SALESPRICE_WITH_DISCOUNT', $product->prices);
 				}
-				$description .= $currency->createPriceDiv ('salesPrice', 'COM_VIRTUEMART_PRODUCT_SALESPRICE', $product->prices);
-				$description .= $currency->createPriceDiv ('priceWithoutTax', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITHOUT_TAX', $product->prices);
-				$description .= $currency->createPriceDiv ('discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
-				$description .= $currency->createPriceDiv ('taxAmount', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT', $product->prices);
-				$unitPriceDescription = tsmText::sprintf ('COM_VIRTUEMART_PRODUCT_UNITPRICE', $product->product_unit);
+				$description .= $currency->createPriceDiv ('salesPrice', 'com_tsmart_PRODUCT_SALESPRICE', $product->prices);
+				$description .= $currency->createPriceDiv ('priceWithoutTax', 'com_tsmart_PRODUCT_SALESPRICE_WITHOUT_TAX', $product->prices);
+				$description .= $currency->createPriceDiv ('discountAmount', 'com_tsmart_PRODUCT_DISCOUNT_AMOUNT', $product->prices);
+				$description .= $currency->createPriceDiv ('taxAmount', 'com_tsmart_PRODUCT_TAX_AMOUNT', $product->prices);
+				$unitPriceDescription = tsmText::sprintf ('com_tsmart_PRODUCT_UNITPRICE', $product->product_unit);
 				$description .= $currency->createPriceDiv ('unitPrice', $unitPriceDescription, $product->prices);
 
 			}
 			if ($feed_description_type == 'product_s_desc'  OR $feed_max_text_length > 0) {
-				$description .= '<p class="feed-readmore"><a target="_blank" href ="' .JRoute::_($product->link). '">' . tsmText::_ ('COM_VIRTUEMART_FEED_READMORE') . '</a></p>';
+				$description .= '<p class="feed-readmore"><a target="_blank" href ="' .JRoute::_($product->link). '">' . tsmText::_ ('com_tsmart_FEED_READMORE') . '</a></p>';
 			}
 			$item = new JFeedItem();
 			$item->title = $title;
 			$item->link = JRoute::_($product->link);
 			$item->date = $product->created_on;
 			$item->description = '<div class="feed-description">' . $description . '</div>';
-			$item->category = $product->virtuemart_category_id;
+			$item->category = $product->tsmart_category_id;
 			$doc->addItem ($item);
 
 		}

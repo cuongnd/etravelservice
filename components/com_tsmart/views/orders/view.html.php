@@ -3,13 +3,13 @@
  *
  * Handle the orders view
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Orders
  * @author Oscar van Eijk, Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,7 +26,7 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 /**
  * Handle the orders view
  */
-class VirtuemartViewOrders extends VmView {
+class TsmartViewOrders extends VmView {
 
 	public function display($tpl = null)
 	{

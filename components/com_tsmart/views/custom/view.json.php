@@ -72,7 +72,7 @@ class TsmartViewCustom extends JViewLegacy {
 
 				$this->custom = tmsModel::getModel('custom')->getCustom();
 				$varsToPush = vmPlugin::getVarsToPushByXML($formFile,'customForm');
-				$this->custom->form = JForm::getInstance($this->jCustom->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+				$this->custom->form = JForm::getInstance($this->jCustom->element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 				$this->custom->params = new stdClass();
 
 				foreach($varsToPush as $k => $field){
@@ -86,7 +86,7 @@ class TsmartViewCustom extends JViewLegacy {
 				echo '<input type="hidden" value="'.$this->jCustom->element.'" name="custom_value">';
 			} else {
 				$this->custom->form = null;
-				//VmConfig::$echoDebug = 1;
+				//tsmConfig::$echoDebug = 1;
 				vmdebug ('File does not exist '.$formFile);
 			}
 		}

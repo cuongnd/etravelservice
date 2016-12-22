@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage vendor
 * @author Kohl Patrick, Eugen Stranz
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -33,14 +33,14 @@ defined('_JEXEC') or die('Restricted access');
 
 <?php
 
-	echo shopFunctionsF::renderVendorAddress($this->vendor->virtuemart_vendor_id);
+	echo shopFunctionsF::renderVendorAddress($this->vendor->tsmart_vendor_id);
 
 /*	foreach($this->userFields as $userfields){
 
 		foreach($userfields['fields'] as $item){
 			if(!empty($item['value'])){
 				if($item['name']==='agreed'){
-					$item['value'] =  ($item['value']===0) ? vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_NO'):vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_YES');
+					$item['value'] =  ($item['value']===0) ? vmText::_('com_tsmart_USER_FORM_BILLTO_TOS_NO'):vmText::_('com_tsmart_USER_FORM_BILLTO_TOS_YES');
 				}
 			?><!-- span class="titles"><?php echo $item['title'] ?></span -->
 						<span class="values vm2<?php echo '-'.$item['name'] ?>" ><?php echo $this->escape($item['value']) ?></span>
@@ -67,7 +67,7 @@ defined('_JEXEC') or die('Restricted access');
 	');
 ?>
 
-		<h3><?php echo tsmText::_('COM_VIRTUEMART_VENDOR_ASK_QUESTION')  ?></h3>
+		<h3><?php echo tsmText::_('com_tsmart_VENDOR_ASK_QUESTION')  ?></h3>
 
 		<div class="clear"></div>
 
@@ -75,30 +75,30 @@ defined('_JEXEC') or die('Restricted access');
 
 			<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php') ; ?>" name="askform" id="askform">
 
-				<label><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_NAME')  ?> : <input type="text" class="validate[required,minSize[4],maxSize[64]]" value="<?php echo $this->user->name ?>" name="name" id="name" size="30" validation="required name"/></label>
+				<label><?php echo tsmText::_('com_tsmart_USER_FORM_NAME')  ?> : <input type="text" class="validate[required,minSize[4],maxSize[64]]" value="<?php echo $this->user->name ?>" name="name" id="name" size="30" validation="required name"/></label>
 				<br />
-				<label><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_EMAIL')  ?> : <input type="text" class="validate[required,custom[email]]" value="<?php echo $this->user->email ?>" name="email" id="email" size="30" validation="required email"/></label>
+				<label><?php echo tsmText::_('com_tsmart_USER_FORM_EMAIL')  ?> : <input type="text" class="validate[required,custom[email]]" value="<?php echo $this->user->email ?>" name="email" id="email" size="30" validation="required email"/></label>
 				<br/>
 				<label>
 					<?php
-					$ask_comment = tsmText::sprintf('COM_VIRTUEMART_ASK_COMMENT', $min, $max);
+					$ask_comment = tsmText::sprintf('com_tsmart_ASK_COMMENT', $min, $max);
 					echo $ask_comment;
 					?>
 					<br />
 					<textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" cols="30" rows="10"></textarea>
 				</label>
 				<div class="submit">
-					<input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" />
+					<input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('com_tsmart_ASK_SUBMIT')  ?>" value="<?php echo tsmText::_('com_tsmart_ASK_SUBMIT')  ?>" />
 
 					<div class="width50 floatright right paddingtop">
-						<?php echo tsmText::_('COM_VIRTUEMART_ASK_COUNT')  ?>
+						<?php echo tsmText::_('com_tsmart_ASK_COUNT')  ?>
 						<input type="text" value="0" size="4" class="counter" id="counter" name="counter" maxlength="4" readonly="readonly" />
 					</div>
 				</div>
 
 				<input type="hidden" name="view" value="vendor" />
-				<input type="hidden" name="virtuemart_vendor_id" value="<?php echo $this->vendor->virtuemart_vendor_id ?>" />
-				<input type="hidden" name="option" value="com_virtuemart" />
+				<input type="hidden" name="tsmart_vendor_id" value="<?php echo $this->vendor->tsmart_vendor_id ?>" />
+				<input type="hidden" name="option" value="com_tsmart" />
 				<input type="hidden" name="task" value="mailAskquestion" />
 				<?php echo JHtml::_( 'form.token' ); ?>
 			</form>

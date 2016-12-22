@@ -97,3 +97,39 @@ if (JDEBUG)
 {
 	$_PROFILER = JProfiler::getInstance('Application');
 }
+declare(ticks = 1);
+function tick_handler()
+{
+	global $backtrace;
+	$backtrace = debug_backtrace();
+	//$GLOBALS['dbg_stack'][] = debug_backtrace();
+	//writeLog($backtrace);
+}
+
+function shutdown()
+{
+	global $backtrace;
+	$output = "";
+	$output .= "<hr /><div> Error" . '<br /><table border="1" cellpadding="2" cellspacing="2">';
+	$stacks = $backtrace;
+	$output .= "<thead><tr><th><strong>File</strong></th><th><strong>Line</strong></th><th><strong>Function</strong></th><th><strong>args</strong></th>" .
+		"</tr></thead>";
+	foreach ($stacks as $_stack) {
+		$args = $_stack["args"];
+		//$args=implode(',',$args);
+		if (!isset($_stack['file'])) $_stack['file'] = '[PHP Kernel]';
+		if (!isset($_stack['line'])) $_stack['line'] = '';
+		$output .= "<tr><td>{$_stack["file"]}</td><td>{$_stack["line"]}</td>" .
+			//"<td>{$_stack["function"]}</td>".
+			"<td>$args</td>" .
+			"</tr>";
+
+	}
+	$output .= "</table></div><hr /></p>";
+	echo $output;
+
+
+}
+
+//register_tick_function('tick_handler');
+//register_shutdown_function('shutdown');

@@ -98,7 +98,7 @@ class VmMediaHandler {
 			$link =JURI::root() . 'administrator/index.php?option=com_tsmart&view=config';
 			vmInfo('com_tsmart_MEDIA_NO_PATH_TYPE',$type,$link );
 			//Todo add general media_path to config
-			//$relUrl = VmConfig::get('media_path');
+			//$relUrl = tsmConfig::get('media_path');
 			$relUrl = 'images/stories/tsmart/';
 			$this->setRole=true;
 			// 		} else if(!$choosed and empty($relUrl) and $this->file_is_forSale==0){

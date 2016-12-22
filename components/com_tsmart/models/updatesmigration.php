@@ -495,7 +495,7 @@ class tsmartModelUpdatesMigration extends tmsModel {
 		$query="SELECT * FROM `#__update_sites_extensions` WHERE `extension_id`=".$extension_id;
 		$db->setQuery($query);
 		$update_sites_extensions=$db->loadObject();
-		//VmConfig::$echoDebug=true;
+		//tsmConfig::$echoDebug=true;
 
 
 		// Update the version number for all

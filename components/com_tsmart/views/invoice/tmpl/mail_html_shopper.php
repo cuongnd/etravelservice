@@ -13,14 +13,14 @@
 * order_number ($this->orderDetails['details']['BT']->order_number), order_pass, coupon_code, order_status, order_status_name,
 * user_currency_rate, created_on, customer_note, ip_address
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Cart
 * @author Max Milbers, Valerie Isaksen
 *
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -35,28 +35,28 @@ defined('_JEXEC') or die('Restricted access');
 
   <tr>
     <td width="30%">
-		<?php echo tsmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER'); ?><br />
+		<?php echo tsmText::_('com_tsmart_MAIL_SHOPPER_YOUR_ORDER'); ?><br />
 		<strong><?php echo $this->orderDetails['details']['BT']->order_number ?></strong>
 
 	</td>
     <td width="30%">
-		<?php echo tsmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_PASSWORD'); ?><br />
+		<?php echo tsmText::_('com_tsmart_MAIL_SHOPPER_YOUR_PASSWORD'); ?><br />
 		<strong><?php echo $this->orderDetails['details']['BT']->order_pass ?></strong>
 	</td>
     <td width="40%">
     	<p>
- 			<a class="default" title="<?php echo $this->vendor->vendor_store_name ?>" href="<?php echo JURI::root().'index.php?option=com_virtuemart&view=orders&layout=details&order_number='.$this->orderDetails['details']['BT']->order_number.'&order_pass='.$this->orderDetails['details']['BT']->order_pass; ?>">
-			<?php echo tsmText::_('COM_VIRTUEMART_MAIL_SHOPPER_YOUR_ORDER_LINK'); ?></a>
+ 			<a class="default" title="<?php echo $this->vendor->vendor_store_name ?>" href="<?php echo JURI::root().'index.php?option=com_tsmart&view=orders&layout=details&order_number='.$this->orderDetails['details']['BT']->order_number.'&order_pass='.$this->orderDetails['details']['BT']->order_pass; ?>">
+			<?php echo tsmText::_('com_tsmart_MAIL_SHOPPER_YOUR_ORDER_LINK'); ?></a>
 		</p>
 	</td>
   </tr>
   <tr>
     <td colspan="3"><p>
-				<?php echo tsmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_TOTAL_ORDER',$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_total,$this->currency) ); ?></p></td>
+				<?php echo tsmText::sprintf('com_tsmart_MAIL_SHOPPER_TOTAL_ORDER',$this->currency->priceDisplay($this->orderDetails['details']['BT']->order_total,$this->currency) ); ?></p></td>
   </tr>
 	<tr>
   <td colspan="3"><p>
-				<?php echo tsmText::sprintf('COM_VIRTUEMART_MAIL_ORDER_STATUS',tsmText::_($this->orderDetails['details']['BT']->order_status_name)) ; ?></p></td>
+				<?php echo tsmText::sprintf('com_tsmart_MAIL_ORDER_STATUS',tsmText::_($this->orderDetails['details']['BT']->order_status_name)) ; ?></p></td>
   </tr>
   <?php $nb=count($this->orderDetails['history']);
   if($this->orderDetails['history'][$nb-1]->customer_notified && !(empty($this->orderDetails['history'][$nb-1]->comments))) { ?>
@@ -69,7 +69,7 @@ defined('_JEXEC') or die('Restricted access');
   <?php if(!empty($this->orderDetails['details']['BT']->customer_note)){ ?>
   <tr>
     <td colspan="3">
-		<?php echo tsmText::sprintf('COM_VIRTUEMART_MAIL_SHOPPER_QUESTION',nl2br($this->orderDetails['details']['BT']->customer_note)) ?>
+		<?php echo tsmText::sprintf('com_tsmart_MAIL_SHOPPER_QUESTION',nl2br($this->orderDetails['details']['BT']->customer_note)) ?>
 
 	</td>
   </tr>

@@ -57,7 +57,7 @@ class TsmartViewShipmentmethod extends tsmViewAdmin {
 			// Get the payment XML.
 			$formFile	= vRequest::filterPath( VMPATH_ROOT .DS. 'plugins' .DS. 'vmshipment' .DS. $shipment->shipment_element .DS. $shipment->shipment_element . '.xml');
 			if (file_exists($formFile)){
-				$shipment->form = JForm::getInstance($shipment->shipment_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+				$shipment->form = JForm::getInstance($shipment->shipment_element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 				$shipment->params = new stdClass();
 				$varsToPush = vmPlugin::getVarsToPushFromForm($shipment->form);
 				tsmTable::bindParameterableToSubField($shipment,$varsToPush);

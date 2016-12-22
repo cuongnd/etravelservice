@@ -3,14 +3,14 @@
 *
 * Controller for the front end Manufacturerviews
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Oscar van Eijk
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,11 +24,11 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartControllerVendor extends JControllerLegacy
+class TsmartControllerVendor extends JControllerLegacy
 {
 
 	/**
@@ -55,15 +55,15 @@ class VirtueMartControllerVendor extends JControllerLegacy
 
 		$validMail = filter_var(vRequest::getVar('email'), FILTER_VALIDATE_EMAIL);
 
-		$virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id',1);
+		$tsmart_vendor_id = vRequest::getInt('tsmart_vendor_id',1);
 
-		if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-		$userId = VirtueMartModelVendor::getUserIdByVendorId($virtuemart_vendor_id);
+		if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+		$userId = tsmartModelVendor::getUserIdByVendorId($tsmart_vendor_id);
 
 		//$vendorUser = JFactory::getUser($userId);
 
 		if ( $commentSize<$min || $commentSize>$max || !$validMail ) {
-			$this->setRedirect(JRoute::_ ( 'index.php?option=com_virtuemart&view=vendor&task=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id , FALSE),tsmText::_('COM_VIRTUEMART_COMMENT_NOT_VALID_JS'));
+			$this->setRedirect(JRoute::_ ( 'index.php?option=com_tsmart&view=vendor&task=contact&tsmart_vendor_id=' . $tsmart_vendor_id , FALSE),tsmText::_('com_tsmart_COMMENT_NOT_VALID_JS'));
 			return ;
 		}
 
@@ -84,14 +84,14 @@ class VirtueMartControllerVendor extends JControllerLegacy
 
 		$vars['user'] = array('name' => $fromName, 'email' => $fromMail);
 
-		$VendorEmail = $model->getVendorEmail($virtuemart_vendor_id);
+		$VendorEmail = $model->getVendorEmail($tsmart_vendor_id);
 		$vars['vendor'] = array('vendor_store_name' => $fromName );
 
 		if (shopFunctionsF::renderMail('vendor', $VendorEmail, $vars,'vendor')) {
-			$string = 'COM_VIRTUEMART_MAIL_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_SEND_SUCCESSFULLY';
 		}
 		else {
-			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
 		$mainframe->enqueueMessage(tsmText::_($string));
 

@@ -2,25 +2,25 @@
 if(  !defined( '_JEXEC' ) ) die( 'Direct Access to '.basename(__FILE__).' is not allowed.' );
 /**
  *
- * @package VirtueMart
+ * @package tsmart
  * @author Kohl Patrick
  * @author Max Milbers
  * @subpackage router
  * @version $Id$
- * @copyright Copyright (C) 2009-14 by the VirtueMart Team and authors
+ * @copyright Copyright (C) 2009-14 by the tsmart Team and authors
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
+ * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
  * http://tsmart.net
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 
-function virtuemartBuildRoute(&$query) {
+function tsmartBuildRoute(&$query) {
 
 	$segments = array();
 
@@ -43,25 +43,25 @@ function virtuemartBuildRoute(&$query) {
 	$view = '';
 
 	$jmenu = $helper->menu ;
-	//vmdebug('virtuemartBuildRoute $jmenu',$helper->query,$helper->activeMenu,$helper->menuVmitems);
+	//vmdebug('tsmartBuildRoute $jmenu',$helper->query,$helper->activeMenu,$helper->menuVmitems);
 	if(isset($query['langswitch'])) unset($query['langswitch']);
 
 
 /*	//a bit hacky, but should work
-	$oLang = VmConfig::$vmlang;
+	$oLang = tsmConfig::$vmlang;
 	$app = JFactory::getApplication();
 	if($l = $app->getUserState('language',false)){
 		vmdebug('hm getUserState',$query);
 	}
 	if(isset($query['language'])){
 		//vmdebug('hm',$query);
-		VmConfig::$vmlang = $query['language'];
+		tsmConfig::$vmlang = $query['language'];
 	} else if($l = vRequest::getCmd('language',false)){
-		$alangs = (array)VmConfig::get('active_languages',array());
+		$alangs = (array)tsmConfig::get('active_languages',array());
 		$l = strtolower(strtr($l,'-','_'));
 		if(in_array($l, $alangs)) {
 			vmdebug('hm re',$query);
-			VmConfig::$vmlang = $l;
+			tsmConfig::$vmlang = $l;
 		}
 
 	}
@@ -80,9 +80,9 @@ function virtuemartBuildRoute(&$query) {
 			$limitstart = null;
 			$limit = null;
 
-			if ( isset($query['virtuemart_manufacturer_id'])  ) {
-				$segments[] = $helper->lang('manufacturer').'/'.$helper->getManufacturerName($query['virtuemart_manufacturer_id']) ;
-				unset($query['virtuemart_manufacturer_id']);
+			if ( isset($query['tsmart_manufacturer_id'])  ) {
+				$segments[] = $helper->lang('manufacturer').'/'.$helper->getManufacturerName($query['tsmart_manufacturer_id']) ;
+				unset($query['tsmart_manufacturer_id']);
 			}
 			if ( isset($query['search'])  ) {
 				$segments[] = $helper->lang('search') ;
@@ -92,25 +92,25 @@ function virtuemartBuildRoute(&$query) {
 				$segments[] = $query['keyword'];
 				unset($query['keyword']);
 			}
-			if ( isset($query['virtuemart_category_id']) ) {
-				$categoryRoute = $helper->getCategoryRoute($query['virtuemart_category_id']);
+			if ( isset($query['tsmart_category_id']) ) {
+				$categoryRoute = $helper->getCategoryRoute($query['tsmart_category_id']);
 				if ($categoryRoute->route) {
 					$segments[] = $categoryRoute->route;
 				}
-				$menuCatItemId = $helper->getMenuCatItemId($query['virtuemart_category_id']);
+				$menuCatItemId = $helper->getMenuCatItemId($query['tsmart_category_id']);
 				if(!empty($menuCatItemId)) {
 					$query['Itemid'] = $menuCatItemId;
-				} else if(isset($query['virtuemart_category_id']) and isset($jmenu['virtuemart_category_id'][$query['virtuemart_category_id']])) {
-					$query['Itemid'] = $jmenu['virtuemart_category_id'][$query['virtuemart_category_id']];
+				} else if(isset($query['tsmart_category_id']) and isset($jmenu['tsmart_category_id'][$query['tsmart_category_id']])) {
+					$query['Itemid'] = $jmenu['tsmart_category_id'][$query['tsmart_category_id']];
 				} else {
-					//http://forum.virtuemart.net/index.php?topic=121642.0
+					//http://forum.tsmart.net/index.php?topic=121642.0
 					if (!empty($categoryRoute->itemId)) {
 						$query['Itemid'] = $categoryRoute->itemId;
 					} else {
 						$query['Itemid'] = vRequest::get('Itemid',false);
 					}
 				}
-				unset($query['virtuemart_category_id']);
+				unset($query['tsmart_category_id']);
 			}
 			if ( isset($jmenu['category']) ) $query['Itemid'] = $jmenu['category'];
 
@@ -155,50 +155,50 @@ function virtuemartBuildRoute(&$query) {
 		//Shop product details view
 		case 'productdetails';
 
-			$virtuemart_product_id = false;
-			if (isset($jmenu['virtuemart_product_id']) and isset($jmenu['virtuemart_product_id'][ $query['virtuemart_product_id'] ] ) ) {
-				$query['Itemid'] = $jmenu['virtuemart_product_id'][$query['virtuemart_product_id']];
-				unset($query['virtuemart_product_id']);
-				unset($query['virtuemart_category_id']);
-				unset($query['virtuemart_manufacturer_id']);
+			$tsmart_product_id = false;
+			if (isset($jmenu['tsmart_product_id']) and isset($jmenu['tsmart_product_id'][ $query['tsmart_product_id'] ] ) ) {
+				$query['Itemid'] = $jmenu['tsmart_product_id'][$query['tsmart_product_id']];
+				unset($query['tsmart_product_id']);
+				unset($query['tsmart_category_id']);
+				unset($query['tsmart_manufacturer_id']);
 			} else {
-				if(isset($query['virtuemart_product_id'])) {
-					if ($helper->use_id) $segments[] = $query['virtuemart_product_id'];
-					$virtuemart_product_id = $query['virtuemart_product_id'];
-					unset($query['virtuemart_product_id']);
+				if(isset($query['tsmart_product_id'])) {
+					if ($helper->use_id) $segments[] = $query['tsmart_product_id'];
+					$tsmart_product_id = $query['tsmart_product_id'];
+					unset($query['tsmart_product_id']);
 				}
 				if($helper->full){
-					if(empty( $query['virtuemart_category_id'])){
-						$query['virtuemart_category_id'] = $helper->getParentProductcategory($virtuemart_product_id);
+					if(empty( $query['tsmart_category_id'])){
+						$query['tsmart_category_id'] = $helper->getParentProductcategory($tsmart_product_id);
 					}
-					if(!empty( $query['virtuemart_category_id'])){
-						$categoryRoute = $helper->getCategoryRoute($query['virtuemart_category_id']);
+					if(!empty( $query['tsmart_category_id'])){
+						$categoryRoute = $helper->getCategoryRoute($query['tsmart_category_id']);
 						if ($categoryRoute->route) $segments[] = $categoryRoute->route;
 						if ($categoryRoute->itemId) $query['Itemid'] = $categoryRoute->itemId;
 						else $query['Itemid'] = $jmenu['tsmart'];
 					} else {
-						$query['Itemid'] = $jmenu['tsmart']?$jmenu['tsmart']:@$jmenu['virtuemart_category_id'][0];
+						$query['Itemid'] = $jmenu['tsmart']?$jmenu['tsmart']:@$jmenu['tsmart_category_id'][0];
 					}
 				}
 
-				unset($query['virtuemart_category_id']);
-				unset($query['virtuemart_manufacturer_id']);
+				unset($query['tsmart_category_id']);
+				unset($query['tsmart_manufacturer_id']);
 
-				if($virtuemart_product_id)
-					$segments[] = $helper->getProductName($virtuemart_product_id);
+				if($tsmart_product_id)
+					$segments[] = $helper->getProductName($tsmart_product_id);
 			}
 			break;
 		case 'manufacturer';
 
-			if(isset($query['virtuemart_manufacturer_id'])) {
-				if (isset($jmenu['virtuemart_manufacturer_id'][ $query['virtuemart_manufacturer_id'] ] ) ) {
-					$query['Itemid'] = $jmenu['virtuemart_manufacturer_id'][$query['virtuemart_manufacturer_id']];
+			if(isset($query['tsmart_manufacturer_id'])) {
+				if (isset($jmenu['tsmart_manufacturer_id'][ $query['tsmart_manufacturer_id'] ] ) ) {
+					$query['Itemid'] = $jmenu['tsmart_manufacturer_id'][$query['tsmart_manufacturer_id']];
 				} else {
-					$segments[] = $helper->lang('manufacturers').'/'.$helper->getManufacturerName($query['virtuemart_manufacturer_id']) ;
+					$segments[] = $helper->lang('manufacturers').'/'.$helper->getManufacturerName($query['tsmart_manufacturer_id']) ;
 					if ( isset($jmenu['manufacturer']) ) $query['Itemid'] = $jmenu['manufacturer'];
 					else $query['Itemid'] = $jmenu['tsmart'];
 				}
-				unset($query['virtuemart_manufacturer_id']);
+				unset($query['tsmart_manufacturer_id']);
 			} else {
 				if ( isset($jmenu['manufacturer']) ) $query['Itemid'] = $jmenu['manufacturer'];
 				else $query['Itemid'] = $jmenu['tsmart'];
@@ -250,9 +250,9 @@ function virtuemartBuildRoute(&$query) {
 			break;
 		case 'vendor';
 			/* VM208 */
-			if(isset($query['virtuemart_vendor_id'])) {
-				if (isset($jmenu['virtuemart_vendor_id'][ $query['virtuemart_vendor_id'] ] ) ) {
-					$query['Itemid'] = $jmenu['virtuemart_vendor_id'][$query['virtuemart_vendor_id']];
+			if(isset($query['tsmart_vendor_id'])) {
+				if (isset($jmenu['tsmart_vendor_id'][ $query['tsmart_vendor_id'] ] ) ) {
+					$query['Itemid'] = $jmenu['tsmart_vendor_id'][$query['tsmart_vendor_id']];
 				} else {
 					if ( isset($jmenu['vendor']) ) {
 						$query['Itemid'] = $jmenu['vendor'];
@@ -267,9 +267,9 @@ function virtuemartBuildRoute(&$query) {
 				$segments[] = $helper->lang('vendor') ;
 				$query['Itemid'] = $jmenu['tsmart'];
 			}
-			if (isset($query['virtuemart_vendor_id'])) {
-				$segments[] =  $helper->getVendorName($query['virtuemart_vendor_id']) ;
-				unset ($query['virtuemart_vendor_id'] );
+			if (isset($query['tsmart_vendor_id'])) {
+				$segments[] =  $helper->getVendorName($query['tsmart_vendor_id']) ;
+				unset ($query['tsmart_vendor_id'] );
 			}
 
 
@@ -294,9 +294,9 @@ function virtuemartBuildRoute(&$query) {
 			if ( isset($query['order_number']) ) {
 				$segments[] = 'number/'.$query['order_number'];
 				unset ($query['order_number'],$query['layout']);
-			} else if ( isset($query['virtuemart_order_id']) ) {
-				$segments[] = 'id/'.$query['virtuemart_order_id'];
-				unset ($query['virtuemart_order_id'],$query['layout']);
+			} else if ( isset($query['tsmart_order_id']) ) {
+				$segments[] = 'id/'.$query['tsmart_order_id'];
+				unset ($query['tsmart_order_id'],$query['layout']);
 			}
 			break;
 
@@ -304,7 +304,7 @@ function virtuemartBuildRoute(&$query) {
 		default ;
 			$segments[] = $view;
 
-			//VmConfig::$vmlang = $oLang;
+			//tsmConfig::$vmlang = $oLang;
 	}
 
 
@@ -321,7 +321,7 @@ function virtuemartBuildRoute(&$query) {
 }
 
 /* This function can be slower because is used only one time  to find the real URL*/
-function virtuemartParseRoute($segments) {
+function tsmartParseRoute($segments) {
 
 	$vars = array();
 
@@ -364,7 +364,7 @@ function virtuemartParseRoute($segments) {
 
 	if (empty($segments)) {
 		$vars['view'] = 'category';
-		$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+		$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 		return $vars;
 	}
 
@@ -374,7 +374,7 @@ function virtuemartParseRoute($segments) {
 		array_pop($segments);
 		if (empty($segments)) {
 			$vars['view'] = 'category';
-			$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+			$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 			return $vars;
 		}
 	} else
@@ -383,7 +383,7 @@ function virtuemartParseRoute($segments) {
 		array_pop($segments);
 		if (empty($segments)) {
 			$vars['view'] = 'category';
-			$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+			$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 			return $vars;
 		}
 	}
@@ -396,7 +396,7 @@ function virtuemartParseRoute($segments) {
 
 		if (empty($segments)) {
 			$vars['view'] = 'category';
-			$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+			$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 			return $vars;
 		}
 	}
@@ -419,14 +419,14 @@ function virtuemartParseRoute($segments) {
 	if (  $helper->compareKey($segments[0] ,'manufacturer') ) {
 		if(!empty($segments[1])){
 			array_shift($segments);
-			$vars['virtuemart_manufacturer_id'] =  $helper->getManufacturerId($segments[0]);
+			$vars['tsmart_manufacturer_id'] =  $helper->getManufacturerId($segments[0]);
 		}
 
 		array_shift($segments);
 		// OSP 2012-02-29 removed search malforms SEF path and search is performed
 		if (empty($segments)) {
 			$vars['view'] = 'category';
-			$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+			$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 			return $vars;
 		}
 
@@ -435,13 +435,13 @@ function virtuemartParseRoute($segments) {
 // if no joomla link: vendor/vendorname/layout
 // if joomla link joomlalink/vendorname/layout
 	if (  $helper->compareKey($segments[0] ,'vendor') ) {
-		$vars['virtuemart_vendor_id'] =  $helper->getVendorId($segments[1]);
+		$vars['tsmart_vendor_id'] =  $helper->getVendorId($segments[1]);
 		// OSP 2012-02-29 removed search malforms SEF path and search is performed
 		// $vars['search'] = 'true';
 		// this can never happen
 		if (empty($segments)) {
 			$vars['view'] = 'vendor';
-			$vars['virtuemart_vendor_id'] = $helper->activeMenu->virtuemart_vendor_id ;
+			$vars['tsmart_vendor_id'] = $helper->activeMenu->tsmart_vendor_id ;
 			return $vars;
 		}
 
@@ -454,7 +454,7 @@ function virtuemartParseRoute($segments) {
 			$vars['keyword'] = array_shift($segments);
 		}
 		$vars['view'] = 'category';
-		$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+		$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 		if (empty($segments)) return $vars;
 	}
 	if (end($segments) == 'modal') {
@@ -498,7 +498,7 @@ function virtuemartParseRoute($segments) {
 		if ( !empty($segments) ) {
 			if ($segments[0] =='number')
 				$vars['order_number'] = $segments[1] ;
-			else $vars['virtuemart_order_id'] = $segments[1] ;
+			else $vars['tsmart_order_id'] = $segments[1] ;
 			$vars['layout'] = 'details';
 		}
 		return $vars;
@@ -550,7 +550,7 @@ function virtuemartParseRoute($segments) {
 			if (empty($segments)) return $vars;
 		}
 
-		$vars['virtuemart_vendor_id'] =  $helper->getVendorId($segments[0]);
+		$vars['tsmart_vendor_id'] =  $helper->getVendorId($segments[0]);
 		array_shift($segments);
 		if(!empty($segments)) {
 			if ( $helper->compareKey($segments[0] ,'contact') ) $vars['layout'] = 'contact' ;
@@ -596,7 +596,7 @@ function virtuemartParseRoute($segments) {
 		}
 
 		if (!empty($segments) ) {
-			$vars['virtuemart_manufacturer_id'] =  $helper->getManufacturerId($segments[0]);
+			$vars['tsmart_manufacturer_id'] =  $helper->getManufacturerId($segments[0]);
 			array_shift($segments);
 		}
 		if ( isset($segments[0]) && $segments[0] == 'modal') {
@@ -625,41 +625,41 @@ function virtuemartParseRoute($segments) {
 		}
 
 		if (!$helper->use_id ) {
-			$product = $helper->getProductId($segments ,$helper->activeMenu->virtuemart_category_id);
-			$vars['virtuemart_product_id'] = $product['virtuemart_product_id'];
-			$vars['virtuemart_category_id'] = $product['virtuemart_category_id'];
+			$product = $helper->getProductId($segments ,$helper->activeMenu->tsmart_category_id);
+			$vars['tsmart_product_id'] = $product['tsmart_product_id'];
+			$vars['tsmart_category_id'] = $product['tsmart_category_id'];
 			//vmdebug('View productdetails, using case !$helper->use_id',$vars,$helper->activeMenu);
 		}
 		elseif (isset($segments[1]) ){
-			$vars['virtuemart_product_id'] = $segments[0];
-			$vars['virtuemart_category_id'] = $segments[1];
+			$vars['tsmart_product_id'] = $segments[0];
+			$vars['tsmart_category_id'] = $segments[1];
 			//vmdebug('View productdetails, using case isset($segments[1]',$vars);
 		} else {
-			$vars['virtuemart_product_id'] = $segments[0];
-			$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
-			//vmdebug('View productdetails, using case "else", which uses $helper->activeMenu->virtuemart_category_id ',$vars);
+			$vars['tsmart_product_id'] = $segments[0];
+			$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
+			//vmdebug('View productdetails, using case "else", which uses $helper->activeMenu->tsmart_category_id ',$vars);
 		}
 
 
 
 	} elseif (!$helper->use_id && ($helper->activeMenu->view == 'category' ) )  {
-		$vars['virtuemart_category_id'] = $helper->getCategoryId (end($segments) ,$helper->activeMenu->virtuemart_category_id);
+		$vars['tsmart_category_id'] = $helper->getCategoryId (end($segments) ,$helper->activeMenu->tsmart_category_id);
 		$vars['view'] = 'category' ;
 
 
-	} elseif (isset($segments[0]) && ctype_digit ($segments[0]) || $helper->activeMenu->virtuemart_category_id>0 ) {
-		$vars['virtuemart_category_id'] = $segments[0];
+	} elseif (isset($segments[0]) && ctype_digit ($segments[0]) || $helper->activeMenu->tsmart_category_id>0 ) {
+		$vars['tsmart_category_id'] = $segments[0];
 		$vars['view'] = 'category';
 
 
-	} elseif ($helper->activeMenu->virtuemart_category_id >0 && $vars['view'] != 'productdetails') {
-		$vars['virtuemart_category_id'] = $helper->activeMenu->virtuemart_category_id ;
+	} elseif ($helper->activeMenu->tsmart_category_id >0 && $vars['view'] != 'productdetails') {
+		$vars['tsmart_category_id'] = $helper->activeMenu->tsmart_category_id ;
 		$vars['view'] = 'category';
 
-	} elseif ($id = $helper->getCategoryId (end($segments) ,$helper->activeMenu->virtuemart_category_id )) {
+	} elseif ($id = $helper->getCategoryId (end($segments) ,$helper->activeMenu->tsmart_category_id )) {
 
 		// find corresponding category . If not, segment 0 must be a view
-		$vars['virtuemart_category_id'] = $id;
+		$vars['tsmart_category_id'] = $id;
 		$vars['view'] = 'category' ;
 	} else {
 		$vars['view'] = $segments[0] ;
@@ -676,7 +676,7 @@ class vmrouterHelper {
 	/* language array */
 	public $lang = null ;
 	public $query = array();
-	/* Joomla menus ID object from com_virtuemart */
+	/* Joomla menus ID object from com_tsmart */
 	public $menu = null ;
 
 	/* Joomla active menu( itemId ) object */
@@ -708,7 +708,7 @@ class vmrouterHelper {
 			$this->seo_translate = tsmConfig::get('seo_translate', false);
 
 			if ( $this->seo_translate ) {
-				$this->Jlang = tsmConfig::loadJLang('com_virtuemart.sef',true);
+				$this->Jlang = tsmConfig::loadJLang('com_tsmart.sef',true);
 			} else {
 				$this->Jlang = JFactory::getLanguage();
 			}
@@ -730,7 +730,7 @@ class vmrouterHelper {
 	public static function getInstance(&$query = null) {
 
 		defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-		if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+		if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 
 		tsmConfig::loadConfig();
 		if (!self::$_instance){
@@ -740,28 +740,28 @@ class vmrouterHelper {
 				$mainframe = Jfactory::getApplication(); ;
 				$view = 'tsmart';
 				if(isset($query['view'])) $view = $query['view'];
-				self::$limit= $mainframe->getUserStateFromRequest('com_virtuemart.'.$view.'.limit', tsmConfig::get('list_limit', 20), 'int');
+				self::$limit= $mainframe->getUserStateFromRequest('com_tsmart.'.$view.'.limit', tsmConfig::get('list_limit', 20), 'int');
 			}
 		}
 		self::$_instance->query = $query;
 		return self::$_instance;
 	}
 
-	public function getCategoryRoute($virtuemart_category_id){
+	public function getCategoryRoute($tsmart_category_id){
 
-		$cache = JFactory::getCache('_virtuemart','');
-		$key = $virtuemart_category_id. tsmConfig::$vmlang ; // internal cache key
+		$cache = JFactory::getCache('_tsmart','');
+		$key = $tsmart_category_id. tsmConfig::$vmlang ; // internal cache key
 		if (!($CategoryRoute = $cache->get($key))) {
-			$CategoryRoute = $this->getCategoryRouteNocache($virtuemart_category_id);
+			$CategoryRoute = $this->getCategoryRouteNocache($tsmart_category_id);
 			$cache->store($CategoryRoute, $key);
 		}
 		return $CategoryRoute ;
 	}
 
 	/* Get Joomla menu item and the route for category */
-	public function getCategoryRouteNocache($virtuemart_category_id){
-		$virtuemart_manufacturer_id = isset($this->query['virtuemart_manufacturer_id']) ? $this->query['virtuemart_manufacturer_id'] : vRequest::getInt('virtuemart_manufacturer_id',0);
-		if (! array_key_exists ($virtuemart_category_id . 'mf' . $virtuemart_manufacturer_id . tsmConfig::$vmlang, self::$_catRoute)){
+	public function getCategoryRouteNocache($tsmart_category_id){
+		$tsmart_manufacturer_id = isset($this->query['tsmart_manufacturer_id']) ? $this->query['tsmart_manufacturer_id'] : vRequest::getInt('tsmart_manufacturer_id',0);
+		if (! array_key_exists ($tsmart_category_id . 'mf' . $tsmart_manufacturer_id . tsmConfig::$vmlang, self::$_catRoute)){
 			$category = new stdClass();
 			$category->route = '';
 			$category->itemId = 0;
@@ -769,21 +769,21 @@ class vmrouterHelper {
 			$ismenu = false ;
 			$catModel = tmsModel::getModel('category');
 			// control if category is joomla menu
-			$menuCatItemId = $this->getMenuCatItemId($virtuemart_category_id);
+			$menuCatItemId = $this->getMenuCatItemId($tsmart_category_id);
 			if(!empty($menuCatItemId)) {
 				$ismenu = true;
 				$category->itemId = $menuCatItemId;
-			} else if (isset($this->menu['virtuemart_category_id'])) {
-				if (isset( $this->menu['virtuemart_category_id'][$virtuemart_category_id])) {
+			} else if (isset($this->menu['tsmart_category_id'])) {
+				if (isset( $this->menu['tsmart_category_id'][$tsmart_category_id])) {
 					$ismenu = true;
-					$category->itemId = $this->menu['virtuemart_category_id'][$virtuemart_category_id] ;
+					$category->itemId = $this->menu['tsmart_category_id'][$tsmart_category_id] ;
 				} else {
-					$CatParentIds = $catModel->getCategoryRecurse($virtuemart_category_id,0) ;
+					$CatParentIds = $catModel->getCategoryRecurse($tsmart_category_id,0) ;
 					/* control if parent categories are joomla menu */
 					foreach ($CatParentIds as $CatParentId) {
 						// No ? then find the parent menu categorie !
-						if (isset( $this->menu['virtuemart_category_id'][$CatParentId]) ) {
-							$category->itemId = $this->menu['virtuemart_category_id'][$CatParentId] ;
+						if (isset( $this->menu['tsmart_category_id'][$CatParentId]) ) {
+							$category->itemId = $this->menu['tsmart_category_id'][$CatParentId] ;
 							$menuCatid = $CatParentId;
 							break;
 						}
@@ -791,34 +791,34 @@ class vmrouterHelper {
 				}
 			}
 			if ($ismenu==false) {
-				if ( $this->use_id ) $category->route = $virtuemart_category_id.'/';
-				if (!isset ($this->CategoryName[$virtuemart_category_id])) {
-					$this->CategoryName[$virtuemart_category_id] = $this->getCategoryNames($virtuemart_category_id, $menuCatid );
+				if ( $this->use_id ) $category->route = $tsmart_category_id.'/';
+				if (!isset ($this->CategoryName[$tsmart_category_id])) {
+					$this->CategoryName[$tsmart_category_id] = $this->getCategoryNames($tsmart_category_id, $menuCatid );
 				}
-				$category->route .= $this->CategoryName[$virtuemart_category_id] ;
+				$category->route .= $this->CategoryName[$tsmart_category_id] ;
 				if ($menuCatid == 0  && $this->menu['tsmart']) $category->itemId = $this->menu['tsmart'] ;
 			}
-			self::$_catRoute[$virtuemart_category_id . 'mf' . $virtuemart_manufacturer_id . tsmConfig::$vmlang] = $category;
+			self::$_catRoute[$tsmart_category_id . 'mf' . $tsmart_manufacturer_id . tsmConfig::$vmlang] = $category;
 		}
 
-		return self::$_catRoute[$virtuemart_category_id . 'mf' . $virtuemart_manufacturer_id . tsmConfig::$vmlang] ;
+		return self::$_catRoute[$tsmart_category_id . 'mf' . $tsmart_manufacturer_id . tsmConfig::$vmlang] ;
 	}
 
 	/*get url safe names of category and parents categories  */
-	public function getCategoryNames($virtuemart_category_id,$catMenuId=0){
+	public function getCategoryNames($tsmart_category_id,$catMenuId=0){
 
 		static $categoryNamesCache = array();
 		$strings = array();
 		$db = JFactory::getDBO();
 		$catModel = tmsModel::getModel('category');
 
-		if($parent_ids = $catModel->getCategoryRecurse($virtuemart_category_id,$catMenuId)){
+		if($parent_ids = $catModel->getCategoryRecurse($tsmart_category_id,$catMenuId)){
 			$parent_ids = array_reverse($parent_ids) ;
 		} else {
 			$parent_ids = array();
 		}
 
-		//vmdebug('Router getCategoryNames getCategoryRecurse finished '.$virtuemart_category_id,$parent_ids);
+		//vmdebug('Router getCategoryNames getCategoryRecurse finished '.$tsmart_category_id,$parent_ids);
 		foreach ($parent_ids as $id ) {
 			if(!isset($categoryNamesCache[$id])){
 				$cat = $catModel->getCategory($id,0);
@@ -843,20 +843,20 @@ class vmrouterHelper {
 
 	/** return id of categories
 	 * $names are segments
-	 * $virtuemart_category_ids is joomla menu virtuemart_category_id
+	 * $tsmart_category_ids is joomla menu tsmart_category_id
 	 */
-	public function getCategoryId($slug,$virtuemart_category_id ){
+	public function getCategoryId($slug,$tsmart_category_id ){
 		$db = JFactory::getDBO();
 		static $catIds = array();
 		if(!tsmConfig::get('prodOnlyWLang',false) and tsmConfig::$defaultLang!=tsmConfig::$vmlang and tsmConfig::$langCount>1){
-			$q = 'SELECT IFNULL(l.`virtuemart_category_id`,ld.`virtuemart_category_id`) as `virtuemart_category_id` ';
-			$q .= ' FROM `#__virtuemart_categories_'.tsmConfig::$defaultLang.'` AS `ld` ';
-			$q .= ' LEFT JOIN `#__virtuemart_categories_' .tsmConfig::$vmlang . '` as l using (`virtuemart_category_id`) ';
+			$q = 'SELECT IFNULL(l.`tsmart_category_id`,ld.`tsmart_category_id`) as `tsmart_category_id` ';
+			$q .= ' FROM `#__tsmart_categories_'.tsmConfig::$defaultLang.'` AS `ld` ';
+			$q .= ' LEFT JOIN `#__tsmart_categories_' .tsmConfig::$vmlang . '` as l using (`tsmart_category_id`) ';
 			$q .= ' WHERE IFNULL(l.`slug`,ld.`slug`) = "'.$db->escape($slug).'" ';
 			$hash = md5(tsmConfig::$defaultLang.$slug.tsmConfig::$defaultLang);
 		} else {
-			$q = "SELECT `virtuemart_category_id`
-				FROM  `#__virtuemart_categories_".tsmConfig::$vmlang."`
+			$q = "SELECT `tsmart_category_id`
+				FROM  `#__tsmart_categories_".tsmConfig::$vmlang."`
 				WHERE `slug` = '".$db->escape($slug)."' ";
 			$hash = md5($slug.tsmConfig::$defaultLang);
 		}
@@ -864,7 +864,7 @@ class vmrouterHelper {
 		if(!isset($catIds[$hash])){
 			$db->setQuery($q);
 			if (!$catIds[$hash] = $db->loadResult()) {
-				$catIds[$hash] = $virtuemart_category_id;
+				$catIds[$hash] = $tsmart_category_id;
 			}
 		}
 
@@ -900,13 +900,13 @@ class vmrouterHelper {
 
 		if(!isset($parProdCat[$id])){
 			tmsModel::getModel('product');
-			$parent_id = VirtueMartModelProduct::getProductParentId($id);
+			$parent_id = tsmartModelProduct::getProductParentId($id);
 
 			//If product is child then get parent category ID
 			if ($parent_id and $parent_id!=$id) {
 				$db = JFactory::getDbo();
-				$query = 'SELECT `virtuemart_category_id` FROM `#__virtuemart_product_categories`  ' .
-					' WHERE `virtuemart_product_id` = ' . $parent_id;
+				$query = 'SELECT `tsmart_category_id` FROM `#__tsmart_product_categories`  ' .
+					' WHERE `tsmart_product_id` = ' . $parent_id;
 				$db->setQuery($query);
 
 				//When the child and parent id is the same, this creates a deadlock
@@ -929,7 +929,7 @@ class vmrouterHelper {
 
 
 	/* get product and category ID */
-	public function getProductId($names,$virtuemart_category_id = NULL ){
+	public function getProductId($names,$tsmart_category_id = NULL ){
 		$productName = array_pop($names);
 		$productName =  substr($productName, 0, -(int)$this->seo_sufix_size );
 		$product = array();
@@ -940,66 +940,66 @@ class vmrouterHelper {
 		$q = '';
 		static $prodIds = array();
 		if(!tsmConfig::get('prodOnlyWLang',false) and tsmConfig::$defaultLang!=tsmConfig::$vmlang and tsmConfig::$langCount>1){
-			$select2 = 'ld.`virtuemart_product_id`';
+			$select2 = 'ld.`tsmart_product_id`';
 			$where2 = 'ld.`slug`';
 			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
-				$select2 = 'IFNULL(ld.`virtuemart_product_id`,ljd.`virtuemart_product_id`)';
+				$select2 = 'IFNULL(ld.`tsmart_product_id`,ljd.`tsmart_product_id`)';
 				$where2 = 'IFNULL(ld.`slug`,ljd.`slug`)';
 			}
 
-			$q = 'SELECT IFNULL(l.`virtuemart_product_id`,'.$select2.') as `virtuemart_product_id` ';
-			$q .= ' FROM `#__virtuemart_products_'.tsmConfig::$vmlang.'` AS `l` ';
-			$q .= ' RIGHT JOIN `#__virtuemart_products_' .tsmConfig::$defaultLang . '` as ld using (`virtuemart_product_id`) ';
+			$q = 'SELECT IFNULL(l.`tsmart_product_id`,'.$select2.') as `tsmart_product_id` ';
+			$q .= ' FROM `#__tsmart_products_'.tsmConfig::$vmlang.'` AS `l` ';
+			$q .= ' RIGHT JOIN `#__tsmart_products_' .tsmConfig::$defaultLang . '` as ld using (`tsmart_product_id`) ';
 			if(tsmConfig::$defaultLang!=tsmConfig::$jDefLang){
-				$q .= ' RIGHT JOIN `#__virtuemart_products_' .tsmConfig::$jDefLang . '` as ljd using (`virtuemart_product_id`) ';
+				$q .= ' RIGHT JOIN `#__tsmart_products_' .tsmConfig::$jDefLang . '` as ljd using (`tsmart_product_id`) ';
 			}
 			$q .= ' WHERE IFNULL(l.`slug`,'.$where2.') = "'.$db->escape($productName).'" ';
 			$hash = md5(tsmConfig::$defaultLang.$productName.tsmConfig::$vmlang);
 		} else {
-			$q = 'SELECT p.`virtuemart_product_id` ';
-			$q .= ' FROM `#__virtuemart_products_'.tsmConfig::$vmlang.'` AS `p` ';
+			$q = 'SELECT p.`tsmart_product_id` ';
+			$q .= ' FROM `#__tsmart_products_'.tsmConfig::$vmlang.'` AS `p` ';
 			$q .= ' WHERE `slug` = "'.$db->escape($productName).'" ';
 			$hash = md5($productName.tsmConfig::$vmlang);
 		}
 
 		if(!isset($prodIds[$hash])){
 			$db->setQuery($q);
-			$prodIds[$hash]['virtuemart_product_id'] = $db->loadResult();
-			$prodIds[$hash]['virtuemart_category_id'] = $this->getCategoryId($categoryName,$virtuemart_category_id ) ;
+			$prodIds[$hash]['tsmart_product_id'] = $db->loadResult();
+			$prodIds[$hash]['tsmart_category_id'] = $this->getCategoryId($categoryName,$tsmart_category_id ) ;
 		}
 
 		return $prodIds[$hash] ;
 	}
 
 	/* Get URL safe Manufacturer name */
-	public function getManufacturerName($virtuemart_manufacturer_id ){
+	public function getManufacturerName($tsmart_manufacturer_id ){
 
 		static $manNamesCache = array();
-		if(empty($virtuemart_manufacturer_id)) return false;
-		if(!isset($manNamesCache[$virtuemart_manufacturer_id])){
+		if(empty($tsmart_manufacturer_id)) return false;
+		if(!isset($manNamesCache[$tsmart_manufacturer_id])){
 			$db = JFactory::getDBO();
-			$query = 'SELECT `slug` FROM `#__virtuemart_manufacturers_'.tsmConfig::$vmlang.'` WHERE virtuemart_manufacturer_id='.(int)$virtuemart_manufacturer_id;
+			$query = 'SELECT `slug` FROM `#__tsmart_manufacturers_'.tsmConfig::$vmlang.'` WHERE tsmart_manufacturer_id='.(int)$tsmart_manufacturer_id;
 			$db->setQuery($query);
-			$manNamesCache[$virtuemart_manufacturer_id] = $db->loadResult();
+			$manNamesCache[$tsmart_manufacturer_id] = $db->loadResult();
 		}
 
-		return $manNamesCache[$virtuemart_manufacturer_id];
+		return $manNamesCache[$tsmart_manufacturer_id];
 
 	}
 
 	/* Get Manufacturer id */
 	public function getManufacturerId($slug ){
 		$db = JFactory::getDBO();
-		$query = "SELECT `virtuemart_manufacturer_id` FROM `#__virtuemart_manufacturers_".tsmConfig::$vmlang."` WHERE `slug` LIKE '".$db->escape($slug)."' ";
+		$query = "SELECT `tsmart_manufacturer_id` FROM `#__tsmart_manufacturers_".tsmConfig::$vmlang."` WHERE `slug` LIKE '".$db->escape($slug)."' ";
 		$db->setQuery($query);
 
 		return $db->loadResult();
 
 	}
 	/* Get URL safe Manufacturer name */
-	public function getVendorName($virtuemart_vendor_id ){
+	public function getVendorName($tsmart_vendor_id ){
 		$db = JFactory::getDBO();
-		$query = 'SELECT `slug` FROM `#__virtuemart_vendors_'.tsmConfig::$vmlang.'` WHERE `virtuemart_vendor_id`='.(int)$virtuemart_vendor_id;
+		$query = 'SELECT `slug` FROM `#__tsmart_vendors_'.tsmConfig::$vmlang.'` WHERE `tsmart_vendor_id`='.(int)$tsmart_vendor_id;
 		$db->setQuery($query);
 
 		return $db->loadResult();
@@ -1008,7 +1008,7 @@ class vmrouterHelper {
 	/* Get Manufacturer id */
 	public function getVendorId($slug ){
 		$db = JFactory::getDBO();
-		$query = "SELECT `virtuemart_vendor_id` FROM `#__virtuemart_vendors_".tsmConfig::$vmlang."` WHERE `slug` LIKE '".$db->escape($slug)."' ";
+		$query = "SELECT `tsmart_vendor_id` FROM `#__tsmart_vendors_".tsmConfig::$vmlang."` WHERE `slug` LIKE '".$db->escape($slug)."' ";
 		$db->setQuery($query);
 
 		return $db->loadResult();
@@ -1018,7 +1018,7 @@ class vmrouterHelper {
 	private function setMenuItemId(){
 
 		$home 	= false ;
-		$component	= JComponentHelper::getComponent('com_virtuemart');
+		$component	= JComponentHelper::getComponent('com_tsmart');
 
 		$db			= JFactory::getDBO();
 		$fallback = '';
@@ -1026,7 +1026,7 @@ class vmrouterHelper {
 		if($jLangTag!=tsmConfig::$vmlangTag){
 			$fallback= 'or language = "'.$jLangTag.'"';
 		}
-		$query = 'SELECT * FROM `#__menu`  where `link` like "index.php?option=com_virtuemart%" and client_id=0 and published=1 and (language="*" or language = "'.tsmConfig::$vmlangTag.'" '.$fallback.' )'  ;
+		$query = 'SELECT * FROM `#__menu`  where `link` like "index.php?option=com_tsmart%" and client_id=0 and published=1 and (language="*" or language = "'.tsmConfig::$vmlangTag.'" '.$fallback.' )'  ;
 		$db->setQuery($query);
 
 		$this->menuVmitems= $db->loadObjectList();
@@ -1034,11 +1034,11 @@ class vmrouterHelper {
 
 
 		if(empty($this->menuVmitems)){
-			tsmConfig::loadJLang('com_virtuemart', true);
-			vmWarn(tsmText::_('COM_VIRTUEMART_ASSIGN_VM_TO_MENU'));
+			tsmConfig::loadJLang('com_tsmart', true);
+			vmWarn(tsmText::_('com_tsmart_ASSIGN_VM_TO_MENU'));
 		} else {
 
-			// Search  Virtuemart itemID in joomla menu
+			// Search  tsmart itemID in joomla menu
 			foreach ($this->menuVmitems as $item)	{
 
 				$linkToSplit= explode ('&',$item->link);
@@ -1059,8 +1059,8 @@ class vmrouterHelper {
 						$dbKey = false ;
 					}
 
-					if ( isset($link['virtuemart_'.$dbKey.'_id']) && $dbKey ){
-						$this->menu['virtuemart_'.$dbKey.'_id'][ $link['virtuemart_'.$dbKey.'_id'] ] = $item->id;
+					if ( isset($link['tsmart_'.$dbKey.'_id']) && $dbKey ){
+						$this->menu['tsmart_'.$dbKey.'_id'][ $link['tsmart_'.$dbKey.'_id'] ] = $item->id;
 					}
 					elseif ($home == $view ) continue;
 					else $this->menu[$view]= $item->id ;
@@ -1080,8 +1080,8 @@ class vmrouterHelper {
 
 		// init unsetted views  to defaut front view or nothing(prevent duplicates routes)
 		if ( !isset( $this->menu['tsmart']) ) {
-			if (isset ($this->menu['virtuemart_category_id'][0]) ) {
-				$this->menu['tsmart'] = $this->menu['virtuemart_category_id'][0] ;
+			if (isset ($this->menu['tsmart_category_id'][0]) ) {
+				$this->menu['tsmart'] = $this->menu['tsmart_category_id'][0] ;
 			}else $this->menu['tsmart'] = $homeid;
 		}
 	}
@@ -1100,11 +1100,11 @@ class vmrouterHelper {
 
 			$this->activeMenu = new stdClass();
 			$this->activeMenu->view			= (empty($menuItem->query['view'])) ? null : $menuItem->query['view'];
-			$this->activeMenu->virtuemart_category_id	= (empty($menuItem->query['virtuemart_category_id'])) ? 0 : $menuItem->query['virtuemart_category_id'];
-			$this->activeMenu->virtuemart_product_id	= (empty($menuItem->query['virtuemart_product_id'])) ? null : $menuItem->query['virtuemart_product_id'];
-			$this->activeMenu->virtuemart_manufacturer_id	= (empty($menuItem->query['virtuemart_manufacturer_id'])) ? null : $menuItem->query['virtuemart_manufacturer_id'];
+			$this->activeMenu->tsmart_category_id	= (empty($menuItem->query['tsmart_category_id'])) ? 0 : $menuItem->query['tsmart_category_id'];
+			$this->activeMenu->tsmart_product_id	= (empty($menuItem->query['tsmart_product_id'])) ? null : $menuItem->query['tsmart_product_id'];
+			$this->activeMenu->tsmart_manufacturer_id	= (empty($menuItem->query['tsmart_manufacturer_id'])) ? null : $menuItem->query['tsmart_manufacturer_id'];
 			/* added in 208 */
-			$this->activeMenu->virtuemart_vendor_id	= (empty($menuItem->query['virtuemart_vendor_id'])) ? null : $menuItem->query['virtuemart_vendor_id'];
+			$this->activeMenu->tsmart_vendor_id	= (empty($menuItem->query['tsmart_vendor_id'])) ? null : $menuItem->query['tsmart_vendor_id'];
 
 			$this->activeMenu->Component	= (empty($menuItem->component)) ? null : $menuItem->component;
 		}
@@ -1115,11 +1115,11 @@ class vmrouterHelper {
 	 * Get itemId from Joomla category menu with complete url
 	 * @author Maik Künnemann
 	 */
-	public function getMenuCatItemId($virtuemart_category_id) {
+	public function getMenuCatItemId($tsmart_category_id) {
 
 		$itemID = '';
 
-		$virtuemart_manufacturer_id = isset($this->query['virtuemart_manufacturer_id']) ? $this->query['virtuemart_manufacturer_id'] : vRequest::getInt('virtuemart_manufacturer_id',0);
+		$tsmart_manufacturer_id = isset($this->query['tsmart_manufacturer_id']) ? $this->query['tsmart_manufacturer_id'] : vRequest::getInt('tsmart_manufacturer_id',0);
 		$categorylayout = isset($this->query['categorylayout']) ? $this->query['categorylayout'] : vRequest::getCmd('categorylayout',0);
 		$showcategory = isset($this->query['showcategory']) ? $this->query['showcategory'] : vRequest::getInt('showcategory',1);
 		$showproducts = isset($this->query['showproducts']) ? $this->query['showproducts'] : vRequest::getInt('showproducts',1);
@@ -1128,16 +1128,16 @@ class vmrouterHelper {
 		$jLangTag = $this->Jlang->getTag();
 
 		$links = array();
-		$links[] = 'index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id.
-			'&virtuemart_manufacturer_id='.$virtuemart_manufacturer_id.
+		$links[] = 'index.php?option=com_tsmart&view=category&tsmart_category_id='.$tsmart_category_id.
+			'&tsmart_manufacturer_id='.$tsmart_manufacturer_id.
 			'&categorylayout='.$categorylayout.
 			'&showcategory='.$showcategory.
 			'&showproducts='.$showproducts.
 			'&productsublayout='.$productsublayout;
-		$links[] = 'index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id.
-			'&virtuemart_manufacturer_id='.$virtuemart_manufacturer_id.'%';
-		$links[] = 'index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id.
-			'&virtuemart_manufacturer_id=0%';
+		$links[] = 'index.php?option=com_tsmart&view=category&tsmart_category_id='.$tsmart_category_id.
+			'&tsmart_manufacturer_id='.$tsmart_manufacturer_id.'%';
+		$links[] = 'index.php?option=com_tsmart&view=category&tsmart_category_id='.$tsmart_category_id.
+			'&tsmart_manufacturer_id=0%';
 
 		$db = JFactory::getDbo();
 		foreach($links as $link) {
@@ -1166,8 +1166,8 @@ class vmrouterHelper {
 	public function lang($key) {
 		if ($this->seo_translate ) {
 			$jtext = (strtoupper( $key ) );
-			if ($this->Jlang->hasKey('COM_VIRTUEMART_SEF_'.$jtext) ){
-				return tsmText::_('COM_VIRTUEMART_SEF_'.$jtext);
+			if ($this->Jlang->hasKey('com_tsmart_SEF_'.$jtext) ){
+				return tsmText::_('com_tsmart_SEF_'.$jtext);
 			}
 		}
 
@@ -1182,33 +1182,33 @@ class vmrouterHelper {
 		if ($this->seo_translate ) {
 			if ($this->orderings == null) {
 				$this->orderings = array(
-					'virtuemart_product_id'=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_ID'),
-					'product_sku'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_SKU'),
-					'product_price'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_PRICE'),
-					'category_name'		=> tsmText::_('COM_VIRTUEMART_SEF_CATEGORY_NAME'),
-					'category_description'=> tsmText::_('COM_VIRTUEMART_SEF_CATEGORY_DESCRIPTION'),
-					'mf_name' 			=> tsmText::_('COM_VIRTUEMART_SEF_MF_NAME'),
-					'product_s_desc'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_S_DESC'),
-					'product_desc'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_DESC'),
-					'product_weight'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_WEIGHT'),
-					'product_weight_uom'=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_WEIGHT_UOM'),
-					'product_length'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_LENGTH'),
-					'product_width'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_WIDTH'),
-					'product_height'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_HEIGHT'),
-					'product_lwh_uom'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_LWH_UOM'),
-					'product_in_stock'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_IN_STOCK'),
-					'low_stock_notification'=> tsmText::_('COM_VIRTUEMART_SEF_LOW_STOCK_NOTIFICATION'),
-					'product_available_date'=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_AVAILABLE_DATE'),
-					'product_availability'  => tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_AVAILABILITY'),
-					'product_special'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_SPECIAL'),
-					'created_on' 		=> tsmText::_('COM_VIRTUEMART_SEF_CREATED_ON'),
-					// 'p.modified_on' 		=> vmText::_('COM_VIRTUEMART_SEF_MDATE'),
-					'product_name'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_NAME'),
-					'product_sales'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_SALES'),
-					'product_unit'		=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_UNIT'),
-					'product_packaging'	=> tsmText::_('COM_VIRTUEMART_SEF_PRODUCT_PACKAGING'),
-					'intnotes'			=> tsmText::_('COM_VIRTUEMART_SEF_INTNOTES'),
-					'pc.ordering' => tsmText::_('COM_VIRTUEMART_SEF_ORDERING')
+					'tsmart_product_id'=> tsmText::_('com_tsmart_SEF_PRODUCT_ID'),
+					'product_sku'		=> tsmText::_('com_tsmart_SEF_PRODUCT_SKU'),
+					'product_price'		=> tsmText::_('com_tsmart_SEF_PRODUCT_PRICE'),
+					'category_name'		=> tsmText::_('com_tsmart_SEF_CATEGORY_NAME'),
+					'category_description'=> tsmText::_('com_tsmart_SEF_CATEGORY_DESCRIPTION'),
+					'mf_name' 			=> tsmText::_('com_tsmart_SEF_MF_NAME'),
+					'product_s_desc'	=> tsmText::_('com_tsmart_SEF_PRODUCT_S_DESC'),
+					'product_desc'		=> tsmText::_('com_tsmart_SEF_PRODUCT_DESC'),
+					'product_weight'	=> tsmText::_('com_tsmart_SEF_PRODUCT_WEIGHT'),
+					'product_weight_uom'=> tsmText::_('com_tsmart_SEF_PRODUCT_WEIGHT_UOM'),
+					'product_length'	=> tsmText::_('com_tsmart_SEF_PRODUCT_LENGTH'),
+					'product_width'		=> tsmText::_('com_tsmart_SEF_PRODUCT_WIDTH'),
+					'product_height'	=> tsmText::_('com_tsmart_SEF_PRODUCT_HEIGHT'),
+					'product_lwh_uom'	=> tsmText::_('com_tsmart_SEF_PRODUCT_LWH_UOM'),
+					'product_in_stock'	=> tsmText::_('com_tsmart_SEF_PRODUCT_IN_STOCK'),
+					'low_stock_notification'=> tsmText::_('com_tsmart_SEF_LOW_STOCK_NOTIFICATION'),
+					'product_available_date'=> tsmText::_('com_tsmart_SEF_PRODUCT_AVAILABLE_DATE'),
+					'product_availability'  => tsmText::_('com_tsmart_SEF_PRODUCT_AVAILABILITY'),
+					'product_special'	=> tsmText::_('com_tsmart_SEF_PRODUCT_SPECIAL'),
+					'created_on' 		=> tsmText::_('com_tsmart_SEF_CREATED_ON'),
+					// 'p.modified_on' 		=> vmText::_('com_tsmart_SEF_MDATE'),
+					'product_name'		=> tsmText::_('com_tsmart_SEF_PRODUCT_NAME'),
+					'product_sales'		=> tsmText::_('com_tsmart_SEF_PRODUCT_SALES'),
+					'product_unit'		=> tsmText::_('com_tsmart_SEF_PRODUCT_UNIT'),
+					'product_packaging'	=> tsmText::_('com_tsmart_SEF_PRODUCT_PACKAGING'),
+					'intnotes'			=> tsmText::_('com_tsmart_SEF_INTNOTES'),
+					'pc.ordering' => tsmText::_('com_tsmart_SEF_ORDERING')
 				);
 			}
 
@@ -1224,7 +1224,7 @@ class vmrouterHelper {
 	 */
 	public function compareKey($string, $key) {
 		if ($this->seo_translate ) {
-			if (tsmText::_('COM_VIRTUEMART_SEF_'.$key) == $string ) {
+			if (tsmText::_('com_tsmart_SEF_'.$key) == $string ) {
 				return true;
 			}
 

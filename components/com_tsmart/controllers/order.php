@@ -3,13 +3,13 @@
 *
 * State controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,18 +22,18 @@ defined('_JEXEC') or die('Restricted access');
 // Load the controller framework
 jimport('joomla.application.component.controller');
 
-if(!class_exists('VirtueMartModelState')) require( VMPATH_ADMIN.DS.'models'.DS.'state.php' );
+if(!class_exists('tsmartModelState')) require( VMPATH_ADMIN.DS.'models'.DS.'state.php' );
 
-class VirtueMartControllerOrder extends JControllerLegacy {
+class TsmartControllerOrder extends JControllerLegacy {
     public function ajax_save_passenger(){
         $input=JFactory::getApplication()->input;
-        $virtuemart_order_id=$input->getInt('virtuemart_order_id',0);
+        $tsmart_order_id=$input->getInt('tsmart_order_id',0);
         $passenger_id=$input->getInt('passenger_id',0);
         $post=$input->getArray();
         $passenger_data=$post['data'];
         $order_mode=tmsModel::getModel('orders');
         $orderTable=$order_mode->getTable('orders');
-        $orderTable->load($virtuemart_order_id);
+        $orderTable->load($tsmart_order_id);
         $order_data=$orderTable->order_data;
         $order_data=json_decode($order_data);
         $list_passenger=$order_data->list_passenger;

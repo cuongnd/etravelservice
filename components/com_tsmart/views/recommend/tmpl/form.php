@@ -2,13 +2,13 @@
 /**
  * Show the form Ask a Question
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Kohl Patrick, Maik K�nnemann
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -33,11 +33,11 @@ vmJsApi::addJScript('askform','
 '); 
 
 $vendorModel = tmsModel::getModel ('vendor');
-$this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
+$this->vendor = $vendorModel->getVendor ($this->product->tsmart_vendor_id);
 $ask_comment="";
 /* Let's see if we found the product */
 if (empty ( $this->product )) {
-	echo tsmText::_ ( 'COM_VIRTUEMART_PRODUCT_NOT_FOUND' );
+	echo tsmText::_ ( 'com_tsmart_PRODUCT_NOT_FOUND' );
 	echo '<br /><br />  ' . $this->continue_link_html;
 } else {
 	$session = JFactory::getSession();
@@ -48,7 +48,7 @@ if (empty ( $this->product )) {
 	if(empty($this->login) or tsmConfig::get('recommend_unauth',false)){
 		?>
 		<div class="ask-a-question-view">
-			<h1><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')  ?></h1>
+			<h1><?php echo tsmText::_('com_tsmart_PRODUCT_RECOMMEND')  ?></h1>
 
 			<div class="product-summary">
 				<div class="width70 floatleft">
@@ -73,22 +73,22 @@ if (empty ( $this->product )) {
 
 			<div class="form-field">
 
-				<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id='.$this->product->virtuemart_product_id.'&virtuemart_category_id='.$this->product->virtuemart_category_id.'&tmpl=component', FALSE) ; ?>" name="askform" id="askform" >
+				<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id='.$this->product->tsmart_product_id.'&tsmart_category_id='.$this->product->tsmart_category_id.'&tmpl=component', FALSE) ; ?>" name="askform" id="askform" >
 
 					<table class="askform">
 						<tr>
-							<td><label for="name"><?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_NAME')  ?> : </label></td>
+							<td><label for="name"><?php echo tsmText::_('com_tsmart_RECOMMEND_NAME')  ?> : </label></td>
 							<td><input type="text" value="<?php echo $this->user->name ? $this->user->name : $sessData['name'] ?>" name="name" id="name" size="30" class="validate[required,minSize[3],maxSize[64]]"/></td>
 						</tr>
 						<tr>
-							<td><label for="email"><?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_EMAIL')  ?> : </label></td>
+							<td><label for="email"><?php echo tsmText::_('com_tsmart_RECOMMEND_EMAIL')  ?> : </label></td>
 							<td><input type="text" value="<?php echo $sessData['email'] ?>" name="email" id="email" size="30" class="validate[required,custom[email]]"/></td>
 						</tr>
 						<tr>
-							<td colspan="2"><label for="comment"><?php echo tsmText::sprintf('COM_VIRTUEMART_COMMENT', $min, $max); ?></label></td>
+							<td colspan="2"><label for="comment"><?php echo tsmText::sprintf('com_tsmart_COMMENT', $min, $max); ?></label></td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ? $sessData['comment'] : tsmText::sprintf('COM_VIRTUEMART_RECOMMEND_COMMENT', $this->vendor->vendor_store_name) ?></textarea></td>
+							<td colspan="2"><textarea title="<?php echo $ask_comment ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ? $sessData['comment'] : tsmText::sprintf('com_tsmart_RECOMMEND_COMMENT', $this->vendor->vendor_store_name) ?></textarea></td>
 						</tr>
 					</table>
 
@@ -106,20 +106,20 @@ if (empty ( $this->product )) {
 						?>
             <div>
   						<div class="floatleft width50 ">
-                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_RECOMMEND_SUBMIT')  ?>" />
+                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('com_tsmart_RECOMMEND_SUBMIT')  ?>" value="<?php echo tsmText::_('com_tsmart_RECOMMEND_SUBMIT')  ?>" />
               </div>
               <div class="floatleft width50 text-right">
-                <label for="counter"><?php echo tsmText::_('COM_VIRTUEMART_ASK_COUNT')  ?></label>
+                <label for="counter"><?php echo tsmText::_('com_tsmart_ASK_COUNT')  ?></label>
   							<input type="text" value="0" size="4" class="counter" id="counter" name="counter" maxlength="4" readonly="readonly" />
   						</div>
             </div>
           </div>
 
-					<input type="hidden" name="virtuemart_product_id" value="<?php echo vRequest::getInt('virtuemart_product_id',0); ?>" />
+					<input type="hidden" name="tsmart_product_id" value="<?php echo vRequest::getInt('tsmart_product_id',0); ?>" />
 					<input type="hidden" name="tmpl" value="component" />
 					<input type="hidden" name="view" value="productdetails" />
-					<input type="hidden" name="option" value="com_virtuemart" />
-					<input type="hidden" name="virtuemart_category_id" value="<?php echo vRequest::getInt('virtuemart_category_id'); ?>" />
+					<input type="hidden" name="option" value="com_tsmart" />
+					<input type="hidden" name="tsmart_category_id" value="<?php echo vRequest::getInt('tsmart_category_id'); ?>" />
 					<input type="hidden" name="task" value="mailRecommend" />
 					<?php echo JHTML::_( 'form.token' ); ?>
 				</form>

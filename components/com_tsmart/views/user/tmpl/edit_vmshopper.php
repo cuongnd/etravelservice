@@ -3,13 +3,13 @@
  *
  * Modify user form view, User info
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,15 +23,15 @@ defined('_JEXEC') or die('Restricted access');
 
 <fieldset>
 	<span class="userfields_info">
-		<?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_FORM_LBL') ?>
+		<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_LBL') ?>
 	</span>
 	<table class="adminForm user-details">
 <?php	if(tsmConfig::get('multix','none')!=='none'){ ?>
 
 		<tr>
 			<td class="key">
-				<label for="virtuemart_vendor_id">
-					<?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_FORM_VENDOR') ?>:
+				<label for="tsmart_vendor_id">
+					<?php echo tsmText::_('com_tsmart_PRODUCT_FORM_VENDOR') ?>:
 				</label>
 			</td>
 			<td>
@@ -43,7 +43,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td class="key">
 				<label for="customer_number">
-					<?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_CUSTOMER_NUMBER') ?>:
+					<?php echo tsmText::_('com_tsmart_USER_FORM_CUSTOMER_NUMBER') ?>:
 				</label>
 			</td>
 			<td>
@@ -59,8 +59,8 @@ defined('_JEXEC') or die('Restricted access');
 		 <?php if($this->lists['shoppergroups']) { ?>
 		<tr>
 			<td class="key">
-				<label for="virtuemart_shoppergroup_id">
-					<?php echo tsmText::_('COM_VIRTUEMART_SHOPPER_FORM_GROUP') ?>:
+				<label for="tsmart_shoppergroup_id">
+					<?php echo tsmText::_('com_tsmart_SHOPPER_FORM_GROUP') ?>:
 				</label>
 			</td>
 			<td>

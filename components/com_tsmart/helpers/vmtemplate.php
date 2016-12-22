@@ -3,16 +3,16 @@ defined('_JEXEC') or die('');
 /**
  * Helper to handle the templates
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2014 VirtueMart Team and author. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team and author. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
+ * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
  * http://tsmart.net
  */
@@ -109,7 +109,7 @@ class VmTemplate {
 		//Set specific category template
 		if(!empty($catTpl) && empty($prodTpl)) {
 			if(is_Int( $catTpl )) {
-				$q = 'SELECT `category_template` FROM `#__virtuemart_categories` WHERE `virtuemart_category_id` = "'.(int)$catTpl.'" ';
+				$q = 'SELECT `category_template` FROM `#__tsmart_categories` WHERE `tsmart_category_id` = "'.(int)$catTpl.'" ';
 				$db->setQuery( $q );
 				$temp = $db->loadResult();
 				if(!empty($temp)) $template = $temp;
@@ -121,7 +121,7 @@ class VmTemplate {
 		//Set specific product template
 		if(!empty($prodTpl)) {
 			if(is_Int( $prodTpl )) {
-				$q = 'SELECT `product_template` FROM `#__virtuemart_products` WHERE `virtuemart_product_id` = "'.(int)$prodTpl.'" ';
+				$q = 'SELECT `product_template` FROM `#__tsmart_products` WHERE `tsmart_product_id` = "'.(int)$prodTpl.'" ';
 				$db->setQuery( $q );
 				$temp = $db->loadResult();
 				if(!empty($temp)) $template = $temp;
@@ -147,7 +147,7 @@ class VmTemplate {
 			//Set specific category layout
 			if(!empty($catLayout) && empty($prodLayout)) {
 				if(is_Int( $catLayout )) {
-					$q = 'SELECT `layout` FROM `#__virtuemart_categories` WHERE `virtuemart_category_id` = "'.(int)$catLayout.'" ';
+					$q = 'SELECT `layout` FROM `#__tsmart_categories` WHERE `tsmart_category_id` = "'.(int)$catLayout.'" ';
 					$db->setQuery( $q );
 					$temp = $db->loadResult();
 					if(!empty($temp)) $layout = $temp;
@@ -159,7 +159,7 @@ class VmTemplate {
 			//Set specific product layout
 			if(!empty($prodLayout)) {
 				if(is_Int( $prodLayout )) {
-					$q = 'SELECT `layout` FROM `#__virtuemart_products` WHERE `virtuemart_product_id` = "'.(int)$prodLayout.'" ';
+					$q = 'SELECT `layout` FROM `#__tsmart_products` WHERE `tsmart_product_id` = "'.(int)$prodLayout.'" ';
 					$db->setQuery( $q );
 					$temp = $db->loadResult();
 					if(!empty($temp)) $layout = $temp;

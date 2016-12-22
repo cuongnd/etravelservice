@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
     <layout title="bookjointgroup">
-          <message><![CDATA[COM_VIRTUEMART_PRODUCTDETAILS_VIEW_DEFAULT_DESC]]></message>
+          <message><![CDATA[com_tsmart_PRODUCTDETAILS_VIEW_DEFAULT_DESC]]></message>
     </layout>
     <fields name="request" >
     </fields>

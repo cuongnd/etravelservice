@@ -3,13 +3,13 @@
 *
 * Order history view
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Orders
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 
 <table width="100%" cellspacing="2" cellpadding="4" border="0">
 	<tr align="left" class="sectiontableheader">
-		<th align="left" width="15%"><strong><?php echo tsmText::_('COM_VIRTUEMART_DATE') ?></strong></th>
-		<th align="left" width="15%"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PO_STATUS') ?></strong></th>
-		<th align="left" ><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_COMMENT') ?></strong></th>
+		<th align="left" width="15%"><strong><?php echo tsmText::_('com_tsmart_DATE') ?></strong></th>
+		<th align="left" width="15%"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PO_STATUS') ?></strong></th>
+		<th align="left" ><strong><?php echo tsmText::_('com_tsmart_ORDER_COMMENT') ?></strong></th>
 	</tr>
 <?php
 	foreach($this->orderDetails['history'] as $_hist) {

@@ -27,7 +27,7 @@ INSERT IGNORE INTO `#__tsmart_categories` (`tsmart_category_id`, `tsmart_vendor_
 
 INSERT IGNORE INTO `#__tsmart_categories_XLANG` (`tsmart_category_id`, `category_name`, `category_description`, `metadesc`, `metakey`, `customtitle`, `slug`) VALUES
   (2, 'Product pattern', '<p><span style="background-color: #fcdb73; text-align: center; padding: 5px 40px;">Example for usage of product pattern. For showcase reason the PATTERN is NOT unpublished.</span></p>', '', '', '', 'product-pattern'),
-	(3, 'Pagination', '<p>Use this category to test the ordering of products. Sort order by Name, SKU, Manufacturer (more available in vmconfig &gt; product order settings)<br />Additionally filter by Manufacturer,</p>&#13;&#10;<p style="background-color: #fcdb73; text-align: center; padding: 5px 40px;"><strong>Advise:</strong> There are three pattern HGD#0, CEG#0, FAC#0. The last two digits represent the sort order.</p>', '', '', '', 'pagination'),
+	(3, 'Pagination', '<p>Use this category to test the ordering of products. Sort order by Name, SKU, Manufacturer (more available in tsmConfig &gt; product order settings)<br />Additionally filter by Manufacturer,</p>&#13;&#10;<p style="background-color: #fcdb73; text-align: center; padding: 5px 40px;"><strong>Advise:</strong> There are three pattern HGD#0, CEG#0, FAC#0. The last two digits represent the sort order.</p>', '', '', '', 'pagination'),
 	(4, 'Headpiece', '', '', '', '', 'headpiece'),
 	(7, 'Wear', '', '', '', '', 'wear'),
 	(8, 'Mister', '<p>Sample for Subcategory. <br />Select superordinated category in VM BE &gt; <em>Product Categories</em> &gt; Your Category in section <em>Details &gt; Category Ordering </em></p>', '', '', '', 'mister'),

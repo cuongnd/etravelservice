@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,12 +23,12 @@ defined ('_JEXEC') or die('Restricted access');
 jimport ('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class VirtueMartControllerProductdetails extends JControllerLegacy {
+class TsmartControllerProductdetails extends JControllerLegacy {
 
 	public function __construct () {
 
@@ -67,7 +67,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 
 		$app = JFactory::getApplication ();
 		if(!tsmConfig::get('ask_question',false)){
-			$app->redirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), 'Function disabled');
+			$app->redirect (JRoute::_ ('index.php?option=com_tsmart&tmpl=component&view=productdetails&task=askquestion&tsmart_product_id=' . vRequest::getInt ('tsmart_product_id', 0)), 'Function disabled');
 		}
 
 		$view = $this->getView ('askquestion', 'html');
@@ -88,23 +88,23 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$validMail = filter_var (vRequest::getVar ('email'), FILTER_VALIDATE_EMAIL);
 
 		if ($commentSize < $min or $commentSize > $max or !$validMail) {
-			$errmsg = tsmText::_ ('COM_VIRTUEMART_COMMENT_NOT_VALID_JS');
+			$errmsg = tsmText::_ ('com_tsmart_COMMENT_NOT_VALID_JS');
 			if ($commentSize < $min) {
-				$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_CS_MIN');
+				$errmsg = tsmText::_ ('com_tsmart_ASKQU_CS_MIN');
 
 			} else {
 				if ($commentSize > $max) {
-					$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_CS_MAX');
+					$errmsg = tsmText::_ ('com_tsmart_ASKQU_CS_MAX');
 
 				} else {
 					if (!$validMail) {
-						$errmsg = tsmText::_ ('COM_VIRTUEMART_ASKQU_INV_MAIL');
+						$errmsg = tsmText::_ ('com_tsmart_ASKQU_INV_MAIL');
 
 					}
 				}
 			}
 
-			$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), $errmsg);
+			$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&tmpl=component&view=productdetails&task=askquestion&tsmart_product_id=' . vRequest::getInt ('tsmart_product_id', 0)), $errmsg);
 			return;
 		}
 
@@ -118,7 +118,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 				$askquestionform = array('name' => vRequest::getVar ('name'), 'email' => vRequest::getVar ('email'), 'comment' => vRequest::getString ('comment'));
 				$session->set('askquestion', $askquestionform, 'vm');
 				$errmsg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
-				$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), $errmsg);
+				$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&tmpl=component&view=productdetails&task=askquestion&tsmart_product_id=' . vRequest::getInt ('tsmart_product_id', 0)), $errmsg);
 				return;
 			} else {
 				$session->set('askquestion', 0, 'vm');
@@ -137,13 +137,13 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		}
 		$vars['user'] = array('name' => $fromName, 'email' => $fromMail);
 
-		$virtuemart_product_id = vRequest::getInt ('virtuemart_product_id', 0);
+		$tsmart_product_id = vRequest::getInt ('tsmart_product_id', 0);
 		$productModel = tmsModel::getModel ('product');
 
-		$vars['product'] = $productModel->getProduct ($virtuemart_product_id);
+		$vars['product'] = $productModel->getProduct ($tsmart_product_id);
 
 		$vendorModel = tmsModel::getModel ('vendor');
-		$VendorEmail = $vendorModel->getVendorEmail ($vars['product']->virtuemart_vendor_id);
+		$VendorEmail = $vendorModel->getVendorEmail ($vars['product']->tsmart_vendor_id);
 
 		JPluginHelper::importPlugin ('system');
 		JPluginHelper::importPlugin ('vmextended');
@@ -154,9 +154,9 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$vars['vendor'] = array('vendor_store_name' => $fromName);
 
 		if (shopFunctionsF::renderMail ('askquestion', $VendorEmail, $vars, 'productdetails',true)) {
-			$string = 'COM_VIRTUEMART_MAIL_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_SEND_SUCCESSFULLY';
 		} else {
-			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
 		$app->enqueueMessage (tsmText::_ ($string));
 
@@ -177,7 +177,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 
 		$app = JFactory::getApplication ();
 		if(!tsmConfig::get('show_emailfriend',false)){
-			$app->redirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=askquestion&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), 'Function disabled');
+			$app->redirect (JRoute::_ ('index.php?option=com_tsmart&tmpl=component&view=productdetails&task=askquestion&tsmart_product_id=' . vRequest::getInt ('tsmart_product_id', 0)), 'Function disabled');
 		}
 
 		if(JFactory::getUser()->guest == 1 and tsmConfig::get ('ask_captcha')){
@@ -190,7 +190,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 				$mailrecommend = array('email' => vRequest::getVar ('email'), 'comment' => vRequest::getString ('comment'));
 				$session->set('mailrecommend', $mailrecommend, 'vm');
 				$errmsg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
-				$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&tmpl=component&view=productdetails&task=recommend&virtuemart_product_id=' . vRequest::getInt ('virtuemart_product_id', 0)), $errmsg);
+				$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&tmpl=component&view=productdetails&task=recommend&tsmart_product_id=' . vRequest::getInt ('tsmart_product_id', 0)), $errmsg);
 				return;
 			} else {
 				$session->set('mailrecommend', 0, 'vm');
@@ -204,9 +204,9 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$toMail = str_replace (array('\'', '"', ',', '%', '*', '/', '\\', '?', '^', '`', '{', '}', '|', '~'), array(''), $toMail);
 
 		if (shopFunctionsF::renderMail ('recommend', $toMail, $vars, 'productdetails', TRUE)) {
-			$string = 'COM_VIRTUEMART_MAIL_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_SEND_SUCCESSFULLY';
 		} else {
-			$string = 'COM_VIRTUEMART_MAIL_NOT_SEND_SUCCESSFULLY';
+			$string = 'com_tsmart_MAIL_NOT_SEND_SUCCESSFULLY';
 		}
 		$app->enqueueMessage (tsmText::_ ($string));
 
@@ -242,14 +242,14 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 		$msg="";
 
 		$model = tmsModel::getModel ('ratings');
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id',0);
 
-		$allowReview = $model->allowReview($virtuemart_product_id);
-		$allowRating = $model->allowRating($virtuemart_product_id);
+		$allowReview = $model->allowReview($tsmart_product_id);
+		$allowRating = $model->allowRating($tsmart_product_id);
 		if($allowReview || $allowRating){
 			$return = $model->saveRating ();
 			if ($return !== FALSE) {
-				$msg = tsmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', tsmText::_ ('COM_VIRTUEMART_REVIEW'));
+				$msg = tsmText::sprintf ('com_tsmart_STRING_SAVED', tsmText::_ ('com_tsmart_REVIEW'));
 
 				if (!class_exists ('ShopFunctionsF')) {
 					require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php');
@@ -259,7 +259,7 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 			}
 		}
 
-		$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id, FALSE), $msg);
+		$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id, FALSE), $msg);
 
 	}
 
@@ -271,11 +271,11 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 	 */
 	public function recalculate () {
 
-		$virtuemart_product_idArray = vRequest::getInt ('virtuemart_product_id', array()); //is sanitized then
-		if(is_array($virtuemart_product_idArray) and !empty($virtuemart_product_idArray[0])){
-			$virtuemart_product_id = $virtuemart_product_idArray[0];
+		$tsmart_product_idArray = vRequest::getInt ('tsmart_product_id', array()); //is sanitized then
+		if(is_array($tsmart_product_idArray) and !empty($tsmart_product_idArray[0])){
+			$tsmart_product_id = $tsmart_product_idArray[0];
 		} else {
-			$virtuemart_product_id = $virtuemart_product_idArray;
+			$tsmart_product_id = $tsmart_product_idArray;
 		}
 
 		$quantity = 0;
@@ -294,8 +294,8 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 
 		$product_model = tmsModel::getModel ('product');
 
-		if(!empty($virtuemart_product_id)){
-			$prices = $product_model->getPrice ($virtuemart_product_id, $quantity);
+		if(!empty($tsmart_product_id)){
+			$prices = $product_model->getPrice ($tsmart_product_id, $quantity);
 		} else {
 			jexit ();
 		}
@@ -359,10 +359,10 @@ class VirtueMartControllerProductdetails extends JControllerLegacy {
 
 		$model = tmsModel::getModel ('waitinglist');
 		if (!$model->adduser ($data)) {
-			$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&layout=notify&virtuemart_product_id=' . $data['virtuemart_product_id'], FALSE), $msg);
+			$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&view=productdetails&layout=notify&tsmart_product_id=' . $data['tsmart_product_id'], FALSE), $msg);
 		} else {
-			$msg = tsmText::sprintf ('COM_VIRTUEMART_STRING_SAVED', tsmText::_ ('COM_VIRTUEMART_CART_NOTIFY'));
-			$this->setRedirect (JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $data['virtuemart_product_id'], FALSE), $msg);
+			$msg = tsmText::sprintf ('com_tsmart_STRING_SAVED', tsmText::_ ('com_tsmart_CART_NOTIFY'));
+			$this->setRedirect (JRoute::_ ('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $data['tsmart_product_id'], FALSE), $msg);
 		}
 
 	}

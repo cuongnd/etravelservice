@@ -801,7 +801,7 @@ if (!defined('_VM_SCRIPT_INCLUDED')) {
 
 
 
-				// 				VmConfig::loadConfig(true);
+				// 				tsmConfig::loadConfig(true);
 				if(!class_exists('tsmartModelConfig')) require(VMPATH_ADMIN .'/models/config.php');
 				$res  = tsmartModelConfig::checkConfigTableExists();
 

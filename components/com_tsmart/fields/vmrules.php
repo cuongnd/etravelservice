@@ -289,7 +289,7 @@ class JFormFieldVmRules extends JFormFieldRules {
 			vmError($error);
 		}
 
-		//VmConfig::$echoDebug = true;
+		//tsmConfig::$echoDebug = true;
 		//vmdebug('my query ',$query,$assetId);
 
 		//die;

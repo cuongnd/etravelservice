@@ -3,13 +3,13 @@
 *
 * User details, Orderlist
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Oscar van Eijk
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,26 +24,26 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<thead>
 	<tr>
 		<th>
-			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_ORDER_NUMBER'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_ORDER_NUMBER'); ?>
 		</th>
 		<th>
-			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_CDATE'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_CDATE'); ?>
 		</th>
 		<th>
-			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_MDATE'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_MDATE'); ?>
 		</th>
 		<th>
-			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_STATUS'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_STATUS'); ?>
 		</th>
 		<th>
-			<?php echo tsmText::_('COM_VIRTUEMART_ORDER_LIST_TOTAL'); ?>
+			<?php echo tsmText::_('com_tsmart_ORDER_LIST_TOTAL'); ?>
 		</th>
 	</tr>
 	</thead>
 	<?php
 		$k = 0;
 		foreach ($this->orderlist as $i => $row) {
-			$editlink = JRoute::_('index.php?option=com_virtuemart&view=orders&layout=details&order_number=' . $row->order_number);
+			$editlink = JRoute::_('index.php?option=com_tsmart&view=orders&layout=details&order_number=' . $row->order_number);
 			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td align="left">

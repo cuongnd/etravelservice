@@ -2,13 +2,13 @@
 /**
  * Front-end Coupon handling functions
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses
@@ -31,7 +31,7 @@ abstract class CouponHelper
 	 */
 	static public function ValidateCouponCode($_code, $_billTotal){
 
-		if(empty($_code) or $_code == tsmText::_('COM_VIRTUEMART_COUPON_CODE_ENTER') or $_code == tsmText::_('COM_VIRTUEMART_COUPON_CODE_CHANGE')) {
+		if(empty($_code) or $_code == tsmText::_('com_tsmart_COUPON_CODE_ENTER') or $_code == tsmText::_('com_tsmart_COUPON_CODE_CHANGE')) {
 			return '';
 		}
 		$couponData = 0;
@@ -55,28 +55,28 @@ abstract class CouponHelper
     				, `coupon_expiry_date`
     				, `coupon_value_valid`
     				, `coupon_used`
-    				FROM `#__virtuemart_coupons`
+    				FROM `#__tsmart_coupons`
     				WHERE `coupon_code` = "' . $_db->escape($_code) . '"';
 			$_db->setQuery($_q);
 			$couponData = $_db->loadObject();
 		}
 
 		if (!$couponData) {
-			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
+			return tsmText::_('com_tsmart_COUPON_CODE_INVALID');
 		}
 		if ($couponData->coupon_used) {
 			$session = JFactory::getSession();
 			$session_id = $session->getId();
 			if ($couponData->coupon_used != $session_id) {
-				return tsmText::_('COM_VIRTUEMART_COUPON_CODE_INVALID');
+				return tsmText::_('com_tsmart_COUPON_CODE_INVALID');
 			}
 		}
 		if (!$couponData->started) {
-			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_NOTYET') . $couponData->coupon_start_date;
+			return tsmText::_('com_tsmart_COUPON_CODE_NOTYET') . $couponData->coupon_start_date;
 		}
 		if ($couponData->ended) {
 			self::RemoveCoupon($_code, true);
-			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_EXPIRED');
+			return tsmText::_('com_tsmart_COUPON_CODE_EXPIRED');
 		}
 
 		if ($_billTotal < $couponData->coupon_value_valid) {
@@ -85,7 +85,7 @@ abstract class CouponHelper
 			$currency = CurrencyDisplay::getInstance();
 
 			$coupon_value_valid = $currency->priceDisplay($couponData->coupon_value_valid);
-			return tsmText::_('COM_VIRTUEMART_COUPON_CODE_TOOLOW') . " ".$coupon_value_valid;
+			return tsmText::_('com_tsmart_COUPON_CODE_TOOLOW') . " ".$coupon_value_valid;
 		}
 
 		return '';
@@ -103,7 +103,7 @@ abstract class CouponHelper
 		$_q = 'SELECT `percent_or_total` '
 			. ', `coupon_type` '
 			. ', `coupon_value` '
-			. 'FROM `#__virtuemart_coupons` '
+			. 'FROM `#__tsmart_coupons` '
 			. 'WHERE `coupon_code` = "' . $_db->escape($_code) . '"';
 		$_db->setQuery($_q);
 		return $_db->loadObject();
@@ -138,7 +138,7 @@ abstract class CouponHelper
 			}
 		}
 		$_db = JFactory::getDBO();
-		$_q = 'DELETE FROM `#__virtuemart_coupons` '
+		$_q = 'DELETE FROM `#__tsmart_coupons` '
 			. 'WHERE `coupon_code` = "' . $_db->escape($_code) . '"';
 		$_db->setQuery($_q);
 		return ($_db->query() !== false);
@@ -167,7 +167,7 @@ abstract class CouponHelper
 		if (!$in_use) {
 			$db = JFactory::getDBO();
 			$q = 'SELECT `coupon_used` '
-				. 'FROM `#__virtuemart_coupons` '
+				. 'FROM `#__tsmart_coupons` '
 				. 'WHERE `coupon_code` = "' . $db->escape($code) . '"';
 			$db->setQuery($q);
 			$coupon_session_id=$db->loadResult();
@@ -178,7 +178,7 @@ abstract class CouponHelper
 		}
 
 
-		$q = 'UPDATE `#__virtuemart_coupons` SET `coupon_used` = "' . $coupon_used . '" WHERE `coupon_type`= \'gift\' AND `coupon_code` = "' . $db->escape($code) . '"';
+		$q = 'UPDATE `#__tsmart_coupons` SET `coupon_used` = "' . $coupon_used . '" WHERE `coupon_type`= \'gift\' AND `coupon_code` = "' . $db->escape($code) . '"';
 		$db->setQuery($q);
 
 		return ($db->query() !== false);

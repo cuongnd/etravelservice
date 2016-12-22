@@ -4,13 +4,13 @@
  *
  * Product details view
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage
  * @author RolandD
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,10 +26,10 @@ if (!class_exists('VmView'))
 /**
  * Product details
  *
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class VirtueMartViewProductdetails extends VmView {
+class TsmartViewProductdetails extends VmView {
 
     /**
 		 * Collect all data to show on the template
@@ -37,16 +37,16 @@ class VirtueMartViewProductdetails extends VmView {
 		 * @author RolandD, Max Milbers
 		 */
 		function display($tpl = null) {
-            $virtuemart_product_idArray = vRequest::getInt('virtuemart_product_id', 0);
-            if (is_array($virtuemart_product_idArray) and count($virtuemart_product_idArray) > 0) {
-                $virtuemart_product_id = (int)$virtuemart_product_idArray[0];
+            $tsmart_product_idArray = vRequest::getInt('tsmart_product_id', 0);
+            if (is_array($tsmart_product_idArray) and count($tsmart_product_idArray) > 0) {
+                $tsmart_product_id = (int)$tsmart_product_idArray[0];
             } else {
-                $virtuemart_product_id = (int)$virtuemart_product_idArray;
+                $tsmart_product_id = (int)$tsmart_product_idArray;
             }
             $product_model = tmsModel::getModel('product');
 
-            $this->product = $product_model->getItem($virtuemart_product_id);
-            require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/tsmgroupsize.php';
+            $this->product = $product_model->getItem($tsmart_product_id);
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
             if($this->product->price_type!=tsmGroupSize::FLAT_PRICE)
             {
@@ -70,7 +70,7 @@ class VirtueMartViewProductdetails extends VmView {
 		$this->doVendor=$doVendor;
 		$this->fromPdf=false;
 		$this->uselayout = $tpl;
-		$this->subject = !empty($this->subject) ? $this->subject : tsmText::_('COM_VIRTUEMART_CART_NOTIFY_MAIL_SUBJECT');
+		$this->subject = !empty($this->subject) ? $this->subject : tsmText::_('com_tsmart_CART_NOTIFY_MAIL_SUBJECT');
 		$this->layoutName = $tpl;
 		$this->setLayout($tpl);
 		$this->isMail = true;

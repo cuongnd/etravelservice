@@ -166,7 +166,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FRONT_JCHOSEN','jchosen', tsmConfig::get('jchosen',1));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_FRONT_JDYNUPDATE','jdynupdate', tsmConfig::get('jdynupdate',1));
 		echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_ENABLE_GOOGLE_JQUERY','google_jquery', tsmConfig::get('google_jquery',1));
-		//echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_JS_CSS_MINIFIED','minified', VmConfig::get('minified',1));
+		//echo VmHTML::row('checkbox','com_tsmart_ADMIN_CFG_JS_CSS_MINIFIED','minified', tsmConfig::get('minified',1));
 		?>
 	</table>
 </fieldset>

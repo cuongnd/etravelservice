@@ -3,14 +3,14 @@ defined('_JEXEC') or die('');
 
 /**
  * Renders the email for the shoppers from the waiting list, or who bought this product
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Productdetails
  * @author Max Milbers
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -51,7 +51,7 @@ defined('_JEXEC') or die('');
 	</tr>
 	<tr>
 		<td colspan="2">
-			<strong><?php echo tsmText::sprintf ('COM_VIRTUEMART_MAIL_SHOPPER_NAME', $this->vendor->vendor_store_name); ?></strong><br/>
+			<strong><?php echo tsmText::sprintf ('com_tsmart_MAIL_SHOPPER_NAME', $this->vendor->vendor_store_name); ?></strong><br/>
 		</td>
 	</tr>
 </table>
@@ -63,7 +63,7 @@ defined('_JEXEC') or die('');
 						<td >
 							<?php
 							if(!empty($this->mailbody)) echo nl2br($this->mailbody);
-							else echo tsmText::sprintf('COM_VIRTUEMART_CART_NOTIFY_MAIL_HTML', $this->productName,$this->link);
+							else echo tsmText::sprintf('com_tsmart_CART_NOTIFY_MAIL_HTML', $this->productName,$this->link);
 							?>
 						</td>
 					</tr>
@@ -72,14 +72,14 @@ defined('_JEXEC') or die('');
 		</tr>
 	</table>
 	<?php
-	$link = JRoute::_ ( 'index.php?option=com_virtuemart',true,-1);
+	$link = JRoute::_ ( 'index.php?option=com_tsmart',true,-1);
 
 	echo '<br/><br/>';
 
 	/* GENERAL FOOTER FOR ALL MAILS */
-		$link = JURI::root().'index.php?option=com_virtuemart';
+		$link = JURI::root().'index.php?option=com_tsmart';
 
-		echo tsmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
+		echo tsmText::_('com_tsmart_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
 	echo '<br/>';
 	echo $this->vendor->vendor_name .'<br />'.$this->vendor->vendor_phone .' '.$this->vendor->vendor_store_name .'<br /> '.$this->vendor->vendor_store_desc.'<br />'.$this->vendor->vendor_legal_info;
 	?>

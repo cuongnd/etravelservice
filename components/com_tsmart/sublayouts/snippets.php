@@ -6,7 +6,7 @@ $currency = $viewData['currency'];
 $view = vRequest::getCmd('view');
 if($viewData['showRating']){
 	$ratingModel = tmsModel::getModel('Ratings');
-	$productrating = $ratingModel->getRatingByProduct($product->virtuemart_product_id);
+	$productrating = $ratingModel->getRatingByProduct($product->tsmart_product_id);
 	$productratingcount = isset($productrating->ratingcount) ? $productrating->ratingcount:'';
 }
 
@@ -17,7 +17,7 @@ if($viewData['showRating']){
   "@context": "http://schema.org/",
   "@type": "Product",
   "name": "<?php echo $product->product_name; ?>",
-  <?php if ( $product->images[0]->virtuemart_media_id > 0) { ?>
+  <?php if ( $product->images[0]->tsmart_media_id > 0) { ?>
   "image": "<?php echo JURI::root().$product->images[0]->file_url; ?>",
   <?php } ?>
   <?php if (!empty($product->product_s_desc)) { ?>

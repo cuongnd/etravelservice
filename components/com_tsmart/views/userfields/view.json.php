@@ -56,7 +56,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 					if (!class_exists( 'tsmConfig' )) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 					if (!class_exists ('tsmTable')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtable.php');
 
-					$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+					$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 					$this->userField->params = new stdClass();
 					$varsToPush = vmPlugin::getVarsToPushFromForm($this->userField->form);
 					/*

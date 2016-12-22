@@ -3,14 +3,14 @@
  *
  * Contains shop functions for the front-end
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Helpers
  *
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -33,8 +33,8 @@ class shopFunctionsF {
 		}
 		if($show == 1) {
 
-			if(!class_exists( 'VirtuemartViewUser' )) require(VMPATH_SITE.DS.'views'.DS.'user'.DS.'view.html.php');
-			$view = new VirtuemartViewUser();
+			if(!class_exists( 'TsmartViewUser' )) require(VMPATH_SITE.DS.'views'.DS.'user'.DS.'view.html.php');
+			$view = new TsmartViewUser();
 			$view->setLayout( 'login' );
 			$view->assignRef( 'show', $show );
 
@@ -122,7 +122,7 @@ class shopFunctionsF {
 		$db = JFactory::getDBO ();
 		$_code = $db->escape ($_code);
 		if(!isset($orderNames[$_code])){
-			$_q = 'SELECT `order_status_name` FROM `#__virtuemart_orderstates` WHERE `order_status_code` = "' . $_code . '"';
+			$_q = 'SELECT `order_status_name` FROM `#__tsmart_orderstates` WHERE `order_status_code` = "' . $_code . '"';
 			$db->setQuery ($_q);
 			$orderNames[$_code] = $db->loadObject ();
 			if (empty($orderNames[$_code]->order_status_name)) {
@@ -154,23 +154,23 @@ class shopFunctionsF {
 		$countries = $countryModel->getCountries (TRUE, TRUE, FALSE);
 		$attrs = array();
 		$name = 'country_name';
-		$id = 'virtuemart_country_id';
-		$idA = $_prefix . 'virtuemart_country_id';
-		$attrs['class'] = 'virtuemart_country_id';
+		$id = 'tsmart_country_id';
+		$idA = $_prefix . 'tsmart_country_id';
+		$attrs['class'] = 'tsmart_country_id';
 		$attrs['class'] = 'vm-chzn-select';
 		// Load helpers and  languages files
 		if (!class_exists('tsmConfig')) require(JPATH_COMPONENT_ADMINISTRATOR .'/helpers/config.php');
 		tsmConfig::loadConfig();
-		tsmConfig::loadJLang('com_virtuemart_countries');
+		tsmConfig::loadJLang('com_tsmart_countries');
 		vmJsApi::jQuery();
 		vmJsApi::chosenDropDowns();
 
 		$sorted_countries = array();
 		$lang = JFactory::getLanguage();
-		$prefix="COM_VIRTUEMART_COUNTRY_";
+		$prefix="com_tsmart_COUNTRY_";
 		foreach ($countries as  $country) {
 			$country_string = $lang->hasKey($prefix.$country->country_3_code) ?   tsmText::_($prefix.$country->country_3_code)  : $country->country_name;
-			$sorted_countries[$country->virtuemart_country_id] = $country_string;
+			$sorted_countries[$country->tsmart_country_id] = $country_string;
 		}
 
 		asort($sorted_countries);
@@ -192,7 +192,7 @@ class shopFunctionsF {
 			$attrs['multiple'] = 'multiple';
 			$idA .= '[]';
 		} else {
-			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION'), $id, $name);
+			$emptyOption = JHtml::_ ('select.option', '', tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION'), $id, $name);
 			array_unshift ($countries_list, $emptyOption);
 		}
 
@@ -227,10 +227,10 @@ class shopFunctionsF {
 
 		$attrs['class'] = 'vm-chzn-select';
 		if ($multiple) {
-			$attrs['name'] = $_prefix . 'virtuemart_state_id[]';
+			$attrs['name'] = $_prefix . 'tsmart_state_id[]';
 			$attrs['multiple'] = 'multiple';
 		} else {
-			$attrs['name'] = $_prefix . 'virtuemart_state_id';
+			$attrs['name'] = $_prefix . 'tsmart_state_id';
 		}
 
 		if (is_array ($attribs)) {
@@ -238,8 +238,8 @@ class shopFunctionsF {
 		}
 
 		$attrString= JArrayHelper::toString($attrs);
-		$listHTML = '<select  id="'.$_prefix.'virtuemart_state_id" ' . $attrString . '>
-						<option value="">' . tsmText::_ ('COM_VIRTUEMART_LIST_EMPTY_OPTION') . '</option>
+		$listHTML = '<select  id="'.$_prefix.'tsmart_state_id" ' . $attrString . '>
+						<option value="">' . tsmText::_ ('com_tsmart_LIST_EMPTY_OPTION') . '</option>
 						</select>';
 
 		return $listHTML;
@@ -255,38 +255,38 @@ class shopFunctionsF {
 		// Shipment address(es)
 		$_addressList = $userModel->getUserAddressList ($userModel->getId (), 'ST');
 		if (count ($_addressList) == 1 && empty($_addressList[0]->address_type_name)) {
-			return tsmText::_ ('COM_VIRTUEMART_USER_NOSHIPPINGADDR');
+			return tsmText::_ ('com_tsmart_USER_NOSHIPPINGADDR');
 		} else {
 			$_shipTo = array();
 			$useXHTTML = empty($view->useXHTML) ? false : $view->useXHTML;
 			$useSSL = empty($view->useSSL) ? FALSE : $view->useSSL;
 
 			for ($_i = 0; $_i < count ($_addressList); $_i++) {
-				if (empty($_addressList[$_i]->virtuemart_user_id)) {
-					$_addressList[$_i]->virtuemart_user_id = JFactory::getUser ()->id;
+				if (empty($_addressList[$_i]->tsmart_user_id)) {
+					$_addressList[$_i]->tsmart_user_id = JFactory::getUser ()->id;
 				}
-				if (empty($_addressList[$_i]->virtuemart_userinfo_id)) {
-					$_addressList[$_i]->virtuemart_userinfo_id = 0;
+				if (empty($_addressList[$_i]->tsmart_userinfo_id)) {
+					$_addressList[$_i]->tsmart_userinfo_id = 0;
 				}
 				if (empty($_addressList[$_i]->address_type_name)) {
 					$_addressList[$_i]->address_type_name = 0;
 				}
 
 				$_shipTo[] = '<li>' . '<a href="index.php'
-					. '?option=com_virtuemart'
+					. '?option=com_tsmart'
 					. '&view=user'
 					. '&task=' . $task
 					. '&addrtype=ST'
-					. '&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id
-					. '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id
+					. '&tsmart_user_id[]=' . $_addressList[$_i]->tsmart_user_id
+					. '&tsmart_userinfo_id=' . $_addressList[$_i]->tsmart_userinfo_id
 					. '">' . $_addressList[$_i]->address_type_name . '</a> ' ;
 
-				/*$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_virtuemart&view=user&task=removeAddressST&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id . '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id, $useXHTTML, $useSSL ). '" class="icon_delete">'.vmText::_('COM_VIRTUEMART_USER_DELETE_ST').'</a></li>';*/
-				$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_virtuemart&view=user&task=removeAddressST&virtuemart_user_id[]=' . $_addressList[$_i]->virtuemart_user_id . '&virtuemart_userinfo_id=' . $_addressList[$_i]->virtuemart_userinfo_id, $useXHTTML, $useSSL ). '" >'.'<i class="icon-delete"></i>'.tsmText::_('COM_VIRTUEMART_USER_DELETE_ST').'</a></li>';
+				/*$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_tsmart&view=user&task=removeAddressST&tsmart_user_id[]=' . $_addressList[$_i]->tsmart_user_id . '&tsmart_userinfo_id=' . $_addressList[$_i]->tsmart_userinfo_id, $useXHTTML, $useSSL ). '" class="icon_delete">'.vmText::_('com_tsmart_USER_DELETE_ST').'</a></li>';*/
+				$_shipTo[] = '&nbsp;&nbsp;<a href="'.JRoute::_ ('index.php?option=com_tsmart&view=user&task=removeAddressST&tsmart_user_id[]=' . $_addressList[$_i]->tsmart_user_id . '&tsmart_userinfo_id=' . $_addressList[$_i]->tsmart_userinfo_id, $useXHTTML, $useSSL ). '" >'.'<i class="icon-delete"></i>'.tsmText::_('com_tsmart_USER_DELETE_ST').'</a></li>';
 			}
 
-			$addLink = '<a href="' . JRoute::_ ('index.php?option=com_virtuemart&view=user&task=' . $task . '&new=1&addrtype=ST&virtuemart_user_id[]=' . $userModel->getId (), $useXHTTML, $useSSL) . '"><span class="vmicon vmicon-16-editadd"></span> ';
-			$addLink .= tsmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL') . ' </a>';
+			$addLink = '<a href="' . JRoute::_ ('index.php?option=com_tsmart&view=user&task=' . $task . '&new=1&addrtype=ST&tsmart_user_id[]=' . $userModel->getId (), $useXHTTML, $useSSL) . '"><span class="vmicon vmicon-16-editadd"></span> ';
+			$addLink .= tsmText::_ ('com_tsmart_USER_FORM_ADD_SHIPTO_LBL') . ' </a>';
 
 			return $addLink . '<ul>' . join ('', $_shipTo) . '</ul>';
 		}
@@ -501,18 +501,18 @@ class shopFunctionsF {
 	//TODO this is quirk, why it is using here $noVendorMail, but everywhere else it is using $doVendor => this make logic trouble
 	static public function renderMail ($viewName, $recipient, $vars = array(), $controllerName = NULL, $noVendorMail = FALSE,$useDefault=true) {
 
-		if(!class_exists( 'VirtueMartControllerVirtuemart' )) require(VMPATH_SITE.DS.'controllers'.DS.'tsmart.php');
+		if(!class_exists( 'TsmartControllertsmart' )) require(VMPATH_SITE.DS.'controllers'.DS.'tsmart.php');
 
-		$controller = new VirtueMartControllerVirtuemart();
-		// refering to http://forum.virtuemart.net/index.php?topic=96318.msg317277#msg317277
+		$controller = new TsmartControllertsmart();
+		// refering to http://forum.tsmart.net/index.php?topic=96318.msg317277#msg317277
 		$controller->addViewPath( VMPATH_SITE.DS.'views' );
 
 		$view = $controller->getView( $viewName, 'html' );
 		if(!$controllerName) $controllerName = $viewName;
-		$controllerClassName = 'VirtueMartController'.ucfirst( $controllerName );
+		$controllerClassName = 'TsmartController'.ucfirst( $controllerName );
 		if(!class_exists( $controllerClassName )) require(VMPATH_SITE.DS.'controllers'.DS.$controllerName.'.php');
 
-		//refering to http://forum.virtuemart.net/index.php?topic=96318.msg317277#msg317277
+		//refering to http://forum.tsmart.net/index.php?topic=96318.msg317277#msg317277
 		$view->addTemplatePath( VMPATH_SITE.'/views/'.$viewName.'/tmpl' );
 
 		if(!class_exists('VmTemplate')) require(VMPATH_SITE.DS.'helpers'.DS.'vmtemplate.php');
@@ -520,9 +520,9 @@ class shopFunctionsF {
 		VmTemplate::setTemplate($template);
 		if($template){
 			if(is_array($template) and isset($template['template'])){
-				$view->addTemplatePath( VMPATH_ROOT.DS.'templates'.DS.$template['template'].DS.'html'.DS.'com_virtuemart'.DS.$viewName );
+				$view->addTemplatePath( VMPATH_ROOT.DS.'templates'.DS.$template['template'].DS.'html'.DS.'com_tsmart'.DS.$viewName );
 			} else {
-				$view->addTemplatePath( VMPATH_ROOT.DS.'templates'.DS.$template.DS.'html'.DS.'com_virtuemart'.DS.$viewName );
+				$view->addTemplatePath( VMPATH_ROOT.DS.'templates'.DS.$template.DS.'html'.DS.'com_tsmart'.DS.$viewName );
 			}
 		}
 
@@ -534,7 +534,7 @@ class shopFunctionsF {
 		if(isset($vars['orderDetails'])){
 
 			//If the vRequest is there, the update is done by the order list view BE and so the checkbox does override the defaults.
-			//$name = 'orders['.$order['details']['BT']->virtuemart_order_id.'][customer_notified]';
+			//$name = 'orders['.$order['details']['BT']->tsmart_order_id.'][customer_notified]';
 			//$customer_notified = vRequest::getVar($name,-1);
 			if(!$useDefault and isset($vars['newOrderData']['customer_notified']) and $vars['newOrderData']['customer_notified']==1 ){
 				$user = self::sendVmMail( $view, $recipient, $noVendorMail );
@@ -611,15 +611,15 @@ class shopFunctionsF {
 
 		tsmConfig::ensureMemoryLimit(96);
 
-		tsmConfig::loadJLang('com_virtuemart',true);
+		tsmConfig::loadJLang('com_tsmart',true);
 
 		if($noVendorMail and !empty($view->orderDetails) and !empty($view->orderDetails['details']['BT']->order_language)) {
-			tsmConfig::loadJLang('com_virtuemart',true,$view->orderDetails['details']['BT']->order_language);
-			tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE,$view->orderDetails['details']['BT']->order_language);
-			tsmConfig::loadJLang('com_virtuemart_orders',TRUE,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart',true,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart_shoppers',TRUE,$view->orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart_orders',TRUE,$view->orderDetails['details']['BT']->order_language);
 		} else {
-			tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
-			tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
+			tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
+			tsmConfig::loadJLang('com_tsmart_orders',TRUE);
 		}
 
 		ob_start();
@@ -628,7 +628,7 @@ class shopFunctionsF {
 		$body = ob_get_contents();
 		ob_end_clean();
 
-		$subject = (isset($view->subject)) ? $view->subject : tsmText::_( 'COM_VIRTUEMART_DEFAULT_MESSAGE_SUBJECT' );
+		$subject = (isset($view->subject)) ? $view->subject : tsmText::_( 'com_tsmart_DEFAULT_MESSAGE_SUBJECT' );
 		$mailer = JFactory::getMailer();
 		$mailer->addRecipient( $recipient );
 		$mailer->setSubject(  html_entity_decode( $subject , ENT_QUOTES, 'UTF-8') );
@@ -689,16 +689,16 @@ class shopFunctionsF {
 
 		$vars = array();
 		$productModel = tmsModel::getModel ('product');
-		$product = $productModel->getProduct ($data['virtuemart_product_id']);
-		$vars['subject'] = tsmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_SUBJECT', $product->product_name);
-		$vars['mailbody'] = tsmText::sprintf('COM_VIRTUEMART_RATING_EMAIL_BODY', $product->product_name);
+		$product = $productModel->getProduct ($data['tsmart_product_id']);
+		$vars['subject'] = tsmText::sprintf('com_tsmart_RATING_EMAIL_SUBJECT', $product->product_name);
+		$vars['mailbody'] = tsmText::sprintf('com_tsmart_RATING_EMAIL_BODY', $product->product_name);
 
 		$vendorModel = tmsModel::getModel ('vendor');
-		$vendor = $vendorModel->getVendor ($product->virtuemart_vendor_id);
+		$vendor = $vendorModel->getVendor ($product->tsmart_vendor_id);
 		$vendorModel->addImages ($vendor);
 		$vars['vendor'] = $vendor;
-		$vars['vendorEmail'] = $vendorModel->getVendorEmail ($product->virtuemart_vendor_id);
-		$vars['vendorAddress'] = shopFunctionsF::renderVendorAddress ($product->virtuemart_vendor_id);
+		$vars['vendorEmail'] = $vendorModel->getVendorEmail ($product->tsmart_vendor_id);
+		$vars['vendorAddress'] = shopFunctionsF::renderVendorAddress ($product->tsmart_vendor_id);
 
 	    shopFunctionsF::renderMail ('productdetails', $vars['vendorEmail'], $vars, 'productdetails', TRUE);
 
@@ -761,7 +761,7 @@ class shopFunctionsF {
 	 * Admin UI Tabs
 	 * Gives A Tab Based Navigation Back And Loads The Templates With A Nice Design
 	 * @param $load_template = a key => value array. key = template name, value = Language File contraction
-	 * @example 'shop' => 'COM_VIRTUEMART_ADMIN_CFG_SHOPTAB'
+	 * @example 'shop' => 'com_tsmart_ADMIN_CFG_SHOPTAB'
 	 */
 	static function buildTabs ($view, $load_template = array()) {
 
@@ -800,7 +800,7 @@ class shopFunctionsF {
 
 	
 	/**
-	 * Get Virtuemart itemID from joomla menu
+	 * Get tsmart itemID from joomla menu
 	 * @author Maik K�nnemann
 	 */
 	static function getMenuItemId( $lang = '*' ) {
@@ -809,7 +809,7 @@ class shopFunctionsF {
 
 		if(empty($lang)) $lang = '*';
 
-		$component	= JComponentHelper::getComponent('com_virtuemart');
+		$component	= JComponentHelper::getComponent('com_tsmart');
 
 		$db = JFactory::getDbo();
 		$q = 'SELECT * FROM `#__menu` WHERE `component_id` = "'. $component->id .'" and `language` = "'. $lang .'"';
@@ -846,16 +846,16 @@ class shopFunctionsF {
 		if (!isset($article->event)) {
 			$article->event = new stdClass();
 		}
-		$results = $dispatcher->trigger ('onContentPrepare', array('com_virtuemart.'.$context, &$article, &$params, 0));
+		$results = $dispatcher->trigger ('onContentPrepare', array('com_tsmart.'.$context, &$article, &$params, 0));
 		// More events for 3rd party content plugins
 		// This do not disturb actual plugins, because we don't modify $vendor->text
-		$res = $dispatcher->trigger ('onContentAfterTitle', array('com_virtuemart.'.$context, &$article, &$params, 0));
+		$res = $dispatcher->trigger ('onContentAfterTitle', array('com_tsmart.'.$context, &$article, &$params, 0));
 		$article->event->afterDisplayTitle = trim (implode ("\n", $res));
 
-		$res = $dispatcher->trigger ('onContentBeforeDisplay', array('com_virtuemart.'.$context, &$article, &$params, 0));
+		$res = $dispatcher->trigger ('onContentBeforeDisplay', array('com_tsmart.'.$context, &$article, &$params, 0));
 		$article->event->beforeDisplayContent = trim (implode ("\n", $res));
 
-		$res = $dispatcher->trigger ('onContentAfterDisplay', array('com_virtuemart.'.$context, &$article, &$params, 0));
+		$res = $dispatcher->trigger ('onContentAfterDisplay', array('com_tsmart.'.$context, &$article, &$params, 0));
 		$article->event->afterDisplayContent = trim (implode ("\n", $res));
 
 		$article->$field = $article->text;
@@ -879,14 +879,14 @@ class shopFunctionsF {
 	 * @return The full filename of the invoice/deliverynote without file extension, sanitized not to contain problematic characters like /
 	 */
 	static function getInvoiceName($invoice_number, $layout='invoice'){
-		$prefix = tsmText::_('COM_VIRTUEMART_FILEPREFIX_'.strtoupper($layout));
-		if($prefix == 'COM_VIRTUEMART_FILEPREFIX_'.strtoupper($layout)){
+		$prefix = tsmText::_('com_tsmart_FILEPREFIX_'.strtoupper($layout));
+		if($prefix == 'com_tsmart_FILEPREFIX_'.strtoupper($layout)){
 			$prefix = 'vm'.$layout.'_';
 		}
 		return $prefix.preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $invoice_number);
 	}
 
-	static public function getInvoiceDownloadButton($orderInfo, $descr = 'COM_VIRTUEMART_PRINT', $icon = 'system/pdf_button.png'){
+	static public function getInvoiceDownloadButton($orderInfo, $descr = 'com_tsmart_PRINT', $icon = 'system/pdf_button.png'){
 		$html = '';
 		if(!empty($orderInfo->invoiceNumber)){
 			if(!$sPath = shopFunctions::checkSafePath()){
@@ -895,7 +895,7 @@ class shopFunctionsF {
 			$path = $sPath.self::getInvoiceFolderName().DS.self::getInvoiceName($orderInfo->invoiceNumber).'.pdf';
 			//$path .= preg_replace('/[^A-Za-z0-9_\-\.]/', '_', 'vm'.$layout.'_'.$orderInfo->invoiceNumber.'.pdf');
 			if(file_exists($path)){
-				$link = JURI::root(true).'/index.php?option=com_virtuemart&view=invoice&layout=invoice&format=pdf&tmpl=component&order_number='.$orderInfo->order_number.'&order_pass='.$orderInfo->order_pass;
+				$link = JURI::root(true).'/index.php?option=com_tsmart&view=invoice&layout=invoice&format=pdf&tmpl=component&order_number='.$orderInfo->order_number.'&order_pass='.$orderInfo->order_pass;
 				$pdf_link = "<a href=\"javascript:void window.open('".$link."', 'win2', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"  >";
 				$pdf_link .= JHtml::_('image',$icon, tsmText::_($descr), NULL, true);
 				$pdf_link .= '</a>';

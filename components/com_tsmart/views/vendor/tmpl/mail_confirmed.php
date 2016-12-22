@@ -3,13 +3,13 @@
  *
  * Show the product details page
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author KOHL Patrick
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,6 +24,6 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
  ?>
 
 <div class="vm-question-thanks-view productdetails-view">
-	<div><?php echo tsmText::_('COM_VIRTUEMART_ASK_QUESTION_THANK_YOU'); ?></div><br />
-	<div><a class="general-bg" href="<?php echo JRoute::_('index.php?option=com_virtuemart') ?>" ><?php echo tsmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') ?></a></div>
+	<div><?php echo tsmText::_('com_tsmart_ASK_QUESTION_THANK_YOU'); ?></div><br />
+	<div><a class="general-bg" href="<?php echo JRoute::_('index.php?option=com_tsmart') ?>" ><?php echo tsmText::_('com_tsmart_CONTINUE_SHOPPING') ?></a></div>
 </div>

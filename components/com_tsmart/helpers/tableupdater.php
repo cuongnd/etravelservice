@@ -122,9 +122,9 @@ class GenericTableUpdater extends tmsModel{
 
 				} else if($table=='vendors'){
 					//This makes too much trouble with the vendor stuff, so we use simply text for it
-// 					$fields['vendor_store_desc'] = 'varchar('.VmConfig::get('dbvdescsize',1800).') '.$linedefault;
-// 					$fields['vendor_terms_of_service'] = 'varchar('.VmConfig::get('dbtossize',18100).') '.$linedefault;
-// 					$fields['vendor_legal_info'] = 'varchar('.VmConfig::get('dblegalsize',1100).') '.$linedefault;
+// 					$fields['vendor_store_desc'] = 'varchar('.tsmConfig::get('dbvdescsize',1800).') '.$linedefault;
+// 					$fields['vendor_terms_of_service'] = 'varchar('.tsmConfig::get('dbtossize',18100).') '.$linedefault;
+// 					$fields['vendor_legal_info'] = 'varchar('.tsmConfig::get('dblegalsize',1100).') '.$linedefault;
 
 					$fields['vendor_store_desc'] = 'text '.$linedefaulttext;
 					$fields['vendor_terms_of_service'] = 'text '.$linedefaulttext;
@@ -373,8 +373,8 @@ class GenericTableUpdater extends tmsModel{
 		//We need first a method here to register valid plugin tables
 /* 		$tablesWithLang = array_keys($this->tables); //('categories','manufacturercategories','manufacturers','paymentmethods','shipmentmethods','products','vendors');
 
-// 		$alangs = VmConfig::get('active_languages');
-// 		if(empty($alangs)) $alangs = array(VmConfig::setdbLanguageTag());
+// 		$alangs = tsmConfig::get('active_languages');
+// 		if(empty($alangs)) $alangs = array(tsmConfig::setdbLanguageTag());
 // 		foreach($alangs as $lang){
 // 			foreach($tablesWithLang as $tablewithlang){
 // 				$demandedTables[] = $this->_prefix.'tsmart_'.$tablewithlang.'_'.$lang;

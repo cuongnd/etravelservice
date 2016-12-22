@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="com_tsmart_tsmart_VIEW_DEFAULT_TITLE">
-	<message><![CDATA[com_tsmart_tsmart_VIEW_DEFAULT_TITLE_DESC]]></message>
+	<layout title="list tour">
+	<message><![CDATA[list]]></message>
 	</layout>
 	<state>
-		<name>com_tsmart_tsmart_VIEW_DEFAULT_TITLE</name>
-		<description><![CDATA[com_tsmart_tsmart_VIEW_DEFAULT_TITLE_DESC]]></description>
+		<name>list</name>
+		<description><![CDATA[list]]></description>
 	</state>
     <fields name="request">
     <fieldset name="request"

@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author P.Kohl
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
 
 if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 
-class VirtueMartViewPdf extends VmView
+class TsmartViewPdf extends VmView
 {
 
 	function __construct( $config = array() ) {
@@ -37,7 +37,7 @@ class VirtueMartViewPdf extends VmView
 			vmError('View pdf: For the pdf invoice, you must install the tcpdf library at '.VMPATH_LIBS.DS.'tcpdf');
 		} else {
 			$viewName = vRequest::getCmd('view','productdetails');
-			$class= 'VirtueMartView'.ucfirst($viewName);
+			$class= 'TsmartView'.ucfirst($viewName);
 			if(!class_exists($class)) require(VMPATH_SITE.DS.'views'.DS.$viewName.DS.'view.html.php');
 			$view = new $class ;
 

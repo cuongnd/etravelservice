@@ -3,15 +3,15 @@ $doc = JFactory::getDocument();
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
-$doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_bookprivategroupaddon_default.js');
-$doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_bookprivategroupaddon_default.less');
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_bookprivategroupaddon_default.js');
+$doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/view_bookprivategroupaddon_default.less');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 
 $app = JFactory::getApplication();
 $input = $app->input;
-$virtuemart_price_id = $input->getInt('virtuemart_price_id', 0);
+$tsmart_price_id = $input->getInt('tsmart_price_id', 0);
 $booking_date = $input->getString('booking_date', '');
 
 $privategrouptrip = $this->privategrouptrip;
@@ -51,7 +51,7 @@ $passenger_config = tsmConfig::get_passenger_config();
 ?>
     <div class="view-bookprivategroupaddon-default">
         <form
-            action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=bookprivategroupaddonaddon&virtuemart_price_id=' . $virtuemart_price_id) ?>"
+            action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddonaddon&tsmart_price_id=' . $tsmart_price_id) ?>"
             method="post"
             id="bookprivategroupaddon" name="bookprivategroupaddon">
             <div class="row-fluid">
@@ -388,11 +388,11 @@ $passenger_config = tsmConfig::get_passenger_config();
                 </div>
             </div>
 
-            <input name="option" value="com_virtuemart" type="hidden">
+            <input name="option" value="com_tsmart" type="hidden">
             <input name="controller" value="bookprivategroupaddon" type="hidden">
             <input type="hidden" value="bookprivategroupaddon" name="view">
             <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
-            <input name="virtuemart_price_id" value="<?php echo $virtuemart_price_id ?>" type="hidden">
+            <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
             <input name="task" value="" type="hidden">
         </form>
 

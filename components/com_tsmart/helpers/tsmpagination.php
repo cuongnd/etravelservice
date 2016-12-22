@@ -105,7 +105,7 @@ class VmPagination extends vObject {
 
 	/** Creates a dropdown box for selecting how many records to show per page.
 	 * Modification of Joomla Core libraries/html/pagination.php getLimitBox function
-	 * The function uses as sequence a generic function or a sequence configured in the vmconfig
+	 * The function uses as sequence a generic function or a sequence configured in the tsmConfig
 	 *
 	 * use in a view.html.php $vmModel->setPerRow($perRow); to activate it
 	 *

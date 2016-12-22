@@ -3,14 +3,14 @@
  *
  * Define here the Header for order mail success !
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage Cart
  * @author Kohl Patrick
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -31,7 +31,7 @@ defined ('_JEXEC') or die('Restricted access');
 			<td colspan=2 width="100%" class="vmdoc-header-vendor">
 		<?php } ?>
 			<div id="vmdoc-header" class="vmdoc-header" style="font-size: <?php echo $this->vendor->vendor_letter_header_font_size; ?>pt;">
-			<?php echo VirtuemartViewInvoice::replaceVendorFields ($this->vendor->vendor_letter_header_html, $this->vendor); ?>
+			<?php echo TsmartViewInvoice::replaceVendorFields ($this->vendor->vendor_letter_header_html, $this->vendor); ?>
 			</div>
 		</td>
 	</tr>
@@ -42,7 +42,7 @@ defined ('_JEXEC') or die('Restricted access');
 	<?php } // END if header ?>
 	<tr>
 		<td colspan="2">
-			<strong><?php echo tsmText::sprintf ('COM_VIRTUEMART_MAIL_SHOPPER_NAME', $this->civility . ' ' . $this->orderDetails['details']['BT']->first_name . ' ' . $this->orderDetails['details']['BT']->last_name); ?></strong><br/>
+			<strong><?php echo tsmText::sprintf ('com_tsmart_MAIL_SHOPPER_NAME', $this->civility . ' ' . $this->orderDetails['details']['BT']->first_name . ' ' . $this->orderDetails['details']['BT']->last_name); ?></strong><br/>
 		</td>
 	</tr>
 </table>

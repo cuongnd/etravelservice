@@ -3,15 +3,15 @@
  *
  * Show the product details page
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Max Milbers, Eugen Stranz
  * @author RolandD,
  * @todo handle child products
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -32,7 +32,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 
 /* Let's see if we found the product */
 if (empty ( $this->product )) {
-	echo tsmText::_ ( 'COM_VIRTUEMART_PRODUCT_NOT_FOUND' );
+	echo tsmText::_ ( 'com_tsmart_PRODUCT_NOT_FOUND' );
 	echo '<br /><br />  ' . $this->continue_link_html;
 	return;
 }
@@ -70,32 +70,32 @@ if (empty ( $this->product )) {
 			<div class="spacer-buy-area">
 
 				<?php // TO DO in Multi-Vendor not needed at the moment and just would lead to confusion
-				/* $link = JRoute::_('index2.php?option=com_virtuemart&view=tsmart&task=vendorinfo&virtuemart_vendor_id='.$this->product->virtuemart_vendor_id);
-				$text = vmText::_('COM_VIRTUEMART_VENDOR_FORM_INFO_LBL');
-				echo '<span class="bold">'. vmText::_('COM_VIRTUEMART_PRODUCT_DETAILS_VENDOR_LBL'). '</span>'; ?><a class="modal" href="<?php echo $link ?>"><?php echo $text ?></a><br />
+				/* $link = JRoute::_('index2.php?option=com_tsmart&view=tsmart&task=vendorinfo&tsmart_vendor_id='.$this->product->tsmart_vendor_id);
+				$text = vmText::_('com_tsmart_VENDOR_FORM_INFO_LBL');
+				echo '<span class="bold">'. vmText::_('com_tsmart_PRODUCT_DETAILS_VENDOR_LBL'). '</span>'; ?><a class="modal" href="<?php echo $link ?>"><?php echo $text ?></a><br />
 				*/ ?>
 
 				<?php
-				$rating = empty($this->rating)? tsmText::_('COM_VIRTUEMART_UNRATED'):$this->rating->rating;
-				echo tsmText::_('COM_VIRTUEMART_RATING') . $rating;
+				$rating = empty($this->rating)? tsmText::_('com_tsmart_UNRATED'):$this->rating->rating;
+				echo tsmText::_('com_tsmart_RATING') . $rating;
 
 				// Product Price
 				if ($this->show_prices) { ?>
-				<div class="product-price" id="productPrice<?php echo $this->product->virtuemart_product_id ?>">
+				<div class="product-price" id="productPrice<?php echo $this->product->tsmart_product_id ?>">
 				<?php
 				if ($this->product->product_unit && tsmConfig::get ( 'price_show_packaging_pricelabel' )) {
-					echo "<strong>" . tsmText::_ ( 'COM_VIRTUEMART_CART_PRICE_PER_UNIT' ) . ' (' . $this->product->product_unit . "):</strong>";
+					echo "<strong>" . tsmText::_ ( 'com_tsmart_CART_PRICE_PER_UNIT' ) . ' (' . $this->product->product_unit . "):</strong>";
 				} else {
-					echo "<strong>" . tsmText::_ ( 'COM_VIRTUEMART_CART_PRICE' ) . "</strong>";
+					echo "<strong>" . tsmText::_ ( 'com_tsmart_CART_PRICE' ) . "</strong>";
 				}
-				echo $this->currency->createPriceDiv ( 'variantModification', 'COM_VIRTUEMART_PRODUCT_VARIANT_MOD', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'basePriceWithTax', 'COM_VIRTUEMART_PRODUCT_BASEPRICE_WITHTAX', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'discountedPriceWithoutTax', 'COM_VIRTUEMART_PRODUCT_DISCOUNTED_PRICE', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'salesPriceWithDiscount', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITH_DISCOUNT', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'salesPrice', 'COM_VIRTUEMART_PRODUCT_SALESPRICE', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'priceWithoutTax', 'COM_VIRTUEMART_PRODUCT_SALESPRICE_WITHOUT_TAX', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'discountAmount', 'COM_VIRTUEMART_PRODUCT_DISCOUNT_AMOUNT', $this->product->prices );
-				echo $this->currency->createPriceDiv ( 'taxAmount', 'COM_VIRTUEMART_PRODUCT_TAX_AMOUNT', $this->product->prices ); ?>
+				echo $this->currency->createPriceDiv ( 'variantModification', 'com_tsmart_PRODUCT_VARIANT_MOD', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'basePriceWithTax', 'com_tsmart_PRODUCT_BASEPRICE_WITHTAX', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'discountedPriceWithoutTax', 'com_tsmart_PRODUCT_DISCOUNTED_PRICE', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'salesPriceWithDiscount', 'com_tsmart_PRODUCT_SALESPRICE_WITH_DISCOUNT', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'salesPrice', 'com_tsmart_PRODUCT_SALESPRICE', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'priceWithoutTax', 'com_tsmart_PRODUCT_SALESPRICE_WITHOUT_TAX', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'discountAmount', 'com_tsmart_PRODUCT_DISCOUNT_AMOUNT', $this->product->prices );
+				echo $this->currency->createPriceDiv ( 'taxAmount', 'com_tsmart_PRODUCT_TAX_AMOUNT', $this->product->prices ); ?>
 				</div>
 				<?php } ?>
 
@@ -108,23 +108,23 @@ if (empty ( $this->product )) {
 				<?php } ?>
 
 				<?php // Ask a question about this product
-				$url = JRoute::_(JURI::root().'index.php?option=com_virtuemart&view=productdetails&task=askquestion&virtuemart_product_id='.$this->product->virtuemart_product_id.'&virtuemart_category_id='.$this->product->virtuemart_category_id.'&tmpl=component'); ?>
+				$url = JRoute::_(JURI::root().'index.php?option=com_tsmart&view=productdetails&task=askquestion&tsmart_product_id='.$this->product->tsmart_product_id.'&tsmart_category_id='.$this->product->tsmart_category_id.'&tmpl=component'); ?>
 				<div class="ask-a-question">
-					<a class="ask-a-question modal" rel="{handler: 'iframe', size: {x: 700, y: 550}}" href="<?php echo $url ?>"><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_ENQUIRY_LBL') ?></a>
+					<a class="ask-a-question modal" rel="{handler: 'iframe', size: {x: 700, y: 550}}" href="<?php echo $url ?>"><?php echo tsmText::_('com_tsmart_PRODUCT_ENQUIRY_LBL') ?></a>
 				</div>
 
 				<?php // Manufacturer of the Product
-				if(tsmConfig::get('show_manufacturers', 1) && !empty($this->product->virtuemart_manufacturer_id[0])) { ?>
+				if(tsmConfig::get('show_manufacturers', 1) && !empty($this->product->tsmart_manufacturer_id[0])) { ?>
 				<div class="manufacturer">
 				<?php
-					$link = JRoute::_(JURI::root().'index.php?option=com_virtuemart&view=manufacturer&virtuemart_manufacturer_id='.$this->product->virtuemart_manufacturer_id[0].'&tmpl=component');
+					$link = JRoute::_(JURI::root().'index.php?option=com_tsmart&view=manufacturer&tsmart_manufacturer_id='.$this->product->tsmart_manufacturer_id[0].'&tmpl=component');
 					$text = $this->product->mf_name;
 
 					/* Avoid JavaScript on PDF Output */
 					if (strtolower(vRequest::getCmd('output')) == "pdf"){
 						echo JHtml::_('link', $link, $text);
 					} else { ?>
-						<span class="bold"><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_DETAILS_MANUFACTURER_LBL') ?></span><a class="modal" href="<?php echo $link ?>"><?php echo $text ?></a>
+						<span class="bold"><?php echo tsmText::_('com_tsmart_PRODUCT_DETAILS_MANUFACTURER_LBL') ?></span><a class="modal" href="<?php echo $link ?>"><?php echo $text ?></a>
 				<?PHP } ?>
 				</div>
 				<?php } ?>
@@ -138,7 +138,7 @@ if (empty ( $this->product )) {
 	if (!empty($this->product->product_desc)) { ?>
 	<div class="product-description">
 		<?php /** @todo Test if content plugins modify the product description */ ?>
-		<span class="title"><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_DESC_TITLE') ?></span>
+		<span class="title"><?php echo tsmText::_('com_tsmart_PRODUCT_DESC_TITLE') ?></span>
 		<?php echo $this->product->product_desc; ?>
 	</div>
 	<?php } // Product Description END ?>
@@ -168,7 +168,7 @@ if (empty ( $this->product )) {
 	if ($this->product->product_box) { ?>
 	<div class="product-box">
 		<?php
-	        echo tsmText::_('COM_VIRTUEMART_PRODUCT_UNITS_IN_BOX') .$this->product->product_box;
+	        echo tsmText::_('com_tsmart_PRODUCT_UNITS_IN_BOX') .$this->product->product_box;
 	    ?>
 	</div>
 	<?php } // Product Packaging END ?>
@@ -181,7 +181,7 @@ if (empty ( $this->product )) {
 
 		/* Show pdf in a new Window, other file types will be offered as download */
 		// $target = stristr($file->file_mimetype, "pdf") ? "_blank" : "_self";
-		// $link = JRoute::_('index.php?view=productdetails&task=getfile&virtuemart_media_id='.$file->virtuemart_media_id.'&virtuemart_product_id='.$this->product->virtuemart_product_id);
+		// $link = JRoute::_('index.php?view=productdetails&task=getfile&tsmart_media_id='.$file->tsmart_media_id.'&tsmart_product_id='.$this->product->tsmart_product_id);
 		// echo JHTMl::_('link', $link, $file->file_title.$filesize_display, array('target' => $target));
 	// }
 	?>
@@ -192,7 +192,7 @@ if (empty ( $this->product )) {
 	<?php // Customer Reviews
 	if($this->allowRating || $this->showReview) {
 		$maxrating = tsmConfig::get('vm_maximum_rating_scale',5);
-		$ratingsShow = tsmConfig::get('vm_num_ratings_show',3); // TODO add  vm_num_ratings_show in vmConfig
+		$ratingsShow = tsmConfig::get('vm_num_ratings_show',3); // TODO add  vm_num_ratings_show in tsmConfig
 		$starsPath = JURI::root().tsmConfig::get('assets_general_path').'images/stars/';
 		$stars = array();
 		$showall = vRequest::getBool('showall', false);
@@ -208,7 +208,7 @@ if (empty ( $this->product )) {
 	if($this->showReview) {
 		$alreadycommented = false;
 		?>
-		<h4><?php echo tsmText::_('COM_VIRTUEMART_REVIEWS') ?></h4>
+		<h4><?php echo tsmText::_('com_tsmart_REVIEWS') ?></h4>
 
 		<div class="list-reviews">
 			<?php
@@ -237,13 +237,13 @@ if (empty ( $this->product )) {
 
 			if (count($this->rating_reviews) < 1) {
 				// "There are no reviews for this product" ?>
-				<span class="step"><?php echo tsmText::_('COM_VIRTUEMART_NO_REVIEWS') ?></span>
+				<span class="step"><?php echo tsmText::_('com_tsmart_NO_REVIEWS') ?></span>
 			<?php
 			} else {
 				/* Show all reviews */
 				if (!$showall && count($this->rating_reviews) >= $ratingsShow ) {
-					$attribute = array('class'=>'details', 'title'=>tsmText::_('COM_VIRTUEMART_MORE_REVIEWS'));
-					echo JHtml::link($this->more_reviews, tsmText::_('COM_VIRTUEMART_MORE_REVIEWS'),$attribute);
+					$attribute = array('class'=>'details', 'title'=>tsmText::_('com_tsmart_MORE_REVIEWS'));
+					echo JHtml::link($this->more_reviews, tsmText::_('com_tsmart_MORE_REVIEWS'),$attribute);
 				}
 			} ?>
 		<div class="clear"></div>

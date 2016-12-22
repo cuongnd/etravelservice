@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer
 * @author Kohl Patrick, Eugen Stranz
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -36,14 +36,14 @@ defined('_JEXEC') or die('Restricted access');
 	if(!empty($this->manufacturer->mf_email)) { ?>
 		<div class="manufacturer-email">
 		<?php // TO DO Make The Email Visible Within The Lightbox
-		echo JHtml::_('email.cloak', $this->manufacturer->mf_email,true,tsmText::_('COM_VIRTUEMART_EMAIL'),false) ?>
+		echo JHtml::_('email.cloak', $this->manufacturer->mf_email,true,tsmText::_('com_tsmart_EMAIL'),false) ?>
 		</div>
 	<?php } ?>
 
 	<?php // Manufacturer URL
 	if(!empty($this->manufacturer->mf_url)) { ?>
 		<div class="manufacturer-url">
-			<a target="_blank" href="<?php echo $this->manufacturer->mf_url ?>"><?php echo tsmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE') ?></a>
+			<a target="_blank" href="<?php echo $this->manufacturer->mf_url ?>"><?php echo tsmText::_('com_tsmart_MANUFACTURER_PAGE') ?></a>
 		</div>
 	<?php } ?>
 
@@ -55,11 +55,11 @@ defined('_JEXEC') or die('Restricted access');
 	<?php } ?>
 
 	<?php // Manufacturer Product Link
-	$manufacturerProductsURL = JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_manufacturer_id=' . $this->manufacturer->virtuemart_manufacturer_id, FALSE);
+	$manufacturerProductsURL = JRoute::_('index.php?option=com_tsmart&view=category&tsmart_manufacturer_id=' . $this->manufacturer->tsmart_manufacturer_id, FALSE);
 
-	if(!empty($this->manufacturer->virtuemart_manufacturer_id)) { ?>
+	if(!empty($this->manufacturer->tsmart_manufacturer_id)) { ?>
 		<div class="manufacturer-product-link">
-			<a target="_top" href="<?php echo $manufacturerProductsURL; ?>"><?php echo tsmText::sprintf('COM_VIRTUEMART_PRODUCT_FROM_MF',$this->manufacturer->mf_name); ?></a>
+			<a target="_top" href="<?php echo $manufacturerProductsURL; ?>"><?php echo tsmText::sprintf('com_tsmart_PRODUCT_FROM_MF',$this->manufacturer->mf_name); ?></a>
 		</div>
 	<?php } ?>
 

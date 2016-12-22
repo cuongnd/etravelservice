@@ -3,13 +3,13 @@
 *
 * State controller
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage State
 * @author jseros, RickG, Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -22,14 +22,14 @@ defined('_JEXEC') or die('Restricted access');
 // Load the controller framework
 jimport('joomla.application.component.controller');
 
-if(!class_exists('VirtueMartModelState')) require( VMPATH_ADMIN.DS.'models'.DS.'state.php' );
+if(!class_exists('tsmartModelState')) require( VMPATH_ADMIN.DS.'models'.DS.'state.php' );
 
-class VirtueMartControllerbookprivategroupsumary extends JControllerLegacy {
+class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
     public function ajax_get_coupon(){
        $input=JFactory::getApplication()->input;
         $coupon_code=$input->getString('coupon_code','');
         $coupon_model=tmsModel::getModel('coupon');
-        require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/vmcoupon.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmcoupon.php';
         $coupon=tsmcoupon::get_coupon_by_coupon_code($coupon_code);
         echo json_encode($coupon);
         die;
@@ -57,7 +57,7 @@ class VirtueMartControllerbookprivategroupsumary extends JControllerLegacy {
         $order=$bookprivategroupsumary_model->save_order($booking_summary,$table_user->id);
         $bookprivategroupsumary_model->send_bookprivategroupsumary($booking_summary,$contact_data->email_address,$new_member,$order,$table_user->activation);
         die;
-        $this->setRedirect(JRoute::_('index.php?option=com_virtuemart&view=bookprivategroupsumaryalert'));
+        $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumaryalert'));
         return true;
     }
 }

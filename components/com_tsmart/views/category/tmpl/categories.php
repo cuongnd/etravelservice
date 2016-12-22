@@ -3,15 +3,15 @@
 *
 * Show the products in a category
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author RolandD
 * @author Max Milbers
 * @todo add pagination
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2012 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2012 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 if ($this->category->haschildren) {
 
 	// Calculating Categories Per Row
-	//$categories_per_row = VmConfig::get ( 'categories_per_row', 3 );
+	//$categories_per_row = tsmConfig::get ( 'categories_per_row', 3 );
 
 	// Start the Output
 	echo ShopFunctionsF::renderVmSubLayout('categories',array('categories'=> $this->category->children));

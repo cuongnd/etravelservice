@@ -3,13 +3,13 @@
  *TODO Improve the CSS , ADD CATCHA ?
  * Show the form Ask a Question
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Kohl Patrick, Maik K�nnemann
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -32,7 +32,7 @@ vmJsApi::addJScript('askform','
 ');
 /* Let's see if we found the product */
 if (empty ( $this->product )) {
-	echo tsmText::_ ( 'COM_VIRTUEMART_PRODUCT_NOT_FOUND' );
+	echo tsmText::_ ( 'com_tsmart_PRODUCT_NOT_FOUND' );
 	echo '<br /><br />  ' . $this->continue_link_html;
 } else {
 	$session = JFactory::getSession();
@@ -43,7 +43,7 @@ if (empty ( $this->product )) {
 	if(empty($this->login) or tsmConfig::get('recommend_unauth',false)){
 		?>
 		<div class="ask-a-question-view">
-			<h1><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_ASK_QUESTION')  ?></h1>
+			<h1><?php echo tsmText::_('com_tsmart_PRODUCT_ASK_QUESTION')  ?></h1>
 
 			<div class="product-summary">
 				<div class="width70 floatleft">
@@ -68,22 +68,22 @@ if (empty ( $this->product )) {
 
 			<div class="form-field">
 
-				<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id='.$this->product->virtuemart_product_id.'&virtuemart_category_id='.$this->product->virtuemart_category_id.'&tmpl=component', FALSE) ; ?>" name="askform" id="askform">
+				<form method="post" class="form-validate" action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id='.$this->product->tsmart_product_id.'&tsmart_category_id='.$this->product->tsmart_category_id.'&tmpl=component', FALSE) ; ?>" name="askform" id="askform">
 
 					<table class="askform">
 						<tr>
-							<td><label for="name"><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_NAME')  ?> : </label></td>
+							<td><label for="name"><?php echo tsmText::_('com_tsmart_USER_FORM_NAME')  ?> : </label></td>
 							<td><input type="text" class="validate[required,minSize[3],maxSize[64]]" value="<?php echo $this->user->name ? $this->user->name : $sessData['name'] ?>" name="name" id="name" size="30"  validation="required name"/></td>
 						</tr>
 						<tr>
-							<td><label for="email"><?php echo tsmText::_('COM_VIRTUEMART_USER_FORM_EMAIL')  ?> : </label></td>
+							<td><label for="email"><?php echo tsmText::_('com_tsmart_USER_FORM_EMAIL')  ?> : </label></td>
 							<td><input type="text" class="validate[required,custom[email]]" value="<?php echo $this->user->email ? $this->user->email : $sessData['email'] ?>" name="email" id="email" size="30"  validation="required email"/></td>
 						</tr>
 						<tr>
-							<td colspan="2"><label for="comment"><?php echo tsmText::sprintf('COM_VIRTUEMART_ASK_COMMENT', $min, $max); ?></label></td>
+							<td colspan="2"><label for="comment"><?php echo tsmText::sprintf('com_tsmart_ASK_COMMENT', $min, $max); ?></label></td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea title="<?php echo tsmText::sprintf('COM_VIRTUEMART_ASK_COMMENT', $min, $max) ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ?></textarea></td>
+							<td colspan="2"><textarea title="<?php echo tsmText::sprintf('com_tsmart_ASK_COMMENT', $min, $max) ?>" class="validate[required,minSize[<?php echo $min ?>],maxSize[<?php echo $max ?>]] field" id="comment" name="comment" rows="8"><?php echo $sessData['comment'] ?></textarea></td>
 						</tr>
 					</table>
 
@@ -101,21 +101,21 @@ if (empty ( $this->product )) {
 						?>
             <div>
               <div class="floatleft width50">
-                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_ASK_SUBMIT')  ?>" />
+                <input class="highlight-button" type="submit" name="submit_ask" title="<?php echo tsmText::_('com_tsmart_ASK_SUBMIT')  ?>" value="<?php echo tsmText::_('com_tsmart_ASK_SUBMIT')  ?>" />
               </div>
               <div class="floatleft width50 text-right">
-                <label for="counter"><?php echo tsmText::_('COM_VIRTUEMART_ASK_COUNT')  ?></label>
+                <label for="counter"><?php echo tsmText::_('com_tsmart_ASK_COUNT')  ?></label>
   							<input type="text" value="0" size="4" class="counter" id="counter" name="counter" maxlength="4" readonly="readonly" />
               </div>
               <div class="clear"></div>
             </div>
 					</div>
 
-					<input type="hidden" name="virtuemart_product_id" value="<?php echo vRequest::getInt('virtuemart_product_id',0); ?>" />
+					<input type="hidden" name="tsmart_product_id" value="<?php echo vRequest::getInt('tsmart_product_id',0); ?>" />
 					<input type="hidden" name="tmpl" value="component" />
 					<input type="hidden" name="view" value="productdetails" />
-					<input type="hidden" name="option" value="com_virtuemart" />
-					<input type="hidden" name="virtuemart_category_id" value="<?php echo vRequest::getInt('virtuemart_category_id'); ?>" />
+					<input type="hidden" name="option" value="com_tsmart" />
+					<input type="hidden" name="tsmart_category_id" value="<?php echo vRequest::getInt('tsmart_category_id'); ?>" />
 					<input type="hidden" name="task" value="mailAskquestion" />
 					<?php echo JHTML::_( 'form.token' ); ?>
 				</form>

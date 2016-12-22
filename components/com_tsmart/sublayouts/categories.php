@@ -3,13 +3,13 @@
 *
 * Shows the products/categories of a category
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -61,7 +61,7 @@ $verticalseparator = " vertical-separator";
         }
 
         // Category Link
-        $caturl = JRoute::_ ( 'index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $category->virtuemart_category_id , FALSE);
+        $caturl = JRoute::_ ( 'index.php?option=com_tsmart&view=category&tsmart_category_id=' . $category->tsmart_category_id , FALSE);
 
           // Show Category ?>
     <div class="category floatleft<?php echo $category_cellwidth . $show_vertical_separator ?>">

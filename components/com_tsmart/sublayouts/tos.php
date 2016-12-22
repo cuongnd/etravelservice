@@ -2,11 +2,11 @@
 /**
  * field tos
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Cart
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL2, see LICENSE.php
  * @version $Id: cart.php 7682 2014-02-26 17:07:20Z Milbo $
  */
@@ -19,8 +19,8 @@ $tos = $field['value'];
 $app = JFactory::getApplication();
 if($app->isSite()){
 	vmJsApi::popup('#full-tos','#terms-of-service');
-	if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-	$cart = VirtuemartCart::getCart();
+	if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+	$cart = tsmartCart::getCart();
 	$cart->prepareVendor();
 	if(empty($tos) and !tsmConfig::get ('agree_to_tos_onorder', true)){
 		if(is_array($cart->BT) and !empty($cart->BT['tos'])){
@@ -36,15 +36,15 @@ if ( $app->isSite() ) {
 ?>
 <div class="terms-of-service">
 	<label for="tos">
-		<a href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=vendor&layout=tos&virtuemart_vendor_id=1', FALSE) ?>" class="terms-of-service" id="terms-of-service" rel="facebox"
+		<a href="<?php echo JRoute::_ ('index.php?option=com_tsmart&view=vendor&layout=tos&tsmart_vendor_id=1', FALSE) ?>" class="terms-of-service" id="terms-of-service" rel="facebox"
 		   target="_blank">
 			<span class="vmicon vm2-termsofservice-icon"></span>
-			<?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOS_READ_AND_ACCEPTED') ?>
+			<?php echo tsmText::_ ('com_tsmart_CART_TOS_READ_AND_ACCEPTED') ?>
 		</a>
 	</label>
 
 	<div id="full-tos">
-		<h2><?php echo tsmText::_ ('COM_VIRTUEMART_CART_TOS') ?></h2>
+		<h2><?php echo tsmText::_ ('com_tsmart_CART_TOS') ?></h2>
 		<?php echo $cart->vendor->vendor_terms_of_service ?>
 		</div>
 </div>

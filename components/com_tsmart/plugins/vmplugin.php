@@ -190,7 +190,7 @@ abstract class vmPlugin extends JPlugin {
 	 * @return array
 	 */
 	static public function getVarsToPushByXML ($xmlFile,$name){
-		$form = JForm::getInstance($name, $xmlFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+		$form = JForm::getInstance($name, $xmlFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 		return vmPlugin::getVarsToPushFromForm($form);
 	}
 

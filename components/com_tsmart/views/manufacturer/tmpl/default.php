@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer
 * @author Kohl Patrick, Eugen Stranz
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -61,8 +61,8 @@ if (!empty($this->manufacturers)) { ?>
 		}
 
 		// Manufacturer Elements
-		$manufacturerURL = JRoute::_('index.php?option=com_virtuemart&view=manufacturer&virtuemart_manufacturer_id=' . $manufacturer->virtuemart_manufacturer_id, FALSE);
-		$manufacturerIncludedProductsURL = JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_manufacturer_id=' . $manufacturer->virtuemart_manufacturer_id, FALSE);
+		$manufacturerURL = JRoute::_('index.php?option=com_tsmart&view=manufacturer&tsmart_manufacturer_id=' . $manufacturer->tsmart_manufacturer_id, FALSE);
+		$manufacturerIncludedProductsURL = JRoute::_('index.php?option=com_tsmart&view=category&tsmart_manufacturer_id=' . $manufacturer->tsmart_manufacturer_id, FALSE);
 		$manufacturerImage = $manufacturer->images[0]->displayMediaThumb("",false);
 
 		// Show Category ?>

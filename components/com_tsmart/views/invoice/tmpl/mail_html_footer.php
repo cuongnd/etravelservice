@@ -3,14 +3,14 @@
 *
 * Layout for the shopping cart, look in mailshopper for more details
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Cart
 * @author Max Milbers
 *
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,15 +25,15 @@ if (empty($this->vendor)) {
 		$this->vendor = $vendorModel->getVendor();
 }
 
-//$link = shopFunctionsF::getRootRoutedUrl('index.php?option=com_virtuemart');
-$link = JURI::root().'index.php?option=com_virtuemart';
+//$link = shopFunctionsF::getRootRoutedUrl('index.php?option=com_tsmart');
+$link = JURI::root().'index.php?option=com_tsmart';
 
 echo '<br/><br/>';
 //$link='<b>'.JHtml::_('link', JURI::root().$link, $this->vendor->vendor_name).'</b> ';
 
-//	echo vmText::_('COM_VIRTUEMART_MAIL_VENDOR_TITLE').$this->vendor->vendor_name.'<br/>';
+//	echo vmText::_('com_tsmart_MAIL_VENDOR_TITLE').$this->vendor->vendor_name.'<br/>';
 /* GENERAL FOOTER FOR ALL MAILS */
-	echo tsmText::_('COM_VIRTUEMART_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
+	echo tsmText::_('com_tsmart_MAIL_FOOTER' ) . '<a href="'.$link.'">'.$this->vendor->vendor_name.'</a>';
         echo '<br/>';
 	echo $this->vendor->vendor_name .'<br />'.$this->vendor->vendor_phone .' '.$this->vendor->vendor_store_name .'<br /> '.$this->vendor->vendor_store_desc.'<br />';
 ?>	

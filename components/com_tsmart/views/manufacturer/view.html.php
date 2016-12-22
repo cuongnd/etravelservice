@@ -3,13 +3,13 @@
 *
 * Manufacturer View
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Manufacturer
 * @author Kohl Patrick
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,11 +25,11 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 /**
  * HTML View class for maintaining the list of manufacturers
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Manufacturer
  * @author Kohl Patrick
  */
-class VirtuemartViewManufacturer extends VmView {
+class TsmartViewManufacturer extends VmView {
 
 	function display($tpl = null) {
 
@@ -40,12 +40,12 @@ class VirtuemartViewManufacturer extends VmView {
 		if (!class_exists('VmImage'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
-		$virtuemart_manufacturer_id = vRequest::getInt('virtuemart_manufacturer_id', 0);
+		$tsmart_manufacturer_id = vRequest::getInt('tsmart_manufacturer_id', 0);
 		$mf_category_id = vRequest::getInt('mf_category_id', 0);
 
 		// get necessary models
 		$model = tmsModel::getModel('manufacturer');
-		if ($virtuemart_manufacturer_id !=0 ) {
+		if ($tsmart_manufacturer_id !=0 ) {
 
 			$manufacturer = $model->getManufacturer();
 			$model->addImages($manufacturer,1);
@@ -56,7 +56,7 @@ class VirtuemartViewManufacturer extends VmView {
 				shopFunctionsF::triggerContentPlugin($manufacturer, 'manufacturer','mf_desc');
 			}
 
-			$document->setTitle(tsmText::_('COM_VIRTUEMART_MANUFACTURER_DETAILS').' '.strip_tags($manufacturer->mf_name));
+			$document->setTitle(tsmText::_('com_tsmart_MANUFACTURER_DETAILS').' '.strip_tags($manufacturer->mf_name));
 			//added so that the canonical points to page with visible products thx to P2Peter
 			// remove joomla canonical before adding it
 			foreach ( $document->_links as $k => $array ) {
@@ -65,7 +65,7 @@ class VirtuemartViewManufacturer extends VmView {
 					break;
 				}
 			}
-			$document->addHeadLink( JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_manufacturer_id='.$virtuemart_manufacturer_id, FALSE) , 'canonical', 'rel', '' );
+			$document->addHeadLink( JRoute::_('index.php?option=com_tsmart&view=category&tsmart_manufacturer_id='.$tsmart_manufacturer_id, FALSE) , 'canonical', 'rel', '' );
 			$this->assignRef('manufacturerImage', $manufacturerImage);
 			$this->assignRef('manufacturer',	$manufacturer);
 			$pathway->addItem(strip_tags($manufacturer->mf_name));
@@ -73,7 +73,7 @@ class VirtuemartViewManufacturer extends VmView {
 			$this->setLayout('details');
 
 		} else {
-			$document->setTitle(tsmText::_('COM_VIRTUEMART_MANUFACTURER_PAGE')) ;
+			$document->setTitle(tsmText::_('com_tsmart_MANUFACTURER_PAGE')) ;
 			$manufacturers = $model->getManufacturers(true, true,  true);
 			$model->addImages($manufacturers,1);
 			$this->assignRef('manufacturers',	$manufacturers);

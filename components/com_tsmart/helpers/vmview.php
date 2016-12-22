@@ -6,16 +6,16 @@ defined('_JEXEC') or die('');
  *
  * This class provides the functions for the calculatoins
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
+ * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
  * http://tsmart.net
  */
@@ -46,7 +46,7 @@ class VmView extends JViewLegacy{
 		echo $result;
 		if($this->writeJs){
 			self::withKeepAlive();
-			if(get_class($this)!='VirtueMartViewProductdetails'){
+			if(get_class($this)!='TsmartViewProductdetails'){
 				echo vmJsApi::writeJS();
 			}
 		}
@@ -55,8 +55,8 @@ class VmView extends JViewLegacy{
 
 	public function withKeepAlive(){
 
-		if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$cart = VirtueMartCart::getCart();
+		if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+		$cart = tsmartCart::getCart();
 		if(!empty($cart->cartProductsData)){
 			vmJsApi::keepAlive(1,4);
 		}
@@ -101,7 +101,7 @@ class VmView extends JViewLegacy{
 		$vmStyle = VmTemplate::loadVmTemplateStyle();
 		$template = $vmStyle['template'];
 		// get the template and default paths for the layout if the site template has a layout override, use it
-		$templatePath = JPATH_SITE . DS . 'templates' . DS . $template . DS . 'html' . DS . 'com_virtuemart' . DS . 'sublayouts' . DS . $name . '.php';
+		$templatePath = JPATH_SITE . DS . 'templates' . DS . $template . DS . 'html' . DS . 'com_tsmart' . DS . 'sublayouts' . DS . $name . '.php';
 
 		if(!class_exists('JFile')) require(VMPATH_LIBS.DS.'joomla'.DS.'filesystem'.DS.'file.php');
 		if (JFile::exists ($templatePath)) {
@@ -116,10 +116,10 @@ class VmView extends JViewLegacy{
 
 	function prepareContinueLink(){
 
-		$virtuemart_category_id = shopFunctionsF::getLastVisitedCategoryId ();
+		$tsmart_category_id = shopFunctionsF::getLastVisitedCategoryId ();
 		$categoryStr = '';
-		if ($virtuemart_category_id) {
-			$categoryStr = '&virtuemart_category_id=' . $virtuemart_category_id;
+		if ($tsmart_category_id) {
+			$categoryStr = '&tsmart_category_id=' . $tsmart_category_id;
 		}
 
 		$ItemidStr = '';
@@ -133,10 +133,10 @@ class VmView extends JViewLegacy{
 			$lang = '&lang='.tsmConfig::$vmlangSef;
 		}
 
-		$this->continue_link = JURI::root() .'index.php?option=com_virtuemart&view=category' . $categoryStr.$lang.$ItemidStr;
-		$this->continue_link_html = '<a class="continue_link" href="' . $this->continue_link . '">' . tsmText::_ ('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
+		$this->continue_link = JURI::root() .'index.php?option=com_tsmart&view=category' . $categoryStr.$lang.$ItemidStr;
+		$this->continue_link_html = '<a class="continue_link" href="' . $this->continue_link . '">' . tsmText::_ ('com_tsmart_CONTINUE_SHOPPING') . '</a>';
 
-		$this->cart_link = JURI::root().'index.php?option=com_virtuemart&view=cart'.$lang;
+		$this->cart_link = JURI::root().'index.php?option=com_tsmart&view=cart'.$lang;
 
 		return;
 	}

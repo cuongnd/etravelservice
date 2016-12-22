@@ -28,7 +28,7 @@ if(!class_exists('TsmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmcontr
  * @package    tsmart
  * @author
  */
-class TsmartControllerProduct extends TsmController {
+class TsmartControllerProduct extends JControllerLegacy {
 
 	/**
 	 * Method to display the view
@@ -36,10 +36,6 @@ class TsmartControllerProduct extends TsmController {
 	 * @access	public
 	 * @author
 	 */
-	function __construct() {
-		parent::__construct('tsmart_product_id');
-		$this->addViewPath( VMPATH_ADMIN . DS . 'views');
-	}
 
 	public function ajax_get_list_tour_id_by_tour_type_id(){
 		$input=JFactory::getApplication()->input;

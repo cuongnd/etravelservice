@@ -3,13 +3,13 @@
  *
  * Controller for the front end User maintenance
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,11 +23,11 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartControllerUser extends JControllerLegacy
+class TsmartControllerUser extends JControllerLegacy
 {
 
 	public function __construct()
@@ -35,7 +35,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 		parent::__construct();
 		$this->useSSL = tsmConfig::get('useSSL',0);
 		$this->useXHTML = false;
-		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 	}
 
 	/**
@@ -53,8 +53,8 @@ class VirtueMartControllerUser extends JControllerLegacy
 		$view = $this->getView($viewName, $viewType, '', array('layout' => $viewLayout));
 		$view->assignRef('document', $document);
 
-		if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$cart = VirtueMartCart::getCart();
+		if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+		$cart = tsmartCart::getCart();
 		$cart->_fromCart = false;
 		$cart->setCartIntoSession();
 		$view->display();
@@ -77,10 +77,10 @@ class VirtueMartControllerUser extends JControllerLegacy
 		$user=$user_model->activate($token);
 		if($user->id)
 		{
-			$this->setRedirect('index.php?option=com_virtuemart&view=reset&token='.$token);
+			$this->setRedirect('index.php?option=com_tsmart&view=reset&token='.$token);
 			return true;
 		}else{
-			$this->setRedirect('index.php?option=com_virtuemart&view=user&layout=login');
+			$this->setRedirect('index.php?option=com_tsmart&view=user&layout=login');
 			return true;
 		}
 
@@ -91,8 +91,8 @@ class VirtueMartControllerUser extends JControllerLegacy
 		$view = $this->getView('user', 'html');
 		$view->setLayout('edit_address');
 
-		if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$cart = VirtueMartCart::getCart();
+		if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+		$cart = tsmartCart::getCart();
 		$cart->_fromCart = true;
 		$cart->setCartIntoSession();
 
@@ -109,8 +109,8 @@ class VirtueMartControllerUser extends JControllerLegacy
 	 */
 	function saveUser(){
 
-		if (!class_exists('VirtueMartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$cart = VirtueMartCart::getCart();
+		if (!class_exists('tsmartCart')) require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
+		$cart = tsmartCart::getCart();
 
 		$layout = vRequest::getCmd('layout','edit');
 
@@ -120,17 +120,17 @@ class VirtueMartControllerUser extends JControllerLegacy
 			$task = '';
 			vmdebug('saveUser _fromCart',(int)$cart->_fromCart,(int)$msg);
 			if(!$msg){
-				$this->setRedirect(JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT'.$task, FALSE) );
+				$this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=BT'.$task, FALSE) );
 			} else {
 				if ($cart->getInCheckOut()){
 					$task = '&task=checkout';
 
 				}
-				$this->setRedirect(JRoute::_('index.php?option=com_virtuemart&view=cart'.$task, FALSE) );
+				$this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=cart'.$task, FALSE) );
 			}
 		} else {
 			$msg = $this->saveData(false);
-			$this->setRedirect( JRoute::_('index.php?option=com_virtuemart&view=user&layout='.$layout, FALSE) );
+			$this->setRedirect( JRoute::_('index.php?option=com_tsmart&view=user&layout='.$layout, FALSE) );
 		}
 
 	}
@@ -139,7 +139,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 
 		$msg = $this->saveData(false);
 		$layout = 'edit';// vRequest::getCmd('layout','edit');
-		$this->setRedirect( JRoute::_('index.php?option=com_virtuemart&view=user&layout='.$layout, FALSE) );
+		$this->setRedirect( JRoute::_('index.php?option=com_tsmart&view=user&layout='.$layout, FALSE) );
 
 	}
 
@@ -170,8 +170,8 @@ class VirtueMartControllerUser extends JControllerLegacy
 
 		if($cartObj){
 			if($cartObj->_fromCart or $cartObj->getInCheckOut()){
-				if(!class_exists('VirtueMartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
-				$cart = VirtueMartCart::getCart();
+				if(!class_exists('tsmartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
+				$cart = tsmartCart::getCart();
 				$prefix= '';
 				if ($data['address_type'] == 'STaddress' || $data['address_type'] =='ST') {
 					$prefix = 'shipto_';
@@ -205,14 +205,14 @@ class VirtueMartControllerUser extends JControllerLegacy
 		} else {
 
 			if($currentUser->guest==1 and ($register or !$cartObj )){
-				if($this->checkCaptcha('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT') == FALSE) {
+				if($this->checkCaptcha('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=BT') == FALSE) {
 					$msg = tsmText::_('PLG_RECAPTCHA_ERROR_INCORRECT_CAPTCHA_SOL');
 					if($cartObj and $cartObj->_fromCart) {
-						$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT'), $msg );
+						$this->redirect( JRoute::_('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=BT'), $msg );
 					} else if($cartObj and $cartObj->getInCheckOut()) {
-						$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscheckout&addrtype=BT'), $msg );
+						$this->redirect( JRoute::_('index.php?option=com_tsmart&view=user&task=editaddresscheckout&addrtype=BT'), $msg );
 					} else {
-						$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&task=edit&addrtype=BT'), $msg );
+						$this->redirect( JRoute::_('index.php?option=com_tsmart&view=user&task=edit&addrtype=BT'), $msg );
 					}
 					return $msg;
 				}
@@ -230,14 +230,14 @@ class VirtueMartControllerUser extends JControllerLegacy
 					$switch = true;
 				}
 
-				if(!class_exists('VirtueMartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
-				$cart = VirtueMartCart::getCart();
+				if(!class_exists('tsmartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
+				$cart = tsmartCart::getCart();
 				if(!empty($cart->vendorId) and $cart->vendorId!=1){
 					$data['vendorId'] = $cart->vendorId;
 				}
 				$ret = $userModel->store($data);
 
-				if($switch){ //and VmConfig::get ('oncheckout_change_shopper')){
+				if($switch){ //and tsmConfig::get ('oncheckout_change_shopper')){
 					//update session
 					$current = JFactory::getUser($ret['newId']);
 					$session = JFactory::getSession();
@@ -259,7 +259,7 @@ class VirtueMartControllerUser extends JControllerLegacy
 					$return = $mainframe->login($credentials);
 				} else if(tsmConfig::get('oncheckout_only_registered',0)){
 					$layout = vRequest::getCmd('layout','edit');
-					$this->redirect( JRoute::_('index.php?option=com_virtuemart&view=user&layout='.$layout, FALSE), $msg );
+					$this->redirect( JRoute::_('index.php?option=com_tsmart&view=user&layout='.$layout, FALSE), $msg );
 				}
 			}
 		}
@@ -279,11 +279,11 @@ class VirtueMartControllerUser extends JControllerLegacy
 	 */
 	function cancel()
 	{
-		if(!class_exists('VirtueMartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
-		$cart = VirtueMartCart::getCart();
+		if(!class_exists('tsmartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
+		$cart = tsmartCart::getCart();
 		if($cart->_fromCart){
 			$cart->setOutOfCheckout();
-			$this->setRedirect( JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE)  );
+			$this->setRedirect( JRoute::_('index.php?option=com_tsmart&view=cart', FALSE)  );
 		} else {
 			$return = JURI::base();
 			$this->setRedirect( $return );
@@ -294,17 +294,17 @@ class VirtueMartControllerUser extends JControllerLegacy
 
 	function removeAddressST(){
 
-		$virtuemart_userinfo_id = vRequest::getInt('virtuemart_userinfo_id');
-		$virtuemart_user_id = vRequest::getInt('virtuemart_user_id');
+		$tsmart_userinfo_id = vRequest::getInt('tsmart_userinfo_id');
+		$tsmart_user_id = vRequest::getInt('tsmart_user_id');
 
 		//Lets do it dirty for now
 		$userModel = tmsModel::getModel('user');
-		vmdebug('removeAddressST',$virtuemart_user_id,$virtuemart_userinfo_id);
-		$userModel->setId($virtuemart_user_id[0]);
-		$userModel->removeAddress($virtuemart_userinfo_id);
+		vmdebug('removeAddressST',$tsmart_user_id,$tsmart_userinfo_id);
+		$userModel->setId($tsmart_user_id[0]);
+		$userModel->removeAddress($tsmart_userinfo_id);
 
 		$layout = vRequest::getCmd('layout','edit');
-		$this->setRedirect( JRoute::_('index.php?option=com_virtuemart&view=user&task=edit&virtuemart_user_id[]='.$virtuemart_user_id[0], $this->useXHTML,$this->useSSL) );
+		$this->setRedirect( JRoute::_('index.php?option=com_tsmart&view=user&task=edit&tsmart_user_id[]='.$tsmart_user_id[0], $this->useXHTML,$this->useSSL) );
 	}
 
 	/**
@@ -321,8 +321,8 @@ class VirtueMartControllerUser extends JControllerLegacy
 			if(!$res[0]){
 				$data = vRequest::getPost();
 				$data['address_type'] = vRequest::getVar('addrtype','BT');
-				if(!class_exists('VirtueMartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
-				$cart = VirtueMartCart::getCart();
+				if(!class_exists('tsmartCart')) require(VMPATH_SITE.DS.'helpers'.DS.'cart.php');
+				$cart = tsmartCart::getCart();
 				$prefix= '';
 				if ($data['address_type'] == 'STaddress' || $data['address_type'] =='ST') {
 					$prefix = 'shipto_';

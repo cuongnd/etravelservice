@@ -52,7 +52,7 @@ defined('_JEXEC') or die('Restricted access');
 			    </span>
 		    </td>
 		    <td>
-			    <?php echo VmHTML::checkbox('mail_from_recipient', VmConfig::get('mail_from_recipient',0)); ?>
+			    <?php echo VmHTML::checkbox('mail_from_recipient', tsmConfig::get('mail_from_recipient',0)); ?>
 		    </td>
 	    </tr>
 	    <tr>
@@ -62,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 			    </span>
 		    </td>
 		    <td>
-			    <?php echo VmHTML::checkbox('mail_from_setsender', VmConfig::get('mail_from_setsender',0)); ?>
+			    <?php echo VmHTML::checkbox('mail_from_setsender', tsmConfig::get('mail_from_setsender',0)); ?>
 		    </td>
 	    </tr --><?php */
 		$attrlist = 'class="inputbox" multiple="multiple" ';

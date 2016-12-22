@@ -3,28 +3,14 @@ $doc = JFactory::getDocument();
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
-$doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_productdetail_default.less');
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/view_productdetail_default.less');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
 JHtml::_('behavior.formvalidation');
-$doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_productdetails_default.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_productdetails_default.js');
 $app = JFactory::getApplication();
 $input = $app->input;
-$virtuemart_product_id = $input->getInt('virtuemart_product_id', 0);
-require_once JPATH_ROOT.'/administrator/components/com_virtuemart/helpers/tsmgroupsize.php';
-$js_content = '';
-ob_start();
-?>
-<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $('.view-productdetails-default').view_productdetails_default({});
-
-
-    });
-</script>
-<?php
-$js_content = ob_get_clean();
-$js_content = TSMUtility::remove_string_javascript($js_content);
-$doc->addScriptDeclaration($js_content);
+$tsmart_product_id = $input->getInt('tsmart_product_id', 0);
+require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
 ?>
 <div class="view-productdetails-default">
@@ -46,7 +32,7 @@ $doc->addScriptDeclaration($js_content);
             <!-- Overview -->
             <div class="content content-overview">
                 <form
-                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
+                    action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>" method="post"
                     id="tour_price"  name="tour_price">
                     <div class="row-fluid header-content">
                         <div class="span10 product-name">
@@ -82,14 +68,14 @@ $doc->addScriptDeclaration($js_content);
 
                         </div>
                     </div>
-                    <input name="option" value="com_virtuemart" type="hidden">
+                    <input name="option" value="com_tsmart" type="hidden">
                     <input name="controller" value="productdetails" type="hidden">
                     <input type="hidden" value="productdetails" name="view">
-                    <input name="virtuemart_product_id" value="<?php echo $virtuemart_product_id ?>" type="hidden">
+                    <input name="tsmart_product_id" value="<?php echo $tsmart_product_id ?>" type="hidden">
                     <input name="task" value="" type="hidden">
                 </form>
                 <form
-                    action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=' . $virtuemart_product_id) ?>" method="post"
+                    action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>" method="post"
                     id="tour_price" name="tour_price">
 
                     <div class="table table-trip">
@@ -138,7 +124,7 @@ $doc->addScriptDeclaration($js_content);
                                     $total_day=$total_day?$total_day:0;
 
                                     ?>
-                                    <div data-virtuemart_price_id="<?php echo $trip->virtuemart_price_id ?>" class="row-fluid item">
+                                    <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>" class="row-fluid item">
 
                                         <div class="span12">
                                             <div class="row-fluid header-item">
@@ -247,11 +233,11 @@ $doc->addScriptDeclaration($js_content);
                             </div>
                         </div>
                     </div>
-                    <input name="option" value="com_virtuemart" type="hidden">
+                    <input name="option" value="com_tsmart" type="hidden">
                     <input name="controller" value="trip" type="hidden">
                     <input name="booking_date" value="" type="hidden">
                     <input type="hidden" value="trip" name="view">
-                    <input name="virtuemart_price_id" value="0" type="hidden">
+                    <input name="tsmart_price_id" value="0" type="hidden">
                     <input name="task" value="" type="hidden">
                 </form>
             </div>
@@ -295,3 +281,21 @@ $doc->addScriptDeclaration($js_content);
     <!-- Zozo Tabs End-->
 
 </div>
+<?php
+$js_content = '';
+ob_start();
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-productdetails-default').view_productdetails_default({});
+
+
+        });
+    </script>
+<?php
+$js_content = ob_get_clean();
+
+$js_content = TSMUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
+
+?>

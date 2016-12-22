@@ -1,17 +1,17 @@
 /**
  * cvfind.js: Find product by dropdown 
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Javascript Library
  * @author Max Milbers
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
-if (typeof Virtuemart === "undefined")
-	Virtuemart = {};
+if (typeof tsmart === "undefined")
+	tsmart = {};
 
-Virtuemart.cvFind = function(event) {
+tsmart.cvFind = function(event) {
 	event.preventDefault();
 	var selection = [];
 	var container = jQuery(this).parent();

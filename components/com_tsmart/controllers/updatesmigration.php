@@ -407,7 +407,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 			if($sample) $model->installSampleData($sid);
 
 			if(!class_exists('tsmConfig')) require_once(VMPATH_ADMIN .'/models/config.php');
-			tsmartModelConfig::installVMconfigTable();
+			tsmartModelConfig::installtsmConfigTable();
 
 			//Now lets set some joomla variables
 			//Caching should be enabled, set to files and for 15 minutes
@@ -491,7 +491,7 @@ class TsmartControllerUpdatesMigration extends TsmController{
 
 		$this->checkPermissionForTools();
 
-		//if(VmConfig::get('dangeroustools', true)){
+		//if(tsmConfig::get('dangeroustools', true)){
 			$model = $this->getModel('config');
 			$model -> deleteConfig();
 	//	}

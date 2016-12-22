@@ -3,13 +3,13 @@
 /**
  * Controller for the cart
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Cart
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,10 +24,10 @@ jimport('joomla.application.component.controller');
 /**
  * Controller for the cart view
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage Cart
  */
-class VirtueMartControllerCart extends JControllerLegacy {
+class TsmartControllerCart extends JControllerLegacy {
 
 
 	public function __construct() {
@@ -36,7 +36,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			$app = JFactory::getApplication();
 			$app->redirect('index.php');
 		} else {
-			if (!class_exists('VirtueMartCart'))
+			if (!class_exists('tsmartCart'))
 			require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
 			if (!class_exists('calculationHelper'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'calculationh.php');
@@ -50,10 +50,10 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 		if(tsmConfig::get('use_as_catalog', 0)){
 			// Get a continue link
-			$virtuemart_category_id = shopFunctionsF::getLastVisitedCategoryId();
+			$tsmart_category_id = shopFunctionsF::getLastVisitedCategoryId();
 			$categoryLink = '';
-			if ($virtuemart_category_id) {
-				$categoryLink = '&virtuemart_category_id=' . $virtuemart_category_id;
+			if ($tsmart_category_id) {
+				$categoryLink = '&tsmart_category_id=' . $tsmart_category_id;
 			}
 			$ItemId = shopFunctionsF::getLastVisitedItemId();
 			$ItemIdLink = '';
@@ -61,7 +61,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 				$ItemIdLink = '&Itemid=' . $ItemId;
 			}
 
-			$continue_link = JRoute::_('index.php?option=com_virtuemart&view=category' . $categoryLink . $ItemIdLink, FALSE);
+			$continue_link = JRoute::_('index.php?option=com_tsmart&view=category' . $categoryLink . $ItemIdLink, FALSE);
 			$app = JFactory::getApplication();
 			$app ->redirect($continue_link,'This is a catalogue, you cannot acccess the cart');
 		}
@@ -80,18 +80,18 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 		$view->assignRef('document', $document);
 
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 
 		$cart->order_language = vRequest::getString('order_language', $cart->order_language);
 		if(!isset($force))$force = tsmConfig::get('oncheckout_opc',true);
 		$cart->prepareCartData(false);
 		$html=true;
-		if ($cart->virtuemart_shipmentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_shipment',false)) > 0)){
-			vRequest::setVar('virtuemart_shipmentmethod_id', $s_id);
+		if ($cart->tsmart_shipmentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_shipment',false)) > 0)){
+			vRequest::setVar('tsmart_shipmentmethod_id', $s_id);
 			$cart->setShipmentMethod($force, !$html);
 		}
-		if ($cart->virtuemart_paymentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_payment',false)) > 0) and $cart->products){
-			vRequest::setVar('virtuemart_paymentmethod_id', $s_id);
+		if ($cart->tsmart_paymentmethod_id==0 and (($s_id = tsmConfig::get('set_automatic_payment',false)) > 0) and $cart->products){
+			vRequest::setVar('tsmart_paymentmethod_id', $s_id);
 			$cart->setPaymentMethod($force, !$html);
 		}
 
@@ -121,7 +121,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 	public function updatecart($html=true,$force = null){
 
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 		$cart->_fromCart = true;
 		$cart->_redirected = false;
 		if(vRequest::get('cancel',0)){
@@ -134,7 +134,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		$cart->saveCartFieldsInCart();
 
 		if($cart->updateProductCart()){
-			vmInfo('COM_VIRTUEMART_PRODUCT_UPDATED_SUCCESSFULLY');
+			vmInfo('com_tsmart_PRODUCT_UPDATED_SUCCESSFULLY');
 		}
 
 		//Maybe better in line 133
@@ -226,25 +226,25 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	public function add() {
 		$mainframe = JFactory::getApplication();
 		if (tsmConfig::get('use_as_catalog', 0)) {
-			$msg = tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_ADDED_SUCCESSFULLY');
+			$msg = tsmText::_('com_tsmart_PRODUCT_NOT_ADDED_SUCCESSFULLY');
 			$type = 'error';
 			$mainframe->redirect('index.php', $msg, $type);
 		}
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 		if ($cart) {
-			$virtuemart_product_ids = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_ids = vRequest::getInt('tsmart_product_id');
 			$error = false;
-			$cart->add($virtuemart_product_ids,$error);
+			$cart->add($tsmart_product_ids,$error);
 			if (!$error) {
-				$msg = tsmText::_('COM_VIRTUEMART_PRODUCT_ADDED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_ADDED_SUCCESSFULLY');
 				$type = '';
 			} else {
-				$msg = tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_ADDED_SUCCESSFULLY');
+				$msg = tsmText::_('com_tsmart_PRODUCT_NOT_ADDED_SUCCESSFULLY');
 				$type = 'error';
 			}
 
 			$mainframe->enqueueMessage($msg, $type);
-			$mainframe->redirect(JRoute::_('index.php?option=com_virtuemart&view=cart', FALSE));
+			$mainframe->redirect(JRoute::_('index.php?option=com_tsmart&view=cart', FALSE));
 
 		} else {
 			$mainframe->enqueueMessage('Cart does not exist?', 'error');
@@ -258,23 +258,23 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	public function addJS() {
 
 		$this->json = new stdClass();
-		$cart = VirtueMartCart::getCart(false);
+		$cart = tsmartCart::getCart(false);
 		if ($cart) {
 			$view = $this->getView ('cart', 'json');
-			$virtuemart_category_id = shopFunctionsF::getLastVisitedCategoryId();
+			$tsmart_category_id = shopFunctionsF::getLastVisitedCategoryId();
 			$categoryLink='';
-			if ($virtuemart_category_id) {
-				$categoryLink = '&view=category&virtuemart_category_id=' . $virtuemart_category_id;
+			if ($tsmart_category_id) {
+				$categoryLink = '&view=category&tsmart_category_id=' . $tsmart_category_id;
 			}
 
-			$continue_link = JRoute::_('index.php?option=com_virtuemart' . $categoryLink);
+			$continue_link = JRoute::_('index.php?option=com_tsmart' . $categoryLink);
 
-			$virtuemart_product_ids = vRequest::getInt('virtuemart_product_id');
+			$tsmart_product_ids = vRequest::getInt('tsmart_product_id');
 
 			$view = $this->getView ('cart', 'json');
 			$errorMsg = 0;
 
-			$products = $cart->add($virtuemart_product_ids, $errorMsg );
+			$products = $cart->add($tsmart_product_ids, $errorMsg );
 
 
 			$view->setLayout('padded');
@@ -282,10 +282,10 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 			if(!$products or count($products) == 0){
 				$product_name = vRequest::get('pname');
-				$virtuemart_product_id = vRequest::getInt('pid');
-				if($product_name && $virtuemart_product_id) {
+				$tsmart_product_id = vRequest::getInt('pid');
+				if($product_name && $tsmart_product_id) {
 					$view->product_name = $product_name;
-					$view->virtuemart_product_id = $virtuemart_product_id;
+					$view->tsmart_product_id = $tsmart_product_id;
 				} else {
 					$this->json->stat = '2';
 				}
@@ -299,8 +299,8 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			$view->display ();
 			$this->json->msg = ob_get_clean();
 		} else {
-			$this->json->msg = '<a href="' . JRoute::_('index.php?option=com_virtuemart', FALSE) . '" >' . tsmText::_('COM_VIRTUEMART_CONTINUE_SHOPPING') . '</a>';
-			$this->json->msg .= '<p>' . tsmText::_('COM_VIRTUEMART_MINICART_ERROR') . '</p>';
+			$this->json->msg = '<a href="' . JRoute::_('index.php?option=com_tsmart', FALSE) . '" >' . tsmText::_('com_tsmart_CONTINUE_SHOPPING') . '</a>';
+			$this->json->msg .= '<p>' . tsmText::_('com_tsmart_MINICART_ERROR') . '</p>';
 			$this->json->stat = '0';
 		}
 		echo json_encode($this->json);
@@ -314,9 +314,9 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	 */
 	public function viewJS() {
 
-		if (!class_exists('VirtueMartCart'))
+		if (!class_exists('tsmartCart'))
 		require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$cart = VirtueMartCart::getCart(false);
+		$cart = tsmartCart::getCart(false);
 		$cart -> prepareCartData();
 		$data = $cart -> prepareAjaxData(true);
 
@@ -378,11 +378,11 @@ class VirtueMartControllerCart extends JControllerLegacy {
 	public function delete() {
 		$mainframe = JFactory::getApplication();
 		/* Load the cart helper */
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 		if ($cart->removeProductCart())
-		$mainframe->enqueueMessage(tsmText::_('COM_VIRTUEMART_PRODUCT_REMOVED_SUCCESSFULLY'));
+		$mainframe->enqueueMessage(tsmText::_('com_tsmart_PRODUCT_REMOVED_SUCCESSFULLY'));
 		else
-		$mainframe->enqueueMessage(tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_REMOVED_SUCCESSFULLY'), 'error');
+		$mainframe->enqueueMessage(tsmText::_('com_tsmart_PRODUCT_NOT_REMOVED_SUCCESSFULLY'), 'error');
 
 		$this->display();
 	}
@@ -405,14 +405,14 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		if($redirect){
 			$red = $redirect;
 		} else {
-			$red = JRoute::_('index.php?option=com_virtuemart&view=cart');
+			$red = JRoute::_('index.php?option=com_tsmart&view=cart');
 		}
 
 		$id = vmAccess::getBgManagerId();
 		$current = JFactory::getUser( );;
 		$manager = vmAccess::manager('user');
 		if(!$manager){
-			$app->enqueueMessage(tsmText::sprintf('COM_VIRTUEMART_CART_CHANGE_SHOPPER_NO_PERMISSIONS', $current->name .' ('.$current->username.')'), 'error');
+			$app->enqueueMessage(tsmText::sprintf('com_tsmart_CART_CHANGE_SHOPPER_NO_PERMISSIONS', $current->name .' ('.$current->username.')'), 'error');
 			$app->redirect($red);
 			return false;
 		}
@@ -422,8 +422,8 @@ class VirtueMartControllerCart extends JControllerLegacy {
 			if($userID == $id){
 
 			} else if(vmAccess::manager('user',$userID)){
-			//if($newUser->authorise('core.admin', 'com_virtuemart') or $newUser->authorise('vm.user', 'com_virtuemart')){
-				$app->enqueueMessage(tsmText::sprintf('COM_VIRTUEMART_CART_CHANGE_SHOPPER_NO_PERMISSIONS', $current->name .' ('.$current->username.')'), 'error');
+			//if($newUser->authorise('core.admin', 'com_tsmart') or $newUser->authorise('vm.user', 'com_tsmart')){
+				$app->enqueueMessage(tsmText::sprintf('com_tsmart_CART_CHANGE_SHOPPER_NO_PERMISSIONS', $current->name .' ('.$current->username.')'), 'error');
 				$app->redirect($red);
 			}
 		}
@@ -447,7 +447,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		$session->set('user', $newUser);
 
 		//update cart data
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 		$usermodel = tmsModel::getModel('user');
 		$data = $usermodel->getUserAddressList(vRequest::getCmd('userID'), 'BT');
 
@@ -462,14 +462,14 @@ class VirtueMartControllerCart extends JControllerLegacy {
 		$cart->ST = 0;
 		$cart->STsameAsBT = 1;
 		$cart->selected_shipto = 0;
-		$cart->virtuemart_shipmentmethod_id = 0;
+		$cart->tsmart_shipmentmethod_id = 0;
 		$cart->saveAddressInCart($data, 'BT');
 
-		$msg = tsmText::sprintf('COM_VIRTUEMART_CART_CHANGED_SHOPPER_SUCCESSFULLY', $newUser->name .' ('.$newUser->username.')');
+		$msg = tsmText::sprintf('com_tsmart_CART_CHANGED_SHOPPER_SUCCESSFULLY', $newUser->name .' ('.$newUser->username.')');
 
 		if(empty($userID)){
-			$red = JRoute::_('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT');
-			$msg = tsmText::sprintf('COM_VIRTUEMART_CART_CHANGED_SHOPPER_SUCCESSFULLY','');
+			$red = JRoute::_('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=BT');
+			$msg = tsmText::sprintf('com_tsmart_CART_CHANGED_SHOPPER_SUCCESSFULLY','');
 		}
 
 		$app->enqueueMessage($msg, 'info');
@@ -479,7 +479,7 @@ class VirtueMartControllerCart extends JControllerLegacy {
 
 	function cancel() {
 
-		$cart = VirtueMartCart::getCart();
+		$cart = tsmartCart::getCart();
 		if ($cart) {
 			$cart->setOutOfCheckout();
 		}

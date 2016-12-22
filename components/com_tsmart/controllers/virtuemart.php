@@ -3,13 +3,13 @@
 *
 * Base controller Frontend
 *
-* @package		VirtueMart
+* @package		tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2011-2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2011-2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -23,11 +23,11 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartControllerVirtuemart extends JControllerLegacy
+class TsmartControllertsmart extends JControllerLegacy
 {
 
 	function __construct() {
@@ -65,7 +65,7 @@ class VirtueMartControllerVirtuemart extends JControllerLegacy
 
 		if(!class_exists( 'vmRSS' )) require(VMPATH_ADMIN.'/helpers/tsmrss.php');
 
-		$this->virtuemartFeed = vmRSS::getVirtueMartRssFeed();
+		$this->tsmartFeed = vmRSS::gettsmartRssFeed();
 		$this->extensionsFeed = vmRSS::getExtensionsRssFeed();
 
 		$document = JFactory::getDocument();

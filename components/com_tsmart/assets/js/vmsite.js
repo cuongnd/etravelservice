@@ -1,17 +1,17 @@
 /**
- * vmsite.js: General Javascript Library for VirtueMart Frontpage
+ * vmsite.js: General Javascript Library for tsmart Frontpage
  *
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Javascript Library
  * @author Patrick Kohl
  * @author Max Milbers
- * @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
-if (typeof Virtuemart === "undefined")
-	Virtuemart = {};
+if (typeof tsmart === "undefined")
+	tsmart = {};
 (function($){
 	var undefined,
 	methods = {
@@ -46,17 +46,17 @@ if (typeof Virtuemart === "undefined")
 			});
 
 			if (byAjax.length >0) {
-				jQuery.getJSON(window.vmSiteurl + 'index.php?option=com_virtuemart&view=state&format=json&virtuemart_country_id=' + byAjax,
+				jQuery.getJSON(window.vmSiteurl + 'index.php?option=com_tsmart&view=state&format=json&tsmart_country_id=' + byAjax,
 						function(result){
 
-						var virtuemart_state_id = jQuery('#'+prefix+'virtuemart_state_id');
-						var status = virtuemart_state_id.attr('required');
+						var tsmart_state_id = jQuery('#'+prefix+'tsmart_state_id');
+						var status = tsmart_state_id.attr('required');
 						
 						if(status == 'required') {
 							if( result[byAjax].length > 0 ) {
-								virtuemart_state_id.attr('required','required');
+								tsmart_state_id.attr('required','required');
 							} else {
-								virtuemart_state_id.removeAttr('required');
+								tsmart_state_id.removeAttr('required');
 							}
 						}
 
@@ -93,7 +93,7 @@ if (typeof Virtuemart === "undefined")
 						var label = opt.find("option[value='"+dataValue+"']").text();
 						var group ='<optgroup id="'+prefix+'group'+dataValue+'" label="'+label+'">';
 						jQuery.each( datas  , function( key, value) {
-							if (value) group +='<option value="'+ value.virtuemart_state_id +'">'+ value.state_name +'</option>';
+							if (value) group +='<option value="'+ value.tsmart_state_id +'">'+ value.state_name +'</option>';
 						});
 						group += '</optgroup>';
 						jQuery(dest).append(group);
@@ -108,15 +108,15 @@ if (typeof Virtuemart === "undefined")
             var tmp = new Object();
             tmp.data = new Object();
 			tmp.data.msg===msg;
-            Virtuemart.startVmLoading(tmp);
+            tsmart.startVmLoading(tmp);
         },
         stopVmLoading: function() {
-			Virtuemart.stopVmLoading();
+			tsmart.stopVmLoading();
         }
 
 	};
 
-	Virtuemart.startVmLoading = function(e) {
+	tsmart.startVmLoading = function(e) {
 		var msg='';
 		if (e.data.msg!==undefined) {
 			msg = e.data.msg;
@@ -126,7 +126,7 @@ if (typeof Virtuemart === "undefined")
 		jQuery("body").append("<div class=\"vmLoadingDiv\"><div class=\"vmLoadingDivMsg\">"+msg+"</div></div>");
 	};
 
-	Virtuemart.stopVmLoading = function() {
+	tsmart.stopVmLoading = function() {
 		if( jQuery("body").hasClass("vmLoading") ){
 			jQuery("body").removeClass("vmLoading");
 			jQuery('div.vmLoadingDiv').remove();

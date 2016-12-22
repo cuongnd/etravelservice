@@ -240,7 +240,7 @@ class TsmartViewUserfields extends tsmViewAdmin {
 		$formFile	= vRequest::filterPath( $path );
 		if (file_exists($formFile)){
 
-			$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+			$this->userField->form = JForm::getInstance($this->userField->element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 			$this->userField->params = new stdClass();
 			$varsToPush = vmPlugin::getVarsToPushFromForm($this->userField->form);
 			tsmTable::bindParameterableToSubField($this->userField,$varsToPush);

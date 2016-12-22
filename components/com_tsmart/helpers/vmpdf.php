@@ -6,22 +6,22 @@ defined('_JEXEC') or die('');
  *
  * This class provides the functions for the calculatoins
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Helpers
  * @author Max Milbers
- * @copyright Copyright (c) 2011 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2011 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
+ * See /administrator/components/com_tsmart/COPYRIGHT.php for copyright notices and details.
  *
  * http://tsmart.net
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'helpers'.DS.'config.php');
+if (!class_exists('tsmConfig')) require(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_tsmart'.DS.'helpers'.DS.'config.php');
 tsmConfig::loadConfig();
 if(!class_exists('tmsModel')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmmodel.php');
 
@@ -34,7 +34,7 @@ class VmPdf {
 	/** Function to create a nice vendor-styled PDF for the output of the given view.
 	    The $path and $dest arguments are directly passed on to TCPDF::Output. 
 	    To create a PDF directly from a given HTML (i.e. not through a view), one
-	    can directly use the VmVendorPDF class, see VirtueMartControllerInvoice::samplePDF */
+	    can directly use the VmVendorPDF class, see TsmartControllerInvoice::samplePDF */
 	static function createVmPdf($view, $path='', $dest='F', $meta=array()) {
 		if(!$view){
 			// TODO: use some default view???
@@ -83,23 +83,23 @@ if(!file_exists(VMPATH_LIBS.DS.'tcpdf'.DS.'tcpdf.php')){
 		var $vendorImage = '';
 		var $vendorAddress = '';
 		var $css = '';
-		var $virtuemart_vendor_id = 1;
+		var $tsmart_vendor_id = 1;
 		var $tcpdf6 = false;
 
 		public function __construct() {
 			// Load the vendor, so we have the data for the header/footer...
 			// The images are NOT loaded by default, so do it manually, just in case
 			$vendorModel = tmsModel::getModel('vendor');
-			$this->vendor = $vendorModel->getVendor($this->virtuemart_vendor_id);
+			$this->vendor = $vendorModel->getVendor($this->tsmart_vendor_id);
 			$vendorModel->addImages($this->vendor,1);
-			$this->vendor->vendorFields = $vendorModel->getVendorAddressFields($this->virtuemart_vendor_id);
+			$this->vendor->vendorFields = $vendorModel->getVendorAddressFields($this->tsmart_vendor_id);
 			
 			parent::__construct($this->vendor->vendor_letter_orientation, 'mm', $this->vendor->vendor_letter_format);
 
 			$this->css = $this->vendor->vendor_letter_css;
 			
 			// set document information
-			$this->SetCreator(tsmText::_('COM_VIRTUEMART_PDF_CREATOR'));
+			$this->SetCreator(tsmText::_('com_tsmart_PDF_CREATOR'));
 			if(empty($this->vendor->images[0])){
 				vmError('Vendor image given path empty ');
 			} else if(empty($this->vendor->images[0]->file_url_folder) or empty($this->vendor->images[0]->file_name) or empty($this->vendor->images[0]->file_extension) ){
@@ -133,7 +133,7 @@ if(!file_exists(VMPATH_LIBS.DS.'tcpdf'.DS.'tcpdf.php')){
 				($this->vendor->vendor_letter_header_image?$this->vendor->vendor_letter_header_imagesize:0),
 				'', $this->vendor->vendor_letter_header_html,
 				array(0,0,0),$vlfooterlcolor );
-			$this->vendorAddress = shopFunctionsF::renderVendorAddress($this->vendor->virtuemart_vendor_id, "<br/>");
+			$this->vendorAddress = shopFunctionsF::renderVendorAddress($this->vendor->tsmart_vendor_id, "<br/>");
 			// Trim the final <br/> from the address, which is inserted by renderVendorAddress automatically!
 			if (substr($this->vendorAddress, -5, 5) == '<br/>') {
 				$this->vendorAddress = substr($this->vendorAddress, 0, -5);

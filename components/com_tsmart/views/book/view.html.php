@@ -4,13 +4,13 @@
  *
  * Product details view
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage
  * @author RolandD
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -26,10 +26,10 @@ if (!class_exists('VmView'))
 /**
  * Product details
  *
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class virtuemartViewbook extends VmView {
+class TsmartViewbook extends VmView {
 
     /**
 		 * Collect all data to show on the template
@@ -39,11 +39,11 @@ class virtuemartViewbook extends VmView {
 		function display($tpl = null) {
             $app=JFactory::getApplication();
             $input=$app->input;
-            $virtuemart_price_id=$input->getInt('virtuemart_price_id',0);
+            $tsmart_price_id=$input->getInt('tsmart_price_id',0);
             $trip_model=tmsModel::getModel('trip');
-            $this->trip=$trip_model->getItem($virtuemart_price_id);
+            $this->trip=$trip_model->getItem($tsmart_price_id);
             $product_model=tmsModel::getModel('product');
-            $this->product=$product_model->getItem( $this->trip->virtuemart_product_id);
+            $this->product=$product_model->getItem( $this->trip->tsmart_product_id);
             parent::display($tpl);
         }
 

@@ -3,11 +3,11 @@
  *
  * loads the add to cart button
  *
- * @package    VirtueMart
+ * @package    tsmart
  * @subpackage
  * @author Max Milbers, Valerie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2015 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2015 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @version $Id: addtocartbtn.php 8024 2014-06-12 15:08:59Z Milbo $
  */
@@ -15,7 +15,7 @@
 defined ('_JEXEC') or die('Restricted access');
 
 if($viewData['orderable']) {
-	echo '<input type="submit" name="addtocart" class="addtocart-button" value="'.tsmText::_( 'COM_VIRTUEMART_CART_ADD_TO' ).'" title="'.tsmText::_( 'COM_VIRTUEMART_CART_ADD_TO' ).'" />';
+	echo '<input type="submit" name="addtocart" class="addtocart-button" value="'.tsmText::_( 'com_tsmart_CART_ADD_TO' ).'" title="'.tsmText::_( 'com_tsmart_CART_ADD_TO' ).'" />';
 } else {
-	echo '<span name="addtocart" class="addtocart-button-disabled" title="'.tsmText::_( 'COM_VIRTUEMART_ADDTOCART_CHOOSE_VARIANT' ).'" >'.tsmText::_( 'COM_VIRTUEMART_ADDTOCART_CHOOSE_VARIANT' ).'</span>';
+	echo '<span name="addtocart" class="addtocart-button-disabled" title="'.tsmText::_( 'com_tsmart_ADDTOCART_CHOOSE_VARIANT' ).'" >'.tsmText::_( 'com_tsmart_ADDTOCART_CHOOSE_VARIANT' ).'</span>';
 }

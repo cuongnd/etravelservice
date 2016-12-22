@@ -4,13 +4,13 @@
  *
  * Product details view
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage
  * @author RolandD
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,10 +27,10 @@ if (!class_exists('VmView'))
  * Product details
  *
  * @property  depatrure
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class virtuemartViewbookjointgroup extends VmView {
+class TsmartViewbookjointgroup extends VmView {
     public $trip;
     public $product;
     public $depatrure;
@@ -43,16 +43,16 @@ class virtuemartViewbookjointgroup extends VmView {
 		function display($tpl = null) {
             $app=JFactory::getApplication();
             $input=$app->input;
-            $virtuemart_departure_id=$input->getInt('virtuemart_departure_id',0);
+            $tsmart_departure_id=$input->getInt('tsmart_departure_id',0);
             $jontgrouptrip_model=tmsModel::getModel('jontgrouptrip');
-            $item_departure=$jontgrouptrip_model->getData($virtuemart_departure_id);
-            $virtuemart_product_id=$item_departure->virtuemart_product_id;
-            $input->set('virtuemart_product_id',$virtuemart_product_id);
-            $jontgrouptrip_model->setState('filter.virtuemart_departure_id',$virtuemart_departure_id);
+            $item_departure=$jontgrouptrip_model->getData($tsmart_departure_id);
+            $tsmart_product_id=$item_departure->tsmart_product_id;
+            $input->set('tsmart_product_id',$tsmart_product_id);
+            $jontgrouptrip_model->setState('filter.tsmart_departure_id',$tsmart_departure_id);
             $this->depatrure=reset($jontgrouptrip_model->getItems());
             $product_model=tmsModel::getModel('product');
-            $this->product=$product_model->getItem( $this->depatrure->virtuemart_product_id);
-            require_once JPATH_ROOT.'/components/com_virtuemart/helpers/vmjointgroup.php';
+            $this->product=$product_model->getItem( $this->depatrure->tsmart_product_id);
+            require_once JPATH_ROOT.'/components/com_tsmart/helpers/vmjointgroup.php';
             $this->rooming_select=Vmjointgroup::get_list_rooming();
             require_once JPATH_ROOT.'/libraries/php-loremipsum-master/src/LoremIpsum.php';
             $this->lipsum = new joshtronic\LoremIpsum();

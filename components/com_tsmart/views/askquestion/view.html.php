@@ -4,13 +4,13 @@
  *
  * Product details view
  *
- * @package VirtueMart
+ * @package tsmart
  * @subpackage
  * @author RolandD
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,10 +27,10 @@ if (!class_exists ('VmView')) {
 /**
  * Product details
  *
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class VirtueMartViewAskquestion extends VmView {
+class TsmartViewAskquestion extends VmView {
 
 	/**
 	 * Collect all data to show on the template
@@ -41,7 +41,7 @@ class VirtueMartViewAskquestion extends VmView {
 
 		$app = JFactory::getApplication();
 		if(!tsmConfig::get('ask_question',false) and !tsmConfig::get('askprice',false)){
-			$app->redirect(JRoute::_('index.php?option=com_virtuemart','Disabled function'));
+			$app->redirect(JRoute::_('index.php?option=com_tsmart','Disabled function'));
 		}
 
 		$this->login = '';
@@ -72,22 +72,22 @@ class VirtueMartViewAskquestion extends VmView {
 		$product_model = tmsModel::getModel ('product');
 		$category_model = tmsModel::getModel ('Category');
 
-		$virtuemart_product_idArray = vRequest::getInt ('virtuemart_product_id', 0);
-		if (is_array ($virtuemart_product_idArray)) {
-			$virtuemart_product_id = $virtuemart_product_idArray[0];
+		$tsmart_product_idArray = vRequest::getInt ('tsmart_product_id', 0);
+		if (is_array ($tsmart_product_idArray)) {
+			$tsmart_product_id = $tsmart_product_idArray[0];
 		} else {
-			$virtuemart_product_id = $virtuemart_product_idArray;
+			$tsmart_product_id = $tsmart_product_idArray;
 		}
 
-		if (empty($virtuemart_product_id)) {
+		if (empty($tsmart_product_id)) {
 			self::showLastCategory ($tpl);
 			return;
 		}
 
-		if (!class_exists ('VirtueMartModelVendor')) {
+		if (!class_exists ('tsmartModelVendor')) {
 			require(VMPATH_ADMIN . DS . 'models' . DS . 'vendor.php');
 		}
-		$product = $product_model->getProduct ($virtuemart_product_id);
+		$product = $product_model->getProduct ($tsmart_product_id);
 
 		// Set Canonic link
 		$format = vRequest::getCmd('format', 'html');
@@ -96,7 +96,7 @@ class VirtueMartViewAskquestion extends VmView {
 		}
 
 		// Set the titles
-		$document->setTitle (tsmText::sprintf ('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE', $product->product_name . ' - ' . tsmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION')));
+		$document->setTitle (tsmText::sprintf ('com_tsmart_PRODUCT_DETAILS_TITLE', $product->product_name . ' - ' . tsmText::_ ('com_tsmart_PRODUCT_ASK_QUESTION')));
 
 		$this->assignRef ('product', $product);
 
@@ -108,25 +108,25 @@ class VirtueMartViewAskquestion extends VmView {
 		$product_model->addImages ($product, 1);
 
 		// Get the category ID
-		$virtuemart_category_id = vRequest::getInt ('virtuemart_category_id');
-		if ($virtuemart_category_id == 0 && !empty($product)) {
+		$tsmart_category_id = vRequest::getInt ('tsmart_category_id');
+		if ($tsmart_category_id == 0 && !empty($product)) {
 			if (array_key_exists ('0', $product->categories)) {
-				$virtuemart_category_id = $product->categories[0];
+				$tsmart_category_id = $product->categories[0];
 			}
 		}
 
-		shopFunctionsF::setLastVisitedCategoryId ($virtuemart_category_id);
+		shopFunctionsF::setLastVisitedCategoryId ($tsmart_category_id);
 
 		if ($category_model) {
-			$category = $category_model->getCategory ($virtuemart_category_id);
+			$category = $category_model->getCategory ($tsmart_category_id);
 			$this->assignRef ('category', $category);
-			$pathway->addItem (tsmText::_($category->category_name), JRoute::_ ('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $virtuemart_category_id, FALSE));
+			$pathway->addItem (tsmText::_($category->category_name), JRoute::_ ('index.php?option=com_tsmart&view=category&tsmart_category_id=' . $tsmart_category_id, FALSE));
 		}
 
-		$pathway->addItem ($product->product_name, JRoute::_ ('index.php?option=com_virtuemart&view=productdetails&virtuemart_category_id=' . $virtuemart_category_id . '&virtuemart_product_id=' . $product->virtuemart_product_id, FALSE));
+		$pathway->addItem ($product->product_name, JRoute::_ ('index.php?option=com_tsmart&view=productdetails&tsmart_category_id=' . $tsmart_category_id . '&tsmart_product_id=' . $product->tsmart_product_id, FALSE));
 
 		// for askquestion
-		$pathway->addItem (tsmText::_ ('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
+		$pathway->addItem (tsmText::_ ('com_tsmart_PRODUCT_ASK_QUESTION'));
 
 		$this->user = JFactory::getUser ();
 
@@ -165,24 +165,24 @@ class VirtueMartViewAskquestion extends VmView {
 			$this->user->name = $fromName;
 		}
 
-		$virtuemart_product_id = vRequest::getInt ('virtuemart_product_id', 0);
+		$tsmart_product_id = vRequest::getInt ('tsmart_product_id', 0);
 
 		$productModel = tmsModel::getModel ('product');
 		if(empty($this->product)){
-			$this->product =  $productModel->getProduct ($virtuemart_product_id);
+			$this->product =  $productModel->getProduct ($tsmart_product_id);
 		}
 		$productModel->addImages($this->product);
 
-		$this->subject = tsmText::_ ('COM_VIRTUEMART_QUESTION_ABOUT') . $this->product->product_name;
+		$this->subject = tsmText::_ ('com_tsmart_QUESTION_ABOUT') . $this->product->product_name;
 
 		$vendorModel = tmsModel::getModel ('vendor');
 
-		$this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
+		$this->vendor = $vendorModel->getVendor ($this->product->tsmart_vendor_id);
 		//$this->vendor->vendor_store_name = $fromName;
 
 		$vendorModel->addImages ($this->vendor);
 
-		$this->vendorEmail = $vendorModel->getVendorEmail($this->vendor->virtuemart_vendor_id);;
+		$this->vendorEmail = $vendorModel->getVendorEmail($this->vendor->tsmart_vendor_id);;
 
 		// in this particular case, overwrite the value for fix the recipient name
 		$this->vendor->vendor_name = $this->user->get('name');

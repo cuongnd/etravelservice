@@ -4,14 +4,14 @@ defined('_JEXEC') or die('');
 
 /**
  * Renders the email for the vendor send in the registration process
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Max Milbers
  * @author Valérie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -21,11 +21,11 @@ $li = "\n";
 ?>
 
 
-<?php echo tsmText::sprintf('COM_VIRTUEMART_WELCOME_VENDOR', $this->vendor->vendor_store_name) . $li. $li ?>
-<?php echo tsmText::_('COM_VIRTUEMART_VENDOR_REGISTRATION_DATA') . " " . $li; ?>
-<?php echo tsmText::_('COM_VIRTUEMART_USERNAME')   . $this->user->username . $li; ?>
-<?php echo tsmText::_('COM_VIRTUEMART_DISPLAYED_NAME')   . $this->user->name . $li. $li; ?>
-<?php echo tsmText::_('COM_VIRTUEMART_ENTERED_ADDRESS')   . $li ?>
+<?php echo tsmText::sprintf('com_tsmart_WELCOME_VENDOR', $this->vendor->vendor_store_name) . $li. $li ?>
+<?php echo tsmText::_('com_tsmart_VENDOR_REGISTRATION_DATA') . " " . $li; ?>
+<?php echo tsmText::_('com_tsmart_USERNAME')   . $this->user->username . $li; ?>
+<?php echo tsmText::_('com_tsmart_DISPLAYED_NAME')   . $this->user->name . $li. $li; ?>
+<?php echo tsmText::_('com_tsmart_ENTERED_ADDRESS')   . $li ?>
 
 
 <?php
@@ -38,9 +38,9 @@ foreach ($this->userFields['fields'] as $userField) {
 
 echo $li;
 
-echo JURI::root() . 'index.php?option=com_virtuemart&view=user' . $li;
+echo JURI::root() . 'index.php?option=com_tsmart&view=user' . $li;
 
 echo $li;
-//echo JURI::root() . 'index.php?option=com_virtuemart&view=user&virtuemart_user_id=' . $this->_models['user']->_id . ' ' . $li;
-//echo JURI::root() . 'index.php?option=com_virtuemart&view=vendor&virtuemart_vendor_id=' . $this->vendor->virtuemart_vendor_id . ' ' . $li;
+//echo JURI::root() . 'index.php?option=com_tsmart&view=user&tsmart_user_id=' . $this->_models['user']->_id . ' ' . $li;
+//echo JURI::root() . 'index.php?option=com_tsmart&view=vendor&tsmart_vendor_id=' . $this->vendor->tsmart_vendor_id . ' ' . $li;
 ?>

@@ -68,7 +68,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 				$formFile	= vRequest::filterPath( VMPATH_ROOT .DS. 'plugins'.DS. 'vmcustom' .DS. $this->custom->custom_element . DS . $this->custom->custom_element . '.xml');
 				if (file_exists($formFile)){
 
-					$this->custom->form = JForm::getInstance($this->custom->custom_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+					$this->custom->form = JForm::getInstance($this->custom->custom_element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 					$this->custom->params = new stdClass();
 					$varsToPush = vmPlugin::getVarsToPushFromForm($this->custom->form);
 					tsmTable::bindParameterableToSubField($this->custom,$varsToPush);
@@ -80,7 +80,7 @@ class TsmartViewCustom extends tsmViewAdmin {
 
 				if(!empty($varsToPush)){
 					JForm::addFieldPath(VMPATH_ADMIN . DS . 'fields');
-					$formString = '<vmconfig>'.chr(10).'<fields name="params">'.chr(10).'<fieldset name="extraParams">'.chr(10);
+					$formString = '<tsmConfig>'.chr(10).'<fields name="params">'.chr(10).'<fieldset name="extraParams">'.chr(10);
 
 					foreach($varsToPush as $key => $push){
 						if ('_' == substr($key, 0, 1)) continue;
@@ -104,8 +104,8 @@ class TsmartViewCustom extends tsmViewAdmin {
 						}
 						$formString .= chr(10).'</field>'.chr(10);
 					}
-					$formString .= '</fieldset>'.chr(10).'</fields>'.chr(10).'</vmconfig>';
-					$this->custom->form = JForm::getInstance($this->custom->field_type, $formString, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+					$formString .= '</fieldset>'.chr(10).'</fields>'.chr(10).'</tsmConfig>';
+					$this->custom->form = JForm::getInstance($this->custom->field_type, $formString, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 					$this->custom->params = new stdClass();
 					tsmTable::bindParameterableToSubField($this->custom,$varsToPush);
 					$this->custom->form->bind($this->custom->getProperties());

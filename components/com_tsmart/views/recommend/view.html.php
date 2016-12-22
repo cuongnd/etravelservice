@@ -3,13 +3,13 @@
 *
 * Product details view
 *
-* @package VirtueMart
+* @package tsmart
 * @subpackage
 * @author RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,10 +25,10 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 /**
 * Product details
 *
-* @package VirtueMart
+* @package tsmart
 * @author Max Milbers
 */
-class virtuemartViewrecommend extends VmView {
+class TsmartViewrecommend extends VmView {
 
 	/**
 	* Collect all data to show on the template
@@ -40,7 +40,7 @@ class virtuemartViewrecommend extends VmView {
 		$app = JFactory::getApplication();
 		if(!tsmConfig::get('show_emailfriend',false)){
 
-			$app->redirect(JRoute::_('index.php?option=com_virtuemart'));
+			$app->redirect(JRoute::_('index.php?option=com_tsmart'));
 		}
 
 		$this->login = '';
@@ -48,15 +48,15 @@ class virtuemartViewrecommend extends VmView {
 			$user = JFactory::getUser();
 			if($user->guest){
 				$this->login = shopFunctionsF::getLoginForm(false);
-				//$app->redirect(JRoute::_('index.php?option=com_virtuemart','JGLOBAL_YOU_MUST_LOGIN_FIRST'));
+				//$app->redirect(JRoute::_('index.php?option=com_tsmart','JGLOBAL_YOU_MUST_LOGIN_FIRST'));
 			}
 		}
 
 		// Load the product
 		$productModel = tmsModel::getModel('product');
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id',0);
 
-		$this->product = $productModel->getProduct ($virtuemart_product_id);
+		$this->product = $productModel->getProduct ($tsmart_product_id);
 		$layout = $this->getLayout();
 		if($layout != 'form' and $layout != 'mail_confirmed'){
 			$this->renderMailLayout('','');
@@ -81,12 +81,12 @@ class virtuemartViewrecommend extends VmView {
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php');
 
 
-		if(empty($virtuemart_product_id)){
+		if(empty($tsmart_product_id)){
 			self::showLastCategory($tpl);
 			return;
 		}
 
-		//$product = $productModel->getProduct($virtuemart_product_id);
+		//$product = $productModel->getProduct($tsmart_product_id);
 		/* Set Canonic link */
 		$format = vRequest::getCmd('format', 'html');
 		if ($format == 'html') {
@@ -94,7 +94,7 @@ class virtuemartViewrecommend extends VmView {
 		}
 
 		/* Set the titles */
-		$document->setTitle(tsmText::sprintf('COM_VIRTUEMART_PRODUCT_DETAILS_TITLE',$this->product->product_name.' - '.tsmText::_('COM_VIRTUEMART_PRODUCT_RECOMMEND')));
+		$document->setTitle(tsmText::sprintf('com_tsmart_PRODUCT_DETAILS_TITLE',$this->product->product_name.' - '.tsmText::_('com_tsmart_PRODUCT_RECOMMEND')));
 
 		if(empty($this->product)){
 			self::showLastCategory($tpl);
@@ -107,25 +107,25 @@ class virtuemartViewrecommend extends VmView {
 		/* Load the category */
 		$category_model = tmsModel::getModel('category');
 		/* Get the category ID */
-		$virtuemart_category_id = vRequest::getInt('virtuemart_category_id');
-		if ($virtuemart_category_id == 0 && !empty($this->product)) {
-			if (array_key_exists('0', $this->product->categories)) $virtuemart_category_id = $this->product->categories[0];
+		$tsmart_category_id = vRequest::getInt('tsmart_category_id');
+		if ($tsmart_category_id == 0 && !empty($this->product)) {
+			if (array_key_exists('0', $this->product->categories)) $tsmart_category_id = $this->product->categories[0];
 		}
 
 		if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
-		shopFunctionsF::setLastVisitedCategoryId($virtuemart_category_id);
+		shopFunctionsF::setLastVisitedCategoryId($tsmart_category_id);
 
 		if($category_model){
-			$category = $category_model->getCategory($virtuemart_category_id);
+			$category = $category_model->getCategory($tsmart_category_id);
 			$this->assignRef('category', $category);
-			$pathway->addItem(tsmText::_($category->category_name),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$virtuemart_category_id, FALSE));
+			$pathway->addItem(tsmText::_($category->category_name),JRoute::_('index.php?option=com_tsmart&view=category&tsmart_category_id='.$tsmart_category_id, FALSE));
 		}
 
-		//$pathway->addItem(vmText::_('COM_VIRTUEMART_PRODUCT_DETAILS'), $uri->toString(array('path', 'query', 'fragment')));
-		$pathway->addItem($this->product->product_name,JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_category_id='.$virtuemart_category_id.'&virtuemart_product_id='.$this->product->virtuemart_product_id, FALSE));
+		//$pathway->addItem(vmText::_('com_tsmart_PRODUCT_DETAILS'), $uri->toString(array('path', 'query', 'fragment')));
+		$pathway->addItem($this->product->product_name,JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_category_id='.$tsmart_category_id.'&tsmart_product_id='.$this->product->tsmart_product_id, FALSE));
 
 		// for askquestion
-		$pathway->addItem( tsmText::_('COM_VIRTUEMART_PRODUCT_ASK_QUESTION'));
+		$pathway->addItem( tsmText::_('com_tsmart_PRODUCT_ASK_QUESTION'));
 
 		/* Check for editing access */
 		/** @todo build edit page */
@@ -164,9 +164,9 @@ class virtuemartViewrecommend extends VmView {
 
 		// Load the product
 		$productModel = tmsModel::getModel('product');
-		$virtuemart_product_id = vRequest::getInt('virtuemart_product_id',0);
+		$tsmart_product_id = vRequest::getInt('tsmart_product_id',0);
 
-		$this->product = $productModel->getProduct ($virtuemart_product_id);
+		$this->product = $productModel->getProduct ($tsmart_product_id);
 		$productModel->addImages($this->product);
 
 		$layout = $this->getLayout();
@@ -177,11 +177,11 @@ class virtuemartViewrecommend extends VmView {
 
 		$vars['vendorEmail'] = $user->email;
 		$vendorModel = tmsModel::getModel ('vendor');
-		$this->vendor = $vendorModel->getVendor ($this->product->virtuemart_vendor_id);
+		$this->vendor = $vendorModel->getVendor ($this->product->tsmart_vendor_id);
 
 		$vendorModel->addImages ($this->vendor);
 		$this->vendor->vendorFields = $vendorModel->getVendorAddressFields();
-		$vars['vendorAddress']= shopFunctionsF::renderVendorAddress($this->product->virtuemart_vendor_id, ' - ');
+		$vars['vendorAddress']= shopFunctionsF::renderVendorAddress($this->product->tsmart_vendor_id, ' - ');
 
 		$this->vendor->vendor_name =$user->name;
 
@@ -189,7 +189,7 @@ class virtuemartViewrecommend extends VmView {
 			$this->$key = $val;
 		}
 
-		$this->subject = tsmText::sprintf('COM_VIRTUEMART_RECOMMEND_PRODUCT',$this->name, $this->product->product_name);
+		$this->subject = tsmText::sprintf('com_tsmart_RECOMMEND_PRODUCT',$this->name, $this->product->product_name);
 
 		$this->isMail = true;
 		parent::display();

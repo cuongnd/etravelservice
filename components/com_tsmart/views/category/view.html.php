@@ -3,13 +3,13 @@
 *
 * Handle the category view
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author RolandD
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,12 +25,12 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 /**
 * Handle the category view
 *
-* @package VirtueMart
+* @package tsmart
 * @author RolandD
 * @todo set meta data
 * @todo add full path to breadcrumb
 */
-class VirtuemartViewCategory extends VmView {
+class TsmartViewCategory extends VmView {
 
 	public function display($tpl = null) {
 
@@ -78,26 +78,26 @@ class VirtuemartViewCategory extends VmView {
 			ShopFunctionsF::setLastVisitedItemId($itemId);
 		}
 
-		$virtuemart_manufacturer_id = vRequest::getInt('virtuemart_manufacturer_id', -1 );
-		if($virtuemart_manufacturer_id ===-1 and !empty($menu->query['virtuemart_manufacturer_id'])){
-			$virtuemart_manufacturer_id = $menu->query['virtuemart_manufacturer_id'];
-			vRequest::setVar('virtuemart_manufacturer_id',$virtuemart_manufacturer_id);
+		$tsmart_manufacturer_id = vRequest::getInt('tsmart_manufacturer_id', -1 );
+		if($tsmart_manufacturer_id ===-1 and !empty($menu->query['tsmart_manufacturer_id'])){
+			$tsmart_manufacturer_id = $menu->query['tsmart_manufacturer_id'];
+			vRequest::setVar('tsmart_manufacturer_id',$tsmart_manufacturer_id);
 		}
 
-		$this->categoryId = vRequest::getInt('virtuemart_category_id', -1);
-		if($this->categoryId === -1 and !empty($menu->query['virtuemart_category_id'])){
-			$this->categoryId = $menu->query['virtuemart_category_id'];
-			vRequest::setVar('virtuemart_category_id',$this->categoryId);
-		} else if ( $this->categoryId === -1 and $virtuemart_manufacturer_id === -1){
+		$this->categoryId = vRequest::getInt('tsmart_category_id', -1);
+		if($this->categoryId === -1 and !empty($menu->query['tsmart_category_id'])){
+			$this->categoryId = $menu->query['tsmart_category_id'];
+			vRequest::setVar('tsmart_category_id',$this->categoryId);
+		} else if ( $this->categoryId === -1 and $tsmart_manufacturer_id === -1){
 			$this->categoryId = ShopFunctionsF::getLastVisitedCategoryId();
 		}
 
-		$this->setCanonicalLink($tpl,$document,$this->categoryId,$virtuemart_manufacturer_id);
+		$this->setCanonicalLink($tpl,$document,$this->categoryId,$tsmart_manufacturer_id);
 
-		if (($this->categoryId === -1 or $this->categoryId === 0 ) and $virtuemart_manufacturer_id){
+		if (($this->categoryId === -1 or $this->categoryId === 0 ) and $tsmart_manufacturer_id){
 			$this->categoryId = 0;
 			$catType = 'manufacturer';
-			$this->setCanonicalLink($tpl,$document,$virtuemart_manufacturer_id,$catType);
+			$this->setCanonicalLink($tpl,$document,$tsmart_manufacturer_id,$catType);
 		}
 
 		$categoryModel = tmsModel::getModel('category');
@@ -113,7 +113,7 @@ class VirtuemartViewCategory extends VmView {
 
 		if(!empty($category)){
 
-			$vendorId = $category->virtuemart_vendor_id;
+			$vendorId = $category->tsmart_vendor_id;
 			if($this->showproducts){
 			//if(empty($category->category_layout) or $category->category_layout != 'categories') {
 				// Load the products in the given category
@@ -129,29 +129,29 @@ class VirtuemartViewCategory extends VmView {
 			if ((!empty($this->categoryId) and $this->categoryId!==-1 ) and (empty($category->slug) or !$category->published)) {
 
 				if(empty($category->slug)){
-					vmInfo(tsmText::_('COM_VIRTUEMART_CAT_NOT_FOUND'));
+					vmInfo(tsmText::_('com_tsmart_CAT_NOT_FOUND'));
 				} else {
-					if($category->virtuemart_id!==0 and !$category->published){
-						vmInfo('COM_VIRTUEMART_CAT_NOT_PUBL',$category->category_name,$this->categoryId);
+					if($category->tsmart_id!==0 and !$category->published){
+						vmInfo('com_tsmart_CAT_NOT_PUBL',$category->category_name,$this->categoryId);
 					}
 				}
 
 				//Fallback
 				$categoryLink = '';
 				if ($category->category_parent_id) {
-					$categoryLink = '&view=category&virtuemart_category_id=' .$category->category_parent_id;
+					$categoryLink = '&view=category&tsmart_category_id=' .$category->category_parent_id;
 				} else {
 					$last_category_id = shopFunctionsF::getLastVisitedCategoryId();
 					if (!$last_category_id or $this->categoryId == $last_category_id) {
-						$last_category_id = vRequest::getInt('virtuemart_category_id', false);
+						$last_category_id = vRequest::getInt('tsmart_category_id', false);
 					}
 					if ($last_category_id and $this->categoryId != $last_category_id) {
-						$categoryLink = '&view=category&virtuemart_category_id=' . $last_category_id;
+						$categoryLink = '&view=category&tsmart_category_id=' . $last_category_id;
 					}
 				}
 
 			    if (tsmConfig::get('handle_404',1)) {
-					$app->redirect(JRoute::_('index.php?option=com_virtuemart' . $categoryLink . '&error=404', FALSE));
+					$app->redirect(JRoute::_('index.php?option=com_tsmart' . $categoryLink . '&error=404', FALSE));
 				} else {
 					JError::raise(E_ERROR,'404','Not found');
 				}
@@ -160,12 +160,12 @@ class VirtuemartViewCategory extends VmView {
 			}
 
 			shopFunctionsF::setLastVisitedCategoryId($this->categoryId);
-			shopFunctionsF::setLastVisitedManuId($virtuemart_manufacturer_id);
+			shopFunctionsF::setLastVisitedManuId($tsmart_manufacturer_id);
 
 			// Add the category name to the pathway
 			if ($category->parents) {
 				foreach ($category->parents as $c){
-					$pathway->addItem(strip_tags(tsmText::_($c->category_name)),JRoute::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id='.$c->virtuemart_category_id, FALSE));
+					$pathway->addItem(strip_tags(tsmText::_($c->category_name)),JRoute::_('index.php?option=com_tsmart&view=category&tsmart_category_id='.$c->tsmart_category_id, FALSE));
 				}
 			}
 
@@ -175,7 +175,7 @@ class VirtuemartViewCategory extends VmView {
 			$this->showcategory = vRequest::getInt('showcategory',$menu->query['showcategory']);
 			//$this->showcategory = vRequest::getInt('showcategory',true);
 			if($this->showcategory){
-			//if($category->category_layout == 'categories' or ($this->categoryId >0 and $virtuemart_manufacturer_id <1)){
+			//if($category->category_layout == 'categories' or ($this->categoryId >0 and $tsmart_manufacturer_id <1)){
 				$category->children = $categoryModel->getChildCategoryList( $vendorId, $this->categoryId, $categoryModel->getDefaultOrdering(), $categoryModel->_selectedOrderingDir );
 				$categoryModel->addImages($category->children,1);
 			} else {
@@ -206,7 +206,7 @@ class VirtuemartViewCategory extends VmView {
 			}
 
 			if(!empty($menu->query['categorylayout'])){
-			//if(!empty($menu->query['categorylayout']) and $menu->query['virtuemart_category_id']==$this->categoryId){
+			//if(!empty($menu->query['categorylayout']) and $menu->query['tsmart_category_id']==$this->categoryId){
 				$category->category_layout = $menu->query['categorylayout'];
 			}
 
@@ -239,16 +239,16 @@ class VirtuemartViewCategory extends VmView {
 		$title = tsmText::_($title);
 
 	  	if(vRequest::getInt('error')){
-			$title .=' '.tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND');
+			$title .=' '.tsmText::_('com_tsmart_PRODUCT_NOT_FOUND');
 		}
 		if(!empty($keyword)){
 			$title .=' ('.strip_tags(htmlspecialchars_decode($keyword)).')';
 		}
 
-		if ($virtuemart_manufacturer_id>0 and !empty($this->products[0])) $title .=' '.$this->products[0]->mf_name ;
+		if ($tsmart_manufacturer_id>0 and !empty($this->products[0])) $title .=' '.$this->products[0]->mf_name ;
 		$document->setTitle( $title );
 		// Override Category name when viewing manufacturers products !IMPORTANT AFTER page title.
-		if ($virtuemart_manufacturer_id>0 and !empty($this->products[0]) and isset($category->category_name)) $category->category_name = $this->products[0]->mf_name ;
+		if ($tsmart_manufacturer_id>0 and !empty($this->products[0]) and isset($category->category_name)) $category->category_name = $this->products[0]->mf_name ;
 
 		if ($app->getCfg('MetaTitle') == '1') {
 			$document->setMetaData('title',  $title);
@@ -261,7 +261,7 @@ class VirtuemartViewCategory extends VmView {
 		$menus	= $app->getMenu();
 		$menu = $menus->getActive();
 
-		$title = 'VirtueMart Category View';
+		$title = 'tsmart Category View';
 		if ($menu) $title = $menu->title;
 		// $title = $this->params->get('page_title', '');
 		// Check for empty title and add site name if param is set
@@ -294,12 +294,12 @@ class VirtuemartViewCategory extends VmView {
 				}
 			}
 
-			$link = 'index.php?option=com_virtuemart&view=category';
+			$link = 'index.php?option=com_tsmart&view=category';
 			if($categoryId!==-1){
-				$link .= '&virtuemart_category_id='.$categoryId;
+				$link .= '&tsmart_category_id='.$categoryId;
 			}
 			if($manId!==-1 and !empty($manId)){
-				$link .= '&virtuemart_manufacturer_id='.$manId;
+				$link .= '&tsmart_manufacturer_id='.$manId;
 			}
 
 			$document->addHeadLink( JRoute::_($link, FALSE) , 'canonical', 'rel', '' );
@@ -312,20 +312,20 @@ class VirtuemartViewCategory extends VmView {
 	 */
 	public function getSearchCustom() {
 
-		$emptyOption  = array('virtuemart_custom_id' =>0, 'custom_title' => tsmText::_('COM_VIRTUEMART_LIST_EMPTY_OPTION'));
+		$emptyOption  = array('tsmart_custom_id' =>0, 'custom_title' => tsmText::_('com_tsmart_LIST_EMPTY_OPTION'));
 		$this->_db =JFactory::getDBO();
-		$this->_db->setQuery('SELECT `virtuemart_custom_id`, `custom_title` FROM `#__virtuemart_customs` WHERE `field_type` ="P"');
+		$this->_db->setQuery('SELECT `tsmart_custom_id`, `custom_title` FROM `#__tsmart_customs` WHERE `field_type` ="P"');
 		$this->options = $this->_db->loadAssocList();
 		$this->custom_parent_id = 0;
 		if ($this->custom_parent_id = vRequest::getInt('custom_parent_id', 0)) {
-			$this->_db->setQuery('SELECT `virtuemart_custom_id`, `custom_title` FROM `#__virtuemart_customs` WHERE custom_parent_id='.$this->custom_parent_id);
+			$this->_db->setQuery('SELECT `tsmart_custom_id`, `custom_title` FROM `#__tsmart_customs` WHERE custom_parent_id='.$this->custom_parent_id);
 			$this->selected = $this->_db->loadObjectList();
 			$this->searchCustomValues ='';
 			foreach ($this->selected as $selected) {
-				$this->_db->setQuery('SELECT `custom_value` as virtuemart_custom_id,`custom_value` as custom_title FROM `#__virtuemart_product_customfields` WHERE virtuemart_custom_id='.$selected->virtuemart_custom_id);
+				$this->_db->setQuery('SELECT `custom_value` as tsmart_custom_id,`custom_value` as custom_title FROM `#__tsmart_product_customfields` WHERE tsmart_custom_id='.$selected->tsmart_custom_id);
 				 $valueOptions= $this->_db->loadAssocList();
 				 $valueOptions = array_merge(array($emptyOption), $valueOptions);
-				$this->searchCustomValues .= tsmText::_($selected->custom_title).' '.JHtml::_('select.genericlist', $valueOptions, 'customfields['.$selected->virtuemart_custom_id.']', 'class="inputbox"', 'virtuemart_custom_id', 'custom_title', 0);
+				$this->searchCustomValues .= tsmText::_($selected->custom_title).' '.JHtml::_('select.genericlist', $valueOptions, 'customfields['.$selected->tsmart_custom_id.']', 'class="inputbox"', 'tsmart_custom_id', 'custom_title', 0);
 			}
 		}
 
@@ -338,7 +338,7 @@ class VirtuemartViewCategory extends VmView {
 			$this->options = array_merge(array($emptyOption), $this->options);
 			// render List of available groups
 			vmJsApi::chosenDropDowns();
-			$this->searchCustomList = tsmText::_('COM_VIRTUEMART_SET_PRODUCT_TYPE').' '.JHtml::_('select.genericlist',$this->options, 'custom_parent_id', 'class="inputbox vm-chzn-select"', 'virtuemart_custom_id', 'custom_title', $this->custom_parent_id);
+			$this->searchCustomList = tsmText::_('com_tsmart_SET_PRODUCT_TYPE').' '.JHtml::_('select.genericlist',$this->options, 'custom_parent_id', 'class="inputbox vm-chzn-select"', 'tsmart_custom_id', 'custom_title', $this->custom_parent_id);
 		} else {
 			$this->searchCustomList = '';
 		}

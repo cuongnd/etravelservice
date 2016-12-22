@@ -5,14 +5,14 @@
 * shows the chosen adresses of the shopper
 * taken from the cart in the session
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Cart
 * @author Max Milbers
 *
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div class="width50 floatleft">
 
 		<span><span class="vmicon vm2-billto-icon"></span>
-			<?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_BILLTO_LBL'); ?></span>
+			<?php echo tsmText::_ ('com_tsmart_USER_FORM_BILLTO_LBL'); ?></span>
 		<?php // Output Bill To Address ?>
 		<div class="output-billto">
 			<?php
@@ -39,7 +39,7 @@ defined('_JEXEC') or die('Restricted access');
 				if(in_array($item['name'],$cartfieldNames)) continue;
 				if (!empty($item['value'])) {
 					if ($item['name'] === 'agreed') {
-						$item['value'] = ($item['value'] === 0) ? tsmText::_ ('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_NO') : tsmText::_ ('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_YES');
+						$item['value'] = ($item['value'] === 0) ? tsmText::_ ('com_tsmart_USER_FORM_BILLTO_TOS_NO') : tsmText::_ ('com_tsmart_USER_FORM_BILLTO_TOS_YES');
 					}
 					?><!-- span class="titles"><?php echo $item['title'] ?></span -->
 			<span class="values vm2<?php echo '-' . $item['name'] ?>"><?php echo $item['value'] ?></span>
@@ -58,8 +58,8 @@ defined('_JEXEC') or die('Restricted access');
 		}
 
 		?>
-		<a class="details <?php echo $this->pointAddress ?>" href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=BT', $this->useXHTML, $this->useSSL) ?>" rel="nofollow">
-			<?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_EDIT_BILLTO_LBL'); ?>
+		<a class="details <?php echo $this->pointAddress ?>" href="<?php echo JRoute::_ ('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=BT', $this->useXHTML, $this->useSSL) ?>" rel="nofollow">
+			<?php echo tsmText::_ ('com_tsmart_USER_FORM_EDIT_BILLTO_LBL'); ?>
 		</a>
 
 		<input type="hidden" name="billto" value="<?php echo $this->cart->lists['billTo']; ?>"/>
@@ -68,16 +68,16 @@ defined('_JEXEC') or die('Restricted access');
 	<div class="width50 floatleft">
 
 		<span><span class="vmicon vm2-shipto-icon"></span>
-			<?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_SHIPTO_LBL'); ?></span>
+			<?php echo tsmText::_ ('com_tsmart_USER_FORM_SHIPTO_LBL'); ?></span>
 		<?php // Output Bill To Address ?>
 		<div class="output-shipto">
 			<?php
 			if (!class_exists ('VmHtml')) {
 				require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 			}
-			if($this->cart->user->virtuemart_user_id==0){
+			if($this->cart->user->tsmart_user_id==0){
 
-				echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_ST_SAME_AS_BT');
+				echo tsmText::_ ('com_tsmart_USER_FORM_ST_SAME_AS_BT');
 				echo VmHtml::checkbox ('STsameAsBT', $this->cart->STsameAsBT,1,0,'id="STsameAsBTjs" data-dynamic-update=1') . '<br />';
 			} else if(!empty($this->cart->lists['shipTo'])){
 				echo $this->cart->lists['shipTo'];
@@ -112,8 +112,8 @@ defined('_JEXEC') or die('Restricted access');
 			$this->cart->lists['current_id'] = 0;
 
 		} ?>
-		<a class="details" href="<?php echo JRoute::_ ('index.php?option=com_virtuemart&view=user&task=editaddresscart&addrtype=ST&virtuemart_user_id[]=' . $this->cart->lists['current_id'], $this->useXHTML, $this->useSSL) ?>" rel="nofollow">
-			<?php echo tsmText::_ ('COM_VIRTUEMART_USER_FORM_ADD_SHIPTO_LBL'); ?>
+		<a class="details" href="<?php echo JRoute::_ ('index.php?option=com_tsmart&view=user&task=editaddresscart&addrtype=ST&tsmart_user_id[]=' . $this->cart->lists['current_id'], $this->useXHTML, $this->useSSL) ?>" rel="nofollow">
+			<?php echo tsmText::_ ('com_tsmart_USER_FORM_ADD_SHIPTO_LBL'); ?>
 		</a>
 
 	</div>

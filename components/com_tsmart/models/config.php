@@ -527,8 +527,8 @@ class tsmartModelConfig extends tmsModel {
 	 * @return Boolean; true on success, false otherwise
 	 * @author Oscar van Eijk
 	 */
-	static public function installVMconfigTable(){
-		vmdebug('installVMconfigTable');
+	static public function installtsmConfigTable(){
+		vmdebug('installtsmConfigTable');
 		$qry = self::getCreateConfigTableQuery();
 		$_db = JFactory::getDBO();
 		$_db->setQuery($qry);

@@ -3,13 +3,13 @@
  *
  * Controller for the front end Orderviews
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,11 +23,11 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 /**
- * VirtueMart Component Controller
+ * tsmart Component Controller
  *
- * @package		VirtueMart
+ * @package		tsmart
  */
-class VirtueMartControllerOrders extends JControllerLegacy
+class TsmartControllerOrders extends JControllerLegacy
 {
 
 	/**
@@ -39,8 +39,8 @@ class VirtueMartControllerOrders extends JControllerLegacy
 		$format = vRequest::getCmd('format','html');
 		if  ($format == 'pdf') $viewName= 'pdf';
 		else $viewName='orders';
-		tsmConfig::loadJLang('com_virtuemart_orders',TRUE);
-		tsmConfig::loadJLang('com_virtuemart_shoppers',TRUE);
+		tsmConfig::loadJLang('com_tsmart_orders',TRUE);
+		tsmConfig::loadJLang('com_tsmart_shoppers',TRUE);
 		$view = $this->getView($viewName, $format);
 
 		// Display it all
@@ -49,14 +49,14 @@ class VirtueMartControllerOrders extends JControllerLegacy
 	public function go_to_last_booking(){
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('virtuemart_order_id')
-			->from('#__virtuemart_orders')
-			->order('virtuemart_order_id DESC');
+		$query->select('tsmart_order_id')
+			->from('#__tsmart_orders')
+			->order('tsmart_order_id DESC');
 		$order_id=$db->setQuery($query)->loadResult();
 		if($order_id){
-			$this->setRedirect('index.php?option=com_virtuemart&view=order&id='.$order_id.'&Itemid=140');
+			$this->setRedirect('index.php?option=com_tsmart&view=order&id='.$order_id.'&Itemid=140');
 		}else{
-			$this->setRedirect('index.php?option=com_virtuemart&view=mypage');
+			$this->setRedirect('index.php?option=com_tsmart&view=mypage');
 		}
 	}
 

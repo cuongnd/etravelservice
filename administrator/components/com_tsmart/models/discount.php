@@ -69,7 +69,7 @@ class tsmartModeldiscount extends tmsModel {
 	{
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
-		$query->select('*')
+		$query->select('discounts.*')
 			->from('#__tsmart_discounts AS discounts')
 			->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
 			->select('products_en_gb.product_name')
@@ -88,8 +88,9 @@ class tsmartModeldiscount extends tmsModel {
 		if ($creation_to = $this->getState('filter.creation_to')) {
 			$query->where('discounts.created_on <= ' .$query->q(JFactory::getDate($creation_to)->toSql()));
 		}
-		if ($state = $this->getState('filter.state')) {
-			$query->where('product.published = ' . (int)$state);
+		$state = $this->getState('filter.state');
+		if ($state!='') {
+			$query->where('discounts.published = ' .$state);
 		}
 
 
@@ -115,7 +116,7 @@ class tsmartModeldiscount extends tmsModel {
 		$creation_to = $this->getUserStateFromRequest($this->context . '.filter.creation_to', 'filter_creation_to', '', 'String');
 		$this->setState('filter.creation_to', $creation_to);
 
-		$state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', 0, 'boolean');
+		$state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', 0, 'string');
 		$this->setState('filter.state', $state);
 
 	}

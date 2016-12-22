@@ -542,7 +542,7 @@ span.details-button input.details-button {
   padding: 3px;
 }
 
-textarea.virtuemart{
+textarea.tsmart{
   background: #fff;
   border: solid #ccc 1px;
   border-radius: 4px;
@@ -981,7 +981,7 @@ span.addtocart-button input.addtocart-button:hover, span.addtocart-button input.
   width: 80%;
 }
 
-textarea.virtuemart:hover, textarea.customer-comment:hover{
+textarea.tsmart:hover, textarea.customer-comment:hover{
   color: #000;
   background: #e8e8e8;
 }
@@ -1130,7 +1130,7 @@ a:hover .vm-img-desc{
   font-size: 9px;
 }
 
-.virtuemart_search .inputbox{
+.tsmart_search .inputbox{
   vertical-align: middle;
 }
 /* Custom Field Images */

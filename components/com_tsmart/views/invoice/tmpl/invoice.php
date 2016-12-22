@@ -2,14 +2,14 @@
 /**
  *
  * Order detail view
- * //index.php?option=com_virtuemart&view=invoice&layout=invoice&format=pdf&tmpl=component&order_number=xx&order_pass=p_yy
- * @package    VirtueMart
+ * //index.php?option=com_tsmart&view=invoice&layout=invoice&format=pdf&tmpl=component&order_number=xx&order_pass=p_yy
+ * @package    tsmart
  * @subpackage Orders
  * @author Max Milbers, Valerie Isaksen
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -17,10 +17,10 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-JHtml::stylesheet('vmpanels.css', JURI::root() . 'components/com_virtuemart/assets/css/');
+JHtml::stylesheet('vmpanels.css', JURI::root() . 'components/com_tsmart/assets/css/');
 if ($this->_layout == "invoice") {
 	$document = JFactory::getDocument();
-	$document->setTitle(tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PO_NUMBER') . ' ' . $this->orderDetails['details']['BT']->order_number . ' ' . $this->vendor->vendor_store_name);
+	$document->setTitle(tsmText::_('com_tsmart_ORDER_PRINT_PO_NUMBER') . ' ' . $this->orderDetails['details']['BT']->order_number . ' ' . $this->vendor->vendor_store_name);
 }
 
 $vendorCompanyName = (!empty($this->vendor->vendorFields["fields"]["company"]["value"])) ? $this->vendor->vendorFields["fields"]["company"]["value"] : $this->vendor->vendor_store_name;
@@ -49,7 +49,7 @@ if ($this->headFooter) {
          foreach($userfields['fields'] as $item){
              if(!empty($item['value'])){
                  if($item['name']==='agreed'){
-                     $item['value'] =  ($item['value']===0) ? vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_NO'):vmText::_('COM_VIRTUEMART_USER_FORM_BILLTO_TOS_YES');
+                     $item['value'] =  ($item['value']===0) ? vmText::_('com_tsmart_USER_FORM_BILLTO_TOS_NO'):vmText::_('com_tsmart_USER_FORM_BILLTO_TOS_YES');
                  }
              ?><!-- span class="titles"><?php echo $item['title'] ?></span -->
                          <span class="values vm2<?php echo '-'.$item['name'] ?>" ><?php echo $this->escape($item['value']) ?></span>
@@ -81,7 +81,7 @@ if ($this->print) {
     if ($this->print) {
 		echo $this->loadTemplate('items');
     } else {
-        $tabarray = array('items'=>'COM_VIRTUEMART_ORDER_ITEM', 'history'=>'COM_VIRTUEMART_ORDER_HISTORY');
+        $tabarray = array('items'=>'com_tsmart_ORDER_ITEM', 'history'=>'com_tsmart_ORDER_HISTORY');
 		shopFunctionsF::buildTabs( $this, $tabarray);
     }
     ?>

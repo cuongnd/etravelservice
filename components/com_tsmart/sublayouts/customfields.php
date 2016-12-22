@@ -2,10 +2,10 @@
 /**
 * sublayout products
 *
-* @package	VirtueMart
+* @package	tsmart
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL2, see LICENSE.php
 * @version $Id: cart.php 7682 2014-02-26 17:07:20Z Milbo $
 */
@@ -35,7 +35,7 @@ if (!empty($product->customfieldsSorted[$position])) {
 		}
 		$custom_title = null;
 		foreach ($product->customfieldsSorted[$position] as $field) {
-			if ( $field->is_hidden || empty($field->display)) continue; //OSP http://forum.virtuemart.net/index.php?topic=99320.0
+			if ( $field->is_hidden || empty($field->display)) continue; //OSP http://forum.tsmart.net/index.php?topic=99320.0
 			?><div class="product-field product-field-type-<?php echo $field->field_type ?>">
 				<?php if (!$customTitle and $field->custom_title != $custom_title and $field->show_title) { ?>
 					<span class="product-fields-title-wrapper"><span class="product-fields-title"><strong><?php echo tsmText::_ ($field->custom_title) ?></strong></span>

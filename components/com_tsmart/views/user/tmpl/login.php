@@ -3,14 +3,14 @@
 *
 * Layout for the login
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage User
 * @author Max Milbers, George Kostopoulos
 *
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -72,23 +72,23 @@ JHtml::_('behavior.formvalidation');
 
       <div class="order-view">
 
-        <h2><?php echo tsmText::_('COM_VIRTUEMART_ORDER_ANONYMOUS') ?></h2>
+        <h2><?php echo tsmText::_('com_tsmart_ORDER_ANONYMOUS') ?></h2>
 
         <form action="<?php echo JRoute::_( 'index.php', 1, $this->useSSL); ?>" method="post" name="com-login" >
 
           <div class="width30 floatleft" id="com-form-order-number">
-          	<label for="order_number"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_NUMBER') ?></label><br />
+          	<label for="order_number"><?php echo tsmText::_('com_tsmart_ORDER_NUMBER') ?></label><br />
           	<input type="text" id="order_number" name="order_number" class="inputbox" size="18" />
           </div>
           <div class="width30 floatleft" id="com-form-order-pass">
-          	<label for="order_pass"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PASS') ?></label><br />
+          	<label for="order_pass"><?php echo tsmText::_('com_tsmart_ORDER_PASS') ?></label><br />
           	<input type="text" id="order_pass" name="order_pass" class="inputbox" size="18" />
           </div>
           <div class="width30 floatleft" id="com-form-order-submit">
-          	<input type="submit" name="Submitbuton" class="button" value="<?php echo tsmText::_('COM_VIRTUEMART_ORDER_BUTTON_VIEW') ?>" />
+          	<input type="submit" name="Submitbuton" class="button" value="<?php echo tsmText::_('com_tsmart_ORDER_BUTTON_VIEW') ?>" />
           </div>
           <div class="clr"></div>
-          <input type="hidden" name="option" value="com_virtuemart" />
+          <input type="hidden" name="option" value="com_tsmart" />
           <input type="hidden" name="view" value="orders" />
           <input type="hidden" name="layout" value="details" />
           <input type="hidden" name="return" value="" />
@@ -105,21 +105,21 @@ JHtml::_('behavior.formvalidation');
       <fieldset class="userdata">
         <?php if (!$this->from_cart ) { ?>
         <div>
-        <h2><?php echo tsmText::_('COM_VIRTUEMART_ORDER_CONNECT_FORM'); ?></h2>
+        <h2><?php echo tsmText::_('com_tsmart_ORDER_CONNECT_FORM'); ?></h2>
         </div>
         <?php } else { ?>
-        <p><?php echo tsmText::_('COM_VIRTUEMART_ORDER_CONNECT_FORM'); ?></p>
+        <p><?php echo tsmText::_('com_tsmart_ORDER_CONNECT_FORM'); ?></p>
         <?php }   ?>
         <div class="width30 floatleft" id="com-form-login-username">
-          <input type="text" name="username" class="inputbox" size="18" title="<?php echo tsmText::_('COM_VIRTUEMART_USERNAME'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_USERNAME'); ?>" onblur="if(this.value=='') this.value='<?php echo addslashes(tsmText::_('COM_VIRTUEMART_USERNAME')); ?>';" onfocus="if(this.value=='<?php echo addslashes(tsmText::_('COM_VIRTUEMART_USERNAME')); ?>') this.value='';" />
+          <input type="text" name="username" class="inputbox" size="18" title="<?php echo tsmText::_('com_tsmart_USERNAME'); ?>" value="<?php echo tsmText::_('com_tsmart_USERNAME'); ?>" onblur="if(this.value=='') this.value='<?php echo addslashes(tsmText::_('com_tsmart_USERNAME')); ?>';" onfocus="if(this.value=='<?php echo addslashes(tsmText::_('com_tsmart_USERNAME')); ?>') this.value='';" />
         </div>
 
         <div class="width30 floatleft" id="com-form-login-password">
-          <input id="modlgn-passwd" type="password" name="password" class="inputbox" size="18" title="<?php echo tsmText::_('COM_VIRTUEMART_PASSWORD'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_PASSWORD'); ?>" onblur="if(this.value=='') this.value='<?php echo addslashes(tsmText::_('COM_VIRTUEMART_PASSWORD')); ?>';" onfocus="if(this.value=='<?php echo addslashes(tsmText::_('COM_VIRTUEMART_PASSWORD')); ?>') this.value='';" />
+          <input id="modlgn-passwd" type="password" name="password" class="inputbox" size="18" title="<?php echo tsmText::_('com_tsmart_PASSWORD'); ?>" value="<?php echo tsmText::_('com_tsmart_PASSWORD'); ?>" onblur="if(this.value=='') this.value='<?php echo addslashes(tsmText::_('com_tsmart_PASSWORD')); ?>';" onfocus="if(this.value=='<?php echo addslashes(tsmText::_('com_tsmart_PASSWORD')); ?>') this.value='';" />
         </div>
 
         <div class="width30 floatleft" id="com-form-login-remember">
-          <input type="submit" name="Submit" class="default" value="<?php echo tsmText::_('COM_VIRTUEMART_LOGIN') ?>" />
+          <input type="submit" name="Submit" class="default" value="<?php echo tsmText::_('com_tsmart_LOGIN') ?>" />
           <?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
           <label for="remember"><?php echo $remember_me = tsmText::_('JGLOBAL_REMEMBER_ME') ?></label>
           <input type="checkbox" id="remember" name="remember" class="inputbox" value="yes" />
@@ -130,11 +130,11 @@ JHtml::_('behavior.formvalidation');
 
       <div class="width30 floatleft">
         <a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>" rel="nofollow">
-        <?php echo tsmText::_('COM_VIRTUEMART_ORDER_FORGOT_YOUR_USERNAME'); ?></a>
+        <?php echo tsmText::_('com_tsmart_ORDER_FORGOT_YOUR_USERNAME'); ?></a>
       </div>
       <div class="width30 floatleft">
         <a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>" rel="nofollow">
-        <?php echo tsmText::_('COM_VIRTUEMART_ORDER_FORGOT_YOUR_PASSWORD'); ?></a>
+        <?php echo tsmText::_('com_tsmart_ORDER_FORGOT_YOUR_PASSWORD'); ?></a>
       </div>
 
       <div class="clr"></div>
@@ -148,8 +148,8 @@ JHtml::_('behavior.formvalidation');
 <?php  } else if ( $user->id ) { ?>
 
 	  <form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="login" id="form-login">
-      <?php echo tsmText::sprintf( 'COM_VIRTUEMART_HINAME', $user->name ); ?>
-      <input type="submit" name="Submit" class="button" value="<?php echo tsmText::_( 'COM_VIRTUEMART_BUTTON_LOGOUT'); ?>" />
+      <?php echo tsmText::sprintf( 'com_tsmart_HINAME', $user->name ); ?>
+      <input type="submit" name="Submit" class="button" value="<?php echo tsmText::_( 'com_tsmart_BUTTON_LOGOUT'); ?>" />
       <input type="hidden" name="option" value="com_users" />
       <input type="hidden" name="task" value="user.logout" />
       <?php echo JHtml::_('form.token'); ?>

@@ -2,13 +2,13 @@
 defined('_JEXEC') or die('');
 /**
 * Renders the email for recommend to a friend
-	* @package	VirtueMart
+	* @package	tsmart
 	* @subpackage product details
 	* @author Maik Künnemann
 	* @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('');
 
 					<tr>
 						<td align="center" style="border-bottom : 1px solid #dad8d8;">
-							<span style="font-size: 14px; font-weight: bold"><?php echo tsmText::sprintf ('COM_VIRTUEMART_RECOMMEND_MAIL_BODY', $this->name, $this->product->product_name); ?></span>
+							<span style="font-size: 14px; font-weight: bold"><?php echo tsmText::sprintf ('com_tsmart_RECOMMEND_MAIL_BODY', $this->name, $this->product->product_name); ?></span>
 							<br /><br /><?php echo $this->comment; ?><br /><br />
 						</td>
 					</tr>
@@ -61,8 +61,8 @@ defined('_JEXEC') or die('');
 								<tr>
 									<?php
 									$menuItemID = shopFunctionsF::getMenuItemId(JFactory::getLanguage()->getTag());
-									$product_link = JURI::root().'index.php?option=com_virtuemart&view=productdetails
-													&virtuemart_product_id=' . $this->product->virtuemart_product_id . '&Itemid=' . $menuItemID;
+									$product_link = JURI::root().'index.php?option=com_tsmart&view=productdetails
+													&tsmart_product_id=' . $this->product->tsmart_product_id . '&Itemid=' . $menuItemID;
 									?>
 									<td width="30%" align="center">
 										<a href="<?php  echo $product_link ?>">
@@ -72,7 +72,7 @@ defined('_JEXEC') or die('');
 									<td width="70%" valign="top">
 										<h2><?php  echo $this->product->product_name ?></h2>
 										<p style="margin: 15px 0; display:block;"><?php  echo $this->product->product_s_desc ?></p>
-										<a href="<?php  echo $product_link ?>" class="product-details"><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_DETAILS') ?></a>
+										<a href="<?php  echo $product_link ?>" class="product-details"><?php echo tsmText::_('com_tsmart_PRODUCT_DETAILS') ?></a>
 									</td>
 								</tr>
 							</table>

@@ -78,7 +78,7 @@ class TsmartViewPaymentMethod extends tsmViewAdmin {
 			$formFile	= vRequest::filterPath( VMPATH_ROOT .DS. 'plugins'. DS. 'vmpayment' .DS. $payment->payment_element .DS. $payment->payment_element . '.xml');
 			if (file_exists($formFile)){
 
-				$payment->form = JForm::getInstance($payment->payment_element, $formFile, array(),false, '//vmconfig | //config[not(//vmconfig)]');
+				$payment->form = JForm::getInstance($payment->payment_element, $formFile, array(),false, '//tsmConfig | //config[not(//tsmConfig)]');
 				$payment->params = new stdClass();
 				$varsToPush = vmPlugin::getVarsToPushFromForm($payment->form);
 				tsmTable::bindParameterableToSubField($payment,$varsToPush);

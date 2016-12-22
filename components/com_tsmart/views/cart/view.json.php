@@ -4,13 +4,13 @@
  *
  * View for the shopping cart
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2013 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2013 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -24,10 +24,10 @@ if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 
 /**
  * View for the shopping cart
- * @package VirtueMart
+ * @package tsmart
  * @author Max Milbers
  */
-class VirtueMartViewCart extends VmView {
+class TsmartViewCart extends VmView {
 
 	public function display($tpl = null) {
 
@@ -35,9 +35,9 @@ class VirtueMartViewCart extends VmView {
 		if (!$layoutName) $layoutName = vRequest::getCmd('layout', 'default');
 		$this->assignRef('layoutName', $layoutName);
 
-		if (!class_exists('VirtueMartCart'))
+		if (!class_exists('tsmartCart'))
 		require(VMPATH_SITE . DS . 'helpers' . DS . 'cart.php');
-		$this->cart = VirtueMartCart::getCart();
+		$this->cart = tsmartCart::getCart();
 
     	$this->prepareContinueLink();
 		if(!class_exists('VmTemplate')) require(VMPATH_SITE.DS.'helpers'.DS.'vmtemplate.php');

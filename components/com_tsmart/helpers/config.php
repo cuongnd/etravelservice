@@ -15,8 +15,8 @@ use Joomla\Registry\Registry;
  *
  * We need this extra paths to have always the correct path undependent by loaded application, module or plugin
  * Plugin, module developers must always include this config at start of their application
- *   $vmConfig = VmConfig::loadConfig(); // load the config and create an instance
- *  $vmConfig -> jQuery(); // for use of jQuery
+ *   $tsmConfig = tsmConfig::loadConfig(); // load the config and create an instance
+ *  $tsmConfig -> jQuery(); // for use of jQuery
  *  Then always use the defined paths below to ensure future stability
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
@@ -822,7 +822,7 @@ class tsmConfig {
 
 			if($app->isAdmin() and !$redirected and !in_array($selectedLang,$knownLangs)){
 				//$option = vRequest::getVar('option');
-				//VmConfig::$_debug=true;
+				//tsmConfig::$_debug=true;
 				//vmdebug('my option',$option,$_REQUEST);
 				//if($option!='com_languages'){
 					$msg = 'Install your selected language <b>'.$selectedLang.'</b> first in <a href="'.$link.'">joomla language manager</a>, just select then the component tsmart under menu "component", to proceed with the installation ';
@@ -899,7 +899,7 @@ class tsmConfig {
 			$installed = tsmartModelConfig::checktsmartInstalled();
 			if($installed){
 
-				tsmartModelConfig::installVMconfigTable();
+				tsmartModelConfig::installtsmConfigTable();
 
 				$confData = array();
 				$confData['tsmart_config_id'] = 1;
@@ -1026,7 +1026,7 @@ class tsmConfig {
 
 		} else {
 			$app = JFactory::getApplication();
-			$app -> enqueueMessage('VmConfig get, empty key given');
+			$app -> enqueueMessage('tsmConfig get, empty key given');
 		}
 
 		return $value;

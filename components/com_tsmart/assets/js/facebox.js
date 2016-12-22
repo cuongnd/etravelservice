@@ -87,8 +87,8 @@
             height: 'auto',
             overlay: true,
             objectAppendTo:false,
-            loadingImage: '/components/com_virtuemart/assets/images/vm-preloader.gif',
-            closeImage: '/components/com_virtuemart/assets/images/fancybox/fancy_close.png',
+            loadingImage: '/components/com_tsmart/assets/images/vm-preloader.gif',
+            closeImage: '/components/com_tsmart/assets/images/fancybox/fancy_close.png',
             imageTypes: ['png', 'jpg', 'jpeg', 'gif'],
             faceboxHtml: '\
     <div id="facebox" style="display:none;"> \

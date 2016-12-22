@@ -989,7 +989,7 @@ vmJsApi::addJScript('ordergui',$j);
 			</tr>
 			<?php
 			/* COUPON DISCOUNT */
-			//if (VmConfig::get('coupons_enable') == '1') {
+			//if (tsmConfig::get('coupons_enable') == '1') {
 
 				if ($this->orderbt->coupon_discount > 0 || $this->orderbt->coupon_discount < 0) {
 					?>

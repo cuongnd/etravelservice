@@ -3,13 +3,13 @@
  *
  * Handle the orders view
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Orders
  * @author Oscar van Eijk
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -27,7 +27,7 @@ if (!class_exists('VmImage')) require(VMPATH_ADMIN.DS.'helpers'.DS.'image.php');
 /**
  * Handle the orders view
  */
-class VirtuemartViewInvoice extends VmView {
+class TsmartViewInvoice extends VmView {
 
 	var $format = 'html';
 	var $doVendor = false;
@@ -41,7 +41,7 @@ class VirtuemartViewInvoice extends VmView {
 	{
 
 		$document = JFactory::getDocument();
-		tsmConfig::loadJLang('com_virtuemart_shoppers', true);
+		tsmConfig::loadJLang('com_tsmart_shoppers', true);
 		/* It would be so nice to be able to load the override of the FE additionally from here
 		 * joomlaWantsThisFolder\language\overrides\en-GB.override.ini
 		 * $jlang =JFactory::getLanguage();
@@ -59,17 +59,17 @@ class VirtuemartViewInvoice extends VmView {
 		switch ($layout) {
 			case 'invoice':
 				$this->doctype = $layout;
-				$title = tsmText::_('COM_VIRTUEMART_INVOICE');
+				$title = tsmText::_('com_tsmart_INVOICE');
 				break;
 			case 'deliverynote':
 				$this->doctype = $layout;
 				$layout = 'invoice';
-				$title = tsmText::_('COM_VIRTUEMART_DELIVERYNOTE');
+				$title = tsmText::_('com_tsmart_DELIVERYNOTE');
 				break;
 			case 'confirmation':
 				$this->doctype = $layout;
 				$layout = 'confirmation';
-				$title = tsmText::_('COM_VIRTUEMART_CONFIRMATION');
+				$title = tsmText::_('com_tsmart_CONFIRMATION');
 				break;
 			case 'mail':
 				if (tsmConfig::get('order_mail_html')) {
@@ -89,7 +89,7 @@ class VirtuemartViewInvoice extends VmView {
 
 		$this->format = vRequest::getCmd('format','html');
 		if($layout == 'invoice'){
-			$document->setTitle( tsmText::_('COM_VIRTUEMART_INVOICE') );
+			$document->setTitle( tsmText::_('com_tsmart_INVOICE') );
 		}
 		$order_print=false;
 
@@ -103,26 +103,26 @@ class VirtuemartViewInvoice extends VmView {
 		if($orderDetails==0){
 			$orderDetails = $orderModel ->getMyOrderDetails();
 			if(!$orderDetails ){
-				echo tsmText::_('COM_VIRTUEMART_CART_ORDER_NOTFOUND');
-				vmdebug('COM_VIRTUEMART_CART_ORDER_NOTFOUND and $orderDetails ',$orderDetails);
+				echo tsmText::_('com_tsmart_CART_ORDER_NOTFOUND');
+				vmdebug('com_tsmart_CART_ORDER_NOTFOUND and $orderDetails ',$orderDetails);
 				return;
 			} else if(empty($orderDetails['details'])){
-				echo tsmText::_('COM_VIRTUEMART_CART_ORDER_DETAILS_NOTFOUND');
+				echo tsmText::_('com_tsmart_CART_ORDER_DETAILS_NOTFOUND');
 				return;
 			}
 		}
 
 		if(empty($orderDetails['details'])){
-			echo tsmText::_('COM_VIRTUEMART_ORDER_NOTFOUND');
+			echo tsmText::_('com_tsmart_ORDER_NOTFOUND');
 			return 0;
 		}
 		if(!empty($orderDetails['details']['BT']->order_language)) {
-			tsmConfig::loadJLang('com_virtuemart',true, $orderDetails['details']['BT']->order_language);
-			tsmConfig::loadJLang('com_virtuemart_shoppers',true, $orderDetails['details']['BT']->order_language);
-			tsmConfig::loadJLang('com_virtuemart_orders',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart_shoppers',true, $orderDetails['details']['BT']->order_language);
+			tsmConfig::loadJLang('com_tsmart_orders',true, $orderDetails['details']['BT']->order_language);
 		}
 
-		//QuicknDirty, caching of the result VirtueMartModelCustomfields::calculateModificators must be deleted,
+		//QuicknDirty, caching of the result tsmartModelCustomfields::calculateModificators must be deleted,
 		/*if(!empty($orderDetails['items']) and is_array($orderDetails['items'])){
 
 			$nbPr = count($orderDetails['items']);
@@ -140,7 +140,7 @@ class VirtuemartViewInvoice extends VmView {
 			if (  $orderModel->createInvoiceNumber($orderDetails['details']['BT'], $invoiceNumberDate)) {
                 if (shopFunctionsF::InvoiceNumberReserved( $invoiceNumberDate[0])) {
 	                if  ($this->uselayout!='mail') {
-		                $document->setTitle( tsmText::_('COM_VIRTUEMART_PAYMENT_INVOICE') );
+		                $document->setTitle( tsmText::_('com_tsmart_PAYMENT_INVOICE') );
                         return ;
 	                }
                 }
@@ -160,16 +160,16 @@ class VirtuemartViewInvoice extends VmView {
 			}
 		}
 
-		$virtuemart_vendor_id = $orderDetails['details']['BT']->virtuemart_vendor_id;
+		$tsmart_vendor_id = $orderDetails['details']['BT']->tsmart_vendor_id;
 
 		$emailCurrencyId = $orderDetails['details']['BT']->user_currency_id;
 		$exchangeRate=FALSE;
 		if(!class_exists('vmPSPlugin')) require(JPATH_VM_PLUGINS.DS.'vmpsplugin.php');
 		  JPluginHelper::importPlugin('vmpayment');
 	    $dispatcher = JDispatcher::getInstance();
-	    $dispatcher->trigger('plgVmgetEmailCurrency',array( $orderDetails['details']['BT']->virtuemart_paymentmethod_id, $orderDetails['details']['BT']->virtuemart_order_id, &$emailCurrencyId));
+	    $dispatcher->trigger('plgVmgetEmailCurrency',array( $orderDetails['details']['BT']->tsmart_paymentmethod_id, $orderDetails['details']['BT']->tsmart_order_id, &$emailCurrencyId));
 		if(!class_exists('CurrencyDisplay')) require(VMPATH_ADMIN.DS.'helpers'.DS.'currencydisplay.php');
-		$currency = CurrencyDisplay::getInstance($emailCurrencyId,$virtuemart_vendor_id);
+		$currency = CurrencyDisplay::getInstance($emailCurrencyId,$tsmart_vendor_id);
 			if ($emailCurrencyId) {
 				$currency->exchangeRateShopper=$orderDetails['details']['BT']->user_currency_rate;
 			}
@@ -226,8 +226,8 @@ class VirtuemartViewInvoice extends VmView {
 		$_itemStatusUpdateFields = array();
 		$_itemAttributesUpdateFields = array();
 		foreach($orderDetails['items'] as $_item) {
-// 			$_itemStatusUpdateFields[$_item->virtuemart_order_item_id] = JHtml::_('select.genericlist', $orderstatuses, "item_id[".$_item->virtuemart_order_item_id."][order_status]", 'class="selectItemStatusCode"', 'order_status_code', 'order_status_name', $_item->order_status, 'order_item_status'.$_item->virtuemart_order_item_id,true);
-			$_itemStatusUpdateFields[$_item->virtuemart_order_item_id] =  $_item->order_status;
+// 			$_itemStatusUpdateFields[$_item->tsmart_order_item_id] = JHtml::_('select.genericlist', $orderstatuses, "item_id[".$_item->tsmart_order_item_id."][order_status]", 'class="selectItemStatusCode"', 'order_status_code', 'order_status_name', $_item->order_status, 'order_item_status'.$_item->tsmart_order_item_id,true);
+			$_itemStatusUpdateFields[$_item->tsmart_order_item_id] =  $_item->order_status;
 
 		}
 
@@ -235,21 +235,21 @@ class VirtuemartViewInvoice extends VmView {
 		    if (!class_exists('vmPSPlugin')) require(JPATH_VM_PLUGINS . DS . 'vmpsplugin.php');
 		    JPluginHelper::importPlugin('vmshipment');
 		    $dispatcher = JDispatcher::getInstance();
-		    $returnValues = $dispatcher->trigger('plgVmOnShowOrderFEShipment',array(  $orderDetails['details']['BT']->virtuemart_order_id, $orderDetails['details']['BT']->virtuemart_shipmentmethod_id, &$orderDetails['shipmentName']));
+		    $returnValues = $dispatcher->trigger('plgVmOnShowOrderFEShipment',array(  $orderDetails['details']['BT']->tsmart_order_id, $orderDetails['details']['BT']->tsmart_shipmentmethod_id, &$orderDetails['shipmentName']));
 		}
 
 		if (empty($orderDetails['paymentName']) ) {
 		    if(!class_exists('vmPSPlugin')) require(JPATH_VM_PLUGINS.DS.'vmpsplugin.php');
 		    JPluginHelper::importPlugin('vmpayment');
 		    $dispatcher = JDispatcher::getInstance();
-		    $returnValues = $dispatcher->trigger('plgVmOnShowOrderFEPayment',array( $orderDetails['details']['BT']->virtuemart_order_id, $orderDetails['details']['BT']->virtuemart_paymentmethod_id,  &$orderDetails['paymentName']));
+		    $returnValues = $dispatcher->trigger('plgVmOnShowOrderFEPayment',array( $orderDetails['details']['BT']->tsmart_order_id, $orderDetails['details']['BT']->tsmart_paymentmethod_id,  &$orderDetails['paymentName']));
 
 		}
 
 		$vendorModel = tmsModel::getModel('vendor');
-		$vendor = $vendorModel->getVendor($virtuemart_vendor_id);
+		$vendor = $vendorModel->getVendor($tsmart_vendor_id);
 		$vendorModel->addImages($vendor);
-		$vendor->vendorFields = $vendorModel->getVendorAddressFields($virtuemart_vendor_id);
+		$vendor->vendorFields = $vendorModel->getVendorAddressFields($tsmart_vendor_id);
 		if (tsmConfig::get ('enable_content_plugin', 0)) {
 			if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
 			shopFunctionsF::triggerContentPlugin($vendor, 'vendor','vendor_store_desc');
@@ -267,10 +267,10 @@ class VirtuemartViewInvoice extends VmView {
 		$this->assignRef('headFooter', $this->showHeaderFooter);
 
 		//Attention, this function will be removed, it wont be deleted, but it is obsoloete in any view.html.php
-	    $vendorAddress= shopFunctionsF::renderVendorAddress($virtuemart_vendor_id, $lineSeparator);
+	    $vendorAddress= shopFunctionsF::renderVendorAddress($tsmart_vendor_id, $lineSeparator);
 		$this->assignRef('vendorAddress', $vendorAddress);
 
-		$vendorEmail = $vendorModel->getVendorEmail($virtuemart_vendor_id);
+		$vendorEmail = $vendorModel->getVendorEmail($tsmart_vendor_id);
 		$vars['vendorEmail'] = $vendorEmail;
 
 		// this is no setting in BE to change the layout !
@@ -278,11 +278,11 @@ class VirtuemartViewInvoice extends VmView {
 
 		if (strpos($layout,'mail') !== false) {
 		    if ($this->doVendor) {
-		    	 //Old text key COM_VIRTUEMART_MAIL_SUBJ_VENDOR_C
-			    $this->subject = tsmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_VENDOR_'.$orderDetails['details']['BT']->order_status, $this->shopperName, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number);
+		    	 //Old text key com_tsmart_MAIL_SUBJ_VENDOR_C
+			    $this->subject = tsmText::sprintf('com_tsmart_MAIL_SUBJ_VENDOR_'.$orderDetails['details']['BT']->order_status, $this->shopperName, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number);
 			    $recipient = 'vendor';
 		    } else {
-			    $this->subject = tsmText::sprintf('COM_VIRTUEMART_MAIL_SUBJ_SHOPPER_'.$orderDetails['details']['BT']->order_status, $vendor->vendor_store_name, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number );
+			    $this->subject = tsmText::sprintf('com_tsmart_MAIL_SUBJ_SHOPPER_'.$orderDetails['details']['BT']->order_status, $vendor->vendor_store_name, strip_tags($currency->priceDisplay($orderDetails['details']['BT']->order_total, $currency)), $orderDetails['details']['BT']->order_number );
 			    $recipient = 'shopper';
 		    }
 		    $this->assignRef('recipient', $recipient);
@@ -324,7 +324,7 @@ class VirtuemartViewInvoice extends VmView {
 			$imgrepl = "<div class=\"vendor-image\">".$img->displayIt($img->file_url,'','',false, '', false, false)."</div>";
 		}
 		$txt = str_replace('{vm:vendorimage}', $imgrepl, $txt);
-		$vendorAddress = shopFunctionsF::renderVendorAddress($vendor->virtuemart_vendor_id, "<br/>");
+		$vendorAddress = shopFunctionsF::renderVendorAddress($vendor->tsmart_vendor_id, "<br/>");
 		// Trim the final <br/> from the address, which is inserted by renderVendorAddress automatically!
 		if (substr($vendorAddress, -5, 5) == '<br/>') {
 			$vendorAddress = substr($vendorAddress, 0, -5);

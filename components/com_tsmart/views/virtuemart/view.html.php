@@ -3,13 +3,13 @@
  *
  * Description
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage
  * @author
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2011 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2011 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -23,10 +23,10 @@ defined('_JEXEC') or die('Restricted access');
 if(!class_exists('VmView'))require(VMPATH_SITE.DS.'helpers'.DS.'vmview.php');
 
 /**
- * Default HTML View class for the VirtueMart Component
+ * Default HTML View class for the tsmart Component
  * @todo Find out how to use the front-end models instead of the backend models
  */
-class VirtueMartViewVirtueMart extends VmView {
+class TsmartViewtsmart extends VmView {
 
 	public function display($tpl = null) {
 
@@ -59,8 +59,8 @@ class VirtueMartViewVirtueMart extends VmView {
 		if(!tsmConfig::get('shop_is_offline',0)){
 
 			if( ShopFunctionsF::isFEmanager('product.edit') ){
-				$add_product_link = JURI::root() . 'index.php?option=com_virtuemart&tmpl=component&view=product&task=edit&virtuemart_product_id=0&manage=1' ;
-				$add_product_link = $this->linkIcon($add_product_link, 'COM_VIRTUEMART_PRODUCT_FORM_NEW_PRODUCT', 'edit', false, false);
+				$add_product_link = JURI::root() . 'index.php?option=com_tsmart&tmpl=component&view=product&task=edit&tsmart_product_id=0&manage=1' ;
+				$add_product_link = $this->linkIcon($add_product_link, 'com_tsmart_PRODUCT_FORM_NEW_PRODUCT', 'edit', false, false);
 			} else {
 				$add_product_link = "";
 			}
@@ -170,7 +170,7 @@ class VirtueMartViewVirtueMart extends VmView {
 
 		//Todo this may not work everytime as expected, because the error must be set in the redirect links.
 		if(!empty($error)){
-			$document->setTitle(tsmText::_('COM_VIRTUEMART_PRODUCT_NOT_FOUND').tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name));
+			$document->setTitle(tsmText::_('com_tsmart_PRODUCT_NOT_FOUND').tsmText::sprintf('com_tsmart_HOME',$this->vendor->vendor_store_name));
 		} else {
 
 			if(empty($this->vendor->customtitle)){
@@ -178,11 +178,11 @@ class VirtueMartViewVirtueMart extends VmView {
 				if ($menu){
 					$menuTitle = $menu->params->get('page_title');
 					if(empty($menuTitle)) {
-						$menuTitle = tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
+						$menuTitle = tsmText::sprintf('com_tsmart_HOME',$this->vendor->vendor_store_name);
 					}
 					$document->setTitle($menuTitle);
 				} else {
-					$title = tsmText::sprintf('COM_VIRTUEMART_HOME',$this->vendor->vendor_store_name);
+					$title = tsmText::sprintf('com_tsmart_HOME',$this->vendor->vendor_store_name);
 					$document->setTitle($title);
 				}
 			} else {

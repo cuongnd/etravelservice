@@ -3,13 +3,13 @@
 *
 * Order items view
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage Orders
 * @author Oscar van Eijk, Valerie Isaksen
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -30,21 +30,21 @@ if($this->format == 'pdf'){
 ?>
 <table width="<?php echo $widthTable ?>%" cellspacing="0" cellpadding="0" border="0">
 	<tr align="left" class="sectiontableheader">
-		<th align="left" width="5%"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_SKU') ?></th>
-		<th align="left" colspan="2" width="<?php echo $widthTitle ?>%" ><?php echo tsmText::_('COM_VIRTUEMART_PRODUCT_NAME_TITLE') ?></th>
-		<th align="center" width="10%"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_STATUS') ?></th>
-		<th align="right" width="10%" ><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRICE') ?></th>
-		<th align="left" width="5%"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_QTY') ?></th>
+		<th align="left" width="5%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SKU') ?></th>
+		<th align="left" colspan="2" width="<?php echo $widthTitle ?>%" ><?php echo tsmText::_('com_tsmart_PRODUCT_NAME_TITLE') ?></th>
+		<th align="center" width="10%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PRODUCT_STATUS') ?></th>
+		<th align="right" width="10%" ><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PRICE') ?></th>
+		<th align="left" width="5%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_QTY') ?></th>
 		<?php if ( tsmConfig::get('show_tax')) { ?>
-		<th align="right" width="10%" ><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_TAX') ?></th>
+		<th align="right" width="10%" ><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PRODUCT_TAX') ?></th>
 		  <?php } ?>
-		<th align="right" width="11%"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_SUBTOTAL_DISCOUNT_AMOUNT') ?></th>
-		<th align="right" width="10%"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></th>
+		<th align="right" width="11%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SUBTOTAL_DISCOUNT_AMOUNT') ?></th>
+		<th align="right" width="10%"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?></th>
 	</tr>
 <?php
 	foreach($this->orderdetails['items'] as $item) {
 		$qtt = $item->product_quantity ;
-		$_link = JRoute::_('index.php?option=com_virtuemart&view=productdetails&virtuemart_category_id=' . $item->virtuemart_category_id . '&virtuemart_product_id=' . $item->virtuemart_product_id, FALSE);
+		$_link = JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_category_id=' . $item->tsmart_category_id . '&tsmart_product_id=' . $item->tsmart_product_id, FALSE);
 ?>
 		<tr valign="top">
 			<td align="left">
@@ -53,8 +53,8 @@ if($this->format == 'pdf'){
 			<td align="left" colspan="2" >
 				<div><a href="<?php echo $_link; ?>"><?php echo $item->order_item_name; ?></a></div>
 				<?php
-					if(!class_exists('VirtueMartModelCustomfields'))require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
-					$product_attribute = VirtueMartModelCustomfields::CustomsFieldOrderDisplay($item,'FE');
+					if(!class_exists('tsmartModelCustomfields'))require(VMPATH_ADMIN.DS.'models'.DS.'customfields.php');
+					$product_attribute = tsmartModelCustomfields::CustomsFieldOrderDisplay($item,'FE');
 					echo $product_attribute;
 				?>
 			</td>
@@ -100,7 +100,7 @@ if($this->format == 'pdf'){
 	}
 ?>
  <tr class="sectiontableentry1">
-			<td colspan="6" align="right"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
+			<td colspan="6" align="right"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PRODUCT_PRICES_TOTAL'); ?></td>
 
                         <?php if ( tsmConfig::get('show_tax')) { ?>
 			<td align="right"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($this->orderdetails['details']['BT']->order_tax,$this->currency)."</span>" ?></td>
@@ -113,7 +113,7 @@ if ($this->orderdetails['details']['BT']->coupon_discount <> 0.00) {
     $coupon_code=$this->orderdetails['details']['BT']->coupon_code?' ('.$this->orderdetails['details']['BT']->coupon_code.')':'';
 	?>
 	<tr>
-		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('COM_VIRTUEMART_COUPON_DISCOUNT').$coupon_code ?></td>
+		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('com_tsmart_COUPON_DISCOUNT').$coupon_code ?></td>
 
 		<?php if ( tsmConfig::get('show_tax')) { ?>
 			<td align="right">&nbsp;</td>
@@ -165,7 +165,7 @@ if ($this->orderdetails['details']['BT']->coupon_discount <> 0.00) {
 
 
 	<tr>
-		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_SHIPPING') ?></td>
+		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_SHIPPING') ?></td>
 
 
 			<?php if ( tsmConfig::get('show_tax')) { ?>
@@ -177,7 +177,7 @@ if ($this->orderdetails['details']['BT']->coupon_discount <> 0.00) {
 	</tr>
 
 <tr>
-		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_PAYMENT') ?></td>
+		<td align="right" class="pricePad" colspan="6"><?php echo tsmText::_('com_tsmart_ORDER_PRINT_PAYMENT') ?></td>
 
 			<?php if ( tsmConfig::get('show_tax')) { ?>
 				<td align="right"><?php echo "<span  class='priceColor2'>".$this->currency->priceDisplay($this->orderdetails['details']['BT']->order_payment_tax, $this->currency)."</span>" ?></td>
@@ -189,7 +189,7 @@ if ($this->orderdetails['details']['BT']->coupon_discount <> 0.00) {
 	</tr>
 
 	<tr>
-		<td align="right" class="pricePad" colspan="6"><strong><?php echo tsmText::_('COM_VIRTUEMART_ORDER_PRINT_TOTAL') ?></strong></td>
+		<td align="right" class="pricePad" colspan="6"><strong><?php echo tsmText::_('com_tsmart_ORDER_PRINT_TOTAL') ?></strong></td>
 
 		 <?php if ( tsmConfig::get('show_tax')) {  ?>
 		<td align="right"><span  class='priceColor2'><?php echo $this->currency->priceDisplay($this->orderdetails['details']['BT']->order_billTaxAmount, $this->currency); ?></span></td>

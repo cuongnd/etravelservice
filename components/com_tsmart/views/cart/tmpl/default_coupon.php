@@ -3,14 +3,14 @@
  *
  * Layout for the edit coupon
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Cart
  * @author Oscar van Eijk
  *
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -25,12 +25,12 @@ if ($this->layoutName!='default') {
 <?php } ?>
     <input type="text" name="coupon_code" size="20" maxlength="50" class="coupon" alt="<?php echo $this->coupon_text ?>" placeholder="<?php echo $this->coupon_text ?>" value="<?php //echo $this->coupon_text; ?>" onblur="if(this.value=='') this.value='<?php echo $this->coupon_text; ?>';" onfocus="if(this.value=='<?php echo $this->coupon_text; ?>') this.value='';" />
     <span class="details-button">
-    <input class="details-button" type="submit" name="setcoupon" title="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>" value="<?php echo tsmText::_('COM_VIRTUEMART_SAVE'); ?>"/>
+    <input class="details-button" type="submit" name="setcoupon" title="<?php echo tsmText::_('com_tsmart_SAVE'); ?>" value="<?php echo tsmText::_('com_tsmart_SAVE'); ?>"/>
     </span>
 <?php
 if ($this->layoutName!='default') {
 ?>
-    <input type="hidden" name="option" value="com_virtuemart" />
+    <input type="hidden" name="option" value="com_tsmart" />
     <input type="hidden" name="view" value="cart" />
     <input type="hidden" name="task" value="setcoupon" />
     <input type="hidden" name="controller" value="cart" />

@@ -3,15 +3,15 @@ $doc = JFactory::getDocument();
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
-$doc->addScript(JUri::root() . '/components/com_virtuemart/assets/js/view_order_default.js');
-$doc->addLessStyleSheet(JUri::root() . '/components/com_virtuemart/assets/less/view_order_default.less');
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_virtuemart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_order_default.js');
+$doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/view_order_default.less');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 
 $app = JFactory::getApplication();
 $input = $app->input;
-$virtuemart_price_id = $input->getInt('virtuemart_price_id', 0);
+$tsmart_price_id = $input->getInt('tsmart_price_id', 0);
 $privategrouptrip = $this->privategrouptrip;
 
 $session = JFactory::getSession();
@@ -43,7 +43,7 @@ $passenger_config = tsmConfig::get_passenger_config();
 ?>
     <div class="view-order-default">
         <form
-            action="<?php echo JRoute::_('index.php?option=com_virtuemart&view=orderaddon&virtuemart_price_id=' . $virtuemart_price_id) ?>"
+            action="<?php echo JRoute::_('index.php?option=com_tsmart&view=orderaddon&tsmart_price_id=' . $tsmart_price_id) ?>"
             method="post"
             id="order" name="order">
             <div class="row-fluid">
@@ -465,9 +465,9 @@ $passenger_config = tsmConfig::get_passenger_config();
     </div>
 
 
-    <input name="option" value="com_virtuemart" type="hidden">
+    <input name="option" value="com_tsmart" type="hidden">
     <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
-    <input name="virtuemart_price_id" value="<?php echo $virtuemart_price_id ?>" type="hidden">
+    <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
     <input name="controller" value="order" type="hidden">
     <input name="booking_summary" value="" type="hidden">
     <input type="hidden" value="order" name="view">

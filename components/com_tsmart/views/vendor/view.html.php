@@ -4,13 +4,13 @@
  *
  * List/add/edit/remove Vendors
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage User
  * @author Max Milbers
  * @link http://www.tsmart.net
- * @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+ * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * VirtueMart is free software. This version may have been modified pursuant
+ * tsmart is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
@@ -29,11 +29,11 @@ define('__VM_USER_USE_SLIDERS', 0);
 /**
  * HTML View class for maintaining the list of users
  *
- * @package	VirtueMart
+ * @package	tsmart
  * @subpackage Vendor
  * @author Max Milbers
  */
-class VirtuemartViewVendor extends VmView {
+class TsmartViewVendor extends VmView {
 
 	/**
 	 * Displays the view, collects needed data for the different layouts
@@ -53,12 +53,12 @@ class VirtuemartViewVendor extends VmView {
 
 		$model = tmsModel::getModel();
 
-		$virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id',1);
+		$tsmart_vendor_id = vRequest::getInt('tsmart_vendor_id',1);
 
 // 		if ($layoutName=='default') {
-		if (empty($virtuemart_vendor_id)) {
-			$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_LIST') );
-			$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_LIST'));
+		if (empty($tsmart_vendor_id)) {
+			$document->setTitle( tsmText::_('com_tsmart_VENDOR_LIST') );
+			$pathway->addItem(tsmText::_('com_tsmart_VENDOR_LIST'));
 
 			$vendors = $model->getVendors();
 			$model->addImages($vendors);
@@ -67,7 +67,7 @@ class VirtuemartViewVendor extends VmView {
 
 		} else {
 
-			$vendor = $model->getVendor($virtuemart_vendor_id);
+			$vendor = $model->getVendor($tsmart_vendor_id);
 			$model->addImages($vendor);
 			if (tsmConfig::get ('enable_content_plugin', 0)) {
 				if(!class_exists('shopFunctionsF'))require(VMPATH_SITE.DS.'helpers'.DS.'shopfunctionsf.php');
@@ -76,29 +76,29 @@ class VirtuemartViewVendor extends VmView {
 			}
 			$this->assignRef('vendor', $vendor);
 
-			if(!class_exists('VirtueMartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
-			$userId = VirtueMartModelVendor::getUserIdByVendorId($virtuemart_vendor_id);
+			if(!class_exists('tsmartModelVendor')) require(VMPATH_ADMIN.DS.'models'.DS.'vendor.php');
+			$userId = tsmartModelVendor::getUserIdByVendorId($tsmart_vendor_id);
 
 			if ($layoutName=='tos') {
-				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_TOS') );
-				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_TOS'));
+				$document->setTitle( tsmText::_('com_tsmart_VENDOR_TOS') );
+				$pathway->addItem(tsmText::_('com_tsmart_VENDOR_TOS'));
 			}
 			elseif ($layoutName=='contact') {
 				$user = JFactory::getUser();
-				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT') );
-				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT'));
+				$document->setTitle( tsmText::_('com_tsmart_VENDOR_CONTACT') );
+				$pathway->addItem(tsmText::_('com_tsmart_VENDOR_CONTACT'));
 				$this->assignRef('user', $user);
 
 			} else {
-				$document->setTitle( tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS') );
-				$pathway->addItem(tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS'));
+				$document->setTitle( tsmText::_('com_tsmart_VENDOR_DETAILS') );
+				$pathway->addItem(tsmText::_('com_tsmart_VENDOR_DETAILS'));
 				$this->setLayout('details');
 			}
 
-			$linkdetails = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=details&virtuemart_vendor_id=' .
-				$virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_DETAILS').'</a>';
-			$linkcontact = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=contact&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT').'</a>';
-			$linktos = '<a href="'.JRoute::_('index.php?option=com_virtuemart&view=vendor&layout=tos&virtuemart_vendor_id=' . $virtuemart_vendor_id, FALSE).'">'.tsmText::_('COM_VIRTUEMART_VENDOR_TOS').'</a>';
+			$linkdetails = '<a href="'.JRoute::_('index.php?option=com_tsmart&view=vendor&layout=details&tsmart_vendor_id=' .
+				$tsmart_vendor_id, FALSE).'">'.tsmText::_('com_tsmart_VENDOR_DETAILS').'</a>';
+			$linkcontact = '<a href="'.JRoute::_('index.php?option=com_tsmart&view=vendor&layout=contact&tsmart_vendor_id=' . $tsmart_vendor_id, FALSE).'">'.tsmText::_('com_tsmart_VENDOR_CONTACT').'</a>';
+			$linktos = '<a href="'.JRoute::_('index.php?option=com_tsmart&view=vendor&layout=tos&tsmart_vendor_id=' . $tsmart_vendor_id, FALSE).'">'.tsmText::_('com_tsmart_VENDOR_TOS').'</a>';
 
 			$this->assignRef('linkdetails', $linkdetails);
 			$this->assignRef('linkcontact', $linkcontact);
@@ -114,14 +114,14 @@ class VirtuemartViewVendor extends VmView {
 
 		$this->setLayout('mail_html_question');
 		$this->comment = vRequest::getString('comment');
-		$virtuemart_vendor_id = vRequest::getInt('virtuemart_vendor_id');
+		$tsmart_vendor_id = vRequest::getInt('tsmart_vendor_id');
 		$this->doVendor=$doVendor;
 		//$this->doVendor=TRUE;
 		$vendorModel = tmsModel::getModel('vendor');
-		$this->vendor = $vendorModel->getVendor($virtuemart_vendor_id);
+		$this->vendor = $vendorModel->getVendor($tsmart_vendor_id);
 		// in this particular case, overwrite the value for fix the recipient name
 		$this->vendor->vendor_name= $this->user['name'];
-		$this->subject = tsmText::_('COM_VIRTUEMART_VENDOR_CONTACT') .' '.$this->user['name'];
+		$this->subject = tsmText::_('com_tsmart_VENDOR_CONTACT') .' '.$this->user['name'];
 		$this->vendorEmail= $this->user['email'];
 		//$this->vendorName= $this->user['email'];
 		if (tsmConfig::get('order_mail_html')) {

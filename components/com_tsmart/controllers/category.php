@@ -3,13 +3,13 @@
 *
 * Description
 *
-* @package	VirtueMart
+* @package	tsmart
 * @subpackage
 * @author Max Milbers
 * @link http://www.tsmart.net
-* @copyright Copyright (c) 2004 - 2014 VirtueMart Team. All rights reserved.
+* @copyright Copyright (c) 2004 - 2014 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* VirtueMart is free software. This version may have been modified pursuant
+* tsmart is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
@@ -25,9 +25,9 @@ jimport('joomla.application.component.controller');
 /**
 * Class Description
 *
-* @package VirtueMart
+* @package tsmart
 */
-class VirtueMartControllerCategory extends JControllerLegacy {
+class TsmartControllerCategory extends JControllerLegacy {
 
     public function __construct() {
      	 parent::__construct();
@@ -53,7 +53,7 @@ class VirtueMartControllerCategory extends JControllerLegacy {
 
 			$view->display();
 		}
-		if($categoryId = vRequest::getInt('virtuemart_category_id',0)){
+		if($categoryId = vRequest::getInt('tsmart_category_id',0)){
 			shopFunctionsF::setLastVisitedCategoryId($categoryId);
 		}
 		return $this;
