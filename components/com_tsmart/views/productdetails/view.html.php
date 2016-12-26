@@ -46,6 +46,7 @@ class TsmartViewProductdetails extends VmView {
             $product_model = tmsModel::getModel('product');
 
             $this->product = $product_model->getItem($tsmart_product_id);
+
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
             if($this->product->price_type!=tsmGroupSize::FLAT_PRICE)

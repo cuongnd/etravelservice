@@ -176,7 +176,7 @@ class tsmartModelPrivategrouptrip extends tmsModel {
             //->where('')
 
 		;
-        if ($start_date = $this->getState('filter.start_date'))
+       /* if ($start_date = $this->getState('filter.start_date'))
         {
             $start_date=JFactory::getDate($start_date);
             $query->leftJoin('#__tsmart_date_availability AS date_availability ON date_availability.tsmart_service_class_id=tour_price.tsmart_service_class_id AND date_availability.tsmart_product_id=tour_price.tsmart_product_id');
@@ -184,7 +184,7 @@ class tsmartModelPrivategrouptrip extends tmsModel {
 
 
 
-        }
+        }*/
         $query2=$db->getQuery(true);
         $query2->select('MIN(group_size_id_tour_price_id2.price_adult)')
             ->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id2')
@@ -231,7 +231,7 @@ class tsmartModelPrivategrouptrip extends tmsModel {
             mark_up_tour_price_id.type AS mark_up_type
             ')
         ;
-        //echo $query->dump();
+        echo $query->dump();
 		return $query;
 	}
 

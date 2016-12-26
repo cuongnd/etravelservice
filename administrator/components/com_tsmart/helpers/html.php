@@ -3340,9 +3340,9 @@ XML;
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
             <div class="row-fluid">
-                <div class="span10">
+                <div class="span12">
                     <div class="row-fluid person-type">
-                        <div class="span10">
+                        <div class="span12">
                             <h4 class="">
                                 <span title=""
                                       class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>

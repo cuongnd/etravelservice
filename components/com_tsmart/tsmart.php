@@ -18,6 +18,7 @@ if (!defined('_JEXEC')) die('Direct Access to ' . basename(__FILE__) . ' is not 
  */
 /* Require the config */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+ob_start();
 if (!class_exists('tsmConfig')) require(JPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_tsmart' . DS . 'helpers' . DS . 'config.php');
 tsmConfig::loadConfig();
 vmRam('Start');
@@ -117,3 +118,8 @@ if (class_exists($_class)) {
         JError::raise(E_ERROR, '404', 'Not found');
     }
 }
+$html=ob_get_clean();
+?>
+<div class="component-tsmart">
+    <?php echo $html ?>
+</div>
