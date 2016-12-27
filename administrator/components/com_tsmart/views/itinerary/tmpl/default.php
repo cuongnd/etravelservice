@@ -187,6 +187,7 @@ $doc->addScriptDeclaration($js_content);
         <input type="hidden" name="tsmart_vendor_id" value="1">
         <input type="hidden" name="view" value="itinerary" />
         <input type="hidden" name="task" value="">
+        <input type="hidden" name="boxchecked" value="0"/>
         <input type="hidden" name="filter_order" value="<?php echo $listOrder ?>" />
         <input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn ?>" />';
         <?php echo JHtml::_('form.token'); ?>

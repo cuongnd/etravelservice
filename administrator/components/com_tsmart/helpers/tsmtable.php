@@ -1362,8 +1362,6 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 	 * @see libraries/joomla/database/JTable#store($updateNulls)
 	 */
 	function store($updateNulls = false) {
-
-
 		$this->setLoggableFieldsForStore();
 
 		if($this->_cryptedFields){
@@ -1753,8 +1751,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 	 * @param boolean $preload You can preload the data here too preserve not updated data
 	 * @return array/obj $data the updated data
 	 */
-	public function bindChecknStore(&$data, $preload = false) {
-
+	public function bindChecknStore(&$data, $preload = false,$updateNulls=false) {
 		$tblKey = $this->_tbl_key;
 		$ok = true;
 
@@ -1849,7 +1846,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 			if ($ok) {
 
-				$dataTable->bindChecknStoreNoLang($data, $preload);
+				$dataTable->bindChecknStoreNoLang($data, $preload,$updateNulls);
 				$this->bind($dataTable);
 				$langTable->$tblKey = !empty($this->$tblKey) ? $this->$tblKey : 0;
 				//vmdebug('bindChecknStoreNoLang my $tblKey '.$tblKey.' '.$langTable->$tblKey);
@@ -1878,7 +1875,8 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 				}
 
 				if ($ok) {
-					if (!$langTable->store()) {
+
+					if (!$langTable->store($updateNulls)) {
 						$ok = false;
 						// $msg .= ' store';
 						vmdebug('Problem in store with langtable ' . get_class($langTable) . ' with ' . $tblKey . ' = ' . $this->$tblKey . ' ' . $langTable->_db->getErrorMsg());
@@ -1891,7 +1889,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 
 
 		} else {
-			if (!$this->bindChecknStoreNoLang($data, $preload)) {
+			if (!$this->bindChecknStoreNoLang($data, $preload,$updateNulls)) {
 				$ok = false;
 			}
 		}
@@ -1906,7 +1904,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 	}
 
 
-	function bindChecknStoreNoLang(&$data, $preload = false) {
+	function bindChecknStoreNoLang(&$data, $preload = false,$updateNulls=false) {
 
 		$tblKey = $this->_tbl_key;
 
@@ -1960,8 +1958,7 @@ class tsmTable extends vObject implements  JObservableInterface, JTableInterface
 		}
 
 		if ($ok) {
-
-			if (!$this->store($this->_updateNulls)) {
+			if (!$this->store($updateNulls)) {
 
 				$ok = false;
 				$msg .= ' store';

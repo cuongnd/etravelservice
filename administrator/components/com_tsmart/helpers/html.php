@@ -489,7 +489,7 @@ class VmHtml
         ?>
         <div id="<?php echo $id_element ?>">
             <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
-                <option value=""><?php echo JText::_('please select tour type') ?></option>
+                <option value=""><?php echo JText::_('please select location') ?></option>
                 <?php foreach ($cities as $city) { ?>
                     <option <?php echo $city->tsmart_cityarea_id == $default ? ' selected ' : '' ?>
                         value="<?php echo $city->tsmart_cityarea_id ?>"
@@ -3340,9 +3340,9 @@ XML;
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
             <div class="row-fluid">
-                <div class="span12">
+                <div class="span14">
                     <div class="row-fluid person-type">
-                        <div class="span12">
+                        <div class="span14">
                             <h4 class="">
                                 <span title=""
                                       class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>
@@ -3353,11 +3353,11 @@ XML;
                     <div class="row-fluid herder">
                         <div class="span1"></div>
                         <div class="span1"><?php echo JText::_('Gender') ?></div>
-                        <div class="span1"><?php echo JText::_('First name') ?></div>
-                        <div class="span1"><?php echo JText::_('Middle name') ?></div>
-                        <div class="span1"><?php echo JText::_('Last name') ?></div>
-                        <div class="span1"><?php echo JText::_('Nationality') ?></div>
-                        <div class="span1"><?php echo JText::_('Date of birth') ?></div>
+                        <div class="span2"><?php echo JText::_('First name') ?></div>
+                        <div class="span2"><?php echo JText::_('Middle name') ?></div>
+                        <div class="span2"><?php echo JText::_('Last name') ?></div>
+                        <div class="span2"><?php echo JText::_('Nationality') ?></div>
+                        <div class="span2"><?php echo JText::_('Date of birth') ?></div>
                         <div class="span1"></div>
                         <div class="span1"></div>
                     </div>
@@ -3366,32 +3366,32 @@ XML;
                             <div class="span1"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
                             </div>
                             <div class="span1">
-                                <select data-name="gender" ">
+                                <select class="gender" data-name="gender" ">
                                 <option value="mr">Mr</option>
                                 <option value="ms">Ms</option>
                                 </select>
                             </div>
-                            <div class="span1"><input required data-name="first_name"
+                            <div class="span2"><input required data-name="first_name"
                                                       placeholder="<?php echo JText::_('First name') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input data-name="middle_name"
+                            <div class="span2"><input data-name="middle_name"
                                                       placeholder="<?php echo JText::_('Middle name') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input required data-name="last_name"
+                            <div class="span2"><input required data-name="last_name"
                                                       placeholder="<?php echo JText::_('Last name') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input required data-name="nationality"
+                            <div class="span2"><input required data-name="nationality"
                                                       placeholder="<?php echo JText::_('Nationality') ?>"
                                                       type="text"></div>
-                            <div class="span1"><input required class="date readonly" data-name="date_of_birth" readonly
+                            <div class="span2"><input required class="date readonly" data-name="date_of_birth" readonly
                                                       placeholder="<?php echo JText::_('Date of birth') ?>"
                                                       type="text"></div>
                             <div class="span1">
-                                <button type="button" class="btn remove"><span class="icon-remove " title=""></span>
+                                <button type="button" class="pull-right btn remove"><span class="icon-remove " title=""></span>
                                 </button>
                             </div>
                             <div class="span1">
-                                <button type="button" class="btn add "><span class="icon-plus " title=""></span>
+                                <button type="button" class="pull-left btn add "><span class="icon-plus " title=""></span>
                                 </button>
                             </div>
                         </div>

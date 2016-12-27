@@ -93,7 +93,12 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                             $published = $this->gridPublished($product, $i);
 
                             $is_featured = $this->toggle($product->product_special, $i, 'toggle.product_special');
+
+
+
                             $link = 'index.php?option=com_tsmart&view=product&task=edit&tsmart_product_id=' . $product->tsmart_product_id;
+                            $edit = $this->gridEdit($row, $i, 'tsmart_product_id', $link);
+                            $delete = $this->grid_delete_in_line($row, $i, 'tsmart_product_id');
                             ?>
                             <tr class="row<?php echo $k; ?>">
                                 <!-- Checkbox -->
@@ -129,7 +134,11 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
 
                                 <td align="center"><?php echo $row->asign_name; ?></td>
                                 <!-- Vendor name -->
-                                <td align="right"><?php echo JText::_('') ?></td>
+                                <td align="right">
+                                    <?php echo $published; ?>
+                                    <?php echo $edit; ?>
+                                    <?php echo $delete; ?>
+                                </td>
                             </tr>
                             <?php
                             $k = 1 - $k;

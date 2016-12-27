@@ -46,21 +46,21 @@ class TsmartViewProductdetails extends VmView {
             $product_model = tmsModel::getModel('product');
 
             $this->product = $product_model->getItem($tsmart_product_id);
-
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
-            if($this->product->price_type!=tsmGroupSize::FLAT_PRICE)
+            if($this->product->price_type==tsmGroupSize::FLAT_PRICE)
             {
-
-                $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
-                $this->state=$privategrouptrip_model->getState();
-                $this->list_trip=$privategrouptrip_model->getItems();
-
-            }else{
                 $jontgrouptrip_model = tmsModel::getModel('jontgrouptrip');
                 $this->state=$jontgrouptrip_model->getState();
                 $this->list_trip=$jontgrouptrip_model->getItems();
                 $this->setLayout('jontgrouptrip');
+
+
+            }else{
+
+                $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
+                $this->state=$privategrouptrip_model->getState();
+                $this->list_trip=$privategrouptrip_model->getItems();
             }
 
             parent::display($tpl);

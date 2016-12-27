@@ -51,6 +51,8 @@ ob_end_clean();
 // System configuration.
 $config = new JConfig;
 // Set the error_reporting
+$config->error_reporting='development';
+
 switch ($config->error_reporting)
 {
 	case 'default':
@@ -130,6 +132,3 @@ function shutdown()
 
 
 }
-
-//register_tick_function('tick_handler');
-//register_shutdown_function('shutdown');

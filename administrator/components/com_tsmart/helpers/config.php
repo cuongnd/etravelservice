@@ -856,7 +856,6 @@ class tsmConfig {
 			self::$_jpConfig->_raw = $db->loadResult();
 			//vmTime('time to load config','loadConfig');
 		}
-
 		if(empty(self::$_jpConfig->_raw)){
 			$_value = tsmartModelConfig::readConfigFile();
 			if (!$_value) {

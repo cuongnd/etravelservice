@@ -170,6 +170,8 @@ class tsmartModelPrivategrouptrip extends tmsModel {
             ) AS list_destination')
             ->select('group_size_id_tour_price_id.*')
             ->select('tour_price.tax')
+            ->leftJoin('#__tsmart_products AS products ON products.tsmart_product_id='.(int)$tsmart_product_id)
+            ->select('products.published AS tour_state')
             ->group('service_class.tsmart_service_class_id')
             ->order('service_class.ordering')
 

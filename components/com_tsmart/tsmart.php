@@ -37,7 +37,6 @@ if (tsmConfig::get('shop_is_offline', 0)) {
 } else {
     // Front-end helpers
     if (!class_exists('VmImage')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'image.php'); //dont remove that file it is actually in every view except the state view
-    if (!class_exists('shopFunctionsF')) require(VMPATH_SITE . DS . 'helpers' . DS . 'shopfunctionsf.php'); //dont remove that file it is actually in every view
     $_controller = vRequest::getCmd('view', vRequest::getCmd('controller', 'tsmart'));
     $trigger = 'onVmSiteController';
 // 	$task = vRequest::getCmd('task',vRequest::getCmd('layout',$_controller) );		$this makes trouble!

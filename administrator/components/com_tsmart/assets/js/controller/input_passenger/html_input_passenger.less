@@ -22,14 +22,42 @@
   {
     border: red solid 1px;
   }
+  .item-passenger
+  {
+    .select2-container
+    {
+      width: 100% !important;
+    }
+    select.gender
+    {
+      width: 100%;
+    }
+  }
 }
 // CSS Reset
-@import "/media/jui/less/reset.less";
 
 @import "/media/jui/less/variables.less";
 @import "/media/jui/less/mixins.less";
+// Utility classes
+@import "/media/jui/less/utilities.less";
+
+// RESPONSIVE CLASSES
+// ------------------
+
+@import "/media/jui/less/responsive-utilities.less";
+
+// Phones to portrait tablets and narrow desktops
+@import "/media/jui/less/responsive-767px-max.less";
+
+// Tablets to regular desktops
+@import "/media/jui/less/responsive-768px-979px.less";
+
+// Large desktops
+@import "/media/jui/less/responsive-1200px-min.less";
+
+@import "/media/jui/less/responsive-767px-max.joomla.less";
 #html_input_passenger{
-  @gridColumns:             10;
+  @gridColumns:             14;
   @gridColumnWidth:         400px;
   @gridGutterWidth:         20px;
   @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
@@ -59,4 +87,7 @@
   @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
 
   #grid > .fluid(@fluidGridColumnWidth, @fluidGridGutterWidth);
+  input{
+    width: 100%;
+  }
 }

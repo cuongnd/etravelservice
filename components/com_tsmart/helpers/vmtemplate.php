@@ -16,7 +16,7 @@ defined('_JEXEC') or die('');
  *
  * http://tsmart.net
  */
- 
+
 
 class VmTemplate {
 
@@ -82,7 +82,7 @@ class VmTemplate {
 			return self::$_templates[$template['id']];
 		}
 	}
-	
+
 	public static function getTemplateById($id){
 
 		if(!isset(self::$_templates[$id])){
