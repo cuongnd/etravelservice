@@ -32,6 +32,7 @@
             var tsmart_cityarea_id=plugin.settings.tsmart_cityarea_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
                 data:list_location_city,
+                maximumSelectionLength: 1,
                 templateResult:plugin.set_select2_template_result,
                 templateSelection:plugin.set_lect2_template_selection
             });

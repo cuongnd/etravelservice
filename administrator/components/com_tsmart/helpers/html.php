@@ -488,7 +488,7 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>">
-            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
+            <select multiple disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>">
                 <option value=""><?php echo JText::_('please select location') ?></option>
                 <?php foreach ($cities as $city) { ?>
                     <option <?php echo $city->tsmart_cityarea_id == $default ? ' selected ' : '' ?>

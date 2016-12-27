@@ -38,7 +38,8 @@
                     width: 900,
                     title: 'itinerary',
                     show: {effect: "blind", duration: 800},
-                    appendTo: 'body'
+                    appendTo: 'body',
+                    zIndex: 700
                 });
             }
 
