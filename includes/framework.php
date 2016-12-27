@@ -51,7 +51,7 @@ ob_end_clean();
 // System configuration.
 $config = new JConfig;
 // Set the error_reporting
-$config->error_reporting='development';
+$config->error_reporting='simple';
 
 switch ($config->error_reporting)
 {
@@ -66,7 +66,7 @@ switch ($config->error_reporting)
 		break;
 
 	case 'simple':
-		error_reporting(E_ERROR | E_WARNING | E_PARSE);
+		error_reporting(E_ERROR);
 		ini_set('display_errors', 1);
 
 		break;
