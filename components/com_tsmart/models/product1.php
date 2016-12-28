@@ -59,7 +59,6 @@ class tsmartModelproduct extends tmsModel {
 	 * @return object List of product objects
 	 */
 	function getItemList($search='') {
-		echo $this->getListQuery()->dump();
 		$data=parent::getItems();
 		return $data;
 	}
@@ -69,7 +68,7 @@ class tsmartModelproduct extends tmsModel {
 		$db = JFactory::getDbo();
 		$query=$db->getQuery(true);
 
-		$query->select('product.*,products_en_gb.product_name,tour_type.title AS tour_type,tour_style.tour_style_name AS tour_style_name')
+		$query->select('product.*,products_en_gb.product_name,tour_type.tour_type_name AS tour_type,tour_style.tour_style_name AS tour_style_name')
 			->from('#__tsmart_products AS product')
             ->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
 			//->leftJoin('#__tsmart_cityarea AS cityarea using (tsmart_city_area_id)')

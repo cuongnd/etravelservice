@@ -37,6 +37,7 @@ class TsmartViewProductdetails extends VmView {
 		 * @author RolandD, Max Milbers
 		 */
 		function display($tpl = null) {
+
             $tsmart_product_idArray = vRequest::getInt('tsmart_product_id', 0);
             if (is_array($tsmart_product_idArray) and count($tsmart_product_idArray) > 0) {
                 $tsmart_product_id = (int)$tsmart_product_idArray[0];
@@ -46,14 +47,15 @@ class TsmartViewProductdetails extends VmView {
             $product_model = tmsModel::getModel('product');
 
             $this->product = $product_model->getItem($tsmart_product_id);
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 
+            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
             if($this->product->price_type==tsmGroupSize::FLAT_PRICE)
             {
                 $jontgrouptrip_model = tmsModel::getModel('jontgrouptrip');
                 $this->state=$jontgrouptrip_model->getState();
                 $this->list_trip=$jontgrouptrip_model->getItems();
                 $this->setLayout('jontgrouptrip');
+                $this->start_date = $jontgrouptrip_model->getState('filter.start_date');
 
 
             }else{
@@ -61,6 +63,7 @@ class TsmartViewProductdetails extends VmView {
                 $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
                 $this->state=$privategrouptrip_model->getState();
                 $this->list_trip=$privategrouptrip_model->getItems();
+                $this->start_date = $privategrouptrip_model->getState('filter.start_date');
             }
 
             parent::display($tpl);

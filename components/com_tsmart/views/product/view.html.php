@@ -34,7 +34,7 @@ class TsmartViewProduct extends VmView
     function display($tpl = null)
     {
         $model_product=tmsModel::getModel('product');
-        $this->list_product=$model_product->getItems();
+        $this->list_product=$model_product->getItemList();
         parent::display($tpl);
     }
 

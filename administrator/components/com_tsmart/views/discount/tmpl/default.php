@@ -15,7 +15,6 @@
  * other free or open source software licenses.
  * @version $Id: default.php 8534 2014-10-28 10:23:03Z Milbo $
  */
-
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $doc = JFactory::getDocument();
@@ -48,23 +47,21 @@ ob_start();
 $js_content = ob_get_clean();
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-$option=array(
-    'tsmart_product_id'=>'',
-    'product_name'=>'Please select tour'
+$option = array(
+    'tsmart_product_id' => '',
+    'product_name' => 'Please select tour'
 );
-array_unshift($this->list_tour,$option);
+array_unshift($this->list_tour, $option);
 ?>
 <div class="view-discount-default">
-
     <form action="index.php" class="form-vertical" method="post" name="adminForm" id="adminForm">
         <div class="row-fluid filter">
-            <div class="control-group btn_search"><?php echo VmHTML::input_button('','Reset'); ?></div>
-            <?php echo VmHTML::row_control('input', 'discount name ','filter_search',$this->escape($this->state->get('filter.search'))); ?>
-            <?php echo VmHTML::row_control('input', 'discount code ','filter_discount_code',$this->escape($this->state->get('filter.discount_code'))); ?>
-            <?php echo VmHTML::row_control('range_of_date','discount creation', 'filter_creation_from', 'filter_creation_to', $this->state->get('filter.creation_from'),$this->state->get('filter.creation_to')); ?>
-            <?php echo VmHTML::row_control('select_state', 'Status', 'filter_state',$this->state->get('filter.state'),''); ?>
-            <div class="control-group btn_search"><?php echo VmHTML::input_button('','Search'); ?></div>
-
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
+            <?php echo VmHTML::row_control('input', 'discount name ', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+            <?php echo VmHTML::row_control('input', 'discount code ', 'filter_discount_code', $this->escape($this->state->get('filter.discount_code'))); ?>
+            <?php echo VmHTML::row_control('range_of_date', 'discount creation', 'filter_creation_from', 'filter_creation_to', $this->state->get('filter.creation_from'), $this->state->get('filter.creation_to')); ?>
+            <?php echo VmHTML::row_control('select_state', 'Status', 'filter_state', $this->state->get('filter.state'), ''); ?>
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
         </div>
         <div id="editcell">
             <div class="vm-page-nav">
@@ -77,7 +74,6 @@ array_unshift($this->list_tour,$option);
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
                                                        onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_discount_id', 'Id'); ?>
                         </label>
-
                     </th>
                     <th>
                         <?php echo $this->sort('discount_name', 'discount name'); ?>
@@ -112,13 +108,10 @@ array_unshift($this->list_tour,$option);
                 </tr>
                 </thead>
                 <?php
-
-
-                if(count($this->items)) {
+                if (count($this->items)) {
                     $k = 0;
                     for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                         $row = $this->items[$i];
-
                         $checked = JHtml::_('grid.id', $i, $row->tsmart_discount_id);
                         $published = $this->gridPublished($row, $i);
                         $delete = $this->grid_delete_in_line($row, $i, 'tsmart_discount_id');
@@ -133,18 +126,18 @@ array_unshift($this->list_tour,$option);
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->discount_name; ?></a>
                             </td>
                             <td align="left">
-                                <?php echo JHtml::_('date', $row->created_on,tsmConfig::$date_format); ?>
+                                <?php echo JHtml::_('date', $row->created_on, tsmConfig::$date_format); ?>
                             </td>
                             <td align="left">
                                 <a href="/administrator/index.php?option=com_tsmart&view=discount&task=edit_item&cid[]=<?php echo $row->tsmart_discount_id; ?>"><?php echo $row->discount_code; ?></a>
                             </td>
                             <td align="left">
-                                <?php echo $row->discount_value; ?><?php echo $row->discount_type=='percent'?'%':''; ?>
+                                <?php echo $row->discount_value; ?><?php echo $row->percent_or_total == 'percent' ? '%' : ' $US'; ?>
                             </td>
                             <td align="left">
                                 <?php echo JHtml::_('date', $row->discount_start_date, tsmConfig::$date_format); ?>
                                 <br>
-                                <?php echo JHtml::_('date', $row->discount_expiry_date,tsmConfig::$date_format); ?>
+                                <?php echo JHtml::_('date', $row->discount_expiry_date, tsmConfig::$date_format); ?>
                             </td>
                             <td align="left">
                                 <?php echo $row->discount_used; ?>
@@ -172,16 +165,15 @@ array_unshift($this->list_tour,$option);
         <input type="hidden" value="com_tsmart" name="option">
         <input type="hidden" value="discount" name="controller">
         <input type="hidden" value="discount" name="view">
-        <input type="hidden" name="boxchecked" value="0" />
-        <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>" />
-        <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>" />
+        <input type="hidden" name="boxchecked" value="0"/>
+        <input type="hidden" name="filter_order" value="<?php echo $this->lists['filter_order']; ?>"/>
+        <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['filter_order_Dir']; ?>"/>
         <?php echo JHtml::_('form.token'); ?>
     </form>
     <?php
-
-    if ($task == 'add_new_item'||$task == 'edit_item') {
+    if ($task == 'add_new_item' || $task == 'edit_item') {
         echo $this->loadTemplate('edit');
     } ?>
 </div>
-    <?php AdminUIHelper::endAdminArea(); ?>
+<?php AdminUIHelper::endAdminArea(); ?>
 
