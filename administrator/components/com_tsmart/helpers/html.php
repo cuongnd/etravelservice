@@ -3322,8 +3322,8 @@ XML;
                 $('#<?php  echo $id_element ?>').html_input_passenger({
                     id_selected:<?php echo $default ? $default : 0 ?>,
                     input_name: "<?php echo $name ?>",
-                    min_age: <?php echo $min_age ?>,
-                    max_age: <?php echo $max_age != 0 ? $max_age : 99 ?>,
+                    min_age: <?php echo (int)$min_age ?>,
+                    max_age: <?php echo (int)$max_age ?>,
                     debug: true,
                     departure:<?php echo json_encode($departure) ?>,
                     passenger_config:<?php echo json_encode($passenger_config) ?>,
@@ -3340,9 +3340,9 @@ XML;
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
             <div class="row-fluid">
-                <div class="span14">
+                <div class="span12">
                     <div class="row-fluid person-type">
-                        <div class="span14">
+                        <div class="span12">
                             <h4 class="">
                                 <span title=""
                                       class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>
@@ -3363,37 +3363,52 @@ XML;
                     </div>
                     <div class="input-passenger-list-passenger senior-adult-teen">
                         <div class="row-fluid item-passenger">
-                            <div class="span1"><?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
+                            <div class="span12">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
+                                        <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
+                                        <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <input required data-name="first_name"
+                                               placeholder="<?php echo JText::_('First name') ?>"
+                                               type="text">
+                                    </div>
+                                    <div class="span2">
+                                        <input data-name="middle_name"
+                                               placeholder="<?php echo JText::_('Middle name') ?>"
+                                               type="text">
+                                    </div>
+                                    <div class="span2">
+                                        <input required data-name="last_name"
+                                               placeholder="<?php echo JText::_('Last name') ?>"
+                                               type="text">
+                                    </div>
+                                    <div class="span2">
+                                        <input required class="date readonly" data-name="date_of_birth" readonly
+                                               placeholder="<?php echo JText::_('Date of birth') ?>"
+                                               type="text">
+                                    </div>
+                                    <div class="span2">
+                                        <input required data-name="nationality"
+                                               placeholder="<?php echo JText::_('Nationality') ?>"
+                                               type="text">
+                                    </div>
+                                    <div class="span2">
+                                        <select class="gender" data-name="gender" ">
+                                        <option value="mr">Mr</option>
+                                        <option value="ms">Ms</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
                             </div>
-                            <div class="span1">
-                                <select class="gender" data-name="gender" ">
-                                <option value="mr">Mr</option>
-                                <option value="ms">Ms</option>
-                                </select>
-                            </div>
-                            <div class="span2"><input required data-name="first_name"
-                                                      placeholder="<?php echo JText::_('First name') ?>"
-                                                      type="text"></div>
-                            <div class="span2"><input data-name="middle_name"
-                                                      placeholder="<?php echo JText::_('Middle name') ?>"
-                                                      type="text"></div>
-                            <div class="span2"><input required data-name="last_name"
-                                                      placeholder="<?php echo JText::_('Last name') ?>"
-                                                      type="text"></div>
-                            <div class="span2"><input required data-name="nationality"
-                                                      placeholder="<?php echo JText::_('Nationality') ?>"
-                                                      type="text"></div>
-                            <div class="span2"><input required class="date readonly" data-name="date_of_birth" readonly
-                                                      placeholder="<?php echo JText::_('Date of birth') ?>"
-                                                      type="text"></div>
-                            <div class="span1">
-                                <button type="button" class="pull-right btn remove"><span class="icon-remove " title=""></span>
-                                </button>
-                            </div>
-                            <div class="span1">
-                                <button type="button" class="pull-left btn add "><span class="icon-plus " title=""></span>
-                                </button>
-                            </div>
+
+
                         </div>
                     </div>
                     <div class="row-fluid person-type">

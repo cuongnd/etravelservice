@@ -321,8 +321,8 @@ ob_start();
             $('.view-bookprivategroup-default').view_bookprivategroup_default({
                 passenger_config:<?php  echo json_encode($passenger_config) ?>,
                 departure:<?php  echo json_encode($privategrouptrip) ?>,
-                tour_min_age:<?php echo $this->product->min_age ?>,
-                tour_max_age:<?php echo $this->product->max_age ?>
+                tour_min_age:<?php echo (int)$this->product->min_age ?>,
+                tour_max_age:<?php echo (int)$this->product->max_age ?>
             });
         });
     </script>

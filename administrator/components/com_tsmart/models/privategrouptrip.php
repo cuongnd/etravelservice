@@ -190,7 +190,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
             mark_up_tour_price_id.extra_bed AS mark_up_extra_bed,
             mark_up_tour_price_id.type AS mark_up_type
             ');
-        echo $query->dump();
+        //echo $query->dump();
         return $query;
     }
 
