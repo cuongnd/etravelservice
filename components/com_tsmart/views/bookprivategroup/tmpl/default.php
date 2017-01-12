@@ -5,10 +5,12 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
 $doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_bookprivategroup_default.js');
 $doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/view_bookprivategroup_default.less');
-$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
 $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/build_room/html_build_room.js');
+$doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/jquery-cookie-master/src/jquery.cookie.js');
+$doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_room/html_build_room.js');
+$doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/sidr-master/dist/jquery.sidr.js');
+$doc->addStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/sidr-master/dist/stylesheets/jquery.sidr.light.css');
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 $app = JFactory::getApplication();
 $input = $app->input;
@@ -174,7 +176,9 @@ $passenger_config = tsmConfig::get_passenger_config();
                                     class="tour-border"><?php echo JText::_('Roomming') ?></legend>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <span class="icon-bullhorn " title=""></span>
+                                        <div class="noice">
+                                            <span class="icon glyphicon glyphicon-exclamation-sign " title=""></span>
+                                        </div>
                                     </div>
                                     <div class="col-lg-9">
                                         <?php echo VmHTML::list_radio_rooming('rooming', $this->rooming_select, 'share_room'); ?>
@@ -209,11 +213,34 @@ $passenger_config = tsmConfig::get_passenger_config();
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary btn-large control-next "><span title=""
-                                                                                                            class="icon-next "></span><?php echo JText::_('Next') ?>
+                            <h3 class="title special_requirement"><?php echo JText::_('Special requirement') ?></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php echo VmHTML::textarea('special_requirement', ''); ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-xxxs-12">
+                            <div class="area-control">
+                                <button type="submit" class="btn btn-primary btn-large control-next ">
+                                    <span class="confirm"><?php echo JText::_('confirm and book') ?></span>
+                                    <br>
+                                    <span class="payment">(<?php echo JText::_('Payment required') ?>)</span>
                                 </button>
                             </div>
+
+                        </div>
+                        <div class="col-lg-6 col-xxxs-12">
+                            <div class="area-control">
+                                <button type="submit" class="btn btn-primary btn-large control-hold-my-space ">
+                                    <span class="hold-my-space"><?php echo JText::_('Hold my space') ?></span>
+                                    <br>
+                                    <span class="payment">(<?php echo JText::_('hold for 48h hours, no payment') ?>)</span>
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -225,7 +252,7 @@ $passenger_config = tsmConfig::get_passenger_config();
                 $start_date = JFactory::getDate($privategrouptrip->departure_date);
                 $total_day = $total_day ? $total_day : 0;
                 ?>
-                <div class="col-lg-3">
+                <div class="col-lg-3 hidden-xxxs">
                     <div class="booking-summary-content">
                         <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
                         <div class="booking-summary-content-body">
@@ -303,6 +330,14 @@ $passenger_config = tsmConfig::get_passenger_config();
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="sidr_booking_summary"  class=" hidden-tablet-desktop">
+                    <span class="show-hidden-fee close glyphicon glyphicon-remove"></span>
+                    more total price
+                </div>
+                <div class="booking-summary-content-mobile hidden-tablet-desktop">
+                    <div class="pull-left"><?php echo JText::_('Total service fee') ?></div>
+                    <div class="pull-right"><span class="room-service-fee-total" data-a-sign="US$">200</span> (<a class="show-hidden-fee more" href="javascript:void(0)"><?php echo JText::_('More') ?></a>)</div>
                 </div>
             </div>
             <input name="option" value="com_tsmart" type="hidden">

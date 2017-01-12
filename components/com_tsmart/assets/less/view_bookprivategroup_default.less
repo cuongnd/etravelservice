@@ -1,8 +1,15 @@
+@input_view_bookprivategroup_default_height:30px;
 .test
 {
 
 }
 .view-bookprivategroup-default {
+  .html_input_passenger input,.html_build_form_contact input
+  {
+    height: @input_view_bookprivategroup_default_height;
+  }
+
+
   h3.passenger-details
   {
     background: #95a5a5;
@@ -38,10 +45,22 @@
   }
   fieldset.tour-border {
     border: 1px groove #ddd !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 0 0 1.5em 0 !important;
+    padding:0px !important;
+    margin: 0px !important;
     -webkit-box-shadow: 0px 0px 0px 0px #000;
     box-shadow: 0px 0px 0px 0px #000;
+    .noice
+    {
+      margin: 0 auto;
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 4px;
+      font-size: 26px;
+      color: #3d5869;
+      .icon
+      {
+      }
+    }
   }
 
   legend.tour-border {
@@ -51,6 +70,7 @@
     width: auto;
     padding: 0 10px;
     border-bottom: none;
+    margin-left: 30px;
   }
   .select_number_passenger, .select_date {
     float: left;
@@ -115,27 +135,77 @@
     {
       text-transform: uppercase;
       color: #8c0000;
+      font-weight: bold;
+    }
+    .control-group
+    {
+      margin-bottom: 10px;
+      .control-label
+      {
+        text-align: left;
+      }
     }
     .emergency-contact
     {
       color: #0072c2;
-      padding-left: 10%;
+      padding: 10px 0;
     }
   }
   .rooming legend
   {
     color: #006369;
     margin-bottom: 0px;
+    text-transform: uppercase;
   }
   .joint_group_note
   {
     background: #f6f6f6;
     padding: 10px;
     margin-top: 20px;
+    .note{
+      color: #820004;
+    }
+  }
+  .title.special_requirement
+  {
+    text-transform: uppercase;
+    color: #0267ab;
+    font-weight: bold;
+    padding: 5px 0px;
   }
   .build-your-room
   {
     text-transform: uppercase;
+    color: #0267ab;
+    font-weight: bold;
+    padding: 5px 0px;
+
+  }
+  .area-control
+  {
+    text-align: center;
+    margin: 20px 0 auto;
+    .confirm,.hold-my-space
+    {
+      font-size: 20px;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+    .control-next,.control-hold-my-space
+    {
+      padding: 10px 50px;
+      border-radius: 0;
+      background: #9a3334;
+      border: none;
+    }
+    .control-next
+    {
+
+    }
+  }
+  textarea[name="special_requirement"]{
+    width: 100%;
+    resize: none;
   }
   .booking-summary-content {
     border: 1px solid #ddd;
@@ -207,5 +277,31 @@
       }
     }
   }
+  .booking-summary-content-mobile
+  {
+    position: fixed;
+    background: #006668;
+    opacity: 0.95;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    color: #fff;
+    bottom: 0px;
+    .more{
+      color: #fff;
+    }
+  }
+  .sidr_booking_summary
+  {
+    padding: 10px;
+    position: relative;
+    .close
+    {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      color: #fff;
 
+    }
+  }
 }

@@ -73,7 +73,7 @@ class VmHtml
         }
         ob_start();
         ?>
-        <script type="text/javascript">
+        <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_room({
                     element_name:"<?php echo  $name ?>",
@@ -220,6 +220,48 @@ class VmHtml
 
         $html .= '
 		 <div class="controls ">
+                    ' . call_user_func_array($func, $args) . '
+                </div>
+			';
+        if ($func[1] == 'radioList') {
+            $html .= '</fieldset>';
+        }
+        $html .= '</div>';
+        return $html;
+    }
+
+    static function row_control_horizontal($func, $label,$option)
+    {
+        $VmHTML = "VmHtml";
+        if (!is_array($func)) {
+            $func = array($VmHTML, $func);
+        }
+        $passedArgs = func_get_args();
+        array_shift($passedArgs);//remove function
+        array_shift($passedArgs);//remove label
+        array_shift($passedArgs);//remove option
+        $args = array();
+        foreach ($passedArgs as $k => $v) {
+            $args[] = &$passedArgs[$k];
+        }
+        $lang = JFactory::getLanguage();
+        if ($lang->hasKey($label . '_TIP')) {
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_TIP')) . '">' . tsmText::_($label) . '</span>';
+        } //Fallback
+        else if ($lang->hasKey($label . '_EXPLAIN')) {
+            $label = '<span class="hasTip" title="' . htmlentities(tsmText::_($label . '_EXPLAIN')) . '">' . tsmText::_($label) . '</span>';
+        } else {
+            $label = tsmText::_($label);
+        }
+        $label = '<label class="control-label '.$option['class_label'].'">' . $label . '</label>';
+        $name=reset($args);
+        $html = ' <div id="control-group-'.$name.'" class="control-group row ">' . $label;
+        if ($func[1] == 'radioList') {
+            $html .= '<fieldset class="checkboxes">';
+        }
+
+        $html .= '
+		 <div class="controls '.$option['class_control_group'].'">
                     ' . call_user_func_array($func, $args) . '
                 </div>
 			';
@@ -727,7 +769,7 @@ class VmHtml
         $span_right = 'span6';
         ?>
         <div id="<?php echo $element_id ?>" class="select_trip_join_and_private">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="<?php echo $span_left ?>">
                     <?php echo JText::_('Select tour type') ?>
                 </div>
@@ -742,7 +784,7 @@ class VmHtml
                     </select>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="<?php echo $span_left ?>">
                     <?php echo JText::_('Select trip') ?>
                 </div>
@@ -758,7 +800,7 @@ class VmHtml
                     </div>
                 </div>
             </div>
-            <div class="row-fluid air-service-class">
+            <div class="row air-service-class">
                 <div class="<?php echo $span_left ?>">
                     <?php echo JText::_('Select service class') ?>
                 </div>
@@ -776,7 +818,7 @@ class VmHtml
                 </div>
             </div>
 
-            <div class="row-fluid air-departure">
+            <div class="row air-departure">
                 <div class="<?php echo $span_left ?>">
                     <?php echo JText::_('Select departure item') ?>
                 </div>
@@ -785,14 +827,14 @@ class VmHtml
                         <?php foreach ($list_departure as $departure) {
                             ?>
 
-                            <div class="row-fluid departure-item"
+                            <div class="row departure-item"
                                  data-tsmart_departure_id="<?php echo $departure->tsmart_departure_id ?>">
-                                <div class="span6">
+                                <div class="col-lg-6">
                                     <label>Departure:<?php echo JHtml::_('date', $departure->departure_date, tsmConfig::$date_format); ?>
                                         <input type="checkbox" value="<?php echo $departure->tsmart_departure_id ?>"
                                                name="departure[]"></label></div>
-                                <div class="span2"></div>
-                                <div class="span4">Code:<?php echo $departure->departure_code ?></div>
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-4">Code:<?php echo $departure->departure_code ?></div>
                             </div>
 
                         <?php } ?>
@@ -874,13 +916,13 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $percent_amount_id ?>">
-            <div class="row-fluid">
-                <div class="span6">
+            <div class="row">
+                <div class="col-lg-6">
                     <input type="text" class="auto percent_input" <?php echo $type == 'amount' ? 'disabled' : '' ?>
                            value="<?php echo $type == 'percent' ? $amount : '' ?>" data-a-sign="%" data-v-min="0"
                            data-v-max="100" placeholder="write percent">
                 </div>
-                <div class="span6">
+                <div class="col-lg-6">
                     <input type="text" class="auto amount_input" <?php echo $type == 'percent' ? 'disabled' : '' ?>
                            value="<?php echo $type == 'amount' ? $amount : '' ?>" data-v-min="0" data-v-max="9999"
                            placeholder="write amount">
@@ -1018,12 +1060,13 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $select_date ?>" class="select_date">
-            <div class="input-append ">
+            <div class="input-group">
                 <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?>
-                       id="select_date_picker_<?php echo $name ?>" class="select_date <?php echo $class ?>"/>
-                <span class="icon-calendar add-on"></span>
+                       id="select_date_picker_<?php echo $name ?>" class="form-control select_date <?php echo $class ?>"/>
+                <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
+                <span class="input-group-addon"><span class="icon-calendar add-on"></span></span>
             </div>
-            <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
+
         </div>
         <?php
         $htm = ob_get_clean();
@@ -1307,12 +1350,12 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $amount_percent_id ?>">
-            <div class="row-fluid">
-                <div class="span6">
+            <div class="row">
+                <div class="col-lg-6">
                     <input type="text" value="<?php echo $amount ?>" class="auto amount_input" data-v-min="0"
                            data-v-max="9999" placeholder="write of No day">
                 </div>
-                <div class="span6">
+                <div class="col-lg-6">
                     <input type="text" value="<?php echo $percent ?>" class="auto percent_input" data-a-sign="%"
                            data-v-min="0" data-v-max="100" placeholder="write percent">
                     <input type="hidden" name="<?php echo $amount_name ?>" value="<?php echo $amount ?>">
@@ -1406,9 +1449,9 @@ class VmHtml
         ob_start();
         ?>
         <?php foreach ($list_options as $options) { ?>
-        <div class="row-fluid">
+        <div class="row">
             <?php foreach ($options as $option) { ?>
-                <div class="span<?php echo round(12 / $column) ?>">
+                <div class="col-lg-<?php echo round(12 / $column) ?>">
                     <label class="checkbox">
                         <input
                             name="<?php echo $name ?>[]" <?php echo in_array($option->tsmart_product_id, $list_selected) ? 'checked' : '' ?>
@@ -1604,9 +1647,9 @@ class VmHtml
         ob_start();
         ?>
         <?php foreach ($list_options as $options) { ?>
-        <div class="row-fluid">
+        <div class="row">
             <?php foreach ($options as $option) { ?>
-                <div class="span<?php echo round(12 / $column) ?>">
+                <div class="col-lg-<?php echo round(12 / $column) ?>">
                     <label class="checkbox">
                         <input
                             name="<?php echo $name ?>[]" <?php echo in_array($option->$key, $list_selected) ? 'checked' : '' ?>
@@ -1635,9 +1678,9 @@ class VmHtml
         ob_start();
         ?>
         <?php foreach ($list_options as $list_passenger) { ?>
-        <div class="row-fluid">
+        <div class="row">
             <?php foreach ($list_passenger as $key=>$person) { ?>
-                <div class="span<?php echo round(12 / $column) ?>">
+                <div class="col-lg-<?php echo round(12 / $column) ?>">
                     <label class="checkbox">
                         <input
                             name="<?php echo $name ?>[]" <?php echo in_array($key, $list_selected) ? 'checked' : '' ?>
@@ -1730,9 +1773,9 @@ class VmHtml
         ?>
         <div id="<?php echo $id_list_checkbox_group_size ?>" class="html_list_checkbox_group_size">
             <?php foreach ($list_list_group_size as $list_group_size) { ?>
-                <div class="row-fluid">
+                <div class="row">
                     <?php foreach ($list_group_size as $group_size) { ?>
-                        <div class="span<?php echo round(12 / $column) ?>">
+                        <div class="col-lg-<?php echo round(12 / $column) ?>">
                             <label class="checkbox">
                                 <input
                                     name="<?php echo $name ?>[]" data-from="<?php echo $group_size->from ?>"
@@ -1805,7 +1848,7 @@ class VmHtml
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
         $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/list_radio/style.less');
+        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/list_radio_rooming/style.less');
         $id = "list-radio-box-$name";
         $total_option = count($options);
         $column = $total_option < $column ? $total_option : $column;
@@ -1826,14 +1869,14 @@ class VmHtml
         $list_options = array_chunk($options, $column);
         ob_start();
         ?>
-        <div id="<?php echo $id ?>" class="list-radio-box">
+        <div id="<?php echo $id ?>" class="list-radio-box list_radio_rooming">
             <?php foreach ($list_options as $options) { ?>
                 <div class="row">
                     <?php foreach ($options as $option) { ?>
-                        <div class="col-lg-<?php echo round(12 / $column) ?>">
+                        <div class="col-lg-<?php echo round(12 / $column) ?> col-xxxs-<?php echo round(12 / $column) ?>">
                             <div class="item-check">
-                                <div class="title"> <label for="<?php echo $name ?>" ><?php echo $option->$text ?></label></div>
-                                <label  class="checkbox">
+                                <div class="title pull-left"> <label for="<?php echo $name ?>" ><?php echo $option->$text ?></label></div>
+                                <label  class="checkbox pull-left">
                                     <input
                                         name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
                                         value="<?php echo $option->$key ?>" type="radio">
@@ -1881,9 +1924,9 @@ class VmHtml
         ?>
         <div id="<?php echo $id ?>" class="list-radio-box price_type">
             <?php foreach ($list_options as $options) { ?>
-                <div class="row-fluid">
+                <div class="row">
                     <?php foreach ($options as $option) { ?>
-                        <div class="span<?php echo round(12 / $column) ?>">
+                        <div class="col-lg-<?php echo round(12 / $column) ?>">
                             <label class="checkbox">
                                 <input
                                     name="<?php echo $name ?>" <?php echo $option->$key == $selected ? 'checked' : '' ?>
@@ -1943,7 +1986,7 @@ class VmHtml
         <?php foreach ($list_items as $items) { ?>
         <div class="row">
             <?php foreach ($items as $item) { ?>
-                <div class="span<?php echo round(12 / $column) ?>">
+                <div class="col-lg-<?php echo round(12 / $column) ?>">
                     <label class="input">
                         <?php echo $item->text ?> <input style="width: 50px" name="<?php echo $item->name ?>"
                                                          value="<?php echo $item->value ?>">
@@ -3315,7 +3358,7 @@ XML;
         ob_start();
         ?>
         <div class="html_generate_code" id="<?php echo $id_element ?>">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="pull-left">
                     <input name="<?php echo $name ?>" value="<?php echo $default ?>" <?php echo $read_only?' readonly ':'' ?>  type="text" class="code">
                 </div>
@@ -3388,9 +3431,9 @@ XML;
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="row-fluid person-type">
+                    <div class="row person-type">
                         <div class="col-lg-12">
                             <h4 class="">
                                 <span title=""
@@ -3399,7 +3442,7 @@ XML;
                             </h4>
                         </div>
                     </div>
-                    <div class="row-fluid herder">
+                    <div class="row herder">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-1"><?php echo JText::_('Gender') ?></div>
                         <div class="col-lg-2"><?php echo JText::_('First name') ?></div>
@@ -3411,16 +3454,16 @@ XML;
                         <div class="col-lg-1"></div>
                     </div>
                     <div class="input-passenger-list-passenger senior-adult-teen">
-                        <div class="row-fluid item-passenger">
+                        <div class="row item-passenger">
                             <div class="col-lg-12">
-                                <div class="row-fluid">
+                                <div class="row">
                                     <div class="col-lg-12">
                                         <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
                                         <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
                                         <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
                                     </div>
                                 </div>
-                                <div class="row-fluid">
+                                <div class="row">
                                     <div class="col-lg-2">
                                         <input required data-name="first_name"
                                                placeholder="<?php echo JText::_('First name') ?>"
@@ -3460,7 +3503,7 @@ XML;
 
                         </div>
                     </div>
-                    <div class="row-fluid person-type">
+                    <div class="row person-type">
                         <div class="col-lg-10">
                             <h4 class=""><span title=""
                                                class="travel-icon">n</span> <?php echo JText::_('Children/infant(0-11 years)') ?>
@@ -3535,36 +3578,40 @@ XML;
                     </div>
                     <div class="row">
                         <div class="col-lg-5">
-                            <h3><?php echo JText::_('Select room type') ?></h3>
+                            <h3 style="text-align: center;color: #820004"><?php echo JText::_('Select room type') ?></h3>
                             <div class="list-room">
                                 <div class="row">
-                                    <div class="col-lg-2">
-                                        <label><?php echo JText::_('Single') ?><input type="radio" checked
+                                    <div class="col-lg-2 col-xxxs-2" style="text-align: center;color: #820004">
+                                        <label><?php echo JText::_('Single') ?></br>
+                                            <input type="radio" checked
                                                                                       data-name="room_type"
-                                                                                      name="room_type"
+                                                                                      name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_SINGLE_NOTE') ?>"
                                                                                       value="single"></label>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <label><?php echo JText::_('Double') ?><input type="radio" data-name="room_type"
+                                    <div class="col-lg-3 col-xxxs-3" style="text-align: center;color: #820004">
+                                        <label><?php echo JText::_('Double') ?></br><input type="radio" data-name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_DOUBLE_NOTE') ?>"
                                                                                       name="room_type"
                                                                                       value="double"></label>
                                     </div>
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-2">
-                                        <label><?php echo JText::_('Twin') ?><input type="radio" data-name="room_type"
+                                    <div class="col-lg-3 col-xxxs-3"></div>
+                                    <div class="col-lg-2 col-xxxs-2" style="text-align: center;color: #820004">
+                                        <label><?php echo JText::_('Twin') ?></br><input type="radio" data-name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_TWIN_NOTE') ?>"
                                                                                     name="room_type"
                                                                                     value="twin"></label>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <label><?php echo JText::_('Triple') ?><input type="radio" data-name="room_type"
+                                    <div class="col-lg-2 col-xxxs-2" style="text-align: center;color: #820004">
+                                        <label><?php echo JText::_('Triple') ?></br><input type="radio" data-name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_TRIPLE_NOTE') ?>"
                                                                                       name="room_type"
                                                                                       value="triple"></label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row note">
-                                <div class="col-lg-12">
+                            <div class="row note ">
+                                <div class="col-lg-12 hidden-xxxs">
                                     <?php echo JText::_('BUILD_ROOM_NOTE') ?>
+                                </div>
+                                <div class="col-xxxs-12 hidden-tablet-desktop">
+                                    <div class="mobile-note"></div>
                                 </div>
                             </div>
                             <div class="row note">
@@ -3577,7 +3624,7 @@ XML;
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <h3><?php echo JText::_('select person for room on your own') ?></h3>
+                            <h3 class="" style="text-align: center;color: #820004"><?php echo JText::_('select person for room on your own') ?></h3>
                             <ul class="list-passenger">
                                 <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span
                                             class="full-name"></span><span class="in_room"></span></label></li>
@@ -3601,44 +3648,44 @@ XML;
                         <div class="table table-hover table-bordered table-rooming-list">
                             <div class="thead">
                                 <div class="row">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 col-xxxs-2">
                                         <div class="column-header-item"><?php echo JText::_('Room') ?></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 col-xxxs-2">
                                         <div class="column-header-item"><?php echo JText::_('Room type') ?></div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 col-xxxs-5">
                                         <div class="column-header-item"><?php echo JText::_('Passenger') ?></div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 col-xxxs-3">
                                         <div class="column-header-item"><?php echo JText::_('Bed note') ?></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 hidden-xxxs">
                                         <div class="column-header-item"><?php echo JText::_('Room note') ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tbody">
                                 <div class="row div-item-room">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 col-xxxs-2">
                                         <div class="row-item-column"><span class="order">1</span></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 col-xxxs-2">
                                         <div class="row-item-column">
                                             <div class="room_type"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 col-xxxs-5">
                                         <div class="row-item-column">
                                             <div class="table_list_passenger"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 col-xxxs-3">
                                         <div class="row-item-column">
                                             <div class="private-room"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 hidden-xxxs">
                                         <div class="row-item-column">
                                             <div class="room_note"></div>
                                         </div>
@@ -3725,30 +3772,30 @@ XML;
 
         ob_start();
         ?>
-        <div class="html_night_hotel row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_night_hotel row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_room">
                 <div class="item-night-hotel">
                     <div class="move-room handle"><span title="" class="icon-move "></span></div>
-                    <div class="row-fluid">
-                        <div class="span12"><h3><?php echo JText::_($type . ' ') ?><span class="room-order">1</span>
+                    <div class="row">
+                        <div class="col-lg-12"><h3><?php echo JText::_($type . ' ') ?><span class="room-order">1</span>
                             </h3>
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span5">
+                    <div class="row">
+                        <div class="col-lg-5">
                             <h5><?php echo JText::_('Select date from to') ?></h5>
-                            <div class="row-fluid">
-                                <div class="span12">
+                            <div class="row">
+                                <div class="col-lg-12">
                                     <input style="width: 100%" type="text" class="date">
                                 </div>
                             </div>
-                            <div class="row-fluid note">
-                                <div class="span12">
+                            <div class="row note">
+                                <div class="col-lg-12">
                                     <?php echo $lipsum->words(50) ?>
                                 </div>
                             </div>
-                            <div class="row-fluid note">
-                                <div class="span12">
+                            <div class="row note">
+                                <div class="col-lg-12">
                                     <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
                                             <button type="button" class="btn btn-primary random-text">Random text
                                             </button><?php } ?></h4>
@@ -3756,19 +3803,19 @@ XML;
                                 </div>
                             </div>
                         </div>
-                        <div class="span7">
+                        <div class="col-lg-7">
                             <h3><?php echo JText::_('select person for room on your own') ?></h3>
-                            <div class="list_room_type row-fluid">
-                                <div class="span3">
+                            <div class="list_room_type row">
+                                <div class="col-lg-3">
 
                                 </div>
-                                <div class="span9">
-                                    <div class="row-fluid">
+                                <div class="col-lg-9">
+                                    <div class="row">
                                         <?php
                                         $room_limit = 16;
                                         ?>
                                         <?php foreach ($list_room_type as $room_type => $allow_passenger) { ?>
-                                            <div class="span3">
+                                            <div class="col-lg-3">
                                                 <div class="" style="text-align: center"><?php echo $room_type ?></div>
                                                 <select data-room_type="<?php echo $room_type ?>"
                                                         class="room_type <?php echo $room_type ?> ">
@@ -3785,15 +3832,15 @@ XML;
                             <div class="list_room_type_passenger">
                                 <?php foreach ($list_room_type as $room_type => $allow_passenger) { ?>
                                     <div class="<?php echo $room_type ?>">
-                                        <div class="passenger-item row-fluid <?php echo $room_type ?>"
+                                        <div class="passenger-item row <?php echo $room_type ?>"
                                              data-room_type="<?php echo $room_type ?>">
-                                            <div class="span2">
+                                            <div class="col-lg-2">
                                                 <div class="title_room"><?php echo JText::_($room_type) ?></div>
                                             </div>
-                                            <div class="span1">
+                                            <div class="col-lg-1">
                                                 <button type="button" class="btn btn-primary remove_room">X</button>
                                             </div>
-                                            <div class="span9">
+                                            <div class="col-lg-9">
                                                 <?php for ($i = 0; $i < $allow_passenger; $i++) { ?>
                                                     <select disabled style="width: 100%" class="">
                                                         <option selected
@@ -3810,8 +3857,8 @@ XML;
 
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <button type="button"
                                     class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Book more') ?></button>
                             <button type="button"
@@ -3821,50 +3868,50 @@ XML;
                 </div>
             </div>
             <div class="rooming-list">
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <h4 style="text-align: center"><?php echo JText::_('Rooming list') ?></h4>
                         <div class="table table-hover table-bordered table-rooming-list">
                             <div class="thead">
-                                <div class="row-fluid">
-                                    <div class="span2">
+                                <div class="row">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('Room') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('Room type') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Passenger') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Bed note') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('Room note') ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tbody">
-                                <div class="row-fluid div-item-room">
-                                    <div class="span2">
+                                <div class="row div-item-room">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column"><span class="order">1</span></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="room_type"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="table_list_passenger"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="private-room"></div>
                                         </div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="room_note"></div>
                                         </div>
@@ -3958,7 +4005,7 @@ XML;
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
-        <div class="html_build_aobject row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_build_aobject row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_aobject">
                 <h4
                     style="text-align: center"><?php echo JText::_('Service total') ?></h4>
@@ -3971,68 +4018,68 @@ XML;
                     ?>
                     <div class="item-aobject">
                         <div class="move-aobject handle"><span title="" class="icon-move "></span></div>
-                        <div class="row-fluid">
-                            <div class="span12"><h3 class="passenger-title"><?php echo JText::_('passenger ') ?><span
+                        <div class="row">
+                            <div class="col-lg-12"><h3 class="passenger-title"><?php echo JText::_('passenger ') ?><span
                                         class="aobject-order"><?php echo JText::sprintf("%s :$passenger->first_name $passenger->middle_name $passenger->last_name", $i + 1) ?></span>
                                 </h3></div>
                         </div>
 
 
                         <div class="passenger-service-list">
-                            <div class="row-fluid">
-                                <div class="span12">
+                            <div class="row">
+                                <div class="col-lg-12">
                                     <div class="table table-hover table-service-list">
                                         <div class="thead">
-                                            <div class="row-fluid">
-                                                <div class="span4">
+                                            <div class="row">
+                                                <div class="col-lg-4">
                                                     <div
                                                         class="column-header-item"><?php echo JText::_('Service detail') ?></div>
                                                 </div>
-                                                <div class="span6">
+                                                <div class="col-lg-6">
                                                     <div class="column-header-item"></div>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <div
                                                         class="column-header-item"><?php echo JText::_('Service price') ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tbody">
-                                            <div class="row-fluid div-item-aobject">
-                                                <div class="span4">
+                                            <div class="row div-item-aobject">
+                                                <div class="col-lg-4">
                                                     <div
                                                         class="row-item-column"><?php echo JText::_('Package tour') ?></div>
                                                 </div>
-                                                <div class="span6">
+                                                <div class="col-lg-6">
                                                     <div class="row-item-column">
                                                         <div
                                                             class="tour-detail"><?php echo JText::sprintf("%s Trip from %s to %s. %s include", $tour->product_name, JHtml::_('date', $booking_date, tsmConfig::$date_format), $end_date->format(tsmConfig::$date_format), $room_type) ?></div>
                                                     </div>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <div class="row-item-column">
                                                         <div
                                                             class="tour-price"><?php echo $passenger->tour_service_price ?></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row-fluid div-item-aobject">
-                                                <div class="span4">
+                                            <div class="row div-item-aobject">
+                                                <div class="col-lg-4">
                                                     <div
                                                         class="row-item-column"><?php echo JText::_('Extra service') ?></div>
                                                 </div>
-                                                <div class="span6">
+                                                <div class="col-lg-6">
                                                     <div class="row-item-column">
                                                         <div class="extra-service"></div>
                                                     </div>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <div class="row-item-column">
                                                         <div class="extra-price"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row-fluid div-item-aobject">
+                                            <div class="row div-item-aobject">
                                                 <div class="offset10 span2">
                                                     <div class="row-item-column">
                                                         <div class="total-price"></div>
@@ -4136,14 +4183,14 @@ XML;
         <h4
         ><?php echo JText::_('Passenger list') ?></h4>
 
-        <div class="html_build_passenger_summary_confirm row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_build_passenger_summary_confirm row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_aobject">
                 <div class="header">
-                    <div class="row-fluid">
-                        <div class="span1"><?php echo JText::_('Gender') ?></div>
-                        <div class="span3"><?php echo JText::_('Name & surname') ?></div>
-                        <div class="span1"><?php echo JText::_('Date of birth') ?></div>
-                        <div class="span1"><?php echo JText::_('Nationality') ?></div>
+                    <div class="row">
+                        <div class="col-lg-1"><?php echo JText::_('Gender') ?></div>
+                        <div class="col-lg-3"><?php echo JText::_('Name & surname') ?></div>
+                        <div class="col-lg-1"><?php echo JText::_('Date of birth') ?></div>
+                        <div class="col-lg-1"><?php echo JText::_('Nationality') ?></div>
                     </div>
                 </div>
                 <div class="body">
@@ -4155,13 +4202,13 @@ XML;
 
                         ?>
 
-                        <div class="row-fluid row-item">
-                            <div class="span1"><?php echo $passenger->title ?></div>
-                            <div class="span3"><?php echo $passenger->first_name ?></div>
-                            <div class="span1"></div>
-                            <div class="span1"></div>
-                            <div class="span1"></div>
-                            <div class="span1"></div>
+                        <div class="row row-item">
+                            <div class="col-lg-1"><?php echo $passenger->title ?></div>
+                            <div class="col-lg-3"><?php echo $passenger->first_name ?></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-1"></div>
                         </div>
 
 
@@ -4237,26 +4284,26 @@ XML;
         <h4
         ><?php echo JText::_('Passenger list') ?></h4>
 
-        <div class="html_edit_passenger_in_order row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_edit_passenger_in_order row" id="<?php echo $id_element ?>">
 
             <div class="<?php echo $id_element ?>_list_aobject">
 
                 <div class="toolbar">
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="pull-left title"><?php echo JText::_('Passenger list') ?></div>
                     </div>
                 </div>
                 <div class="header">
-                    <div class="row-fluid">
-                        <div class="span1 column id"><?php echo JText::_('Id') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Name') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Surname') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Title') ?></div>
-                        <div class="span2 column"><?php echo JText::_('DOB') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Nationality') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Passport no') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Expiry date') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Action') ?></div>
+                    <div class="row">
+                        <div class="col-lg-1 column id"><?php echo JText::_('Id') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Name') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Surname') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Title') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('DOB') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Nationality') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Passport no') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Expiry date') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Action') ?></div>
                     </div>
                 </div>
                 <div class="body">
@@ -4268,16 +4315,16 @@ XML;
 
                         ?>
 
-                        <div class="row-fluid row-item" data-passenger_id="<?php echo $i ?>">
-                            <div class="span1 column id"><?php echo $i + 1 ?></div>
-                            <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
-                            <div class="span1 column"><?php echo $passenger->title ?></div>
-                            <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
-                            <div class="span1 column"><?php echo $passenger->nationality ?></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column">
+                        <div class="row row-item" data-passenger_id="<?php echo $i ?>">
+                            <div class="col-lg-1 column id"><?php echo $i + 1 ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->first_name ?></div>
+                            <div class="col-lg-2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->title ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->date_of_birth ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->nationality ?></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column">
                                 <div class="buttons pull-right">
                                     <button type="button"  class="btn-link edit"><span class="icon-edit"></span></button>
                                     <button type="button" class="btn-link pull-right"><span class="icon-cancel"></span>
@@ -4297,9 +4344,9 @@ XML;
                 </div>
                 <div class="modal-body form-horizontal">
                     <h4><?php echo JText::_('Passenger detail') ?></h4>
-                    <div class="row-fluid">
+                    <div class="row">
 
-                        <div class="span6">
+                        <div class="col-lg-6">
                             <div class="control-group">
                                 <label class="control-label" for="title"><?php echo JText::_('Title') ?></label>
                                 <div class="controls">
@@ -4332,7 +4379,7 @@ XML;
                             </div>
 
                         </div>
-                        <div class="span6">
+                        <div class="col-lg-6">
                             <div class="control-group">
                                 <label class="control-label" for="passport_no"><?php echo JText::_('Nationality') ?></label>
                                 <div class="controls">
@@ -4362,8 +4409,8 @@ XML;
                     </div>
                     <hr/>
                     <h4><?php echo JText::_('Contact detail') ?></h4>
-                    <div class="row-fluid">
-                        <div class="span6">
+                    <div class="row">
+                        <div class="col-lg-6">
                             <div class="control-group">
                                 <label class="control-label" for="passport_no"><?php echo JText::_('Phone no') ?></label>
                                 <div class="controls">
@@ -4404,7 +4451,7 @@ XML;
                             </div>
 
                         </div>
-                        <div class="span6">
+                        <div class="col-lg-6">
                             <div class="control-group">
                                 <label class="control-label" for="postcode_zip"><?php echo JText::_('Postcode/Zip') ?></label>
                                 <div class="controls">
@@ -4442,8 +4489,8 @@ XML;
                         </div>
                     </div>
                     <h4><?php echo JText::_('addtion information') ?></h4>
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <div class="control-group">
                                 <label class="control-label" for="conditions"><?php echo JText::_('Do you have any pre-existing medical condition ?') ?></label>
                                 <div class="controls">
@@ -4533,18 +4580,18 @@ XML;
         ?>
 
 
-        <div class="html_passenger_information_in_order row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_passenger_information_in_order row" id="<?php echo $id_element ?>">
 
             <div class="<?php echo $id_element ?>_list_aobject">
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-right">
                             <?php echo JText::_('Tour fee') ?>
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-left">
                             <?php echo JText::_('Base price') ?>
                         </div>
@@ -4553,8 +4600,8 @@ XML;
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-left">
                             <?php echo JText::_('Tax & fees') ?>
                         </div>
@@ -4563,8 +4610,8 @@ XML;
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-left">
                             <?php echo JText::_('Discout') ?>
                         </div>
@@ -4573,15 +4620,15 @@ XML;
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-right">
                             <?php echo JText::_('<span class="total">Total price</span><span class="price">1500</span>') ?>
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-right">
                             (<?php echo JText::_('Include all service taxes, no hidden fee') ?>)
                         </div>
@@ -4655,11 +4702,11 @@ XML;
         <h4
         ><?php echo JText::_('Passenger list') ?></h4>
 
-        <div class="html_edit_passenger_in_order row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_edit_passenger_in_order row" id="<?php echo $id_element ?>">
 
             <div class="<?php echo $id_element ?>_list_aobject">
                 <div class="toolbar">
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="pull-left title"><?php echo JText::_('Passenger list') ?></div>
                         <div class="buttons pull-right">
                             <button class="btn btn-primary"><?php echo JText::_('Save change') ?></button>
@@ -4668,16 +4715,16 @@ XML;
                     </div>
                 </div>
                 <div class="header">
-                    <div class="row-fluid">
-                        <div class="span1 column id"><?php echo JText::_('Id') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Name') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Surname') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Title') ?></div>
-                        <div class="span2 column"><?php echo JText::_('DOB') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Nationality') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Passport no') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Expiry date') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Action') ?></div>
+                    <div class="row">
+                        <div class="col-lg-1 column id"><?php echo JText::_('Id') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Name') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Surname') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Title') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('DOB') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Nationality') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Passport no') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Expiry date') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Action') ?></div>
                     </div>
                 </div>
                 <div class="body">
@@ -4689,16 +4736,16 @@ XML;
 
                         ?>
 
-                        <div class="row-fluid row-item">
-                            <div class="span1 column id"><?php echo $i + 1 ?></div>
-                            <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
-                            <div class="span1 column"><?php echo $passenger->title ?></div>
-                            <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
-                            <div class="span1 column"><?php echo $passenger->nationality ?></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column">
+                        <div class="row row-item">
+                            <div class="col-lg-1 column id"><?php echo $i + 1 ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->first_name ?></div>
+                            <div class="col-lg-2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->title ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->date_of_birth ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->nationality ?></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column">
                                 <div class="buttons pull-right">
                                     <button type="button" class="btn-link pull-left"><span class="icon-edit"></span>
                                     </button>
@@ -4739,16 +4786,16 @@ XML;
         ob_start();
         ?>
 
-        <div class="passenger_transfer row-fluid" id="<?php echo $id_element ?>">
+        <div class="passenger_transfer row" id="<?php echo $id_element ?>">
 
             <div class="<?php echo $id_element ?>_list_aobject">
                 <?php
 
                 ?>
                 <?php foreach ($list_list_transfer as $list_transfer) { ?>
-                    <div class="row-fluid">
+                    <div class="row">
                         <?php for ($i = 0; $i < count($list_transfer); $i++) { ?>
-                            <div class="span6">
+                            <div class="col-lg-6">
                                 <?php
                                 $list_room_type = $list_transfer[$i]->list_room_type;
                                 $list_room_type1 = array();
@@ -4835,11 +4882,11 @@ XML;
         <h4
         ><?php echo JText::_('Passenger list') ?></h4>
 
-        <div class="html_edit_passenger_in_order row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_edit_passenger_in_order row" id="<?php echo $id_element ?>">
 
             <div class="<?php echo $id_element ?>_list_aobject">
                 <div class="toolbar">
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="pull-left title"><?php echo JText::_('Passenger list') ?></div>
                         <div class="buttons pull-right">
                             <button class="btn btn-primary"><?php echo JText::_('Save change') ?></button>
@@ -4848,16 +4895,16 @@ XML;
                     </div>
                 </div>
                 <div class="header">
-                    <div class="row-fluid">
-                        <div class="span1 column id"><?php echo JText::_('Id') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Name') ?></div>
-                        <div class="span2 column"><?php echo JText::_('Surname') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Title') ?></div>
-                        <div class="span2 column"><?php echo JText::_('DOB') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Nationality') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Passport no') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Expiry date') ?></div>
-                        <div class="span1 column"><?php echo JText::_('Action') ?></div>
+                    <div class="row">
+                        <div class="col-lg-1 column id"><?php echo JText::_('Id') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Name') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('Surname') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Title') ?></div>
+                        <div class="col-lg-2 column"><?php echo JText::_('DOB') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Nationality') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Passport no') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Expiry date') ?></div>
+                        <div class="col-lg-1 column"><?php echo JText::_('Action') ?></div>
                     </div>
                 </div>
                 <div class="body">
@@ -4869,16 +4916,16 @@ XML;
 
                         ?>
 
-                        <div class="row-fluid row-item">
-                            <div class="span1 column id"><?php echo $i + 1 ?></div>
-                            <div class="span2 column"><?php echo $passenger->first_name ?></div>
-                            <div class="span2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
-                            <div class="span1 column"><?php echo $passenger->title ?></div>
-                            <div class="span2 column"><?php echo $passenger->date_of_birth ?></div>
-                            <div class="span1 column"><?php echo $passenger->nationality ?></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column"></div>
-                            <div class="span1 column">
+                        <div class="row row-item">
+                            <div class="col-lg-1 column id"><?php echo $i + 1 ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->first_name ?></div>
+                            <div class="col-lg-2 column"><?php echo tsmConfig::get_full_name($passenger) ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->title ?></div>
+                            <div class="col-lg-2 column"><?php echo $passenger->date_of_birth ?></div>
+                            <div class="col-lg-1 column"><?php echo $passenger->nationality ?></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column"></div>
+                            <div class="col-lg-1 column">
                                 <div class="buttons pull-right">
                                     <button type="button" class="btn-link pull-left"><span class="icon-edit"></span>
                                     </button>
@@ -4949,54 +4996,54 @@ XML;
         $doc->addScriptDeclaration($script_content);
         ob_start();
         ?>
-        <div class="html_build_payment_cardit_card row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_build_payment_cardit_card row" id="<?php echo $id_element ?>">
             <fieldset>
                 <legend><?php echo JText::_('Payment detail') ?></legend>
                 <div class="payment-detail">
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <?php echo JText::_('Payment amout: CW') ?>
                         </div>
-                        <div class="span4">
+                        <div class="col-lg-4">
                             <label><input type="radio"
                                           name="payment_type"> <?php echo JText::sprintf('$US %s (full payment)', $full_payment) ?>
                             </label>
                         </div>
-                        <div class="span4">
+                        <div class="col-lg-4">
                             <label><input type="radio"
                                           name="payment_type"> <?php echo JText::sprintf('$US %s (Deposit)', $deposit) ?>
                             </label>
 
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <?php echo JText::_('Card type') ?>
                         </div>
-                        <div class="span3">
+                        <div class="col-lg-3">
                             <label><input type="radio" name="card_type"> <?php echo JText::_('Visa card') ?></label>
                         </div>
-                        <div class="span2">
+                        <div class="col-lg-2">
                             <label><input type="radio" name="card_type"> <?php echo JText::_('Master card') ?></label>
                         </div>
-                        <div class="span3">
+                        <div class="col-lg-3">
                             <label><input type="radio" name="card_type"> <?php echo JText::_('Amex card') ?></label>
 
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <?php echo JText::_('Card number') ?>:
                         </div>
-                        <div class="span8">
+                        <div class="col-lg-8">
                             <input type="text" class="card_number" name="card_number">
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <?php echo JText::_('Expri date') ?>:
                         </div>
-                        <div class="span3">
+                        <div class="col-lg-3">
                             <select name="month" class="month">
                                 <option value=""><?php echo JText::_('select month') ?></option>
                                 <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -5005,7 +5052,7 @@ XML;
                             </select>
                         </div>
 
-                        <div class="span2">
+                        <div class="col-lg-2">
                             <select name="year" class="year">
                                 <option value=""><?php echo JText::_('select year') ?></option>
                                 <?php for ($i = 2016; $i <= 2020; $i++) { ?>
@@ -5013,16 +5060,16 @@ XML;
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="span3">
+                        <div class="col-lg-3">
                             <label class="icon-question"><span></span><input type="text" class="last_three_number"
                                                                              name="last_three_number"></label>
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <?php echo JText::_('Card holder name') ?>:
                         </div>
-                        <div class="span8">
+                        <div class="col-lg-8">
                             <input type="text" class="card_holder_name" name="card_holder_name">
                         </div>
                     </div>
@@ -5087,7 +5134,7 @@ XML;
         ob_start();
         ?>
         <div class="html_build_form_contact row" id="<?php echo $id_element ?>">
-            <div class="form-contact form-vertical">
+            <div class="form-contact form-horizontal">
                 <div class="row">
                     <div class="col-lg-12">
                         <h4 class="title contact-detail"><span class="icon-envelope-alt"
@@ -5095,26 +5142,32 @@ XML;
                         </h4>
                     </div>
                 </div>
+                <?php
+                $option=array(
+                    class_label=>'col-lg-4',
+                    class_control_group=>'col-lg-8',
+                );
+                ?>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="left">
-                        <?php echo VmHTML::row_control('input', JText::_('Contact name'), 'contact_name', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'phone_number', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('Email Address'), 'email_address', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('Confirm Email'), 'confirm_email', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('Street address'), 'street_address', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('Suburb/Town'), 'suburb_town', '', 'class="required"'); ?>
-                        <?php echo VmHTML::row_control('input', JText::_('State/province'), 'state_province', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Contact name'),$option, 'contact_name', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Phone No'),$option, 'phone_number', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Email Address'),$option, 'email_address', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Confirm Email'),$option, 'confirm_email', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Street address'),$option, 'street_address', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('Suburb/Town'),$option, 'suburb_town', '', 'class="required"'); ?>
+                        <?php echo VmHTML::row_control_horizontal('input', JText::_('State/province'),$option, 'state_province', '', 'class="required"'); ?>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="right">
-                            <?php echo VmHTML::row_control('input', JText::_('Postcode/Zip'), 'post_code_zip', '', 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', JText::_('Res. Country'), 'res_country', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control_horizontal('input', JText::_('Postcode/Zip'),$option, 'post_code_zip', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control_horizontal('input', JText::_('Res. Country'),$option, 'res_country', '', 'class="required"'); ?>
                             <h3 class=" emergency-contact"><?php echo JText::_('Emergency contact') ?></h3>
-                            <?php echo VmHTML::row_control('input', JText::_('Contact Name'), 'emergency_contact_name', '', 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', JText::_('Street address'), 'emergency_email_address', '', 'class="required"'); ?>
-                            <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'emergency_phone_number', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control_horizontal('input', JText::_('Contact Name'),$option, 'emergency_contact_name', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control_horizontal('input', JText::_('Street address'),$option, 'emergency_email_address', '', 'class="required"'); ?>
+                            <?php echo VmHTML::row_control_horizontal('input', JText::_('Phone No'),$option, 'emergency_phone_number', '', 'class="required"'); ?>
                         </div>
                     </div>
                 </div>
@@ -5177,20 +5230,20 @@ XML;
 
         ob_start();
         ?>
-        <div class="html_build_pickup_transfer row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_build_pickup_transfer row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_transfer">
                 <div class="item-transfer">
                     <div class="move-transfer handle"><span title="" class="icon-move "></span></div>
-                    <div class="row-fluid">
-                        <div class="span12"><h4><?php echo JText::_('transfer ') ?><span class="transfer-order">1</span>
+                    <div class="row">
+                        <div class="col-lg-12"><h4><?php echo JText::_('transfer ') ?><span class="transfer-order">1</span>
                             </h4></div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <div
                                 class="air-price"><?php echo JText::sprintf('price<br/> from <span class="price">%d</span> /pers', $transfer_item->sale_price) ?></div>
                         </div>
-                        <div class="span8">
+                        <div class="col-lg-8">
                             <h5><?php echo JText::_('Air port pickup & transfer') ?></h5>
                             <ul class="list-passenger">
                                 <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span
@@ -5199,7 +5252,7 @@ XML;
                         </div>
                     </div>
                     <div class="transfer-fluid note">
-                        <div class="span12">
+                        <div class="col-lg-12">
                             <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
                                     <button type="button" class="btn btn-primary random-text">Random text
                                     </button><?php } ?></h4>
@@ -5207,8 +5260,8 @@ XML;
                         </div>
                     </div>
 
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <button type="button"
                                     class="btn btn-primary add-more-transfer pull-right"><?php echo JText::_('Add more transfer') ?></button>
                             <button type="button"
@@ -5218,50 +5271,50 @@ XML;
                 </div>
             </div>
             <div class="transfering-list">
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <h4 style="text-align: center"><?php echo JText::_('transfering list') ?></h4>
                         <div class="table table-hover table-bordered table-transfering-list">
                             <div class="thead">
-                                <div class="row-fluid">
-                                    <div class="span2">
+                                <div class="row">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer type') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Passenger') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Bed note') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer note') ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tbody">
-                                <div class="row-fluid div-item-transfer">
-                                    <div class="span2">
+                                <div class="row div-item-transfer">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column"><span class="order">1</span></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="transfer_type"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="table_list_passenger"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="private-transfer"></div>
                                         </div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="transfer_note"></div>
                                         </div>
@@ -5332,20 +5385,20 @@ XML;
 
         ob_start();
         ?>
-        <div class="html_build_pickup_transfer row-fluid" id="<?php echo $id_element ?>">
+        <div class="html_build_pickup_transfer row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_transfer">
                 <div class="item-transfer">
                     <div class="move-transfer handle"><span title="" class="icon-move "></span></div>
-                    <div class="row-fluid">
-                        <div class="span12"><h4><?php echo JText::_('transfer ') ?><span class="transfer-order">1</span>
+                    <div class="row">
+                        <div class="col-lg-12"><h4><?php echo JText::_('transfer ') ?><span class="transfer-order">1</span>
                             </h4></div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
+                    <div class="row">
+                        <div class="col-lg-4">
                             <div
                                 class="air-price"><?php echo JText::sprintf('price<br/> from <span class="price">%d</span> /pers', $list_excursion_addon->sale_price) ?></div>
                         </div>
-                        <div class="span8">
+                        <div class="col-lg-8">
                             <h5><?php echo JText::_('Air port pickup & transfer') ?></h5>
                             <ul class="list-passenger">
                                 <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span
@@ -5354,7 +5407,7 @@ XML;
                         </div>
                     </div>
                     <div class="transfer-fluid note">
-                        <div class="span12">
+                        <div class="col-lg-12">
                             <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
                                     <button type="button" class="btn btn-primary random-text">Random text
                                     </button><?php } ?></h4>
@@ -5362,8 +5415,8 @@ XML;
                         </div>
                     </div>
 
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <button type="button"
                                     class="btn btn-primary add-more-transfer pull-right"><?php echo JText::_('Add more transfer') ?></button>
                             <button type="button"
@@ -5373,50 +5426,50 @@ XML;
                 </div>
             </div>
             <div class="transfering-list">
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <h4 style="text-align: center"><?php echo JText::_('transfering list') ?></h4>
                         <div class="table table-hover table-bordered table-transfering-list">
                             <div class="thead">
-                                <div class="row-fluid">
-                                    <div class="span2">
+                                <div class="row">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer type') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Passenger') ?></div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="column-header-item"><?php echo JText::_('Bed note') ?></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="column-header-item"><?php echo JText::_('transfer note') ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tbody">
-                                <div class="row-fluid div-item-transfer">
-                                    <div class="span2">
+                                <div class="row div-item-transfer">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column"><span class="order">1</span></div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="transfer_type"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="table_list_passenger"></div>
                                         </div>
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <div class="row-item-column">
                                             <div class="private-transfer"></div>
                                         </div>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <div class="row-item-column">
                                             <div class="transfer_note"></div>
                                         </div>

@@ -32,6 +32,7 @@
         .select2-container
         {
             width: 249px !important;
+            height: 31px;
         }
     }
     .select_date
@@ -43,8 +44,12 @@
         width: 223px;
     }
 }
+.select2-container--open .select2-dropdown--below
+{
+    z-index: 9999;
+}
 #ui-datepicker-div {
-    z-index: 999 !important;
+    z-index: 9999 !important;
 }
 .view-productdetails-default {
     .content-overview {
@@ -83,7 +88,7 @@
     }
     .select_number_passenger, .select_date {
         float: left;
-        margin-left: 10px;
+        margin-left: 0px;
     }
     .style_button();
     .btn-clear {
@@ -310,5 +315,10 @@
     }
     .person {
         text-align: center;
+    }
+}
+@media (max-width: @screen-xxs-min){
+    .triangle {
+        right: 16px;
     }
 }

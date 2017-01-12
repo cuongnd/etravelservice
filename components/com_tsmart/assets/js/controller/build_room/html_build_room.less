@@ -1,13 +1,24 @@
+@import "../../../../../../templates/vina_bonnie/bootstrap-3.3.7/less/variables.less";
+@import "../../../../../../templates/vina_bonnie/bootstrap-3.3.7/less/mixins.less";
+
 .html_build_room {
   input, select {
     width: 80px;
   }
+
   ul.list-passenger {
     columns: 2;
     -webkit-columns: 2;
     -moz-columns: 2;
   }
-
+  @media (max-width: @screen-xxs-min){
+    ul.list-passenger {
+      columns: 1;
+      -webkit-columns: 1;
+      -moz-columns: 1;
+      margin-left: 40px;
+    }
+  }
   .item-room {
     padding: 10px;
   }
@@ -38,6 +49,14 @@
   {
     border: red solid 1px;
   }
+  .list-room
+  {
+    input {
+      width: auto;
+    }
+
+
+  }
   .list-room.error,.list-passenger.error
   {
     border: red solid 1px;
@@ -66,6 +85,7 @@
       {
         border-right: 1px #000 solid;
       }
+
       .div-item-room
       {
         .column-header-item:last-child,.row-item-column:last-child
@@ -74,9 +94,14 @@
       }
       .thead
       {
+        .row >div:last-child .column-header-item:last-child
+        {
+          border-right: none;
+        }
         .column-header-item
         {
           padding: 10px;
+          min-height: 60px;
           font-weight: bold;
         }
         border-bottom: 1px #000 solid;
@@ -84,6 +109,17 @@
       }
       .tbody
       {
+
+
+        .row >div:last-child .row-item-column:last-child
+        {
+          margin-right: -1px;
+        }
+        .row >div:first-child .row-item-column:first-child
+        {
+          border-left: 1px #000 solid;
+          margin-left: -1px;
+        }
         .row-item-column
         {
           padding: 10px;

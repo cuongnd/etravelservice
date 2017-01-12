@@ -63,31 +63,31 @@ $passenger_config=tsmConfig::get_passenger_config();
         action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumaryaddon&tsmart_price_id=' . $tsmart_price_id) ?>"
         method="post"
         id="bookprivategroupsumary" name="bookprivategroupsumary">
-        <div class="row-fluid">
-            <div class="span6 offset6">
+        <div class="row">
+            <div class="col-lg-6 offset6">
 
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span9">
+        <div class="row">
+            <div class="col-lg-9">
                 <h3 class="passenger-details"><?php echo JText::_('Service total-payment') ?></h3>
 
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <h3 class="pull-right build-your-room"><?php echo JText::_('Service total')?></h3>
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
 
                         <?php echo VmHtml::build_passenger_summary(array(),"passenger_summary","",$privategrouptrip,$passenger_config,$this->product) ?>
 
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="coupon-discount">
                             <input type="text" placeholder="coupon number" name="coupon_number" class="coupon_number">
                             <button class="go get_coupon" type="button">GO</button>
@@ -95,21 +95,21 @@ $passenger_config=tsmConfig::get_passenger_config();
 
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="payment-overview">
                             <h4><?php echo JText::_('Tour fee summary')?></h4>
-                            <div class="row-fluid">
-                                <div class="span4"><?php echo JText::_('Total fee') ?><span class="total_fee price">$US <?php echo $total_price ?></span></div>
-                                <div class="span4"><?php echo JText::_('Deposit') ?><span class="price">$US 780</span></div>
-                                <div class="span4"><?php echo JText::_('Balance') ?><span class="price">$US 780</span></div>
+                            <div class="row">
+                                <div class="col-lg-4"><?php echo JText::_('Total fee') ?><span class="total_fee price">$US <?php echo $total_price ?></span></div>
+                                <div class="col-lg-4"><?php echo JText::_('Deposit') ?><span class="price">$US 780</span></div>
+                                <div class="col-lg-4"><?php echo JText::_('Balance') ?><span class="price">$US 780</span></div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
 
                         <?php echo VmHtml::build_payment_cardit_card('payment',$total_price,300) ?>
 
@@ -117,8 +117,8 @@ $passenger_config=tsmConfig::get_passenger_config();
                 </div>
 
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-right">
                             <button type="submit" class="btn btn-primary btn-large control-pay-now "><span title="" class="icon-next "></span><?php echo JText::_('Pay now') ?></button>
                         </div>
@@ -136,23 +136,23 @@ $passenger_config=tsmConfig::get_passenger_config();
             $total_day = $total_day ? $total_day : 0;
 
             ?>
-            <div class="span3">
+            <div class="col-lg-3">
                 <div class="booking-summary-content">
                     <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
                     <div class="booking-summary-content-body">
                         <h3 class="booking-summary"><?php echo JText::_('Booking summary') ?></h3>
-                        <div class="row-fluid" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span class="trip-name"><?php echo $this->product->product_name ?></span></h4>
                             </div>
                         </div>
 
-                        <div class="row-fluid">
-                            <div class="span6">
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $privategrouptrip->departure_date) ?>,<?php echo  $des_start ?></div>
                             </div>
-                            <div class="span6">
+                            <div class="col-lg-6">
                                 <?php
                                 $start_date->modify("+$total_day day");
 
@@ -160,21 +160,21 @@ $passenger_config=tsmConfig::get_passenger_config();
                                 <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $start_date) ?>,<?php echo  $des_finish ?></div>
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 line
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div style="text-align: center" class="span12">
+                        <div class="row">
+                            <div style="text-align: center" class="col-lg-12">
                                 <span class="icon-clock"></span> <?php echo $total_day ?> days | duration
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span6">
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
                             </div>
-                            <div class="span6">
+                            <div class="col-lg-6">
                                 <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
                             </div>
                         </div>
@@ -203,8 +203,8 @@ $passenger_config=tsmConfig::get_passenger_config();
                                 ?>
                             <?php } ?>
                         </ul>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="passenger-service-fee pull-right">
                                     <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total" data-a-sign="US$">0</span>
                                 </div>
@@ -237,8 +237,8 @@ $passenger_config=tsmConfig::get_passenger_config();
                                 <?php } ?>
                             </ul>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="room-service-fee pull-right">
                                     <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total" data-a-sign="US$"></span>
                                 </div>

@@ -3033,6 +3033,9 @@
                 $item_room.find('.passenger-item:eq(' + passenger_id + ')').prop('checked', false);
             });
             var room_type = $item_room.find('input[type="radio"][data-name="room_type"]:checked').val();
+            var room_type_note = $item_room.find('input[type="radio"][data-name="room_type"]:checked').data('note');
+            $item_room.find('.mobile-note').html(room_type_note);
+            console.log(room_type_note);
             list_room[room_index].passengers = [];
             list_room[room_index].list_room_type = room_type;
             list_room[room_index].full = false;
