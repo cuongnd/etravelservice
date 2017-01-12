@@ -1,0 +1,62 @@
+.select-table-service-class
+{
+  width: 100%;
+  border: 1px solid #cccccc;
+  background: #fff;
+  display: table;
+  >.head,>.body
+  {
+    width: 100%;
+    float: left;
+  }
+  >.head
+  {
+    text-transform: uppercase;
+    font-weight: bold;
+    .column
+    {
+      span.item
+      {
+        margin: 0 5px;
+      }
+    }
+  }
+  >.body
+  {
+    height: 300px;
+    overflow-y: scroll;
+    .tr-row
+    {
+      span.item
+      {
+        margin: 0 5px;
+      }
+    }
+
+  }
+
+
+  .tr-row
+  {
+    float:left;
+    width: 100%;
+  }
+  .column
+  {
+    float:left;
+    padding: 10px 0;
+  }
+  .column.no{
+    width: 20%;
+  }
+  .column.id{
+    width: 20%;
+  }
+  .column.trip_name{
+    width: 40%;
+  }
+  .column.application{
+    width: 20%;
+    text-align: center;
+  }
+}
