@@ -1,5 +1,84 @@
+// CSS Reset
+
+@import "/media/jui/less/variables.less";
+@import "/media/jui/less/mixins.less";
+// Utility classes
+@import "/media/jui/less/utilities.less";
+
+// RESPONSIVE CLASSES
+// ------------------
+
+@import "/media/jui/less/responsive-utilities.less";
+
+
+
+#html_input_passenger{
+
+
+  // Default 940px grid
+  // -------------------------
+  @gridColumns:             12;
+
+
+  @gridColumnWidth:         60px;
+  @gridGutterWidth:         12px;
+  @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+  // 1200px min
+  @gridColumnWidth1200:     70px;
+  @gridGutterWidth1200:     12px;
+  @gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
+
+  // 768px-979px
+  @gridColumnWidth768:      42px;
+  @gridGutterWidth768:      12px;
+  @gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+
+
+  // Fluid grid
+  // -------------------------
+  @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
+  @fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+
+  // 1200px min
+  @fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
+  @fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
+
+  // 768px-979px
+  @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
+  @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+  // Phones to portrait tablets and narrow desktops
+  @import "/media/jui/less/responsive-767px-max.less";
+
+  // Tablets to regular desktops
+  @import "/media/jui/less/responsive-768px-979px.less";
+
+  // Large desktops
+  @import "/media/jui/less/responsive-1200px-min.less";
+
+  @import "/media/jui/less/responsive-767px-max.joomla.less";
+
+
+}
+
+
 .html_input_passenger
 {
+  input{
+    width: 100%;
+    height: 25px;
+
+  }
+  input.date{
+    background-image: url("http://jqueryui.com/resources/demos/datepicker/images/calendar.gif");
+    background-repeat: no-repeat;
+    background-position: 98% 3px;
+    border: 1px solid #ddd;
+  }
+  .herder
+  {
+    display: none;
+  }
   background: #f6f6f6;
   padding: 10px;
   .person-type
@@ -10,10 +89,7 @@
       color: #b42730;
     }
   }
-  input,select
-  {
-    width: 80px;
-  }
+
   .ui-state-highlight { height: 30px; line-height: 1.2em; }
   .handle{
     cursor: move;
@@ -22,4 +98,30 @@
   {
     border: red solid 1px;
   }
+  .item-passenger
+  {
+
+    .select2-container
+    {
+      width: 100% !important;
+    }
+    select.gender
+    {
+      width: 100%;
+      height: 25px;
+    }
+    .select2-container .select2-selection--single
+    {
+      height: 25px;
+      border-color: #ddd;
+      border-radius: 0;
+    }
+    .btn
+    {
+      padding: 0 4px;
+      margin-left: 10px;
+    }
+
+  }
 }
+

@@ -1338,7 +1338,7 @@
         // Add bootstrap	
         public function addBootstrap($responsive=true, $rtl=false) {
 
-
+            return;
 			// RTL enable
             if( self::getInstance()->direction()=='rtl' ) {
                 self::getInstance()->addCSS('bootstrap.min.rtl.css');

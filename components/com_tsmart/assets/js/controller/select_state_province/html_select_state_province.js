@@ -51,7 +51,7 @@
                     item.state_name='Select state';
                     response.unshift(item);
                     var tsmart_state_id=plugin.settings.tsmart_state_id;
-                    $.set_date_selected(response,'tsmart_state_id','state_name',$element,tsmart_state_id);
+                    $.set_data_selected(response,'tsmart_state_id','state_name',$element,tsmart_state_id);
 
                     $element.trigger("liszt:updated");
                 }

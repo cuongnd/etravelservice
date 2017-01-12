@@ -651,6 +651,7 @@ class JApplicationCms extends JApplicationWeb
 
 		// Trigger the onAfterInitialise event.
 		JPluginHelper::importPlugin('system');
+
 		$this->triggerEvent('onAfterInitialise');
 	}
 

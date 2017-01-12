@@ -111,8 +111,8 @@ class tsmartModelPhoto extends tmsModel
 
     function store(&$data)
     {
-
-        $path_upload_file_photo = tsmConfig::$_path_upload_file_photo;
+        $tsmart_product_id=$data['tsmart_product_id'];
+        $path_upload_file_photo = tsmConfig::$_path_upload_file_photo.'tour_'.$tsmart_product_id.DS;
         if (!vmAccess::manager('photo')) {
             vmWarn('Insufficient permissions to store photo');
             return false;

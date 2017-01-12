@@ -35,8 +35,10 @@
             var input_from = $element.find('input[name="' + from_name + '"]');
             var input_to = $element.find('input[name="' + to_name + '"]');
             input_from.val(start.format(format));
+            input_from.attr('value',start.format(format));
 
             input_to.val(end.format(format));
+            input_to.attr('value',end.format(format));
             var display_format=plugin.settings.display_format;
             $element.find('.range_of_date').val(start.format(display_format)+'-'+end.format(display_format));
         };
@@ -100,11 +102,11 @@
             input_from.val('');
             input_to.val('');
         };
-        plugin.set_date=function(startDate,endDate){
-            daterangepicker=$element.find('.range_of_date').data('daterangepicker');
+      /*  plugin.set_date=function(startDate,endDate){
+            var daterangepicker=$element.find('.range_of_date').data('daterangepicker');
             daterangepicker.setStartDate(startDate);
             daterangepicker.setEndDate(endDate);
-        }
+        }*/
         plugin.init();
 
     };

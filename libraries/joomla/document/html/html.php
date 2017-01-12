@@ -572,7 +572,6 @@ class JDocumentHTML extends JDocument
 		{
 			// Store the file path
 			$this->_file = $directory . '/' . $filename;
-
 			// Get the file content
 			ob_start();
 			require $directory . '/' . $filename;

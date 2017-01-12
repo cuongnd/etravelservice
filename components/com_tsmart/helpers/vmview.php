@@ -36,7 +36,7 @@ class VmView extends JViewLegacy{
 		}
         if (!class_exists('VmHTML'))
         {
-            require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
+            require(VMPATH_SITE . DS . 'helpers' . DS . 'html.php');
         }
 		$result = $this->loadTemplate($tpl);
 		if ($result instanceof Exception) {

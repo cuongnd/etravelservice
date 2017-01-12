@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 // Joomla system checks.
 @ini_set('magic_quotes_runtime', 0);
-
+@ini_set('max_execution_time', 0); //300 seconds = 5 minutes
 // System includes
 require_once JPATH_LIBRARIES . '/import.legacy.php';
 
@@ -130,5 +130,10 @@ function shutdown()
 	$output .= "</table></div><hr /></p>";
 	echo $output;
 
+
+}
+if (JDEBUG) {
+	register_tick_function('tick_handler');
+	register_shutdown_function('shutdown');
 
 }
