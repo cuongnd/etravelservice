@@ -3607,10 +3607,7 @@ XML;
                                 </div>
                             </div>
                             <div class="row note ">
-                                <div class="col-lg-12 hidden-xxxs">
-                                    <?php echo JText::_('BUILD_ROOM_NOTE') ?>
-                                </div>
-                                <div class="col-xxxs-12 hidden-tablet-desktop">
+                                <div class="col-log-12">
                                     <div class="mobile-note"></div>
                                 </div>
                             </div>
@@ -3633,10 +3630,13 @@ XML;
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="button"
-                                    class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
-                            <button type="button"
-                                    class="btn btn-primary remove-room pull-right"><?php echo JText::_('Remove room') ?></button>
+                            <div class="pull-right">
+                                <button type="button"
+                                        class="btn btn-primary remove-room"><?php echo JText::_('Remove room') ?></button>&nbsp;&nbsp;
+                                <button type="button"
+                                        class="btn btn-primary add-more-room "><?php echo JText::_('Add more room') ?></button>
+
+                            </div>
                         </div>
                     </div>
                 </div>
