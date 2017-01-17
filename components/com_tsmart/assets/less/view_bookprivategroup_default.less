@@ -1,307 +1,399 @@
-@input_view_bookprivategroup_default_height:30px;
-.test
-{
+@import "../../../../templates/vina_bonnie/bootstrap-3.3.7/less/variables.less";
+@import "../../../../templates/vina_bonnie/bootstrap-3.3.7/less/mixins.less";
+@input_view_bookprivategroup_default_height: 30px;
+.test {
 
 }
 .view-bookprivategroup-default {
-  .html_input_passenger input,.html_build_form_contact input
-  {
-    height: @input_view_bookprivategroup_default_height;
-  }
-
-
-  h3.passenger-details
-  {
-    background: #95a5a5;
-    padding: 10px;
-    color: #fff;
-    margin-top: 0px;
-  }
-  .departure-filter legend
-  {
-    color: #006964;
-    margin-bottom: 0px;
-    text-transform: uppercase;
-  }
-
-
-  .content-overview
-  {
-    .header-content
-    {
-      .request
-      {
-        [class^="icon-"], [class*=" icon-"] {
-          color: #e49016;
-          font-size: 70px;
-          margin: 60px;
-        }
-      }
+    .html_input_passenger input, .html_build_form_contact input {
+        height: @input_view_bookprivategroup_default_height;
     }
-  }
 
-  .product-name{
-    text-align: center;
-  }
-  fieldset.tour-border {
-    border: 1px groove #ddd !important;
-    padding:0px !important;
-    margin: 0px !important;
-    -webkit-box-shadow: 0px 0px 0px 0px #000;
-    box-shadow: 0px 0px 0px 0px #000;
-    .noice
-    {
-      margin: 0 auto;
-      text-align: center;
-      vertical-align: middle;
-      padding-top: 4px;
-      font-size: 26px;
-      color: #3d5869;
-      .icon
-      {
-      }
-    }
-  }
-
-  legend.tour-border {
-    font-size: 1.2em !important;
-    font-weight: bold !important;
-    text-align: left !important;
-    width: auto;
-    padding: 0 10px;
-    border-bottom: none;
-    margin-left: 30px;
-  }
-  .select_number_passenger, .select_date {
-    float: left;
-    margin-left: 10px;
-  }
-
-  .btn-go {
-    float: right;
-  }
-  .departure-item.table {
-    border: 1px solid #ccc;
-    .body{
-      .item .header-item
-      {
-        background: #006668;
-        padding: 10px 0;
-        margin-top: -10px;
-        color: #fff;
-        [class^="icon-"], [class*=" icon-"] {
-          color: #fff;
-        }
-
-      }
-      .item
-      {
-        .body-item
-        {
-          padding: 10px 0;
-        }
-      }
-      .item
-      {
-        padding: 10px 0;
-        .header-item
-        {
-        }
-        .body-item
-        {
-          .note1,.note2{
-
-          }
-        }
-
-      }
-
-      span.price
-      {
-        font-weight: bold;
-      }
-      .service-class-price
-      {
-        text-transform: uppercase;
-      }
-    }
-  }
-  .form-contact
-  {
-    background: #f6f6f6;
-    padding: 10px;
-    margin-top: 30px;
-    .title.contact-detail
-    {
-      text-transform: uppercase;
-      color: #8c0000;
-      font-weight: bold;
-    }
-    .control-group
-    {
-      margin-bottom: 10px;
-      .control-label
-      {
-        text-align: left;
-      }
-    }
-    .emergency-contact
-    {
-      color: #0072c2;
-      padding: 10px 0;
-    }
-  }
-  .rooming legend
-  {
-    color: #006369;
-    margin-bottom: 0px;
-    text-transform: uppercase;
-  }
-  .joint_group_note
-  {
-    background: #f6f6f6;
-    padding: 10px;
-    margin-top: 20px;
-    .note{
-      color: #820004;
-    }
-  }
-  .title.special_requirement
-  {
-    text-transform: uppercase;
-    color: #0267ab;
-    font-weight: bold;
-    padding: 5px 0px;
-  }
-  .build-your-room
-  {
-    text-transform: uppercase;
-    color: #0267ab;
-    font-weight: bold;
-    padding: 5px 0px;
-
-  }
-  .area-control
-  {
-    text-align: center;
-    margin: 20px 0 auto;
-    .confirm,.hold-my-space
-    {
-      font-size: 20px;
-      text-transform: capitalize;
-      font-weight: bold;
-    }
-    .control-next,.control-hold-my-space
-    {
-      padding: 10px 50px;
-      border-radius: 0;
-      background: #9a3334;
-      border: none;
-    }
-    .control-next
-    {
-
-    }
-  }
-  textarea[name="special_requirement"]{
-    width: 100%;
-    resize: none;
-  }
-  .booking-summary-content {
-    border: 1px solid #ddd;
-    .book-and-go {
-      background: #01789a none repeat scroll 0 0;
-      color: #fff;
-      height: 24px;
-      padding-left: 18%;
-      padding-right: 0;
-      padding-top: 25px;
-      position: relative;
-      width: 82%;
-      margin-top: 0;
-      &:after {
-        border-left: 182px solid transparent;
-        border-right: 132px solid transparent;
-        border-top: 53px solid #01789a;
-        bottom: -53px;
-        content: "";
-        left: 0;
-        position: absolute;
-      }
-
-    }
-    .booking-summary-content-body{
-      padding: 10px;
-      .booking-summary {
-        margin-top: 50px;
-        color: #9c0305;
-        background: #eeeeee;
-        padding:10px ;
-      }
-      .detail
-      {
+    h3.passenger-details {
+        background: #95a5a5;
         padding: 10px;
-        background: #666666;
         color: #fff;
+        margin-top: 0px;
+    }
+    .departure-filter legend {
+        color: #006964;
+        margin-bottom: 0px;
         text-transform: uppercase;
-        font-weight: bold ;
-      }
-      .trip{
-        text-transform: uppercase;
-        font-weight: bold ;
-        .trip-name{
-          color: #056796;
+    }
+
+    .content-overview {
+        .header-content {
+            .request {
+                [class^="icon-"], [class*=" icon-"] {
+                    color: #e49016;
+                    font-size: 70px;
+                    margin: 60px;
+                }
+            }
         }
-      }
-      .line-dotted
-      {
-        height: 2px;
-        border-bottom: 2px dotted #ccc;
-      }
-      .passenger-number
-      {
-        color: #006599;
-        text-transform: uppercase;
-        font-weight: bold ;
-      }
-      .list_passenger,.list_passenger_room
-      {
-        list-style: decimal;
-        margin-left: 50px;
-      }
-      .passenger-service-fee,.room-service-fee
-      {
-        text-transform: uppercase;
-        font-weight: bold ;
-        color: #9c0305;
-      }
     }
-  }
-  .booking-summary-content-mobile
-  {
-    position: fixed;
-    background: #006668;
-    opacity: 0.95;
-    width: 100%;
-    height: 30px;
-    padding: 5px;
-    color: #fff;
-    bottom: 0px;
-    .more{
-      color: #fff;
+
+    .product-name {
+        text-align: center;
     }
-  }
-  .sidr_booking_summary
-  {
-    padding: 10px;
-    position: relative;
-    .close
-    {
-      position: absolute;
-      left: 5px;
-      top: 5px;
-      color: #fff;
+    fieldset.tour-border {
+        padding: 10px 0px;
+        border: 1px groove #ddd !important;
+        margin: 10px 0px;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+        .noice {
+            margin: 0 auto;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 4px;
+            font-size: 26px;
+            color: #3d5869;
+            .icon {
+            }
+        }
+        .select_number_passenger {
+            margin: 0 auto;
+            width: 230px;
+            float: none;
+            padding: 10px 0px;
+            .select2-container--default .select2-selection--single {
+                border-radius: 0px;
+                .select2-selection__rendered {
+                    padding-left: 30px;
+                    &:after {
+                        content: " passengers";
+                    }
+                }
+                &:after {
+                    content: "n";
+                    font-family: Travelcons;
+                    font-style: normal;
+                    font-weight: normal;
+                    text-decoration: inherit;
+                    color: #1a84a7;
+                    z-index: 1;
+                    top: -4px;
+                    position: absolute;
+                    left: 10px;
+                    font-size: 22px;
+                }
+            }
+            .select2-container {
+                width: 230px !important;
+            }
+        }
+    }
+
+    legend.tour-border {
+        font-size: 15px;
+        width: auto;
+        font-weight: bold;
+        padding: 0 10px;
+        border-bottom: none;
+        margin-left: 30px;
+    }
+    .select_number_passenger, .select_date {
+        float: left;
+        margin-left: 10px;
+    }
+
+    .btn-go {
+        text-align: center;
+        .btn-primary.btn-large {
+            background: #006668;
+            padding: 10px 20px;
+            font-size: 20px;
+        }
 
     }
-  }
+    .departure-item {
+        .body {
+            .item .header-item {
+                border: 1px solid #ccc;
+                border-bottom: none;
+                line-height: 28px;
+                background: #006668;
+                padding-top: 5px;
+                margin-top: -10px;
+                color: #fff;
+                .arrow-right {
+                    font-size: 24px;
+                    padding-left: 10px;
+                }
+
+            }
+            .item {
+                .body-item {
+                    [class*="col-"] {
+                        margin-bottom: 10px;
+                    }
+
+                    padding-top: 10px;
+                    border: 1px solid #ccc;
+                    border-top: none;
+                    background: #f3f2ee; /* Old browsers */
+                    background: -moz-linear-gradient(left, #f3f2ee 50%, #f3f2ee 50%, #ffffff 50%); /*  FF3.6+ */
+                    background: -webkit-gradient(linear, left, right, color-stop(50%, #f3f2ee), color-stop(50%, #f3f2ee), color-stop(50%, #ffffff)); /* Chrome,Safari4+ */
+                    background: -webkit-linear-gradient(left, #f3f2ee 50%, #f3f2ee 50%, #ffffff 50%); /* Chrome10+,Safari5.1+ */
+                    background: -o-linear-gradient(left, #f3f2ee 50%, #f3f2ee 50%, #ffffff 50%); /* Opera11.10+ */
+                    background: -ms-linear-gradient(left, #f3f2ee 50%, #f3f2ee 50%, #ffffff 50%); /* IE10+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff00', endColorstr='#fe0000', GradientType=0); /* IE6-9 */
+                    background: linear-gradient(left, #f3f2ee 50%, #f3f2ee 50%, #ffffff 50%); /* W3C */
+                    .list.price {
+                        margin: 0 auto;
+                    }
+                    .seat-left {
+                        font-weight: bold;
+                        color: #fff;
+                        background: #006668;
+                        border-radius: 4px;
+                        padding: 3px 15px;
+                    }
+                    .area-booking {
+                        text-transform: uppercase;
+                        color: #bc0517;
+                        font-weight: bold;
+                        .text-right {
+                            min-height: 60px;
+                        }
+                        .area-text {
+
+                        }
+
+                    }
+                    .sale-off {
+                        text-align: center;
+                        padding: 5px;
+                    }
+
+                    .start, .finish {
+                        width: 48%;
+
+                    }
+                    .start {
+                        text-align: right;
+                        margin-right: 5px;
+                    }
+                    .text-start, .text-finish {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+                }
+                @media (max-width: @screen-xxs-min) {
+                    .body-item {
+                        background: #f3f2ee;
+                        .list.price {
+                            margin: 0 auto;
+                        }
+                    }
+                }
+
+            }
+            .item {
+                padding: 10px 0;
+                .header-item {
+                }
+                .body-item {
+                    .note1, .note2 {
+
+                    }
+                }
+
+            }
+
+            span.price {
+                font-weight: bold;
+                &.strikethrough {
+                    position: relative;
+                }
+
+                &.strikethrough:before {
+                    border-bottom: 1px solid red;
+                    position: absolute;
+                    content: "";
+                    width: 100%;
+                    top: 1px;
+                    height: 50%;
+                }
+                &.discount{
+                    color: #bc0517;
+                }
+            }
+            .service-class-price {
+                text-transform: uppercase;
+            }
+        }
+    }
+    .form-contact {
+        background: #f6f6f6;
+        padding: 10px;
+        margin-top: 30px;
+        .title.contact-detail {
+            text-transform: uppercase;
+            color: #8c0000;
+            font-weight: bold;
+        }
+        .control-group {
+            margin-bottom: 10px;
+            .control-label {
+                text-align: left;
+            }
+        }
+        .emergency-contact {
+            color: #0072c2;
+            padding: 10px 0;
+        }
+    }
+    .rooming legend {
+        color: #006369;
+        margin-bottom: 0px;
+        text-transform: uppercase;
+    }
+    .joint_group_note {
+        background: #f6f6f6;
+        padding: 10px;
+        margin-top: 20px;
+        .note {
+            color: #820004;
+        }
+    }
+    .title.special_requirement {
+        text-transform: uppercase;
+        color: #0267ab;
+        font-weight: bold;
+        padding: 5px 0px;
+    }
+    .build-your-room {
+        text-transform: uppercase;
+        color: #0267ab;
+        font-weight: bold;
+        padding: 5px 0px;
+
+    }
+    .area-control {
+        text-align: center;
+        margin: 20px 0 auto;
+        .confirm, .hold-my-space {
+            font-size: 20px;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+        .control-next, .control-hold-my-space {
+            padding: 10px 50px;
+            border-radius: 0;
+            background: #9a3334;
+            border: none;
+        }
+        .control-next {
+
+        }
+    }
+    textarea[name="special_requirement"] {
+        width: 100%;
+        resize: none;
+    }
+    .booking-summary-content {
+        border: 1px solid #ddd;
+        .book-and-go {
+            background: #01789a none repeat scroll 0 0;
+            color: #fff;
+            padding-right: 0;
+            padding: 10px 0px;
+            font-weight: bold;
+            font-size: 30px;
+            position: relative;
+            text-align: center;
+            width: 100%;
+            margin-top: 0;
+            &:before {
+                content: " ";
+                width: 60%;
+                height: 0;
+                border-top: 53px solid #01789a;
+                border-left: 191px solid transparent;
+                background: #fff;
+                position: absolute;
+                top: 100%;
+                left: 0;
+            }
+            &:after {
+                content: " ";
+                width: 32%;
+                height: 0;
+                border-top: 53px solid #01789a;
+                border-right: 90px solid transparent;
+                background: #fff;
+                position: absolute;
+                top: 100%;
+                right: 0;
+            }
+
+        }
+        .booking-summary-content-body {
+            padding: 10px;
+            .booking-summary {
+                margin-top: 50px;
+                color: #9c0305;
+                background: #eeeeee;
+                padding: 10px;
+            }
+            .detail {
+                padding: 10px;
+                background: #666666;
+                color: #fff;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            .trip {
+                text-transform: uppercase;
+                font-weight: bold;
+                .trip-name {
+                    color: #056796;
+                }
+            }
+            .line-dotted {
+                height: 2px;
+                border-bottom: 2px dotted #ccc;
+            }
+            .passenger-number {
+                color: #006599;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            .list_passenger, .list_passenger_room {
+                list-style: decimal;
+                margin-left: 50px;
+            }
+            .passenger-service-fee, .room-service-fee {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #9c0305;
+            }
+        }
+    }
+    .booking-summary-content-mobile {
+        position: fixed;
+        background: #006668;
+        opacity: 0.95;
+        width: 100%;
+        height: 30px;
+        padding: 5px;
+        color: #fff;
+        bottom: 0px;
+        .more {
+            color: #fff;
+        }
+    }
+    .sidr_booking_summary {
+        padding: 10px;
+        position: relative;
+        .close {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            color: #fff;
+
+        }
+    }
 }

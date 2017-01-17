@@ -23,7 +23,7 @@
       outAnimationType : "fallOut",
       allowEscapeKey : true,
       title : null,
-      append:true,
+      append:false,
       titleColor : "#ffffff",
       titleBackColor : "#222222"
     },
@@ -67,7 +67,7 @@
 
         var _ = this;
         setTimeout(function(){
-          _.$modalElement.appendTo(_.config.$parent_modalElement);
+          _.$modalElement.appendTo(_.config.$parent_modalElement).hide();
           $('.'+_.modalClassName).parent().remove();
           $('*').not("."+this.modalClassName+"-wrapper, ."+this.modalClassName+"-wrapper *, html, body, script, style, link, head, title, meta").css({"filter":""});
         },600);

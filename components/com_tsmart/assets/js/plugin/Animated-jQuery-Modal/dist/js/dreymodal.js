@@ -23,6 +23,7 @@
       outAnimationType : "fallOut",
       allowEscapeKey : true,
       title : null,
+      append:false,
       titleColor : "#ffffff",
       titleBackColor : "#222222"
     },
@@ -66,6 +67,7 @@
 
         var _ = this;
         setTimeout(function(){
+          _.$modalElement.appendTo(_.config.$parent_modalElement);
           $('.'+_.modalClassName).parent().remove();
           $('*').not("."+this.modalClassName+"-wrapper, ."+this.modalClassName+"-wrapper *, html, body, script, style, link, head, title, meta").css({"filter":""});
         },600);
@@ -98,8 +100,15 @@
     $("<div/>", {
       class: "dreyModalMain " + this.modalClassName,
       style: "min-width: " + this.config.minWidth + "px; max-width: " + this.config.maxWidth + "px",
-    }).appendTo($('.' + this.modalClassName + "-wrapper"))
-    $('.'+this.modalClassName).html(this.modalContent);
+    }).appendTo($('.' + this.modalClassName + "-wrapper"));
+    if(this.config.append)
+    {
+      this.config.$parent_modalElement=this.$modalElement.parent();
+      this.$modalElement.show().appendTo($('.'+this.modalClassName));
+    }else{
+      $('.'+this.modalClassName).html(this.modalContent);
+
+    }
 
     if (this.config.title != null){
       $("<p/>", {

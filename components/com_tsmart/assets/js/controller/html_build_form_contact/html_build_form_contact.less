@@ -1,12 +1,21 @@
+@import "../../../../../../templates/vina_bonnie/bootstrap-3.3.7/less/variables.less";
+@import "../../../../../../templates/vina_bonnie/bootstrap-3.3.7/less/mixins.less";
 .html_build_form_contact
 {
   margin-bottom: 10px;
   input{
     width: 100%;
     border: 1px solid #ccc;
+    padding-left: 10px;
   }
   .right
   {
     margin-left: 10px;
+  }
+  @media (max-width: @screen-xxs-min){
+    .right
+    {
+      margin-left: 0px;
+    }
   }
 }

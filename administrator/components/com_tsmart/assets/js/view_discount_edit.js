@@ -159,7 +159,7 @@
             });
             var model_price=plugin.settings.model_price;
             $element.find('select#model_price').val(model_price).trigger("change");
-            $('#select_table_tour_tsmart_product_id').find('.body .tr-row .input-application[value="'+tsmart_product_id+'"]').trigger('click');
+            $('#select_table_tour_tsmart_product_id').find('.body .tr-row .input-application[value="'+tsmart_product_id+'"]').prop('checked',true);
 
         }
 

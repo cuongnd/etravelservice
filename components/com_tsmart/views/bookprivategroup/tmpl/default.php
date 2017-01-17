@@ -17,7 +17,7 @@ $input = $app->input;
 $tsmart_price_id = $input->getInt('tsmart_price_id', 0);
 $booking_date = $input->getString('booking_date', '');
 $privategrouptrip = $this->privategrouptrip;
-$privategrouptrip->sale_price_senior = 400;
+/*$privategrouptrip->sale_price_senior = 400;
 $privategrouptrip->sale_price_adult = 500;
 $privategrouptrip->sale_price_teen = 400;
 $privategrouptrip->sale_price_children1 = 300;
@@ -26,7 +26,7 @@ $privategrouptrip->sale_price_infant = 100;
 $privategrouptrip->sale_price_private_room = 100;
 $privategrouptrip->sale_price_extra_bed = 50;
 $privategrouptrip->full_charge_children1 = 0;
-$privategrouptrip->full_charge_children2 = 1;
+$privategrouptrip->full_charge_children2 = 1;*/
 /*$departure->sale_promotion_price_senior=100;
 $departure->sale_promotion_price_adult=100;
 $departure->sale_promotion_price_teen=100;
@@ -36,120 +36,232 @@ $departure->sale_promotion_price_infant=100;
 $departure->sale_promotion_price_private_room=100;
 $departure->sale_promotion_price_extra_bed=100;*/
 $passenger_config = tsmConfig::get_passenger_config();
+$list_destination = explode(';', $privategrouptrip->list_destination);
+$des_start = reset($list_destination);
+$des_finish = end($list_destination);
+$total_day = $privategrouptrip->total_day - 1;
+$start_date = JFactory::getDate($privategrouptrip->departure_date);
+$total_day = $total_day ? $total_day : 0;
 ?>
     <div class="view-bookprivategroup-default">
-        <form
-            action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id=' . $tsmart_price_id) ?>"
-            method="post"
-            id="bookprivategroup" name="bookprivategroup">
-            <div class="row">
-                <div class="col-lg-6 offset6">
-                </div>
+        <div class="row">
+            <div class="col-lg-6 offset6">
             </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
+                <form
+                    action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id=' . $tsmart_price_id.'&booking_date='.$booking_date) ?>"
+                    method="post" class="departure-date-select"
+                    id="tour_price" name="tour_price">
                     <div class="row">
                         <div class="col-lg-12">
                             <fieldset class="tour-border departure-filter">
                                 <legend
                                     class="tour-border"><?php echo JText::_('Update passenger') ?></legend>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, 1, ''); ?>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20, 1, ''); ?>
-                                <div class="btn-go">
-                                    <?php echo VmHTML::input_button('submit', 'Go'); ?>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <?php
+                                        $total_passenger_from_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_from_12_years_old');
+                                        ?>
+                                        <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 20, $total_passenger_from_12_years_old, ''); ?>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <?php
+                                        $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_under_12_years_old');
+                                        ?>
+                                        <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 20, $total_passenger_under_12_years_old, ''); ?>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="btn-go">
+                                            <?php echo VmHTML::input_button('submit', 'Go'); ?>
+                                        </div>
+                                    </div>
                                 </div>
+                                <input name="option" value="com_tsmart" type="hidden">
+                                <input name="controller" value="trip" type="hidden">
+                                <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
+                                <input type="hidden" value="bookprivategroup" name="view">
+                                <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
+                                <input name="task" value="" type="hidden">
+
+
+
                             </fieldset>
                         </div>
                     </div>
-                    <div class="table table-trip departure-item">
-                        <div class="row body">
-                            <div class="col-lg-12">
-                                <div class="row item">
-                                    <div class="col-lg-12">
-                                        <div class="row header-item">
-                                            <div class="col-lg-1">
-                                                <span title="" class="icon-location "></span>
+                </form>
+                <div class=" departure-item">
+                    <div class="row body">
+                        <div class="col-lg-12">
+                            <div class="row item">
+                                <div class="col-lg-12">
+                                    <div class="header-item">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-xxxs-2">
+                                                    <span title=""
+                                                          class="arrow-right glyphicon glyphicon-arrow-right"></span>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <?php echo JText::_('Date not selected') ?>
+                                            <div class="col-lg-1 col-xxxs-4">
+                                                <?php echo JHtml::_('date', $privategrouptrip->departure_date, tsmConfig::$date_format) ?>
                                             </div>
-                                            <div class="col-lg-2 service-class ">
-                                                <?php echo $privategrouptrip->service_class_name ?>
+                                            <div class="col-lg-2 service-class text-uppercase  col-xxxs-6 ">
+                                                <?php echo JText::sprintf('%s class', $privategrouptrip->service_class_name) ?>
                                             </div>
-                                            <div class="col-lg-2 price ">
-                                                    <span class="price"
-                                                          data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
+                                            <div class="col-lg-2 price hidden-xxxs">
+                                                <?php if ($privategrouptrip->sale_price_adult != 0) { ?>
+                                                    <span
+                                                        class="price <?php echo $privategrouptrip->sale_discount_price_adult != 0 ? ' strikethrough ' : '' ?>"
+                                                        data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_adult ?></span>
+                                                    <?php if ($privategrouptrip->sale_discount_price_adult != 0) { ?>
+                                                        <span class="price discount"
+                                                              data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_adult ?></span>
+                                                    <?php } ?>
+                                                <?php } ?>
                                             </div>
-                                            <div class="col-lg-4 service-class-price hide">
-                                                <?php echo JText::_('Deluxe class price') ?>
-                                            </div>
-                                            <div class="col-lg-2">
-                                            </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-6 sale-off text-uppercase hidden-xxxs">
+                                                <?php echo JText::printf('off 10 early bird booking 90 days, code shtdgh') ?>
                                             </div>
                                         </div>
-                                        <div id="trip" class="row body-item">
-                                            <div class="col-lg-2">
-                                                <div><?php echo JText::_('Start') ?></div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div><?php echo JText::_('Finish') ?></div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <ul class="dl-ve">
-                                                    <li><?php echo JText::_('Senior') ?>:<span class="price"
-                                                                                               data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_senior) ?></span>
-                                                        <?php if ($privategrouptrip->sale_promotion_price_senior): ?>
-                                                            <span class="price"
-                                                                  data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_senior) ?></span><?php endif ?>
-                                                    </li>
-                                                    <li><?php echo JText::_('Adult') ?>:<span class="price"
-                                                                                              data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_adult) ?></span>
-                                                        <?php if ($privategrouptrip->sale_promotion_price_adult): ?>
-                                                            <span
-                                                                class="price"
-                                                                data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_adult) ?></span><?php endif ?>
-                                                    </li>
-                                                    <li><?php echo JText::_('Teener') ?>:<span class="price"
-                                                                                               data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_teen) ?></span><?php if ($privategrouptrip->sale_promotion_price_teen): ?>
-                                                            <span
-                                                                class="price"
-                                                                data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_teen) ?></span><?php endif ?>
-                                                    </li>
-                                                    <li><?php echo JText::_('Child 6-11') ?>:<span class="price"
-                                                                                                   data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_children1) ?></span><?php if ($privategrouptrip->sale_promotion_price_children1): ?>
-                                                            <span
-                                                                class="price"
-                                                                data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_children1) ?></span><?php endif ?>
-                                                    </li>
-                                                    <li><?php echo JText::_('Child 2-5') ?>:<span class="price"
-                                                                                                  data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_children2) ?></span><?php if ($privategrouptrip->sale_promotion_price_children2): ?>
-                                                            <span
-                                                                class="price"
-                                                                data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_children2) ?></span><?php endif ?>
-                                                    </li>
-                                                    <li><?php echo JText::_('Infant') ?>:<span class="price"
-                                                                                               data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_price_infant) ?></span><?php if ($privategrouptrip->sale_promotion_price_infant): ?>
-                                                            <span
-                                                                class="price"
-                                                                data-a-sign="US$"><?php echo tsmConfig::render_price($privategrouptrip->sale_promotion_price_infant) ?></span><?php endif ?>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
+                                    </div>
+                                    <div id="trip" class="body-item">
+                                        <div class="row">
+                                            <div class="col-lg-6 item-body-left">
                                                 <div class="row">
-                                                    <div class="col-lg-6" style="text-align: center">
-                                                        <?php echo JText::_('text1') ?>
+                                                    <div class="col-lg-6 col-xxxs-12">
+                                                        <div class="pull-left start">
+                                                            <div><span
+                                                                    class="text-start"><?php echo JText::_('Start') ?></span>
+                                                            </div>
+                                                            <div><?php echo JHtml::_('date', $privategrouptrip->departure_date, tsmConfig::$date_format) ?></div>
+                                                            <div><?php echo $des_start ?></div>
+                                                        </div>
+                                                        <div class="pull-left finish">
+                                                            <div><span
+                                                                    class="text-finish"><?php echo JText::_('Finish') ?></span>
+                                                            </div>
+                                                            <div><?php echo JHtml::_('date', $end_date, tsmConfig::$date_format) ?></div>
+                                                            <div><?php echo $des_finish ?></div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-6" style="text-align: center">
-                                                        <?php echo JText::_('text2') ?>
+                                                    <div class="col-lg-6 col-xxxs-12">
+                                                        <table class="list price">
+                                                            <?php if ($privategrouptrip->sale_price_senior != 0) { ?>
+                                                                <tr>
+                                                                    <td class=""><?php echo JText::_('Senior') ?>
+                                                                        :
+                                                                    </td>
+                                                                    <td class=""><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_senior != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_senior ?></span>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_senior != 0) { ?>
+                                                                            <br/>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_senior ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($privategrouptrip->sale_price_adult != 0) { ?>
+                                                                <tr>
+                                                                    <td><?php echo JText::_('Adult') ?>:
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_adult != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_adult ?></span>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_adult != 0) { ?>
+                                                                            <br/>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_adult ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($privategrouptrip->sale_price_teen != 0) { ?>
+                                                                <tr>
+                                                                    <td><?php echo JText::_('Teener') ?>:
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_teen != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_teen ?></span>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_teen != 0) { ?>
+                                                                            <br/>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_teen ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($privategrouptrip->sale_price_children1 != 0) { ?>
+                                                                <tr>
+                                                                    <td><?php echo JText::_('Child 6-11') ?>
+                                                                        :
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_children1 != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_children1 ?></span>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_children1 != 0) { ?>
+                                                                            <br/>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_children1 ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($privategrouptrip->sale_price_children2 != 0) { ?>
+                                                                <tr>
+                                                                    <td><?php echo JText::_('Child 2-5') ?>:
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_children2 != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_children2 ?></span>
+                                                                        <br/>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_children2 != 0) { ?>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_children2 ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($privategrouptrip->sale_price_infant != 0) { ?>
+                                                                <tr>
+                                                                    <td><?php echo JText::_('Infant') ?>:
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price <?php echo $privategrouptrip->sale_discount_price_infant != 0 ? ' strikethrough ' : '' ?>"
+                                                                            data-a-sign="US$ "><?php echo $privategrouptrip->sale_price_infant ?></span>
+                                                                        <?php if ($privategrouptrip->sale_discount_price_infant != 0) { ?>
+                                                                            <br/>
+                                                                            <span class="price discount"
+                                                                                  data-a-sign="US$ "><?php echo $privategrouptrip->sale_discount_price_infant ?></span>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </table>
+                                                        <div class="hidden-tablet-desktop sale-off text-uppercase">
+                                                            <?php echo JText::printf('off 10 early bird booking 90 days, code shtdgh') ?>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                            </div>
+                                            <div class="col-lg-6 item-body-right area-booking">
+                                                <div class="row area-text">
+                                                    <div class="col-lg-6 text-left"
+                                                         style="text-align: center">
+                                                        <?php echo JText::_('total price per person based on passenger age and tour date') ?>
+                                                    </div>
+                                                    <div class="col-lg-6 text-right"
+                                                         style="text-align: center">
+                                                        <?php echo JText::_('Select private room+US$ 300/person') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row area-button">
                                                     <div class="col-lg-12" style="text-align: center">
-                                                        <button class="btn btn-primary book-now"
-                                                                type="submit"><?php echo JText::_('20 seats left || Book now') ?></button>
+                                                        <div class="seat-left btn">
+                                                            <?php echo JText::sprintf('%s seat left', 20) ?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,6 +271,11 @@ $passenger_config = tsmConfig::get_passenger_config();
                             </div>
                         </div>
                     </div>
+                </div>
+                <form
+                    action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id=' . $tsmart_price_id) ?>"
+                    method="post"
+                    id="bookprivategroup" name="bookprivategroup">
                     <div class="row">
                         <div class="col-lg-12">
                             <?php echo VmHtml::input_passenger(array(), 'json_list_passenger', '', $this->product->min_age, $this->product->max_age, $privategrouptrip, $passenger_config) ?>
@@ -177,7 +294,8 @@ $passenger_config = tsmConfig::get_passenger_config();
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="noice">
-                                            <span class="icon glyphicon glyphicon-exclamation-sign " title=""></span>
+                                                <span class="icon glyphicon glyphicon-exclamation-sign "
+                                                      title=""></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
@@ -230,122 +348,120 @@ $passenger_config = tsmConfig::get_passenger_config();
                                     <span class="payment">(<?php echo JText::_('Payment required') ?>)</span>
                                 </button>
                             </div>
-
                         </div>
                         <div class="col-lg-6 col-xxxs-12">
                             <div class="area-control">
                                 <button type="submit" class="btn btn-primary btn-large control-hold-my-space ">
                                     <span class="hold-my-space"><?php echo JText::_('Hold my space') ?></span>
                                     <br>
-                                    <span class="payment">(<?php echo JText::_('hold for 48h hours, no payment') ?>)</span>
+                                        <span class="payment">(<?php echo JText::_('hold for 48h hours, no payment') ?>
+                                            )</span>
                                 </button>
                             </div>
-
                         </div>
                     </div>
-                </div>
-                <?php
-                $list_destination = explode(';', $privategrouptrip->list_destination);
-                $des_start = reset($list_destination);
-                $des_finish = end($list_destination);
-                $total_day = $privategrouptrip->total_day - 1;
-                $start_date = JFactory::getDate($privategrouptrip->departure_date);
-                $total_day = $total_day ? $total_day : 0;
-                ?>
-                <div class="col-lg-3 hidden-xxxs">
-                    <div class="booking-summary-content">
-                        <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
-                        <div class="booking-summary-content-body">
-                            <h3 class="booking-summary"><?php echo JText::_('Booking summary') ?></h3>
-                            <div class="row"><span
-                                    class="detail pull-right"><?php echo JText::_('details') ?></span></div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span
-                                            class="trip-name"><?php echo $this->product->product_name ?></span></h4>
+                    <input name="option" value="com_tsmart" type="hidden">
+                    <input name="controller" value="bookprivategroup" type="hidden">
+                    <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
+                    <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
+                    <input name="task" value="go_to_booking_add_on_from" type="hidden">
+                </form>
+            </div>
+            <div class="col-lg-3 hidden-xxxs">
+                <div class="booking-summary-content">
+                    <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
+                    <div class="booking-summary-content-body">
+                        <h3 class="booking-summary"><?php echo JText::_('Booking summary') ?></h3>
+                        <div class="row"><span
+                                class="detail pull-right"><?php echo JText::_('details') ?></span></div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?>
+                                        :</span><span
+                                        class="trip-name"><?php echo $this->product->product_name ?></span></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div><span
+                                        class="glyphicon glyphicon-time"></span><?php echo JHtml::_('date', $privategrouptrip->departure_date) ?>
+                                    ,<?php echo $des_start ?></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <?php
+                                $start_date->modify("+$total_day day");
+                                ?>
+                                <div><span
+                                        class="glyphicon glyphicon-time"></span><?php echo JHtml::_('date', $start_date) ?>
+                                    ,<?php echo $des_finish ?></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                line
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="text-align: center" class="col-lg-12">
+                                <span class="glyphicon glyphicon-time"></span> <?php echo $total_day ?> days | duration
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
+                            </div>
+                            <div class="col-lg-6">
+                                <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
+                            </div>
+                        </div>
+                        <div class="line-dotted"></div>
+                        <h4><span class="glyphicon glyphicon-user"></span><span
+                                class="passenger-number"><?php echo JText::_('Passenger number') ?>
+                                : </span><span
+                                class="total-passenger"> 7 </span> <?php echo JText::_('pers') ?>.</h4>
+                        <ul class="list_passenger">
+                            <li>1.per1</li>
+                            <li>2.per2</li>
+                            <li>3.per3</li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="passenger-service-fee pull-right">
+                                    <?php echo JText::_('Service fee') ?> <span
+                                        class="passenger-service-fee-total"
+                                        data-a-sign="US$">0</span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div><span
-                                            class="icon-clock"></span><?php echo JHtml::_('date', $privategrouptrip->departure_date) ?>
-                                        ,<?php echo $des_start ?></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <?php
-                                    $start_date->modify("+$total_day day");
-                                    ?>
-                                    <div><span class="icon-clock"></span><?php echo JHtml::_('date', $start_date) ?>
-                                        ,<?php echo $des_finish ?></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    line
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div style="text-align: center" class="col-lg-12">
-                                    <span class="icon-clock"></span> <?php echo $total_day ?> days | duration
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
-                                </div>
-                                <div class="col-lg-6">
-                                    <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
-                                </div>
-                            </div>
-                            <div class="line-dotted"></div>
-                            <h4><span class="icon-users"></span><span
-                                    class="passenger-number"><?php echo JText::_('Passenger number') ?> : </span><span
-                                    class="total-passenger"> 7 </span> <?php echo JText::_('pers') ?>.</h4>
-                            <ul class="list_passenger">
-                                <li>1.per1</li>
-                                <li>2.per2</li>
-                                <li>3.per3</li>
+                        </div>
+                        <div class="line-dotted"></div>
+                        <h3><?php echo JText::_('Room supplement fee') ?></h3>
+                        <div class="list-room">
+                            <ul class="list_passenger_room">
                             </ul>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="passenger-service-fee pull-right">
-                                        <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total"
-                                                                                    data-a-sign="US$">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="line-dotted"></div>
-                            <h3><?php echo JText::_('Room supplement fee') ?></h3>
-                            <div class="list-room">
-                                <ul class="list_passenger_room">
-                                </ul>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="room-service-fee pull-right">
-                                        <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total"
-                                                                                    data-a-sign="US$"></span>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="room-service-fee pull-right">
+                                    <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total"
+                                                                                data-a-sign="US$"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="sidr_booking_summary"  class=" hidden-tablet-desktop">
-                    <span class="show-hidden-fee close glyphicon glyphicon-remove"></span>
-                    more total price
-                </div>
-                <div class="booking-summary-content-mobile hidden-tablet-desktop">
-                    <div class="pull-left"><?php echo JText::_('Total service fee') ?></div>
-                    <div class="pull-right"><span class="room-service-fee-total" data-a-sign="US$">200</span> (<a class="show-hidden-fee more" href="javascript:void(0)"><?php echo JText::_('More') ?></a>)</div>
                 </div>
             </div>
-            <input name="option" value="com_tsmart" type="hidden">
-            <input name="controller" value="bookprivategroup" type="hidden">
-            <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
-            <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
-            <input name="task" value="go_to_booking_add_on_from" type="hidden">
-        </form>
+            <div id="sidr_booking_summary" class=" hidden-tablet-desktop">
+                <span class="show-hidden-fee close glyphicon glyphicon-remove"></span>
+                more total price
+            </div>
+            <div class="booking-summary-content-mobile hidden-tablet-desktop">
+                <div class="pull-left"><?php echo JText::_('Total service fee') ?></div>
+                <div class="pull-right"><span class="room-service-fee-total" data-a-sign="US$">200</span> (<a
+                        class="show-hidden-fee more"
+                        href="javascript:void(0)"><?php echo JText::_('More') ?></a>)
+                </div>
+            </div>
+        </div>
     </div>
 <?php
 $js_content = '';

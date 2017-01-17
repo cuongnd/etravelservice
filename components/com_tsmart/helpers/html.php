@@ -3458,9 +3458,11 @@ XML;
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
-                                        <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
-                                        <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
+                                        <div class="header-row text-uppercase">
+                                            <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
+                                            <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
+                                            <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -3608,7 +3610,7 @@ XML;
                             </div>
                             <div class="row note ">
                                 <div class="col-log-12">
-                                    <div class="mobile-note"></div>
+                                    <div class="mobile-note"><?php echo JText::_('ROOM_TYPE_SINGLE_NOTE') ?></div>
                                 </div>
                             </div>
                             <div class="row note">

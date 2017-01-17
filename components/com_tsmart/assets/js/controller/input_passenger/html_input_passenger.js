@@ -152,6 +152,9 @@
                 $item_passenger_template.find(':input[data-name="nationality"]').select2({
                     data:plugin.settings.list_country
                 });
+                $item_passenger_template.find(':input[data-name="gender"]').select2({
+
+                });
                 plugin.update_event($item_passenger_template);
             });
 
