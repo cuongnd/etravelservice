@@ -123,7 +123,11 @@
                             $('#select_table_service_class_list_service_class').find('.tr-row:visible:odd').css({
                                 'background-color':'#f9f9f9'
                             });
-                            select_table_service_class.un_check_all();
+                            if(!plugin.settings.first_update_service_class)
+                            {
+                                select_table_service_class.un_check_all();
+                                plugin.settings.first_update_service_class=false;
+                            }
 
                         }
                     });
@@ -159,7 +163,8 @@
             });
             var model_price=plugin.settings.model_price;
             $element.find('select#model_price').val(model_price).trigger("change");
-            $('#select_table_tour_tsmart_product_id').find('.body .tr-row .input-application[value="'+tsmart_product_id+'"]').prop('checked',true);
+            plugin.settings.first_update_service_class=true;
+            $('#select_table_tour_tsmart_product_id').find('.body .tr-row .input-application[value="'+tsmart_product_id+'"]').trigger('click');
 
         }
 

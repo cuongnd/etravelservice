@@ -48,7 +48,7 @@ class TsmartViewbookprivategroup extends VmView
         $tsmart_price_id = $input->getInt('tsmart_price_id', 0);
         $booking_date = $input->getString('booking_date', '');
         $this->privategrouptrip_model = tmsModel::getModel('privategrouptrip');
-        $item_private_group_trip = $this->privategrouptrip_model->getItem($tsmart_price_id);
+        $item_private_group_trip = $this->privategrouptrip_model->getItem($tsmart_price_id,$booking_date);
         $tsmart_product_id = $item_private_group_trip->tsmart_product_id;
         $input->set('tsmart_product_id', $tsmart_product_id);
         $this->privategrouptrip = $item_private_group_trip;
@@ -61,6 +61,10 @@ class TsmartViewbookprivategroup extends VmView
         $this->rooming_select = Vmjointgroup::get_list_rooming();
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $this->lipsum = new joshtronic\LoremIpsum();
+
+        $group_size_helper = tsmHelper::getHepler('GroupSize');
+        $this->product->list_group_size=$group_size_helper->get_list_group_size_by_tour_id($tsmart_product_id);
+
         parent::display($tpl);
     }
 

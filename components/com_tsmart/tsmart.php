@@ -16,6 +16,8 @@ if (!defined('_JEXEC')) die('Direct Access to ' . basename(__FILE__) . ' is not 
  *
  * http://tsmart.net
  */
+require_once JPATH_ROOT.DS.'components/com_tsmart/helpers/jquery.php';
+TSMHtmlJquery::framework();
 /* Require the config */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 ob_start();
@@ -120,5 +122,18 @@ if (class_exists($_class)) {
 $html=ob_get_clean();
 ?>
 <div class="component-tsmart">
+    <div class="div-loading"></div>
     <?php echo $html ?>
 </div>
+<style type="text/css">
+    .div-loading {
+        display: none;
+        background: url("<?php echo JUri::root() ?>/global_css_images_js/images/loading.gif") center center no-repeat;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%
+    }
+</style>

@@ -38,6 +38,7 @@
             event_after_change: false,
             update_passenger: false,
             limit_total: false,
+            disable: false,
             trigger_after_change: null,
             private_bed:"private bed",
             share_bed:"Share bed with others",
@@ -507,8 +508,6 @@
                         $room_item.find('.list-passenger').tipso('show');
                         $room_item.find('.list-passenger').addClass('error');
                         return false;
-
-                        return false;
                     }
                     return true;
                 },
@@ -690,7 +689,6 @@
                         }).addClass('error');
                         $room_item.find('.list-passenger').tipso('show');
                         $room_item.find('.list-passenger').addClass('error');
-                        return false;
 
                         return false;
                     }
@@ -1009,12 +1007,12 @@
             full_charge_children2=full_charge_children2==1?true:false;
             var tsmart_promotion_price_id = departure.tsmart_promotion_price_id;
             var tsmart_promotion_price_id = tsmart_promotion_price_id != null && tsmart_promotion_price_id != 0;
-            var price_senior = tsmart_promotion_price_id ? sale_promotion_price_senior : sale_price_senior;
-            var price_adult = tsmart_promotion_price_id ? sale_promotion_price_adult : sale_price_adult;
-            var price_teen = tsmart_promotion_price_id ? sale_promotion_price_teen : sale_price_teen;
-            var price_children1 = tsmart_promotion_price_id ? sale_promotion_price_children1 : sale_price_children1;
-            var price_children2 = tsmart_promotion_price_id ? sale_promotion_price_children2 : sale_price_children2;
-            var price_infant = tsmart_promotion_price_id ? sale_promotion_price_infant : sale_price_infant;
+            var price_senior = departure.tsmart_discount_id>0 ? departure.sale_discount_price_senior : sale_price_senior;
+            var price_adult = departure.tsmart_discount_id>0 ? departure.sale_discount_price_adult : sale_price_adult;
+            var price_teen = departure.tsmart_discount_id>0 ? departure.sale_discount_price_teen :sale_price_teen;
+            var price_children1 = departure.tsmart_discount_id>0 ? departure.sale_discount_price_children1 : sale_price_children1;
+            var price_children2 = departure.tsmart_discount_id>0 ? departure.sale_discount_price_children2 : sale_price_children2;
+            var price_infant = departure.tsmart_discount_id>0 ? departure.sale_discount_price_adult : sale_price_infant;
             var price_private_room = tsmart_promotion_price_id ? sale_promotion_price_private_room : sale_price_private_room;
             var price_extra_bed = tsmart_promotion_price_id ? sale_promotion_price_extra_bed : sale_price_extra_bed;
             for (var i = 0; i < list_room.length; i++) {
@@ -2386,14 +2384,12 @@
 
         };
         plugin.update_data = function () {
-            return;
             var input_name = plugin.settings.input_name;
             var $input_name = $element.find('input[name="' + input_name + '"]');
             var data = $element.find(':input[name]').serializeObject();
             if (typeof data.list_night_hotel == "undefined") {
                 return false;
             }
-            console.log(data.list_night_hotel);
             for (var i = 0; i < data.list_night_hotel.length; i++) {
                 if (typeof data.list_night_hotel[i].passengers == "undefined") {
                     data.list_night_hotel[i].passengers = [];
@@ -2463,7 +2459,6 @@
                 for (var i = 0; i < list_passenger_selected.length; i++) {
                     var passenger_index = list_passenger_selected[i];
                     var a_room_index = plugin.get_room_index_by_passenger_index_selected(passenger_index);
-                    console.log("a_room_index:"+a_room_index);
                     if (a_room_index != room_index) {
                         $room_item.find('input.passenger-item:eq(' + passenger_index + ')').prop("disabled", true);
                     }
@@ -2552,7 +2547,6 @@
                 $tr_item_room.find('div.room_type').html(room.list_room_type);
                 $tr_item_room.find('div.room_note').html(room.room_note);
                 var tour_cost_and_room_price = room.tour_cost_and_room_price;
-                console.log(room);
 
                 if (typeof room.passengers != "undefined" && room.passengers.length>0) {
                     var passengers = room.passengers;
@@ -2688,6 +2682,8 @@
         plugin.validate = function () {
             var $list_room = $element.find('.item-room');
             var list_room = plugin.settings.list_night_hotel;
+
+            var else_list_passenger = [];
             for (var i = 0; i < $list_room.length; i++) {
                 var room_index = i;
                 var $room_item = $element.find('.item-room:eq(' + room_index + ')');
@@ -2712,7 +2708,7 @@
                 } else if (passengers.length == 0) {
                     $list_passenger.removeClass('error');
                     $list_passenger.tipso('destroy');
-                    var content_notify = 'please select passenger';
+                    var content_notify = 'please select passenger or remove empty room';
                     plugin.notify(content_notify);
                     $list_passenger.tipso({
                         size: 'tiny',
@@ -2723,17 +2719,35 @@
                     $list_passenger.addClass('error');
                     $list_passenger.tipso('show');
                     plugin.jumper_room(room_index);
-                    return false;
                     $list_passenger.tipso('destroy');
+                    return false;
                 } else if (!plugin.settings[room_type].validate_room(room_item, room_index)) {
                     plugin.jumper_room(room_index);
                     return false;
                 }
+
                 $list_passenger.removeClass('error');
 
             }
+            var else_list_passenger= plugin.find_passenger_not_inside_room();
+            if(else_list_passenger.length>0){
+                var else_list_passenger_full_name=[];
+                for(var i=0;i<else_list_passenger.length;i++){
+                    var passenger=else_list_passenger[i];
+                    var full_name=plugin.get_passenger_full_name(passenger);
+                    else_list_passenger_full_name.push(full_name);
+                }
+                else_list_passenger_full_name=else_list_passenger_full_name.join(',');
+                var content_notify = 'some passenger ('+else_list_passenger_full_name+') not sign room, please insert passenger in to room';
+                plugin.notify(content_notify);
+                return false;
+            }
             plugin.calculator_tour_cost_and_room_price();
             return true;
+        };
+        plugin.get_passenger_full_name = function (passenger) {
+            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+            return passenger_full_name;
         };
         plugin.find_passenger_not_inside_room = function () {
             var passenger_not_inside_room = [];
@@ -2846,6 +2860,7 @@
             var total_passenger = list_passenger.length;
             var $list_room = $element.find('.item-room');
             $list_room.each(function (room_index, room) {
+                plugin.remove_passenger_not_inside_list_passenger_in_room_index(room_index);
                 if (plugin.enable_add_passenger_to_room_index(room_index)) {
                     plugin.add_passenger_to_room_index(room_index);
                     plugin.format_name_for_room_index(room_index);
@@ -2950,8 +2965,55 @@
             var $html_input_passenger = $('#html_input_passenger').data('html_input_passenger');
             if (!$html_input_passenger.validate()) {
                 return false;
-            } else if (!plugin.validate()) {
-                return false;
+            } else  {
+                var $list_room = $element.find('.item-room');
+                var list_room = plugin.settings.list_night_hotel;
+                for (var i = 0; i < $list_room.length; i++) {
+                    var room_index = i;
+                    var $room_item = $element.find('.item-room:eq(' + room_index + ')');
+                    var room_item = list_room[room_index];
+                    var passengers = room_item.passengers;
+                    var room_type = room_item.list_room_type;
+                    var $list_passenger = $room_item.find('ul.list-passenger');
+                    if (room_item.list_room_type == '') {
+                        var content_notify = 'please select room type';
+                        plugin.notify(content_notify);
+                        $list_room.tipso('destroy');
+                        $list_room.addClass('error');
+                        $list_room.tipso({
+                            size: 'tiny',
+                            useTitle: false,
+                            content: content_notify,
+                            animationIn: 'bounceInDown'
+                        });
+                        $list_room.tipso('show');
+                        plugin.jumper_room(room_index);
+                        return false;
+                    } else if (passengers.length == 0) {
+                        $list_passenger.removeClass('error');
+                        $list_passenger.tipso('destroy');
+                        var content_notify = 'please select passenger or remove empty room';
+                        plugin.notify(content_notify);
+                        $list_passenger.tipso({
+                            size: 'tiny',
+                            useTitle: false,
+                            content: content_notify,
+                            animationIn: 'bounceInDown'
+                        });
+                        $list_passenger.addClass('error');
+                        $list_passenger.tipso('show');
+                        plugin.jumper_room(room_index);
+                        $list_passenger.tipso('destroy');
+                        return false;
+                    } else if (!plugin.settings[room_type].validate_room(room_item, room_index)) {
+                        plugin.jumper_room(room_index);
+                        return false;
+                    }
+
+                    $list_passenger.removeClass('error');
+
+                }
+
             }
             var list_passenger = plugin.settings.list_passenger;
             var list_passenger_checked = plugin.get_list_passenger_checked();
@@ -2959,8 +3021,6 @@
                 plugin.notify('you cannot add more room');
                 return false;
             }
-
-
             return true;
         };
         plugin.enable_remove_room = function (room_index) {
@@ -3113,6 +3173,19 @@
             list_room[room_index].passengers = [];
             plugin.settings.list_night_hotel = list_room;
         };
+        plugin.remove_passenger_not_inside_list_passenger_in_room_index = function (room_index) {
+            var list_passenger = plugin.settings.list_passenger;
+            var list_room = plugin.settings.list_night_hotel;
+            var passengers= list_room[room_index].passengers;
+            var passengers1=[];
+            for(var i=0;i<passengers.length;i++){
+                var passenger_index=passengers[i];
+                if(typeof  list_passenger[passenger_index]!="undefined"){
+                    passengers1.push(passenger_index);
+                }
+            }
+            plugin.settings.list_night_hotel[room_index].passengers=passengers1;
+        };
         plugin.is_adult_or_children_by_passenger_index = function (passenger_index) {
 
             var list_passenger = plugin.settings.list_passenger;
@@ -3140,7 +3213,6 @@
 
         plugin.is_infant = function (passenger_index) {
             var range_year_old_infant = plugin.settings.range_year_old_infant;
-            console.log(range_year_old_infant);
             var list_passenger = plugin.settings.list_passenger;
             var passenger = list_passenger[passenger_index];
             return passenger.year_old <= range_year_old_infant[1];
@@ -3226,7 +3298,7 @@
                 allow_dismiss: true,
                 type: type,
                 placement: {
-                    align: "right"
+                    align: "center"
                 }
             });
         };
@@ -3252,7 +3324,6 @@
                     }
                 }).addClass(event_class);
             }
-
             var $list_passenger = $room_item.find('ul.list-passenger');
             $list_passenger.find('input.passenger-item').each(function (passenger_index) {
                 var $passenger = $(this);
@@ -3311,12 +3382,16 @@
             var event_class = 'add_room';
             if (!$room_item.find('.add-more-room').hasClass(event_class)) {
                 $room_item.find('.add-more-room').click(function () {
+
                     var a_room_index = $(this).closest('.item-room').index();
                     var $a_room_item = $(this).closest('.item-room');
                     if (plugin.enable_add_room(a_room_index)) {
                         //alert('ok');
-                        plugin.add_room(a_room_index);
-                        plugin.add_event_room_index(a_room_index + 1);
+                        var a_last_room_index = $element.find('.item-room').last().index();
+                        var $a_last_room_item = $element.find('.item-room').last();
+
+                        plugin.add_room(a_last_room_index);
+                        plugin.add_event_room_index(a_last_room_index + 1);
                     }
                 }).addClass(event_class);
 

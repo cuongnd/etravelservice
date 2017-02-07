@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmprice
+class tsmprice
 {
 	/**
 	 * javascript strings
@@ -89,6 +89,18 @@ class vmprice
 				->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id')
 				->where('group_size_id_tour_price_id.tsmart_price_id='.(int)$tour_price_id)
 			;
+			return $db->setQuery($query)->loadObject();
+		}
+
+		public static function get_product_by_tour_price_id($tsmart_price_id)
+		{
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+			$query->select('products.*,products_en_gb.*')
+				->from('#__tsmart_products AS products')
+				->innerJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
+				->leftJoin('#__tsmart_tour_price AS tour_price ON tour_price.tsmart_product_id=products.tsmart_product_id')
+				->where('tour_price.tsmart_price_id='.(int)$tsmart_price_id);
 			return $db->setQuery($query)->loadObject();
 		}
 		public static function get_list_mark_up_by_tour_price_id($tour_price_id)

@@ -63,9 +63,9 @@ class VmHtml
     public static function select_room($name="tsmart_room_id", $list_room, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $hotel_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_room/html_select_room.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_room/html_select_room.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_room/html_select_room.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_room/html_select_room.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_room)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmroom.php';
@@ -460,9 +460,9 @@ class VmHtml
     public static function select_state_province($name, $list_state, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $country_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_state_province/html_select_state_province.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_state)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmstates.php';
@@ -499,11 +499,11 @@ class VmHtml
     public static function location_city($name, $default = '0')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_location_city/html_select_location_city.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmcities.php';
         $cities = tsmcities::get_cities();
@@ -550,11 +550,11 @@ class VmHtml
     public static function select_tour_type($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_tour_type/html_select_tour_type.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmtourtype.php';
         $list_tour_type = tsmtourtype::get_list_tour_type();
@@ -594,11 +594,11 @@ class VmHtml
     public static function select_tour_style($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_tour_style/html_select_tour_style.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmtourstyle.php';
         $list_tour_style = tsmtourstyle::get_list_tour_style();
@@ -636,17 +636,18 @@ class VmHtml
         return $html;
     }
 
-    public static function select_number_passenger($name, $text_header = '', $min = 0, $max = 100, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    public static function select_number_passenger($name, $text_header = '', $min = 0, $max = 100, $default = '0', $attrib = "onchange='submit();'", $template_result = "%s", $template_selection = "%s",$disable_select)
     {
         if (!$text_header) {
             $text_header = "Passenger from 12 years old";
         }
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_number_passenger/html_select_number_passenger.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_number_passenger/html_select_number_passenger.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/jquery-sprintf/jquery.sprintf.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_number_passenger/html_select_number_passenger.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_number_passenger/html_select_number_passenger.less');
         $input = JFactory::getApplication()->input;
         $list_number = range($min, $max, 1);
 
@@ -657,7 +658,11 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('select[name="<?php echo $name ?>"]').html_select_number_passenger({
                     list_number:<?php echo json_encode($list_number) ?>,
-                    number_selected:<?php echo $default ? $default : 0 ?>
+                    number_selected:<?php echo $default ? $default : 0 ?>,
+                    placeholder:"<?php echo $text_header ?>",
+                    template_result:"<?php echo $template_result ?>",
+                    template_selection:"<?php echo $template_selection ?>",
+                    disable_select:<?php echo json_encode($disable_select) ?>
                 });
             });
         </script>
@@ -668,7 +673,7 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $element_id ?>" class="select_number_passenger">
-            <select disable_chosen="true" id="<?php echo $name ?>" name="<?php echo $name ?>" <?php echo $attrib ?> >
+            <select disable_chosen="true" <?php echo $disable_select?' disabled ':'' ?>  id="<?php echo $name ?>" name="<?php echo $name ?>" <?php echo $attrib ?> >
                 <option value=""><?php echo $text_header ?></option>
                 <?php for ($i = $min; $i < $max; $i++) { ?>
                     <option value="<?php echo $i ?>"><?php echo $i ?></option>
@@ -683,11 +688,11 @@ class VmHtml
     public static function select_tour($name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_select_tour/html_select_tour.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmproduct.php';
         $list_products = tsmproduct::get_list_product();
@@ -729,11 +734,11 @@ class VmHtml
     public static function select_trip_join_and_private($name, $coupon)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_trip_join_and_private/select_trip_join_and_private.less');
         $input = JFactory::getApplication()->input;
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmserviceclass.php';
         $list_service_class = tsmserviceclass::get_list_tour_service_class();
@@ -851,9 +856,9 @@ class VmHtml
     public static function select_city($name="tsmart_cityarea_id", $list_city, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $state_element = '', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_city/html_select_city.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_city/html_select_city.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_city/html_select_city.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_city/html_select_city.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_city)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmcities.php';
@@ -892,10 +897,10 @@ class VmHtml
     public static function select_percent_amount($type_name, $amount_name, $type, $amount)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_percent_amount/html_select_percent_amount.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_percent_amount/html_select_percent_amount.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_percent_amount/html_select_percent_amount.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_percent_amount/html_select_percent_amount.less');
         $input = JFactory::getApplication()->input;
         $percent_amount_id = 'percent_amount_' . $type_name . '_' . $amount_name;
         ob_start();
@@ -939,12 +944,12 @@ class VmHtml
     public static function select_from_to($from_name, $to_name, $from = 0, $to = 10, $min = 0, $max = 100)
     {
         $doc = JFactory::getDocument();
-        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
-        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css");
-        $doc->addScript(JUri::root() . '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
+        $doc->addStyleSheet( "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
+        $doc->addStyleSheet( "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css");
+        $doc->addScript( '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
 
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_from_to/html_select_from_to.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_from_to/html_select_from_to.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_from_to/html_select_from_to.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_from_to/html_select_from_to.less');
         $input = JFactory::getApplication()->input;
         $id_select_from_to = 'select_from_to_' . $from_name . '_' . $to_name;
         $id_select_from_to = str_replace(array("[", "]"), "_", $id_select_from_to);
@@ -981,12 +986,12 @@ class VmHtml
     public static function range_of_date($from_name, $to_name, $from_date = '', $to_date = '', $format = 'YYYY-MM-DD', $min_date = '', $max_date = '')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
 
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_range_of_date/html_select_range_of_date.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_range_of_date/html_select_range_of_date.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_range_of_date/html_select_range_of_date.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_range_of_date/html_select_range_of_date.less');
         $input = JFactory::getApplication()->input;
         $select_from_date_to_date = 'select_from_date_to_date_' . $from_name . '_' . $to_name;
         ob_start();
@@ -1029,16 +1034,17 @@ class VmHtml
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.maskedinput-master/dist/jquery.maskedinput.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_date/html_select_date.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_date/html_select_date.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
+        $doc->addScript( '/media/system/js/jquery.maskedinput-master/dist/jquery.maskedinput.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_date/html_select_date.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_date/html_select_date.less');
         $input = JFactory::getApplication()->input;
         $select_date = 'select_date_' . $name;
+
         ob_start();
         ?>
         <script type="text/javascript">
@@ -1072,20 +1078,72 @@ class VmHtml
         $htm = ob_get_clean();
         return $htm;
     }
+    public static function select_date_time($name, $value_selected = '', $format = 'mm/dd/yy', $view_format = 'mm/dd/yy', $min_date = '', $max_date = '', $class = '', $attrib = '')
+    {
+        JHtml::_('jquery.ui');
+        $doc = JFactory::getDocument();
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addLessStyleSheet( '/components/com_tsmart/assets/js/plugin/Slick-Datetime-Picker/slick_dtp.less');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/dialog.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/button.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/Slick-Datetime-Picker/slick_dtp.js');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
+        $doc->addScript( '/media/system/js/jquery.maskedinput-master/dist/jquery.maskedinput.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_date_time/html_select_date_time.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_date_time/html_select_date_time.less');
+        $input = JFactory::getApplication()->input;
+        $select_date = 'select_date_' . $name;
+
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $select_date ?>').html_select_date_time({
+                    format: "<?php echo $format ? $format : 'mm/dd/yy' ?>",
+                    view_format: "<?php echo $view_format ? $view_format : 'mm/dd/yy' ?>",
+                    input_name: "<?php echo $name ?>",
+                    value_selected: "<?php echo $value_selected ?>",
+                    min_date: "<?php echo $min_date ?>",
+                    max_date: "<?php echo $max_date ?>"
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $select_date ?>" class="select_date_time">
+            <div class="input-group">
+                <input type="text" value="<?php echo $value_selected ?>" <?php echo $attrib ?>
+                       id="select_date_time_picker_<?php echo $name ?>" class="form-control select_date_time <?php echo $class ?>"/>
+                <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
+                <span class="input-group-addon"><span class="icon-calendar add-on"></span></span>
+            </div>
+
+        </div>
+        <?php
+        $htm = ob_get_clean();
+        return $htm;
+    }
 
     public static function select_month($name, $value_selected = '', $format = 'MM/YYYY', $view_format = 'MM/YYYY', $min_month = 1, $max_month = 12, $class = '', $attrib = '')
     {
         JHtml::_('jquery.ui');
 
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/button.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/monthpicker.js');
-        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_month/html_select_month.js');
-        $doc->addLessStyleSheet(JUri::root() . '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.css');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/button.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/monthpicker.js');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript( '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_month/html_select_month.js');
+        $doc->addLessStyleSheet( '/media/system/js/jquery-ui-month-picker-master/src/MonthPicker.css');
         $input = JFactory::getApplication()->input;
         $select_month = 'select_month_' . $name;
         ob_start();
@@ -1143,13 +1201,13 @@ class VmHtml
     public static function edit_price_add_on($name, $data = '')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/base64.js');
-        $doc->addScript(JUri::root() . "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/base64.js');
+        $doc->addScript( "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
 
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_price_add_on/html_edit_price_add_on.less');
         $input = JFactory::getApplication()->input;
         $edit_price_add_on = 'edit_price_add_on_' . $name;
         $data1 = base64_decode($data);
@@ -1243,13 +1301,13 @@ class VmHtml
     public static function edit_price_hotel_add_on($name, $data = '')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/base64.js');
-        $doc->addScript(JUri::root() . "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/base64.js');
+        $doc->addScript( "/media/system/js/cassandraMAP-cassandra/lib/cassandraMap.js");
 
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_price_hotel_add_on/html_edit_price_hotel_add_on.less');
         $input = JFactory::getApplication()->input;
         $edit_price_add_on = 'edit_price_hotel_add_on_' . $name;
         $data1 = base64_decode($data);
@@ -1327,10 +1385,10 @@ class VmHtml
     public static function select_amount_percent($amount_name, $percent_name, $amount, $percent)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_amount_percent/html_select_amount_percent.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_amount_percent/html_select_amount_percent.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_amount_percent/html_select_amount_percent.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_amount_percent/html_select_amount_percent.less');
         $input = JFactory::getApplication()->input;
         $amount_percent_id = 'amount_percent_' . $amount_name . '_' . $percent_name;
         ob_start();
@@ -1382,8 +1440,8 @@ class VmHtml
     public static function select_add_on($name, $options, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $iframe_link, $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_add_on.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_add_on.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_select_add_on.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_select_add_on.less');
         $input = JFactory::getApplication()->input;
         $reload_iframe_id = $input->get('iframe_id', '', 'string');
         $reload_ui_dialog_id = $input->get('ui_dialog_id', '', 'string');
@@ -1698,8 +1756,8 @@ class VmHtml
     public static function number_state($name, $min=0, $max=100, $current=50, $current_color='#990100', $full_color='#ff9900')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/number_state/jquery.number_state.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/number_state/style.number_state.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/number_state/jquery.number_state.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/number_state/style.number_state.less');
         $id_element="number_state_$name";
         $left=(($current-$min)/($max-$min))*100;
         ob_start();
@@ -1744,8 +1802,8 @@ class VmHtml
     public static function list_checkbox_group_size($name, $list_selected = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/list_checkbox_group_size/html_list_checkbox_group_size.less');
 
         require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmgroupsize.php';
 
@@ -1797,9 +1855,9 @@ class VmHtml
     {
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/list_radio/style.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/list_radio/style.less');
         $id = "list-radio-box-$name";
         $total_option = count($options);
         $column = $total_option < $column ? $total_option : $column;
@@ -1842,21 +1900,26 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
-    public static function list_radio_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
+    public static function list_radio_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3)
     {
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/list_radio_rooming/style.less');
-        $id = "list-radio-box-$name";
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/list_radio_rooming/style.less');
+        $doc->addScript(JUri::root().'components/com_tsmart/assets/js/controller/list_radio_rooming/jquery.list_radio_rooming.js');
+        $id_element = "list-radio-box-$name";
         $total_option = count($options);
         $column = $total_option < $column ? $total_option : $column;
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $("<?php echo "#$id" ?>").find('input[name="<?php echo $name ?>"]').checkator({});
+                $('#<?php  echo $id_element ?>').list_radio_rooming({
+                    element_name: "<?php echo $name ?>",
+                    debug: false
+                });
+
             });
         </script>
         <?php
@@ -1869,7 +1932,7 @@ class VmHtml
         $list_options = array_chunk($options, $column);
         ob_start();
         ?>
-        <div id="<?php echo $id ?>" class="list-radio-box list_radio_rooming">
+        <div id="<?php echo $id_element ?>" class="list-radio-box list_radio_rooming">
             <?php foreach ($list_options as $options) { ?>
                 <div class="row">
                     <?php foreach ($options as $option) { ?>
@@ -1899,8 +1962,8 @@ class VmHtml
 
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
         $id = "list-radio-box-$name";
         $total_option = count($options);
         $column = $total_option < $column ? $total_option : $column;
@@ -1949,7 +2012,7 @@ class VmHtml
     {
         $html = '';
         $doc = JFactory::getDocument();
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/plugins/tag/style.less');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/plugins/tag/style.less');
         ob_start();
         ?>
         <div class="tags">
@@ -2004,7 +2067,7 @@ class VmHtml
     public static function list_option($name, $options, $list_selected = array(), $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jQuery-Plugin-For-Bootstrap-Button-Group-Toggles/select-toggleizer.js');
+        $doc->addScript( '/media/system/js/jQuery-Plugin-For-Bootstrap-Button-Group-Toggles/select-toggleizer.js');
         ob_start();
         ?>
         <script type="text/javascript">
@@ -2469,7 +2532,7 @@ class VmHtml
     {
 
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
         $js_content = '';
         ob_start();
         ?>
@@ -2524,7 +2587,7 @@ class VmHtml
     {
         $value=is_numeric($value)?$value:0;
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
         $js_content = '';
         ob_start();
         ?>
@@ -2555,8 +2618,8 @@ class VmHtml
     {
 
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/balance_term/jquery.balance_term.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/balance_term/jquery.balance_term.js');
         $doc->addLessStyleSheet(JUri::root().'components/com_tsmart/assets/js/controller/balance_term/style.balance_term.less');
         $id_element="balance_term_".$name_balance_of_day.'_'.$name_percent_balance_of_day;
         $js_content = '';
@@ -2596,8 +2659,8 @@ class VmHtml
     {
 
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/range_of_integer/jquery.range_of_integer.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/range_of_integer/jquery.range_of_integer.js');
         $doc->addLessStyleSheet(JUri::root().'components/com_tsmart/assets/js/controller/range_of_integer/style.range_of_integer.less');
         $id_element="range_of_integer_".$name_input_from.'_'.$name_input_to;
         $js_content = '';
@@ -2638,7 +2701,7 @@ class VmHtml
     {
 
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/hold_seat_option/jquery.hold_seat_option.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/hold_seat_option/jquery.hold_seat_option.js');
         $doc->addLessStyleSheet(JUri::root().'components/com_tsmart/assets/js/controller/hold_seat_option/style.hold_seat_option.less');
         $id_element="hold_seat_option_".$name_hold_seat.'_'.$name_hold_seat_hours;
         $js_content = '';
@@ -2700,7 +2763,7 @@ class VmHtml
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
         $doc->addScript('http://maps.google.com/maps/api/js?sensor=false&libraries=places');
-        $doc->addScript(JUri::root() . 'media/system/js/jquery-locationpicker-plugin-master/src/locationpicker.jquery.js');
+        $doc->addScript( 'media/system/js/jquery-locationpicker-plugin-master/src/locationpicker.jquery.js');
 
         ob_start();
         ?>
@@ -2878,11 +2941,11 @@ XML;
     public static function select_service_class($list_service_class=array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.jquery.js');
-        $doc->addStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.jquery.js');
+        $doc->addStyleSheet( 'components/com_tsmart/assets/js/plugin/chosen_v1.6.2/chosen.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_service_class/html_select_service_class.less');
         $input = JFactory::getApplication()->input;
         $id_element = 'html_select_service_class_' . $name;
         if(empty($list_service_class)) {
@@ -2922,11 +2985,11 @@ XML;
     public static function select_currency($list_currency = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_currency/html_select_currency.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_currency/html_select_currency.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_currency/html_select_currency.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_currency/html_select_currency.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_currency)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmcurrency.php';
@@ -2968,11 +3031,11 @@ XML;
     public static function select_group_product($name, $default = '0',$list_group_product = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_select_group_product/html_select_group_product.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_group_product)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmart.php';
@@ -3014,11 +3077,11 @@ XML;
     public static function select_trip_type($name, $default = '0', $list_trip_type = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_trip_type)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmart.php';
@@ -3060,11 +3123,11 @@ XML;
     public static function select_model_price($name, $default = '0', $list_model_price = array(), $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_select_trip_type/html_select_trip_type.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_model_price)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmprice.php';
@@ -3106,11 +3169,11 @@ XML;
     public static function select_language($list_language = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_language/html_select_language.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_language/html_select_language.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_language/html_select_language.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_language/html_select_language.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_language)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmlanguage.php';
@@ -3152,11 +3215,11 @@ XML;
     public static function select_user_name($list_user = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_user/html_select_user.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_user/html_select_user.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_user/html_select_user.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_user/html_select_user.less');
         $input = JFactory::getApplication()->input;
         if (empty($list_user)) {
             require_once JPATH_ROOT . 'components/com_tsmart/helpers/tsmuser.php';
@@ -3199,11 +3262,11 @@ XML;
     public static function select_type_percent_or_amount($name, $default)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_type_percent_or_amount/html_select_type_percent_or_amount.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_type_percent_or_amount/html_select_type_percent_or_amount.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_type_percent_or_amount/html_select_type_percent_or_amount.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_type_percent_or_amount/html_select_type_percent_or_amount.less');
         $input = JFactory::getApplication()->input;
 
         $id_element = 'html_select_type_percent_or_amount_' . $name;
@@ -3235,12 +3298,12 @@ XML;
     public static function input_percent_or_amount($name_of_value_percent_or_amount, $name_of_type_percent_or_amount, $value_of_percent_or_amount, $value_of_type, $min_amount=0, $max_amount=1000, $min_percent=0, $max_percent=100, $readonly=false)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/input_percent_or_amount/input_percent_or_amount.less');
         $input = JFactory::getApplication()->input;
         if(!in_array($value_of_type,array('percent','amount')))
         {
@@ -3293,11 +3356,11 @@ XML;
     public static function select_range_of_date($list_rang_of_date = array(), $name, $default = '0', $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $zero = true, $chosenDropDowns = true, $tranlsate = true)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/select_list_range_of_date/html_select_list_range_of_date.less');
         $input = JFactory::getApplication()->input;
         $id_element = 'html_select_range_of_date_' . $name;
         ob_start();
@@ -3335,8 +3398,8 @@ XML;
     public static function generate_code($name, $default = '0',$controller='tsmart',$task='get_code',$read_only=false)
     {
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/generate_code/html_generate_code.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/generate_code/html_generate_code.less');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/generate_code/html_generate_code.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/generate_code/html_generate_code.less');
         $input = JFactory::getApplication()->input;
         $id_element = 'html_generate_code_' . $name;
         ob_start();
@@ -3377,26 +3440,26 @@ XML;
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/all.css');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
-        $doc->addScript(JUri::root() . '/media/system/js/Create-A-Tooltip/js/jquery.tooltip.js');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
+        $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
+        $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/jquery-dateFormat.js');
+        $doc->addScript( '/media/system/js/Create-A-Tooltip/js/jquery.tooltip.js');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
 
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/input_passenger/html_input_passenger.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/input_passenger/html_input_passenger.less');
-        $doc->addLessStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.less');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/Create-A-Tooltip/css/tooltip.css');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/input_passenger/html_input_passenger.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/input_passenger/html_input_passenger.less');
+        $doc->addLessStyleSheet( '/media/system/js/Create-A-Tooltip/css/tooltip.less');
+        $doc->addStyleSheet( '/media/system/js/Create-A-Tooltip/css/tooltip.css');
 
         $model = tmsModel::getModel('country');
 
@@ -3407,6 +3470,7 @@ XML;
         }
         $input = JFactory::getApplication()->input;
         $id_element = 'html_input_passenger';
+        $debug=true;
         ob_start();
         ?>
         <script type="text/javascript">
@@ -3416,7 +3480,7 @@ XML;
                     input_name: "<?php echo $name ?>",
                     min_age: <?php echo (int)$min_age ?>,
                     max_age: <?php echo (int)$max_age ?>,
-                    debug: true,
+                    debug: <?php echo json_encode($debug) ?>,
                     departure:<?php echo json_encode($departure) ?>,
                     passenger_config:<?php echo json_encode($passenger_config) ?>,
                     list_country:<?php echo json_encode($list_country) ?>
@@ -3438,7 +3502,7 @@ XML;
                             <h4 class="">
                                 <span title=""
                                       class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>
-                                <button type="button" class="btn btn-primary auto-fill-date">auto fill data</button>
+                                <?php if($debug){ ?><button type="button" class="btn btn-primary auto-fill-date">auto fill data</button><?php } ?>
                             </h4>
                         </div>
                     </div>
@@ -3460,14 +3524,14 @@ XML;
                                     <div class="col-lg-12">
                                         <div class="header-row text-uppercase">
                                             <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
-                                            <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
-                                            <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
+                                            <button type="button" class=" btn btn-link remove"><span class="icon-remove " title=""></span></button>
+                                            <button type="button" class=" btn btn-link add "><span class="icon-plus " title=""></span></button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-2">
-                                        <input required data-name="first_name"
+                                        <input  data-name="first_name"
                                                placeholder="<?php echo JText::_('First name') ?>"
                                                type="text">
                                     </div>
@@ -3477,22 +3541,23 @@ XML;
                                                type="text">
                                     </div>
                                     <div class="col-lg-2">
-                                        <input required data-name="last_name"
+                                        <input  data-name="last_name"
                                                placeholder="<?php echo JText::_('Last name') ?>"
                                                type="text">
                                     </div>
                                     <div class="col-lg-2">
-                                        <input required class="date readonly" data-name="date_of_birth" readonly
+                                        <input  class="date readonly" data-name="date_of_birth" readonly
                                                placeholder="<?php echo JText::_('Date of birth') ?>"
                                                type="text">
                                     </div>
                                     <div class="col-lg-2">
-                                        <input required data-name="nationality"
+                                        <select  data-name="nationality"
                                                placeholder="<?php echo JText::_('Nationality') ?>"
-                                               type="text">
+                                               >
+                                            </select>
                                     </div>
                                     <div class="col-lg-2">
-                                        <select class="gender" data-name="gender" ">
+                                        <select class="gender" data-name="gender">
                                         <option value="mr">Mr</option>
                                         <option value="ms">Ms</option>
                                         </select>
@@ -3524,25 +3589,25 @@ XML;
         return $html;
     }
 
-    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config)
+    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config,$disable=false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
 
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_room/html_build_room.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_room/html_build_room.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_room/html_build_room.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_room/html_build_room.less');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -3559,7 +3624,8 @@ XML;
                     element_key: "<?php echo $id_element ?>",
                     debug:<?php echo json_encode($debug) ?>,
                     departure:<?php echo json_encode($departure) ?>,
-                    passenger_config:<?php echo json_encode($passenger_config) ?>
+                    passenger_config:<?php echo json_encode($passenger_config) ?>,
+                    disable:<?php echo json_encode($disable) ?>
                 });
             });
         </script>
@@ -3586,9 +3652,9 @@ XML;
                                     <div class="col-lg-2 col-xxxs-2" style="text-align: center;color: #820004">
                                         <label><?php echo JText::_('Single') ?></br>
                                             <input type="radio" checked
-                                                                                      data-name="room_type"
-                                                                                      name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_SINGLE_NOTE') ?>"
-                                                                                      value="single"></label>
+                                                   data-name="room_type"
+                                                   name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_SINGLE_NOTE') ?>"
+                                                   value="single"></label>
                                     </div>
                                     <div class="col-lg-3 col-xxxs-3" style="text-align: center;color: #820004">
                                         <label><?php echo JText::_('Double') ?></br><input type="radio" data-name="room_type" data-note="<?php echo JText::_('ROOM_TYPE_DOUBLE_NOTE') ?>"
@@ -3711,23 +3777,23 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
 
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
 
 
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -3941,23 +4007,23 @@ XML;
         $list_passenger = json_decode($json_list_passenger);
 
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_passenger_summary/html_build_passenger_summary.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_passenger_summary/html_build_passenger_summary.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_passenger_summary/html_build_passenger_summary.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_passenger_summary/html_build_passenger_summary.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4116,23 +4182,23 @@ XML;
         $list_passenger = json_decode($json_list_passenger);
 
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_passenger_summary_confirm/html_build_passenger_summary_confirm.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_passenger_summary_confirm/html_build_passenger_summary_confirm.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_passenger_summary_confirm/html_build_passenger_summary_confirm.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_passenger_summary_confirm/html_build_passenger_summary_confirm.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4234,23 +4300,23 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4532,23 +4598,23 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/passenger_information_in_order/html_passenger_information_in_order.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/passenger_information_in_order/html_passenger_information_in_order.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/passenger_information_in_order/html_passenger_information_in_order.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/passenger_information_in_order/html_passenger_information_in_order.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4653,23 +4719,23 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4833,23 +4899,23 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -4959,23 +5025,23 @@ XML;
         $list_passenger = json_decode($json_list_passenger);
 
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_payment_cardit_card/html_build_payment_cardit_card.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_payment_cardit_card/html_build_payment_cardit_card.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_payment_cardit_card/html_build_payment_cardit_card.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_payment_cardit_card/html_build_payment_cardit_card.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $id_element = 'html_build_payment_cardit_card_' . $name;
@@ -5096,23 +5162,23 @@ XML;
         $list_passenger = json_decode($json_list_passenger);
 
         $list_passenger = array_merge($list_passenger->senior_adult_teen, $list_passenger->children_infant);
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/html_build_form_contact/html_build_form_contact.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/html_build_form_contact/html_build_form_contact.less');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/html_build_form_contact/html_build_form_contact.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_build_form_contact/html_build_form_contact.less');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
+        $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $lipsum = new joshtronic\LoremIpsum();
         $id_element = 'html_build_form_contact_' . $name;
@@ -5188,21 +5254,21 @@ XML;
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
 
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_pickup_transfer/html_build_pickup_transfer.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_pickup_transfer/html_build_pickup_transfer.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_pickup_transfer/html_build_pickup_transfer.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_pickup_transfer/html_build_pickup_transfer.less');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
 
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -5343,21 +5409,21 @@ XML;
         $json_list_passenger = $session->get('json_list_passenger');
         $json_list_passenger = json_decode($json_list_passenger);
 
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.serializeObject.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.base64.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
-        $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/controller/build_excursion_addon/html_build_excursion_addon.js');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
-        $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
-        $doc->addLessStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/controller/build_excursion_addon/html_build_excursion_addon.less');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addScript( '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addScript( '/media/system/js/jquery.serializeObject.js');
+        $doc->addScript( '/media/system/js/jquery.base64.js');
+        $doc->addStyleSheet( '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
+        $doc->addScript( 'components/com_tsmart/assets/js/controller/build_excursion_addon/html_build_excursion_addon.js');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
+        $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
+        $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_excursion_addon/html_build_excursion_addon.less');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
-        $doc->addScript(JUri::root() . '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
+        $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
 
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
@@ -5496,10 +5562,10 @@ XML;
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
-        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/tipso-master/src/tipso.css');
-        $doc->addStyleSheet(JUri::root() . '/media/system/js/animate.css-master/animate.css');
-        $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
+        $doc->addScript( '/media/system/js/jquery.utility.js');
+        $doc->addStyleSheet( '/media/system/js/tipso-master/src/tipso.css');
+        $doc->addStyleSheet( '/media/system/js/animate.css-master/animate.css');
+        $doc->addScript( '/media/system/js/tipso-master/src/tipso.js');
         ob_start();
         ?>
         <a href="javascript:void(0)" class="show-content <?php echo $name ?>"><span class="icon-eye"></span></a>

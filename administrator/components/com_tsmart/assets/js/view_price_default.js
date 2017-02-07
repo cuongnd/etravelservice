@@ -826,9 +826,9 @@
                 }else{
                     profit_price=amount;
                 }
-                profit_price=Math.round(profit_price);
+                //profit_price=Math.round(profit_price);
                 //profit_price=Math.round(profit_price, 2);
-                $span_profit.html(profit_price);
+                $span_profit.html(Math.round(profit_price));
                 if(price_type!=flat_price)
                 {
                     var $span_sale=$('table.sale-price span[group-id="'+group_id+'"][column-type="'+column_type+'"]');
@@ -837,9 +837,9 @@
                 }
 
                 var sale_price=profit_price+price+((profit_price+price)*tax)/100;
-                sale_price=Math.round(sale_price);
+                //sale_price=Math.round(sale_price);
                 //sale_price=Math.round(profit_price, 2);
-                $span_sale.html(sale_price);
+                $span_sale.html(Math.round(sale_price));
 
 
             });

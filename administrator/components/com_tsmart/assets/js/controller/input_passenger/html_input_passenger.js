@@ -280,7 +280,6 @@
                     showWeek: true,
                     minDate: "-99Y",
                     maxDate: '0',
-                    buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
                     dateFormat: view_format,
                     changeMonth: true,
                     changeYear: true,

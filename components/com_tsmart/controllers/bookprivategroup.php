@@ -54,5 +54,27 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date,false));
         return true;
     }
+    public function ajax_get_price_book_private_group(){
+        $app=JFactory::getApplication();
+        $input=$app->input;
+        $total_senior_adult_teen=$input->getInt('total_senior_adult_teen',1);
+        $tsmart_price_id=$input->getInt('tsmart_price_id',0);
+        $booking_date=$input->getString('booking_date','');
+        $privategrouptrip_model=tmsModel::getModel('privategrouptrip');
+        $app->setUserState($privategrouptrip_model->getContext() . '.filter.total_passenger_from_12_years_old',$total_senior_adult_teen);
+        $item=$privategrouptrip_model->getItem($tsmart_price_id,$booking_date);
+        $view = $this->getView('bookprivategroup', 'html', 'TsmartView');
+        $input->set('layout','default');
+        $view->item=$item;
+        ob_start();
+        $view->display('price');
+        $contents = ob_get_clean();
+        $response=new stdClass();
+        $response->e=0;
+        $response->r_html=$contents;
+        $response->item=$item;
+        echo json_encode($response);
+        die;
+    }
 
 }

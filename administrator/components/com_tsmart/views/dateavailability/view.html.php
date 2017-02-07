@@ -35,7 +35,7 @@ class TsmartViewdateavailability extends tsmViewAdmin {
 
 		// Load the helper(s)
 
-
+		require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.php';
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 
@@ -65,7 +65,7 @@ class TsmartViewdateavailability extends tsmViewAdmin {
 		} else {
 			$model_product = tmsModel::getModel('product');
 			$model_tour_class = tmsModel::getModel('tourclass');
-            require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/vmdateavailability.php';
+            require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/tsmdateavailability.php';
 			$this->list_tour = tsmdateavailability::get_list_tour_private();
 
 			$this->list_tour_class = $model_tour_class->getItemList();

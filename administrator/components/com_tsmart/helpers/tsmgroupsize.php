@@ -65,7 +65,7 @@ class tsmGroupSize
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('group_size.tsmart_group_size_id,group_size.group_name')
+        $query->select('group_size.tsmart_group_size_id,group_size.group_name,group_size.from,group_size.to')
             ->from('#__tsmart_tour_id_group_size_id AS tour_id_group_size_id')
             ->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=tour_id_group_size_id.tsmart_group_size_id')
             ->where('tour_id_group_size_id.tsmart_product_id=' . (int)$tour_id);

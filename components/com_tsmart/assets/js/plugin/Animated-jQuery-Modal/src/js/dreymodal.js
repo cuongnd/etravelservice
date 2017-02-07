@@ -25,7 +25,9 @@
       title : null,
       append:false,
       titleColor : "#ffffff",
-      titleBackColor : "#222222"
+      titleBackColor : "#222222",
+      event_after_close:null,
+      event_after_show_modal:null
     },
 
     open : function(){
@@ -55,6 +57,9 @@
           $(':not(.dreyModalWrapper, .dreyModalWrapper *, html, body, script, style)').css({"filter":"blur(3px)"})
         }
       }
+      if(this.config.event_after_show_modal instanceof Function){
+        this.config.event_after_show_modal();
+      }
       initializeEvents.call(this);
     },
 
@@ -70,6 +75,9 @@
           _.$modalElement.appendTo(_.config.$parent_modalElement).hide();
           $('.'+_.modalClassName).parent().remove();
           $('*').not("."+this.modalClassName+"-wrapper, ."+this.modalClassName+"-wrapper *, html, body, script, style, link, head, title, meta").css({"filter":""});
+          if(_.config.event_after_close instanceof Function){
+            _.config.event_after_close();
+          }
         },600);
 
       } catch(err){

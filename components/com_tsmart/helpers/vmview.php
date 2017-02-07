@@ -38,6 +38,11 @@ class VmView extends JViewLegacy{
         {
             require(VMPATH_SITE . DS . 'helpers' . DS . 'html.php');
         }
+
+        if (!class_exists('TSMHtmlJquery'))
+        {
+            require(VMPATH_SITE . DS . 'helpers' . DS . 'jquery.php');
+        }
 		$result = $this->loadTemplate($tpl);
 		if ($result instanceof Exception) {
 			return $result;

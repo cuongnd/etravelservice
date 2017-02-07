@@ -5,7 +5,12 @@
 
         // plugin's default options
         var defaults = {
-            list_number:[]
+            template_selection:"%s",
+            template_result:"%s",
+            list_number:[],
+            placeholder:"",
+            disable_select:false,
+            onchange:null
         }
 
         // current instance of the object
@@ -18,21 +23,45 @@
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
         plugin.set_select2_template_result = function (result) {
-            return result.text;
+            var template_result=plugin.settings.template_result;
+            return $.sprintf( template_result,result.text);
         };
         plugin.set_lect2_template_selection = function (selection) {
-            return selection.text;
+            if(selection.text!="") {
+                var template_selection = plugin.settings.template_selection;
+                return $.sprintf(template_selection, selection.text);
+            }else{
+                selection.text;
+            }
+        };
+        plugin.set_value=function(number_selected){
+            $element.val(number_selected).trigger('change');
+        };
+        plugin.get_value=function(){
+            return plugin.select2.val();
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+
             var list_number=plugin.settings.list_number;
+            var placeholder=plugin.settings.placeholder;
             var number_selected=plugin.settings.number_selected;
+            var disable_select=plugin.settings.disable_select;
             plugin.select2=$element.select2({
                 data:list_number,
+                placeholder: placeholder,
                 templateResult:plugin.set_select2_template_result,
-                templateSelection:plugin.set_lect2_template_selection
+                templateSelection:plugin.set_lect2_template_selection,
             });
-            plugin.select2.val(number_selected).trigger("change")
+            $element.on('select2:select', function (evt) {
+                var onchange=plugin.settings.onchange;
+                var selected=$(this).val();
+                if( onchange instanceof Function){
+
+                    onchange(selected);
+                }
+            });
+            plugin.select2.val(number_selected).trigger("change");
         }
 
         plugin.init();

@@ -13,8 +13,11 @@ $doc->addStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/Anima
 $doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_productdetails_default.js');
 $app = JFactory::getApplication();
 $input = $app->input;
+TSMHtmlJquery::alert();
+tsmConfig::$date_format="d M Y";
 $tsmart_product_id = $input->getInt('tsmart_product_id', 0);
 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
+$total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_under_12_years_old');
 ?>
 <div class="view-productdetails-default">
     <!-- Zozo Tabs Start-->
@@ -53,18 +56,21 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                 <form
                                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>"
                                     method="post" class="departure-date-select"
-                                    id="tour_price" name="tour_price">
+                                    id="filter_tour_price" name="tour_price">
 
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
+                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'),  '',"%s","%s person(s) over 12 years"); ?>
                                         </div>
                                         <div class="col-lg-3">
-                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50, $this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
-                                        </div>
+                                            <?php
+                                            $disable_select= (int)$this->product->min_age>12;
+                                            $total_passenger_under_12_years_old=$disable_select?0:$total_passenger_under_12_years_old;
+                                            ?>
+                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 0, 50, $total_passenger_under_12_years_old, '',"%s","%s person(s) under 12 years",$disable_select); ?>                                        </div>
                                         <div class="col-lg-3">
                                             <?php if ($this->product->price_type != tsmGroupSize::FLAT_PRICE) {
-                                                echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'), '', '', '', '', ' required ');
+                                                echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'),'',  tsmConfig::$date_format, '', '', ' required ',"readonly");
                                             } else {
                                                 echo VmHTML::select_month('filter_month', $this->state->get('filter.month'), '', '', '', '', ' required ');
                                             }
@@ -72,7 +78,7 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="btn-go">
-                                                <?php echo VmHTML::input_button('submit', '<div class="check-price">' . JText::_('Check price') . '</div><div class="go">' . JText::_('Go') . '</div>'); ?>
+                                                <?php echo VmHTML::input_button('submit', '<div class="check-price">' . JText::_('Check price') . '</div><div class="go">' . JText::_('Go') . '</div>',"submit",'get-list-tour'); ?>
                                             </div>
                                         </div>
                                         <input name="option" value="com_tsmart" type="hidden">
@@ -90,10 +96,14 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>"
                                     method="post" class="dmodal-eparture-date-select"
                                     id="modal_tour_price" name="modal_tour_price">
-                                    <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
-                                    <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50, $this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
+                                    <?php echo VmHTML::select_number_passenger('modal_filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" ',"%s","%s person(s) orver 12 years"); ?>
+                                    <?php
+                                    $disable_select= (int)$this->product->min_age>12;
+                                    $total_passenger_under_12_years_old=$disable_select?0:$total_passenger_under_12_years_old;
+                                    ?>
+                                    <?php echo VmHTML::select_number_passenger('modal_filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50, $total_passenger_under_12_years_old, ' class="required" ',"%s","%s person(s) under 12 years",$disable_select); ?>
                                     <?php if ($this->product->price_type != tsmGroupSize::FLAT_PRICE) {
-                                        echo VmHTML::select_date('modal_filter_start_date', $this->state->get('filter.start_date'), '', '', '', '', ' required ');
+                                        echo VmHTML::select_date('modal_filter_start_date', $this->state->get('filter.start_date'), '',  tsmConfig::$date_format, '', '', ' required ');
                                     } else {
                                         echo VmHTML::select_month('modal_filter_month', $this->state->get('filter.month'), '', '', '', '', ' required ');
                                     }
@@ -189,6 +199,7 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                             $des_finish = end($list_destination);
                                             $end_date = clone $start_date;
                                             $end_date->modify("+$total_day day");
+
                                             ?>
                                             <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>"
                                                  class="row item">
@@ -206,17 +217,19 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                                             <?php echo $trip->service_class_name ?>
                                                         </div>
                                                         <div class=" col-lg-2 hidden-xxxs price ">
-                                                            <?php if ($trip->sale_price_adult != 0) { ?>
-                                                                <span class="price <?php echo $trip->sale_discount_price_adult!=0?' strikethrough ':'' ?>"
-                                                                      data-a-sign="US$ "><?php echo $trip->sale_price_adult ?></span>
-                                                                <?php if ($trip->sale_discount_price_adult != 0) { ?>
+                                                            <div class="show-price">
+                                                                <?php if ($trip->tsmart_discount_id != 0) { ?>
+                                                                    <span class="price strikethrough"
+                                                                          data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
                                                                     <span class="price discount"
-                                                                          data-a-sign="US$ "><?php echo $trip->sale_discount_price_adult ?></span>
+                                                                          data-a-sign="US$ "><?php echo $trip->sale_discount_min_price ?></span>
+                                                                <?php }else{ ?>
+                                                                    <span class="price " data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
                                                                 <?php } ?>
-                                                            <?php } ?>
+                                                            </div>
                                                         </div>
                                                         <div class="col-lg-2 hidden-xxxs service-class-price">
-                                                            <?php echo JText::_('trip price') ?>
+
                                                         </div>
                                                         <div class="col-lg-2 col-xxxs-3 tour_state">
                                                             <?php if ($trip->tour_state == 1) { ?>
@@ -225,13 +238,13 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                                                 <?php echo JText::_('Request') ?>
                                                             <?php } ?>
                                                             <div class="hidden-tablet-desktop">
-                                                                <?php if ($trip->sale_price_adult != 0) { ?>
-                                                                    <span class="price <?php echo $trip->sale_discount_price_adult!=0?' strikethrough ':'' ?>"
-                                                                          data-a-sign="US$ "><?php echo $trip->sale_price_adult ?></span>
-                                                                    <?php if ($trip->sale_discount_price_adult != 0) { ?>
-                                                                        <span class="price discount"
-                                                                              data-a-sign="US$ "><?php echo $trip->sale_discount_price_adult ?></span>
-                                                                    <?php } ?>
+                                                                <?php if ($trip->tsmart_discount_id != 0) { ?>
+                                                                    <span class="price strikethrough"
+                                                                          data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
+                                                                    <span class="price discount"
+                                                                          data-a-sign="US$ "><?php echo $trip->sale_discount_min_price ?></span>
+                                                                <?php }else{ ?>
+                                                                    <span class="price " data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
                                                                 <?php } ?>
                                                                 <a href="javascript:void(0)"
                                                                    class="action-collapse btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>" <?php echo $this->state->get('filter.start_date') ? ' data-toggle="collapse" ' : '' ?>
@@ -333,7 +346,8 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                                                                 <td><?php echo JText::_('Child 6-11') ?>
                                                                                     :
                                                                                 </td>
-                                                                                <td><span class="price <?php echo $trip->sale_discount_price_children1!=0?' strikethrough ':'' ?>"
+                                                                                <td>
+                                                                                    <span class="price <?php echo $trip->sale_discount_price_children1!=0?' strikethrough ':'' ?>"
                                                                                           data-a-sign="US$ "><?php echo $trip->sale_price_children1 ?></span>
                                                                                     <?php if ($trip->sale_discount_price_children1 != 0) { ?>
                                                                                     <br/>
@@ -357,6 +371,7 @@ require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroup
                                                                                 </td>
                                                                             </tr>
                                                                         <?php } ?>
+
                                                                         <?php if ($trip->sale_price_infant != 0) { ?>
                                                                             <tr>
                                                                                 <td><?php echo JText::_('Infant') ?>:
@@ -455,7 +470,9 @@ ob_start();
 ?>
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
-        $('.view-productdetails-default').view_productdetails_default({});
+        $('.view-productdetails-default').view_productdetails_default({
+            list_group_size:<?php echo json_encode($this->product->list_group_size) ?>
+        });
     });
 </script>
 <?php

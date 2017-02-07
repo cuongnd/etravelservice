@@ -90,6 +90,10 @@ if (!class_exists ('tmsModel')) {
 	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmmodel.php');
 }
 
+if (!class_exists ('tmsHelper')) {
+	require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmhelper.php');
+}
+
 if(!class_exists('vRequest')) require(VMPATH_ADMIN.DS.'helpers'.DS.'vrequest.php');
 if(!class_exists('tsmText')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmtext.php');
 if(!class_exists('vmJsApi')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsmjsapi.php');
@@ -508,7 +512,6 @@ class tsmConfig {
 	var $_params = array();
 	var $_raw = array();
 	public static $installed = false;
-
 
 	private function __construct() {
 

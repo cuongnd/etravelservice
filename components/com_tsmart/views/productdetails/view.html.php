@@ -46,6 +46,7 @@ class TsmartViewProductdetails extends VmView {
             }
             $product_model = tmsModel::getModel('product');
 
+
             $this->product = $product_model->getItem($tsmart_product_id);
 
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
@@ -64,6 +65,8 @@ class TsmartViewProductdetails extends VmView {
                 $this->state=$privategrouptrip_model->getState();
                 $this->list_trip=$privategrouptrip_model->getItems();
                 $this->start_date = $privategrouptrip_model->getState('filter.start_date');
+                $group_size_helper = tsmHelper::getHepler('GroupSize');
+                $this->product->list_group_size=$group_size_helper->get_list_group_size_by_tour_id($tsmart_product_id);
             }
 
             parent::display($tpl);
