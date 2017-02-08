@@ -82,7 +82,7 @@ class tsmartModelDateAvailability extends tmsModel
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpromotion.php';
         foreach($items as &$item)
         {
-            $item->sale_price_adult=vmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
+            $item->sale_price_adult=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
             $item->sale_promotion_price_adult=vmpromotion::get_sale_promotion_price_by_mark_up_and_tax(
                 $item->promotion_price_adult,
                 $item->mark_up_promotion_adult,$item->mark_up_promotion_price_adult,$item->mark_up_promotion_type,

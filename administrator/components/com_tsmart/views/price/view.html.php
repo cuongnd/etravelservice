@@ -51,14 +51,14 @@ class TsmartViewPrice extends tsmViewAdmin {
 		$layoutName = vRequest::getCmd('layout', 'default');
 		if ($layoutName == 'edit') {
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
+			$this->list_group_size_by_tour_id=tsmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 
 			if($this->product->tour_methor=='tour_group')
 			{
-				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($tsmart_product_id);
+				$this->list_tour_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id($tsmart_product_id);
 
 			}else{
-				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($tsmart_product_id);
+				$this->tour_private_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id_for_price($tsmart_product_id);
 			}
 
 			$task = vRequest::getCmd('task', 'add');
@@ -86,11 +86,11 @@ class TsmartViewPrice extends tsmViewAdmin {
             $this->price = $model->getPrice();
 
 /*            //get markup
-            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
+            $this->list_mark_up=tsmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup*/
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+			$this->list_group_size_by_tour_id=tsmprice::get_list_group_size_by_tour_id($tour_id);
             if(!count($this->list_group_size_by_tour_id))
             {
 				$app->enqueueMessage('there are no group size setup, please setup group size first');

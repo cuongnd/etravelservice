@@ -65,18 +65,6 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/ion.rangeSlider-master/css/
 $doc->addStyleSheet(JUri::root() . '/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css');
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_dateavailability_default.less');
 
-$js_content = '';
-ob_start();
-?>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $('.view-dateavailability-default').view_dateavailability_default({});
-        });
-    </script>
-<?php
-$js_content = ob_get_clean();
-$js_content = TSMUtility::remove_string_javascript($js_content);
-$doc->addScriptDeclaration($js_content);
 AdminUIHelper::startAdminArea($this);
 
 ?>
@@ -195,7 +183,7 @@ AdminUIHelper::startAdminArea($this);
 
             <div class="col50">
                 <div class="row-fluid">
-                    <div class="span12 ">
+                    <div class="span6 ">
 
                         <label>Select tour name</label>
                         <select id="tsmart_product_id" name="tsmart_product_id" disable_chosen="true" required
@@ -216,6 +204,10 @@ AdminUIHelper::startAdminArea($this);
                                     value="<?php echo $tour_service_class->tsmart_service_class_id ?>"><?php echo $tour_service_class->service_class_name ?></option>
                             <?php } ?>
                         </select>
+                    </div>
+                    <div class="span6">
+                        <?php echo VmHTML::row_control('input_number', 'Booking before (days)', 'tour_booking_before_days', 0); ?>
+
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -273,3 +265,19 @@ AdminUIHelper::startAdminArea($this);
 
 
 <?php AdminUIHelper::endAdminArea(); ?>
+<?php
+$js_content = '';
+ob_start();
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-dateavailability-default').view_dateavailability_default({
+                list_tour:<?php echo json_encode($this->list_tour) ?>
+            });
+        });
+    </script>
+<?php
+$js_content = ob_get_clean();
+$js_content = TSMUtility::remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);
+

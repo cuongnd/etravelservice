@@ -6,6 +6,7 @@
         var defaults = {
 
             list_date: [],
+            list_tour: [],
             date_availability_item:{
                 weekly:"",
                 allow_passenger:"",
@@ -36,13 +37,13 @@
         };
         plugin.update_select_service_class = function () {
             var date_availability_item=plugin.settings.date_availability_item;
-            var list_service_class=plugin.settings.list_tour;
+            var list_service_class=plugin.settings.list_service_class;
             $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').empty();
             var $option = '<option value="0">Please select service class</option>';
             $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').append($option);
             for(var i=0;i<list_service_class.length;i++){
                 var item_service_class=list_service_class[i];
-                var $option = '<option  '+(item_service_class.tsmart_language_id==date_availability_item.tsmart_language_id?' selected ':'') +' value="' + item_service_class.tsmart_language_id + '">' + item_service_class.service_class_name + '</option>';
+                var $option = '<option  '+(item_service_class.tsmart_service_class_id==date_availability_item.tsmart_service_class_id?' selected ':'') +' value="' + item_service_class.tsmart_service_class_id + '">' + item_service_class.service_class_name + '</option>';
                 $dialog_dateavailability_edit_form.find('#tsmart_service_class_id').append($option);
 
             }
@@ -224,8 +225,8 @@
                             option: 'com_tsmart',
                             controller: 'dateavailability',
                             task: 'ajax_get_dateavailability_item',
-                            tsmart_language_id: tsmart_product_id,
-                            tsmart_language_id: tsmart_service_class_id
+                            tsmart_product_id: tsmart_product_id,
+                            tsmart_service_class_id: tsmart_service_class_id
                         };
                         return dataPost;
                     })(),
@@ -330,7 +331,7 @@
                 var tsmart_product_id = $row.data('tsmart_product_id');
                 $(".dateavailability-edit-form").dialog("open");
                 $('#tsmart_product_id').val(tsmart_product_id).trigger('change');
-                plugin.settings.date_availability_item.tsmart_language_id=tsmart_service_class_id;
+                plugin.settings.date_availability_item.tsmart_service_class_id=tsmart_service_class_id;
 
 
 
@@ -341,6 +342,7 @@
                 if(tsmart_product_id==0){
                     return;
                 }
+
                 $.ajax({
                     type: "GET",
                     url: 'index.php',
@@ -350,8 +352,8 @@
                         dataPost = {
                             option: 'com_tsmart',
                             controller: 'dateavailability',
-                            task: 'ajax_get_list_service_class_by_tour_id',
-                            tsmart_language_id: tsmart_product_id
+                            task: 'ajax_get_list_service_class_and_product_detail_by_tour_id',
+                            tsmart_product_id: tsmart_product_id
 
                         };
                         return dataPost;
@@ -369,8 +371,13 @@
 
 
                         });
-                        plugin.settings.list_tour=response;
+                        plugin.settings.list_service_class=response.list_service_class;
                         plugin.update_select_service_class();
+                        var current_tour_select=response.product;
+
+                        var $input_number_tour_booking_before_days=$dialog_dateavailability_edit_form.find('#input_number_tour_booking_before_days').data('input_number');
+                        $input_number_tour_booking_before_days.set_value(current_tour_select.tour_booking_before_days);
+
 
 
                     }

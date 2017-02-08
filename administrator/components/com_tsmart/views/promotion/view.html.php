@@ -60,7 +60,7 @@ class TsmartViewpromotion extends tsmViewAdmin {
 			$tsmart_product_id=$input->get('tsmart_product_id',0,'int');
 			$this->tsmart_product_id=$tsmart_product_id;
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
+			$this->list_group_size_by_tour_id=tsmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 
 
 
@@ -70,9 +70,9 @@ class TsmartViewpromotion extends tsmViewAdmin {
 			$this->product=$model_product->getProduct($this->tsmart_product_id,false,false,false);
 			if($this->product->tour_methor=='tour_group')
 			{
-				$this->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($cid[0]);
+				$this->list_tour_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id($cid[0]);
 			}else{
-				$this->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($cid[0]);
+				$this->tour_private_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id_for_price($cid[0]);
 			}
 
 			$task = vRequest::getCmd('task', 'add');
@@ -105,11 +105,11 @@ class TsmartViewpromotion extends tsmViewAdmin {
             $this->price = $model_promotion_price->get_promotion_price();
 
             //get markup
-            $this->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
+            $this->list_mark_up=tsmprice::get_list_mark_up_by_tour_price_id($tsmart_price_id);
             $this->list_mark_up=JArrayHelper::pivot($this->list_mark_up,'type');
             //end get markup
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-			$this->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tsmart_product_id);
+			$this->list_group_size_by_tour_id=tsmprice::get_list_group_size_by_tour_id($tsmart_product_id);
 			$this->SetViewTitle();
 			$this->addStandardDefaultViewLists($model_promotion_price,0,'ASC');
             $this->addStandardDefaultViewCommandspromotion();

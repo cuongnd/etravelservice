@@ -32,7 +32,8 @@ $doc->addScript(JUri::root() . '/media/system/js/cassandraMAP-cassandra/lib/cass
 $doc->addScript(JUri::root() . '/media/system/js/jQuery-Plugin-For-Bootstrap-Button-Group-Toggles/select-toggleizer.js');
 $doc->addScript(JUri::root() . '/media/system/js/tooltipster-master/js/jquery.tooltipster.js');
 $doc->addScript(JUri::root() . '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
-$doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
 $doc->addScript(JUri::root() . '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
 $doc->addScript(JUri::root() . '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
 $doc->addScript(JUri::root() . '/media/system/js/jQuery.serializeObject-master/jquery.serializeObject.js');

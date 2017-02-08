@@ -5,6 +5,7 @@ $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
 $doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/view_productdetail_default.less');
 $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
 JHtml::_('behavior.formvalidation');
 $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/Animated-jQuery-Modal/src/js/dreyanim.js');
 $doc->addScript(JUri::root() . 'components/com_tsmart/assets/js/plugin/Animated-jQuery-Modal/src/js/dreymodal.js');
@@ -471,6 +472,7 @@ ob_start();
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('.view-productdetails-default').view_productdetails_default({
+            product:<?php echo json_encode($this->product) ?>,
             list_group_size:<?php echo json_encode($this->product->list_group_size) ?>
         });
     });

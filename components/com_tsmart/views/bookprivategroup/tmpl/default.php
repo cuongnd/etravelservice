@@ -57,7 +57,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                 <form
                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id=' . $tsmart_price_id.'&booking_date='.$booking_date) ?>"
                     method="post" class="departure-date-select"
-                    id="tour_price" name="tour_price">
+                    id="check_tour_price" name="check_tour_price">
                     <div class="row">
                         <div class="col-lg-12">
                             <fieldset class="tour-border departure-filter">
@@ -151,7 +151,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                                     </div>
                                                     <div class="col-lg-6 text-right"
                                                          style="text-align: center">
-                                                        <?php echo JText::_('Select private room+US$ 300/person') ?>
+                                                        <?php echo JText::sprintf('Select private room+<span class="price" data-a-sign="US$ ">%s</span>/person',$privategrouptrip->sale_price_private_room) ?>
                                                     </div>
                                                 </div>
                                                 <div class="row area-button">
@@ -191,7 +191,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
-                                        <?php echo VmHTML::list_radio_rooming('rooming', $this->rooming_select, 'share_room'); ?>
+                                        <?php echo VmHTML::list_radio_rooming('rooming', $this->rooming_select, null); ?>
                                     </div>
                                 </div>
                             </fieldset>

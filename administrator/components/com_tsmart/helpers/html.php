@@ -1803,7 +1803,7 @@ class VmHtml
     public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $options = vmprice::get_list_price_type();
+        $options = tsmprice::get_list_price_type();
 
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
@@ -2432,18 +2432,18 @@ class VmHtml
     {
         $value=is_numeric($value)?$value:0;
         $doc = JFactory::getDocument();
-        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+        $doc->addScript( '/administrator/components/com_tsmart/assets/js/controller/input_number/jquery.input_number.js');
+        $doc->addLessStyleSheet('/administrator/components/com_tsmart/assets/js/controller/input_number/style.input_number.less');
+        $id_element='input_number_'.$name;
         $js_content = '';
         ob_start();
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('.input_number_<?php echo $name ?>').autoNumeric('init',<?php echo json_encode($option) ?>).change(function () {
-                    var value_of_this = $(this).autoNumeric('get');
-                    $('input[name="<?php echo $name ?>"]').val(value_of_this).trigger("change");
-                    ;
+                $('#<?php echo $id_element ?>').input_number({
+                    element_name:"<?php echo $name ?>",
                 });
-
             });
         </script>
         <?php
@@ -2452,10 +2452,12 @@ class VmHtml
         $doc->addScriptDeclaration($js_content);
         ob_start();
         ?>
-        <input type="text" value="<?php echo $value ?>" <?php echo $readonly ? 'readonly' : '' ?>
-               class="inputbox   input_number_<?php echo $name ?>" id="input_number_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
-               data-v-max="<?php echo $max ?>">
-        <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        <div id="<?php echo $id_element ?>">
+            <input type="text" value="<?php echo $value ?>" <?php echo $readonly ? 'readonly' : '' ?>
+                   class="inputbox   input_number_<?php echo $name ?>" id="input_number_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
+                   data-v-max="<?php echo $max ?>">
+            <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
+        </div>
         <?php
         return ob_get_clean();
     }
@@ -2976,7 +2978,7 @@ XML;
         $input = JFactory::getApplication()->input;
         if (empty($list_model_price)) {
             require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
-            $list_model_price = vmprice::get_list_price_type();
+            $list_model_price = tsmprice::get_list_price_type();
         }
 
         $id_element = 'html_select_group_product_' . $name;

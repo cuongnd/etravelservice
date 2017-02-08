@@ -41,6 +41,7 @@ class TableProducts extends tsmTable
     var $longitude = 0;
     var $location = "";
     var $image_map = 0;
+    var $tour_booking_before_days = 0;
     var $radius = 0;
     var $meta_description = 0;
     var $trip_high_light = 0;
@@ -59,7 +60,7 @@ class TableProducts extends tsmTable
     function __construct($db)
     {
         parent::__construct('#__tsmart_products', 'tsmart_product_id', $db);
-        $this->setUniqueName('product_name');
+        //$this->setUniqueName('product_name');
         $this->setTranslatable(array(
             'product_name',
             'meta_title',

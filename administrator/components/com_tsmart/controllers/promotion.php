@@ -171,7 +171,7 @@ class TsmartControllerpromotion extends TsmController {
         $tsmart_product_id=$input->getInt('tsmart_product_id',0);
         $tsmart_service_class_id=$input->getInt('tsmart_service_class_id',0);
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $list_base_price_by_service_class_id_and_tour_id=vmprice::get_list_base_price_by_service_class_id_and_tour_id($tsmart_product_id,$tsmart_service_class_id);
+        $list_base_price_by_service_class_id_and_tour_id=tsmprice::get_list_base_price_by_service_class_id_and_tour_id($tsmart_product_id,$tsmart_service_class_id);
         echo json_encode($list_base_price_by_service_class_id_and_tour_id);
         die;
 

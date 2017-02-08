@@ -138,17 +138,17 @@ class TsmartControllerPrice extends TsmController {
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
         if($price_type!=tsmGroupSize::FLAT_PRICE)
         {
-            $return_item->list_tour_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id($price_id);
+            $return_item->list_tour_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id($price_id);
         }else{
-            $return_item->tour_private_price_by_tour_price_id=vmprice::get_list_tour_price_by_tour_price_id_for_price($price_id);
+            $return_item->tour_private_price_by_tour_price_id=tsmprice::get_list_tour_price_by_tour_price_id_for_price($price_id);
         }
 
         //get markup
-        $return_item->list_mark_up=vmprice::get_list_mark_up_by_tour_price_id($price_id);
+        $return_item->list_mark_up=tsmprice::get_list_mark_up_by_tour_price_id($price_id);
         $return_item->list_mark_up=JArrayHelper::pivot($return_item->list_mark_up,'type');
         //end get markup
         require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $return_item->list_group_size_by_tour_id=vmprice::get_list_group_size_by_tour_id($tour_id);
+        $return_item->list_group_size_by_tour_id=tsmprice::get_list_group_size_by_tour_id($tour_id);
 
         echo json_encode($return_item);
         die;

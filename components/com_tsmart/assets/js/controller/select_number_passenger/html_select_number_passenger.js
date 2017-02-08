@@ -5,6 +5,7 @@
 
         // plugin's default options
         var defaults = {
+            element_name:"",
             template_selection:"%s",
             template_result:"%s",
             list_number:[],
@@ -47,7 +48,8 @@
             var placeholder=plugin.settings.placeholder;
             var number_selected=plugin.settings.number_selected;
             var disable_select=plugin.settings.disable_select;
-            plugin.select2=$element.select2({
+            var element_name=plugin.settings.element_name;
+            plugin.select2=$element.find('select[name="'+element_name+'"]').select2({
                 data:list_number,
                 placeholder: placeholder,
                 templateResult:plugin.set_select2_template_result,

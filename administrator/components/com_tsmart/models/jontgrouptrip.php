@@ -63,14 +63,14 @@ class tsmartModeljontgrouptrip extends tmsModel {
         {
 
 
-            $item->sale_price_senior=vmprice::get_sale_price_by_mark_up_and_tax($item->price_senior,$item->mark_up_senior,$item->mark_up_price_senior,$item->tax,$item->mark_up_type);
-            $item->sale_price_adult=vmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
-            $item->sale_price_teen=vmprice::get_sale_price_by_mark_up_and_tax($item->price_teen,$item->mark_up_teen,$item->mark_up_price_teen,$item->tax,$item->mark_up_type);
-            $item->sale_price_children1=vmprice::get_sale_price_by_mark_up_and_tax($item->price_children1,$item->mark_up_children1,$item->mark_up_price_children1,$item->tax,$item->mark_up_type);
-            $item->sale_price_children2=vmprice::get_sale_price_by_mark_up_and_tax($item->price_children2,$item->mark_up_children2,$item->mark_up_price_children2,$item->tax,$item->mark_up_type);
-            $item->sale_price_infant=vmprice::get_sale_price_by_mark_up_and_tax($item->price_infant,$item->mark_up_infant,$item->mark_up_price_infant,$item->tax,$item->mark_up_type);
-            $item->sale_price_private_room=vmprice::get_sale_price_by_mark_up_and_tax($item->price_private_room,$item->mark_up_private_room,$item->mark_up_price_private_room,$item->tax,$item->mark_up_type);
-            $item->sale_price_extra_bed=vmprice::get_sale_price_by_mark_up_and_tax($item->price_extra_bed,$item->mark_up_extra_bed,$item->mark_up_price_extra_bed,$item->tax,$item->mark_up_type);
+            $item->sale_price_senior=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_senior,$item->mark_up_senior,$item->mark_up_price_senior,$item->tax,$item->mark_up_type);
+            $item->sale_price_adult=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_adult,$item->mark_up_adult,$item->mark_up_price_adult,$item->tax,$item->mark_up_type);
+            $item->sale_price_teen=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_teen,$item->mark_up_teen,$item->mark_up_price_teen,$item->tax,$item->mark_up_type);
+            $item->sale_price_children1=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_children1,$item->mark_up_children1,$item->mark_up_price_children1,$item->tax,$item->mark_up_type);
+            $item->sale_price_children2=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_children2,$item->mark_up_children2,$item->mark_up_price_children2,$item->tax,$item->mark_up_type);
+            $item->sale_price_infant=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_infant,$item->mark_up_infant,$item->mark_up_price_infant,$item->tax,$item->mark_up_type);
+            $item->sale_price_private_room=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_private_room,$item->mark_up_private_room,$item->mark_up_price_private_room,$item->tax,$item->mark_up_type);
+            $item->sale_price_extra_bed=tsmprice::get_sale_price_by_mark_up_and_tax($item->price_extra_bed,$item->mark_up_extra_bed,$item->mark_up_price_extra_bed,$item->tax,$item->mark_up_type);
             $item->sale_promotion_price_senior=vmpromotion::get_sale_promotion_price_by_mark_up_and_tax(
                 $item->promotion_price_senior,
                 $item->mark_up_promotion_senior,$item->mark_up_promotion_price_senior,$item->mark_up_promotion_type,

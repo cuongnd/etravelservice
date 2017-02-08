@@ -252,9 +252,9 @@
             return true;
         };
         plugin.update_event = function ($wrapper) {
-            $wrapper.find('input[name],select[name]').change(function update_data() {
+           /* $wrapper.find('input[name],select[name]').change(function update_data() {
                 plugin.update_data();
-            });
+            });*/
             $wrapper.find('.add').click(function add_passenger() {
 
                 if (typeof plugin.settings.function_trigger_check_allow_add_passenger == "function") {
@@ -284,13 +284,12 @@
                     changeMonth: true,
                     changeYear: true,
                     yearRange: "-64:+0",
-                    onClose: function (dateText, inst) {
+                    onSelect:function(dateText,inst){
                         if (!plugin.check_date(dateText, inst)) {
+                            //$(this).datepicker('setDate', inst.lastVal);
                             $(this).val(inst.lastVal);
                         }
-                        //console.log(dateText);
-                        /* dateText=$.format.date(dateText, format);
-                         $element.find('input[name="'+input_name+'"]').val(dateText);*/
+                        plugin.update_data();
                     }
                 };
                 var group_passenger = plugin.get_type_passenger($self);
@@ -332,10 +331,6 @@
         };
         plugin.remove_passenger = function ($self) {
             var $list_passenger = $self.closest('.input-passenger-list-passenger');
-            var total_passenger = $list_passenger.find('.item-passenger').length;
-            if (total_passenger == 1) {
-                return;
-            }
             var $item_passenger = $self.closest('.item-passenger');
             var index_passenger = $item_passenger.index();
             $item_passenger.remove();
@@ -389,8 +384,17 @@
             }
         }
         plugin.setup_total_children_infant = function (total_children_infant) {
-            for (var i = 0; i < total_children_infant; i++) {
-                $element.find('.input-passenger-list-passenger.children-infant .btn.add:first').trigger('click');
+            if(total_children_infant==0){
+                $element.find('.input-passenger-list-passenger.children-infant .btn.remove:first').trigger('click');
+                $element.find('.row.person-type:last').hide();
+            }else {
+                var current_total_passenger = plugin.settings.list_passenger.children_infant.length;
+                console.log(total_children_infant);
+                var start = Math.abs(total_children_infant - current_total_passenger);
+                for (var i = 0; i < start; i++) {
+                    plugin.add_passenger($element.find('.input-passenger-list-passenger.children-infant'));
+                }
+                $element.find('.row.person-type:last').show();
             }
         }
         plugin.init = function () {
@@ -417,7 +421,7 @@
             plugin.settings.html_item_passenger_template = html_item_passenger_template;
             var item_passenger_template = plugin.settings.list_passenger.senior_adult_teen[0];
             plugin.settings.item_passenger_template = plugin.settings.list_passenger.senior_adult_teen;
-            if (range_children_infant[0] >= min_age) {
+            if (range_children_infant[1] >= min_age) {
                 plugin.settings.list_passenger.children_infant.push(item_passenger_template);
                 $(html_item_passenger_template).appendTo($element.find('.input-passenger-list-passenger.children-infant'));
             }else{

@@ -65,7 +65,24 @@ class TsmartControllerDateAvailability extends TsmController {
         $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
 		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
 		$list_service_class=tsmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
+
 		echo json_encode($list_service_class);
+		die;
+
+	}
+	function ajax_get_list_service_class_and_product_detail_by_tour_id()
+	{
+		$app=JFactory::getApplication();
+		$input=$app->input;
+        $tsmart_product_id=$input->get('tsmart_product_id',0,'int');
+		require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmserviceclass.php';
+		$list_service_class=tsmserviceclass::get_list_service_class_by_tour_id($tsmart_product_id);
+		$response=new stdClass();
+		$response->list_service_class=$list_service_class;
+		$product_table=tsmTable::getInstance('products','Table');
+		$product_table->load($tsmart_product_id);
+		$response->product=$product_table->getProperties();
+		echo json_encode($response);
 		die;
 
 	}
@@ -92,14 +109,21 @@ class TsmartControllerDateAvailability extends TsmController {
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $days_seleted = up_json_decode($days_seleted, false, 512, JSON_PARSE_JAVASCRIPT);
 		$tsmart_service_class_id=$data['tsmart_service_class_id'];
+		$tour_booking_before_days=$data['tour_booking_before_days'];
 		$tsmart_product_id=$data['tsmart_product_id'];
+		$product_table=tsmTable::getInstance('products','Table');
+		$product_table->load($tsmart_product_id);
+		$product_table->tour_booking_before_days=$tour_booking_before_days;
+		$data_product=array(tour_booking_before_days=>$tour_booking_before_days);
+		$product_table->bindChecknStore($data_product);
+		$response=new stdClass();
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
 		$query->delete('#__tsmart_date_availability')
 			->where('tsmart_service_class_id='.(int)$tsmart_service_class_id.' AND tsmart_product_id='.(int)$tsmart_product_id);
 		$db->setQuery($query);
 		$ok=$db->execute();
-		$response=new stdClass();
+
 		$response->e=0;
 		if(!$ok)
 		{

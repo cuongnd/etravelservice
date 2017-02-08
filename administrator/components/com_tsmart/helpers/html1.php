@@ -1423,7 +1423,7 @@ class VmHtml
     public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $options = vmprice::get_list_price_type();
+        $options = tsmprice::get_list_price_type();
 
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
@@ -6109,7 +6109,7 @@ class VmHtml
     public static function list_radio_price_type($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $options = vmprice::get_list_price_type();
+        $options = tsmprice::get_list_price_type();
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
@@ -6156,7 +6156,7 @@ class VmHtml
     public static function list_radio_price_type1($name, $selected = 0, $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true, $column = 3)
     {
         require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmprice.php';
-        $options = vmprice::get_list_price_type();
+        $options = tsmprice::get_list_price_type();
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');

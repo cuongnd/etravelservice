@@ -656,7 +656,8 @@ class VmHtml
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                $('select[name="<?php echo $name ?>"]').html_select_number_passenger({
+                $('#<?php echo $element_id ?>').html_select_number_passenger({
+                    element_name:"<?php echo $name ?>",
                     list_number:<?php echo json_encode($list_number) ?>,
                     number_selected:<?php echo $default ? $default : 0 ?>,
                     placeholder:"<?php echo $text_header ?>",
@@ -986,7 +987,7 @@ class VmHtml
     public static function range_of_date($from_name, $to_name, $from_date = '', $to_date = '', $format = 'YYYY-MM-DD', $min_date = '', $max_date = '')
     {
         $doc = JFactory::getDocument();
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
 
@@ -1034,7 +1035,7 @@ class VmHtml
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
         $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
         $doc->addScript( '/media/system/js/jquery-dateFormat-master/dist/dateFormat.js');
@@ -1082,7 +1083,7 @@ class VmHtml
     {
         JHtml::_('jquery.ui');
         $doc = JFactory::getDocument();
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
         $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
         $doc->addLessStyleSheet( '/components/com_tsmart/assets/js/plugin/Slick-Datetime-Picker/slick_dtp.less');
@@ -1137,7 +1138,7 @@ class VmHtml
 
         $doc = JFactory::getDocument();
         $doc->addScript( '/media/jquery-ui-1.11.1/ui/button.js');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/jquery-ui-1.11.1/ui/monthpicker.js');
         $doc->addScript( '/media/jquery-ui-1.11.1/ui/datepicker.js');
         $doc->addStyleSheet( '/media/jquery-ui-1.11.1/themes/base/all.css');
@@ -2583,37 +2584,6 @@ class VmHtml
         return ob_get_clean();
     }
 
-    public static function input_number($name, $value, $class = 'inputbox', $readonly = '', $min = 0, $max = 10000, $more = '', $option = array())
-    {
-        $value=is_numeric($value)?$value:0;
-        $doc = JFactory::getDocument();
-        $doc->addScript( 'components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
-        $js_content = '';
-        ob_start();
-        ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $('.input_number_<?php echo $name ?>').autoNumeric('init',<?php echo json_encode($option) ?>).change(function () {
-                    var value_of_this = $(this).autoNumeric('get');
-                    $('input[name="<?php echo $name ?>"]').val(value_of_this).trigger("change");
-                    ;
-                });
-
-            });
-        </script>
-        <?php
-        $js_content = ob_get_clean();
-        $js_content = TSMUtility::remove_string_javascript($js_content);
-        $doc->addScriptDeclaration($js_content);
-        ob_start();
-        ?>
-        <input type="text" value="<?php echo $value ?>" <?php echo $readonly ? 'readonly' : '' ?>
-               class="inputbox   input_number_<?php echo $name ?>" id="input_number_<?php echo $name ?>" data-v-min="<?php echo $min ?>"
-               data-v-max="<?php echo $max ?>">
-        <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>" id="<?php echo $name ?>">
-        <?php
-        return ob_get_clean();
-    }
     public static function balance_term($name_balance_of_day,$name_percent_balance_of_day, $value_balance_of_day=0,$value_percent_balance_of_day,$number_min=0,$number_max=1000,$percent_min=0,$percent_max=100,$readonly=false)
     {
 
@@ -3452,7 +3422,7 @@ XML;
         $doc->addScript( '/media/system/js/Create-A-Tooltip/js/jquery.tooltip.js');
         $doc->addScript( '/media/system/js/DeLorean-Ipsum-master/jquery.delorean.ipsum.js');
         $doc->addScript( '/media/system/js/jquery.utility.js');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
 
@@ -3791,7 +3761,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
 
@@ -4021,7 +3991,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_passenger_summary/html_build_passenger_summary.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -4196,7 +4166,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_passenger_summary_confirm/html_build_passenger_summary_confirm.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -4314,7 +4284,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -4612,7 +4582,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/passenger_information_in_order/html_passenger_information_in_order.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -4733,7 +4703,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -4913,7 +4883,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/edit_passenger_in_order/html_edit_passenger_in_order.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -5039,7 +5009,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/build_payment_cardit_card/html_build_payment_cardit_card.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
@@ -5176,7 +5146,7 @@ XML;
         $doc->addScript( '/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript( '/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
         $doc->addLessStyleSheet( 'components/com_tsmart/assets/js/controller/html_build_form_contact/html_build_form_contact.less');
-        $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/moment.js');
+        $doc->addScript( '/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
         $doc->addStyleSheet( '/media/system/js/bootstrap-daterangepicker-master/daterangepicker-bs2.css');
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
