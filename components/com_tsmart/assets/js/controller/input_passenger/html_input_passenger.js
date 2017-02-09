@@ -252,9 +252,9 @@
             return true;
         };
         plugin.update_event = function ($wrapper) {
-           /* $wrapper.find('input[name],select[name]').change(function update_data() {
+            $wrapper.find('input[name],select[name]').change(function update_data() {
                 plugin.update_data();
-            });*/
+            });
             $wrapper.find('.add').click(function add_passenger() {
 
                 if (typeof plugin.settings.function_trigger_check_allow_add_passenger == "function") {
@@ -287,7 +287,7 @@
                     onSelect:function(dateText,inst){
                         if (!plugin.check_date(dateText, inst)) {
                             //$(this).datepicker('setDate', inst.lastVal);
-                            $(this).val(inst.lastVal);
+                            $(this).val('');
                         }
                         plugin.update_data();
                     }

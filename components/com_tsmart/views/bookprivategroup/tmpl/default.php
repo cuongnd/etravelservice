@@ -15,6 +15,7 @@ TSMHtmlJquery::alert();
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 $app = JFactory::getApplication();
 $input = $app->input;
+$debug=false;
 $tsmart_price_id = $input->getInt('tsmart_price_id', 0);
 $booking_date = $input->getString('booking_date', '');
 $privategrouptrip = $this->privategrouptrip;
@@ -371,6 +372,7 @@ ob_start();
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.view-bookprivategroup-default').view_bookprivategroup_default({
+                debug:<?php  echo json_encode($debug) ?>,
                 passenger_config:<?php  echo json_encode($passenger_config) ?>,
                 item:<?php  echo json_encode($privategrouptrip) ?>,
                 tour_min_age:<?php echo (int)$this->product->min_age ?>,

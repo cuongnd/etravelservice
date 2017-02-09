@@ -36,10 +36,12 @@
             }
         };
         plugin.set_value=function(number_selected){
-            $element.val(number_selected).trigger('change');
+            var element_name=plugin.settings.element_name;
+            $element.find('select[name="'+element_name+'"]').val(number_selected).trigger('change');
         };
         plugin.get_value=function(){
-            return plugin.select2.val();
+            var element_name=plugin.settings.element_name;
+            return $element.find('select[name="'+element_name+'"]').val();
         };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
@@ -55,7 +57,7 @@
                 templateResult:plugin.set_select2_template_result,
                 templateSelection:plugin.set_lect2_template_selection,
             });
-            $element.on('select2:select', function (evt) {
+            $element.find('select[name="'+element_name+'"]').on('select2:select', function (evt) {
                 var onchange=plugin.settings.onchange;
                 var selected=$(this).val();
                 if( onchange instanceof Function){

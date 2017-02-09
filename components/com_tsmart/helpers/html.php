@@ -3582,7 +3582,7 @@ XML;
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
         $id_element = 'html_build_room';
-        $debug = true;
+        $debug = false;
         ob_start();
         ?>
         <script type="text/javascript">
@@ -3609,7 +3609,7 @@ XML;
         <div class="html_build_room row" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_room">
                 <div class="item-room">
-                    <div class="move-room handle"><span title="" class="icon-move "></span></div>
+
                     <div class="row">
                         <div class="col-lg-12"><h3><?php echo JText::_('Room ') ?><span class="room-order">1</span></h3>
                         </div>
@@ -3662,7 +3662,7 @@ XML;
                             <h3 class="" style="text-align: center;color: #820004"><?php echo JText::_('select person for room on your own') ?></h3>
                             <ul class="list-passenger">
                                 <li><label class="checkbox-inline"> <input class="passenger-item" type="checkbox"> <span
-                                            class="full-name"></span><span class="in_room"></span></label></li>
+                                            class="full-name"></span><span style="<?php echo !$debug?'display: none;':'' ?>" class="in_room"></span></label></li>
                             </ul>
                         </div>
                     </div>

@@ -30,6 +30,7 @@
                 }
             ],
             infant_title:"Infant",
+            debug:false,
             teen_title:"Teen",
             children_title:"Children",
             adult_title:"Adult",
@@ -2485,6 +2486,7 @@
         plugin.add_list_passenger_to_room = function ($item_room) {
             var room_index = $item_room.index();
             var list_passenger = plugin.settings.list_passenger;
+            var debug = plugin.settings.debug;
             var total_passenger = list_passenger.length;
             var $list_passenger = $item_room.find('.list-passenger');
             $list_passenger.empty();
@@ -2498,7 +2500,7 @@
             });
             for (var i = 0; i < total_passenger; i++) {
                 var passenger = list_passenger[i];
-                var full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+                var full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '<span style="'+(!debug?'display: none;':'')+'">(' + passenger.year_old + ')</span>';
                 var key_full_name = passenger.first_name + passenger.middle_name + passenger.last_name;
                 key_full_name = $.base64Encode(key_full_name);
                 var $li = $('<li><label class="checkbox-inline"> <input class="passenger-item" data-key_full_name="' + key_full_name + '" value="' + i + '" data-index="' + i + '" name="list_room[' + room_index + '][passengers][]" type="checkbox"> ' + full_name + '</label></li>');
@@ -2538,6 +2540,7 @@
             var $table_rooming_list = $element.find('.table-rooming-list');
             var $tbody = $table_rooming_list.find('.tbody');
             $tbody.empty();
+            var debug = plugin.settings.debug;
             var html_tr_item_room = plugin.settings.html_tr_item_room;
             $.each(list_room, function (index, room) {
 
@@ -2571,7 +2574,8 @@
                             }
                         }
                         sub_list_passenger_private_room.push(bed_note);
-                        var full_name = item_passenger.first_name + ' ' + item_passenger.middle_name + ' ' + item_passenger.last_name + ' (' + item_passenger.year_old + ')';
+
+                        var full_name = item_passenger.first_name + ' ' + item_passenger.middle_name + ' ' + item_passenger.last_name + ' <span style="'+(!debug?'display: none;':'')+'">(' + item_passenger.year_old + ')</span>';
                         sub_list_passenger.push('<div class="passenger-item">'+full_name+'</div>');
                     }
                     $.each(passengers, function (index_passenger, order_passenger) {
@@ -2746,7 +2750,8 @@
             return true;
         };
         plugin.get_passenger_full_name = function (passenger) {
-            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '<span style="display: none">(' + passenger.year_old + ')</span>';
+
             return passenger_full_name;
         };
         plugin.find_passenger_not_inside_room = function () {
@@ -3035,7 +3040,8 @@
             return true;
         };
         plugin.get_passenger_full_name = function (passenger) {
-            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+            var debug=plugin.settings.debug;
+            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '<span style="'+(!debug?'display: none;':'')+'">(' + passenger.year_old + ')</span>';
             return passenger_full_name;
         };
         plugin.add_passenger_to_room_index = function (room_index) {

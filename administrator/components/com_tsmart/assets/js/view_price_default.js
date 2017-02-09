@@ -797,7 +797,9 @@
                 var group_id=$self.attr('group-id');
                 var column_type=$self.attr('column-type');
                 var price=$self.val();
-
+                if(column_type=="extra_bed"){
+                    console.log('test123');
+                }
                 price=parseFloat(price);
                 var amount=$('table.mark-up-price tr.amount input[column-type="'+column_type+'"]').val();
                 if(typeof amount=="undefined")

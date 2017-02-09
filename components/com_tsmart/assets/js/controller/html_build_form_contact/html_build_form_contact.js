@@ -76,7 +76,7 @@
                 plugin.notify('email address incorrect');
                 $email_address.focus();
                 return false;
-            } else if (trim($confirm_email.val()) == '') {
+            } else if ($confirm_email.val().trim() == '') {
                 plugin.notify('please input confirm email');
                 $confirm_email.focus();
                 return false;
@@ -84,7 +84,7 @@
                 plugin.notify('confirm email address incorrect');
                 $confirm_email.focus();
                 return false;
-            }else if(trim($email_address.val())!=trim($confirm_email.val())){
+            }else if($email_address.val().trim()!=$confirm_email.val().trim()){
                 plugin.notify('confirm email address dont same email address');
                 $confirm_email.focus();
                 return false;
