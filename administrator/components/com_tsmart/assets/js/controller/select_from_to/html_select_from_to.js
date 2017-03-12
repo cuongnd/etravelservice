@@ -28,6 +28,7 @@
             var max=plugin.settings.max;
             var from=plugin.settings.from;
             var to=plugin.settings.to;
+            var disable=plugin.settings.disable;
             var from_name=plugin.settings.from_name;
             var to_name=plugin.settings.to_name;
             $element.find('.integer-range').ionRangeSlider({
@@ -35,6 +36,7 @@
                 min: min,
                 max: max,
                 from: from,
+                disable:disable,
                 to: to,
                 keyboard: true,
                 onFinish: function (data) {

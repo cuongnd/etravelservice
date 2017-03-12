@@ -1551,6 +1551,8 @@
         delorean.push({"character": "Name", "line": "Bauer"});
         delorean.push({"character": "Name", "line": "Bauer"});
         delorean.push({"character": "Name", "line": "Smith"});
+        delorean.push({"character": "Email", "line": "nguyendinhcuong@gmail.com"});
+        delorean.push({"character": "Phone", "line": "0936006058"});
 
         function mrFusion() {
             var sentencesPara = opts.perPara;

@@ -111,9 +111,9 @@ class TsmartControllerDeparture extends TsmController {
 		if($data['tsmart_departure_parent_id']){
 			unset($data['days_seleted']);
 		}
-
         $tsmart_departure_id= $departure_model->store($data);
-        if(!$tsmart_departure_id)
+
+		if(!$tsmart_departure_id)
         {
             echo $departure_model->getError();
             die;

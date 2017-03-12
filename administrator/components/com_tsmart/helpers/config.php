@@ -1163,6 +1163,51 @@ class tsmConfig {
 		$company_info->company_email=$item->params->get('company_email',0);
 		return $company_info;
 	}
+	public static function get_transfer_config_year_old()
+	{
+		$db=JFactory::getDbo();
+		$query=$db->getQuery(true);
+		$query->select('*')
+			->from('#__tsmart_general')
+		;
+		$item=$db->setQuery($query)->loadObject();
+		$params = new Registry;
+		$params->loadString($item->params);
+		$item->params=$params;
+		$transfer_config=new stdClass();
+		$transfer_config->transfer_arrange_year_old_from=$item->params->get('transfer_arrange_year_old_from',0);
+		$transfer_config->transfer_arrange_year_old_to=$item->params->get('transfer_arrange_year_old_to',0);
+		return $transfer_config;
+	}
+	public static function get_hotel_config_year_old()
+	{
+		$db=JFactory::getDbo();
+		$query=$db->getQuery(true);
+		$query->select('*')
+			->from('#__tsmart_general')
+		;
+		$item=$db->setQuery($query)->loadObject();
+		$params = new Registry;
+		$params->loadString($item->params);
+		$item->params=$params;
+		$hotel_config=new stdClass();
+		$hotel_config->hotel_arrange_year_old_from=$item->params->get('hotel_arrange_year_old_from',0);
+		$hotel_config->hotel_arrange_year_old_to=$item->params->get('hotel_arrange_year_old_to',0);
+		return $hotel_config;
+	}
+	public static function get_config()
+	{
+		$db=JFactory::getDbo();
+		$query=$db->getQuery(true);
+		$query->select('*')
+			->from('#__tsmart_general')
+		;
+		$item=$db->setQuery($query)->loadObject();
+		$params = new Registry;
+		$params->loadString($item->params);
+		$item->params=$params;
+		return $item;
+	}
 
 	public static function get_full_name($person)
 	{

@@ -44,8 +44,8 @@ class Vmjointgroup {
     public static function get_list_rooming_type()
     {
         $list_rooming=array(
-            'share_room'=>'Booking pre night',
-            'build_room'=>'Booking post night'
+            'booking_pre_night'=>'Booking pre night',
+            'booking_post_night'=>'Booking post night'
         );
         $a_list_rooming=array();
         foreach($list_rooming as $key=>$text)

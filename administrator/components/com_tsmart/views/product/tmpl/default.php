@@ -117,7 +117,7 @@ if ($product_parent_id = vRequest::getInt('product_parent_id', false)) $col_prod
                                     <?php echo $product->product_code ?>
                                 </td>
                                 <td>
-                                    <?php echo $product->tour_type ?></td>
+                                    <?php echo $product->price_type ?></td>
                                 <td>
                                     <?php echo $product->tour_style_name ?></td>
                                 <td>

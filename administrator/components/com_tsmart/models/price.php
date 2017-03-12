@@ -204,16 +204,20 @@ class tsmartModelPrice extends tmsModel
 
         if (count($tour_price_by_tour_price_id)) {
             $price_extra_bed = reset($tour_price_by_tour_price_id)->price_extra_bed;
+            $price_private_room = reset($tour_price_by_tour_price_id)->price_private_room;
             foreach ($tour_price_by_tour_price_id as $item) {
                 $group_size_id = $item->tsmart_group_size_id;
                 unset($item->tsmart_group_size_id);
                 unset($item->price_extra_bed);
+                unset($item->price_private_room);
                 $query = $db->getQuery(true);
                 $query->insert('#__tsmart_group_size_id_tour_price_id');
                 foreach ($item as $key => $value) {
                     $query->set("$key=" . (int)$value);
                 }
-                $query->set("price_extra_bed=" . (int)$price_extra_bed)
+                $query
+                    ->set("price_extra_bed=" . (float)$price_extra_bed)
+                    ->set("price_private_room=" . (float)$price_private_room)
                     ->set("tsmart_price_id=$tsmart_price_id")
                     ->set("tsmart_group_size_id=$group_size_id");
                 if (!$db->setQuery($query)->execute()) {

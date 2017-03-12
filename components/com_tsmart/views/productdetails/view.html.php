@@ -38,37 +38,23 @@ class TsmartViewProductdetails extends VmView {
 		 */
 		function display($tpl = null) {
 
-            $tsmart_product_idArray = vRequest::getInt('tsmart_product_id', 0);
-            if (is_array($tsmart_product_idArray) and count($tsmart_product_idArray) > 0) {
-                $tsmart_product_id = (int)$tsmart_product_idArray[0];
+            $tsmart_product_id = vRequest::getInt('tsmart_product_id', 0);
+            if (is_array($tsmart_product_id) and count($tsmart_product_id) > 0) {
+                $tsmart_product_id = (int)$tsmart_product_id[0];
             } else {
-                $tsmart_product_id = (int)$tsmart_product_idArray;
+                $tsmart_product_id = (int)$tsmart_product_id;
             }
             $product_model = tmsModel::getModel('product');
 
 
             $this->product = $product_model->getItem($tsmart_product_id);
-
             require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
-            if($this->product->price_type==tsmGroupSize::FLAT_PRICE)
-            {
-                $jontgrouptrip_model = tmsModel::getModel('jontgrouptrip');
-                $this->state=$jontgrouptrip_model->getState();
-                $this->list_trip=$jontgrouptrip_model->getItems();
-                $this->setLayout('jontgrouptrip');
-                $this->start_date = $jontgrouptrip_model->getState('filter.start_date');
-
-
-            }else{
-
-                $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
-                $this->state=$privategrouptrip_model->getState();
-                $this->list_trip=$privategrouptrip_model->getItems();
-                $this->start_date = $privategrouptrip_model->getState('filter.start_date');
-                $group_size_helper = tsmHelper::getHepler('GroupSize');
-                $this->product->list_group_size=$group_size_helper->get_list_group_size_by_tour_id($tsmart_product_id);
-            }
-
+            $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
+            $this->state=$privategrouptrip_model->getState();
+            $this->list_trip=$privategrouptrip_model->getItems();
+            $this->start_date = $privategrouptrip_model->getState('filter.start_date');
+            $group_size_helper = tsmHelper::getHepler('GroupSize');
+            $this->product->list_group_size=$group_size_helper->get_list_group_size_by_tour_id($tsmart_product_id);
             parent::display($tpl);
         }
 	function renderMailLayout ($doVendor, $recipient) {

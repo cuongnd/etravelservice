@@ -1,7 +1,7 @@
 <?php
 $privategrouptrip=$this->privategrouptrip;
 ?>
-<table class="list price">
+<table class="list-price">
     <?php if ($privategrouptrip->sale_price_senior != 0) { ?>
         <tr>
             <td class=""><?php echo JText::_('Senior') ?>

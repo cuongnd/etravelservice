@@ -152,11 +152,18 @@ class tsmartModeljontgrouptrip extends tmsModel {
         $tsmart_product_id=$input->getInt('tsmart_product_id',0);
         $tsmart_departure_id=$this->getState('filter.tsmart_departure_id');
 		$db = JFactory::getDbo();
+        $start_date= $this->getState('filter.month', '');
+        if($start_date){
+            $start_date="01/$start_date";
+            $start_date=JFactory::getDate($start_date)->toSql();
+        }else{
+            $start_date=JFactory::getDate()->toSql();
+        }
 		$query=$db->getQuery(true);
         $query->select('departure.tsmart_departure_id,departure.departure_date,departure.departure_code,departure.allow_passenger,departure.tsmart_product_id')
             ->from('#__tsmart_departure AS departure')
             ->where('departure.tsmart_departure_parent_id IS NOT NULL')
-            ->where('departure.departure_date>='.$db->quote(JFactory::getDate()->toSql()))
+            ->where('departure.departure_date>='.$db->quote($start_date))
             ->innerJoin('#__tsmart_tour_price AS tour_price ON (tour_price.sale_period_from <=departure.departure_date AND departure.departure_date<=tour_price.sale_period_to)')
             ->where('tour_price.tsmart_product_id=departure.tsmart_product_id')
             ->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id')
@@ -217,66 +224,12 @@ class tsmartModeljontgrouptrip extends tmsModel {
             mark_up_tour_price_id.type AS mark_up_type
             ')
 
-            ->leftJoin('#__tsmart_tour_promotion_price AS tour_promotion_price ON departure.departure_date>= tour_promotion_price.sale_period_from AND departure.departure_date<=tour_promotion_price.sale_period_to AND tour_promotion_price.tsmart_product_id=departure.tsmart_product_id AND tour_promotion_price.tsmart_service_class_id=departure.tsmart_service_class_id')
-            ->select('tour_promotion_price.tsmart_promotion_price_id, tour_promotion_price.full_charge_children1 AS tour_promotion_price_full_charge_children1,tour_promotion_price.full_charge_children2 AS tour_promotion_price_full_charge_children2,tour_promotion_price.tax AS promotion_tax')
-            ->leftJoin('#__tsmart_group_size_id_tour_promotion_price_id AS group_size_id_tour_promotion_price_id ON group_size_id_tour_promotion_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
-            ->select('
-                    group_size_id_tour_promotion_price_id.price_senior AS promotion_price_senior,
-                    group_size_id_tour_promotion_price_id.price_adult AS promotion_price_adult,
-                    group_size_id_tour_promotion_price_id.price_teen AS promotion_price_teen,
-                    group_size_id_tour_promotion_price_id.price_children1 AS promotion_price_children1,
-                    group_size_id_tour_promotion_price_id.price_children2 AS promotion_price_children2,
-                    group_size_id_tour_promotion_price_id.price_infant AS promotion_price_infant,
-                    group_size_id_tour_promotion_price_id.price_private_room AS promotion_price_private_room,
-                    group_size_id_tour_promotion_price_id.price_extra_bed AS promotion_price_extra_bed
-                    ')
-            ->leftJoin('#__tsmart_mark_up_tour_promotion_net_price_id AS mark_up_tour_promotion_net_price_id ON mark_up_tour_promotion_net_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
-            ->select('
-                    mark_up_tour_promotion_net_price_id.price_senior AS mark_up_promotion_net_price_senior,
-                    mark_up_tour_promotion_net_price_id.price_adult AS mark_up_promotion_net_price_adult,
-                    mark_up_tour_promotion_net_price_id.price_teen AS mark_up_promotion_net_price_teen,
-                    mark_up_tour_promotion_net_price_id.price_infant AS mark_up_promotion_net_price_infant,
-                    mark_up_tour_promotion_net_price_id.price_children1 AS mark_up_promotion_net_price_children1,
-                    mark_up_tour_promotion_net_price_id.price_children2 AS mark_up_promotion_net_price_children2,
-                    mark_up_tour_promotion_net_price_id.price_private_room AS mark_up_promotion_net_price_private_room,
-                    mark_up_tour_promotion_net_price_id.price_extra_bed AS mark_up_promotion_net_price_extra_bed,
-                    mark_up_tour_promotion_net_price_id.senior AS mark_up_promotion_net_senior,
-                    mark_up_tour_promotion_net_price_id.adult AS mark_up_promotion_net_adult,
-                    mark_up_tour_promotion_net_price_id.teen AS mark_up_promotion_net_teen,
-                    mark_up_tour_promotion_net_price_id.children1 AS mark_up_promotion_net_children1,
-                    mark_up_tour_promotion_net_price_id.children2 AS mark_up_promotion_net_children2,
-                    mark_up_tour_promotion_net_price_id.infant AS mark_up_promotion_net_infant,
-                    mark_up_tour_promotion_net_price_id.private_room AS mark_up_promotion_net_private_room,
-                    mark_up_tour_promotion_net_price_id.extra_bed AS mark_up_promotion_net_extra_bed,
-                    mark_up_tour_promotion_net_price_id.type AS mark_up_promotion_net_type
-            ')
-
-            ->leftJoin('#__tsmart_mark_up_tour_promotion_price_id AS mark_up_tour_promotion_price_id ON mark_up_tour_promotion_price_id.tsmart_promotion_price_id=tour_promotion_price.tsmart_promotion_price_id')
-            ->select('
-                    mark_up_tour_promotion_price_id.price_senior AS mark_up_promotion_price_senior,
-                    mark_up_tour_promotion_price_id.price_adult AS mark_up_promotion_price_adult,
-                    mark_up_tour_promotion_price_id.price_teen AS mark_up_promotion_price_teen,
-                    mark_up_tour_promotion_price_id.price_infant AS mark_up_promotion_price_infant,
-                    mark_up_tour_promotion_price_id.price_children1 AS mark_up_promotion_price_children1,
-                    mark_up_tour_promotion_price_id.price_children2 AS mark_up_promotion_price_children2,
-                    mark_up_tour_promotion_price_id.price_private_room AS mark_up_promotion_price_private_room,
-                    mark_up_tour_promotion_price_id.price_extra_bed AS mark_up_promotion_price_extra_bed,
-                    mark_up_tour_promotion_price_id.senior AS mark_up_promotion_senior,
-                    mark_up_tour_promotion_price_id.adult AS mark_up_promotion_adult,
-                    mark_up_tour_promotion_price_id.teen AS mark_up_promotion_teen,
-                    mark_up_tour_promotion_price_id.children1 AS mark_up_promotion_children1,
-                    mark_up_tour_promotion_price_id.children2 AS mark_up_promotion_children2,
-                    mark_up_tour_promotion_price_id.infant AS mark_up_promotion_infant,
-                    mark_up_tour_promotion_price_id.extra_bed AS mark_up_promotion_extra_bed,
-                    mark_up_tour_promotion_price_id.private_room AS mark_up_promotion_private_room,
-                    mark_up_tour_promotion_price_id.type AS mark_up_promotion_type
-            ')
         ;
         if($tsmart_departure_id)
         {
             $query->where('departure.tsmart_departure_id='.(int)$tsmart_departure_id);
         }
-        //echo $query->dump();
+        echo $query->dump();
 		return $query;
 	}
 

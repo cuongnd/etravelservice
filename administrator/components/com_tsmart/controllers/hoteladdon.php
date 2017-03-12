@@ -127,6 +127,8 @@ class TsmartControllerHoteladdon extends TsmController {
 		$app=JFactory::getApplication();
 		$tsmart_product_id=$app->input->get('tsmart_product_id',0);
 		$vail_from=$app->input->get('vail_from',0);
+		$tsmart_service_class_id=$app->input->get('tsmart_service_class_id',0);
+		$tsmart_hotel_id=$app->input->get('tsmart_hotel_id',0);
         $vail_from=JFactory::getDate($vail_from);
         $vail_to=$app->input->get('vail_to',0);
         $vail_to=JFactory::getDate($vail_to);
@@ -135,11 +137,14 @@ class TsmartControllerHoteladdon extends TsmController {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('count(*) AS total_record')
-            ->from('#__tsmart_hotel_addon_date_price AS hotel_addon_date_price')
-            ->where('hotel_addon_date_price.tsmart_hotel_addon_id!='.(int)$tsmart_hotel_addon_id)
-            ->where('hotel_addon_date_price.tsmart_product_id='.(int)$tsmart_product_id)
-            ->where('hotel_addon_date_price.hotel_addon_type='.$query->q($hotel_addon_type))
-            ->where('(hotel_addon_date_price.date>='.$query->q($vail_from->toSql()).' AND hotel_addon_date_price.date<='.$query->q($vail_to->toSql()).')')
+            ->from('#__tsmart_hotel_addon AS hotel_addon')
+			->where('hotel_addon.tsmart_service_class_id='.(int)$tsmart_service_class_id)
+			->where('hotel_addon.tsmart_hotel_id='.(int)$tsmart_hotel_id)
+            ->where('hotel_addon.tsmart_hotel_addon_id!='.(int)$tsmart_hotel_addon_id)
+			->leftJoin('#__tsmart_tour_id_hotel_addon_id AS tour_id_hotel_addon_id USING(tsmart_hotel_addon_id)')
+            ->where('tour_id_hotel_addon_id.tsmart_product_id='.(int)$tsmart_product_id)
+            ->where('hotel_addon.hotel_addon_type='.$query->q($hotel_addon_type))
+            ->where('((hotel_addon.vail_from<='.$query->q($vail_from->toSql()).' AND hotel_addon.vail_to>='.$query->q($vail_from->toSql()).') OR (hotel_addon.vail_from<='.$query->q($vail_to->toSql()).' AND hotel_addon.vail_to>='.$query->q($vail_to->toSql()).'))')
             ;
         $db->setQuery($query);
         $total_record=$db->loadResult();

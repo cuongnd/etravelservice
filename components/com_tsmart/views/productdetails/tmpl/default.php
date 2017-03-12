@@ -14,9 +14,11 @@ $doc->addStyleSheet(JUri::root() . 'components/com_tsmart/assets/js/plugin/Anima
 $doc->addScript(JUri::root() . '/components/com_tsmart/assets/js/view_productdetails_default.js');
 $app = JFactory::getApplication();
 $input = $app->input;
+$debug=TSMUtility::get_debug();
 TSMHtmlJquery::alert();
 tsmConfig::$date_format="d M Y";
 $tsmart_product_id = $input->getInt('tsmart_product_id', 0);
+$price_type=$this->product->price_type;
 require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmgroupsize.php';
 $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_under_12_years_old');
 ?>
@@ -39,8 +41,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                     <div class="content content-overview">
                         <div class="row header-content">
                             <div class="span10 product-name">
-                                <h2><?php echo $this->product->product_name ?></h2>
-                                <h3></h3>
+                                <h2><?php echo $this->product->product_name ?><?php if($debug){ ?>(<?php echo $this->product->price_type; ?>)<?php } ?></h2>
                             </div>
                             <div class="span2 request">
                                 <a href="javascript:void(0)"><span
@@ -68,7 +69,8 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                             $disable_select= (int)$this->product->min_age>12;
                                             $total_passenger_under_12_years_old=$disable_select?0:$total_passenger_under_12_years_old;
                                             ?>
-                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 0, 50, $total_passenger_under_12_years_old, '',"%s","%s person(s) under 12 years",$disable_select); ?>                                        </div>
+                                            <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 0, 50, $total_passenger_under_12_years_old, '',"%s","%s person(s) under 12 years",$disable_select); ?>
+                                        </div>
                                         <div class="col-lg-3">
                                             <?php if ($this->product->price_type != tsmGroupSize::FLAT_PRICE) {
                                                 echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'),'',  tsmConfig::$date_format, '', '', ' required ',"readonly");
@@ -189,9 +191,13 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                     <div class="col-lg-12">
                                         <?php for ($i = 0; $i < count($this->list_trip); $i++) { ?>
                                             <?php
+
                                             $trip = $this->list_trip[$i];
                                             $list_destination = $trip->list_destination;
                                             $filter_start_date = $this->state->get('filter.start_date');
+                                            if($price_type=='flat_price'){
+                                                $filter_start_date=$trip->departure_date;
+                                            }
                                             $start_date = JFactory::getDate($filter_start_date);
                                             $total_day = $trip->total_day - 1;
                                             $total_day = $total_day ? $total_day : 0;
@@ -202,7 +208,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                             $end_date->modify("+$total_day day");
 
                                             ?>
-                                            <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>"
+                                            <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>" data-tsmart_departure_id="<?php echo $trip->tsmart_departure_id ?>" data-departure_date="<?php echo $trip->departure_date ?>"
                                                  class="row item">
                                                 <div class="col-lg-12">
                                                     <div class="row header-item">
@@ -248,7 +254,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                                     <span class="price " data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
                                                                 <?php } ?>
                                                                 <a href="javascript:void(0)"
-                                                                   class="action-collapse btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>" <?php echo $this->state->get('filter.start_date') ? ' data-toggle="collapse" ' : '' ?>
+                                                                   class="action-collapse btn-collapse <?php echo $start_date ? '  ' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
                                                                    data-target="#trip-<?php echo $i ?>"><span
                                                                         title=""
                                                                         class="glyphicon glyphicon-chevron-down  hasTooltip"
@@ -258,7 +264,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                         <div
                                                             class="xxxs-collapse hidden-tablet-desktop col-xxxs-3 icon">
                                                             <a href="javascript:void(0)"
-                                                               class="action-collapse btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>" <?php echo $this->state->get('filter.start_date') ? ' data-toggle="collapse" ' : '' ?>
+                                                               class="action-collapse btn-collapse <?php echo $start_date ? '' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
                                                                data-target="#trip-<?php echo $i ?>"><span
                                                                     title=""
                                                                     class="glyphicon glyphicon-chevron-down  hasTooltip"
@@ -266,7 +272,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                         </div>
                                                         <div class="col-lg-2 hidden-xxxs icon">
                                                             <a href="javascript:void(0)"
-                                                               class="action-collapse btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>" <?php echo $this->state->get('filter.start_date') ? ' data-toggle="collapse" ' : '' ?>
+                                                               class="action-collapse btn-collapse <?php echo $start_date ? '' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
                                                                data-target="#trip-<?php echo $i ?>"><span
                                                                     title=""
                                                                     class="glyphicon glyphicon-chevron-down  hasTooltip"
@@ -286,7 +292,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                                         <div><span
                                                                                 class="text-start"><?php echo JText::_('Start') ?></span>
                                                                         </div>
-                                                                        <div><?php echo JHtml::_('date', $this->state->get('filter.start_date'), tsmConfig::$date_format) ?></div>
+                                                                        <div><?php echo JHtml::_('date', $start_date, tsmConfig::$date_format) ?></div>
                                                                         <div><?php echo $des_start ?></div>
                                                                     </div>
                                                                     <div class="pull-left finish">
@@ -298,7 +304,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6 col-xxxs-12">
-                                                                    <table class="list price">
+                                                                    <table class="list-price">
                                                                         <?php if ($trip->sale_price_senior != 0) { ?>
                                                                             <tr>
                                                                                 <td class=""><?php echo JText::_('Senior') ?>
@@ -399,7 +405,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                                 </div>
                                                                 <div class="col-lg-6 text-right"
                                                                      style="text-align: center">
-                                                                    <?php echo JText::_('Select private room+US$ 300/person') ?>
+                                                                    <?php echo JText::sprintf('Select private room+<span class="price" data-a-sign="US$ ">%s</span>/person',$trip->sale_price_private_room) ?>
                                                                 </div>
                                                             </div>
                                                             <div class="row area-button">
@@ -426,6 +432,9 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                             <input name="booking_date" value="" type="hidden">
                             <input type="hidden" value="trip" name="view">
                             <input name="tsmart_price_id" value="0" type="hidden">
+                            <input name="total_passenger_from_12_years_old" value="0" type="hidden">
+                            <input name="total_passenger_under_12_years_old" value="0" type="hidden">
+                            <input name="tsmart_departure_id" value="0" type="hidden">
                             <input name="task" value="" type="hidden">
                         </form>
                     </div>

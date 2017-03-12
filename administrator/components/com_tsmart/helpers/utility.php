@@ -265,4 +265,46 @@ class TSMUtility
 
         return $makepass;
     }
+    function calculateAge($date,$space='-'){
+        //d/m/Y
+        list($day,$month,$year) = explode($space,$date);
+        $year_diff  = date("Y") - $year;
+        $month_diff = date("m") - $month;
+        $day_diff   = date("d") - $day;
+        if ($day_diff < 0 || $month_diff < 0) $year_diff--;
+        return $year_diff;
+    }
+    public static function get_full_name($passenger,$debug=false)
+    {
+        $full_name="$passenger->first_name $passenger->middle_name $passenger->last_name";
+        if($debug){
+            //12/25/1937
+            $age=self::calculateAge($passenger->date_of_birth,'/');
+            $full_name.=" ($age)";
+        }
+        return $full_name;
+    }
+    public static function add_year_old($passengers,$debug=false)
+    {
+        foreach($passengers as &$passenger){
+            $passenger->year_old=self::calculateAge($passenger->date_of_birth,'/');
+        }
+        return $passengers;
+    }
+    public static function get_debug()
+    {
+        $input=JFactory::getApplication()->input;
+        $debug=$input->getString('dg','');
+        $session=JFactory::getSession();
+        if($debug=='0' || $debug=='1'){
+            $session->set('dg',$debug);
+        }
+        $debug=$session->get('dg','');
+        if($debug=='1')
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

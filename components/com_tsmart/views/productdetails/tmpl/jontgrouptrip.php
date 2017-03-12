@@ -17,20 +17,16 @@ ob_start();
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('.view-productdetails-jontgrouptrip').view_productdetails_jontgrouptrip({});
-
-
     });
 </script>
 <?php
 $js_content = ob_get_clean();
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-
 ?>
 <div class="view-productdetails-jontgrouptrip">
     <!-- Zozo Tabs Start-->
     <div id="tabbed-nav">
-
         <!-- Tab Navigation Menu -->
         <ul>
             <li><a>Overview</a></li>
@@ -39,22 +35,20 @@ $doc->addScriptDeclaration($js_content);
             <li><a>Themes</a></li>
             <li><a>Purchase</a></li>
         </ul>
-
         <!-- Content container -->
         <div>
-
             <!-- Overview -->
             <div class="content content-overview">
                 <form
                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>"
                     method="post"
                     id="tour_price" name="tour_price">
-                    <div class="row-fluid header-content">
-                        <div class="span10 product-name">
+                    <div class="row header-content">
+                        <div class="col-lg-10 product-name">
                             <h2><?php echo $this->product->product_name ?></h2>
                             <h3></h3>
                         </div>
-                        <div class="span2 request">
+                        <div class="col-lg-2 request">
                             <a href="javascript:void(0)"><span
                                     title=""
                                     class="icon-file-2  hasTooltip"
@@ -62,27 +56,35 @@ $doc->addScriptDeclaration($js_content);
                             </a>
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <fieldset class="tour-border">
-                                <legend
-                                    class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'), ' class="required" '); ?>
-                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 1, 50, $this->state->get('filter.total_passenger_under_12_years_old'), ' class="required" '); ?>
+                    <fieldset class="tour-border">
+                        <legend
+                            class="tour-border"><?php echo JText::_('Get best price for your travel date') ?></legend>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_from_12_years_old', '', 1, 50, $this->state->get('filter.total_passenger_from_12_years_old'),  '',"%s","%s person(s) over 12 years"); ?>
+                            </div>
+                            <div class="col-lg-4">
+                                <?php
+                                $disable_select= (int)$this->product->min_age>12;
+                                $total_passenger_under_12_years_old=$disable_select?0:$total_passenger_under_12_years_old;
+                                ?>
+                                <?php echo VmHTML::select_number_passenger('filter_total_passenger_under_12_years_old', 'Passenger under 12 years old', 0, 50, $total_passenger_under_12_years_old, '',"%s","%s person(s) under 12 years",$disable_select); ?>
+                            </div>
+                            <div class="col-lg-2">
                                 <?php if ($this->product->price_type != tsmGroupSize::FLAT_PRICE) {
                                     echo VmHTML::select_date('filter_start_date', $this->state->get('filter.start_date'), '', '', '', '', ' required ');
                                 } else {
                                     echo VmHTML::select_month('filter_month', $this->state->get('filter.month'), '', '', '', '', ' required ');
                                 }
                                 ?>
-
+                            </div>
+                            <div class="col-lg-2">
                                 <div class="btn-go">
-                                    <?php echo VmHTML::input_button('submit', 'Go'); ?>
+                                    <?php echo VmHTML::input_button('submit', '<div class="check-price">' . JText::_('Check price') . '</div><div class="go">' . JText::_('Go') . '</div>',"submit",'get-list-tour'); ?>
                                 </div>
-                            </fieldset>
-
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                     <input name="option" value="com_tsmart" type="hidden">
                     <input name="controller" value="productdetails" type="hidden">
                     <input type="hidden" value="productdetails" name="view">
@@ -93,42 +95,38 @@ $doc->addScriptDeclaration($js_content);
                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=productdetails&tsmart_product_id=' . $tsmart_product_id) ?>"
                     method="post"
                     id="tour_price" name="tour_price">
-
                     <div class="table table-trip">
-                        <div class="row-fluid header">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <div class="offset9 span2">
+                        <div class="row header">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="offfset-col-lg-9 col-lg-2">
                                         <div><?php echo JText::_('Dates listing') ?></div>
                                         <a class="pull-left" href="javascript:void(0)"><span title=""
                                                                                              class="icon-arrow-down-3 "></span></a>
                                     </div>
                                 </div>
-                                <div class="row-fluid">
-                                    <div class="span1">
-
+                                <div class="row">
+                                    <div class="col-lg-1">
                                     </div>
-                                    <div class="span3">
+                                    <div class="col-lg-3">
                                         <?php echo JText::_('tour start/end date') ?>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <?php echo JText::_('Tour class') ?>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <?php echo JText::_('Lowest price') ?>
                                     </div>
-                                    <div class="span2">
+                                    <div class="col-lg-2">
                                         <?php echo JText::_('Space status') ?>
                                     </div>
-                                    <div class="span2">
-
+                                    <div class="col-lg-2">
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="row-fluid body">
-                            <div class="span12">
+                        <div class="row body">
+                            <div class="col-lg-12">
                                 <?php for ($i = 0; $i < count($this->list_trip); $i++) { ?>
                                     <?php
                                     $trip = $this->list_trip[$i];
@@ -136,37 +134,34 @@ $doc->addScriptDeclaration($js_content);
                                     $filter_start_date = $this->state->get('filter.start_date');
                                     $start_date = JFactory::getDate($filter_start_date);
                                     $total_day = $trip->total_day - 1;
-
                                     $total_day = $total_day ? $total_day : 0;
-
                                     ?>
                                     <div data-tsmart_departure_id="<?php echo $trip->tsmart_departure_id ?>"
-                                         class="row-fluid item">
-
-                                        <div class="span12">
-                                            <div class="row-fluid header-item">
-                                                <div class="span1 person">
+                                         class="row item">
+                                        <div class="col-lg-12">
+                                            <div class="row header-item">
+                                                <div class="col-lg-1 person">
                                                     <span title="" class="travel-icon">n</span>
                                                 </div>
-                                                <div class="span3">
+                                                <div class="col-lg-3">
                                                     <?php echo JHtml::_('date', $trip->departure_date) ?>
                                                 </div>
-                                                <div class="span2 service-class ">
+                                                <div class="col-lg-2 service-class ">
                                                     <?php echo $trip->service_class_name ?>
                                                 </div>
-                                                <div class="span2 price ">
+                                                <div class="col-lg-2 price ">
                                                     <span class="price"
                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_price_adult) ?></span>
                                                     <span class="price"
                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_adult) ?></span>
                                                 </div>
-                                                <div class="span4 service-class-price hide">
+                                                <div class="col-lg-4 service-class-price hide">
                                                     <?php echo $trip->service_class_name ?><?php echo JText::_('class price') ?>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <?php echo JText::_('Available/Request') ?>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <a href="javascript:void(0)"
                                                        class="btn-collapse <?php echo $this->state->get('filter.start_date') ? '' : ' required-select-date ' ?>"
                                                        data-toggle="collapse"
@@ -176,32 +171,29 @@ $doc->addScriptDeclaration($js_content);
                                                             data-original-title="Detail"></span></a>
                                                 </div>
                                             </div>
-                                            <div id="trip-<?php echo $i ?>" class="row-fluid body-item collapse">
+                                            <div id="trip-<?php echo $i ?>" class="row body-item collapse">
                                                 <?php
-
                                                 $list_destination = explode(';', $list_destination);
                                                 $des_start = reset($list_destination);
                                                 $des_finish = end($list_destination);
                                                 ?>
-                                                <div class="span2 start">
+                                                <div class="col-lg-2 start">
                                                     <div><span class="text-start"><?php echo JText::_('Start') ?></span>
                                                     </div>
                                                     <div><?php echo JHtml::_('date', $this->state->get('filter.start_date')) ?></div>
                                                     <div><?php echo $des_start ?></div>
                                                 </div>
-                                                <div class="span2 finish">
+                                                <div class="col-lg-2 finish">
                                                     <div><span
                                                             class="text-finish"><?php echo JText::_('Finish') ?></span>
                                                     </div>
                                                     <?php
-
                                                     $start_date->modify("+$total_day day");
-
                                                     ?>
                                                     <div><?php echo JHtml::_('date', $start_date) ?></div>
                                                     <div><?php echo $des_finish ?></div>
                                                 </div>
-                                                <div class="span2">
+                                                <div class="col-lg-2">
                                                     <ul class="list">
                                                         <li><?php echo JText::_('Senior') ?>:<span class="price"
                                                                                                    data-a-sign="US$"><?php echo tsmConfig::render_price($trip->price_senior); ?></span>
@@ -234,19 +226,18 @@ $doc->addScriptDeclaration($js_content);
                                                                       data-a-sign="US$"><?php echo tsmConfig::render_price($trip->sale_promotion_price_infant) ?></span>
                                                         </li>
                                                     </ul>
-
                                                 </div>
-                                                <div class="span6 area-booking">
-                                                    <div class="row-fluid area-text">
-                                                        <div class="span6 text-left" style="text-align: center">
+                                                <div class="col-lg-6 area-booking">
+                                                    <div class="row area-text">
+                                                        <div class="col-lg-6 text-left" style="text-align: center">
                                                             <?php echo JText::_('total price per person based on passenger age and tour date') ?>
                                                         </div>
-                                                        <div class="span6 text-right" style="text-align: center">
+                                                        <div class="col-lg-6 text-right" style="text-align: center">
                                                             <?php echo JText::sprintf('Select private room+US$ %s/person', '<span class="price" data-a-sign="US$">' . tsmConfig::render_price($trip->price_extra_bed) . '</span><span class="price" data-a-sign="US$">' . tsmConfig::render_price($trip->sale_promotion_price_extra_bed) . '</span>') ?>
                                                         </div>
                                                     </div>
-                                                    <div class="row-fluid area-button">
-                                                        <div class="span12" style="text-align: center">
+                                                    <div class="row area-button">
+                                                        <div class="col-lg-12" style="text-align: center">
                                                             <button class="btn btn-primary book-now"
                                                                     type="submit"><?php echo JText::_('Available || Book now') ?></button>
                                                         </div>
@@ -266,8 +257,6 @@ $doc->addScriptDeclaration($js_content);
                     <input name="task" value="" type="hidden">
                 </form>
             </div>
-
-
             <!-- Features -->
             <div>
                 <h4>Features</h4>
@@ -275,7 +264,6 @@ $doc->addScriptDeclaration($js_content);
                     was born and I will give you a complete account of the system, and expound the actual
                     teachings of the great explorer</p>
             </div>
-
             <!-- Docs -->
             <div>
                 <h4>Docs</h4>
@@ -283,7 +271,6 @@ $doc->addScriptDeclaration($js_content);
                     was born and I will give you a complete account of the system, and expound the actual
                     teachings of the great explorer</p>
             </div>
-
             <!-- Themes -->
             <div>
                 <h4>Themes</h4>
@@ -291,7 +278,6 @@ $doc->addScriptDeclaration($js_content);
                     was born and I will give you a complete account of the system, and expound the actual
                     teachings of the great explorer</p>
             </div>
-
             <!-- Purchase -->
             <div>
                 <h4>Purchase</h4>
@@ -299,10 +285,7 @@ $doc->addScriptDeclaration($js_content);
                     was born and I will give you a complete account of the system, and expound the actual
                     teachings of the great explorer</p>
             </div>
-
         </div>
-
     </div>
     <!-- Zozo Tabs End-->
-
 </div>

@@ -49,12 +49,11 @@ class TsmartViewbookprivategroupaddon extends VmView
         $tsmart_price_id = $session->get('tsmart_price_id', 0);
         $booking_date = $input->getString('booking_date', '');
         $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
-        $item_private_group_trip = $privategrouptrip_model->getData($tsmart_price_id);
+        $item_private_group_trip = $privategrouptrip_model->getItem($tsmart_price_id,$booking_date);
 
         $tsmart_product_id = $item_private_group_trip->tsmart_product_id;
         $input->set('tsmart_product_id', $tsmart_product_id);
-        $privategrouptrip_model->setState('filter.tsmart_price_id', $tsmart_price_id);
-        $this->privategrouptrip = reset($privategrouptrip_model->getItems());
+        $this->privategrouptrip = $item_private_group_trip;
         $this->privategrouptrip->allow_passenger='infant,child_1,child_2,teen,adult,senior';
         $this->privategrouptrip->departure_date=$booking_date;
 
@@ -100,12 +99,21 @@ class TsmartViewbookprivategroupaddon extends VmView
         $this->post_night_item->asale_price=$this->post_transfer_item->data_price->item_flat->net_price;
 
 
+        $tour_length=$this->product->tour_length;
+        $rule_date = $booking_date;
+        $affter_date=JFactory::getDate($booking_date);
+        $affter_date->modify("+$tour_length day");
+        $affter_date=$affter_date->format('Y-m-d');
+        $transfer_excursion_addon_helper = TSMhelper::getHepler('excursionaddon');
+        $this->list_excursion_addon = $transfer_excursion_addon_helper->get_list_excursion_addon_by_tour_id($tsmart_product_id);
 
+        $hoteladdon_helper=tsmHelper::getHepler('hoteladdon');
+        $this->pre_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($this->product->tsmart_product_id,$rule_date,'pre_night');
+        $this->post_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($this->product->tsmart_product_id,$affter_date,'post_night');
+        $transferaddon_helper=tsmHelper::getHepler('transferaddon');
 
-
-        $transfer_excursion_addon = tmsModel::getModel('excursionaddon');
-        $this->list_excursion_addon = $transfer_excursion_addon->getItemList();
-
+        $this->pre_transfer_min_price=$transferaddon_helper->get_min_price($this->product->tsmart_product_id,$rule_date,'pre_transfer');
+        $this->post_transfer_min_price=$transferaddon_helper->get_min_price($this->product->tsmart_product_id,$affter_date,'post_transfer');
 
         parent::display($tpl);
     }

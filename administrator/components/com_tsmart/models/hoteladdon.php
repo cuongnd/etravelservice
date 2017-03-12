@@ -284,6 +284,15 @@ class tsmartModelhoteladdon extends tmsModel {
 				}
 
 			}
+			$tsm_config=$data['tsm_config'];
+			$params=$tsm_config['params'];
+			$tsm_config=tsmConfig::get_config();
+			$tsm_config->params->set('hotel_arrange_year_old_from',$params['hotel_arrange_year_old_from']);
+			$tsm_config->params->set('hotel_arrange_year_old_to',$params['hotel_arrange_year_old_to']);
+			$table_general=tsmTable::getInstance('general','Table');
+			$table_general->load($tsm_config->tsmart_general_id);
+			$table_general->params=$tsm_config->params->toString();
+			$table_general->store();
 
 
 		}

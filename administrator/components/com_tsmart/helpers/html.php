@@ -894,7 +894,7 @@ class VmHtml
         return $htm;
     }
 
-    public static function select_from_to($from_name, $to_name, $from = 0, $to = 10, $min = 0, $max = 100)
+    public static function select_from_to($from_name, $to_name, $from = 0, $to = 10, $min = 0, $max = 100,$disable=false)
     {
         $doc = JFactory::getDocument();
         $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
@@ -916,7 +916,8 @@ class VmHtml
                     from:<?php echo (int)$from ?>,
                     to:<?php echo (int)$to ?>,
                     min:<?php echo (int)$min ?>,
-                    max:<?php echo (int)$max ?>
+                    max:<?php echo (int)$max ?>,
+                    disable:<?php echo json_encode($disable) ?>
                 });
             });
         </script>
@@ -930,6 +931,44 @@ class VmHtml
             <div class="integer-range"></div>
             <input type="hidden" value="<?php echo $from ?>" name="<?php echo $from_name ?>">
             <input type="hidden" value="<?php echo $to ?>" name="<?php echo $to_name ?>">
+        </div>
+        <?php
+        $htm = ob_get_clean();
+        return $htm;
+    }
+    public static function select_from($name, $value = 0, $min = 0, $max = 100, $disable=false)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.css");
+        $doc->addStyleSheet(JUri::root() . "/media/system/js/ion.rangeSlider-master/css/ion.rangeSlider.skinHTML5.css");
+        $doc->addScript(JUri::root() . '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
+
+        $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_from/html_select_from.js');
+        $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_from/html_select_from.less');
+        $input = JFactory::getApplication()->input;
+        $id_select_from = 'select_from_' . TSMUtility::clean($name) ;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php echo $id_select_from ?>').html_select_from({
+                    name: "<?php echo $name ?>",
+                    from:<?php echo (int)$value ?>,
+                    min:<?php echo (int)$min ?>,
+                    max:<?php echo (int)$max ?>,
+                    disable:<?php echo json_encode($disable) ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_select_from ?>">
+            <div class="integer"></div>
+            <input type="hidden" value="<?php echo $value ?>" name="<?php echo $name ?>">
         </div>
         <?php
         $htm = ob_get_clean();

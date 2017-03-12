@@ -100,33 +100,21 @@ abstract class TSMHtmlJquery
 	 *
 	 * @since   3.0
 	 */
-	public static function ui(array $components = array('core'), $debug = null)
+	public static function ui($debug = null)
 	{
-		// Set an array containing the supported jQuery UI components handled by this method
-		$supported = array('core', 'sortable');
-
 		// Include jQuery
 		static::framework();
-
 		// If no debugging value is set, use the configuration setting
-		if ($debug === null)
-		{
-			$config = JFactory::getConfig();
-			$debug  = (boolean) $config->get('debug');
-		}
+		// Only attempt to load the component if it's supported in core and hasn't already been loaded
+		if (empty(static::$loaded[__METHOD__])) {
+			$doc = JFactory::getDocument();
+			$doc->addScript('/components/com_tsmart/assets/js/plugin/jquery-ui-1.11.1/ui/core.js');
+			$doc->addStyleSheet('/components/com_tsmart/assets/js/plugin/jquery-ui-1.11.1/themes/base/all.css');
+			static::$loaded[__METHOD__] = true;
 
-		// Load each of the requested components
-		foreach ($components as $component)
-		{
-			// Only attempt to load the component if it's supported in core and hasn't already been loaded
-			if (in_array($component, $supported) && empty(static::$loaded[__METHOD__][$component]))
-			{
-				JHtml::_('script', 'jui/jquery.ui.' . $component . '.min.js', false, true, false, false, $debug);
-				static::$loaded[__METHOD__][$component] = true;
-			}
 		}
-
 		return;
+
 	}
 	public static function cookie( $debug = null)
 	{

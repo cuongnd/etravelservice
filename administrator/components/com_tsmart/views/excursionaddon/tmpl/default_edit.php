@@ -47,7 +47,7 @@ $doc->addScriptDeclaration($js_content);
         <div class="row-fluid">
             <div class="span6">
                 <?php echo VmHTML::row_control('input', 'Excursion name','excursion_addon_name', $this->item->excursion_addon_name, 'class="required" placeholder="excursion name" '); ?>
-                <?php echo VmHTML::row_control('image', 'Excursion photo','photo', $this->item->image); ?>
+                <?php echo VmHTML::row_control('image', 'Excursion photo','photo', $this->item->photo); ?>
             </div>
             <div class="span6">
                 <?php echo VmHTML::row_control('location_city', JText::_('Location'),'tsmart_cityarea_id',  $this->item->tsmart_cityarea_id, ''); ?>

@@ -31,6 +31,7 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $input=$app->input;
         $tsmart_price_id=$input->getInt('tsmart_price_id',0);
         $booking_date=$input->getString('booking_date','');
+        $rooming=$input->getString('rooming','');
 
         $session->set('booking_date',$booking_date);
 
@@ -49,9 +50,29 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $contact_data=$input->getString('contact_data','');
         $contact_data=json_encode($contact_data);
         $session->set('contact_data',$contact_data);
+        $enable_book_addon=true;
+        $price_helper=tsmHelper::getHepler('price');
+        $product=$price_helper->get_product_by_tour_price_id($tsmart_price_id);
+        $hoteladdon_helper=tsmHelper::getHepler('hoteladdon');
+        $pre_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($product->tsmart_product_id,$booking_date,'pre_night');
+        $post_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($product->tsmart_product_id,$booking_date,'post_night');
+        $transferaddon_helper=tsmHelper::getHepler('transferaddon');
 
+        $pre_transfer_group_min_price=$transferaddon_helper->get_min_price($product->tsmart_product_id,$booking_date,'pre_transfer');
+        $post_transfer_group_min_price=$transferaddon_helper->get_min_price($product->tsmart_product_id,$booking_date,'post_transfer');
 
-        $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date,false));
+        $excursionaddon_helper=tsmHelper::getHepler('excursionaddon');
+        $list_excursion=$excursionaddon_helper->get_list_excursion_addon_by_tour_id($product->tsmart_product_id);
+
+        if(count($list_excursion)==0 && $pre_night_hotel_group_min_price==null && $post_night_hotel_group_min_price==null && $pre_transfer_group_min_price==null && $post_transfer_group_min_price==null){
+            $enable_book_addon=false;
+        }
+        if($enable_book_addon)
+        {
+            $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+        }else{
+            $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumary&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+        }
         return true;
     }
     public function ajax_get_price_book_private_group(){
@@ -59,7 +80,9 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $input=$app->input;
         $total_senior_adult_teen=$input->getInt('total_senior_adult_teen',1);
         $tsmart_price_id=$input->getInt('tsmart_price_id',0);
+
         $booking_date=$input->getString('booking_date','');
+
         $privategrouptrip_model=tmsModel::getModel('privategrouptrip');
         $app->setUserState($privategrouptrip_model->getContext() . '.filter.total_passenger_from_12_years_old',$total_senior_adult_teen);
         $item=$privategrouptrip_model->getItem($tsmart_price_id,$booking_date);
@@ -73,6 +96,34 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $response->e=0;
         $response->r_html=$contents;
         $response->item=$item;
+        echo json_encode($response);
+        die;
+    }
+    public function ajax_get_transfer_book_private_group_by_date(){
+        $app=JFactory::getApplication();
+        $input=$app->input;
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
+        $booking_date=$input->getString('booking_date','');
+        $pickup_transfer_type=$input->getString('pickup_transfer_type','');
+        $transfer_addon_helper=tsmHelper::getHepler('transferaddon');
+        $transfer_addon=$transfer_addon_helper->get_transfer_addon($tsmart_product_id,$booking_date,$pickup_transfer_type);
+        $response=new stdClass();
+        $response->e=0;
+        $response->transfer=$transfer_addon;
+        echo json_encode($response);
+        die;
+    }
+    public function ajax_get_extra_night_book_private_group_by_date(){
+        $app=JFactory::getApplication();
+        $input=$app->input;
+        $tsmart_product_id=$input->getInt('tsmart_product_id',0);
+        $booking_date=$input->getString('booking_date','');
+        $extra_night_type=$input->getString('extra_night_type','');
+        $hotel_addon_helper=tsmHelper::getHepler('hoteladdon');
+        $hotel_addone=$hotel_addon_helper->get_extra_night_addon($tsmart_product_id,$booking_date,$extra_night_type);
+        $response=new stdClass();
+        $response->e=0;
+        $response->hotel_addone=$hotel_addone;
         echo json_encode($response);
         die;
     }

@@ -49,16 +49,16 @@ $passenger_config=tsmConfig::get_passenger_config();
         action="<?php echo JRoute::_('index.php?option=com_tsmart&view=book&tsmart_price_id=' . $tsmart_price_id) ?>"
         method="post"
         id="tour_price" name="tour_price">
-        <div class="row-fluid">
-            <div class="span6 offset6">
+        <div class="row">
+            <div class="col-lg-6 offset6">
 
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span9">
+        <div class="row">
+            <div class="col-lg-9">
                 <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <fieldset class="tour-border departure-filter">
                             <legend
                                 class="tour-border"><?php echo JText::_('Update passenger') ?></legend>
@@ -72,42 +72,42 @@ $passenger_config=tsmConfig::get_passenger_config();
                     </div>
                 </div>
                 <div class="table table-trip departure-item">
-                    <div class="row-fluid body">
-                        <div class="span12">
-                            <div class="row-fluid item">
+                    <div class="row body">
+                        <div class="col-lg-12">
+                            <div class="row item">
 
-                                <div class="span12">
-                                    <div class="row-fluid header-item">
-                                        <div class="span1">
+                                <div class="col-lg-12">
+                                    <div class="row header-item">
+                                        <div class="col-lg-1">
                                             <span title="" class="icon-location "></span>
                                         </div>
-                                        <div class="span3">
+                                        <div class="col-lg-3">
                                             <?php echo JText::_('Date not selected') ?>
                                         </div>
-                                        <div class="span2 service-class ">
+                                        <div class="col-lg-2 service-class ">
                                             <?php echo $departure->service_class_name ?>
                                         </div>
-                                        <div class="span2 price ">
+                                        <div class="col-lg-2 price ">
                                                     <span class="price"
                                                           data-a-sign="US$"><?php echo tsmConfig::render_price($departure->sale_price_adult) ?></span>
                                         </div>
-                                        <div class="span4 service-class-price hide">
+                                        <div class="col-lg-4 service-class-price hide">
                                             <?php echo JText::_('Deluxe class price') ?>
                                         </div>
-                                        <div class="span2">
+                                        <div class="col-lg-2">
 
                                         </div>
-                                        <div class="span2">
+                                        <div class="col-lg-2">
                                         </div>
                                     </div>
-                                    <div id="trip" class="row-fluid body-item">
-                                        <div class="span2">
+                                    <div id="trip" class="row body-item">
+                                        <div class="col-lg-2">
                                             <div><?php echo JText::_('Start') ?></div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="col-lg-2">
                                             <div><?php echo JText::_('Finish') ?></div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="col-lg-2">
                                             <ul class="dl-ve">
                                                 <li><?php echo JText::_('Senior') ?>:<span class="price"
                                                                                            data-a-sign="US$"><?php echo tsmConfig::render_price($departure->sale_price_senior) ?></span>
@@ -143,17 +143,17 @@ $passenger_config=tsmConfig::get_passenger_config();
                                             </ul>
 
                                         </div>
-                                        <div class="span6">
-                                            <div class="row-fluid">
-                                                <div class="span6" style="text-align: center">
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-lg-6" style="text-align: center">
                                                     <?php echo JText::_('text1') ?>
                                                 </div>
-                                                <div class="span6" style="text-align: center">
+                                                <div class="col-lg-6" style="text-align: center">
                                                     <?php echo JText::_('text2') ?>
                                                 </div>
                                             </div>
-                                            <div class="row-fluid">
-                                                <div class="span12" style="text-align: center">
+                                            <div class="row">
+                                                <div class="col-lg-12" style="text-align: center">
                                                     <button class="btn btn-primary book-now"
                                                             type="submit"><?php echo JText::_('20 seats left || Book now') ?></button>
                                                 </div>
@@ -166,19 +166,19 @@ $passenger_config=tsmConfig::get_passenger_config();
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <?php echo VmHtml::input_passenger(array(),'json_list_passenger','',$this->product->min_age,$this->product->max_age,$departure,$passenger_config) ?>
                     </div>
                 </div>
                 <div class="form-contact form-horizontal">
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <h4 class="title contact-detail"><span class="icon-location " title=""></span><?php echo JText::_('Contact detail')?></h4>
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span6">
+                    <div class="row">
+                        <div class="col-lg-6">
                             <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'phone_number', '', 'class="required"'); ?>
                             <?php echo VmHTML::row_control('input', JText::_('Email Address'), 'email_address', '', 'class="required"'); ?>
                             <?php echo VmHTML::row_control('input', JText::_('Confirm Email'), 'confirm_email', '', 'class="required"'); ?>
@@ -187,7 +187,7 @@ $passenger_config=tsmConfig::get_passenger_config();
                             <?php echo VmHTML::row_control('input', JText::_('State/province'), 'state_province', '', 'class="required"'); ?>
 
                         </div>
-                        <div class="span6">
+                        <div class="col-lg-6">
                             <?php echo VmHTML::row_control('input', JText::_('Postcode/Zip'), 'post_code_zip', '', 'class="required"'); ?>
                             <?php echo VmHTML::row_control('input', JText::_('Res. Country'), 'res_country', '', 'class="required"'); ?>
                             <h3 class=" emergency-contact"><?php echo JText::_('Emergency contact') ?></h3>
@@ -197,16 +197,16 @@ $passenger_config=tsmConfig::get_passenger_config();
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <fieldset class="tour-border rooming">
                             <legend
                                 class="tour-border"><?php echo JText::_('Roomming') ?></legend>
-                            <div class="row-fluid">
-                                <div class="span3">
+                            <div class="row">
+                                <div class="col-lg-3">
                                     <span class="icon-notification " title=""></span>
                                 </div>
-                                <div class="span9">
+                                <div class="col-lg-9">
                                     <?php echo VmHTML::list_radio('rooming',$this->rooming_select,'share_room' ); ?>
                                 </div>
                             </div>
@@ -218,32 +218,32 @@ $passenger_config=tsmConfig::get_passenger_config();
                     </div>
                 </div>
                 <div class="joint_group_note joint_group_note_1">
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <?php echo $this->lipsum->words(100) ?>
                         </div>
                     </div>
                 </div>
                 <div class="joint_group_note joint_group_note_2">
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-lg-12">
                             <?php echo $this->lipsum->words(100) ?>
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <h3 class="build-your-room"><?php echo JText::_('Build your room')?></h3>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <?php echo VmHtml::build_room(array(),"build_room","",$departure,$passenger_config) ?>
 
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary btn-large control-next "><span title="" class="icon-next "></span><?php echo JText::_('Next') ?></button>
                         </div>
@@ -261,23 +261,23 @@ $passenger_config=tsmConfig::get_passenger_config();
             $total_day = $total_day ? $total_day : 0;
 
             ?>
-            <div class="span3">
+            <div class="col-lg-3">
                 <div class="booking-summary-content">
                     <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
                     <div class="booking-summary-content-body">
                         <h3 class="booking-summary"><?php echo JText::_('Booking summary') ?></h3>
-                        <div class="row-fluid" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row" ><span class="detail pull-right"><?php echo JText::_('details') ?></span></div>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <h4 class="trip"><span class="title"><?php echo JText::_('Trip') ?> :</span><span class="trip-name"><?php echo $this->product->product_name ?></span></h4>
                             </div>
                         </div>
 
-                        <div class="row-fluid">
-                            <div class="span6">
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $departure->departure_date) ?>,<?php echo  $des_start ?></div>
                             </div>
-                            <div class="span6">
+                            <div class="col-lg-6">
                                 <?php
                                 $start_date->modify("+$total_day day");
 
@@ -285,21 +285,21 @@ $passenger_config=tsmConfig::get_passenger_config();
                                 <div><span class="icon-clock"></span><?php echo  JHtml::_('date', $start_date) ?>,<?php echo  $des_finish ?></div>
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 line
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div style="text-align: center" class="span12">
+                        <div class="row">
+                            <div style="text-align: center" class="col-lg-12">
                                 <span class="icon-clock"></span> <?php echo $total_day ?> days | duration
                             </div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span6">
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
                             </div>
-                            <div class="span6">
+                            <div class="col-lg-6">
                                 <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
                             </div>
                         </div>
@@ -310,8 +310,8 @@ $passenger_config=tsmConfig::get_passenger_config();
                             <li>2.per2</li>
                             <li>3.per3</li>
                         </ul>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="passenger-service-fee pull-right">
                                     <?php echo JText::_('Service fee') ?> <span class="passenger-service-fee-total" data-a-sign="US$">0</span>
                                 </div>
@@ -324,8 +324,8 @@ $passenger_config=tsmConfig::get_passenger_config();
 
                             </ul>
                         </div>
-                        <div class="row-fluid">
-                            <div class="span12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="room-service-fee pull-right">
                                     <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total" data-a-sign="US$"></span>
                                 </div>

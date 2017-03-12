@@ -29,6 +29,29 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+
+            $element.find('.auto-fill-date').click(function (event) {
+                $element.find('input:not(.date)').delorean({
+                    type: 'words',
+                    amount: 1,
+                    character: 'Name',
+                    tag: ''
+                }).trigger('change');
+                $element.find('input[name="email_address"],input[name="confirm_email"]').delorean({
+                    type: 'words',
+                    amount: 1,
+                    character: 'email',
+                    tag: ''
+                }).trigger('change');
+                $element.find('input[name="phone_number"],input[name="emergency_phone_number"]').delorean({
+                    type: 'words',
+                    amount: 1,
+                    character: 'Phone',
+                    tag: ''
+                }).trigger('change');
+            });
+
+
         }
         plugin.notify = function (content, type) {
             if (typeof  type == "undefined") {
@@ -38,7 +61,7 @@
                 allow_dismiss: true,
                 type: type,
                 placement: {
-                    align: "right"
+                    align: "center"
                 }
             });
         };

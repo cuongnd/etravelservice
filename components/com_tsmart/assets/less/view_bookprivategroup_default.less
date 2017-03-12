@@ -9,6 +9,10 @@
         height: @input_view_bookprivategroup_default_height;
         border-radius: 0px;
     }
+    .html_input_passenger textarea, .html_build_form_contact textarea {
+        height: auto;
+        border-radius: 0px;
+    }
 
     h3.passenger-details {
         background: #95a5a5;
@@ -107,6 +111,10 @@
             font-size: 20px;
         }
 
+    }
+    .select_month
+    {
+        padding-top: 20px;
     }
     #html_input_passenger,.tour-border.rooming,.departure-item,h3.build-your-room,.title.special_requirement
     {
@@ -297,9 +305,20 @@
     textarea[name="special_requirement"] {
         width: 100%;
         resize: none;
+        height: auto;
     }
     .booking-summary-content {
         border: 1px solid #ddd;
+        .total-pay
+        {
+            background: none repeat scroll 0 0 #666666;
+            bottom: -30px;
+            color: #fff;
+            padding: 15px 5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
         .book-and-go {
             background: #01789a none repeat scroll 0 0;
             color: #fff;
@@ -360,6 +379,12 @@
             .line-dotted {
                 height: 2px;
                 border-bottom: 2px dotted #ccc;
+            }
+            .line {
+                height: 1px;
+                border-bottom: 1px solid #ccc;
+                width: 30%;
+                margin: 10px auto;
             }
             .passenger-number {
                 color: #006599;

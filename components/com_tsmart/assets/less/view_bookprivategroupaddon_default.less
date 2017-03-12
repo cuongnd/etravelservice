@@ -3,6 +3,7 @@
 
 }
 .view-bookprivategroupaddon-default {
+
   h3.passenger-details
   {
     background: #95a5a5;
@@ -11,6 +12,25 @@
     margin-top: 0px;
 
   }
+  .area-control {
+    text-align: center;
+    margin: 20px 0 auto;
+    .confirm, .hold-my-space {
+      font-size: 20px;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+    .control-next, .control-hold-my-space {
+      padding: 10px 50px;
+      border-radius: 0;
+      background: #9a3334;
+      border: none;
+    }
+    .control-next {
+
+    }
+  }
+
   .departure-filter legend
   {
     color: #006964;
@@ -33,7 +53,9 @@
       }
     }
   }
-
+  .list_check_rooming
+  {
+  }
   .product-name{
     text-align: center;
   }
@@ -60,6 +82,10 @@
 
   .btn-go {
     float: right;
+  }
+  .form_build_pre_transfer,.form_build_post_transfer
+  {
+
   }
   .departure-item.table {
     border: 1px solid #ccc;
@@ -133,7 +159,7 @@
     background: #f6f6f6;
     padding: 10px;
     margin-top: 20px;
-    border: 2px solid #000;
+    border: 1px solid #d7d7d7;
   }
   .build-your-room
   {
@@ -201,12 +227,25 @@
         list-style: decimal;
         margin-left: 50px;
       }
-      .passenger-service-fee,.room-service-fee
+      .passenger-service-fee,.room-service-fee,.post-transfer-service-fee,.pre-transfer-service-fee
       {
         text-transform: uppercase;
         font-weight: bold ;
         color: #9c0305;
       }
+      ul{
+        list-style: decimal;
+        margin-left: 45px;
+      }
+    }
+    .total-pay
+    {
+      background: none repeat scroll 0 0 #666666;
+      bottom: -30px;
+      color: #fff;
+      padding: 15px 5px;
+      text-transform: uppercase;
+      position: relative;
     }
   }
 

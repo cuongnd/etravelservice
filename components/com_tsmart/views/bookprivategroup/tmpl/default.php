@@ -15,7 +15,8 @@ TSMHtmlJquery::alert();
 $doc->addScript(JUri::root() . '/media/system/js/tipso-master/src/tipso.js');
 $app = JFactory::getApplication();
 $input = $app->input;
-$debug=false;
+
+$debug=TSMUtility::get_debug();
 $tsmart_price_id = $input->getInt('tsmart_price_id', 0);
 $booking_date = $input->getString('booking_date', '');
 $privategrouptrip = $this->privategrouptrip;
@@ -41,9 +42,12 @@ $passenger_config = tsmConfig::get_passenger_config();
 $list_destination = explode(';', $privategrouptrip->list_destination);
 $des_start = reset($list_destination);
 $des_finish = end($list_destination);
-$total_day = $privategrouptrip->total_day - 1;
+$total_day = $this->product->tour_length;
 $start_date = JFactory::getDate($privategrouptrip->departure_date);
 $total_day = $total_day ? $total_day : 0;
+$price_type=$this->product->price_type;
+echo $price_type;
+die;
 $total_passenger_from_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_from_12_years_old');
 $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_under_12_years_old');
 ?>
@@ -53,7 +57,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-8">
                 <h3 class="passenger-details"><?php echo JText::_('Passenger details') ?></h3>
                 <form
                     action="<?php echo JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id=' . $tsmart_price_id.'&booking_date='.$booking_date) ?>"
@@ -176,9 +180,10 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                     id="bookprivategroup" name="bookprivategroup">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php echo VmHtml::input_passenger(array(), 'json_list_passenger', '', $this->product->min_age, $this->product->max_age, $privategrouptrip, $passenger_config) ?>
+                            <?php echo VmHtml::input_passenger(array(), 'json_list_passenger', '', $this->product->min_age, $this->product->max_age, $privategrouptrip, $passenger_config,$debug) ?>
                         </div>
                     </div>
+                    <?php if((int)$this->product->tour_length>1){ ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <fieldset class="tour-border rooming">
@@ -192,7 +197,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
-                                        <?php echo VmHTML::list_radio_rooming('rooming', $this->rooming_select, null); ?>
+                                        <?php echo VmHTML::list_radio_rooming('rooming', $this->rooming_select, null,'','value','text',3,$debug); ?>
                                     </div>
                                 </div>
                             </fieldset>
@@ -221,13 +226,15 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <?php echo VmHtml::build_room(array(), "build_room", "", $privategrouptrip, $passenger_config,true) ?>
+
+                                <?php echo VmHtml::build_room(array(), "build_room", "", $privategrouptrip, $passenger_config,true,$debug) ?>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php echo VmHtml::build_form_contact('contact_data') ?>
+                            <?php echo VmHtml::build_form_contact('contact_data',$debug) ?>
                         </div>
                     </div>
 
@@ -269,7 +276,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                     <input name="task" value="go_to_booking_add_on_from" type="hidden">
                 </form>
             </div>
-            <div class="col-lg-3 hidden-xxxs">
+            <div class="col-lg-4 hidden-xxxs">
                 <div class="booking-summary-content">
                     <h1 class="book-and-go"><?php echo JText::_('Book and Go') ?></h1>
                     <div class="booking-summary-content-body">
@@ -300,7 +307,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                line
+                                <div class="line"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -313,7 +320,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                 <?php echo JText::_('Tour style') ?>: <?php echo JText::_('joint group') ?>
                             </div>
                             <div class="col-lg-6">
-                                <?php echo JText::_('Service class') ?>: <?php echo JText::_('Stander') ?>
+                                <?php echo JText::_('Service class') ?>: <?php echo $privategrouptrip->service_class_name ?>
                             </div>
                         </div>
                         <div class="line-dotted"></div>
@@ -335,20 +342,38 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                 </div>
                             </div>
                         </div>
-                        <div class="line-dotted"></div>
-                        <h3><?php echo JText::_('Room supplement fee') ?></h3>
-                        <div class="list-room">
-                            <ul class="list_passenger_room">
-                            </ul>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="room-service-fee pull-right">
-                                    <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total"
-                                                                                data-a-sign="US$"></span>
+
+                        <?php if((int)$this->product->tour_length>1){ ?>
+                            <div class="room-supplement-fee">
+                                <div class="line-dotted"></div>
+                                <h3><?php echo JText::_('Room supplement fee') ?></h3>
+                                <div class="list-room">
+                                    <ul class="list_passenger_room">
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="room-service-fee pull-right">
+                                            <?php echo JText::_('Service fee') ?> <span class="room-service-fee-total"
+                                                                                        data-a-sign="US$">0</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        <?php } ?>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="total-pay">
+                                    <div class="row">
+                                        <div class="col-lg-3"><span><?php echo JText::_('you pay') ?></span></div>
+                                        <div class="col-lg-4"><b class="center-block"><span data-a-sign="US$" class="total-cost-service price">0</span></b></div>
+                                        <div class="col-lg-5"><div class="pull-right"><span><?php echo JText::_('cost rule') ?></span> <span class="glyphicon  glyphicon-circle-arrow-right"></span></div></div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -375,6 +400,7 @@ ob_start();
                 debug:<?php  echo json_encode($debug) ?>,
                 passenger_config:<?php  echo json_encode($passenger_config) ?>,
                 item:<?php  echo json_encode($privategrouptrip) ?>,
+                product:<?php  echo json_encode($this->product) ?>,
                 tour_min_age:<?php echo (int)$this->product->min_age ?>,
                 tour_max_age:<?php echo (int)$this->product->max_age ?>,
                 total_senior_adult_teen:<?php echo (int)$total_passenger_from_12_years_old ?>,

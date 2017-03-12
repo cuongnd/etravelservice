@@ -62,7 +62,7 @@ $doc->addScriptDeclaration($js_content);
                 <ul>
                     <li><a>Global</a></li>
                     <li><a><?php echo JText::_('Company info') ?></a></li>
-                    <li><a>Docs</a></li>
+                    <li><a><?php echo JText::_('Other config') ?></a></li>
                     <li><a>Themes</a></li>
                     <li><a>Purchase</a></li>
                 </ul>
@@ -74,18 +74,23 @@ $doc->addScriptDeclaration($js_content);
                     <div>
                         <div class="row-fuid">
                             <div class="span4">
-                                <?php echo VmHTML::row_control('select_from_to', 'Senior passenger allowance(Age to age)', 'params[senior_passenger_age_from]','params[senior_passenger_age_to]',$this->config->params->get('senior_passenger_age_from',0),$this->config->params->get('senior_passenger_age_to',0) , 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_from_to', 'Adult passenger allowance(Age to age)', 'params[adult_passenger_age_from]','params[adult_passenger_age_to]',$this->config->params->get('adult_passenger_age_from',0), $this->config->params->get('adult_passenger_age_to',0), 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_from_to', 'Teen passenger allowance(Age to age)', 'params[teen_passenger_age_from]','params[teen_passenger_age_to]',$this->config->params->get('teen_passenger_age_from',0), $this->config->params->get('teen_passenger_age_to',0), 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_from_to', 'Children 1 passenger allowance(Age to age)', 'params[children_1_passenger_age_from]','params[children_1_passenger_age_to]',$this->config->params->get('children_1_passenger_age_from',0), $this->config->params->get('children_1_passenger_age_to',0), 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_from_to', 'Children 2 passenger allowance(Age to age)', 'params[children_2_passenger_age_from]','params[children_2_passenger_age_to]',$this->config->params->get('children_2_passenger_age_from',0), $this->config->params->get('children_2_passenger_age_to',0), 'class="required"'); ?>
-                                <?php echo VmHTML::row_control('select_from_to', 'Infant passenger allowance from 0 to under two years old (Age to age)', 'params[infant_passenger_age_from]','params[infant_passenger_age_to]',$this->config->params->get('infant_passenger_age_from',0), $this->config->params->get('infant_passenger_age_to',0), 'class="required"'); ?>
+                                <fieldset>
+                                    <legend><?php echo JText::_('Passenger config year old') ?></legend>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Senior passenger allowance(Age to age)', 'params[senior_passenger_age_from]','params[senior_passenger_age_to]',$this->config->params->get('senior_passenger_age_from',0),$this->config->params->get('senior_passenger_age_to',0) , 'class="required"'); ?>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Adult passenger allowance(Age to age)', 'params[adult_passenger_age_from]','params[adult_passenger_age_to]',$this->config->params->get('adult_passenger_age_from',0), $this->config->params->get('adult_passenger_age_to',0), 'class="required"'); ?>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Teen passenger allowance(Age to age)', 'params[teen_passenger_age_from]','params[teen_passenger_age_to]',$this->config->params->get('teen_passenger_age_from',0), $this->config->params->get('teen_passenger_age_to',0), 'class="required"'); ?>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Children 1 passenger allowance(Age to age)', 'params[children_1_passenger_age_from]','params[children_1_passenger_age_to]',$this->config->params->get('children_1_passenger_age_from',0), $this->config->params->get('children_1_passenger_age_to',0), 'class="required"'); ?>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Children 2 passenger allowance(Age to age)', 'params[children_2_passenger_age_from]','params[children_2_passenger_age_to]',$this->config->params->get('children_2_passenger_age_from',0), $this->config->params->get('children_2_passenger_age_to',0), 'class="required"'); ?>
+                                    <?php echo VmHTML::row_control('select_from_to', 'Infant passenger allowance from 0 to under two years old (Age to age)', 'params[infant_passenger_age_from]','params[infant_passenger_age_to]',$this->config->params->get('infant_passenger_age_from',0), $this->config->params->get('infant_passenger_age_to',0), 'class="required"'); ?>
+
+                                </fieldset>
                             </div>
                             <div class="span4">
 
                             </div>
                             <div class="span4"></div>
                         </div>
+
                     </div>
 
                     <!-- Features -->
@@ -104,8 +109,17 @@ $doc->addScriptDeclaration($js_content);
 
                     <!-- Docs -->
                     <div>
-                        <h4>Docs</h4>
-                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer</p>
+                        <div class="row-fuid">
+                            <div class="span6">
+                                <?php echo VmHTML::row_control('select_from_to', 'Transfer arrange year old allow', 'params[transfer_arrange_year_old_from]','params[transfer_arrange_year_old_to]',$this->config->params->get('transfer_arrange_year_old_from',0),$this->config->params->get('transfer_arrange_year_old_to',0) , 'class="required"'); ?>
+                                <?php echo VmHTML::row_control('select_from_to', 'Hotel arrange year old allow', 'params[hotel_arrange_year_old_from]','params[hotel_arrange_year_old_to]',$this->config->params->get('hotel_arrange_year_old_from',0),$this->config->params->get('hotel_arrange_year_old_to',0) , 'class="required"'); ?>
+                                <?php echo VmHTML::row_control('select_from', 'Hotel pre night booking days allow', 'params[hotel_pre_night_booking_days_allow]',$this->config->params->get('hotel_pre_night_booking_days_allow',0),0,30); ?>
+                                <?php echo VmHTML::row_control('select_from', 'Hotel post night booking days allow', 'params[hotel_post_night_booking_days_allow]',$this->config->params->get('hotel_post_night_booking_days_allow',0),0,30); ?>
+                                <?php echo VmHTML::row_control('select_from', 'Pre transfer days allow', 'params[pre_transfer_booking_days_allow]',$this->config->params->get('pre_transfer_booking_days_allow',0),0,30); ?>
+                                <?php echo VmHTML::row_control('select_from', 'Post transfer days allow', 'params[post_transfer_booking_days_allow]',$this->config->params->get('post_transfer_booking_days_allow',0),0,30); ?>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Themes -->

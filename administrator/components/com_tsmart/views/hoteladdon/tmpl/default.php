@@ -84,6 +84,9 @@ array_unshift($this->list_tour,$option);
                         <?php echo $this->sort('hotel_name', 'hotel name'); ?>
                     </th>
                     <th>
+                        <?php echo $this->sort('hotel_addon_type', 'hotel addon type'); ?>
+                    </th>
+                    <th>
                         <?php echo $this->sort('created_on', 'Create date'); ?>
                     </th>
                     <th>
@@ -132,6 +135,9 @@ array_unshift($this->list_tour,$option);
                             </td>
                             <td align="left">
                                 <a href="<?php echo $editlink; ?>"><?php echo $row->hotel_name; ?></a>
+                            </td>
+                            <td align="left">
+                                <?php echo JText::_($row->hotel_addon_type); ?>
                             </td>
                             <td align="left">
                                 <?php echo JHtml::_('date', $row->created_on, tsmConfig::$date_format); ?>

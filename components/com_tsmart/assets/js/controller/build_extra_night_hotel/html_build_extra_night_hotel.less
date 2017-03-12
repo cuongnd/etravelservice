@@ -1,19 +1,79 @@
 .html_night_hotel {
+  select{
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+    height: 25px !important;
+    width: auto !important;
+    option[disabled]{
+      color: #00a000;
+      font-weight: bold;
+    }
+  }
+  textarea
+  {
+    resize: none;
+  }
+  .list_room_type
+  {
+    select{
+      width: 100% !important;
+    }
+  }
+  .title_room
+  {
+    padding: 5px 0px 0px 3px;
+  }
+  .passenger-item
+  {
+    .remove_room
+    {
+      margin-top: 5px;
+    }
+  }
+  .check-in-date
+  {
+    background: url("images/calendar.gif") #fff;
+    background-repeat: no-repeat;
+    background-position: 95% 7px;
+    border: 1px solid #ccc;
+  }
+  .check-out-date
+  {
+    background: url("images/calendar.gif") #fff;
+    background-repeat: no-repeat;
+    background-position: 95% 7px;
+    border: 1px solid #ccc;
+  }
+
   .list_room_type_passenger{
     .passenger-item{
+      select{
+        width: 100% !important;
+      }
+
       select[disabled]{
         color: #00a000;
       }
-      select{
-        option[disabled]{
-          color: #00a000;
-          font-weight: bold;
-        }
-      }
     }
+  }
+  .notify
+  {
+    margin-top: 20px;
+  }
+  .reservation
+  {
+
+  }
+
+  .title-select-room
+  {
+    text-transform: uppercase;
   }
   input, select {
     width: 80px;
+    height: auto;
+    border-radius: 0px;
   }
   ul.list-passenger {
     columns: 2;
@@ -24,11 +84,19 @@
   .item-night-hotel {
     padding: 10px;
   }
+  .group_button
+  {
+    margin-top: 10px;
+    button:first-child{
+      margin-right: 10px;
+    }
+  }
+
   .item-night-hotel:nth-child(2n+1) {
-    background: #f4ecea;
+    background: #f4ecea url("images/node.jpg") repeat-y center;
   }
   .item-night-hotel:nth-child(2n) {
-    background: #f6fafb;
+    background: #f6fafb url("images/node.jpg") repeat-y center;
   }
   .item-night-hotel {
     position: relative;
@@ -59,19 +127,21 @@
   }
   .list-passenger
   {
-    list-style: decimal;
+    list-style: none;
   }
   .rooming-list
   {
+    display: none;
     .table-rooming-list{
       border-radius: 0;
       border-width:1px;
-      border-color: #000;
+      border-color: #D7D7D7 ;
       border-style:solid;
       .column-header-item,.row-item-column
       {
-        border-right: 1px #000 solid;
+        border-right: 1px #D7D7D7  solid;
       }
+
       .div-item-room
       {
         .column-header-item:last-child,.row-item-column:last-child
@@ -80,16 +150,32 @@
       }
       .thead
       {
+        .row >div:last-child .column-header-item:last-child
+        {
+          border-right: none;
+        }
         .column-header-item
         {
           padding: 10px;
+          min-height: 60px;
           font-weight: bold;
         }
-        border-bottom: 1px #000 solid;
+        border-bottom: 1px #D7D7D7  solid;
         background: #F4F4F4;
       }
       .tbody
       {
+
+
+        .row >div:last-child .row-item-column:last-child
+        {
+          margin-right: -1px;
+        }
+        .row >div:first-child .row-item-column:first-child
+        {
+          border-left: 1px #D7D7D7  solid;
+          margin-left: -1px;
+        }
         .row-item-column
         {
           padding: 10px;
@@ -110,6 +196,8 @@
       }
     }
   }
+
+
 
 
 }

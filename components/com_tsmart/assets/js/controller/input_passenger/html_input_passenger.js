@@ -35,8 +35,18 @@
             output_data: [],
             event_after_change: false,
             html_item_passenger_template: '',
+            range_year_old_infant: [0, 1],
+            range_year_old_children_2: [2, 5],
+            range_year_old_children_1: [6, 11],
+            range_year_old_teen: [12, 17],
+            range_year_old_adult: [18, 65],
+            range_year_old_senior: [66, 99],
+            range_year_old_senior_adult_teen: [12, 99],
+            range_adult_and_children: [6, 99],
+
             range_senior_adult_teen_years: [12, 99],
             range_children_infant: [0, 11],
+
             debug: false,
             list_country: [],
             senior_adult_teen_title: [
@@ -73,7 +83,7 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
-        plugin.update_data = function () {
+        plugin.update_data = function (index_action,event_name) {
 
             var $list_list_passenger = $element.find('.input-passenger-list-passenger');
             $list_list_passenger.each(function (index_list_passenger, list_passenger) {
@@ -99,6 +109,8 @@
             var post = $element.find('.item-passenger :input[name*="list_passenger"]').serializeObject();
             var list_passenger = post.list_passenger;
             plugin.settings.list_passenger = list_passenger;
+            plugin.update_year_old();
+            plugin.update_tour_cost();
             var list_passenger_stringify = JSON.stringify(list_passenger);
             $input_name.val(list_passenger_stringify);
             var event_after_change = plugin.settings.event_after_change;
@@ -117,10 +129,10 @@
                         list_passenger_not_group.push(passenger);
                     });
                 }
-                event_after_change(list_passenger_not_group);
+                event_after_change(list_passenger_not_group,index_action,event_name);
             }
         };
-        plugin.add_passenger = function ($self) {
+        plugin.add_passenger = function ($self,index_add) {
 
             var item_passenger_template = plugin.settings.item_passenger_template;
             var $list_passenger = $self.closest('.input-passenger-list-passenger');
@@ -159,9 +171,10 @@
                 }
             });
             $element.find('.input-passenger-list-passenger').sortable("refresh");
-            plugin.update_data();
+            plugin.update_data(index_add,'add');
+
             if (typeof plugin.settings.function_trigger_add_passenger == "function") {
-                plugin.settings.function_trigger_add_passenger(plugin);
+                plugin.settings.function_trigger_add_passenger(plugin,index_add);
             }
         };
         plugin.get_data = function () {
@@ -256,21 +269,25 @@
                 plugin.update_data();
             });
             $wrapper.find('.add').click(function add_passenger() {
-
+                var $self=$(this);
+                var $area_event_add=$self.closest('.input-passenger-list-passenger');
+                var index_add=$element.find('.add').index($area_event_add.find('.add:last'));
                 if (typeof plugin.settings.function_trigger_check_allow_add_passenger == "function") {
-                    if(!plugin.settings.function_trigger_check_allow_add_passenger(plugin)){
+                    if(!plugin.settings.function_trigger_check_allow_add_passenger(plugin,index_add)){
                         return false;
                     }
                 }
-                plugin.add_passenger($(this));
+                plugin.add_passenger($self,index_add);
             });
             $wrapper.find('.remove').click(function remove_passenger() {
+                var $self=$(this);
+                var index_remove=$element.find('.remove').index($self);
                 if (typeof plugin.settings.function_trigger_check_allow_remove_passenger == "function") {
-                    if(!plugin.settings.function_trigger_check_allow_remove_passenger(plugin)){
+                    if(!plugin.settings.function_trigger_check_allow_remove_passenger(plugin,index_remove)){
                         return false;
                     }
                 }
-                plugin.remove_passenger($(this));
+                plugin.remove_passenger($self,index_remove);
             });
             var view_format = plugin.settings.view_format;
             $wrapper.find('input[data-name="date_of_birth"]').each(function (index_date_of_birth) {
@@ -283,7 +300,7 @@
                     dateFormat: view_format,
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: "-64:+0",
+                    yearRange: "-99:+0",
                     onSelect:function(dateText,inst){
                         if (!plugin.check_date(dateText, inst)) {
                             //$(this).datepicker('setDate', inst.lastVal);
@@ -329,7 +346,7 @@
             var $list_list_passenger = $element.find('.input-passenger-list-passenger.'+type_passenger+' .item-passenger:last-child .remove').trigger('click');
 
         };
-        plugin.remove_passenger = function ($self) {
+        plugin.remove_passenger = function ($self,index_remove) {
             var $list_passenger = $self.closest('.input-passenger-list-passenger');
             var $item_passenger = $self.closest('.item-passenger');
             var index_passenger = $item_passenger.index();
@@ -345,9 +362,9 @@
                 plugin.settings.list_passenger.children_infant = list_passenger;
             }
             if (typeof plugin.settings.function_trigger_remove_passenger == "function") {
-                plugin.settings.function_trigger_remove_passenger(plugin);
+                plugin.settings.function_trigger_remove_passenger(plugin,index_remove);
             }
-            plugin.update_data();
+            plugin.update_data(index_remove,'remove');
 
         };
         plugin.validate = function () {
@@ -373,6 +390,128 @@
             return true;
 
         };
+        plugin.get_tour_cost_per_passenger = function (passenger) {
+
+            var product=plugin.settings.product;
+            var departure = plugin.settings.departure;
+            var sale_price_senior = departure.sale_price_senior,
+                sale_price_adult = departure.sale_price_adult,
+                sale_price_teen = departure.sale_price_teen,
+                sale_price_children1 = departure.sale_price_children1,
+                sale_price_children2 = departure.sale_price_children2,
+                sale_price_infant = departure.sale_price_infant,
+                sale_price_private_room = departure.sale_price_private_room,
+                sale_price_extra_bed = departure.sale_price_extra_bed;
+
+            var price_senior = departure.tsmart_discount_id>0 ? departure.sale_discount_price_senior : sale_price_senior;
+            var price_adult = departure.tsmart_discount_id>0 ? departure.sale_discount_price_adult : sale_price_adult;
+            var price_teen = departure.tsmart_discount_id>0 ? departure.sale_discount_price_teen :sale_price_teen;
+            var price_children1 = departure.tsmart_discount_id>0 ? departure.sale_discount_price_children1 : sale_price_children1;
+            var price_children2 = departure.tsmart_discount_id>0 ? departure.sale_discount_price_children2 : sale_price_children2;
+            var price_infant = departure.tsmart_discount_id>0 ? departure.sale_discount_price_infant : sale_price_infant;
+            var price=0;
+            if(plugin.is_senior(passenger)){
+                price= price_senior;
+            }else if(plugin.is_adult(passenger)){
+                price= price_adult;
+            }else if(plugin.is_teen(passenger)){
+                price= price_teen;
+            }else if(plugin.is_children_2(passenger)){
+                price= price_children2;
+            }else if(plugin.is_children_1(passenger)){
+                price= price_children1;
+            }else if(plugin.is_infant(passenger)){
+                price= price_infant;
+            }
+
+            return price;
+        };
+        plugin.is_adult = function (passenger) {
+            console.log(passenger);
+
+            var range_year_old_adult = plugin.settings.range_year_old_adult;
+            if(typeof passenger.year_old=="undefined"){
+                console.log(passenger);
+            }
+            console.log(passenger.year_old);
+            console.log(range_year_old_adult);
+            return passenger.year_old >= range_year_old_adult[0] && passenger.year_old <= range_year_old_adult[1];
+        };
+        plugin.is_senior = function (passenger) {
+            var range_year_old_senior = plugin.settings.range_year_old_senior;
+            return passenger.year_old >= range_year_old_senior[0] && passenger.year_old <= range_year_old_senior[1];
+        };
+        plugin.is_teen = function (passenger) {
+            var range_year_old_teen = plugin.settings.range_year_old_teen;
+            return passenger.year_old >= range_year_old_teen[0] && passenger.year_old <= range_year_old_teen[1];
+        };
+
+        plugin.is_infant = function (passenger) {
+            var range_year_old_infant = plugin.settings.range_year_old_infant;
+            return passenger.year_old <= range_year_old_infant[1];
+        };
+        plugin.is_children_1 = function (passenger) {
+            var range_year_old_children_1 = plugin.settings.range_year_old_children_1;
+            return passenger.year_old >= range_year_old_children_1[0] && passenger.year_old <= range_year_old_children_1[1];
+        };
+        plugin.is_children_2 = function (passenger) {
+            var range_year_old_children_2 = plugin.settings.range_year_old_children_2;
+            return parseInt(passenger.year_old) >= parseInt(range_year_old_children_2[0]) && parseInt(passenger.year_old) <= parseInt(range_year_old_children_2[1]);
+        };
+        plugin.update_tour_cost=function(){
+
+            var list_passenger = plugin.settings.list_passenger;
+
+            var list_senior_adult_teen = list_passenger.senior_adult_teen;
+            for (var i = 0; i < list_senior_adult_teen.length; i++) {
+                var passenger=list_senior_adult_teen[i];
+                if(passenger.year_old==0) continue;
+                var tour_cost=plugin.get_tour_cost_per_passenger(passenger);
+                list_passenger.senior_adult_teen[i].tour_cost=(typeof tour_cost!="undefined"?tour_cost:0);
+            }
+            var list_children_infant = list_passenger.children_infant;
+            if(typeof list_children_infant!="undefined")
+            {
+                for (var i = 0; i < list_children_infant.length; i++) {
+                    var passenger=list_children_infant[i];
+                    if(passenger.date_of_birth.trim()=='') continue;
+                    var tour_cost=plugin.get_tour_cost_per_passenger(passenger);
+                    list_passenger.children_infant[i].tour_cost=(typeof tour_cost!="undefined"?tour_cost:0);
+                }
+            }
+
+            plugin.settings.list_passenger=list_passenger;
+            console.log(list_passenger);
+        };
+        plugin.update_year_old=function(){
+
+            var list_passenger = plugin.settings.list_passenger;
+            var current_date = plugin.settings.departure.departure_date;
+            var total_day = plugin.settings.departure.total_day - 1;
+
+            var list_senior_adult_teen = list_passenger.senior_adult_teen;
+            for (var i = 0; i < list_senior_adult_teen.length; i++) {
+                var passenger=list_senior_adult_teen[i];
+                if(passenger.year_old==0) continue;
+                var year_old=$.get_year_old_by_date_and_current_date_and_tour_length(passenger.date_of_birth, current_date, total_day);
+                list_passenger.senior_adult_teen[i].year_old=(typeof year_old!="undefined"?year_old:0);
+            }
+            var list_children_infant = list_passenger.children_infant;
+            if(typeof list_children_infant!="undefined")
+            {
+                for (var i = 0; i < list_children_infant.length; i++) {
+                    var passenger=list_children_infant[i];
+                    if(passenger.date_of_birth.trim()=='') continue;
+                    var year_old=$.get_year_old_by_date_and_current_date_and_tour_length(passenger.date_of_birth, current_date, total_day);
+                    list_passenger.children_infant[i].year_old=(typeof year_old!="undefined"?year_old:0);
+                }
+            }
+
+            plugin.settings.list_passenger=list_passenger;
+            console.log(list_passenger);
+        };
+
+
         plugin.update_passengers = function (list_passenger) {
             plugin.settings.list_passenger = list_passenger;
             plugin.render_input_person();

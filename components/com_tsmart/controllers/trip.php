@@ -30,12 +30,21 @@ class TsmartControllerTrip extends JControllerLegacy {
     {
         $app=JFactory::getApplication();
         $input=$app->input;
+
+        $total_passenger_from_12_years_old=$input->getInt('total_passenger_from_12_years_old',0);
+        $total_passenger_under_12_years_old=$input->getInt('total_passenger_under_12_years_old',0);
         $tsmart_price_id=$input->getInt('tsmart_price_id',0);
+        $tsmart_departure_id=$input->getInt('tsmart_departure_id',0);
         $booking_date=$input->getString('booking_date','');
         $session=JFactory::getSession();
         $session->set('tsmart_price_id',$tsmart_price_id);
+        $session->set('tsmart_departure_id',$tsmart_departure_id);
         $session->set('booking_date',$booking_date);
-        $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroup&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date));
+        $link="&tsmart_price_id=$tsmart_price_id";
+        if($tsmart_departure_id){
+            $link="&tsmart_departure_id=$tsmart_departure_id&total_passenger_from_12_years_old=$total_passenger_from_12_years_old&total_passenger_under_12_years_old=$total_passenger_under_12_years_old";
+        }
+        $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroup'.$link.'&booking_date='.$booking_date));
         return true;
     }
     public function departure_book_now()

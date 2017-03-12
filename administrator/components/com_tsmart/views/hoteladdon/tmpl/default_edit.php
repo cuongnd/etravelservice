@@ -88,7 +88,7 @@ $doc->addScriptDeclaration($js_content);
             </div>
             <div class="row-fluid">
                 <div class="span12">
-                    <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'passenger_age_from','passenger_age_to',$this->item->passenger_age_from, $this->item->passenger_age_to, 'class="required"'); ?>
+                    <?php echo VmHTML::row_control('select_from_to', 'Passenger allowance(Age to age)', 'tsm_config[params][hotel_arrange_year_old_from]','tsm_config[params][hotel_arrange_year_old_to]',$this->tsm_config->params->get('hotel_arrange_year_old_from',0),$this->tsm_config->params->get('hotel_arrange_year_old_to',0) , 0,100,true); ?>
                 </div>
             </div>
             <div class="row-fluid">

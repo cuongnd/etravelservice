@@ -95,7 +95,9 @@
                 var vail_from=$element.find('input[name="vail_from"]').val();
                 var vail_to=$element.find('input[name="vail_to"]').val();
                 var tsmart_hotel_addon_id=$element.find('input[name="tsmart_hotel_addon_id"]').val();
+                var tsmart_hotel_id=$element.find('select[name="tsmart_hotel_id"]').val();
                 var hotel_addon_type=$element.find('input[name="hotel_addon_type"]').val();
+                var tsmart_service_class_id=$element.find('select[name="tsmart_service_class_id"]').val();
                 $.ajax({
                     type: "GET",
                     url: 'index.php?option=com_tsmart&controller=hoteladdon&task=check_tour&tsmart_product_id='+tsmart_product_id,
@@ -106,6 +108,8 @@
                             vail_from:vail_from,
                             vail_to:vail_to,
                             tsmart_hotel_addon_id:tsmart_hotel_addon_id,
+                            tsmart_hotel_id:tsmart_hotel_id,
+                            tsmart_service_class_id:tsmart_service_class_id,
                             hotel_addon_type:hotel_addon_type
                         };
                         return dataPost;

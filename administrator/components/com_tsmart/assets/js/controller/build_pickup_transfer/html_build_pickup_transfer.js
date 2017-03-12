@@ -814,6 +814,7 @@
         };
         plugin.trigger_after_change = function () {
             var list_transfer = plugin.settings.list_transfer;
+            var list_transfer = plugin.settings.list_transfer;
             var trigger_after_change = plugin.settings.trigger_after_change;
             if (trigger_after_change instanceof Function) {
                 trigger_after_change(list_transfer);

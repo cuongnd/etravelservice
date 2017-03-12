@@ -7,12 +7,39 @@
         var defaults = {
             input_name: '',
             to_name: '',
+            pickup_transfer_type: '',
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
             to_date: new Date(),
+            list_data_transfer_price:[],
             display_format: 'YYYY-MM-DD',
             format: 'YYYY-MM-DD',
+            option_date_picker : {
+                showButtonPanel: true,
+                showWeek: true,
+                minDate: "0",
+                maxDate: '99Y',
+                changeMonth: true,
+                changeYear: true,
+            },
+            option_dreymodal : {
+                minWidth: 250,
+                maxWidth: 250,
+                overlay: true,
+                overlayColor: "#222222",
+                overlayOpacity: 0.9,
+                closeButton: true,
+                inAnimationTime: 600,
+                inAnimationType: "slideInFromLeft",
+                outAnimationTime: 600,
+                outAnimationType: "slideOutToRight",
+                allowEscapeKey: true,
+                title: "Alert",
+                titleBackColor: "#128a4b",
+                overlayBlur: false,
+                append: false
+            },
             list_passenger: [],
             departure: {
                 departure_date: "",
@@ -25,7 +52,7 @@
             list_excursion_addon:{
 
             },
-            passenger_config: {},
+            transfer_config: {},
             output_data: [],
             list_transfer: [
                 {
@@ -35,14 +62,21 @@
 
                 }
             ],
+            transfer_booking_days_allow:1,
             infant_title:"Infant",
             teen_title:"Teen",
+            debug:false,
             children_title:"Children",
             adult_title:"Adult",
             senior_title:"Adult",
             item_transfer_template: {},
             event_after_change: false,
             update_passenger: false,
+            numeric_config:{
+                mDec: 1,
+                aSep: ' ',
+                aSign: 'US$'
+            },
             limit_total: false,
             trigger_after_change: null,
             private_bed:"private bed",
@@ -776,11 +810,9 @@
 
         };
         plugin.get_list_transfer = function () {
-            plugin.update_data();
             return plugin.settings.list_transfer;
         }
         plugin.get_list_passenger = function () {
-            plugin.update_data();
             return plugin.settings.list_passenger;
         }
         plugin.get_total_senior_adult_teen = function (transfer_index) {
@@ -813,10 +845,12 @@
             return all_passenger_in_transfer_is_adult;
         };
         plugin.trigger_after_change = function () {
+            plugin.update_data();
             var list_transfer = plugin.settings.list_transfer;
+            var list_data_transfer_price=plugin.settings.list_data_transfer_price;
             var trigger_after_change = plugin.settings.trigger_after_change;
             if (trigger_after_change instanceof Function) {
-                trigger_after_change(list_transfer);
+                trigger_after_change(list_transfer,list_data_transfer_price);
             }
         },
             plugin.all_passenger_in_transfer_is_adult_or_children = function (transfer_index) {
@@ -912,7 +946,7 @@
             var passenger = list_passenger[passenger_index];
             return passenger.year_old >= range_year_old_senior[0] && passenger.year_old <= range_year_old_senior[1];
         };
-        plugin.get_price_tour_cost_by_passenger_index = function (passenger_index, price_senior, price_adult, price_teen) {
+        plugin.get_price_transfer_cost_by_passenger_index = function (passenger_index, price_senior, price_adult, price_teen) {
             if (plugin.is_senior(passenger_index)) {
                 return price_senior;
             } else if (plugin.is_adult(passenger_index)) {
@@ -988,18 +1022,18 @@
         plugin.calculator_tour_cost_and_transfer_price = function () {
             var list_transfer = plugin.get_list_transfer();
             var list_passenger = plugin.get_list_passenger();
-            var senior_passenger_age_to = plugin.settings.passenger_config.senior_passenger_age_to,
-                senior_passenger_age_from = plugin.settings.passenger_config.senior_passenger_age_from,
-                adult_passenger_age_to = plugin.settings.passenger_config.adult_passenger_age_to,
-                adult_passenger_age_from = plugin.settings.passenger_config.adult_passenger_age_from,
-                teen_passenger_age_to = plugin.settings.passenger_config.teen_passenger_age_to,
-                teen_passenger_age_from = plugin.settings.passenger_config.teen_passenger_age_from,
-                children_1_passenger_age_to = plugin.settings.passenger_config.children_1_passenger_age_to,
-                children_1_passenger_age_from = plugin.settings.passenger_config.children_1_passenger_age_from,
-                children_2_passenger_age_to = plugin.settings.passenger_config.children_2_passenger_age_to,
-                children_2_passenger_age_from = plugin.settings.passenger_config.children_2_passenger_age_from,
-                infant_passenger_age_to = plugin.settings.passenger_config.infant_passenger_age_to,
-                infant_passenger_age_from = plugin.settings.passenger_config.infant_passenger_age_from;
+            var senior_passenger_age_to = plugin.settings.transfer_config.senior_passenger_age_to,
+                senior_passenger_age_from = plugin.settings.transfer_config.senior_passenger_age_from,
+                adult_passenger_age_to = plugin.settings.transfer_config.adult_passenger_age_to,
+                adult_passenger_age_from = plugin.settings.transfer_config.adult_passenger_age_from,
+                teen_passenger_age_to = plugin.settings.transfer_config.teen_passenger_age_to,
+                teen_passenger_age_from = plugin.settings.transfer_config.teen_passenger_age_from,
+                children_1_passenger_age_to = plugin.settings.transfer_config.children_1_passenger_age_to,
+                children_1_passenger_age_from = plugin.settings.transfer_config.children_1_passenger_age_from,
+                children_2_passenger_age_to = plugin.settings.transfer_config.children_2_passenger_age_to,
+                children_2_passenger_age_from = plugin.settings.transfer_config.children_2_passenger_age_from,
+                infant_passenger_age_to = plugin.settings.transfer_config.infant_passenger_age_to,
+                infant_passenger_age_from = plugin.settings.transfer_config.infant_passenger_age_from;
 
             var sale_price_senior = plugin.settings.departure.sale_price_senior,
                 sale_price_adult = plugin.settings.departure.sale_price_adult,
@@ -1067,7 +1101,6 @@
                 var item_flat=data_price.item_flat;
                 var list_transfer_items_price=data_price.items;
 
-                console.log(transfer_item_config);
                 if (transfer_type == "basic") {
                     for (var p_index = 0; p_index < passengers.length; p_index++) {
                         if(item_flat.net_price!=0)
@@ -1091,28 +1124,43 @@
 
         };
         plugin.update_data = function () {
-            return;
             var input_name = plugin.settings.input_name;
             var $input_name = $element.find('input[name="' + input_name + '"]');
             var data = $element.find(':input[name]').serializeObject();
             if (typeof data.list_transfer == "undefined") {
                 return false;
             }
-            console.log(data.list_transfer);
             for (var i = 0; i < data.list_transfer.length; i++) {
                 if (typeof data.list_transfer[i].passengers == "undefined") {
                     data.list_transfer[i].passengers = [];
                 }
             }
-            var list_transfer=plugin.get_list_transfer();
-
             plugin.settings.list_transfer = data.list_transfer;
-            data = JSON.stringify(data);
-            $input_name.val(data);
-            var event_after_change = plugin.settings.event_after_change;
-            if (event_after_change instanceof Function) {
-                event_after_change(plugin.settings.list_transfer);
+
+            var list_transfer=plugin.settings.list_transfer;
+            var list_passenger=plugin.settings.list_passenger;
+            for(var i=0;i<list_transfer.length;i++){
+                var list_passenger_price=[];
+                if(plugin.validate_current_transfer_index(i,false)){
+                    list_transfer[i].validate_transfer_index=true;
+                }else{
+                    list_transfer[i].validate_transfer_index=false;
+                }
+                var tsmart_transfer_addon_id=list_transfer[i].tsmart_transfer_addon_id;
+                var transfer=plugin.get_transfer_data(tsmart_transfer_addon_id);
+                var passengers=list_transfer[i].passengers;
+                for(var j=0;j<passengers.length;j++){
+                    var passenger_index=passengers[j];
+                    var passenger=list_passenger[passenger_index];
+                    var cost=plugin.get_price_by_passenger(transfer,passenger,passengers.length);
+                    var passeger_price={};
+                    passeger_price.passenger_index=passenger_index;
+                    passeger_price.cost=cost;
+                    list_passenger_price.push(passeger_price);
+                }
+                list_transfer[i].list_passenger_price=list_passenger_price;
             }
+            plugin.settings.list_transfer=list_transfer;
         };
         plugin.get_list_passenger_selected = function () {
             var list_transfer = plugin.settings.list_transfer;
@@ -1174,6 +1222,12 @@
                 }
             }
         };
+        plugin.set_null_date = function (transfer_index) {
+            var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
+            $transfer_item.find('input[data-name="tsmart_transfer_addon_id"]').val('');
+            $transfer_item.find('input.date.check-in-date').val('');
+        };
+
         plugin.get_list_passenger_checked = function () {
             var list_passenger_checked = [];
             var list_transfer = plugin.settings.list_transfer;
@@ -1194,6 +1248,7 @@
         plugin.add_list_passenger_to_transfer = function ($item_transfer) {
             var transfer_index = $item_transfer.index();
             var list_passenger = plugin.settings.list_passenger;
+            var debug = plugin.settings.debug;
             var total_passenger = list_passenger.length;
             var $list_passenger = $item_transfer.find('.list-passenger');
             $list_passenger.empty();
@@ -1207,7 +1262,7 @@
             });
             for (var i = 0; i < total_passenger; i++) {
                 var passenger = list_passenger[i];
-                var full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+                var full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '<span class="'+(!debug?' hide ':'')+'">(' + passenger.year_old + ')</span>';
                 var key_full_name = passenger.first_name + passenger.middle_name + passenger.last_name;
                 key_full_name = $.base64Encode(key_full_name);
                 var $li = $('<li><label class="checkbox-inline"> <input class="passenger-item" data-key_full_name="' + key_full_name + '" value="' + i + '" data-index="' + i + '" name="list_transfer[' + transfer_index + '][passengers][]" type="checkbox"> ' + full_name + '</label></li>');
@@ -1305,7 +1360,6 @@
 
             });
 
-            $element.find('.table-transfering-list .tbody').sortable("refresh");
 
         };
 
@@ -1428,14 +1482,101 @@
                     plugin.jumper_transfer(transfer_index);
                     return false;
                     $list_passenger.tipso('destroy');
-                } else if (!plugin.settings[transfer_type].validate_transfer(transfer_item, transfer_index)) {
-                    plugin.jumper_transfer(transfer_index);
-                    return false;
                 }
                 $list_passenger.removeClass('error');
 
             }
             plugin.calculator_tour_cost_and_transfer_price();
+            return true;
+        };
+        plugin.exists_passenger_allow_year_old = function (passengers) {
+            var transfer_config = plugin.settings.transfer_config;
+            var list_passenger=plugin.settings.list_passenger;
+            for(var i=0;i<passengers.length;i++){
+                var passenger_index=passengers[i];
+                var passenger=list_passenger[passenger_index];
+                if(parseInt(passenger.year_old)>=parseInt(transfer_config.transfer_arrange_year_old_from) && parseInt(passenger.year_old)<=parseInt(transfer_config.transfer_arrange_year_old_to)){
+                    return true;
+                }
+            }
+            return false;
+        };
+        plugin.validate_all_transfer_index = function () {
+            var $list_transfer = $element.find('.item-transfer');
+            var list_transfer = plugin.settings.list_transfer;
+            for (var i = 0; i < $list_transfer.length; i++) {
+                var transfer_index = i;
+                var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
+                if(!plugin.validate_current_transfer_index(transfer_index,true)){
+                    return false;
+                }
+                var $list_passenger = $transfer_item.find('ul.list-passenger');
+                $list_passenger.removeClass('error');
+
+            }
+            plugin.calculator_tour_cost_and_transfer_price();
+            return true;
+        };
+        plugin.validate_current_transfer_index = function (transfer_index,show_alert) {
+            if(typeof show_alert=="undefined"){
+                show_alert=true;
+            }
+            var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
+            var list_transfer = plugin.settings.list_transfer;
+            var transfer_item = list_transfer[transfer_index];
+            var passengers = transfer_item.passengers;
+            var transfer_date = $transfer_item.find('input.date').val();
+            var tsmart_transfer_addon_id = $transfer_item.find('input.tsmart_transfer_addon_id').val();
+            var $list_passenger = $transfer_item.find('ul.list-passenger');
+            if(transfer_date.trim()==''){
+                if(show_alert) {
+                    var content_notify = 'please select date transfer';
+                    plugin.notify(content_notify);
+                    plugin.jumper_transfer(transfer_index);
+                }
+                return false;
+            }if(tsmart_transfer_addon_id==''||tsmart_transfer_addon_id==0){
+                if(show_alert) {
+                    var content_notify = 'your date select dont not price, please select other date';
+                    plugin.notify(content_notify);
+                    plugin.jumper_transfer(transfer_index);
+                }
+                return false;
+            }else if (passengers.length == 0) {
+                if(show_alert) {
+                    $list_passenger.removeClass('error');
+                    $list_passenger.tipso('destroy');
+                    var content_notify = 'please select passenger';
+                    plugin.notify(content_notify);
+                    $list_passenger.tipso({
+                        size: 'tiny',
+                        useTitle: false,
+                        content: content_notify,
+                        animationIn: 'bounceInDown'
+                    });
+                    $list_passenger.addClass('error');
+                    $list_passenger.tipso('show');
+                    plugin.jumper_transfer(transfer_index);
+                }
+                return false;
+                $list_passenger.tipso('destroy');
+            }else if(!plugin.exists_passenger_allow_year_old(passengers)){
+                if(show_alert) {
+                    var transfer_config = plugin.settings.transfer_config;
+                    var content_notify = 'This does not allow transportation of passengers under ' + transfer_config.transfer_arrange_year_old_from + ' years of age and older than ' + transfer_config.transfer_arrange_year_old_to + ' go without accompanying adults  ';
+                    plugin.notify(content_notify);
+                    $list_passenger.tipso({
+                        size: 'tiny',
+                        useTitle: false,
+                        content: content_notify,
+                        animationIn: 'bounceInDown'
+                    });
+                    $list_passenger.addClass('error');
+                    $list_passenger.tipso('show');
+                    plugin.jumper_transfer(transfer_index);
+                }
+                return false;
+            }
             return true;
         };
         plugin.find_passenger_not_inside_transfer = function () {
@@ -1455,22 +1596,27 @@
         plugin.get_data = function () {
             return plugin.settings.output_data;
         };
-        plugin.validate_data_transfer_index = function (transfer_index) {
+        plugin.validate_data_transfer_index = function (transfer_index,show_alert) {
+            if(typeof show_alert=="undefined"){
+                show_alert=true;
+            }
             var $item_transfer = $element.find('.item-transfer:eq(' + transfer_index + ')');
             var list_transfer = plugin.settings.list_transfer;
             var transfer_item = list_transfer[transfer_index];
 
             var $type = $item_transfer.find('input[type="radio"][data-name="transfer_type"]:checked');
             if ($type.length == 0) {
-                var content_notify = 'please select transfer type';
-                plugin.notify(content_notify);
-                $item_transfer.find('.list-transfer').tipso({
-                    size: 'tiny',
-                    useTitle: false,
-                    content: content_notify,
-                    animationIn: 'bounceInDown'
-                }).addClass('error');
-                $item_transfer.find('.list-transfer').tipso('show');
+                if(show_alert) {
+                    var content_notify = 'please select transfer type';
+                    plugin.notify(content_notify);
+                    $item_transfer.find('.list-transfer').tipso({
+                        size: 'tiny',
+                        useTitle: false,
+                        content: content_notify,
+                        animationIn: 'bounceInDown'
+                    }).addClass('error');
+                    $item_transfer.find('.list-transfer').tipso('show');
+                }
                 return false;
             }
             var type = $type.val();
@@ -1650,20 +1796,15 @@
             return all_passenger_is_infant_or_children;
         };
         plugin.enable_add_transfer = function (transfer_index) {
-
-            if (!plugin.validate()) {
+            if (!plugin.validate_all_transfer_index()) {
                 return false;
             }
-
-
             var list_passenger = plugin.settings.list_passenger;
             var list_passenger_checked = plugin.get_list_passenger_checked();
             if (list_passenger_checked.length >= list_passenger.length) {
                 plugin.notify('you cannot add more transfer');
                 return false;
             }
-
-
             return true;
         };
         plugin.enable_remove_transfer = function (transfer_index) {
@@ -1675,10 +1816,12 @@
         plugin.enable_add_passenger_to_transfer_index = function (transfer_index) {
             var list_transfer = plugin.settings.list_transfer;
             var passengers = list_transfer[transfer_index].passengers;
+
             return true;
         };
         plugin.get_passenger_full_name = function (passenger) {
-            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '(' + passenger.year_old + ')';
+            var debug = plugin.settings.debug;
+            var passenger_full_name = passenger.first_name + ' ' + passenger.middle_name + ' ' + passenger.last_name + '<span class="'+(!debug?' hide ':'')+'">(' + passenger.year_old + ')</span>';
             return passenger_full_name;
         };
         plugin.add_passenger_to_transfer_index = function (transfer_index) {
@@ -1780,6 +1923,14 @@
             return false;
         };
         plugin.enable_change_passenger_inside_transfer_index = function (transfer_index) {
+            var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
+            var transfer_config = plugin.settings.transfer_config;
+            if($transfer_item.find('.date.check-in-date').val().trim()==''){
+                var content_notify = 'please select date transfer';
+                plugin.notify(content_notify);
+                plugin.jumper_transfer(transfer_index);
+                return false;
+            }
             return true;
         };
         plugin.check_is_full_passenger_inside_transfer = function (transfer_index) {
@@ -1802,7 +1953,6 @@
             });
             var list_transfer = plugin.settings.list_transfer;
             list_transfer[transfer_index].passengers = passengers;
-            list_transfer[transfer_index].full = plugin.check_is_full_passenger_inside_transfer(transfer_index);
             plugin.settings.list_transfer = list_transfer;
             plugin.lock_passenger_inside_transfers();
             plugin.set_label_passenger_in_transfers();
@@ -1926,7 +2076,7 @@
                 allow_dismiss: true,
                 type: type,
                 placement: {
-                    align: "right"
+                    align: "center"
                 }
             });
         };
@@ -1938,6 +2088,148 @@
             list_transfer[transfer_index].transfer_note = transfer_note;
             plugin.settings.list_transfer = list_transfer;
 
+        };
+        plugin.get_min_price = function (transfer) {
+            var min_price=999999;
+            var data_price=transfer.data_price;
+            var item_flat=data_price.item_flat;
+            var net_price=parseFloat(item_flat.net_price);
+            var mark_up_amount=parseFloat(item_flat.mark_up_amount);
+            var mark_up_percent=parseFloat(item_flat.mark_up_percent);
+            var tax=item_flat.tax;
+            if(parseInt(net_price)>0){
+                var item_flat_mark_up_type=data_price.item_flat_mark_up_type;
+                if(item_flat_mark_up_type=='percent'){
+                    var current_price=net_price+(net_price*mark_up_percent)/100;
+                    min_price=current_price+(current_price*tax)/100;
+                    return min_price;
+                }else{
+                    var current_price=current_price+mark_up_amount;
+                    min_price=current_price+(current_price*tax)/100;
+                    return min_price;
+                }
+            }else{
+                var items=data_price.items;
+                var item_mark_up_type=data_price.item_mark_up_type;
+                for(var i=0;i<items.length;i++){
+                    var item=items[i];
+                    var mark_up_amount=parseFloat(item.mark_up_amount);
+                    var mark_up_percent=parseFloat(item.mark_up_percent);
+                    var net_price=parseFloat(item.net_price);
+                    var tax=parseFloat(item.tax);
+                    if(item_mark_up_type=='percent'){
+                        var item_sale_price=net_price+(net_price*mark_up_percent)/100;
+                        item_sale_price=item_sale_price+(item_sale_price*tax)/100;
+                        if(item_sale_price<min_price){
+                            min_price=item_sale_price;
+                        }
+                    }else{
+                        var item_sale_price=net_price+mark_up_amount;
+                        item_sale_price=item_sale_price+(item_sale_price*tax)/100;
+                        if(item_sale_price<min_price){
+                            min_price=item_sale_price;
+                        }
+                    }
+                }
+                return min_price;
+            }
+        };
+        plugin.get_price_by_passenger = function (transfer,passenger,total_passenger) {
+
+            var year_old=passenger.year_old;
+            var price=0;
+            var data_price=transfer.data_price;
+            if(typeof data_price=="undefined"){
+                return price;
+            }
+            var item_flat=data_price.item_flat;
+            var net_price=parseFloat(item_flat.net_price);
+            var item_flat_mark_up_type=data_price.item_flat_mark_up_type;
+            if(parseInt(net_price)>0){
+                var tax=item_flat.tax;
+                var mark_up_amount=parseFloat(item_flat.mark_up_amount);
+                var mark_up_percent=parseFloat(item_flat.mark_up_percent);
+                if(item_flat_mark_up_type=='percent'){
+                    var current_price=net_price+(net_price*mark_up_percent)/100;
+                    price=current_price+(current_price*tax)/100;
+                }else{
+                    var current_price=current_price+mark_up_amount;
+                    price=current_price+(current_price*tax)/100;
+                }
+            }else{
+                var items=data_price.items;
+                var item_mark_up_type=data_price.item_mark_up_type;
+                if(total_passenger<items.length)
+                {
+                    var item=items[total_passenger];
+                }else{
+                    var item=items[items.length-1];
+                }
+
+                var mark_up_amount=parseFloat(item.mark_up_amount);
+                var mark_up_percent=parseFloat(item.mark_up_percent);
+                var net_price=parseFloat(item.net_price);
+                var tax=parseFloat(item.tax);
+                if(item_mark_up_type=='percent'){
+                    var item_sale_price=net_price+(net_price*mark_up_percent)/100;
+                    item_sale_price=item_sale_price+(item_sale_price*tax)/100;
+                    price=item_sale_price;
+
+                }else{
+                    var item_sale_price=net_price+mark_up_amount;
+                    item_sale_price=item_sale_price+(item_sale_price*tax)/100;
+                    price=item_sale_price;
+                }
+            }
+            var children_under_year=parseInt(data_price.children_under_year);
+            var children_discount_amount=parseFloat(data_price.children_discount_amount);
+            var children_discount_percent=parseFloat(data_price.children_discount_percent);
+            var children_discount_type=data_price.children_discount_type;
+            if(children_under_year>0 &&  year_old<=children_under_year && children_discount_type=="percent"){
+                price=price-(price*children_discount_percent)/100;
+            }else if(children_under_year>0 &&  year_old<=children_under_year && children_discount_type=="amount"){
+                price=price-children_discount_amount;
+            }
+            if(price<0){
+                price=0;
+            }
+            return price;
+        };
+        plugin.update_transfer_for_index_transfer = function (transfer_index,transfer) {
+            var numeric_config=plugin.settings.numeric_config;
+            var $item_transfer = $element.find('.item-transfer:eq(' + transfer_index + ')');
+            $item_transfer.find('input[data-name="tsmart_transfer_addon_id"]').val(transfer.tsmart_transfer_addon_id);
+            var min_price=plugin.get_min_price(transfer);
+            $item_transfer.find('.air-price span.price').autoNumeric('destroy');
+            $item_transfer.find('.air-price span.price').autoNumeric('init',numeric_config);
+            $item_transfer.find('.air-price span.price').autoNumeric('set',min_price);
+
+
+        };
+        plugin.add_data_transfer = function (transfer) {
+            var list_data_transfer_price=plugin.settings.list_data_transfer_price;
+            var exists=false;
+            for (var i=0;i<list_data_transfer_price.length;i++){
+                var transfer_price=list_data_transfer_price[i];
+                if(transfer_price.tsmart_transfer_addon_id==transfer.tsmart_transfer_addon_id){
+                    exists=true;
+                    break;
+                }
+            }
+            if(!exists)
+            {
+                plugin.settings.list_data_transfer_price.push(transfer);
+            }
+        };
+        plugin.get_transfer_data = function (tsmart_transfer_addon_id) {
+            var list_data_transfer_price=plugin.settings.list_data_transfer_price;
+            for (var i=0;i<list_data_transfer_price.length;i++){
+                var transfer_price=list_data_transfer_price[i];
+                if(transfer_price.tsmart_transfer_addon_id==tsmart_transfer_addon_id){
+                    return transfer_price;
+                }
+            }
+            return null;
         };
         plugin.add_event_transfer_index = function (transfer_index) {
             var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
@@ -1977,6 +2269,7 @@
 
 
                     }).addClass(event_class);
+
 
                 }
 
@@ -2022,6 +2315,87 @@
 
 
             }
+
+            var event_class = 'setup_datepicker';
+            var option_date_picker=plugin.settings.option_date_picker;
+            var pickup_transfer_type=plugin.settings.pickup_transfer_type;
+            var departure=plugin.settings.departure;
+            var departure_date=departure.departure_date;
+
+            departure_date=new Date(departure_date);
+            var transfer_booking_days_allow=plugin.settings.transfer_booking_days_allow;
+            if(pickup_transfer_type=='pre_transfer') {
+                var prev_departure_date = moment(departure_date).subtract(transfer_booking_days_allow, 'day');
+                option_date_picker.minDate = prev_departure_date.toDate();
+                option_date_picker.maxDate = moment(departure_date).toDate();
+            }else{
+                var tour_length=parseInt(departure.tour_length);
+                var next_departure_date = moment(departure_date).add(transfer_booking_days_allow+tour_length, 'day');
+                option_date_picker.maxDate= next_departure_date.toDate();
+                option_date_picker.minDate  = moment(departure_date).add(tour_length, 'day').toDate();
+
+            }
+            option_date_picker.onSelect=function(dateText,inst ){
+                var departure=plugin.settings.departure;
+                var pickup_transfer_type=plugin.settings.pickup_transfer_type;
+                var tsmart_product_id=departure.tsmart_product_id;
+                $.ajax({
+                    type: "GET",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'bookprivategroup',
+                            task: 'ajax_get_transfer_book_private_group_by_date',
+                            tsmart_product_id: tsmart_product_id,
+                            pickup_transfer_type: pickup_transfer_type,
+                            booking_date: dateText
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+                        var option=plugin.settings.option_dreymodal;
+                        $('.div-loading').css({
+                            display: "none"
+                        });
+                        if (response.e == 1) {
+                            option.title = "Error";
+                            option.titleBackColor = "#bc056d";
+                            var alert_drey_modal = new Dreymodal('<div>' + response.r + '</div>', option);
+                            alert_drey_modal.open();
+                        } else {
+                            var transfer = response.transfer;
+                            var data_price=transfer.data_price;
+                            if(data_price!=null)
+                            {
+                                plugin.add_data_transfer(transfer);
+
+                                plugin.update_transfer_for_index_transfer(transfer_index,transfer);
+
+                            }else{
+                                plugin.set_null_date(transfer_index);
+                                var content_notify = 'your select invalid please select other date';
+                                plugin.notify(content_notify);
+                            }
+                            plugin.trigger_after_change();
+                        }
+                    }
+                });
+
+
+            };
+            if (!$transfer_item.find('.date.check-in-date').hasClass(event_class)) {
+                $transfer_item.find('.date.check-in-date').datepicker(option_date_picker).addClass(event_class);
+
+
+            }
+
             var event_class = 'remove_transfer';
             if (!$transfer_item.find('.remove-transfer').hasClass(event_class)) {
                 $transfer_item.find('.remove-transfer').click(function () {
@@ -2108,6 +2482,7 @@
             var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
 
             $transfer_item.find('textarea[data-name="transfer_note"]').attr('name', 'list_transfer[' + transfer_index + '][transfer_note]');
+            $transfer_item.find('input[data-name="tsmart_transfer_addon_id"]').attr('name', 'list_transfer[' + transfer_index + '][tsmart_transfer_addon_id]');
 
             $transfer_item.find('.transfer-order').html(transfer_index + 1);
             $transfer_item.find('input[data-name="transfer_type"]').each(function (index1, input) {
@@ -2142,78 +2517,14 @@
             plugin.settings.list_transfer = list_transfer;
 
         };
-        plugin.setup_sortable = function () {
-            $element.find('.table-transfering-list .tbody').sortable({
-                placeholder: "ui-state-highlight",
-                axis: "y",
-                handle: ".handle",
-                items: ".div-item-transfer",
-                stop: function (event, ui) {
-                    console.log(ui);
-                    /* plugin.config_layout();
-                     plugin.update_data();
-                     plugin.update_list_transfering();*/
-                }
-
-            });
-            var element_key = plugin.settings.element_key;
-            $element.find('.' + element_key + '_list_transfer').sortable({
-                placeholder: "ui-state-highlight",
-                axis: "y",
-                handle: ".handle",
-                start: function (event, ui) {
-                    ui.item.startPos = ui.item.index();
-                },
-                stop: function (event, ui) {
-                    var old_index = ui.item.startPos;
-                    var new_index = ui.item.index();
-                    if (ui.item.startPos != ui.item.index()) {
-                        plugin.exchange_index_for_list_transfer(old_index, new_index);
-                        console.log(plugin.settings.list_transfer);
-                        if (old_index < new_index) {
-                            plugin.format_name_for_transfer_index(old_index);
-                            plugin.format_name_for_transfer_index(new_index);
-                        } else {
-                            plugin.format_name_for_transfer_index(new_index);
-                            plugin.format_name_for_transfer_index(old_index);
-                        }
-                        plugin.set_label_passenger_in_transfers();
-                        console.log("Start position: " + ui.item.startPos);
-                        console.log("New position: " + ui.item.index());
-                        plugin.update_list_transfering();
-                        plugin.trigger_after_change();
-
-                    }
-                },
-                update: function (event, ui) {
-                    console.log(ui);
-                    /* plugin.config_layout();
-                     plugin.update_data();
-                     plugin.update_list_transfering();*/
-                }
-
-            });
-        };
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-
-            var passenger_config = plugin.settings.passenger_config;
-            plugin.settings.range_year_old_infant = [passenger_config.infant_passenger_age_from, passenger_config.infant_passenger_age_to];
-            plugin.settings.range_year_old_children_2 = [passenger_config.children_2_passenger_age_from, passenger_config.children_2_passenger_age_to];
-            plugin.settings.range_year_old_children_1 = [passenger_config.children_1_passenger_age_from, passenger_config.children_1_passenger_age_to];
-            plugin.settings.range_year_old_teen = [passenger_config.teen_passenger_age_from, passenger_config.teen_passenger_age_to];
-            plugin.settings.range_year_old_adult = [passenger_config.adult_passenger_age_from, passenger_config.adult_passenger_age_to];
-            plugin.settings.range_year_old_senior = [passenger_config.senior_passenger_age_from, passenger_config.senior_passenger_age_to];
-
-            plugin.range_year_old_infant_and_children_2= [plugin.settings.range_year_old_infant[0], plugin.settings.range_year_old_children_2[1]];
-            plugin.range_year_old_senior_adult_teen= [plugin.settings.range_year_old_teen[0], plugin.settings.range_year_old_senior[1]];
-            plugin.range_adult_and_children= [plugin.settings.range_year_old_children_2[0], plugin.settings.range_year_old_senior[1]];
+            var transfer_config = plugin.settings.transfer_config;
             plugin.setup_template_element();
             //plugin.render_input_person();
             plugin.add_passenger_to_last_transfer_index();
             plugin.format_name_for_last_transfer();
             plugin.add_event_last_transfer_index();
-            plugin.setup_sortable();
 
 
             /*

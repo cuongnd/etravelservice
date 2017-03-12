@@ -173,11 +173,11 @@
 
     function decimify(hex){
       hex = hex.split("");
-      // if ($.inArray(hex[0], hexTable) != -1 && $.inArray(hex[1], hexTable) != -1){
-      //   return ((decimalTable[hexTable.indexOf(hex[0].toString().toUpperCase())] * 16) + decimalTable[hexTable.indexOf(hex[1].toString().toUpperCase())]);
-      // } else {
-      //   console.log("Invalid hex value supplied");
-      // }
+      if ($.inArray(hex[0], hexTable) != -1 && $.inArray(hex[1], hexTable) != -1){
+         return ((decimalTable[hexTable.indexOf(hex[0].toString().toUpperCase())] * 16) + decimalTable[hexTable.indexOf(hex[1].toString().toUpperCase())]);
+      } else {
+         console.log("Invalid hex value supplied");
+      }
 
       if (hexTable.includes(hex[0].toString().toUpperCase()) && hexTable.includes(hex[1].toString().toUpperCase())){
         return ((decimalTable[hexTable.indexOf(hex[0].toString().toUpperCase())] * 16) + decimalTable[hexTable.indexOf(hex[1].toString().toUpperCase())]);

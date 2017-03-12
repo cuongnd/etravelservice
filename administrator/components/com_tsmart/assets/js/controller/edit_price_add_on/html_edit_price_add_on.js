@@ -69,7 +69,8 @@
                 console.log('tax');
                 console.log(tax);
             }
-            var sale_price=net_price+net_price*(mark_up_percent/100)+mark_up_amount+net_price*(tax/100);
+            var sale_price=net_price+net_price*(mark_up_percent/100)+mark_up_amount;
+            var sale_price=sale_price+sale_price*(tax/100);
             var $sale_price=$item.find('.sale-price');
             $sale_price.autoNumeric('set', sale_price);
             if(self.hasClass('mark-up-percent'))
@@ -145,7 +146,8 @@
                 console.log('tax');
                 console.log(tax);
             }
-            var sale_price=net_price+net_price*(mark_up_percent/100)+mark_up_amount+net_price*(tax/100);
+            var sale_price=net_price+net_price*(mark_up_percent/100)+mark_up_amount;
+            var sale_price=sale_price+sale_price*(tax/100);
             var $sale_price=$item.find('.sale-price');
             $sale_price.autoNumeric('set', sale_price);
             if(self.hasClass('mark-up-percent'))
