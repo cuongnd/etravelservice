@@ -96,7 +96,7 @@ class KTemplateHelperDate extends KTemplateHelperAbstract
 
                 if($periods[$i] == 'day' && $difference == 1) 
                 {
-                    // Since we got 1 by rounding it down and if it's less than 24 hours it would say x hours ago, this is yesterday
+                    // Since we got 1 by rounding it down and if it's less than 24 hours it would say x hours ago, this is yesterday
                     return $tense == 'ago' ? $this->translate('Yesterday') : $this->translate('Tomorrow');
                 }
 

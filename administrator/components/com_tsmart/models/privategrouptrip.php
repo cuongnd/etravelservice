@@ -53,7 +53,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
      *
      * @author Max Milbers
      */
-    function getItem($id = 0,$booking_date='')
+    function getItem($id = 0,$booking_date='',$price_type="flat_price")
     {
         $app = JFactory::getApplication();
         $input = $app->input;
@@ -63,9 +63,15 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $query = $db->getQuery(true);
         $query->select('tour_price.tsmart_price_id,service_class.service_class_name,tour_price.tsmart_product_id')
             ->from('#__tsmart_tour_price AS tour_price ')
-            ->innerJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=tour_price.tsmart_service_class_id')
-            ->where('tour_price.tsmart_price_id=' . (int)$id)
-            ->leftJoin('#__tsmart_itinerary AS itinerary ON itinerary.tsmart_product_id=tour_price.tsmart_product_id')
+            ->innerJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=tour_price.tsmart_service_class_id');
+        if($price_type=='multi_price'){
+            $query ->where('tour_price.tsmart_price_id=' . (int)$id);
+        }
+        else{
+            $query->leftJoin('#__tsmart_departure AS departure On departure.tsmart_departure_id='.(int)$id);
+            $query->where('')
+        }
+        $query->leftJoin('#__tsmart_itinerary AS itinerary ON itinerary.tsmart_product_id=tour_price.tsmart_product_id')
             ->select('count(distinct itinerary.tsmart_itinerary_id) AS total_day ')
             ->leftJoin('#__tsmart_cityarea AS cityarea ON cityarea.tsmart_cityarea_id=itinerary.tsmart_cityarea_id')
             ->leftJoin('#__tsmart_states AS states ON states.tsmart_state_id=cityarea.tsmart_state_id')

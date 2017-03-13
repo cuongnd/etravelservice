@@ -41,35 +41,35 @@ class KTranslator extends KObject
      * 
      * @return string Translated strign
      */
-    public function translate($string, array $parameters = array())
-    {
-        return strtr($string, $parameters);
+    public function translate($string, array $parameters = array())
+    {
+        return strtr($string, $parameters);
     }
     
-    /**
-     * Translates a string based on the number parameter passed
-     *
+    /**
+     * Translates a string based on the number parameter passed
+     *
      * @param string  $strings Strings to choose from
-     * @param integer $number The umber of items
+     * @param integer $number The umber of items
      * @param array   $parameters An array of parameters
      * 
-     * @throws InvalidArgumentException
-     *
-     * @return string Translated string
-     */
-    public function choose(array $strings, $number, array $parameters = array())
+     * @throws InvalidArgumentException
+     *
+     * @return string Translated string
+     */
+    public function choose(array $strings, $number, array $parameters = array())
     {
         if (count($strings) < 2) {
             throw new InvalidArgumentException('Choose method requires at least 2 strings to choose from');
         }
-        
+        
         $choice = KTranslatorPluralizationrules::get($number, $this->_locale);
         
         if ($choice > count($strings)-1) {
             $choice = count($strings)-1;
         }
         
-        return $this->translate($strings[$choice], $parameters);
+        return $this->translate($strings[$choice], $parameters);
     }
     
     public function setLocale($locale)

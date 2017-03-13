@@ -108,8 +108,7 @@ abstract class TSMHtmlJquery
 		// Only attempt to load the component if it's supported in core and hasn't already been loaded
 		if (empty(static::$loaded[__METHOD__])) {
 			$doc = JFactory::getDocument();
-			$doc->addScript('/components/com_tsmart/assets/js/plugin/jquery-ui-1.11.1/ui/core.js');
-			$doc->addStyleSheet('/components/com_tsmart/assets/js/plugin/jquery-ui-1.11.1/themes/base/all.css');
+			$doc->addScript('/media/system/js/jquery.utility.js');
 			static::$loaded[__METHOD__] = true;
 
 		}

@@ -27,10 +27,10 @@ class KTemplateHelperTranslator extends KTemplateHelperAbstract
     public function getTranslator()
     {
 	    if (!self::$_translator instanceof KTranslator) {
-	        $identifier = clone $this->getTemplate()->getIdentifier();
-	        $identifier->path = array();
-	        $identifier->name = 'translator';
-	        
+	        $identifier = clone $this->getTemplate()->getIdentifier();
+	        $identifier->path = array();
+	        $identifier->name = 'translator';
+	        
 	        self::$_translator = $this->getService($identifier);
 	    }
         

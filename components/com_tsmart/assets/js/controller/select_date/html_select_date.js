@@ -31,31 +31,33 @@
             var to_date = plugin.settings.to_date;
             var format = plugin.settings.format;
             var view_format = plugin.settings.view_format;
+            console.log(view_format);
             var input_name = plugin.settings.input_name;
             plugin.datepicker= $element.find('.select_date').datepicker({
                 showButtonPanel: true,
                 showWeek: true,
                 minDate: "+0",
-                dateFormat: view_format,
+                dateFormat: format,
                 changeMonth: true,
                 changeYear: true,
                 onSelect:function(dateText, inst ){
-                    dateText=$.format.date(dateText, format);
+                    dateText=$.format.date(dateText, view_format);
                     $element.find('input[name="'+input_name+'"]').val(dateText);
                 }
-            });
-            $element.find('input.select_date').change(function(){
-                var date=$(this).val();
-                var date=$.format.date(date, format);
-                $element.find('input[name="'+input_name+'"]').val(date);
             });
 
         };
         plugin.set_date=function(startDate,endDate){
-            daterangepicker=$element.find('.range_of_date').data('daterangepicker');
+            var daterangepicker=$element.find('.range_of_date').data('daterangepicker');
             daterangepicker.setStartDate(startDate);
             daterangepicker.setEndDate(endDate);
-        }
+        };
+        plugin.get_value=function(){
+            return $element.find('input.select_date').val();
+        };
+        plugin.focus=function(){
+            return $element.find('input.select_date').focus();
+        };
         plugin.init();
 
     };
