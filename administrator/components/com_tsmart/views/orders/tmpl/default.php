@@ -61,36 +61,45 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_transfer_addon_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_orders_id', 'Id'); ?>
                         </label>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('title', 'Transfer name'); ?>
+                        <?php echo $this->sort('customer_name', 'Customer name'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('created_on', 'Create date'); ?>
+                        <?php echo $this->sort('created_on', 'Tour name'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('location', 'Location'); ?>
+                        <?php echo $this->sort('location', 'Type'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('price', 'Price'); ?>
+                        <?php echo $this->sort('creation', 'Creation'); ?>
                     </th>
                     <th>
-                        <?php echo JText::_('Valid period') ?>
+                        <?php echo $this->sort('price', 'Tour date'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('modified_on', 'Amend date'); ?>
+                        <?php echo $this->sort('modified_on', 'Start/End city'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('description', 'Description'); ?>
+                        <?php echo $this->sort('description', 'Client'); ?>
                     </th>
                     <th>
-                        <?php echo JText::_('Application') ?>
+                        <?php echo JText::_('Value') ?>
                     </th>
                     <th>
-                        <?php echo JText::_('Add on type') ?>
+                        <?php echo JText::_('Receipt') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Balance') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Assign') ?>
+                    </th>
+                    <th>
+                        <?php echo JText::_('Status') ?>
                     </th>
                     <th width="70">
                         <?php echo tsmText::_('Action'); ?>
@@ -105,18 +114,18 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_transfer_addon_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_orders_id);
                     $published = $this->gridPublished($row, $i);
-                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_transfer_addon_id');
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit_item&cid[]=' . $row->tsmart_transfer_addon_id);
-                    $edit = $this->gridEdit($row, $i, 'tsmart_transfer_addon_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_orders_id');
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit_item&cid[]=' . $row->tsmart_orders_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_orders_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>">
                         <td class="admin-checkbox">
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->transfer_addon_name; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->orders_name; ?></a>
                         </td>
                         <td align="left">
                             <?php echo JHtml::_('date', $row->created_on, $format_date); ?>

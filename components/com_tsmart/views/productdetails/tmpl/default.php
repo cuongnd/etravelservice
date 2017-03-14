@@ -207,6 +207,9 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                             $end_date = clone $start_date;
                                             $end_date->modify("+$total_day day");
 
+                                            $required_select_date=$this->state->get('filter.start_date')?false:$required_select_date;
+                                            $required_select_date=$price_type=='flat_price'?false:$required_select_date;
+
                                             ?>
                                             <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>" data-tsmart_departure_id="<?php echo $trip->tsmart_departure_id ?>" data-departure_date="<?php echo $trip->departure_date ?>"
                                                  class="row item">
@@ -254,7 +257,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                                     <span class="price " data-a-sign="US$ "><?php echo $trip->sale_min_price ?></span>
                                                                 <?php } ?>
                                                                 <a href="javascript:void(0)"
-                                                                   class="action-collapse btn-collapse <?php echo $start_date ? '  ' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
+                                                                   class="action-collapse btn-collapse <?php echo $required_select_date ? '  required-select-date  ' : '' ?>" <?php echo $required_select_date ? '  ' : ' data-toggle="collapse" ' ?>
                                                                    data-target="#trip-<?php echo $i ?>"><span
                                                                         title=""
                                                                         class="glyphicon glyphicon-chevron-down  hasTooltip"
@@ -264,7 +267,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                         <div
                                                             class="xxxs-collapse hidden-tablet-desktop col-xxxs-3 icon">
                                                             <a href="javascript:void(0)"
-                                                               class="action-collapse btn-collapse <?php echo $start_date ? '' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
+                                                               class="action-collapse btn-collapse <?php echo $required_select_date ? '  required-select-date  ' : '' ?>" <?php echo $required_select_date ? '' : '  data-toggle="collapse"  ' ?>
                                                                data-target="#trip-<?php echo $i ?>"><span
                                                                     title=""
                                                                     class="glyphicon glyphicon-chevron-down  hasTooltip"
@@ -272,7 +275,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                                         </div>
                                                         <div class="col-lg-2 hidden-xxxs icon">
                                                             <a href="javascript:void(0)"
-                                                               class="action-collapse btn-collapse <?php echo $start_date ? '' : ' required-select-date ' ?>" <?php echo $start_date ? ' data-toggle="collapse" ' : '' ?>
+                                                               class="action-collapse btn-collapse <?php echo $required_select_date ? '  required-select-date  ' : '' ?>" <?php echo $required_select_date ? '  ' : ' data-toggle="collapse" ' ?>
                                                                data-target="#trip-<?php echo $i ?>"><span
                                                                     title=""
                                                                     class="glyphicon glyphicon-chevron-down  hasTooltip"

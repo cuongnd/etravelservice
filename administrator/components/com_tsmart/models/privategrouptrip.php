@@ -89,10 +89,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $start_date = JFactory::getDate($start_date);
         $query->leftJoin('#__tsmart_date_availability AS date_availability ON date_availability.tsmart_service_class_id=tour_price.tsmart_service_class_id AND date_availability.tsmart_product_id=tour_price.tsmart_product_id');
         $query->select(' IF(date_availability.date =' . $query->quote($start_date->toSql()) . ' OR CURDATE()=' . $query->quote($start_date->toSql()) . ', 0, 1) as tour_state');
-        $query2 = $db->getQuery(true);
-        $query2->select('group_size_id_tour_price_id2.id')
-            ->from('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id2')
-            ->where('group_size_id_tour_price_id2.tsmart_price_id =tour_price.tsmart_price_id');
+
         $total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old');
         if($price_type=='multi_price'){
             $query->innerJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id');
@@ -114,8 +111,8 @@ class tsmartModelPrivategrouptrip extends tmsModel
 
         }
         else{
-            $query->leftJoin('#__tsmart_departure AS departure On departure.tsmart_departure_id='.(int)$id);
-            $query->where('(tour_price.sale_period_from<=departure.start_date AND tour_price.sale_period_to>=departure.start_date)');
+            $query->where('tour_price.sale_period_from<=departure.start_date AND tour_price.sale_period_to>=departure.start_date');
+            $query->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id AND tour_price.tsmart_product_id=departure.tsmart_product_id');
 
         }
 
@@ -154,10 +151,8 @@ class tsmartModelPrivategrouptrip extends tmsModel
         require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/tsmorder.php';
         $query->leftJoin('#__tsmart_orders AS orders ON orders.product_type=' . $query->q(self::PRODUCT_TYPE) . ' AND orders.object_id=tour_price.tsmart_price_id AND orders.order_status IS NOT NULL AND orders.order_status IN("' . implode('","', tmsorder::get_list_order_confirm()) . '")')
             ->select('COUNT(orders.tsmart_order_id) AS total_order_confirm');
-        echo $query->dump();
-        die;
-        $item = $this->_db->setQuery($query)->loadObject();
 
+        $item = $this->_db->setQuery($query)->loadObject();
         $type = $item->mark_up_type;
         $tax = $item->tax / 100;
         if ($type == 'amount') {

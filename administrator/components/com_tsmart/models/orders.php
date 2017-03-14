@@ -62,16 +62,9 @@ class tsmartModelorders extends tmsModel
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('orders.*')
-            ->from('#__tsmart_orders AS orders')
-            ->leftJoin('me1u8_tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
-            ->select('cityarea.city_area_name AS city_area_name');
-        //get list tour apply
-        $query1 = $db->getQuery(true);
-        $query1->select('GROUP_CONCAT(products_en_gb.product_name)')
-            ->from('#__tsmart_tour_id_orders_id AS tour_id_orders_id')
-            ->leftJoin('#__tsmart_products_en_gb AS products_en_gb USING(tsmart_product_id)')
-            ->where('tour_id_orders_id.tsmart_orders_id=orders.tsmart_orders_id');
-        $query->select("($query1) AS list_tour");
+            ->from('#__tsmart_orders AS orders');
+
+
         $user = JFactory::getUser();
         $shared = '';
         if (vmAccess::manager()) {
@@ -82,11 +75,6 @@ class tsmartModelorders extends tmsModel
             $search = vRequest::getString('search', false);
         }
         // add filters
-        if ($search) {
-            $db = JFactory::getDBO();
-            $search = '"%' . $db->escape($search, true) . '%"';
-            $query->where('orders.orders_name LIKE ' . $search);
-        }
         if (empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
         if (empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
         $query->order($this->_selectedOrdering . ' ' . $this->_selectedOrderingDir);

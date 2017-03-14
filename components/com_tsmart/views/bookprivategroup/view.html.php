@@ -51,8 +51,11 @@ class TsmartViewbookprivategroup extends VmView
         $this->privategrouptrip_model = tmsModel::getModel('privategrouptrip');
         $item_private_group_trip = $this->privategrouptrip_model->getItem($tsmart_price_id,$booking_date,'multi_price');
         if($tsmart_departure_id){
+
             $item_private_group_trip = $this->privategrouptrip_model->getItem($tsmart_departure_id,$booking_date,'flat_price');
+
         }
+
         $tsmart_product_id = $item_private_group_trip->tsmart_product_id;
         $input->set('tsmart_product_id', $tsmart_product_id);
         $this->privategrouptrip = $item_private_group_trip;

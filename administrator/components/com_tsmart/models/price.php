@@ -201,7 +201,6 @@ class tsmartModelPrice extends tmsModel
         if (!$db->setQuery($query)->execute()) {
             throw new Exception(500, $db->getErrorMsg());
         }
-
         if (count($tour_price_by_tour_price_id)) {
             $price_extra_bed = reset($tour_price_by_tour_price_id)->price_extra_bed;
             $price_private_room = reset($tour_price_by_tour_price_id)->price_private_room;

@@ -735,7 +735,7 @@
                     $row.find('td input[column-type="children2"]').val(item.price_children2);
                     $row.find('td input[column-type="infant"]').val(item.price_infant);
                     $row.find('td input[column-type="private_room"]').val(item.price_private_room);
-                    $row.find('td input[column-type="price_extra_bed"]').val(item.price_extra_bed);
+                    $row.find('td input[column-type="extra_bed"]').val(item.price_extra_bed);
 
                 });
 

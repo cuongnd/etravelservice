@@ -46,8 +46,6 @@ $total_day = $this->product->tour_length;
 $start_date = JFactory::getDate($privategrouptrip->departure_date);
 $total_day = $total_day ? $total_day : 0;
 $price_type=$this->product->price_type;
-echo $price_type;
-die;
 $total_passenger_from_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_from_12_years_old');
 $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('filter.total_passenger_under_12_years_old');
 ?>

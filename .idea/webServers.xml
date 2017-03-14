@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="0397aaf8-f6b1-4873-90fa-e8c9ac2cc2d9" name="ftp.viethandtravel.com" url="http://103.45.230.203">
-        <fileTransfer host="103.45.230.203" port="21" rootFolder="/domains/viethandtravel.com/public_html" password="dfc4dff3df9adfcfdfeddffadfdcdf99dfc6" username="viethandtr">
+        <fileTransfer host="103.45.230.203" port="21" rootFolder="/domains/viethandtravel.com/public_html" password="dffedf9fdffcdfecdfe1dfc5df92dfc0" username="viethandtr">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" />
           </advancedOptions>
