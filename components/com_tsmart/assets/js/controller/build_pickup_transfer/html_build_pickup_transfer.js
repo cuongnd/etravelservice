@@ -2245,6 +2245,7 @@
                 }).addClass(event_class);
             }
 
+
             var $list_passenger = $transfer_item.find('ul.list-passenger');
             $list_passenger.find('input.passenger-item').each(function (passenger_index) {
                 var $passenger = $(this);
@@ -2405,6 +2406,15 @@
                     }
                 }).addClass(event_class);
             }
+            var $btn_checkin_date= $transfer_item.find('button.remove-checkin-date');
+
+            var event_class = 'action-remove-checkin-date';
+            if (!$btn_checkin_date.hasClass(event_class)) {
+                $btn_checkin_date.click(function () {
+                    $transfer_item.find('.date.check-in-date').val("");
+                }).addClass(event_class);
+            }
+
             var debug=plugin.settings.debug;
             if(debug)
             {

@@ -974,9 +974,9 @@
                 sale_promotion_price_extra_bed = plugin.settings.departure.sale_promotion_price_extra_bed;
             var departure = plugin.settings.departure;
             var full_charge_children1 = departure.full_charge_children1;
-            full_charge_children1 = full_charge_children1 == 1 ? true : false;
+            full_charge_children1 = parseInt(full_charge_children1) == 1 ? true : false;
             var full_charge_children2 = departure.full_charge_children2;
-            full_charge_children2 = full_charge_children2 == 1 ? true : false;
+            full_charge_children2 = parseInt(full_charge_children2) == 1 ? true : false;
             var tsmart_promotion_price_id = departure.tsmart_promotion_price_id;
             var tsmart_promotion_price_id = tsmart_promotion_price_id != null && tsmart_promotion_price_id != 0;
             var price_senior = departure.tsmart_discount_id > 0 ? departure.sale_discount_price_senior : sale_price_senior;
@@ -985,8 +985,8 @@
             var price_children1 = departure.tsmart_discount_id > 0 ? departure.sale_discount_price_children1 : sale_price_children1;
             var price_children2 = departure.tsmart_discount_id > 0 ? departure.sale_discount_price_children2 : sale_price_children2;
             var price_infant = departure.tsmart_discount_id > 0 ? departure.sale_discount_price_adult : sale_price_infant;
-            var price_private_room = tsmart_promotion_price_id ? sale_promotion_price_private_room : sale_price_private_room;
-            var price_extra_bed = tsmart_promotion_price_id ? sale_promotion_price_extra_bed : sale_price_extra_bed;
+            var price_private_room =  sale_price_private_room;
+            var price_extra_bed =  sale_price_extra_bed;
             for (var i = 0; i < list_room.length; i++) {
                 var room_item = list_room[i];
                 var room_index = i;
@@ -1806,6 +1806,7 @@
                         var room_price = 0;
                         var bed_note = plugin.settings.private_bed;
                         room_item = func_set_tour_cost_and_room_price(room_item, passenger_index, tour_cost, room_price, 0, "", bed_note);
+
                         if (full_charge_children1) {
                             //children (6-11) 1
                             var passenger_index = plugin.get_children_1_passenger_order_in_room(room_index, 0);

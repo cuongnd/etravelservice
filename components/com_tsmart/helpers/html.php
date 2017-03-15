@@ -1085,7 +1085,6 @@ class VmHtml
                        id="select_month_picker_<?php echo $name ?>" class="input-group-addon select_month <?php echo $class ?>"/>
                 <span class="input-group-addon icon-calendar add-on"></span>
             </div>
-
             <input type="hidden" value="<?php echo $value_selected ?>" class="" name="<?php echo $name ?>">
         </div>
         <?php
@@ -1603,11 +1602,10 @@ class VmHtml
     }
     public static function list_checkbox($name, $options, $list_selected = array(), $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3)
     {
-        $doc=JFactory::getDocument();
-
+        $doc = JFactory::getDocument();
         $list_options = array_chunk($options, $column);
         ob_start();
-        $id_element="list_checkbox".TSMUtility::clean($name);
+        $id_element = "list_checkbox" . TSMUtility::clean($name);
         ?>
         <div id="<?php echo $id_element ?>" class="list_checkbox">
             <?php foreach ($list_options as $options) { ?>
@@ -1796,7 +1794,7 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
-    public static function list_radio_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3,$debug=false)
+    public static function list_radio_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3, $debug = false)
     {
         JHtml::_('jquery.framework');
         $doc = JFactory::getDocument();
@@ -1848,7 +1846,7 @@ class VmHtml
         $html = ob_get_clean();
         return $html;
     }
-    public static function list_check_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3,$debug=false)
+    public static function list_check_rooming($name, $options, $selected = 0, $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3, $debug = false)
     {
         TSMHtmlJquery::ui();
         $doc = JFactory::getDocument();
@@ -1857,7 +1855,7 @@ class VmHtml
         $doc->addScript('/components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.js');
         $doc->addLessStyleSheet('/components/com_tsmart/assets/js/plugin/checkator-master/fm.checkator.jquery.less');
         $doc->addLessStyleSheet('/components/com_tsmart/assets/js/controller/list_check_rooming/style.list_check_rooming.less');
-        $doc->addScript( '/components/com_tsmart/assets/js/controller/list_check_rooming/jquery.list_check_rooming.js');
+        $doc->addScript('/components/com_tsmart/assets/js/controller/list_check_rooming/jquery.list_check_rooming.js');
         $id_element = "list-check-box-$name";
         $total_option = count($options);
         $column = $total_option < $column ? $total_option : $column;
@@ -3236,7 +3234,7 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function input_passenger($list_passenger = array(), $name = '', $default = '0', $min_age = 0, $max_age = 99, $departure, $passenger_config,$debug=false)
+    public static function input_passenger($list_passenger = array(), $name = '', $default = '0', $min_age = 0, $max_age = 99, $departure, $passenger_config, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -3383,7 +3381,7 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $disable = false,$debug=false)
+    public static function build_room($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $disable = false, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -3564,7 +3562,7 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_extra_night_hotel($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $type, $extra_night_config,$debug=false)
+    public static function build_extra_night_hotel($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $type, $extra_night_config, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -3584,7 +3582,6 @@ XML;
         $doc->addScript('/media/system/js/bootstrap-notify-master/bootstrap-notify.js');
         $doc->addScript('/media/system/js/jquery.scrollTo-master/jquery.scrollTo.js');
         $doc->addScript('/media/system/js/jquery-cookie-master/src/jquery.cookie.js');
-
         $doc->addLessStyleSheet('components/com_tsmart/assets/js/controller/build_extra_night_hotel/html_build_extra_night_hotel.less');
         $doc->addScript('/components/com_tsmart/assets/js/plugin/moment-develop/moment.js');
         $doc->addScript('/media/system/js/bootstrap-daterangepicker-master/daterangepicker.js');
@@ -3599,16 +3596,15 @@ XML;
         $id_element = 'html_build_extra_night_hotel_' . $name;
         $type = $type ? $type : 'pre_night';
         //$debug = true;
-        $config=tsmConfig::get_config();
-        $params=$config->params;
-        if($type=='pre_night')
-        {
-            $hotel_night_booking_days_allow=$params->get('hotel_pre_night_booking_days_allow',1);
-        }else{
-            $hotel_night_booking_days_allow=$params->get('hotel_post_night_booking_days_allow',1);
+        $config = tsmConfig::get_config();
+        $params = $config->params;
+        if ($type == 'pre_night') {
+            $hotel_night_booking_days_allow = $params->get('hotel_pre_night_booking_days_allow', 1);
+        } else {
+            $hotel_night_booking_days_allow = $params->get('hotel_post_night_booking_days_allow', 1);
         }
-        $hoteladdon_helper=tsmHelper::getHepler('hoteladdon');
-        $group_min_price=$hoteladdon_helper->get_group_min_price($departure->tsmart_product_id,$departure->departure_date,$type);
+        $hoteladdon_helper = tsmHelper::getHepler('hoteladdon');
+        $group_min_price = $hoteladdon_helper->get_group_min_price($departure->tsmart_product_id, $departure->departure_date, $type);
         $list_room_type = array(
             single => 1,
             double => 2,
@@ -3643,21 +3639,27 @@ XML;
         ob_start();
         ?>
         <div class="html_night_hotel " id="<?php echo $id_element ?>">
-
             <div class="<?php echo $id_element ?>_list_room">
                 <div class="item-night-hotel">
                     <div style="display: none" class="move-room handle"><span title="" class="icon-move "></span></div>
                     <div class="row">
                         <div class="col-lg-offset-6 col-lg-6">
-                            <div class="room-price text-center color-red"><b><span data-a-sign="US$" class="price single-price"><?php echo $group_min_price->single_min_price ?></span>/<?php echo JText::_('SGL') ?> or <span data-a-sign="US$" class="price dbl-price"><?php echo $group_min_price->dbl_twin_min_price ?></span>/<?php echo JText::_('DBL/TWIN') ?> or <span data-a-sign="US$" class="price tpl-price"><?php echo $group_min_price->tpl_min_price ?></span>/<?php echo JText::_('TPL') ?></b></div>
-                            <div class="text-uppercase text-center color-red"><b><?php echo JText::_('Book now') ?></b></div>
+                            <div class="room-price text-center color-red">
+                                <b><span data-a-sign="US$" class="price single-price"><?php echo $group_min_price->single_min_price ?></span>/<?php echo JText::_('SGL') ?>
+                                    or
+                                    <span data-a-sign="US$" class="price dbl-price"><?php echo $group_min_price->dbl_twin_min_price ?></span>/<?php echo JText::_('DBL/TWIN') ?>
+                                    or
+                                    <span data-a-sign="US$" class="price tpl-price"><?php echo $group_min_price->tpl_min_price ?></span>/<?php echo JText::_('TPL') ?>
+                                </b></div>
+                            <div class="text-uppercase text-center color-red"><b><?php echo JText::_('Book now') ?></b>
+                            </div>
                             <div class="text-center"><span class="glyphicon glyphicon-chevron-down"></span></div>
-
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-lg-12"><h3 class="reservation text-uppercase"><?php echo JText::_('Reservation') ?> <span class="room-order">1</span>
+                        <div class="col-lg-12">
+                            <h3 class="reservation text-uppercase"><?php echo JText::_('Reservation') ?>
+                                <span class="room-order">1</span>
                             </h3>
                         </div>
                     </div>
@@ -3680,16 +3682,18 @@ XML;
                                     <textarea data-name="room_note" style="width: 100%;height: 50px"></textarea>
                                 </div>
                             </div>
-
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="notify">
-                                        <div class="notify1"><span class="glyphicon glyphicon-info-sign"></span> <?php echo JText::sprintf('NOTE_NIGHT_HOTEL_1',0,$passenger_config->hotel_arrange_year_old_from) ?></div>
-                                        <div class="notify2"><span class="glyphicon glyphicon-info-sign"></span> <?php echo JText::sprintf('NOTE_NIGHT_HOTEL_2',0,$passenger_config->hotel_arrange_year_old_from) ?></div>
+                                        <div class="notify1">
+                                            <span class="glyphicon glyphicon-info-sign"></span> <?php echo JText::sprintf('NOTE_NIGHT_HOTEL_1', 0, $passenger_config->hotel_arrange_year_old_from) ?>
+                                        </div>
+                                        <div class="notify2">
+                                            <span class="glyphicon glyphicon-info-sign"></span> <?php echo JText::sprintf('NOTE_NIGHT_HOTEL_2', 0, $passenger_config->hotel_arrange_year_old_from) ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-lg-6">
                             <div class="list_room_type row">
@@ -3699,7 +3703,8 @@ XML;
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="title-select-room"><?php echo JText::_('Select room') ?></div>
-                                            <div class="text-center"><span class="glyphicon glyphicon-arrow-down"></span></div>
+                                            <div class="text-center">
+                                                <span class="glyphicon glyphicon-arrow-down"></span></div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -4898,7 +4903,7 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_form_contact($name, $debug=false)
+    public static function build_form_contact($name, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -4991,7 +4996,7 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_pickup_transfer($name, $list_passenger = array(), $default = '0', $departure, $transfer_config, $transfer_item_config, $pickup_transfer_type = 'pre_transfer',$min_price=0,$debug=false)
+    public static function build_pickup_transfer($name, $list_passenger = array(), $default = '0', $departure, $transfer_config, $transfer_item_config, $pickup_transfer_type = 'pre_transfer', $min_price = 0, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -5018,15 +5023,13 @@ XML;
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
         $id_element = 'html_build_pickup_transfer_' . $name;
-        $config=tsmConfig::get_config();
-        $params=$config->params;
-        if($pickup_transfer_type=='pre_transfer')
-        {
-            $transfer_booking_days_allow=$params->get('pre_transfer_booking_days_allow',1);
-        }else{
-            $transfer_booking_days_allow=$params->get('post_transfer_booking_days_allow',1);
+        $config = tsmConfig::get_config();
+        $params = $config->params;
+        if ($pickup_transfer_type == 'pre_transfer') {
+            $transfer_booking_days_allow = $params->get('pre_transfer_booking_days_allow', 1);
+        } else {
+            $transfer_booking_days_allow = $params->get('post_transfer_booking_days_allow', 1);
         }
-
         ob_start();
         ?>
         <script type="text/javascript">
@@ -5062,8 +5065,15 @@ XML;
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label><?php echo JText::_('Check in date') ?>
-                                :<input type="text" readonly class="date check-in-date"></label>
+                            <label><?php echo JText::_('Check in date') ?>:
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control date check-in-date " placeholder="Checkin date">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-primary remove-checkin-date" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                                          </span>
+                                </div>
+
+                            </label>
                         </div>
                     </div>
                     <div class="row">
@@ -5174,7 +5184,7 @@ XML;
      * @return string
      * @throws Exception
      */
-    public static function build_excursion_addon($name,  $default = '0', $departure, $passenger_config, $list_excursion_addon,$debug=false)
+    public static function build_excursion_addon($name, $default = '0', $departure, $passenger_config, $list_excursion_addon, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -5182,7 +5192,7 @@ XML;
         $session = JFactory::getSession();
         $json_list_passenger = $session->get('json_list_passenger');
         $json_list_passenger = json_decode($json_list_passenger);
-        $json_list_passenger=array_merge($json_list_passenger->senior_adult_teen,$json_list_passenger->children_infant);
+        $json_list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
         $doc->addScript('/media/system/js/jquery.utility.js');
         $doc->addScript('/media/system/js/select2-master/dist/js/select2.full.js');
         $doc->addScript('/media/system/js/jquery.serializeObject.js');
@@ -5201,8 +5211,8 @@ XML;
         $lipsum = new joshtronic\LoremIpsum();
         $input = JFactory::getApplication()->input;
         $id_element = 'html_build_excursion_addonn_' . $name;
-        $json_list_passenger=TSMUtility::add_year_old($json_list_passenger);
-        $list_excursion_addon=JArrayHelper::pivot($list_excursion_addon,'tsmart_excursion_addon_id');
+        $json_list_passenger = TSMUtility::add_year_old($json_list_passenger);
+        $list_excursion_addon = JArrayHelper::pivot($list_excursion_addon, 'tsmart_excursion_addon_id');
         ob_start();
         ?>
         <script type="text/javascript">
@@ -5224,72 +5234,67 @@ XML;
         $script_content = ob_get_clean();
         $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
-        $excusion_helper=tsmhelper::getHepler('excursionaddon');
+        $excusion_helper = tsmhelper::getHepler('excursionaddon');
         ob_start();
         ?>
         <div class="html_build_excursion_addon" id="<?php echo $id_element ?>">
             <div class="<?php echo $id_element ?>_list_excursion">
-                <?php foreach($list_excursion_addon AS $excursion_addon){ ?>
+                <?php foreach ($list_excursion_addon AS $excursion_addon) { ?>
                     <?php
-                    $excursion_addon->itinerary=strip_tags($excursion_addon->itinerary);
-                    $min_price=$excusion_helper->get_min_price($excursion_addon);
+                    $excursion_addon->itinerary = strip_tags($excursion_addon->itinerary);
+                    $min_price = $excusion_helper->get_min_price($excursion_addon);
                     ?>
-                <div class="item-excursion">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="color-red"><b><?php echo $excursion_addon->excursion_addon_name  ?></b></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-
-                            <img class="img-responsive" src="/<?php echo $excursion_addon->photo ?>">
-                            <div class="description  text-justify"><?php echo JString::substr($excursion_addon->itinerary,0,100) ?></div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col-lg-6">
-
-                                    <div
-                                        class="air-price"><?php echo JText::sprintf('price<br/> from <span class="price">%d</span> /pers', $min_price) ?></div>
-
-
-                                </div>
-                                <div class="col-lg-6">
-                                    <ul class="list-passenger">
-                                        <?php foreach($json_list_passenger AS $passenger){ ?>
-                                            <li><label class="checkbox-inline">
-                                                    <input class="passenger-item" type="checkbox"> <span class="full-name"><?php echo TSMUtility::get_full_name($passenger,$debug); ?></span><span class="in_excursion"></span></label>
-                                            </li>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="excursion-fluid note">
-                                <div class="col-lg-12">
-                                    <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
-                                            <button type="button" class="btn btn-primary random-text">Random text
-                                            </button><?php } ?></h4>
-                                    <textarea data-name="excursion_note" style="width: 96%;height: 50px"></textarea>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div  class="row hide">
-                        <div class="col-lg-12">
-                            <div class="group_button pull-right">
-                                <button type="button"
-                                        class="btn btn-primary add-more-excursion pull-leff"><?php echo JText::_('Add more excursion') ?></button>
-                                <button type="button"
-                                        class="btn btn-primary remove-excursion pull-left"><?php echo JText::_('Remove excursion') ?></button>
+                    <div class="item-excursion">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="color-red"><b><?php echo $excursion_addon->excursion_addon_name ?></b></div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img class="img-responsive" src="/<?php echo $excursion_addon->photo ?>">
+                                <div class="description  text-justify"><?php echo JString::substr($excursion_addon->itinerary, 0, 100) ?></div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div
+                                            class="air-price"><?php echo JText::sprintf('price<br/> from <span class="price">%d</span> /pers', $min_price) ?></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <ul class="list-passenger">
+                                            <?php foreach ($json_list_passenger AS $passenger) { ?>
+                                                <li><label class="checkbox-inline">
+                                                        <input class="passenger-item" type="checkbox">
+                                                        <span class="full-name"><?php echo TSMUtility::get_full_name($passenger, $debug); ?></span><span class="in_excursion"></span></label>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="excursion-fluid note">
+                                    <div class="col-lg-12">
+                                        <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
+                                                <button type="button" class="btn btn-primary random-text">Random text
+                                                </button><?php } ?></h4>
+                                        <textarea data-name="excursion_note" style="width: 96%;height: 50px"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hide">
+                            <div class="col-lg-12">
+                                <div class="group_button pull-right">
+                                    <button type="button"
+                                            class="btn btn-primary add-more-excursion pull-leff"><?php echo JText::_('Add more excursion') ?></button>
+                                    <button type="button"
+                                            class="btn btn-primary remove-excursion pull-left"><?php echo JText::_('Remove excursion') ?></button>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="tsmart_excursion_addon_id" value="<?php echo $excursion_addon->tsmart_excursion_addon_id ?>">
                     </div>
-                    <input type="hidden" name="tsmart_excursion_addon_id" value="<?php echo  $excursion_addon->tsmart_excursion_addon_id ?>">
-                </div>
-                <?php }?>
+                <?php } ?>
             </div>
             <input type="hidden" name="<?php echo $name ?>">
         </div>

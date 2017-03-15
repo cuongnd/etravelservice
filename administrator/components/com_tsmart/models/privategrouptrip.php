@@ -61,7 +61,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
         //$product=$price_helper->get_product_by_tour_price_id($id);
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('tour_price.tsmart_price_id,service_class.service_class_name,tour_price.tsmart_product_id')
+        $query->select('tour_price.tsmart_price_id,service_class.service_class_name,tour_price.tsmart_product_id,tour_price.full_charge_children1,tour_price.full_charge_children2')
             ->from('#__tsmart_tour_price AS tour_price ')
             ->innerJoin('#__tsmart_service_class AS service_class ON service_class.tsmart_service_class_id=tour_price.tsmart_service_class_id');
         if($price_type=='multi_price'){
@@ -175,7 +175,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
             $price_private_room = $item->price_private_room + $item->mark_up_price_private_room;
             $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
             $extra_bed = $item->extra_bed + $item->mark_up_extra_bed;
-            $item->sale_extra_bed = round($extra_bed + $extra_bed * $tax);
+            $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
 
 
         } else {
@@ -194,7 +194,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
             $price_private_room = $item->price_private_room + $item->price_private_room * ($item->mark_up_private_room / 100);
             $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
             $extra_bed = $item->extra_bed + $item->extra_bed * $item->mark_up_extra_bed / 100;
-            $item->sale_extra_bed = round($extra_bed + $extra_bed * $tax);
+            $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
 
         }
         if ($item->tsmart_discount_id) {
@@ -248,7 +248,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
                 $price_private_room = $item->price_private_room + $item->mark_up_price_private_room;
                 $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
                 $extra_bed = $item->extra_bed + $item->mark_up_extra_bed;
-                $item->sale_extra_bed = round($extra_bed + $extra_bed * $tax);
+                $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
 
 
             } else {
@@ -267,7 +267,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
                 $price_private_room = $item->price_private_room + $item->price_private_room * ($item->mark_up_private_room / 100);
                 $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
                 $extra_bed = $item->extra_bed + $item->extra_bed * $item->mark_up_extra_bed / 100;
-                $item->sale_extra_bed = round($extra_bed + $extra_bed * $tax);
+                $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
             }
             $item->sale_min_price = round($item->sale_min_price + $item->sale_min_price * $tax);
             if ($item->tsmart_discount_id) {
