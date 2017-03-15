@@ -189,6 +189,7 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                 </div>
                                 <div class="row body">
                                     <div class="col-lg-12">
+
                                         <?php for ($i = 0; $i < count($this->list_trip); $i++) { ?>
                                             <?php
 
@@ -211,9 +212,17 @@ $total_passenger_under_12_years_old=$this->state->get('filter.total_passenger_un
                                             $required_select_date=$price_type=='flat_price'?false:$required_select_date;
 
                                             ?>
+
                                             <div data-tsmart_price_id="<?php echo $trip->tsmart_price_id ?>" data-tsmart_departure_id="<?php echo $trip->tsmart_departure_id ?>" data-departure_date="<?php echo $trip->departure_date ?>"
                                                  class="row item">
                                                 <div class="col-lg-12">
+                                                    <?php if($debug){ ?>
+                                                        <div>
+                                                            tsmart_departure_id:<?php echo $trip->tsmart_departure_id ?><br/>
+                                                            departure_date:<?php echo $trip->departure_date ?><br/>
+                                                            departure_code:<?php echo $trip->departure_code ?><br/>
+                                                        </div>
+                                                    <?php } ?>
                                                     <div class="row header-item">
                                                         <div class="col-lg-1 col-xxxs-1 person">
                                                             <span title="" class="travel-icon">n</span>

@@ -54,7 +54,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
      * @author Max Milbers
      */
     function getItem($id = 0,$booking_date='',$price_type="flat_price")
-    {
+    {   $debug=TSMUtility::get_debug();
         $app = JFactory::getApplication();
         $input = $app->input;
         $price_helper=tsmHelper::getHepler('price');
@@ -91,27 +91,28 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $query->select(' IF(date_availability.date =' . $query->quote($start_date->toSql()) . ' OR CURDATE()=' . $query->quote($start_date->toSql()) . ', 0, 1) as tour_state');
 
         $total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old');
+        $query->innerJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id');
+        $query->select('group_size_id_tour_price_id.id AS group_size_id_tour_price_id');
+        $query->select('group_size.tsmart_group_size_id AS tsmart_group_size_id');
+        $query->select('group_size_id_tour_price_id.tsmart_group_size_id AS tsmart_group_size_id');
+        $query->select('group_size_id_tour_price_id.price_senior AS price_senior');
+        $query->select('group_size_id_tour_price_id.price_adult AS price_adult');
+        $query->select('group_size_id_tour_price_id.price_teen AS  price_teen');
+        $query->select('group_size_id_tour_price_id.price_infant AS price_infant');
+        $query->select('group_size_id_tour_price_id.price_children1 AS price_children1');
+        $query->select('group_size_id_tour_price_id.price_children2 AS price_children2');
+        $query->select('group_size_id_tour_price_id.price_private_room AS price_private_room');
+        $query->select('group_size_id_tour_price_id.price_extra_bed AS price_extra_bed');
+        $query->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id.tsmart_group_size_id');
         if($price_type=='multi_price'){
-            $query->innerJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id');
-            $query->select('group_size_id_tour_price_id.id AS group_size_id_tour_price_id');
-            $query->select('group_size.tsmart_group_size_id AS tsmart_group_size_id');
-            $query->select('group_size_id_tour_price_id.tsmart_group_size_id AS tsmart_group_size_id');
-            $query->select('group_size_id_tour_price_id.price_senior AS price_senior');
-            $query->select('group_size_id_tour_price_id.price_adult AS price_adult');
-            $query->select('group_size_id_tour_price_id.price_teen AS  price_teen');
-            $query->select('group_size_id_tour_price_id.price_infant AS price_infant');
-            $query->select('group_size_id_tour_price_id.price_children1 AS price_children1');
-            $query->select('group_size_id_tour_price_id.price_children2 AS price_children2');
-            $query->select('group_size_id_tour_price_id.price_private_room AS price_private_room');
-            $query->select('group_size_id_tour_price_id.price_extra_bed AS price_extra_bed');
-            $query->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id.tsmart_group_size_id');
+
             $query->where('group_size.from<=' . (int)$total_passenger_from_12_years_old . ' AND group_size.to>=' . (int)$total_passenger_from_12_years_old);
             $start_date = JFactory::getDate($start_date);
             $query->where('(tour_price.sale_period_from<=' . $query->quote($start_date->toSql()) . ' AND tour_price.sale_period_to>=' . $query->quote($start_date->toSql()) . ')');
 
         }
         else{
-            $query->where('tour_price.sale_period_from<=departure.start_date AND tour_price.sale_period_to>=departure.start_date');
+            $query->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date');
             $query->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id AND tour_price.tsmart_product_id=departure.tsmart_product_id');
 
         }
@@ -151,7 +152,10 @@ class tsmartModelPrivategrouptrip extends tmsModel
         require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/tsmorder.php';
         $query->leftJoin('#__tsmart_orders AS orders ON orders.product_type=' . $query->q(self::PRODUCT_TYPE) . ' AND orders.object_id=tour_price.tsmart_price_id AND orders.order_status IS NOT NULL AND orders.order_status IN("' . implode('","', tmsorder::get_list_order_confirm()) . '")')
             ->select('COUNT(orders.tsmart_order_id) AS total_order_confirm');
-
+        if($debug)
+        {
+            echo $query->dump();
+        }
         $item = $this->_db->setQuery($query)->loadObject();
         $type = $item->mark_up_type;
         $tax = $item->tax / 100;
@@ -344,7 +348,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $app = JFactory::getApplication();
         $input = $app->input;
         $tsmart_product_id = $input->getInt('tsmart_product_id', 0);
-
+        $debug=TSMUtility::get_debug();
         $product_model = tmsModel::getModel('product');
 
 
@@ -437,17 +441,16 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $query->innerJoin('#__tsmart_group_size_id_tour_price_id AS group_size_id_tour_price_id ON group_size_id_tour_price_id.tsmart_price_id=tour_price.tsmart_price_id');
         $query->leftJoin('#__tsmart_group_size AS group_size ON group_size.tsmart_group_size_id=group_size_id_tour_price_id.tsmart_group_size_id');
         $query->select('group_size.from AS group_from,group_size.to AS group_to');
-        if($product->price_type!='flat_price') {
-            if ($total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old', 1)) {
-                $query->where('(group_size.from<=' . (int)$total_passenger_from_12_years_old . ' AND group_size.to>=' . (int)$total_passenger_from_12_years_old . ')');
-            }
-        }
+
         if($product->price_type=='flat_price') {
             if ($start_date) {
                 $query->where('tour_price.sale_period_from>=' . $query->quote($start_date->toSql()) );
             }
-
-        }else{
+        }
+        else{
+            if ($total_passenger_from_12_years_old = $this->getState('filter.total_passenger_from_12_years_old', 1)) {
+                $query->where('(group_size.from<=' . (int)$total_passenger_from_12_years_old . ' AND group_size.to>=' . (int)$total_passenger_from_12_years_old . ')');
+            }
             if ($start_date) {
                 $query->where('(tour_price.sale_period_from<=' . $query->quote($start_date->toSql()) . ' AND tour_price.sale_period_to>=' . $query->quote($start_date->toSql()) . ')');
             }
@@ -479,9 +482,9 @@ class tsmartModelPrivategrouptrip extends tmsModel
             $now = JFactory::getDate();
         }
         if($product->price_type=='flat_price') {
-            $query->innerJoin('#__tsmart_departure AS departure ON departure.tsmart_product_id=tour_price.tsmart_product_id AND departure.tsmart_departure_parent_id IS NOT NULL')
-                ->where('departure.departure_date>=' . $query->quote($now->toSql()))
-                ->select('departure.tsmart_departure_id,departure.departure_date')
+            $query->innerJoin('#__tsmart_departure AS departure ON departure.tsmart_product_id=tour_price.tsmart_product_id AND tour_price.tsmart_service_class_id=departure.tsmart_service_class_id AND departure.tsmart_departure_parent_id IS NOT NULL')
+                ->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date')
+                ->select('departure.tsmart_departure_id,departure.departure_date,departure.departure_code')
             ;
         }
         $query3 = $db->getQuery(true);
@@ -494,7 +497,10 @@ class tsmartModelPrivategrouptrip extends tmsModel
         $query->leftJoin('#__tsmart_discounts AS discount2 ON discount2.tsmart_discount_id=(' . $query3 . ')');
         $query->select('discount2.tsmart_discount_id,discount2.discount_name AS discount_name,discount2.percent_or_total AS discount_percent_or_total,discount2.discount_value AS discount_value')
         ;
-        echo $query->dump();
+        if($debug)
+        {
+            echo $query->dump();
+        }
         return $query;
     }
 

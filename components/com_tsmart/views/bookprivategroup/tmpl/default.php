@@ -139,7 +139,9 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-xxxs-12">
-                                                        <?php echo $this->loadTemplate('price') ?>
+                                                        <div class="wrapper-price">
+                                                            <?php echo $this->loadTemplate('price') ?>
+                                                        </div>
                                                         <div class="hidden-tablet-desktop sale-off text-uppercase">
                                                             <?php echo JText::printf('off 10 early bird booking 90 days, code shtdgh') ?>
                                                         </div>

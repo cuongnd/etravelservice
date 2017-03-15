@@ -31,7 +31,6 @@
             var select_name=plugin.settings.select_name;
             var tsmart_tour_type_id=plugin.settings.tsmart_tour_type_id;
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
-                data:list_tour_type,
                 templateResult:plugin.set_select2_template_result,
                 templateSelection:plugin.set_lect2_template_selection
             });

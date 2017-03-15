@@ -295,11 +295,15 @@ class TSMUtility
     {
         $input=JFactory::getApplication()->input;
         $debug=$input->getString('dg','');
+        $ajax=$input->getString('ajax','');
         $session=JFactory::getSession();
         if($debug=='0' || $debug=='1'){
             $session->set('dg',$debug);
         }
         $debug=$session->get('dg','');
+        if($ajax=='1'){
+            $debug='0';
+        }
         if($debug=='1')
         {
             return true;

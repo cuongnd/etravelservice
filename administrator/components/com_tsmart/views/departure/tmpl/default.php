@@ -76,14 +76,15 @@ require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 AdminUIHelper::startAdminArea($this);
+$debug=TSMUtility::get_debug();
 
 ?>
     <div class="view-departure-default">
-        <form action="index.php" method="post" name="adminForm" id="adminForm">
+        <form action="index.php?option=com_tsmart&view=departure" method="post" name="adminForm" id="adminForm">
             <div class="row-fluid filter filter-product">
                 <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
                 <?php echo VmHTML::row_control('input',JText::_('Departure name'), 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
-                <?php echo VmHTML::row_control('input', JText::_('Departure code'), 'filter_departure_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+                <?php echo VmHTML::row_control('input', JText::_('Departure code'), 'filter_departure_code', $this->escape($this->state->get('filter.departure_code'))); ?>
                 <?php echo VmHTML::row_control('select_tour', 'trip name', 'filter_product_id', $this->state->get('filter.product_id')); ?>
                 <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
                 <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
@@ -163,7 +164,7 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->departure_code ?>
                             </td>
                             <td>
-                                <?php echo $row->product_name ?>
+                                <?php echo $row->product_name ?><?php echo $debug?"($row->tsmart_product_id)":"" ?>
                             </td>
                             <td>
                                 <?php echo $row->service_class_name ?>

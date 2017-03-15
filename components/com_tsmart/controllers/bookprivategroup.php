@@ -85,7 +85,7 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
 
         $privategrouptrip_model=tmsModel::getModel('privategrouptrip');
         $app->setUserState($privategrouptrip_model->getContext() . '.filter.total_passenger_from_12_years_old',$total_senior_adult_teen);
-        $item=$privategrouptrip_model->getItem($tsmart_price_id,$booking_date);
+        $item=$privategrouptrip_model->getItem($tsmart_price_id,$booking_date,'multi_price');
         $view = $this->getView('bookprivategroup', 'html', 'TsmartView');
         $input->set('layout','default');
         $view->item=$item;

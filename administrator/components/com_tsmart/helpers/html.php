@@ -653,6 +653,11 @@ class VmHtml
             $tour->id = $tour->tsmart_product_id;
             $tour->text = $tour->product_name;
         }
+        $option_select=array(
+            tsmart_product_id=>"",
+            product_name=>JText::_('Please select tour')
+        );
+        array_unshift($list_products,(object)$option_select);
         ob_start();
         ?>
         <script type="text/javascript">
