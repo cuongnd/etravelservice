@@ -22,6 +22,8 @@ $doc = JFactory::getDocument();
 JHtml::_('jquery.framework');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
+TSMHtmlJquery::ui();
+TSMHtmlJquery::notify();
 $doc->addScript(JUri::root() . '/media/system/js/multi_calendar_date_picker/js/multi_calendar_date_picker.js');
 $doc->addScript(JUri::root() . '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
 $doc->addScript(JUri::root() . '/media/system/js/jQuery-Plugin-For-Bootstrap-Button-Group-Toggles/select-toggleizer.js');
@@ -59,13 +61,45 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
 <div class="view-orders-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
         <div class="row-fluid filter filter-orders">
-            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
-            <?php echo VmHTML::row_control('input', 'trip name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
-            <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.trip_code'))); ?>
-            <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type_id', $this->state->get('filter.trip_type_id')); ?>
-            <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
-            <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
-            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
+            <div class="row-fluid ">
+                <div class="span1">
+                    <div class="padding5">
+                        <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
+                    </div>
+                </div>
+                <div class="span10">
+                    <div class="border-left border-right">
+                        <div class="border-bottom padding5">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <?php echo VmHTML::row_control('input', 'Booking ID/Guest name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+                                    <?php echo VmHTML::row_control('input', 'trip name', 'filter_trip_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+                                    <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type_id', $this->state->get('filter.trip_type_id')); ?>
+                                    <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
+                                    <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+
+                                <?php echo VmHTML::row_control('input', 'trip name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+                                <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+                                <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type_id', $this->state->get('filter.trip_type_id')); ?>
+                                <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
+                                <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span1">
+                    <div class="padding5">
+                        <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
 
@@ -79,7 +113,7 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                 <tr>
                     <th class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_orders_id', 'Id'); ?>
+                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_order_id', 'Id'); ?>
                         </label>
 
                     </th>
@@ -132,36 +166,39 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                 for ($i = 0, $n = count($this->items); $i < $n; $i++) {
                     $row = $this->items[$i];
 
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_orders_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
                     $published = $this->gridPublished($row, $i);
-                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_orders_id');
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit_item&cid[]=' . $row->tsmart_orders_id);
-                    $edit = $this->gridEdit($row, $i, 'tsmart_orders_id', $editlink);
+                    $delete = $this->grid_delete_in_line($row, $i, 'tsmart_order_id');
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit_item&cid[]=' . $row->tsmart_order_id);
+                    $edit = $this->gridEdit($row, $i, 'tsmart_order_id', $editlink);
                     ?>
-                    <tr class="row<?php echo $k; ?>">
+                    <tr class="row<?php echo $k; ?>" data-tsmart_order_id="<?php echo $row->tsmart_order_id?>">
                         <td class="admin-checkbox">
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->orders_name; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->custom_name; ?></a>
                         </td>
                         <td align="left">
-                            <?php echo JHtml::_('date', $row->created_on, $format_date); ?>
+                            <?php echo $row->product->product_name; ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->city_area_name; ?>
+                            <?php echo $row->product_type; ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->city_area_name; ?>
+                            <?php echo JHtml::_('date', $row->created_on, tsmConfig::$date_format); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->city_area_name; ?>
+                            <?php echo JHtml::_('date', $row->departure_date, tsmConfig::$date_format); ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->city_area_name; ?>
+                            <?php echo $row->product->start_city; ?>,<?php echo $row->product->start_country; ?>
+                            <br/>
+                            <?php echo $row->product->end_city; ?>,<?php echo $row->product->end_country; ?>
                         </td>
                         <td align="left">
-                            <span class="icon-eye"></span>
+                            <?php echo JText::sprintf('%s pers',$row->total_passenger) ?>
+
                         </td>
                         <td align="left">
                             <?php echo JHtml::_('date', $row->vail_from, $format_date); ?>
@@ -175,10 +212,11 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                             <?php echo $row->transfer_note; ?>
                         </td>
                         <td align="left">
-                            <?php echo $row->list_tour; ?>
+                            <?php echo VmHTML::select_user_name(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
+
                         </td>
                         <td align="left">
-                            <?php echo JText::_($row->transfer_type) ; ?>
+                            <?php echo JText::_($row->order_status) ; ?>
                         </td>
                         <td align="center">
                             <?php echo $published; ?>

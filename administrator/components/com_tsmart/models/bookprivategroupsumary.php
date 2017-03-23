@@ -32,6 +32,36 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 {
 
     public function save_order($booking_summary,$user_id){
+
+        $contact_data=$booking_summary->contact_data;
+        $contact_data=json_decode($contact_data);
+        $customsTable =  $this->getTable('customs');
+        $store_data_contact=new stdClass();
+        $store_data_contact->custom_name=$contact_data->contact_name;
+        $store_data_contact->phone=$contact_data->phone_number;
+        $store_data_contact->email=$contact_data->email_address;
+        $store_data_contact->street=$contact_data->street_address;
+        $store_data_contact->sub_town=$contact_data->suburb_town;
+        $store_data_contact->state_province=$contact_data->state_province;
+        $store_data_contact->zip_code=$contact_data->post_code_zip;
+        $store_data_contact->country=$contact_data->res_country;
+        $store_data_contact->emergency_contact_name=$contact_data->emergency_contact_name;
+        $store_data_contact->emergency_contact_address=$contact_data->emergency_email_address;
+        $store_data_contact->emergency_contact_phone=$contact_data->emergency_phone_number;
+        $store_data_contact=(array)$store_data_contact;
+        $ok=$customsTable->bindChecknStore($store_data_contact);
+
+        if(!$ok){
+            echo "<pre>";
+            print_r($customsTable->getErrors(), false);
+            echo "</pre>";
+            die;
+            die;
+        }
+        $tsmart_price_id=$booking_summary->departure->tsmart_price_id;
+        $tsmart_product_id=$booking_summary->departure->tsmart_product_id;
+        $tsmproduct=tsmHelper::getHepler('product');
+        $product=$tsmproduct->get_product_by_tour_id($tsmart_product_id);
         $_orderData=array();
         $orderTable =  $this->getTable('orders');
         $_orderData['tsmart_user_id']=$user_id;
@@ -39,9 +69,18 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $_orderData['order_total']=$user_id;
         $_orderData['tsmart_user_id']=$booking_summary->total_price;
         $_orderData['coupon_code']='';
-        $_orderData['coupon_code']='';
+        $_orderData['product_type']=$product->price_type;
+        $_orderData['object_id']=$tsmart_price_id;
+        $_orderData['tsmart_custom_id']=$customsTable->tsmart_custom_id;
         $_orderData['order_data']=json_encode($booking_summary);
-        $orderTable -> bindChecknStore($_orderData);
+        $ok=$orderTable -> bindChecknStore($_orderData);
+        if(!$ok){
+            echo "<pre>";
+            print_r($orderTable->getErrors(), false);
+            echo "</pre>";
+            die;
+            die;
+        }
         return $orderTable;
     }
     public function send_bookprivategroupsumary($booking_summary, $email_address,$new_member=true,$order,$user_token='')

@@ -17,6 +17,23 @@
         padding: 20px;
       }
     }
+  @border:1px solid #ccc;
+    .border-left{
+      border-left:@border;
+    }
+    .border-right{
+      border-right:@border;
+    }
+    .border-top{
+      border-top:@border;
+    }
+    .border-bottom{
+      border-bottom:@border;
+    }
+  }
+  @padding5:5px;
+  .padding5{
+    padding: @padding5;
   }
   .adminlist
   {
@@ -27,7 +44,7 @@
   .filter
   {
     background: #f5f5f5;
-    padding: 15px 0px;
+    padding: 0;
     border: 1px solid #ccc;
     >.control-group >.control-label
     {

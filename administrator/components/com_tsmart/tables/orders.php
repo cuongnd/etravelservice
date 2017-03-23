@@ -36,11 +36,14 @@ class TableOrders extends tsmTableData {
 	var $tsmart_user_id = 0;
 	/** @var int Vendor ID */
 	var $tsmart_vendor_id = 0;
+	var $object_id = 0;
+	var $product_type = 0;
+	var $assign_user_id = 0;
 	/** @var int Order number */
 	var $order_number = NULL;
 	var $order_pass = NULL;
 	var $order_create_invoice_pass = 0;
-	var $customer_number = NULL;
+	var $tsmart_custom_id = NULL;
 	/** @var decimal Order total */
 	var $order_total = 0.00000;
 	/** @var decimal Products sales prices */
@@ -101,7 +104,6 @@ class TableOrders extends tsmTableData {
 	function __construct($db) {
 		parent::__construct('#__tsmart_orders', 'tsmart_order_id', $db);
 
-		$this->setUniqueName('order_number');
 		$this->setLoggable();
 
 		$this->setTableShortCut('o');

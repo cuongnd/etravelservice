@@ -34,8 +34,72 @@
                 aSep:' ',
                 aSign:'US$'
             });
+            $element.find('.assign_user_id select.user').data('is_first',true);
+            $element.find('.assign_user_id select.user').change(function () {
+                var is_first=$(this).data('is_first');
+                console.log(is_first);
+                if(is_first==true)
+                {
+                    $(this).data('is_first',false);
+                    return;
+                }
+                var assign_user_id=$(this).val();
+                var $tr=$(this).closest('tr');
+                var tsmart_order_id=$tr.data('tsmart_order_id');
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
 
-            var list_date = plugin.settings.list_date;
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_order_assign_user',
+                            tsmart_order_id: tsmart_order_id,
+                            assign_user_id: assign_user_id
+
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if (response.e == 1) {
+                            $.notify({
+                                // options
+                                message: response.m
+                            }, {
+                                // settings
+                                type: 'error'
+                            });
+
+                        } else {
+                            $.notify({
+                                // options
+                                message: "update successful !"
+                            }, {
+                                // settings
+                            });
+
+                        }
+
+
+                    }
+                });
+
+            });
+
 
 
 

@@ -53,5 +53,23 @@ class TsmartControllerorders extends TsmController {
 		$data = vRequest::getRequest();
 		parent::save($data);
 	}
+	function ajax_save_order_assign_user()
+	{
+		$app=JFactory::getApplication();
+		$order_table=tsmTable::getInstance('orders','Table');
+		$data=$app->input->getArray();
+		$order_table->load($data['tsmart_order_id']);
+		$order_table->assign_user_id=$data['assign_user_id'];
+		$response=new stdClass();
+		$response->e=0;
+		if(!$order_table->store())
+		{
+			$response->e=1;
+			$response->m=$order_table->getError();
+		}
+		echo json_encode($response);
+		die;
+	}
+
 }
 // pure php no closing tag

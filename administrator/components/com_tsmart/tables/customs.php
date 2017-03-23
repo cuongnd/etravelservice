@@ -50,6 +50,17 @@ class TableCustoms extends tsmTable {
 	var $custom_value	= '';
     /** @var string custom Meta or alt  */
 	var $custom_desc	= '';
+	var $custom_name 	= '';
+	var $phone	= '';
+	var $email	= '';
+	var $street	= '';
+	var $sub_town 	= '';
+	var $state_province	= '';
+	var $zip_code 	= '';
+	var $country	= '';
+	var $emergency_contact_name	= '';
+	var $emergency_contact_address	= '';
+	var $emergency_contact_phone	= '';
 
 	/** @var string parameter of the customplugin*/
 	var $custom_params				= 0;
@@ -85,30 +96,6 @@ class TableCustoms extends tsmTable {
 	function __construct(&$db) {
 		parent::__construct('#__tsmart_customs', 'tsmart_custom_id', $db);
 
-		$this->_cidName = 'tsmart_custom_id';
-
-		$this->setUniqueName('custom_title');
-		$this->setObligatoryKeys('field_type');
-
-		$this->setLoggable();
-		$this->setOrderable('ordering',false);
-		$this->setParameterable('custom_params',array());
-	}
-
-	/*
-	* field from 3 table have to be checked at delete
-	* #__vm_custom_field,#__tsmart_customs,#__tsmart_product_customfields
-	*/
-	function delete( $id=null , $where = 0 ){
-
-		$this->_db->setQuery('DELETE X,C FROM `#__tsmart_customs` AS C
-			LEFT JOIN  `#__tsmart_product_customfields` AS X ON  X.`tsmart_custom_id` = C.`tsmart_custom_id`
-			WHERE C.`tsmart_custom_id`=' . $id);
-		if ($this->_db->execute() === false) {
-			vmError($this->_db->getError());
-			return false;
-		}
-		return true;
 	}
 
 }

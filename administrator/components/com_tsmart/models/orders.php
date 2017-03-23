@@ -54,15 +54,34 @@ class tsmartModelorders extends tmsModel
      */
     function getItemList($search = '')
     {
-        $data = parent::getItems();
-        return $data;
+        $items = parent::getItems();
+        foreach($items as &$item){
+            $order_data=$item->order_data;
+            if($order_data && $order_data=json_decode($order_data)){
+                $tsmart_price_id=$order_data->departure->tsmart_price_id;
+                $tsmart_product_id=$order_data->departure->tsmart_product_id;
+                $tsmproduct=tsmHelper::getHepler('product');
+                $item->product=$tsmproduct->get_product_by_tour_id($tsmart_product_id);
+                $item->departure_date=$order_data->departure->departure_date;
+                $item->order_data=$order_data;
+                $item->start_end_city=$item->product->start_city.",".$item->product->end_city;
+                $list_passenger=$order_data->list_passenger;
+                $item->total_passenger=count($list_passenger->senior_adult_teen)+count($list_passenger->children_infant);
+
+
+            }
+        }
+        return $items;
     }
     function getListQuery()
     {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('orders.*')
-            ->from('#__tsmart_orders AS orders');
+            ->from('#__tsmart_orders AS orders')
+            ->leftJoin('#__tsmart_customs AS customs USING(tsmart_custom_id)')
+            ->select('customs.custom_name AS custom_name')
+        ;
 
 
         $user = JFactory::getUser();

@@ -96,6 +96,10 @@ class VmViewAdmin extends JViewLegacy
 
 
         }
+        if (!class_exists('TSMHtmlJquery'))
+        {
+            require(VMPATH_ADMIN . DS . 'helpers' . DS . 'jquery.php');
+        }
         if ($view == 'virtuemart' //Virtuemart view is always allowed since this is the page we redirect to in case the user does not have the rights
             or $view == 'about' //About view always displayed
             or $this->manager($view)
