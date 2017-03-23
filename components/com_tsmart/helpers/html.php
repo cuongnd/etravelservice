@@ -3825,8 +3825,9 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
-    public static function build_passenger_summary($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $tour)
+    public static function build_passenger_summary($list_passenger = array(), $name = '', $default = '0', $departure, $passenger_config, $product)
     {
+        return;
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
         JHtml::_('jquery.ui', array('sortable'));
@@ -3889,7 +3890,7 @@ XML;
                     debug:<?php echo json_encode($debug) ?>,
                     departure:<?php echo json_encode($departure) ?>,
                     passenger_config:<?php echo json_encode($passenger_config) ?>,
-                    tour: '<?php echo json_encode($tour) ?>'
+                    tour: '<?php echo json_encode($product) ?>'
                 });
             });
         </script>
@@ -3942,7 +3943,7 @@ XML;
                                                 <div class="col-lg-6">
                                                     <div class="row-item-column">
                                                         <div
-                                                            class="tour-detail"><?php echo JText::sprintf("%s Trip from %s to %s. %s include", $tour->product_name, JHtml::_('date', $booking_date, tsmConfig::$date_format), $end_date->format(tsmConfig::$date_format), $room_type) ?></div>
+                                                            class="tour-detail"><?php echo JText::sprintf("%s Trip from %s to %s. %s include", $product->product_name, JHtml::_('date', $booking_date, tsmConfig::$date_format), $end_date->format(tsmConfig::$date_format), $room_type) ?></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">

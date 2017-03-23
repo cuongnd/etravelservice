@@ -18,6 +18,7 @@ $input = $app->input;
 
 $debug=TSMUtility::get_debug();
 $tsmart_price_id = $input->getInt('tsmart_price_id', 0);
+$tsmart_departure_id = $input->getInt('tsmart_departure_id', 0);
 $booking_date = $input->getString('booking_date', '');
 $privategrouptrip = $this->privategrouptrip;
 /*$privategrouptrip->sale_price_senior = 400;
@@ -272,6 +273,7 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                     <input name="option" value="com_tsmart" type="hidden">
                     <input name="controller" value="bookprivategroup" type="hidden">
                     <input name="tsmart_price_id" value="<?php echo $tsmart_price_id ?>" type="hidden">
+                    <input name="tsmart_departure_id" value="<?php echo $tsmart_departure_id ?>" type="hidden">
                     <input name="booking_date" value="<?php echo $booking_date ?>" type="hidden">
                     <input name="task" value="go_to_booking_add_on_from" type="hidden">
                 </form>

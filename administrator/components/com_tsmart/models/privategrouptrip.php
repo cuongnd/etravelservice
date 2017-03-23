@@ -112,7 +112,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
 
         }
         else{
-            $query->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date');
+            //$query->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date');
             $query->where('tour_price.tsmart_service_class_id=departure.tsmart_service_class_id AND tour_price.tsmart_product_id=departure.tsmart_product_id');
 
         }
@@ -483,7 +483,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
         }
         if($product->price_type=='flat_price') {
             $query->innerJoin('#__tsmart_departure AS departure ON departure.tsmart_product_id=tour_price.tsmart_product_id AND tour_price.tsmart_service_class_id=departure.tsmart_service_class_id AND departure.tsmart_departure_parent_id IS NOT NULL')
-                ->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date')
+                //->where('tour_price.sale_period_from<=departure.departure_date AND tour_price.sale_period_to>=departure.departure_date')
                 ->select('departure.tsmart_departure_id,departure.departure_date,departure.departure_code')
             ;
         }

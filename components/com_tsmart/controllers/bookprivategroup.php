@@ -30,6 +30,7 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $session=JFactory::getSession();
         $input=$app->input;
         $tsmart_price_id=$input->getInt('tsmart_price_id',0);
+        $tsmart_departure_id=$input->getInt('tsmart_departure_id',0);
         $booking_date=$input->getString('booking_date','');
         $rooming=$input->getString('rooming','');
 
@@ -68,11 +69,24 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         if(count($list_excursion)==0 && $pre_night_hotel_group_min_price==null && $post_night_hotel_group_min_price==null && $pre_transfer_group_min_price==null && $post_transfer_group_min_price==null){
             $enable_book_addon=false;
         }
+
         if($enable_book_addon)
         {
-            $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            if($tsmart_departure_id){
+                $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_departure_id='.$tsmart_departure_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            }
+            else{
+                $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupaddon&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            }
+
         }else{
-            $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumary&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            if($tsmart_departure_id)
+            {
+                $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumary&tsmart_departure_id='.$tsmart_departure_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            }else{
+                $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumary&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date.'&rooming='.$rooming,false));
+            }
+
         }
         return true;
     }
