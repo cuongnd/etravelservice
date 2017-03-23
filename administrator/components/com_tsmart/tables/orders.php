@@ -109,19 +109,7 @@ class TableOrders extends tsmTableData {
 
 	function check(){
 
-		if(empty($this->order_number)){
-			if(!class_exists('tsmartModelOrders')) tmsModel::getModel('orders');
-			$this->order_number = tsmartModelOrders::genStdOrderNumber($this->tsmart_vendor_id);
-		}
 
-		if(empty($this->order_pass)){
-			if(!class_exists('tsmartModelOrders')) tmsModel::getModel('orders');
-			$this->order_pass = tsmartModelOrders::genStdOrderPass();
-		}
-
-		if($adminID = vmAccess::getBgManagerId()){
-			$this->created_by = $adminID;
-		}
 
 		return parent::check();
 	}

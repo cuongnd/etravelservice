@@ -64,7 +64,7 @@ $passenger_config=tsmConfig::get_passenger_config();
         method="post"
         id="bookprivategroupsumary" name="bookprivategroupsumary">
         <div class="row">
-            <div class="col-lg-6 offset6">
+            <div class="col-lg-6 col-lg-offset-6">
 
             </div>
         </div>
@@ -270,7 +270,7 @@ ob_start();
                 passenger_config:<?php  echo json_encode($passenger_config) ?>,
                 departure:<?php  echo json_encode($privategrouptrip) ?>,
                 tour_min_age:<?php echo $this->product->min_age ?>,
-                tour:<?php echo json_encode($this->product->getProperties()) ?>,
+                tour:<?php echo json_encode($this->product) ?>,
                 build_room:<?php echo json_encode($build_room) ?>,
                 build_pre_transfer:<?php echo $build_pre_transfer ?>,
                 build_post_transfer:<?php echo $build_post_transfer ?>,

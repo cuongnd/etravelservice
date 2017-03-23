@@ -56,7 +56,6 @@ class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
         $table_user->parent_load(array('email'=>$email_address));
         $order=$bookprivategroupsumary_model->save_order($booking_summary,$table_user->id);
         $bookprivategroupsumary_model->send_bookprivategroupsumary($booking_summary,$contact_data->email_address,$new_member,$order,$table_user->activation);
-        die;
         $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumaryalert'));
         return true;
     }

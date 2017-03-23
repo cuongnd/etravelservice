@@ -3909,7 +3909,6 @@ XML;
                     $room_type = $passenger->room_type;
                     ?>
                     <div class="item-aobject">
-                        <div class="move-aobject handle"><span title="" class="icon-move "></span></div>
                         <div class="row">
                             <div class="col-lg-12"><h3 class="passenger-title"><?php echo JText::_('passenger ') ?><span
                                         class="aobject-order"><?php echo JText::sprintf("%s :$passenger->first_name $passenger->middle_name $passenger->last_name", $i + 1) ?></span>

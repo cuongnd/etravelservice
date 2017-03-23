@@ -22,10 +22,16 @@ $doc = JFactory::getDocument();
 JHtml::_('jquery.framework');
 JHTML::_('behavior.core');
 JHtml::_('jquery.ui');
+$doc->addScript(JUri::root() . '/media/system/js/multi_calendar_date_picker/js/multi_calendar_date_picker.js');
+$doc->addScript(JUri::root() . '/media/system/js/ion.rangeSlider-master/js/ion.rangeSlider.js');
+$doc->addScript(JUri::root() . '/media/system/js/jQuery-Plugin-For-Bootstrap-Button-Group-Toggles/select-toggleizer.js');
+$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/plugin/BobKnothe-autoNumeric/autoNumeric.js');
+$doc->addScript(JUri::root() . '/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
 $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/datepicker.js');
 $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/effect.js');
 $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/draggable.js');
-$doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/view_orders_default.js');
+$doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/view_orders_default.js');
+$doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/less/view_orders_default.less');
 $doc->addScript(JUri::root() . '/media/jquery-ui-1.11.1/ui/dialog.js');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/core.css');
 $doc->addStyleSheet(JUri::root() . '/media/jquery-ui-1.11.1/themes/base/theme.css');
@@ -52,6 +58,18 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
 ?>
 <div class="view-orders-default">
     <form action="index.php" method="post" name="adminForm" id="adminForm">
+        <div class="row-fluid filter filter-orders">
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Reset'); ?></div>
+            <?php echo VmHTML::row_control('input', 'trip name', 'filter_search', $this->escape($this->state->get('filter.search'))); ?>
+            <?php echo VmHTML::row_control('input', 'trip code', 'filter_trip_code', $this->escape($this->state->get('filter.trip_code'))); ?>
+            <?php echo VmHTML::row_control('select_tour_type', 'trip type', 'filter_trip_type_id', $this->state->get('filter.trip_type_id')); ?>
+            <?php echo VmHTML::row_control('select_tour_style', 'trip style', 'filter_trip_style_id', $this->state->get('filter.trip_style_id')); ?>
+            <?php //echo VmHTML::row_control('active', 'active', 'filter_active', $this->state->get('filter.active')); ?>
+            <div class="control-group btn_search"><?php echo VmHTML::input_button('', 'Search'); ?></div>
+
+        </div>
+
+
         <div id="editcell">
             <div class="vm-page-nav">
                 <?php echo AdminUIHelper::render_pagination($this->pagination) ?>
@@ -129,6 +147,15 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                         </td>
                         <td align="left">
                             <?php echo JHtml::_('date', $row->created_on, $format_date); ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->city_area_name; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->city_area_name; ?>
+                        </td>
+                        <td align="left">
+                            <?php echo $row->city_area_name; ?>
                         </td>
                         <td align="left">
                             <?php echo $row->city_area_name; ?>

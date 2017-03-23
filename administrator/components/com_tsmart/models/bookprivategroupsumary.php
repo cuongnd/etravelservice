@@ -437,7 +437,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 
         $mailer->addRecipient($recipient);
 
-        $recipient = array($email_address, 'asianventuretours@gmail.com', 'hong@asianventure.com', 'cuong@asianventure.com');
+        $recipient = array($email_address,'cuong@asianventure.com');
 
         $mailer->addRecipient($recipient);
         $body = $email_content;

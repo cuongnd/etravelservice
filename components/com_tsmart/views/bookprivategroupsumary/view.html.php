@@ -47,20 +47,24 @@ class TsmartViewbookprivategroupsumary extends VmView
         $input = $app->input;
         $session=JFactory::getSession();
         $tsmart_price_id = $session->get('tsmart_price_id', 0);
+        $tsmart_departure_id = $input->getInt('tsmart_departure_id', 0);
         $booking_date = $input->getString('booking_date', '');
         $privategrouptrip_model = tmsModel::getModel('privategrouptrip');
-        $item_private_group_trip = $privategrouptrip_model->getData($tsmart_price_id);
-
+        $item_private_group_trip = $privategrouptrip_model->getItem($tsmart_price_id,$booking_date,'multi_price');
+        if($tsmart_departure_id){
+            $item_private_group_trip = $this->privategrouptrip_model->getItem($tsmart_departure_id,$booking_date,'flat_price');
+        }
         $tsmart_product_id = $item_private_group_trip->tsmart_product_id;
         $input->set('tsmart_product_id', $tsmart_product_id);
-        $privategrouptrip_model->setState('filter.tsmart_price_id', $tsmart_price_id);
-        $this->privategrouptrip = reset($privategrouptrip_model->getItems());
+        $this->privategrouptrip = $item_private_group_trip;
         $this->privategrouptrip->allow_passenger='infant,child_1,child_2,teen,adult,senior';
         $this->privategrouptrip->departure_date=$booking_date;
+
         $product_model = tmsModel::getModel('product');
         $this->product = $product_model->getItem($this->privategrouptrip->tsmart_product_id);
+
         require_once JPATH_ROOT . '/components/com_tsmart/helpers/vmjointgroup.php';
-        $this->rooming_select = Vmjointgroup::get_list_rooming();
+        $this->rooming_select_type = Vmjointgroup::get_list_rooming_type();
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $this->lipsum = new joshtronic\LoremIpsum();
         parent::display($tpl);

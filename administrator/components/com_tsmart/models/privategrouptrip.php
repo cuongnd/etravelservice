@@ -174,7 +174,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
             $item->sale_price_children2 = round($price_children2 + $price_children2 * $tax);
             $price_private_room = $item->price_private_room + $item->mark_up_price_private_room;
             $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
-            $extra_bed = $item->extra_bed + $item->mark_up_extra_bed;
+            $extra_bed = $item->price_extra_bed + $item->mark_up_extra_bed;
             $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
 
 
@@ -193,7 +193,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
             $item->sale_price_children2 = round($price_children2 + $price_children2 * $tax);
             $price_private_room = $item->price_private_room + $item->price_private_room * ($item->mark_up_private_room / 100);
             $item->sale_price_private_room = round($price_private_room + $price_private_room * $tax);
-            $extra_bed = $item->extra_bed + $item->extra_bed * $item->mark_up_extra_bed / 100;
+            $extra_bed = $item->price_extra_bed + $item->price_extra_bed * $item->mark_up_extra_bed / 100;
             $item->sale_price_extra_bed = round($extra_bed + $extra_bed * $tax);
 
         }
