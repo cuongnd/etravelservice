@@ -495,6 +495,7 @@ function tsmartParseRoute($segments) {
 			$vars['layout'] = 'list';
 			array_shift($segments);
 		}
+
 		if ( !empty($segments) ) {
 			if ($segments[0] =='number')
 				$vars['order_number'] = $segments[1] ;

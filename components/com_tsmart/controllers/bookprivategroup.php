@@ -56,6 +56,7 @@ class TsmartControllerbookprivategroup extends JControllerLegacy {
         $hoteladdon_helper=tsmHelper::getHepler('hoteladdon');
         $pre_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($product->tsmart_product_id,$booking_date,'pre_night');
         $post_night_hotel_group_min_price=$hoteladdon_helper->get_group_min_price($product->tsmart_product_id,$booking_date,'post_night');
+
         $transferaddon_helper=tsmHelper::getHepler('transferaddon');
 
         $pre_transfer_group_min_price=$transferaddon_helper->get_min_price($product->tsmart_product_id,$booking_date,'pre_transfer');

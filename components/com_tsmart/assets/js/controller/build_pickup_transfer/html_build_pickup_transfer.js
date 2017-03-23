@@ -1445,6 +1445,24 @@
         plugin.validate = function () {
             var $list_transfer = $element.find('.item-transfer');
             var list_transfer = plugin.settings.list_transfer;
+
+            var must_validate=false;
+            if(list_transfer.length==1){
+                var $transfer_item = $element.find('.item-transfer:eq(0)');
+                var $check_in_date=$transfer_item.find('.date.check-in-date');
+                var $list_passenger_checked=$transfer_item.find('input.passenger-item:checked');
+                console.log($check_in_date.val());
+                if($check_in_date.val().trim() != ""){
+                    must_validate=true;
+                }else if($list_passenger_checked.length>0){
+                    must_validate=true;
+                }
+
+            }
+            if(!must_validate){
+                return true;
+            }
+            console.log('hello must validate');
             for (var i = 0; i < $list_transfer.length; i++) {
                 var transfer_index = i;
                 var $transfer_item = $element.find('.item-transfer:eq(' + transfer_index + ')');
@@ -1466,7 +1484,21 @@
                     $list_transfer.tipso('show');
                     plugin.jumper_transfer(transfer_index);
                     return false;
-                } else if (passengers.length == 0) {
+                }else if ($transfer_item.find('.date.check-in-date').val().trim() == "") {
+                    var content_notify = 'please select checkin date';
+                    plugin.notify(content_notify);
+                    $list_transfer.tipso('destroy');
+                    $list_transfer.addClass('error');
+                    $list_transfer.tipso({
+                        size: 'tiny',
+                        useTitle: false,
+                        content: content_notify,
+                        animationIn: 'bounceInDown'
+                    });
+                    $list_transfer.tipso('show');
+                    plugin.jumper_transfer(transfer_index);
+                    return false;
+                }else if (passengers.length == 0) {
                     $list_passenger.removeClass('error');
                     $list_passenger.tipso('destroy');
                     var content_notify = 'please select passenger';
@@ -2411,7 +2443,7 @@
             var event_class = 'action-remove-checkin-date';
             if (!$btn_checkin_date.hasClass(event_class)) {
                 $btn_checkin_date.click(function () {
-                    $transfer_item.find('.date.check-in-date').val("");
+                    $transfer_item.find('.date.check-in-date').datepicker('setDate', null);
                 }).addClass(event_class);
             }
 
