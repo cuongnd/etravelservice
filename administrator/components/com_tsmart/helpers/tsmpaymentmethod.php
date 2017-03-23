@@ -56,12 +56,13 @@ class vmpaymentmethod
 
     public static function get_list_mode_payment()
     {
-        return array(
-            'mode 1'=>'mode 1',
-            'mode 2'=>'mode 2',
-            'mode 3'=>'mode 3',
-            'mode 4'=>'mode 4'
-        );
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('orderstates.*')
+            ->from('#__tsmart_orderstates AS orderstates')
+        ;
+        $list= $db->setQuery($query)->loadObjectList();
+        return $list;
     }
 
 

@@ -29,7 +29,7 @@
 
 
             });
-            $element.find('input.input_number_or_percent').autoNumeric('init').change(function () {
+            $element.find('input.inputbox_percent').autoNumeric('init').change(function () {
                 var value_of_this = $(this).autoNumeric('get');
                 $('input[name="'+name_of_input_number_or_percent+'"]').val(value_of_this).trigger("change");
             });

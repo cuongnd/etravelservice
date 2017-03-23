@@ -2513,6 +2513,7 @@ class VmHtml
         $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/balance_term/jquery.balance_term.js');
         $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/balance_term/style.balance_term.less');
         $id_element="balance_term_".$name_balance_of_day.'_'.$name_percent_balance_of_day;
+        //TSMHtmlJquery::numeric();
         $js_content = '';
         ob_start();
         ?>
@@ -2532,7 +2533,7 @@ class VmHtml
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>" class="balance-term">
-            <input type="text" value="<?php echo $value_balance_of_day ?>"    <?php echo $readonly ? 'readonly' : '' ?>
+            <input type="text" value="<?php echo $value_balance_of_day ?>" placeholder="please input number days"    <?php echo $readonly ? 'readonly' : '' ?>
                    class="inputbox inputbox_number    input_number_<?php echo $name_balance_of_day ?>  pull-left" data-v-min="<?php echo $number_min ?>"
                    data-v-max="<?php echo $number_max ?>"
                    >

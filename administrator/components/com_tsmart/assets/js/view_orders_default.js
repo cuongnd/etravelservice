@@ -29,7 +29,7 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            $element.find('span.price').autoNumeric('init',{
+            $element.find('span.cost').autoNumeric('init',{
                 mDec:0,
                 aSep:' ',
                 aSign:'US$'

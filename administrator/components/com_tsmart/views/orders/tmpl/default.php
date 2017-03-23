@@ -201,15 +201,13 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
 
                         </td>
                         <td align="left">
-                            <?php echo JHtml::_('date', $row->vail_from, $format_date); ?>
-                            <br/>
-                            <?php echo JHtml::_('date', $row->vail_to, $format_date); ?>
+                            <span class="cost"><?php echo $row->order_total; ?></span>
                         </td>
                         <td align="left">
-                            <?php echo JHtml::_('date', $row->modified_on, $format_date); ?>
+                             <span class="cost"><?php echo $row->receipt; ?></span>
                         </td>
                         <td align="left">
-                            <?php echo $row->transfer_note; ?>
+                             <span class="cost"><?php echo $row->order_total-$row->receipt; ?></span>
                         </td>
                         <td align="left">
                             <?php echo VmHTML::select_user_name(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>

@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* Order status table
+* Currency table
 *
 * @package	tsmart
-* @subpackage Order status
-* @author Oscar van Eijk
+* @subpackage Currency
+* @author RickG
 * @link http://www.tsmart.net
 * @copyright Copyright (c) 2004 - 2010 tsmart Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -13,82 +13,59 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: orderstates.php 9017 2015-10-14 10:44:34Z Milbo $
+* @version $Id: currencies.php 8310 2014-09-21 17:51:47Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
+if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
 /**
- * Order status table class
- * The class is is used to manage the order statuses in the shop.
+ * Currency table class
+ * The class is is used to manage the currencies in the shop.
  *
- * @package	tsmart
- * @author Oscar van Eijk
- * @author Max Milbers
+ * @package		tsmart
+ * @author RickG, Max Milbers
  */
-class TableOrderstates extends tsmTable {
+class Tableorderstates extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_orderstate_id			= 0;
-	/** @var int Vendor ID if the status is vendor specific */
-	var $tsmart_vendor_id					= null;
-	/** @var boolean */
-	/** @var char Order status Code */
-	var $order_status_code			= '';
-	/** @var string Order status name*/
-	var $order_status_name			= null;
-	/** @var string Order status description */
-	var $order_status_description	= null;
-	/** @var string Order status description 
-	 *  Default ='A' : available
-	 **/
-	var $order_stock_handle = 'A';
-	/** @var int Order in which the order status is listed */
-	var $ordering					= 0;
-	 /** @var int published or unpublished */
-	var $published = 1;
-
+	var $tsmart_orderstate_id				= 0;
+	var $tsmart_vendor_id				= 0;
+	var $order_status_code				= 0;
+	var $order_status_name				= 0;
+	var $order_status_description				= 0;
+	var $order_stock_handle				= 0;
+	var $shared					= 0;
+	var $published				= 0;
 
 	/**
-	 * @param $db Class constructor; connect to the database
+	 * @author Max Milbers
+	 * @param JDataBase $db
 	 */
-	function __construct(&$db){
-
+	function __construct(&$db)
+	{
 		parent::__construct('#__tsmart_orderstates', 'tsmart_orderstate_id', $db);
 
-		$this->setObligatoryKeys('order_status_code');
-		$this->setObligatoryKeys('order_status_name');
-		$this->setObligatoryKeys('order_stock_handle');
+
 		$this->setLoggable();
+
+		$this->setOrderable();
+	}
+
+	function check(){
+
+		//$this->checkCurrencySymbol();
+		return parent::check();
 	}
 
 	/**
-	 * Validates the order status record fields.
+	 * ATM Unused !
+	 * Checks a departure symbol wether it is a HTML entity.
+	 * When not and $convertToEntity is true, it converts the symbol
+	 * Seems not be used      ATTENTION   seems BROKEN, working only for euro, ...
 	 *
-	 * @return boolean True if the table buffer is contains valid data, false otherwise.
 	 */
-	function check(){
-
-		$db = JFactory::getDBO();
-		$q = 'SELECT count(*),tsmart_orderstate_id FROM `#__tsmart_orderstates` ';
-		$q .= 'WHERE `order_status_code`="' .  $this->order_status_code . '"';
-		$db->setQuery($q);
-
-		$row = $db->loadRow();
-		if(is_array($row)){
-			if($row[0]>0){
-				if($row[1] != $this->tsmart_orderstate_id){
-					vmError(tsmText::_('com_tsmart_ORDER_STATUS_CODE_EXISTS'));
-					return false;
-				}
-			}
-		}
-
-		return parent::check();
-	}
 }
-
-//No CLosing Tag
+// pure php no closing tag

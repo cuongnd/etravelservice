@@ -57,7 +57,7 @@ $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/ass
 
                 </div>
                 <div class="span6">
-                    <?php echo VmHTML::row_control('select', 'Confirm mode', 'mode', $this->list_mode_payment, $this->item->mode, '', '', '', false); ?>
+                    <?php echo VmHTML::row_control('select', 'Confirm mode', 'mode', $this->list_mode_payment, $this->item->mode, '', 'tsmart_orderstate_id', 'order_status_name', false); ?>
                     <?php echo VmHTML::row_control('hold_seat_option', 'Hold seat option', 'hold_seat','hold_seat_hours', $this->item->hold_seat,$this->item->hold_seat_hours); ?>
                     <?php echo VmHTML::row_control('input_number', 'Deposit term', 'deposit_of_day', $this->item->deposit_of_day); ?>
                     <?php echo VmHTML::row_control('balance_term', 'Balance 3', 'balance_of_day_3','percent_balance_of_day_3', $this->item->balance_of_day_3,$this->item->percent_balance_of_day_3); ?>
