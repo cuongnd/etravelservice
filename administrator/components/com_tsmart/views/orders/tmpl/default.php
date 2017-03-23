@@ -214,7 +214,7 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
 
                         </td>
                         <td align="left">
-                            <?php echo JText::_($row->order_status) ; ?>
+                            <?php echo JText::_($row->order_status_name) ; ?>
                         </td>
                         <td align="center">
                             <?php echo $published; ?>

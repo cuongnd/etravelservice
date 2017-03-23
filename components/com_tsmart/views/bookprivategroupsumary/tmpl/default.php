@@ -21,14 +21,15 @@ $json_list_passenger = $session->get('json_list_passenger', '');
 
 $json_list_passenger = json_decode($json_list_passenger);
 $list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
+
 $build_room = json_decode($build_room);
 $build_pre_transfer = $session->get('build_pre_transfer', '');
 $build_post_transfer = $session->get('build_post_transfer', '');
 $extra_pre_night_hotel = $session->get('extra_pre_night_hotel', '');
 $extra_post_night_hotel = $session->get('extra_post_night_hotel', '');
-
+$booking=tsmHelper::getHepler('booking');
 $contact_data = $session->get('contact_data', '');
-$total_price=$this->get_total_price($build_room,$build_pre_transfer,$build_post_transfer,$extra_pre_night_hotel,$extra_post_night_hotel);
+$total_price=$booking->get_total_price();
 $booking_date=$input->getString('booking_date','');
 $privategrouptrip->sale_price_senior=400;
 $privategrouptrip->sale_price_adult=500;
@@ -95,14 +96,18 @@ $passenger_config=tsmConfig::get_passenger_config();
 
                     </div>
                 </div>
+                <?php
+                $percent_balance_of_day_1=$this->payment_rule->percent_balance_of_day_1;
+                $deposit=$total_price*$percent_balance_of_day_1/100;
+                ?>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="payment-overview">
                             <h4><?php echo JText::_('Tour fee summary')?></h4>
                             <div class="row">
-                                <div class="col-lg-4"><?php echo JText::_('Total fee') ?><span class="total_fee price">$US <?php echo $total_price ?></span></div>
-                                <div class="col-lg-4"><?php echo JText::_('Deposit') ?><span class="price">$US 780</span></div>
-                                <div class="col-lg-4"><?php echo JText::_('Balance') ?><span class="price">$US 780</span></div>
+                                <div class="col-lg-4"><?php echo JText::_('Total fee') ?> <span class="total_fee cost"><?php echo $total_price ?></span></div>
+                                <div class="col-lg-4"><?php echo JText::_('Deposit') ?> <span class="cost"><?php echo $deposit ?></span></div>
+                                <div class="col-lg-4"><?php echo JText::_('Balance') ?> <span class="cost"><?php echo $total_price-$deposit ?></span></div>
                             </div>
                         </div>
 
@@ -111,7 +116,7 @@ $passenger_config=tsmConfig::get_passenger_config();
                 <div class="row">
                     <div class="col-lg-12">
 
-                        <?php echo VmHtml::build_payment_cardit_card('payment',$total_price,300) ?>
+                        <?php echo VmHtml::build_payment_cardit_card('payment',$total_price,$deposit) ?>
 
                     </div>
                 </div>

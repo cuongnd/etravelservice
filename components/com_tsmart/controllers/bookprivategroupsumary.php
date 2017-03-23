@@ -38,6 +38,8 @@ class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
 
     public function go_to_pay_now(){
         $input=JFactory::getApplication()->input;
+
+        $payment_type=$input->getString('payment_type','deposit_payment');
         $booking_summary=$input->getString('booking_summary','');
         $booking_summary=json_decode($booking_summary);
         $contact_data=$booking_summary->contact_data;
@@ -54,7 +56,7 @@ class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
             $new_member=true;
         }
         $table_user->parent_load(array('email'=>$email_address));
-        $order=$bookprivategroupsumary_model->save_order($booking_summary,$table_user->id);
+        $order=$bookprivategroupsumary_model->save_order($booking_summary,$payment_type,$table_user->id);
         $bookprivategroupsumary_model->send_bookprivategroupsumary($booking_summary,$contact_data->email_address,$new_member,$order,$table_user->activation);
         $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumaryalert'));
         return true;

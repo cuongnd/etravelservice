@@ -17,6 +17,7 @@ $booking_date = $input->getString('booking_date', '');
 $privategrouptrip = $this->privategrouptrip;
 $session = JFactory::getSession();
 $build_room = $session->get('build_room', '');
+
 $json_list_passenger = $session->get('json_list_passenger', '');
 $json_list_passenger = json_decode($json_list_passenger);
 $list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
@@ -273,7 +274,7 @@ $end_date->modify("+$total_day day");
                                     </div>
                                 </div>
                             </div>
-                            <?php if ($rooming == 'buid_room') { ?>
+                            <?php if ($rooming == 'build_room') { ?>
                                 <div class="line-dotted"></div>
                                 <h3><?php echo JText::_('Room supplement fee') ?></h3>
                                 <div class="list-room-supplement">

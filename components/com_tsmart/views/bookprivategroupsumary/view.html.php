@@ -67,17 +67,11 @@ class TsmartViewbookprivategroupsumary extends VmView
         $this->rooming_select_type = Vmjointgroup::get_list_rooming_type();
         require_once JPATH_ROOT . '/libraries/php-loremipsum-master/src/LoremIpsum.php';
         $this->lipsum = new joshtronic\LoremIpsum();
+
+        $payment_helper=tsmHelper::getHepler('payment');
+        $this->payment_rule=$payment_helper->get_payment_rule_by_product($this->product->tsmart_product_id);
+
         parent::display($tpl);
-    }
-    public function get_total_price($build_room,$build_pre_transfer,$build_post_transfer,$extra_pre_night_hotel,$extra_post_night_hotel){
-        $total_price=0;
-       foreach($build_room as $room){
-           $tour_cost_and_room_price=$room->tour_cost_and_room_price;
-           foreach($tour_cost_and_room_price as $passenger){
-               $total_price+=$passenger->tour_cost+$passenger->room_price+$passenger->extra_bed_price;
-           }
-       }
-        return $total_price;
     }
 
 

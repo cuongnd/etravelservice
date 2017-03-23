@@ -150,7 +150,7 @@ class tsmartModelPrivategrouptrip extends tmsModel
 
         $query->select('discount2.tsmart_discount_id,discount2.discount_name AS discount_name,discount2.percent_or_total AS discount_percent_or_total,discount2.discount_value AS discount_value');
         require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/tsmorder.php';
-        $query->leftJoin('#__tsmart_orders AS orders ON orders.product_type=' . $query->q(self::PRODUCT_TYPE) . ' AND orders.object_id=tour_price.tsmart_price_id AND orders.order_status IS NOT NULL AND orders.order_status IN("' . implode('","', tmsorder::get_list_order_confirm()) . '")')
+        $query->leftJoin('#__tsmart_orders AS orders ON orders.product_type=' . $query->q(self::PRODUCT_TYPE) . ' AND orders.object_id=tour_price.tsmart_price_id AND orders.tsmart_orderstate_id IS NOT NULL AND orders.tsmart_orderstate_id IN("' . implode('","', tmsorder::get_list_order_confirm()) . '")')
             ->select('COUNT(orders.tsmart_order_id) AS total_order_confirm');
         if($debug)
         {

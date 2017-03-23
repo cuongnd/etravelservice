@@ -82,6 +82,15 @@ class vmpaymentsetting
         ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_default_payment_setting()
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_paymentsetting')
+        ;
+        return $db->setQuery($query)->loadObject();
+    }
 
 
 }

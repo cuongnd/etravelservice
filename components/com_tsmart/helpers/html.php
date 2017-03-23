@@ -4830,12 +4830,12 @@ XML;
                         </div>
                         <div class="col-lg-4">
                             <label><input type="radio"
-                                          name="payment_type"> <?php echo JText::sprintf('$US %s (full payment)', $full_payment) ?>
+                                          name="payment_type" value="full_payment" > <?php echo JText::sprintf('<span class="cost">%s</span> (full payment)', $full_payment) ?>
                             </label>
                         </div>
                         <div class="col-lg-4">
                             <label><input type="radio"
-                                          name="payment_type"> <?php echo JText::sprintf('$US %s (Deposit)', $deposit) ?>
+                                          name="payment_type" value="deposit_payment"> <?php echo JText::sprintf('<span class="cost">%s</span> (Deposit)', $deposit) ?>
                             </label>
                         </div>
                     </div>

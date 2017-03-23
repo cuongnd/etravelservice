@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmPayment
+class tsmPayment
 {
     /**
      * javascript strings
@@ -52,6 +52,22 @@ class vmPayment
             ->where('tsmart_payment_id='.(int)$tsmart_payment_id)
         ;
         return $db->setQuery($query)->loadColumn();
+    }
+    public static function get_payment_rule_by_product($tsmart_product_id=0)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('payment.*')
+            ->from('#__tsmart_payment AS payment')
+            ->leftJoin('#__tsmart_tour_id_payment_id AS tour_id_payment_id USING(tsmart_payment_id)')
+            ->where('tsmart_product_id='.(int)$tsmart_product_id)
+        ;
+        $rule=$db->setQuery($query)->loadObject();
+        if(!$rule){
+            $paymentsetting_helper=tsmHelper::getHepler('paymentsetting');
+            $rule=$paymentsetting_helper->get_default_payment_setting();
+        }
+        return $rule;
     }
 
 

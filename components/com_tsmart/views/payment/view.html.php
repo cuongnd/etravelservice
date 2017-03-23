@@ -68,16 +68,16 @@ class TsmartViewpayment extends tsmViewAdmin {
 			$this->assignRef('list_currency', $list_currency);
 			//get list payment method
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
-			$list_payment_method = vmpaymentmethod::get_list_payment_method();
+			$list_payment_method = tsmpaymentmethod::get_list_payment_method();
 			$this->assignRef('list_payment_method', $list_payment_method);
 
-			$this->item->list_payment_method_id = vmpaymentmethod::get_list_payment_method_id_by_payment_id($this->item->tsmart_payment_id);
+			$this->item->list_payment_method_id = tsmpaymentmethod::get_list_payment_method_id_by_payment_id($this->item->tsmart_payment_id);
 
 			//end get list payment method
 
 			//get list mode payment
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
-			$list_mode_payment= vmpaymentmethod::get_list_mode_payment();
+			$list_mode_payment= tsmpaymentmethod::get_list_mode_payment();
 			$this->assignRef('list_mode_payment', $list_mode_payment);
 
 			//end get list mode payment

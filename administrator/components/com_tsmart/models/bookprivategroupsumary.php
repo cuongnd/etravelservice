@@ -31,8 +31,7 @@ if (!class_exists('tmsModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'tsm
 class tsmartModelbookprivategroupsumary extends tmsModel
 {
 
-    public function save_order($booking_summary,$user_id){
-
+    public function save_order($booking_summary,$payment_type='full_payment',$user_id){
         $contact_data=$booking_summary->contact_data;
         $contact_data=json_decode($contact_data);
         $customsTable =  $this->getTable('customs');
@@ -62,13 +61,29 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $tsmart_product_id=$booking_summary->departure->tsmart_product_id;
         $tsmproduct=tsmHelper::getHepler('product');
         $product=$tsmproduct->get_product_by_tour_id($tsmart_product_id);
+
+        $booking=tsmHelper::getHepler('booking');
+        $total_price=$booking->get_total_price();
+        $payment_helper=tsmHelper::getHepler('payment');
+        $payment_rule=$payment_helper->get_payment_rule_by_product($product->tsmart_product_id);
+        $tsmart_orderstate_id =$payment_rule->mode;
+        if($payment_type=='deposit_payment'){
+
+            $percent_balance_of_day_1=$payment_rule->percent_balance_of_day_1;
+            $receipt =$total_price*$percent_balance_of_day_1/100;
+        }else{
+            $receipt=$total_price;
+        }
+
         $_orderData=array();
         $orderTable =  $this->getTable('orders');
         $_orderData['tsmart_user_id']=$user_id;
         $_orderData['tsmart_vendor_id']=1;
-        $_orderData['order_total']=$user_id;
+        $_orderData['tsmart_orderstate_id']=$tsmart_orderstate_id;
+        $_orderData['order_total']=$total_price;
         $_orderData['tsmart_user_id']=$booking_summary->total_price;
         $_orderData['coupon_code']='';
+        $_orderData['receipt']=$receipt;
         $_orderData['product_type']=$product->price_type;
         $_orderData['object_id']=$tsmart_price_id;
         $_orderData['tsmart_custom_id']=$customsTable->tsmart_custom_id;

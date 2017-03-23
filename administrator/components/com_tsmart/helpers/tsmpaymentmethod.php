@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmpaymentmethod
+class tsmpaymentmethod
 {
     /**
      * javascript strings
