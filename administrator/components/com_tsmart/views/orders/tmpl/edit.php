@@ -102,6 +102,19 @@ $doc->addScriptDeclaration($js_content);
         <?php echo JHtml::_('form.token'); ?>
 
     </form>
+    <div class="order_edit_main_tour hide">
+        <?php echo $this->loadTemplate('form') ?>
+    </div>
+    <div class="order_edit_passenger hide">
+        <?php echo $this->loadTemplate('form_edit_passenger') ?>
+    </div>
+    <div class="order_edit_passenger_cost hide">
+        <?php echo $this->loadTemplate('form_edit_passenger_cost') ?>
+    </div>
+    <div class="order_edit_room hide">
+        <?php echo $this->loadTemplate('form_edit_room') ?>
+    </div>
 </div>
+
 <?php AdminUIHelper::endAdminArea(); ?>
 

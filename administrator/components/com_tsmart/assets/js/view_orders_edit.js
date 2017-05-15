@@ -37,6 +37,61 @@
             $element.find('.toolbar .cancel').click(function(){
                 Joomla.submitform('cancel');
             });
+            $element.find('.edit_form.main-tour').click(function(){
+                $(".order_edit_main_tour").dialog('open');
+            });
+            $element.find(".order_edit_main_tour").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Edit details',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".order_edit_passenger").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Add more passenger',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+
+
+            $('.order_edit_main_tour').find('.passenger-control .add-passenger').click(function(){
+                $(".order_edit_passenger").dialog('open');
+            });
+            $element.find(".order_edit_passenger_cost").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Edit passenger cost',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+
+            $('.order_edit_main_tour').find('.passenger-control .edit-booking-cost').click(function(){
+                $(".order_edit_passenger_cost").dialog('open');
+
+            });
+
+            $element.find(".order_edit_room").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Edit rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+
+            $('.order_edit_main_tour').find('.room-control .edit-room').click(function(){
+                $(".order_edit_room").dialog('open');
+
+            });
 
 
 

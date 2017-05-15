@@ -82,7 +82,7 @@ $i = 0;
                     ?>
                     <tr>
                         <td><?php echo $checked ?></td>
-                        <td><?php echo $row->service_name  ?></td>
+                        <td><a class="edit_form <?php echo $row->is_main_tour?" main-tour":"" ?>" data-layout="<?php echo $row->layout ?>" href="javascript:void(0)"><?php echo $row->service_name  ?></a></td>
                         <td><?php echo $row->type  ?></td>
                         <td>
                             <?php echo $row->service_start_date  ?>
@@ -114,11 +114,13 @@ $i = 0;
                 }
                 $row = new stdClass();
                 $row->service_name=$this->tour->product_name;
-                $row->type="Package";
+                $row->type="Main Tour";
                 $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
                 $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
                 $row->passengers=count($this->list_passenger);
                 $row->supplier="avt";
+                $row->layout="order_edit";
+                $row->is_main_tour=true;
                 $row->resource="client";
                 $row->total_value=$total_cost;
                 $row->payment="N/A";

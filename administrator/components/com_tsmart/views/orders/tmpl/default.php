@@ -211,7 +211,6 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                         </td>
                         <td align="left">
                             <?php echo VmHTML::select_user_name(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
-                            <?php echo VmHTML::bootstrap_activelist(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
 
                         </td>
                         <td align="left">
