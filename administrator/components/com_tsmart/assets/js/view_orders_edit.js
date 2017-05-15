@@ -5,7 +5,12 @@
 
         // plugin's default options
         var defaults = {
-            task:''
+            task:'',
+            config_show_price: {
+                mDec: 1,
+                aSep: ' ',
+                aSign: 'US$'
+            },
         }
 
         // current instance of the object
@@ -33,6 +38,7 @@
                     appendTo: 'body'
                 });
             }
+            $element.find('.cost').autoNumeric('init', plugin.settings.config_show_price);
             $element.find("#adminForm").validate();
             $element.find('.toolbar .cancel').click(function(){
                 Joomla.submitform('cancel');
@@ -44,7 +50,7 @@
                 dialogClass:'asian-dialog-form',
                 modal: true,
                 width: 900,
-                autoOpen: false,
+                autoOpen: true,
                 title: 'Edit details',
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body',

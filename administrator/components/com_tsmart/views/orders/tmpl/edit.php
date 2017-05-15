@@ -19,10 +19,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 $doc = JFactory::getDocument();
+TSMHtmlJquery::numeric();
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_orders_edit.less');
 $doc->addScript(JUri::root().'/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
 $doc->addScript(JUri::root().'/administrator/components/com_tsmart/assets/js/view_orders_edit.js');
 AdminUIHelper::startAdminArea($this);
+
 $order_data=json_decode($this->item->order_data);
 $this->order_data=$order_data;
 $list_passenger=$order_data->list_passenger;
@@ -35,7 +37,6 @@ $departure_date=JFactory::getDate($departure_date);
 $departure_date_end=clone $departure_date;
 $total_day=$this->tour->tour_length;
 $total_day--;
-
 $departure_date_end->modify("+$total_day day");
 $this->departure->departure_date_end=$departure_date_end;
 $build_pre_transfer=(array)$order_data->build_pre_transfer;

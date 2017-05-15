@@ -20,9 +20,7 @@ $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_from_general.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
 // set row counter
-$i = 0;
 ?>
 <div class="edit-form-general form-vertical">
     <div class="row-fluid ">
@@ -31,34 +29,34 @@ $i = 0;
                 <legend><?php echo JText::_('General') ?></legend>
                 <div class="row-fluid">
                     <div class="span6">
-                        <?php echo VmHTML::row_control('input',JText::_('Service name'), 'product_name', $this->item->hotel_name, ' placeholder="service name" '); ?>
+                        <?php echo VmHTML::row_control('input',JText::_('Service name'), 'product_name', $this->tour->product_name, ' placeholder="service name" '); ?>
 
-                        <?php echo VmHTML::row_control('select_service_class', 'Supplier',array(),'tsmart_service_class_id',$this->item->tsmart_service_class_id,''); ?>
-                        <?php echo VmHTML::row_control('select_service_class', 'Customer',array(),'tsmart_service_class_id',$this->item->tsmart_service_class_id,''); ?>
-                        <?php echo VmHTML::row_control('select_service_class', 'Booking by',array(),'tsmart_service_class_id',$this->item->tsmart_service_class_id,''); ?>
+                        <?php echo VmHTML::row_control('select_service_class', 'Supplier',array(),'tsmart_service_class_id',$this->item->supplier,''); ?>
+                        <?php echo VmHTML::row_control('select_service_class', 'Customer',array(),'tsmart_service_class_id',$this->item->customer_id,''); ?>
+                        <?php echo VmHTML::row_control('select_service_class', 'Booking by',array(),'tsmart_service_class_id',$this->item->user_id,''); ?>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Start city'), 'product_name', $this->item->hotel_name, ' placeholder="service name" style="width: auto;" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Start city'), 'product_name', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city, ' disabled placeholder="service name" style="width: 100%;" '); ?>
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('End city'), 'product_name', $this->item->hotel_name, ' placeholder="service name" style="width: auto;" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('End city'), 'product_name', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city, ' disabled placeholder="service name" style="width: 100%;" '); ?>
 
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Start date'), 'product_name', $this->item->hotel_name, ' placeholder="service name" style="width: auto;" '); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'departure_date', $this->departure->departure_date); ?>
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('End Date'), 'product_name', $this->item->hotel_name, ' placeholder="service name" style="width: auto;" '); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_end_date', $this->departure->departure_date_end); ?>
 
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_name', $this->item->hotel_name, ' placeholder="service name"  style="width: auto;" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_name', $this->item->hotel_name, ' placeholder="service name"  style="width: 100%;" '); ?>
 
                             </div>
                             <div class="span6">
@@ -68,9 +66,8 @@ $i = 0;
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('input', 'Hotel location','location', $this->hotel->city_area_name, ' placeholder="location" readonly '); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Included service','included_service', $this->item->included_service,'',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Included service','included_service', $this->item->included_service,'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,'',100,4); ?>
 
                     </div>
                 </div>
