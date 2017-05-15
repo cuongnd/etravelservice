@@ -3643,6 +3643,7 @@
             return null;
         };
         plugin.get_cost_by_passenger_index_in_room = function (data_price_night_hotel,room_type, passenger, total_person_in_room) {
+
             var single_price = 0;
             var dbl_twin_price = 0;
             var tpl_price = 0;
@@ -3721,6 +3722,7 @@
 
             $.each(list_night_hotel, function(index, night_hotel) {
                 var list_room_type = night_hotel.list_room_type;
+                var list_passenger_price=[];
                 var tsmart_hotel_addon_id = night_hotel.tsmart_hotel_addon_id;
                 var data_price_night_hotel=plugin.get_night_hotel_data(tsmart_hotel_addon_id);
                 $.each(list_room_type, function(index, room) {
@@ -3740,13 +3742,23 @@
                                 list_cost_for_passenger[passenger_index].full_name=(typeof passenger!="undefined")?plugin.get_passenger_full_name(passenger):'';
                             }
                             list_cost_for_passenger[passenger_index].cost+=cost;
+
+                            var passeger_price={};
+                            passeger_price.passenger_index=passenger_index;
+                            passeger_price.cost=cost;
+                            list_passenger_price.push(passeger_price);
                         });
 
+
                     });
+
                 });
+                list_night_hotel[index].list_passenger_price=list_passenger_price;
+
             });
 
             plugin.settings.list_cost_for_passenger=list_cost_for_passenger;
+            plugin.settings.list_night_hotel=list_night_hotel;
         };
         plugin.add_event_night_hotel_item_index = function (extra_night_index) {
             var $extra_night = $element.find('.item-night-hotel:eq(' + extra_night_index + ')');
@@ -3925,6 +3937,9 @@
                         plugin.notify(content_notify);
                         $(this).val('');
                         return false;
+                    }else{
+                        var list_night_hotel = plugin.settings.list_night_hotel;
+                        list_night_hotel[extra_night_index].check_out_date=dateText;
                     }
                 };
                 $extra_night.find('.date.check-out-date').datepicker(option_date_picker).addClass(event_class);

@@ -106,7 +106,7 @@ AdminUIHelper::startAdminArea($this);
                                 <?php echo $row->cancel_fee; ?>
                             </td>
                             <td align="left">
-                                <?php echo $row->mode ; ?>
+                                <?php echo $row->order_status_name ; ?>
                             </td>
                             <td align="left">
                                 <?php

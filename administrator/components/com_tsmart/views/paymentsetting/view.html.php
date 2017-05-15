@@ -68,9 +68,9 @@ class TsmartViewpaymentsetting extends tsmViewAdmin {
 			JToolBarHelper::save('save','Save');
 			$this->addStandardDefaultViewLists($model,0,'ASC');
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentsetting.php';
-			$this->list_config_mode=vmpaymentsetting::get_config_mode();
-			$this->hold_seat_type=vmpaymentsetting::get_hold_seat_type();
-			$this->currencies=vmpaymentsetting::get_list_currency();
+			$this->list_config_mode=tsmpaymentsetting::get_config_mode();
+			$this->hold_seat_type=tsmpaymentsetting::get_hold_seat_type();
+			$this->currencies=tsmpaymentsetting::get_list_currency();
 			//get list payment method
 			require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmpaymentmethod.php';
 			$list_payment_method = tsmpaymentmethod::get_list_payment_method();
@@ -91,7 +91,7 @@ class TsmartViewpaymentsetting extends tsmViewAdmin {
 			}
 			$this->item = $model->getItem($tsmart_paymentsetting_id);
 			//
-			$list_payment_method = vmpaymentsetting::get_list_payment_method_by_paymentsetting_id($tsmart_paymentsetting_id);
+			$list_payment_method = tsmpaymentsetting::get_list_payment_method_by_paymentsetting_id($tsmart_paymentsetting_id);
 			$this->assignRef('list_payment_method', $list_payment_method);
 
 		}

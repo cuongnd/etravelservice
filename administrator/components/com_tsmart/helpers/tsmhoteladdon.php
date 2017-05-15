@@ -185,6 +185,17 @@ class tsmHotelAddon
 
         return $db->setQuery($query)->loadObject();
     }
+    public static function get_hoteladdon_by_hotel_addon_id($tsmart_hotel_addon_id=0){
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('hotel_addon.*')
+            ->from('#__tsmart_hotel_addon AS hotel_addon')
+            ->leftJoin('#__tsmart_cityarea AS cityarea USING(tsmart_cityarea_id)')
+            ->where('hotel_addon.tsmart_hotel_addon_id='.(int)$tsmart_hotel_addon_id)
+        ;
+
+        return $db->setQuery($query)->loadObject();
+    }
 
     public static function get_list_hotel_payment_type()
     {

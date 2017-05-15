@@ -23,12 +23,13 @@ $json_list_passenger = json_decode($json_list_passenger);
 $list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
 
 $build_room = json_decode($build_room);
-$build_pre_transfer = $session->get('build_pre_transfer', '');
-$build_post_transfer = $session->get('build_post_transfer', '');
-$extra_pre_night_hotel = $session->get('extra_pre_night_hotel', '');
-$extra_post_night_hotel = $session->get('extra_post_night_hotel', '');
+$build_pre_transfer = $session->get('build_pre_transfer', '{}');
+$build_post_transfer = $session->get('build_post_transfer', '{}');
+$extra_pre_night_hotel = $session->get('extra_pre_night_hotel', '{}');
+$extra_post_night_hotel = $session->get('extra_post_night_hotel', '{}');
+$build_excursion_addon = $session->get('build_excursion_addon', '{}');
 $booking=tsmHelper::getHepler('booking');
-$contact_data = $session->get('contact_data', '');
+$contact_data = $session->get('contact_data', '{}');
 $total_price=$booking->get_total_price();
 $booking_date=$input->getString('booking_date','');
 $privategrouptrip->sale_price_senior=400;
@@ -277,12 +278,13 @@ ob_start();
                 tour_min_age:<?php echo $this->product->min_age ?>,
                 tour:<?php echo json_encode($this->product) ?>,
                 build_room:<?php echo json_encode($build_room) ?>,
-                build_pre_transfer:<?php echo $build_pre_transfer ?>,
-                build_post_transfer:<?php echo $build_post_transfer ?>,
-                extra_pre_night_hotel:<?php echo $extra_pre_night_hotel ?>,
-                extra_post_night_hotel:<?php echo $extra_post_night_hotel ?>,
-                total_price:<?php echo $total_price ?>,
-                contact_data:<?php echo $contact_data ?>,
+                build_pre_transfer:<?php echo $build_pre_transfer?$build_pre_transfer:"{}" ?>,
+                build_post_transfer:<?php echo $build_post_transfer?$build_post_transfer:"{}" ?>,
+                extra_pre_night_hotel:<?php echo $extra_pre_night_hotel?$extra_pre_night_hotel:"{}" ?>,
+                extra_post_night_hotel:<?php echo $extra_post_night_hotel?$extra_post_night_hotel:"{}" ?>,
+                build_excursion_addon:<?php echo $build_excursion_addon?$build_excursion_addon:"{}" ?>,
+                total_price:<?php echo (float)$total_price ?>,
+                contact_data:<?php echo $contact_data?$contact_data:"{}" ?>,
                 list_passenger:<?php echo json_encode($json_list_passenger) ?>
 
             });

@@ -169,7 +169,7 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
                     $published = $this->gridPublished($row, $i);
                     $delete = $this->grid_delete_in_line($row, $i, 'tsmart_order_id');
-                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&task=edit_item&cid[]=' . $row->tsmart_order_id);
+                    $editlink = JROUTE::_('index.php?option=com_tsmart&view=orders&tab=general&task=edit_item&cid[]=' . $row->tsmart_order_id);
                     $edit = $this->gridEdit($row, $i, 'tsmart_order_id', $editlink);
                     ?>
                     <tr class="row<?php echo $k; ?>" data-tsmart_order_id="<?php echo $row->tsmart_order_id?>">
@@ -211,6 +211,7 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                         </td>
                         <td align="left">
                             <?php echo VmHTML::select_user_name(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
+                            <?php echo VmHTML::bootstrap_activelist(array(), 'assign_user_id_'.$row->tsmart_order_id, $row->assign_user_id, 'class="assign_user_id "'); ?>
 
                         </td>
                         <td align="left">
@@ -237,8 +238,8 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
     <?php
 
     if ($task == 'add_new_item'||$task == 'edit_item') {
-        echo $this->loadTemplate('edit');
+        //echo $this->loadTemplate('edit');
     } ?>
 </div>
-    <?php AdminUIHelper::endAdminArea(); ?>
+        <?php AdminUIHelper::endAdminArea(); ?>
 

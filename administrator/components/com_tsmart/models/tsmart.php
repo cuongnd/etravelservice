@@ -79,12 +79,6 @@ class tsmartModeltsmart extends tmsModel {
      * @author RickG
 	 * @return int Total number of orders with the given status
 	 */
-	function getTotalOrdersByStatus() {
-		$query = 'SELECT `#__tsmart_orderstates`.`order_status_name`, `#__tsmart_orderstates`.`order_status_code`, ';
-		$query .= '(SELECT count(tsmart_order_id) FROM `#__tsmart_orders` WHERE `#__tsmart_orders`.`order_status` = `#__tsmart_orderstates`.`order_status_code`) as order_count ';
- 		$query .= 'FROM `#__tsmart_orderstates`';
-        return $this->_getList($query);
-    }
 
 
 	/**

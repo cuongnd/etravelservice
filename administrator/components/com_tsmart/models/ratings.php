@@ -555,8 +555,8 @@ class tsmartModelRatings extends tmsModel {
 							$q = 'SELECT COUNT(*) as total FROM `#__tsmart_orders` AS o LEFT JOIN `#__tsmart_order_items` AS oi ';
 							$q .= 'ON `o`.`tsmart_order_id` = `oi`.`tsmart_order_id` ';
 							$q .= 'WHERE o.tsmart_user_id > 0 AND o.tsmart_user_id = "' . $user->id . '" AND oi.tsmart_product_id = "' . $product_id . '" ';
-							$q .= 'AND o.order_status IN (\'' . implode("','",$rr_os). '\') ';
 
+							;
 							$db->setQuery ($q);
 							$count = $db->loadResult ();
 						}

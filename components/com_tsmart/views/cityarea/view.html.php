@@ -59,6 +59,7 @@ class TsmartViewcityarea extends tsmViewAdmin {
 			$this->item = $model->getItem();
 			$this->SetViewTitle('',$this->item->title);
 			$this->addStandardEditViewCommands();
+
 			//get state
 			require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmstates.php';
 			$states = tmartstates::get_states();

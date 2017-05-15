@@ -32,6 +32,7 @@ if ($saveOrder) {
 }
 $doc=JFactory::getDocument();
 $doc->addScript(JUri::root() . '/administrator/components/com_tsmart/assets/js/view_general_default.js');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_general_default.less');
 $doc->addScript(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/js/zozo.tabs.js');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.core.css');
 $doc->addStyleSheet(JUri::root() . '/media/system/js/Zozo_Tabs_v.6.5/source/zozo.tabs.css');
@@ -87,8 +88,11 @@ $doc->addScriptDeclaration($js_content);
                             </div>
                             <div class="span4">
 
+                                <?php echo VmHTML::row_control('select', 'States holds seat', 'params[list_states_holds_seat][]',$this->list_orders_states,$this->config->params->get('list_states_holds_seat',array()),' multiple="multiple" ','tsmart_orderstate_id','order_status_name'); ?>
                             </div>
-                            <div class="span4"></div>
+                            <div class="span4">
+
+                            </div>
                         </div>
 
                     </div>
@@ -139,6 +143,7 @@ $doc->addScriptDeclaration($js_content);
             </div>
         </div>
         <?php echo $this->addStandardHiddenToForm(); ?>
+
         <input type="hidden" value="<?php echo $this->config->tsmart_general_id ?>" name="tsmart_general_id">
         <?php echo JHtml::_('form.token'); ?>
     </form>

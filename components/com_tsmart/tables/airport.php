@@ -52,7 +52,6 @@ class Tableairport extends tsmTableData {
 
 		$this->setOrderable();
 	}
-
 	function check(){
 
 		//$this->checkCurrencySymbol();

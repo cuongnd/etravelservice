@@ -786,7 +786,7 @@ class tsmartModelDeparture extends tmsModel
         } else {
             $sale_period_from = $table_departure->sale_period_from;
             $sale_period_to = $table_departure->sale_period_to;
-            require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/utility.php';
+            require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/tsmutility.php';
             $days_seleted = TSMUtility::dateRange($sale_period_from, $sale_period_to);
             $weekly = $table_departure->weekly;
             $weekly = explode(',', $weekly);

@@ -107,6 +107,18 @@ class tsmexcursionaddon
 
         return $list_excursion;
     }
+    public static function get_excursion_addon_by_excursion_addon_id($tsmart_excursion_addon_id=0)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('excursion_addon.*')
+            ->from('#__tsmart_excursion_addon AS excursion_addon')
+            ->where('excursion_addon.tsmart_excursion_addon_id='.(int)$tsmart_excursion_addon_id)
+        ;
+
+        $excursion=$db->setQuery($query)->loadObject();
+        return $excursion;
+    }
 
     public static function get_list_excursion_payment_type()
     {

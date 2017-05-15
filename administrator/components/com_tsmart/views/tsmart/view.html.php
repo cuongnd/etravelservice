@@ -59,8 +59,6 @@ class TsmartViewTsmart extends tsmViewAdmin {
 			$nbrFeaturedProducts = $model->getTotalFeaturedProducts();
 			$this->nbrFeaturedProducts= $nbrFeaturedProducts;
 
-			$ordersByStatus = $model->getTotalOrdersByStatus();
-			$this->ordersByStatus= $ordersByStatus;
 
 			$recentOrders = $model->getRecentOrders();
 			if(!class_exists('CurrencyDisplay'))require(VMPATH_ADMIN.DS.'helpers'.DS.'currencydisplay.php');

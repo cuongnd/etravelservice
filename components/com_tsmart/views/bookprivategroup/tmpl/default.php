@@ -249,8 +249,18 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                             <?php echo VmHTML::textarea('special_requirement', ''); ?>
                         </div>
                     </div>
+                    <?php
+                    $hold_seat =$this->payment_rule->hold_seat;
+                    $hold_seat_hours=$this->payment_rule->hold_seat_hours;
+                    if($hold_seat==1){
+                        $class= " col-lg-6 col-xxxs-12 ";
+                    }else{
+                        $class= " col-lg-12 col-xxxs-12 ";
+                    }
+                    ?>
+
                     <div class="row">
-                        <div class="col-lg-6 col-xxxs-12">
+                        <div class="<?php echo $class ?>">
                             <div class="area-control">
                                 <button type="submit" class="btn btn-primary btn-large control-next ">
                                     <span class="confirm"><?php echo JText::_('confirm and book') ?></span>
@@ -259,16 +269,18 @@ $total_passenger_under_12_years_old=$this->privategrouptrip_model->getState('fil
                                 </button>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-xxxs-12">
+                        <?php if($hold_seat==1){ ?>
+                        <div class="<?php echo $class ?>">
                             <div class="area-control">
                                 <button type="submit" class="btn btn-primary btn-large control-hold-my-space ">
                                     <span class="hold-my-space"><?php echo JText::_('Hold my space') ?></span>
                                     <br>
-                                        <span class="payment">(<?php echo JText::_('hold for 48h hours, no payment') ?>
+                                        <span class="payment">(<?php echo JText::sprintf('hold for %s hours, no payment',$hold_seat_hours) ?>
                                             )</span>
                                 </button>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                     <input name="option" value="com_tsmart" type="hidden">
                     <input name="controller" value="bookprivategroup" type="hidden">

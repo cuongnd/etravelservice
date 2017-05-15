@@ -2833,6 +2833,7 @@
             $.each(list_excursion, function(index, excursion_addon) {
                 var passengers = excursion_addon.passengers;
                 var total_passenger=passengers.length;
+                var list_passenger_price=[];
                 var tsmart_excursion_addon_id = excursion_addon.tsmart_excursion_addon_id;
                 var list_data_excursion_addon=plugin.settings.list_data_excursion_addon;
                 var excursion_addon_data=list_data_excursion_addon[tsmart_excursion_addon_id];
@@ -2849,9 +2850,15 @@
                         list_cost_for_passenger[passenger_index].full_name=plugin.get_passenger_full_name(passenger);
                     }
                     list_cost_for_passenger[passenger_index].cost+=cost;
+                    var passeger_price={};
+                    passeger_price.passenger_index=passenger_index;
+                    passeger_price.cost=cost;
+                    list_passenger_price.push(passeger_price);
                 });
+                list_excursion[index].list_passenger_price=list_passenger_price;
             });
             plugin.settings.list_cost_for_passenger=list_cost_for_passenger;
+
         };
 
 

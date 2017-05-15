@@ -39,7 +39,7 @@ class TableOrders extends tsmTableData {
 	var $object_id = 0;
 	var $product_type = 0;
 	var $assign_user_id = 0;
-	var $tsmart_orderstate_id = 0;
+	var $tsmart_orderstate_id = null;
 	var $receipt = 0;
 	/** @var int Order number */
 	var $order_number = NULL;

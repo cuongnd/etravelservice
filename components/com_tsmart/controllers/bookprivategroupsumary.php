@@ -45,9 +45,11 @@ class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
         $contact_data=$booking_summary->contact_data;
         $contact_data=json_decode($contact_data);
         $bookprivategroupsumary_model=tmsModel::getModel('bookprivategroupsumary');
+
         $email_address=$contact_data->email_address;
         $user_model=tmsModel::getModel('user');
         $table_user=JTable::getInstance('user');
+
         $table_user->parent_load(array('email'=>$email_address));
         $send_email=false;
         $new_member=false;
@@ -55,6 +57,7 @@ class TsmartControllerbookprivategroupsumary extends JControllerLegacy {
             $user_model->create_new_user_from_contact_data($contact_data,$send_email);
             $new_member=true;
         }
+
         $table_user->parent_load(array('email'=>$email_address));
         $order=$bookprivategroupsumary_model->save_order($booking_summary,$payment_type,$table_user->id);
         $bookprivategroupsumary_model->send_bookprivategroupsumary($booking_summary,$contact_data->email_address,$new_member,$order,$table_user->activation);

@@ -72,6 +72,8 @@ class tsmartModelPayment extends tmsModel
 		$query->select('payment.*')
 			->from('#__tsmart_payment AS payment')
 			->leftJoin('#__tsmart_currencies AS currencies USING(tsmart_currency_id)')
+			->leftJoin('#__tsmart_orderstates AS orderstates ON orderstates.tsmart_orderstate_id=payment.mode')
+			->select('orderstates.order_status_name')
 			->select('CONCAT(currencies.currency_code_3," ",currencies.currency_symbol) AS currency_symbol')
 		;
 		//get list tour apply

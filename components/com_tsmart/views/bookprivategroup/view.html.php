@@ -70,7 +70,8 @@ class TsmartViewbookprivategroup extends VmView
 
         $group_size_helper = tsmHelper::getHepler('GroupSize');
         $this->product->list_group_size=$group_size_helper->get_list_group_size_by_tour_id($tsmart_product_id);
-
+        $payment_helper=tsmHelper::getHepler('payment');
+        $this->payment_rule=$payment_helper->get_payment_rule_by_product($this->product->tsmart_product_id);
         parent::display($tpl);
     }
 

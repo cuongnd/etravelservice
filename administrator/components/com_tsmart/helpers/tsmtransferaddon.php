@@ -64,6 +64,15 @@ class tsmtransferaddon
             ->where('tsmart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
         return $db->setQuery($query)->loadColumn();
     }
+    public static function get_transfer_addon_by_transfer_addon_id($tsmart_transfer_addon_id = 0)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('transfer_addon.*')
+            ->from('#__tsmart_transfer_addon AS transfer_addon')
+            ->where('tsmart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
+        return $db->setQuery($query)->loadObject();
+    }
     public static function get_min_price($tsmart_product_id = 0, $rule_date, $transfer_type = 'pre_transfer')
     {
         $rule_date = JFactory::getDate($rule_date);

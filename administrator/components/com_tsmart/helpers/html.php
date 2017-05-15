@@ -2359,7 +2359,7 @@ class VmHtml
 
         ob_start();
         $id_element='bootstrap_activelist_'.$name;
-        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/utility.php';
+        require_once JPATH_ROOT.'/administrator/components/com_tsmart/helpers/tsmutility.php';
         $id_element=TSMUtility::clean($id_element);
         $clean_name=TSMUtility::clean($name);
 
@@ -2589,13 +2589,16 @@ class VmHtml
         <?php
         return ob_get_clean();
     }
-    public static function hold_seat_option($name_hold_seat, $name_hold_seat_hours, $value_hold_seat=0, $value_hold_seat_hours)
+    public static function hold_seat_option($name_hold_seat, $name_hold_seat_hours,$name_hold_seat_orderstate, $value_hold_seat=0, $value_hold_seat_hours,$value_hold_seat_orderstate)
     {
 
         $doc = JFactory::getDocument();
         $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/hold_seat_option/jquery.hold_seat_option.js');
         $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/js/controller/hold_seat_option/style.hold_seat_option.less');
         $id_element="hold_seat_option_".$name_hold_seat.'_'.$name_hold_seat_hours;
+        $orderstates_helper=tsmHelper::getHepler('orderstates');
+        $list_orders_states=$orderstates_helper->get_list_orders_states();
+
         $js_content = '';
         ob_start();
         ?>
@@ -2603,7 +2606,8 @@ class VmHtml
             jQuery(document).ready(function ($) {
                 $('#<?php echo $id_element ?>').hold_seat_option({
                     name_hold_seat:"<?php echo $name_hold_seat ?>",
-                    name_hold_seat_hours:"<?php echo $name_hold_seat_hours ?>"
+                    name_hold_seat_hours:"<?php echo $name_hold_seat_hours ?>",
+                    name_hold_seat_orderstate:"<?php echo $name_hold_seat_orderstate ?>"
                 });
 
             });
@@ -2625,6 +2629,12 @@ class VmHtml
                 <option value=""><?php echo JText::_('please select hours') ?></option>
                 <?php foreach($list_hold_seat_hours as $hours){ ?>
                     <option <?php echo $value_hold_seat_hours==$hours?'selected':'' ?> value="<?php echo $hours ?>"><?php echo $hours ?>h</option>
+                <?php } ?>
+            </select>
+            <select <?php echo $value_hold_seat==1?'':'disabled' ?>  class="pull-left" id="<?php echo $name_hold_seat_orderstate ?>" name="<?php echo $name_hold_seat_orderstate ?>">
+                <option value=""><?php echo JText::_('please select hours') ?></option>
+                <?php foreach($list_orders_states as $order_state){ ?>
+                    <option <?php echo $value_hold_seat_orderstate==$order_state->tsmart_orderstate_id?'selected':'' ?> value="<?php echo $order_state->tsmart_orderstate_id ?>"><?php echo $order_state->order_status_name ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -2704,6 +2714,43 @@ class VmHtml
     public static function text_view($value, $class, $more = '')
     {
         return '<input type="text" disabled class="text-view"    value="' . ($value) . '" />' . $more;
+    }
+    public static function text_view_no_input($value, $class, $more = '')
+    {
+        return $value;
+    }
+    public static function quick_task($value, $class, $more = '')
+    {
+        return '<button class="btn btn-link"><span class="icon-edit"></span></button>';
+    }
+    public static function add_text($name,$default, $class, $more = '')
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/add_note/html_add_note.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/add_note/html_add_note.less');
+        $input = JFactory::getApplication()->input;
+        $id_element = 'html_add_note_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_add_note({
+
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" class="html_add_note">
+                <textarea  class="textarea"></textarea>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
     }
 
     public static function textarea_view($name, $value, $attr = array(), $more = '')

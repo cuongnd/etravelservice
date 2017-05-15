@@ -49,6 +49,7 @@ class TsmartControllerOrders extends JControllerLegacy
 	public function go_to_last_booking(){
 		$db=JFactory::getDbo();
 		$query=$db->getQuery(true);
+
 		$query->select('tsmart_order_id')
 			->from('#__tsmart_orders')
 			->order('tsmart_order_id DESC');

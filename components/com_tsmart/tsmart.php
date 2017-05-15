@@ -26,7 +26,7 @@ tsmConfig::loadConfig();
 vmRam('Start');
 vmSetStartTime('Start');
 tsmConfig::loadJLang('com_tsmart', true);
-require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/utility.php';
+require_once JPATH_ROOT . DS . 'administrator/components/com_tsmart/helpers/tsmutility.php';
 $doc = JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root() . '/components/com_tsmart/assets/less/etravelservice.less');
 if (tsmConfig::get('shop_is_offline', 0)) {

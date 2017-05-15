@@ -71,7 +71,7 @@ ob_start();
     </script>
 <?php
 $js_content = ob_get_clean();
-require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.php';
+require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/tsmutility.php';
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 AdminUIHelper::startAdminArea($this);

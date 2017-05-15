@@ -41,6 +41,9 @@ class TsmartControllerbookprivategroupaddon extends JControllerLegacy {
         $extra_post_night_hotel=$input->getString('extra_post_night_hotel','');
         $session->set('extra_post_night_hotel',$extra_post_night_hotel);
 
+        $build_excursion_addon=$input->getString('build_excursion_addon','');
+        $session->set('build_excursion_addon',$build_excursion_addon);
+
         $this->setRedirect(JRoute::_('index.php?option=com_tsmart&view=bookprivategroupsumary&tsmart_price_id='.$tsmart_price_id.'&booking_date='.$booking_date));
         return true;
     }

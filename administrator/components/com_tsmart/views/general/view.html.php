@@ -42,6 +42,10 @@ class TsmartViewgeneral extends tsmViewAdmin {
 		$model = tmsModel::getModel();
 		JToolBarHelper::save('save','Save');
 		$this->config = $model->getItem();
+		$orderstates_helper=tsmHelper::getHepler('orderstates');
+
+		$this->list_orders_states=$orderstates_helper->get_list_orders_states();
+
 		parent::display($tpl);
 	}
 

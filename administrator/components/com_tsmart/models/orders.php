@@ -80,9 +80,8 @@ class tsmartModelorders extends tmsModel
         $query->select('orders.*')
             ->from('#__tsmart_orders AS orders')
             ->leftJoin('#__tsmart_orderstates AS orderstates USING(tsmart_orderstate_id)')
-            ->select('orderstates.order_status_name')
             ->leftJoin('#__tsmart_customs AS customs USING(tsmart_custom_id)')
-            ->select('customs.custom_name AS custom_name')
+            ->select('customs.custom_name AS custom_name,orderstates.order_status_name')
         ;
 
 

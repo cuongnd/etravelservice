@@ -22,13 +22,16 @@
             plugin.settings = $.extend({}, defaults, options);
             var name_hold_seat=plugin.settings.name_hold_seat;
             var name_hold_seat_hours=plugin.settings.name_hold_seat_hours;
+            var name_hold_seat_orderstate=plugin.settings.name_hold_seat_orderstate;
             $element.find('select[name="'+name_hold_seat+'"]').change(function(){
                 var hold_seat=$(this).val();
                 if(hold_seat==0 || hold_seat=='')
                 {
                     $element.find('select[name="'+name_hold_seat_hours+'"]').prop('disabled',true).trigger('chosen:updated');
+                    $element.find('select[name="'+name_hold_seat_orderstate+'"]').prop('disabled',true).trigger('chosen:updated');
                 }else{
                     $element.find('select[name="'+name_hold_seat_hours+'"]').prop('disabled',false).trigger('chosen:updated');
+                    $element.find('select[name="'+name_hold_seat_orderstate+'"]').prop('disabled',false).trigger('chosen:updated');
 
                 }
             });

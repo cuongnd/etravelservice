@@ -35,7 +35,7 @@ class TsmartViewdateavailability extends tsmViewAdmin {
 
 		// Load the helper(s)
 
-		require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/utility.php';
+		require_once JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/tsmutility.php';
 		if (!class_exists('VmHTML'))
 			require(VMPATH_ADMIN . DS . 'helpers' . DS . 'html.php');
 

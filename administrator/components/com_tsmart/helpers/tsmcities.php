@@ -77,6 +77,19 @@ class tsmcities
         }
         return $list;
     }
+    public static function get_path_city_state_country_by_city_id($tsmart_cityarea_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('cityarea.*,CONCAT(cityarea.city_area_name,",",states.state_name) AS full_city')
+            ->leftJoin('#__tsmart_states AS states USING(tsmart_state_id)')
+            ->leftJoin('#__tsmart_countries AS countries ON countries.tsmart_country_id=states.tsmart_country_id')
+            ->from('#__tsmart_cityarea AS cityarea')
+            ->where('cityarea.tsmart_cityarea_id='.(int)$tsmart_cityarea_id)
+        ;
+        $city = $db->setQuery($query)->loadObject();
+        return $city;
+    }
 
 
 }

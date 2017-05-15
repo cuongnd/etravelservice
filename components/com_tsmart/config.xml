@@ -33,5 +33,6 @@
     <fieldset name="permissions_other" label="com_tsmart_CONFIGURATION" description="">
         <field name="other_rules" type="vmrules" label="" class="inputbox" validate="rules" filter="rules" component="com_tsmart" section="other" />
 	</fieldset>
+
 </config>
                 
