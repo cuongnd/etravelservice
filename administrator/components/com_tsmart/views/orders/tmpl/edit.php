@@ -95,7 +95,7 @@ $doc->addScriptDeclaration($js_content);
         </div>
         <?php echo VmHTML::inputHidden(array(show_in_parent_window => $this->show_in_parent_window)); ?>
         <?php echo VmHTML::inputHidden(array(tsmart_transfer_addon_id => $this->item->tsmart_transfer_addon_id)); ?>
-        <input type="hidden" value="1" name="published">
+        <input type="hidden" value="<?php echo $this->item->tsmart_order_id ?>" name="tsmart_order_id">
         <input type="hidden" value="com_tsmart" name="option">
         <input type="hidden" value="orders" name="controller">
         <input type="hidden" value="orders" name="view">

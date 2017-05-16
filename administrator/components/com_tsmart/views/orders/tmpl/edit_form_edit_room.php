@@ -17,14 +17,14 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_room.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="passengerconfirmation form-horizontal">
+<div class="view_orders_edit_form_edit_room form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
@@ -208,6 +208,14 @@ $i = 0;
 
                 ?>
             </table>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                        <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

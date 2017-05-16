@@ -3197,6 +3197,52 @@ XML;
         $html = ob_get_clean();
         return $html;
     }
+    public static function change_passenger_status($list_passenger_status = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_passenger_status/html_select_passenger_status.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_passenger_status/html_select_passenger_status.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_passenger_status)) {
+            require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmpassenger.php';
+            $list_passenger_status = tsmpassenger::get_list_passenger_status();
+        }
+
+        $id_element = 'html_passenger_status_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_passenger_status({
+                    list_passenger_status:<?php echo json_encode($list_passenger_status) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_passenger_state_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" <?php echo $attrib ?> >
+            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="passenger_status">
+                <option value=""><?php echo JText::_('Change status') ?></option>
+                <?php foreach ($list_passenger_status as $passenger_status) { ?>
+                    <option <?php echo $passenger_status->tsmart_passenger_state_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $passenger_status->tsmart_passenger_state_id ?>"><?php echo $passenger_status->passenger_status_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
 
     public static function select_type_percent_or_amount($name, $default)
     {

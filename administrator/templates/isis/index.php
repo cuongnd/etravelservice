@@ -22,8 +22,22 @@ JHtml::_('bootstrap.framework');
 
 $doc->addLessStyleSheet(JUri::root() . '/administrator/templates/isis/less/variables.less');
 $doc->addLessStyleSheet(JUri::root() . '/administrator/templates/isis/less/icomoon.less');
-$doc->addLessStyleSheet(JUri::root() . '/administrator/templates/isis/less/template.less');
+//$doc->addLessStyleSheet(JUri::root() . '/administrator/templates/isis/less/template.less');
 //$doc->addLessStyleSheet(JUri::root() . '/administrator/templates/isis/less/template_joomla.less');
+
+require_once JPATH_ROOT.DS.'libraries/less.php_1.7.0.10/less.php/Less.php';
+//require_once JPATH_ROOT.DS.'templates/vina_bonnie/templatehelper.php';
+//$template_helper = templateHelper::getInstance();
+$parser = Less_Parser::getInstance();
+$parser->parseFile(JPATH_ROOT.DS.'administrator/templates/isis/less/template.less', JUri::root());
+
+$file_css = 'administrator/templates/isis/css/template.css';
+$renew_file_bootstrap = true;
+if ($renew_file_bootstrap) {
+	$css = $parser->getCss();
+	JFile::write(JPATH_ROOT . DS . $file_css, $css);
+}
+$doc->addStyleSheet("/$file_css");
 
 
 $doc->addScriptVersion($this->baseurl . '/templates/' . $this->template . '/js/template.js');

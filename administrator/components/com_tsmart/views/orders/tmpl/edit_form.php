@@ -17,20 +17,30 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_edit_main_tour.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<?php echo $this->loadTemplate('form_general') ?>
-<?php echo $this->loadTemplate('form_booking_summary') ?>
-<?php echo $this->loadTemplate('form_service_cost') ?>
-<?php echo $this->loadTemplate('form_condition') ?>
-<?php echo $this->loadTemplate('form_passenger') ?>
-<?php echo $this->loadTemplate('form_rooming') ?>
-<?php echo $this->loadTemplate('form_itinerary') ?>
+<div class="view_orders_edit_order_edit_main_tour">
+    <?php echo $this->loadTemplate('form_general') ?>
+    <?php echo $this->loadTemplate('form_booking_summary') ?>
+    <?php echo $this->loadTemplate('form_service_cost') ?>
+    <?php echo $this->loadTemplate('form_condition') ?>
+    <?php echo $this->loadTemplate('form_passenger') ?>
+    <?php echo $this->loadTemplate('form_rooming') ?>
+    <?php echo $this->loadTemplate('form_itinerary') ?>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Product pricing -->
 
 
