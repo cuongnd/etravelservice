@@ -24,55 +24,10 @@ defined('_JEXEC') or die('Restricted access');
 // set row counter
 $i = 0;
 ?>
-<div class="booking-information form-horizontal">
+<div class="booking-information form-vertical">
     <div class="row-fluid ">
-        <div class="span3">
-            <fieldset class="booking-detail">
-                <legend><?php echo JText::_('Booking detail') ?></legend>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Service name', $this->tour->product_name); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Service date', JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format)); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Start point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Ending point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->end_city)->full_city); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Customer ID',$this->customer->name); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Passenger No', count($this->list_passenger)); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Booking make', "tour name"); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Branch office', "tour name"); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Assign to', $this->item->asign_name); ?>
-
-            </fieldset>
-
-        </div>
-        <div class="span3">
-            <fieldset class="quick-task">
-                <legend><?php echo JText::_('Quick task') ?></legend>
-                <?php echo VmHTML::row_control('quick_task', 'Cron job set rule', "tour name"); ?>
-                <?php echo VmHTML::row_control('quick_task', 'Document upload', "tour name"); ?>
-                <?php echo VmHTML::row_control('quick_task', 'Change status time', "tour name"); ?>
-
-
-            </fieldset>
-        </div>
-        <div class="span3">
-            <fieldset class="note" >
-                <legend><?php echo JText::_('Note') ?><button type="button" class="btn btn-link add_note"><span class="icon-plus"></span></button></legend>
-                <?php echo VmHTML::add_text('add_text_note', "tour name"); ?>
-            </fieldset>
-        </div>
-        <div class="span3">
-            <fieldset class="transaction">
-                <legend><?php echo JText::_('Transaction') ?></legend>
-
-                <?php echo VmHTML::row_control('text_view_no_input', 'Total cost value', $this->item->order_total); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Receive amount', $this->item->receipt); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Refund amount', ""); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Remain amount', ""); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Unpaid invoice', ""); ?>
-
-            </fieldset>
-            <fieldset class="set-status">
-                <legend><?php echo JText::_('Set status') ?></legend>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Holding in', "48 hours"); ?>
-            </fieldset>
+        <div class="span12">
+            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary', $this->item->itinerary, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
         </div>
     </div>
 

@@ -230,7 +230,7 @@
                 dialogClass:'asian-dialog-form',
                 modal: true,
                 width: 1000,
-                autoOpen: true,
+                autoOpen: false,
                 title: 'Edit details',
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body',

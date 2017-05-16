@@ -25,6 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 $i = 0;
 ?>
 <div class="view_orders_edit_order_edit_main_tour">
+
     <?php echo $this->loadTemplate('form_general') ?>
     <?php echo $this->loadTemplate('form_booking_summary') ?>
     <?php echo $this->loadTemplate('form_service_cost') ?>

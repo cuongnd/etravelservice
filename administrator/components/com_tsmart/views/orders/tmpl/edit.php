@@ -76,6 +76,7 @@ $doc->addScriptDeclaration($js_content);
                 <div class="wrapper-booking-detail">
                     <div class="row-fluid">
                         <div class="span12">
+
                             <?php echo $this->loadTemplate('bookinginformation') ?>
                         </div>
                     </div>
@@ -84,9 +85,11 @@ $doc->addScriptDeclaration($js_content);
                         <div class="span12">
                             <?php echo $this->loadTemplate('listallservicebooking') ?>
                         </div>
+
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
+
                             <?php echo $this->loadTemplate('passengerconfirmation') ?>
                         </div>
                     </div>
@@ -104,6 +107,7 @@ $doc->addScriptDeclaration($js_content);
 
     </form>
     <div class="order_edit_main_tour hide">
+
         <?php echo $this->loadTemplate('form') ?>
     </div>
     <div class="order_edit_passenger hide">
