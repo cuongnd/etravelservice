@@ -29,11 +29,6 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 {
     public function save_order($booking_summary, $payment_type = 'full_payment', $user_id)
     {
-        echo "<pre>";
-        print_r($booking_summary, false);
-        echo "</pre>";
-        die;
-        die;
         $contact_data = $booking_summary->contact_data;
         $contact_data = json_decode($contact_data);
         $customsTable = $this->getTable('customs');
@@ -252,7 +247,12 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         if(count($build_excursion_addon))
         {
             for ($i = 0, $n = count($build_excursion_addon); $i < $n; $i++) {
+
                 $row = $build_excursion_addon[$i];
+                if(!count($row->passengers))
+                {
+                    continue;
+                }
                 $tsmart_excursion_addon_id = $row->tsmart_excursion_addon_id;
                 $list_passenger_price=$row->list_passenger_price;
 
