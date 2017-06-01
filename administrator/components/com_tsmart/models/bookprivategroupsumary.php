@@ -30,8 +30,9 @@ class tsmartModelbookprivategroupsumary extends tmsModel
     public function save_order($booking_summary, $payment_type = 'full_payment', $user_id)
     {
         echo "<pre>";
-        print_r($booking_summary,false);
+        print_r($booking_summary, false);
         echo "</pre>";
+        die;
         die;
         $contact_data = $booking_summary->contact_data;
         $contact_data = json_decode($contact_data);
@@ -119,6 +120,159 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                     die;
                 }
                 $passenger_index++;
+            }
+        }
+        $passenger_helper=TSMHelper::getHepler('passenger');
+
+
+        $room_orderTable = $this->getTable('room_order');
+        $list_passenger_by_order=$passenger_helper->get_list_passenger_by_order_id($orderTable->tsmart_order_id);
+        $build_room=$booking_summary->build_room;
+        foreach ($build_room as $item) {
+            $item=(object)$item;
+            if(!count($item->passengers))
+            {
+                continue;
+            }
+            $room_orderTable->tsmart_room_order_id=0;
+            $room_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+            $room_orderTable->room_note=$item->room_note;
+            $room_orderTable->store();
+            $tsmart_room_order_id=$room_orderTable->tsmart_room_order_id;
+            $tour_cost_and_room_price = $item->tour_cost_and_room_price;
+            $room_type = $item->list_room_type;
+            foreach ($tour_cost_and_room_price as $item_passenger) {
+                $passenger_index = $item_passenger->passenger_index;
+                $passengerTable->load($list_passenger_by_order[$passenger_index]->tsmart_passenger_id);
+                $passengerTable->tour_cost=$item_passenger->tour_cost;
+                $passengerTable->room_type=$room_type;
+                $passengerTable->room_fee=$item_passenger->room_price;
+                $passengerTable->extra_fee=$item_passenger->extra_bed_price;
+                $passengerTable->room_note=$item_passenger->msg;
+                $passengerTable->bed_note=$item_passenger->bed_note;
+                $passengerTable->tsmart_room_order_id=$tsmart_room_order_id;
+                $passengerTable->store();
+            }
+
+        }
+
+        $save_data_night_hotel=function($type="pre",$extra_night_hotel,$orderTable,$list_passenger_by_order,$hotel_addon_orderTable,$passengerTable){
+            for ($i = 0, $n = count($extra_night_hotel); $i < $n; $i++) {
+                $row = $extra_night_hotel[$i];
+                $list_room_type = $row->list_room_type;
+                $list_passenger_price = $row->list_passenger_price;
+                $list_passenger_price = JArrayHelper::pivot($list_passenger_price, 'passenger_index');
+                $tsmart_hotel_addon_id = $row->tsmart_hotel_addon_id;
+                $list_passenger_price=$row->list_passenger_price;
+
+                foreach ($list_room_type as $room) {
+
+
+                    $list_passenger_per_room = $room->list_passenger_per_room;
+                    foreach ($list_passenger_per_room as $list_passenger_in_room) {
+                        $hotel_addon_orderTable->tsmart_order_hotel_addon_id=0;
+                        $hotel_addon_orderTable->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
+                        $hotel_addon_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+                        $hotel_addon_orderTable->note=$row->room_note;
+                        $hotel_addon_orderTable->checkin_date=JFactory::getDate($row->check_in_date)->toSql();
+                        $hotel_addon_orderTable->checkout_date=JFactory::getDate($row->check_out_date)->toSql();
+                        $hotel_addon_orderTable->store();
+                        $tsmart_order_hotel_addon_id=$hotel_addon_orderTable->tsmart_order_hotel_addon_id;
+
+                        foreach ($list_passenger_in_room as $passenger_index) {
+                            $passengerTable->load($list_passenger_by_order[$passenger_index]->tsmart_passenger_id);
+                            $key_night=$type."_tsmart_order_hotel_addon_id";
+                            $key_night_fee=$type."_night_hotel_fee";
+                            $passengerTable->$key_night=$tsmart_order_hotel_addon_id;
+                            $passengerTable->store();
+
+                        }
+                    }
+                }
+                foreach ($list_passenger_price as $item_passenger_price) {
+                    $passenger_index=$item_passenger_price->passenger_index;
+                    $passengerTable->load($list_passenger_by_order[$passenger_index]->tsmart_passenger_id);
+                    $key_night_fee=$type."_night_hotel_fee";
+                    $passengerTable->$key_night_fee=$item_passenger_price->cost;
+                    $passengerTable->store();
+                }
+
+
+            }
+        };
+        $hotel_addon_orderTable = $this->getTable('hotel_addon_order');
+        $extra_post_night_hotel=(array)$booking_summary->extra_post_night_hotel;
+        if(count($extra_post_night_hotel))
+        {
+            $save_data_night_hotel("post",$extra_post_night_hotel,$orderTable,$list_passenger_by_order,$hotel_addon_orderTable,$passengerTable);
+        }
+        $extra_pre_night_hotel=(array)$booking_summary->extra_pre_night_hotel;
+        if(count($extra_pre_night_hotel))
+        {
+            $save_data_night_hotel("pre",$extra_pre_night_hotel,$orderTable,$list_passenger_by_order,$hotel_addon_orderTable,$passengerTable);
+        }
+        $save_data_transfer=function($type="pre",$extra_transfer,$orderTable,$list_passenger_by_order,$transfer_addon_orderTable,$passengerTable){
+            for ($i = 0, $n = count($extra_transfer); $i < $n; $i++) {
+                $row = $extra_transfer[$i];
+                $tsmart_transfer_addon_id = $row->tsmart_transfer_addon_id;
+                $list_passenger_price=$row->list_passenger_price;
+
+                $transfer_addon_orderTable->tsmart_order_transfer_addon_id=0;
+                $transfer_addon_orderTable->tsmart_transfer_addon_id=$tsmart_transfer_addon_id;
+                $transfer_addon_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+                $transfer_addon_orderTable->note=$row->transfer_note;
+                $transfer_addon_orderTable->checkin_date=JFactory::getDate($row->check_in_date)->toSql();
+                $transfer_addon_orderTable->store();
+                $tsmart_order_transfer_addon_id=$transfer_addon_orderTable->tsmart_order_transfer_addon_id;
+
+                foreach ($list_passenger_price as $passenger_cost) {
+                    $passengerTable->load($list_passenger_by_order[$passenger_cost->passenger_index]->tsmart_passenger_id);
+                    $key_transfer=$type."_tsmart_order_transfer_addon_id";
+                    $key_transfer_fee=$type."_transfer_fee";
+                    $passengerTable->$key_transfer=$tsmart_order_transfer_addon_id;
+                    $passengerTable->$key_transfer_fee=$passenger_cost->cost;
+                    $passengerTable->store();
+
+                }
+            }
+        };
+        $transfer_addon_orderTable = $this->getTable('transfer_addon_order');
+        $build_pre_transfer=(array)$booking_summary->build_pre_transfer;
+        if(count($build_pre_transfer)){
+            $save_data_transfer("post",$build_pre_transfer,$orderTable,$list_passenger_by_order,$transfer_addon_orderTable,$passengerTable);
+        }
+        $build_post_transfer=(array)$booking_summary->build_post_transfer;
+        if(count($build_post_transfer)){
+            $save_data_transfer("post",$build_post_transfer,$orderTable,$list_passenger_by_order,$transfer_addon_orderTable,$passengerTable);
+        }
+        //-----------------------------------
+        $excursion_addon_order_orderTable = $this->getTable('excursion_addon_order');
+        $excursion_addon_passenger_price_order_orderTable = $this->getTable('excursion_addon_passenger_price_order');
+        $build_excursion_addon=(array)$booking_summary->build_excursion_addon;
+        if(count($build_excursion_addon))
+        {
+            for ($i = 0, $n = count($build_excursion_addon); $i < $n; $i++) {
+                $row = $build_excursion_addon[$i];
+                $tsmart_excursion_addon_id = $row->tsmart_excursion_addon_id;
+                $list_passenger_price=$row->list_passenger_price;
+
+                $excursion_addon_order_orderTable->tsmart_order_excursion_addon_id=0;
+                $excursion_addon_order_orderTable->tsmart_excursion_addon_id=$tsmart_excursion_addon_id;
+
+                $excursion_addon_order_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+                $excursion_addon_order_orderTable->note=$row->excursion_note;
+                $excursion_addon_order_orderTable->store();
+                $tsmart_order_excursion_addon_id=$excursion_addon_order_orderTable->tsmart_order_excursion_addon_id;
+
+                foreach ($list_passenger_price as $passenger_cost) {
+                    $tsmart_passenger_id=$list_passenger_by_order[$passenger_cost->passenger_index]->tsmart_passenger_id;
+                    $excursion_addon_passenger_price_order_orderTable->id=0;
+                    $excursion_addon_passenger_price_order_orderTable->tsmart_order_excursion_addon_id=$tsmart_order_excursion_addon_id;
+                    $excursion_addon_passenger_price_order_orderTable->tsmart_passenger_id=$tsmart_passenger_id;
+                    $excursion_addon_passenger_price_order_orderTable->excusion_fee=$passenger_cost->cost;
+                    $excursion_addon_passenger_price_order_orderTable->store();
+
+                }
             }
         }
         return $orderTable;

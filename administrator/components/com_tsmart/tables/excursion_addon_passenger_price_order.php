@@ -28,40 +28,24 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class Tablepaymentsetting extends tsmTableData {
+class TableExcursion_addon_passenger_price_order extends tsmTableData {
 
-	/** @var int Primary key */
-	var $tsmart_paymentsetting_id				= 0;
-	var $tsmart_currency_id				= 0;
-	var $credit_card_fee				= "";
-	var $deposit_type				= "";
-	var $deposit_amount				= "";
-	var $balance_day_1				= "";
-	var $balance_percent_1					= 0;
-	var $balance_day_2				= "";
-	var $balance_percent_2					= 0;
-	var $balance_day_3				= "";
-	var $balance_percent_3					= 0;
-	var $config_mode					= '';
-	var $deposit_term					= '';
-	var $type					= 'default';
-	var $hold_seat					= '';
-	var $rule_note					= '';
-
-	var $published				= 0;
-
+	var $id= 0;
+	var $tsmart_order_excursion_addon_id= null;
+	var $tsmart_passenger_id= null;
+	var $excusion_fee= 0;
 	/**
 	 * @author Max Milbers
 	 * @param JDataBase $db
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_paymentsetting', 'tsmart_paymentsetting_id', $db);
+		parent::__construct('#__tsmart_excursion_addon_passenger_price_order', 'id', $db);
 
 
-		$this->setLoggable();
+		//$this->setLoggable();
 
-		$this->setOrderable();
+		//$this->setOrderable();
 	}
 
 	function check(){

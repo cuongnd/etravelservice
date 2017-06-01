@@ -3611,6 +3611,9 @@ XML;
             twin => 2,
             trip => 3
         );
+        $json_list_passenger = $session->get('json_list_passenger', '');
+        $json_list_passenger = json_decode($json_list_passenger);
+        $list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
         ob_start();
         ?>
         <script type="text/javascript">
@@ -3618,7 +3621,7 @@ XML;
                 var cookie_list_passenger = $.cookie('cookie_list_passenger');
                 cookie_list_passenger = $.parseJSON(cookie_list_passenger);
                 $('#<?php  echo $id_element ?>').html_build_extra_night_hotel({
-                    list_passenger: cookie_list_passenger,
+                    list_passenger: <?php echo json_encode($list_passenger) ?>,
                     id_selected:<?php echo $default ? $default : 0 ?>,
                     input_name: "<?php echo $name ?>",
                     element_key: "<?php echo $id_element ?>",
@@ -5030,6 +5033,11 @@ XML;
         } else {
             $transfer_booking_days_allow = $params->get('post_transfer_booking_days_allow', 1);
         }
+        $session=JFactory::getSession();
+        $json_list_passenger = $session->get('json_list_passenger', '');
+        $json_list_passenger = json_decode($json_list_passenger);
+        $list_passenger = array_merge($json_list_passenger->senior_adult_teen, $json_list_passenger->children_infant);
+
         ob_start();
         ?>
         <script type="text/javascript">
@@ -5037,7 +5045,7 @@ XML;
                 var cookie_list_passenger = $.cookie('cookie_list_passenger');
                 cookie_list_passenger = $.parseJSON(cookie_list_passenger);
                 $('#<?php  echo $id_element ?>').html_build_pickup_transfer({
-                    list_passenger: cookie_list_passenger,
+                    list_passenger: <?php echo json_encode($list_passenger) ?>,
                     input_name: "<?php echo $name ?>",
                     element_key: "<?php echo $id_element ?>",
                     debug:<?php echo json_encode($debug) ?>,

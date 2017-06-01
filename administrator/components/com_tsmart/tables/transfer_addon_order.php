@@ -13,43 +13,30 @@
 * to the GNU General Public License, and as distributed it includes or
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
-* @version $Id: currencies.php 3256 2011-05-15 20:04:08Z Milbo $
+* @version $Id: currencies.php 8310 2014-09-21 17:51:47Z Milbo $
 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-if(!class_exists('tsmTable')) require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php');
+if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabledata.php');
 
 /**
- * Worldzones table class
+ * Currency table class
  * The class is is used to manage the currencies in the shop.
  *
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class TableWorldzones extends tsmTable {
-
+class TableTransfer_addon_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_worldzone_id	= 0;
-	/** @var int vendor id */
-	var $tsmart_vendor_id		= 1;
-	/** @var string Currency name*/
-	var $zone_name           		= '';
-	/** @var char Currency code */
-	var $zone_cost					= '';
-	var $zone_limit         		= ''; //should be renamed to $currency_code_2
-	/** @var char Currency symbol */
-	var $zone_description 			= 0;
-    var $zone_tax_rate         		= '';
-
-    var $ordering					= 0;
-
-	  /** @var boolean */
-	var $published					= 0;
-	var $shared						= 1;
-
+	var $tsmart_order_transfer_addon_id= 0;
+	var $note= "";
+	var $tsmart_transfer_addon_id= null;
+	var $tsmart_order_id= null;
+	var $checkin_date= null;
+	var $checkout_date= null;
 
 	/**
 	 * @author Max Milbers
@@ -57,14 +44,26 @@ class TableWorldzones extends tsmTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_worldzones', 'tsmart_worldzone_id', $db);
+		parent::__construct('#__tsmart_transfer_addon_order', 'tsmart_order_transfer_addon_id', $db);
 
-		$this->setUniqueName('zone_name');
 
-		$this->setLoggable();
+		//$this->setLoggable();
 
+		//$this->setOrderable();
 	}
 
+	function check(){
 
+		//$this->checkCurrencySymbol();
+		return parent::check();
+	}
+
+	/**
+	 * ATM Unused !
+	 * Checks a departure symbol wether it is a HTML entity.
+	 * When not and $convertToEntity is true, it converts the symbol
+	 * Seems not be used      ATTENTION   seems BROKEN, working only for euro, ...
+	 *
+	 */
 }
 // pure php no closing tag

@@ -28,32 +28,15 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class Tabledeparture extends tsmTableData {
+class Tablehotel_addon_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_departure_id				= 0;
-	var $min_space				= 0;
-	var $departure_name				= 0;
-	var $max_space				= 0;
-	var $sale_period_open				= null;
-	var $sale_period_close				= null;
-	var $vail_period_from				= null;
-	var $vail_period_to				= null;
-	var $service_class_id				= 0;
-	var $start_date				= 0;
-	var $end_date				= 0;
-	var $g_guarantee				= 0;
-	var $mon				= 0;
-	var $tue				= 0;
-	var $wen				= 0;
-	var $thu				= 0;
-	var $fri				= 0;
-	var $sat				= 0;
-	var $sun				= 0;
-	var $days_seleted				= '';
-	var $limited_space				= 0;
-	var $shared					= 0;
-	var $published				= 0;
+	var $tsmart_order_hotel_addon_id= 0;
+	var $note= "";
+	var $tsmart_hotel_addon_id= "";
+	var $tsmart_order_id= null;
+	var $checkin_date= null;
+	var $checkout_date= null;
 
 	/**
 	 * @author Max Milbers
@@ -61,13 +44,12 @@ class Tabledeparture extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_departure', 'tsmart_departure_id', $db);
+		parent::__construct('#__tsmart_hotel_addon_order', 'tsmart_order_hotel_addon_id', $db);
 
-		$this->setUniqueName('departure_name');
 
-		$this->setLoggable();
+		//$this->setLoggable();
 
-		$this->setOrderable();
+		//$this->setOrderable();
 	}
 
 	function check(){

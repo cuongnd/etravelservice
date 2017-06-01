@@ -28,18 +28,13 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class TableFaq extends tsmTableData {
+class TableExcursion_addon_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_faq_id				= 0;
-	var $title				= "";
-	var $icon				= "";
-	var $meta_title				= "";
-	var $key_word				= "";
-	var $description				= "";
-
-	var $shared					= 0;
-	var $published				= 0;
+	var $tsmart_order_excursion_addon_id= 0;
+	var $note= "";
+	var $tsmart_excursion_addon_id= null;
+	var $tsmart_order_id= null;
 
 	/**
 	 * @author Max Milbers
@@ -47,12 +42,12 @@ class TableFaq extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_faq', 'tsmart_faq_id', $db);
+		parent::__construct('#__tsmart_excursion_addon_order', 'tsmart_order_excursion_addon_id', $db);
 
 
-		$this->setLoggable();
+		//$this->setLoggable();
 
-		$this->setOrderable();
+		//$this->setOrderable();
 	}
 
 	function check(){

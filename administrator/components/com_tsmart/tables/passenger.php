@@ -40,6 +40,7 @@ class TablePassenger extends tsmTableData {
 	var $middle_name = "";
 	var $last_name = "";
 	var $gender = "";
+
 	var $date_of_birth  = "";
 	var $nationality = "";
 	var $passport_no  = null;
@@ -56,6 +57,7 @@ class TablePassenger extends tsmTableData {
 	var $emergency_contact_phone_no = "";
 	var $pre_existing_medical_condition = "";
 	var $special_meal_requirements = "";
+	var $room_type = "";
 
 
 	/**

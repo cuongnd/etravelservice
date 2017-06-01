@@ -28,18 +28,12 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class TableAccommodation extends tsmTableData {
+class TableRoom_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_accommodation_id				= 0;
-	var $icon				= "";
-	var $meta_title				= "";
-	var $tsmart_itinerary_id				= 0;
-	var $key_word				= "";
-	var $description				= "";
-
-	var $shared					= 0;
-	var $published				= 0;
+	var $tsmart_room_order_id= 0;
+	var $room_note= "";
+	var $tsmart_order_id= null;
 
 	/**
 	 * @author Max Milbers
@@ -47,12 +41,12 @@ class TableAccommodation extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_accommodation', 'tsmart_accommodation_id', $db);
+		parent::__construct('#__tsmart_room_order', 'tsmart_room_order_id', $db);
 
 
-		$this->setLoggable();
+		//$this->setLoggable();
 
-		$this->setOrderable();
+		//$this->setOrderable();
 	}
 
 	function check(){
