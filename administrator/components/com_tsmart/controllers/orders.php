@@ -186,6 +186,18 @@ class TsmartControllerorders extends TsmController {
 		echo json_encode($response);
 		die;
 	}
+	function ajax_get_passenger_detail_by_passenger_id()
+	{
+		$app=JFactory::getApplication();
+		$passenger_table=tsmTable::getInstance('passenger','Table');
+		$data=$app->input->getArray();
+		$passenger_table->load($data['tsmart_passenger_id']);
+		$response=new stdClass();
+		$response->e=0;
+		$response->passenger_data=(object)$passenger_table->getProperties();
+		echo json_encode($response);
+		die;
+	}
 	function ajax_save_passenger_cost()
 	{
 		$app=JFactory::getApplication();
@@ -235,6 +247,75 @@ class TsmartControllerorders extends TsmController {
 			$response->e=1;
 			$response->m=$order_table->getError();
 		}
+		echo json_encode($response);
+		die;
+	}
+	function ajax_save_order_info()
+	{
+		$app=JFactory::getApplication();
+		$order_table=tsmTable::getInstance('orders','Table');
+		$data=$app->input->getArray();
+		$list_row=$data['list_row'];
+		$order_table->load($data['tsmart_order_id']);
+		$order_table->assign_user_id=$data['assign_user_id'];
+		$order_table->terms_condition=$data['terms_condition'];
+		$order_table->reservation_notes=$data['reservation_notes'];
+		$order_table->itinerary=$data['itinerary'];
+		$tsmart_orderstate_id=$data['tsmart_orderstate_id'];
+		$order_table->tsmart_orderstate_id=$tsmart_orderstate_id>0?$tsmart_orderstate_id:null;
+		$response=new stdClass();
+		$response->e=0;
+		if(!$order_table->store())
+		{
+			$response->e=1;
+			$response->m=$order_table->getError();
+		}
+		$order_object=(object)$order_table->getproperties();
+		$response->r=$order_object;
+		$order_data=json_decode($order_object->order_data);
+		$list_passenger=$order_data->list_passenger;
+		$i=0;
+		foreach($list_passenger->senior_adult_teen as &$item){
+			$row=(object)$list_row[$i];
+			$item->passenger_status=$row->passenger_status;
+			$i++;
+		}
+		foreach($list_passenger->children_infant as &$item){
+			$row=(object)$list_row[$i];
+			$item->passenger_status=$row->passenger_status;
+			$i++;
+		}
+		$user=JFactory::getUser();
+		$departure_date=JFactory::getDate($data['departure_date']);
+		$departure_date_end=JFactory::getDate($data['departure_date_end']);
+		$order_data->list_passenger=$list_passenger;
+		$order_data->departure->departure_date=$departure_date->toSql();
+		$order_data->departure->departure_date_end=$departure_date_end->toSql();
+		$order_data=json_encode($order_data);
+		$order_table->order_data=$order_data;
+		if(!$order_table->store())
+		{
+			$response->e=1;
+			$response->m=$order_table->getError();
+		}
+		$total_passenger_confirm=0;
+		$passenger_helper=TSMHelper::getHepler('passenger');
+		foreach($list_passenger->senior_adult_teen as $passenger){
+			if($passenger_helper->is_confirm($passenger)){
+				$total_passenger_confirm++;
+			}
+		}
+		foreach($list_passenger->children_infant as $passenger){
+			if($passenger_helper->is_confirm($passenger)){
+				$total_passenger_confirm++;
+			}
+		}
+		$response->total_passenger=$total_passenger_confirm>1?JText::sprintf("%s pers",$total_passenger_confirm):JText::sprintf("%s per",$total_passenger_confirm);
+		$departure=$order_data->departure;
+		$tour=$order_data->tour;
+		$response->service_date=JHtml::_('date', $departure_date, tsmConfig::$date_format)."<br/>".JHtml::_('date', $departure_date_end, tsmConfig::$date_format);
+		$response->departure_date=JHtml::_('date', $departure_date, tsmConfig::$date_format);
+		$response->assign_name=JFactory::getUser($order_table->assign_user_id)->name;
 		echo json_encode($response);
 		die;
 	}

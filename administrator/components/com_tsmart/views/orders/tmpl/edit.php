@@ -27,18 +27,21 @@ AdminUIHelper::startAdminArea($this);
 
 $order_data=json_decode($this->item->order_data);
 $this->order_data=$order_data;
+
 $list_passenger=$order_data->list_passenger;
 $this->build_room=(array)$order_data->build_room;
-$this->list_passenger=array_merge($list_passenger->senior_adult_teen,$list_passenger->children_infant);
+//$this->list_passenger=array_merge($list_passenger->senior_adult_teen,$list_passenger->children_infant);
 $this->tour=$order_data->tour;
 $this->departure=$order_data->departure;
-$departure_date=$this->departure->departure_date;
-$departure_date=JFactory::getDate($departure_date);
-$departure_date_end=clone $departure_date;
-$total_day=$this->tour->tour_length;
-$total_day--;
-$departure_date_end->modify("+$total_day day");
-$this->departure->departure_date_end=$departure_date_end;
+if(!$this->departure->departure_date_end) {
+    $departure_date = $this->departure->departure_date;
+    $departure_date = JFactory::getDate($departure_date);
+    $departure_date_end = clone $departure_date;
+    $total_day = $this->tour->tour_length;
+    $total_day--;
+    $departure_date_end->modify("+$total_day day");
+    $this->departure->departure_date_end = $departure_date_end;
+}
 $build_pre_transfer=(array)$order_data->build_pre_transfer;
 $build_post_transfer=(array)$order_data->build_post_transfer;
 $this->transfer=array(
@@ -49,6 +52,7 @@ $extra_pre_night_hotel=(array)$order_data->extra_pre_night_hotel;
 $extra_post_night_hotel=(array)$order_data->extra_post_night_hotel;
 $this->night_hotel=array_merge($extra_pre_night_hotel,$extra_post_night_hotel);
 $this->list_excursion_addon=(array)$order_data->build_excursion_addon;
+$this->payment_rule=$order_data->payment_rule;
 ob_start();
 ?>
 <script type="text/javascript">
@@ -63,6 +67,15 @@ $js_content = ob_get_clean();
 $js_content = $utility->remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
 
+$input=JFactory::getApplication()->input;
+$this->tab_selected=$input->getString('tab','general');
+$this->list_tab=array(
+    general=>"General",
+    active=>"Active",
+    passenger=>"Passenger",
+    finance=>"Finance",
+    conversation=>"Conversation",
+);
 ?>
 <div class="view-orders-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
@@ -80,19 +93,8 @@ $doc->addScriptDeclaration($js_content);
                             <?php echo $this->loadTemplate('bookinginformation') ?>
                         </div>
                     </div>
+                    <?php echo $this->loadTemplate("tab_$this->tab_selected") ?>
 
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <?php echo $this->loadTemplate('listallservicebooking') ?>
-                        </div>
-
-                    </div>
-                    <div class="row-fluid">
-                        <div class="span12">
-
-                            <?php echo $this->loadTemplate('passengerconfirmation') ?>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -118,6 +120,9 @@ $doc->addScriptDeclaration($js_content);
     </div>
     <div class="order_edit_room hide">
         <?php echo $this->loadTemplate('form_edit_room') ?>
+    </div>
+    <div class="order_form_add_and_remove_passenger hide">
+        <?php echo $this->loadTemplate('form_add_and_remove_passenger') ?>
     </div>
 </div>
 

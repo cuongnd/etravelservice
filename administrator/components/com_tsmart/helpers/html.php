@@ -24,6 +24,42 @@ class VmHtml
 {
 
     /**
+     * Option values related to the generation of HTML output. Recognized
+     * options are:
+     *     fmtDepth, integer. The current indent depth.
+     *     fmtEol, string. The end of line string, default is linefeed.
+     *     fmtIndent, string. The string to use for indentation, default is
+     *     tab.
+     *
+     * @var    array
+     * @since  1.5
+     */
+    public static $formatOptions = array('format.depth' => 0, 'format.eol' => "\n", 'format.indent' => "\t");
+    /**
+     * An array to hold included paths
+     *
+     * @var    array
+     * @since  1.5
+     */
+    protected static $includePaths = array();
+    /**
+     * An array to hold method references
+     *
+     * @var    array
+     * @since  1.6
+     */
+    protected static $registry = array();
+    /**
+     * Method to extract a key
+     *
+     * @param   string  $key  The name of helper method to load, (prefix).(class).function
+     *                        prefix and class are optional and can be used to load custom html helpers.
+     *
+     * @return  array  Contains lowercase key, prefix, file, function.
+     *
+     * @since   1.6
+     */
+    /**
      * Default values for options. Organized by option group.
      *
      * @var     array
@@ -135,6 +171,175 @@ class VmHtml
             return 'UTF-8';
         }
     }
+    protected static function extract($key)
+    {
+        $key = preg_replace('#[^A-Z0-9_\.]#i', '', $key);
+        // Check to see whether we need to load a helper file
+        $parts = explode('.', $key);
+        $prefix = (count($parts) == 3 ? array_shift($parts) : 'TSMHtml');
+        $file = (count($parts) == 2 ? array_shift($parts) : '');
+
+        $func = array_shift($parts);
+        return array(strtolower($prefix . '.' . $file . '.' . $func), $prefix, $file, $func);
+    }
+    /**
+     * Class loader method
+     *
+     * Additional arguments may be supplied and are passed to the sub-class.
+     * Additional include paths are also able to be specified for third-party use
+     *
+     * @param   string  $key  The name of helper method to load, (prefix).(class).function
+     *                        prefix and class are optional and can be used to load custom
+     *                        html helpers.
+     *
+     * @return  mixed  JHtml::call($function, $args) or False on error
+     *
+     * @since   1.5
+     * @throws  InvalidArgumentException
+     */
+    public static function _($key)
+    {
+        list($key, $prefix, $file, $func) = static::extract($key);
+
+        if (array_key_exists($key, static::$registry))
+        {
+            $function = static::$registry[$key];
+            $args = func_get_args();
+            // Remove function name from arguments
+            array_shift($args);
+            return static::call($function, $args);
+        }
+        $className = $prefix . ucfirst($file);
+        if (!class_exists($className))
+        {
+            $path = JPATH_ROOT.DS.'administrator/components/com_tsmart/helpers/html'.DS.strtolower($file) . '.php';
+            require_once $path;
+            if (!class_exists($className))
+            {
+                throw new InvalidArgumentException(sprintf('%s not found.', $className), 500);
+            }
+        }
+        $toCall = array($className, $func);
+        if (is_callable($toCall))
+        {
+
+            static::register($key, $toCall);
+            $args = func_get_args();
+            // Remove function name from arguments
+            array_shift($args);
+            return static::call($toCall, $args);
+        }
+        else
+        {
+            throw new InvalidArgumentException(sprintf('%s::%s not found.', $className, $func), 500);
+        }
+
+    }
+    /**
+     * Add a directory where JHtml should search for helpers. You may
+     * either pass a string or an array of directories.
+     *
+     * @param   string  $path  A path to search.
+     *
+     * @return  array  An array with directory elements
+     *
+     * @since   1.5
+     */
+    public static function addIncludePath($path = '')
+    {
+        // Force path to array
+        settype($path, 'array');
+        // Loop through the path directories
+        foreach ($path as $dir)
+        {
+            if (!empty($dir) && !in_array($dir, static::$includePaths))
+            {
+                array_unshift(static::$includePaths, JPath::clean($dir));
+            }
+        }
+        return static::$includePaths;
+    }
+
+    /**
+     * Registers a function to be called with a specific key
+     *
+     * @param   string  $key       The name of the key
+     * @param   string  $function  Function or method
+     *
+     * @return  boolean  True if the function is callable
+     *
+     * @since   1.6
+     */
+    public static function register($key, $function)
+    {
+        list($key) = static::extract($key);
+        if (is_callable($function))
+        {
+            static::$registry[$key] = $function;
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Removes a key for a method from registry.
+     *
+     * @param   string  $key  The name of the key
+     *
+     * @return  boolean  True if a set key is unset
+     *
+     * @since   1.6
+     */
+    public static function unregister($key)
+    {
+        list($key) = static::extract($key);
+        if (isset(static::$registry[$key]))
+        {
+            unset(static::$registry[$key]);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Test if the key is registered.
+     *
+     * @param   string  $key  The name of the key
+     *
+     * @return  boolean  True if the key is registered.
+     *
+     * @since   1.6
+     */
+    public static function isRegistered($key)
+    {
+        list($key) = static::extract($key);
+        return isset(static::$registry[$key]);
+    }
+    /**
+     * Function caller method
+     *
+     * @param   callable  $function  Function or method to call
+     * @param   array     $args      Arguments to be passed to function
+     *
+     * @return  mixed   Function result or false on error.
+     *
+     * @see     http://php.net/manual/en/function.call-user-func-array.php
+     * @since   1.6
+     * @throws  InvalidArgumentException
+     */
+    protected static function call($function, $args)
+    {
+        if (!is_callable($function))
+        {
+            throw new InvalidArgumentException('Function not supported', 500);
+        }
+        // PHP 5.3 workaround
+        $temp = array();
+        foreach ($args as &$arg)
+        {
+            $temp[] = &$arg;
+        }
+        return call_user_func_array($function, $temp);
+    }
+
 
     /**
      * Generate HTML code for a row using VmHTML function
@@ -1642,7 +1847,7 @@ class VmHtml
 
         return $html;
     }
-    public static function list_checkbox($name, $options, $list_selected = array(), $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3)
+    public static function list_checkbox($name, $options, $list_selected = array(), $attrib = "onchange='submit();'", $key = 'value', $text = 'text', $column = 3,$max_check=0)
     {
         $list_options = array_chunk($options, $column);
         ob_start();
@@ -2717,7 +2922,7 @@ class VmHtml
     }
     public static function text_view_no_input($value, $class, $more = '')
     {
-        return $value;
+        return '<span class="'.$class.'" >'.$value.'</span>';
     }
     public static function quick_task($value, $class, $more = '')
     {
@@ -3244,6 +3449,64 @@ XML;
         return $html;
     }
 
+    /**
+     * @param array $list_order_status
+     * @param $name
+     * @param string $default
+     * @param string $attrib
+     * @param bool $zero
+     * @param bool $chosenDropDowns
+     * @param bool $tranlsate
+     * @return string
+     * @throws Exception
+     */
+    public static function change_order_status($list_order_status = array(), $name, $default = '0', $attrib = "onchange='submit();'", $zero = true, $chosenDropDowns = true, $tranlsate = true)
+    {
+        $doc = JFactory::getDocument();
+        $doc->addScript(JUri::root() . '/media/system/js/jquery.utility.js');
+        $doc->addScript(JUri::root() . '/media/system/js/select2-master/dist/js/select2.full.js');
+        $doc->addStyleSheet(JUri::root() . '/media/system/js/select2-master/dist/css/select2.css');
+        $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_order_status/html_select_order_status.js');
+        $doc->addLessStyleSheet(JUri::root() . 'administrator/components/com_tsmart/assets/js/controller/select_order_status/html_select_order_status.less');
+        $input = JFactory::getApplication()->input;
+        if (empty($list_order_status)) {
+            require_once JPATH_ROOT .DS. 'administrator/components/com_tsmart/helpers/tsmorderstates.php';
+            $list_order_status = tsmorderstates::get_list_orders_states();
+        }
+
+        $id_element = 'html_passenger_status_' . $name;
+        ob_start();
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#<?php  echo $id_element ?>').html_select_order_status({
+                    list_order_status:<?php echo json_encode($list_order_status) ?>,
+                    select_name: "<?php echo $name ?>",
+                    tsmart_orderstate_id:<?php echo $default ? $default : 0 ?>
+                });
+            });
+        </script>
+        <?php
+        $script_content = ob_get_clean();
+        $script_content = TSMUtility::remove_string_javascript($script_content);
+        $doc->addScriptDeclaration($script_content);
+
+        ob_start();
+        ?>
+        <div id="<?php echo $id_element ?>" <?php echo $attrib ?> >
+            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="passenger_status">
+                <option value=""><?php echo JText::_('Change status') ?></option>
+                <?php foreach ($list_order_status as $order_status) { ?>
+                    <option <?php echo $order_status->tsmart_orderstate_id == $default ? ' selected ' : '' ?>
+                        value="<?php echo $order_status->tsmart_orderstate_id ?>"><?php echo $order_status->order_status_name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
+    }
+
     public static function select_type_percent_or_amount($name, $default)
     {
         $doc = JFactory::getDocument();
@@ -3480,9 +3743,9 @@ XML;
         ?>
         <div id="<?php echo $id_element ?>" class="html_input_passenger">
             <div class="row-fluid">
-                <div class="col-lg-12">
+                <div class="span12">
                     <div class="row-fluid person-type">
-                        <div class="col-lg-12">
+                        <div class="span12">
                             <h4 class="">
                                 <span title=""
                                       class="travel-icon">n</span> <?php echo JText::_('SENIOR/ADULT/TEEN(12-99 years)') ?>
@@ -3491,53 +3754,53 @@ XML;
                         </div>
                     </div>
                     <div class="row-fluid herder">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-1"><?php echo JText::_('Gender') ?></div>
-                        <div class="col-lg-2"><?php echo JText::_('First name') ?></div>
-                        <div class="col-lg-2"><?php echo JText::_('Middle name') ?></div>
-                        <div class="col-lg-2"><?php echo JText::_('Last name') ?></div>
-                        <div class="col-lg-2"><?php echo JText::_('Nationality') ?></div>
-                        <div class="col-lg-2"><?php echo JText::_('Date of birth') ?></div>
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-1"></div>
+                        <div class="span1"></div>
+                        <div class="span1"><?php echo JText::_('Gender') ?></div>
+                        <div class="span2"><?php echo JText::_('First name') ?></div>
+                        <div class="span2"><?php echo JText::_('Middle name') ?></div>
+                        <div class="span2"><?php echo JText::_('Last name') ?></div>
+                        <div class="span2"><?php echo JText::_('Nationality') ?></div>
+                        <div class="span2"><?php echo JText::_('Date of birth') ?></div>
+                        <div class="span1"></div>
+                        <div class="span1"></div>
                     </div>
                     <div class="input-passenger-list-passenger senior-adult-teen">
                         <div class="row-fluid item-passenger">
-                            <div class="col-lg-12">
+                            <div class="span12">
                                 <div class="row-fluid">
-                                    <div class="col-lg-12">
+                                    <div class="span12">
                                         <?php echo JText::_('Person ') ?><span class="passenger-index">1</span>
                                         <button type="button" class=" btn remove"><span class="icon-remove " title=""></span></button>
                                         <button type="button" class=" btn add "><span class="icon-plus " title=""></span></button>
                                     </div>
                                 </div>
                                 <div class="row-fluid">
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <input required data-name="first_name"
                                                placeholder="<?php echo JText::_('First name') ?>"
                                                type="text">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <input data-name="middle_name"
                                                placeholder="<?php echo JText::_('Middle name') ?>"
                                                type="text">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <input required data-name="last_name"
                                                placeholder="<?php echo JText::_('Last name') ?>"
                                                type="text">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <input required class="date readonly" data-name="date_of_birth" readonly
                                                placeholder="<?php echo JText::_('Date of birth') ?>"
                                                type="text">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <input required data-name="nationality"
                                                placeholder="<?php echo JText::_('Nationality') ?>"
                                                type="text">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <select class="gender" data-name="gender" ">
                                         <option value="mr">Mr</option>
                                         <option value="ms">Ms</option>
@@ -3552,7 +3815,7 @@ XML;
                         </div>
                     </div>
                     <div class="row-fluid person-type">
-                        <div class="col-lg-10">
+                        <div class="span10">
                             <h4 class=""><span title=""
                                                class="travel-icon">n</span> <?php echo JText::_('Children/infant(0-11 years)') ?>
                             </h4>
@@ -3621,7 +3884,7 @@ XML;
                 <div class="item-room">
                     <div class="move-room handle"><span title="" class="icon-move "></span></div>
                     <div class="row">
-                        <div class="col-lg-12"><h3><?php echo JText::_('Room ') ?><span class="room-order">1</span></h3>
+                        <div class="span12"><h3><?php echo JText::_('Room ') ?><span class="room-order">1</span></h3>
                         </div>
                     </div>
                     <div class="row">
@@ -3629,24 +3892,24 @@ XML;
                             <h3><?php echo JText::_('Select room type') ?></h3>
                             <div class="list-room">
                                 <div class="row">
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <label><?php echo JText::_('Single') ?><input type="radio" checked
                                                                                       data-name="room_type"
                                                                                       name="room_type"
                                                                                       value="single"></label>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="span3">
                                         <label><?php echo JText::_('Double') ?><input type="radio" data-name="room_type"
                                                                                       name="room_type"
                                                                                       value="double"></label>
                                     </div>
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-2">
+                                    <div class="span3"></div>
+                                    <div class="span2">
                                         <label><?php echo JText::_('Twin') ?><input type="radio" data-name="room_type"
                                                                                     name="room_type"
                                                                                     value="twin"></label>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <label><?php echo JText::_('Triple') ?><input type="radio" data-name="room_type"
                                                                                       name="room_type"
                                                                                       value="triple"></label>
@@ -3654,12 +3917,12 @@ XML;
                                 </div>
                             </div>
                             <div class="row note">
-                                <div class="col-lg-12">
+                                <div class="span12">
                                     <?php echo $lipsum->words(50) ?>
                                 </div>
                             </div>
                             <div class="row note">
-                                <div class="col-lg-12">
+                                <div class="span12">
                                     <h4><?php echo JText::_('Your note') ?><?php if ($debug) { ?>
                                             <button type="button" class="btn btn-primary random-text">Random text
                                             </button><?php } ?></h4>
@@ -3676,7 +3939,7 @@ XML;
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="span12">
                             <button type="button"
                                     class="btn btn-primary add-more-room pull-right"><?php echo JText::_('Add more room') ?></button>
                             <button type="button"
@@ -3687,49 +3950,49 @@ XML;
             </div>
             <div class="rooming-list">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="span12">
                         <h4 style="text-align: center"><?php echo JText::_('Rooming list') ?></h4>
                         <div class="table table-hover table-bordered table-rooming-list">
                             <div class="thead">
                                 <div class="row">
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="column-header-item"><?php echo JText::_('Room') ?></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="column-header-item"><?php echo JText::_('Room type') ?></div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="span3">
                                         <div class="column-header-item"><?php echo JText::_('Passenger') ?></div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="span3">
                                         <div class="column-header-item"><?php echo JText::_('Bed note') ?></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="column-header-item"><?php echo JText::_('Room note') ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tbody">
                                 <div class="row div-item-room">
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="row-item-column"><span class="order">1</span></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="row-item-column">
                                             <div class="room_type"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="span3">
                                         <div class="row-item-column">
                                             <div class="table_list_passenger"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="span3">
                                         <div class="row-item-column">
                                             <div class="private-room"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="span2">
                                         <div class="row-item-column">
                                             <div class="room_note"></div>
                                         </div>
@@ -5180,14 +5443,14 @@ XML;
         <div class="html_build_form_contact row" id="<?php echo $id_element ?>">
             <div class="form-contact form-vertical">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="span12">
                         <h4 class="title contact-detail"><span class="icon-envelope-alt"
                                                                title=""></span><?php echo JText::_('Contact detail') ?>
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="span6">
                         <div class="left">
                         <?php echo VmHTML::row_control('input', JText::_('Contact name'), 'contact_name', '', 'class="required"'); ?>
                         <?php echo VmHTML::row_control('input', JText::_('Phone No'), 'phone_number', '', 'class="required"'); ?>
@@ -5198,7 +5461,7 @@ XML;
                         <?php echo VmHTML::row_control('input', JText::_('State/province'), 'state_province', '', 'class="required"'); ?>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="span6">
                         <div class="right">
                             <?php echo VmHTML::row_control('input', JText::_('Postcode/Zip'), 'post_code_zip', '', 'class="required"'); ?>
                             <?php echo VmHTML::row_control('input', JText::_('Res. Country'), 'res_country', '', 'class="required"'); ?>

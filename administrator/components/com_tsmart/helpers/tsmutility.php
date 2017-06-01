@@ -291,6 +291,18 @@ class TSMUtility
         }
         return $passengers;
     }
+    public static function get_title_passenger($year_old,$debug=false)
+    {
+        if($year_old<11){
+            return "children";
+        }elseif($year_old>=11&&$year_old<=17){
+            return "Teen";
+        }elseif($year_old>=18&&$year_old<75){
+            return "adult";
+        }elseif($year_old>=75){
+            return "senior";
+        }
+    }
     public static function get_debug()
     {
         $input=JFactory::getApplication()->input;

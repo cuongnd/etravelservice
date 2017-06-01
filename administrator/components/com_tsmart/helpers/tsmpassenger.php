@@ -43,6 +43,33 @@ class tsmpassenger
             ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_list_passenger_by_order_id($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
+            ;
+        return $db->setQuery($query)->loadObjectList();
+    }
+    public static function is_confirm($passenger)
+    {
+       return $passenger->passenger_status==2;
+    }
+    public static function get_list_gender()
+    {
+       return array(
+           (object)array(
+               value=>"male",
+               text=>JText::_("Male")
+           ),
+           (object)array(
+               value=>"female",
+               text=>JText::_("Female")
+           )
+       );
+    }
 
 
 

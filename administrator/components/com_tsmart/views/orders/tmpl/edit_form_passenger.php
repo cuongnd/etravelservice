@@ -68,7 +68,7 @@ $i = 0;
                 <tbody>
                 <?php
                 $render_tr=function($row,$index){
-                    $checked = JHtml::_('grid.id', $index, $row->tsmart_order_id);
+                    $checked = JHtml::_('grid.id', $index, $row->tsmart_passenger_id);
                     ob_start();
                     ?>
                     <tr class="passenger">

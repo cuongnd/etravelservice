@@ -27,21 +27,23 @@ defined('_JEXEC') or die('Restricted access');
         <div class="span12">
             <fieldset class="general">
                 <legend><?php echo JText::_('General') ?></legend>
+                <div class="row-fluid ">
+                    <div class="span12">
+                        <div class="pull-right"><?php echo JText::sprintf('ID: %s',$this->item->order_number) ?></div>
+                    </div>
+                </div>
                 <div class="row-fluid">
                     <div class="span6">
-                        <?php echo VmHTML::row_control('input',JText::_('Service name'), 'product_name', $this->tour->product_name, ' placeholder="service name" '); ?>
-
-                        <?php echo VmHTML::row_control('select_service_class', 'Supplier',array(),'tsmart_service_class_id',$this->item->supplier,''); ?>
-                        <?php echo VmHTML::row_control('select_service_class', 'Customer',array(),'tsmart_service_class_id',$this->item->customer_id,''); ?>
-                        <?php echo VmHTML::row_control('select_service_class', 'Booking by',array(),'tsmart_service_class_id',$this->item->user_id,''); ?>
+                        <?php echo VmHTML::row_control('text_view',JText::_('Service name'), $this->tour->product_name); ?>
+                        <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
+                        <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
+                        <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Start city'), 'product_name', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city, ' disabled placeholder="service name" style="width: 100%;" '); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('Start city'), $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('End city'), 'product_name', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city, ' disabled placeholder="service name" style="width: 100%;" '); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('End city'),  $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -50,7 +52,7 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_end_date', $this->departure->departure_date_end); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_date_end', $this->departure->departure_date_end); ?>
 
                             </div>
                         </div>
@@ -60,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_service_class', 'Assign to',array(),'tsmart_service_class_id',$this->item->tsmart_service_class_id,''); ?>
+                                <?php echo VmHTML::row_control('select_user_name', 'Assign to',array(),'assign_user_id',$this->item->assign_user_id,''); ?>
 
                             </div>
                         </div>

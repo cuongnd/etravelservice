@@ -17,63 +17,48 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_condition.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
+$currency=$this->currency_helper->get_currency_detail_by_currency_id($this->payment_rule->tsmart_currency_id);
+if($this->payment_rule->deposit_type==1){
+    $deposit=$this->payment_rule->deposit_amount.'%';
+}else{
+    $deposit=$this->payment_rule->deposit_amount.' '.$currency->currency_code;
+}
+$list_payment_method = $this->paymentmethod_helper->get_list_payment_method();
+$list_payment_method_id = $this->paymentmethod_helper->get_list_payment_method_id_by_payment_id($this->payment_rule->tsmart_paymentsetting_id);
 // set row counter
 $i = 0;
 ?>
-<div class="booking-information form-horizontal">
-    <div class="row-fluid ">
-        <div class="span3">
-            <fieldset class="booking-detail">
-                <legend><?php echo JText::_('Booking detail') ?></legend>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Service name', $this->tour->product_name); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Service date', JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format)); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Start point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Ending point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->end_city)->full_city); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Customer ID',$this->customer->name); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Passenger No', count($this->list_passenger)); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Booking make', "tour name"); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Branch office', "tour name"); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Assign to', $this->item->asign_name); ?>
-
-            </fieldset>
-
+<div class="view_orders_edit_form_condition form-vertical">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="title text-center"><?php echo JText::_('Condition and terms') ?></h3>
         </div>
-        <div class="span3">
-            <fieldset class="quick-task">
-                <legend><?php echo JText::_('Quick task') ?></legend>
-                <?php echo VmHTML::row_control('quick_task', 'Cron job set rule', "tour name"); ?>
-                <?php echo VmHTML::row_control('quick_task', 'Document upload', "tour name"); ?>
-                <?php echo VmHTML::row_control('quick_task', 'Change status time', "tour name"); ?>
+    </div>
+    <div class="payment-body">
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo VmHTML::row_control('text_view',JText::_('Default currency'), $currency->currency_name); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Credit card fee'), $this->payment_rule->credit_card_fee.'%'); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Deposit requirement'), $deposit); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Balance 1'), JText::sprintf('%s,%s days before the trip date',$this->payment_rule->balance_percent_1.'%',$this->payment_rule->balance_day_1)); ?>
+            </div>
+            <div class="span4">
+                <?php echo VmHTML::row_control('text_view',JText::_('Balance 2'), JText::sprintf('%s,%s days before the trip date',$this->payment_rule->balance_percent_2.'%',$this->payment_rule->balance_day_2)); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Balance 3'), JText::sprintf('%s,%s days before the trip date',$this->payment_rule->balance_percent_3.'%',$this->payment_rule->balance_day_3)); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Hold seat'), $this->payment_rule->hold_seat!=0?JText::_('Accept'):"No accept"); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Rule note'), $this->payment_rule->rule_note); ?>
+            </div>
+            <div class="span4">
+                <?php echo VmHTML::row_control('text_view',JText::_('Early bird discount'),'' ); ?>
+                <?php echo VmHTML::row_control('text_view',JText::_('Last minute discount'), ''); ?>
+                <?php echo VmHTML::row_basic('list_checkbox', 'Payment option', 'list_payment_method_id', $list_payment_method, $list_payment_method_id, '', 'tsmart_paymentmethod_id', 'payment_name', false); ?>
 
-
-            </fieldset>
+            </div>
         </div>
-        <div class="span3">
-            <fieldset class="note" >
-                <legend><?php echo JText::_('Note') ?><button type="button" class="btn btn-link add_note"><span class="icon-plus"></span></button></legend>
-                <?php echo VmHTML::add_text('add_text_note', "tour name"); ?>
-            </fieldset>
-        </div>
-        <div class="span3">
-            <fieldset class="transaction">
-                <legend><?php echo JText::_('Transaction') ?></legend>
 
-                <?php echo VmHTML::row_control('text_view_no_input', 'Total cost value', $this->item->order_total); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Receive amount', $this->item->receipt); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Refund amount', ""); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Remain amount', ""); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Unpaid invoice', ""); ?>
-
-            </fieldset>
-            <fieldset class="set-status">
-                <legend><?php echo JText::_('Set status') ?></legend>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Holding in', "48 hours"); ?>
-            </fieldset>
-        </div>
     </div>
 
 </div>

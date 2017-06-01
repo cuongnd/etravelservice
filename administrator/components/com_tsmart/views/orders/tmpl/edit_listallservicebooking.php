@@ -17,20 +17,20 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_edit_listallservicebooking.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="passengerconfirmation form-horizontal">
+<div class="view_orders_edit_edit_listallservicebooking form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center text-uppercase">
                 <h3 class="text-uppercase"><?php echo JText::_('Booking information') ?></h3>
             </div>
-            <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped listallservicebooking" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
@@ -80,16 +80,16 @@ $i = 0;
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
                     ob_start();
                     ?>
-                    <tr>
+                    <tr class="<?php echo $row->is_main_tour?" main-tour ":"" ?>">
                         <td><?php echo $checked ?></td>
                         <td><a class="edit_form <?php echo $row->is_main_tour?" main-tour":"" ?>" data-layout="<?php echo $row->layout ?>" href="javascript:void(0)"><?php echo $row->service_name  ?></a></td>
                         <td><?php echo $row->type  ?></td>
-                        <td>
+                        <td class="service_date">
                             <?php echo $row->service_start_date  ?>
                             <br/>
                             <?php echo $row->service_end_date  ?>
                         </td>
-                        <td><?php echo $row->passengers  ?></td>
+                        <td class="total-passenger"><?php echo $row->passengers>1?JText::sprintf("%s pers",$row->passengers):JText::sprintf("%s per",$row->passengers)  ?></td>
                         <td><?php echo $row->supplier  ?></td>
                         <td><?php echo $row->resource  ?></td>
                         <td><span class="cost"><?php echo $row->total_value  ?></span></td>
@@ -102,32 +102,71 @@ $i = 0;
                     $html=ob_get_clean();
                     return $html;
                 };
-                $total_cost=0;
-                foreach($this->build_room as $item){
-                    $tour_cost_and_room_price=$item->tour_cost_and_room_price;
-                    foreach($tour_cost_and_room_price as $item_passenger){
+                if($this->order_data->modified_by){
+                    $total_cost=0;
+                    foreach($this->list_passenger as $item_passenger){
                         $total_cost+=(float)$item_passenger->tour_cost;
-                        $total_cost+=(float)$item_passenger->room_price;
-                        $total_cost+=(float)$item_passenger->extra_bed_price;
-                    }
+                        $total_cost+=(float)$item_passenger->single_room_fee;
+                        $total_cost+=(float)$item_passenger->extra_fee;
+                        $total_cost-=(float)$item_passenger->discount_fee;
 
+                    }
+                    $row = new stdClass();
+                    $row->service_name=$this->tour->product_name;
+                    $row->type="Main Tour";
+                    $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
+                    $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
+                    $total_passenger_confirm=0;
+                    foreach($this->list_passenger as $passenger){
+                        if($this->passenger_helper->is_confirm($passenger)){
+                            $total_passenger_confirm++;
+                        }
+                    }
+                    $row->passengers=$total_passenger_confirm;
+                    $row->supplier="avt";
+                    $row->layout="order_edit";
+                    $row->is_main_tour=true;
+                    $row->resource="client";
+                    $row->total_value=$total_cost;
+                    $row->payment="N/A";
+                    $row->refund="N/A";
+                    $row->balance="N/A";
+                    $row->status="CFM";
+                    echo $render_tr($row);
+                }else{
+                    $total_cost=0;
+                    foreach($this->build_room as $item){
+                        $tour_cost_and_room_price=$item->tour_cost_and_room_price;
+                        foreach($tour_cost_and_room_price as $item_passenger){
+                            $total_cost+=(float)$item_passenger->tour_cost;
+                            $total_cost+=(float)$item_passenger->room_price;
+                            $total_cost+=(float)$item_passenger->extra_bed_price;
+                        }
+
+                    }
+                    $row = new stdClass();
+                    $row->service_name=$this->tour->product_name;
+                    $row->type="Main Tour";
+                    $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
+                    $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
+                    $total_passenger_confirm=0;
+                    foreach($this->list_passenger as $passenger){
+                        if($this->passenger_helper->is_confirm($passenger)){
+                            $total_passenger_confirm++;
+                        }
+                    }
+                    $row->passengers=$total_passenger_confirm;
+                    $row->supplier="avt";
+                    $row->layout="order_edit";
+                    $row->is_main_tour=true;
+                    $row->resource="client";
+                    $row->total_value=$total_cost;
+                    $row->payment="N/A";
+                    $row->refund="N/A";
+                    $row->balance="N/A";
+                    $row->status="CFM";
+                    echo $render_tr($row);
                 }
-                $row = new stdClass();
-                $row->service_name=$this->tour->product_name;
-                $row->type="Main Tour";
-                $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
-                $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
-                $row->passengers=count($this->list_passenger);
-                $row->supplier="avt";
-                $row->layout="order_edit";
-                $row->is_main_tour=true;
-                $row->resource="client";
-                $row->total_value=$total_cost;
-                $row->payment="N/A";
-                $row->refund="N/A";
-                $row->balance="N/A";
-                $row->status="CFM";
-                echo $render_tr($row);
                 foreach($this->transfer as $key=>$list_transfer){
                     foreach($list_transfer as $transfer){
                         $list_passenger_price=$transfer->list_passenger_price;
@@ -160,6 +199,7 @@ $i = 0;
                         echo $render_tr($item);
                     }
                 }
+
                 for ($i = 0, $n = count($this->list_excursion_addon); $i < $n; $i++) {
                     $row = $this->list_excursion_addon[$i];
                     $passengers=$row->passengers;

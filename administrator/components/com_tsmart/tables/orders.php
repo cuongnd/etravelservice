@@ -95,6 +95,9 @@ class TableOrders extends tsmTableData {
 	/** @var char Order language */
 	var $order_language = NULL;
 	var $delivery_date = NULL;
+	var $terms_condition = "";
+	var $reservation_notes = "";
+	var $itinerary = "";
 
 
 	/**

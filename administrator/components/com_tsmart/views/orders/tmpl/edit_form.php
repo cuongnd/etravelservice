@@ -23,6 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
+
 ?>
 <div class="view_orders_edit_order_edit_main_tour">
 

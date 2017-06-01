@@ -71,7 +71,7 @@ $i = 0;
                 <?php
                 $render_tr=function($row){
                     $i=0;
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_passenger_id);
                     ob_start();
                     ?>
                     <tr>
@@ -160,6 +160,7 @@ $i = 0;
                     }
                 }
                 $list_passenger = json_decode( json_encode($this->list_passenger), true);
+
                 for ($i = 0, $n = count($this->list_excursion_addon); $i < $n; $i++) {
                     $row = $this->list_excursion_addon[$i];
                     $passengers = $row->passengers;
@@ -169,7 +170,8 @@ $i = 0;
                     $list_passenger_price = JArrayHelper::pivot($list_passenger_price, 'passenger_index');
 
                     foreach ($passengers as $passenger_index) {
-                        $passenger = $list_passenger[$passenger_index];
+                        $passenger = (object)$list_passenger[$passenger_index];
+
                         $passenger->booking = $this->item->tsmart_order_id . "-" . $tsmart_excursion_addon_id;
                         $passenger->service_name = $excursion_addon->excursion_addon_name;
                         $passenger->service_start_date = "N/A";
@@ -196,7 +198,7 @@ $i = 0;
                     foreach ($list_room_type as $room) {
                         $list_passenger_per_room = reset($room->list_passenger_per_room);
                         foreach ($list_passenger_per_room as $passenger_index) {
-                            $passenger = $list_passenger[$passenger_index];
+                            $passenger = (object)$list_passenger[$passenger_index];
                             $passenger->booking = $this->item->tsmart_order_id;
                             $passenger->service_name = $hotel->hotel_name;
                             $passenger->service_start_date = JHtml::_('date', $row->check_in_date, tsmConfig::$date_format);
@@ -224,7 +226,7 @@ $i = 0;
 
                         foreach ($list_passenger_price as $passenger_price) {
                             $passenger_index = $passenger_price->passenger_index;
-                            $passenger = $list_passenger[$passenger_index];
+                            $passenger = (object)$list_passenger[$passenger_index];
                             $passenger->booking = $this->item->tsmart_order_id;
                             $passenger->service_name = $transfer_addon->transfer_addon_name;
                             $passenger->service_start_date = "N/A";

@@ -43,6 +43,16 @@ class tsmcurrency
             ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_currency_detail_by_currency_id($tsmart_currency_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_currencies')
+            ->where('tsmart_currency_id='.(int)$tsmart_currency_id)
+            ;
+        return $db->setQuery($query)->loadObject();
+    }
     public static function get_list_tour_id_by_currency_id($tsmart_currency_id=0)
     {
         $db=JFactory::getDbo();

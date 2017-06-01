@@ -76,7 +76,9 @@ $i = 0;
                     <td><?php echo $this->item->total_price ?></td>
                     <td><?php echo $this->item->total_price ?></td>
                     <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
+                    <td>
+                        <?php echo VmHTML::change_order_status(array(), 'tsmart_orderstate_id', $this->item->tsmart_orderstate_id, 'class="change_order_status "'); ?>
+                    </td>
 
                 </tr>
             </table>

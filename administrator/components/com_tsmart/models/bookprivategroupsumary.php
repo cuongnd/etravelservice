@@ -29,6 +29,10 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 {
     public function save_order($booking_summary, $payment_type = 'full_payment', $user_id)
     {
+        echo "<pre>";
+        print_r($booking_summary,false);
+        echo "</pre>";
+        die;
         $contact_data = $booking_summary->contact_data;
         $contact_data = json_decode($contact_data);
         $customsTable = $this->getTable('customs');
@@ -55,6 +59,9 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         }
         $tsmart_price_id = $booking_summary->departure->tsmart_price_id;
         $tsmart_product_id = $booking_summary->departure->tsmart_product_id;
+        $payment_helper=tsmHelper::getHepler('payment');
+        $payment_rule=$payment_helper->get_payment_rule_by_product($tsmart_product_id);
+        $booking_summary->payment_rule=$payment_rule;
         $tsmproduct = tsmHelper::getHepler('product');
         $product = $tsmproduct->get_product_by_tour_id($tsmart_product_id);
         $booking = tsmHelper::getHepler('booking');
@@ -72,6 +79,10 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $orderTable = $this->getTable('orders');
         $_orderData['tsmart_user_id'] = $user_id;
         $_orderData['tsmart_vendor_id'] = 1;
+        $today = date("Ymd");
+        $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
+        $order_number = $today . $rand;
+        $_orderData['order_number'] = $order_number;
         $_orderData['tsmart_orderstate_id'] = $tsmart_orderstate_id;
         $_orderData['order_total'] = $total_price;
         $_orderData['tsmart_user_id'] = $booking_summary->total_price;
@@ -88,6 +99,27 @@ class tsmartModelbookprivategroupsumary extends tmsModel
             echo "</pre>";
             die;
             die;
+        }
+        $passengerTable = $this->getTable('passenger');
+        $list_passenger=$booking_summary->list_passenger;
+        $passenger_index=0;
+        foreach($list_passenger as $group_passenger){
+            foreach($group_passenger as $passenger){
+                $passengerTable->tsmart_passenger_id=0;
+                $passenger->date_of_birth=JFactory::getDate($passenger->date_of_birth)->toSql();
+                $passenger->passenger_index=$passenger_index;
+                $passenger->tsmart_order_id=$orderTable->tsmart_order_id;
+                $store_data_passenger = (array)$passenger;
+                $ok = $passengerTable->bindChecknStore($store_data_passenger);
+                if (!$ok) {
+                    echo "<pre>";
+                    print_r($passengerTable->getErrors(), false);
+                    echo "</pre>";
+                    die;
+                    die;
+                }
+                $passenger_index++;
+            }
         }
         return $orderTable;
     }

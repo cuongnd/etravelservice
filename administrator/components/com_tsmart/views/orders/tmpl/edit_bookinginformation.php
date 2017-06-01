@@ -30,14 +30,14 @@ $i = 0;
             <fieldset class="booking-detail">
                 <legend><?php echo JText::_('Booking detail') ?></legend>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Service name', $this->tour->product_name); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Service date', JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format)); ?>
+                <?php echo VmHTML::row_control('text_view_no_input', 'Service date', JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format),'service_date'); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Start point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Ending point', $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->end_city)->full_city); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Customer ID',$this->customer->name); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Passenger No', count($this->list_passenger)); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Booking make', "tour name"); ?>
                 <?php echo VmHTML::row_control('text_view_no_input', 'Branch office', "tour name"); ?>
-                <?php echo VmHTML::row_control('text_view_no_input', 'Assign to', $this->item->asign_name); ?>
+                <?php echo VmHTML::row_control('text_view_no_input', 'Assign to', JFactory::getUser($this->item->assign_user_id)->name,'assign-name'); ?>
 
             </fieldset>
 
