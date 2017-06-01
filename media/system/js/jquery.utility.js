@@ -30,6 +30,10 @@
 			$('<option '+(item[key]==selected?'selected':'')+' value="'+item[key]+'">'+item[value]+'</option>').appendTo($(select_element));
 		});
 	};
+    $.is_email=function(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    };
 	$.set_html_for_tag=function(response)
 	{
 		var styleSheets=response._styleSheets;

@@ -34,10 +34,11 @@ class TablePassenger extends tsmTableData {
 	var $tsmart_passenger_id = 0;
 	/** @var int User ID */
 	var $passenger_index = "";
-	var $tsmart_order_id = "";
+	var $tsmart_order_id = null;
 	var $first_name = "";
 	/** @var int Vendor ID */
 	var $middle_name = "";
+	var $title = "";
 	var $last_name = "";
 	var $gender = "";
 
@@ -47,7 +48,8 @@ class TablePassenger extends tsmTableData {
 	var $issue_date = null;
 	var $expiry_date = null;
 	var $phone_no = "";
-	var $email = "";
+	var $email_address = "";
+	var $res_country = "";
 	var $street_address  = "";
 	var $suburb_town = "";
 	var $state_province = "";

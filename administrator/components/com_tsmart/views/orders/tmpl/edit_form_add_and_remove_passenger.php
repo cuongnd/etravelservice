@@ -33,37 +33,37 @@ $i = 0;
                         <legend><?php echo JText::_('Information') ?></legend>
                         <div class="row-fluid ">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Title'), 'title', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('First name'), 'first_name', $this->passenger->first_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Last name'), 'last_name', $this->passenger->last_name); ?>
-                                <?php echo VmHTML::row_control('list_checkbox',JText::_('Gender'), 'gender',$this->list_gender, $this->passenger->gender,"","value","text",2); ?>
-                                <?php echo VmHTML::row_control('select_date',JText::_('Date of birth'), 'date_of_birth', $this->passenger->date_of_birth,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Title*'), 'title', $this->passenger->hotel_name,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('First name*'), 'first_name', $this->passenger->first_name,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Middle name*'), 'middle_name', $this->passenger->middle_name,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Last name*'), 'last_name', $this->passenger->last_name,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('list_checkbox',JText::_('Gender*'), 'gender',$this->list_gender, $this->passenger->gender,"","value","text",2); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Date of birth*'), 'date_of_birth', $this->passenger->date_of_birth,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Nationality'), 'nationality', $this->passenger->nationality); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Passport no'), 'passport_no', $this->passenger->passport_no); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('P. Issue date'), 'issue_date', $this->passenger->issue_date); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('P. Expiry date'), 'expiry_date', $this->passenger->expiry_date); ?>
-
+                                <?php echo VmHTML::row_control('input',JText::_('Nationality*'), 'nationality', $this->passenger->nationality,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Passport no*'), 'passport_no', $this->passenger->passport_no); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('P. Issue date*'), 'issue_date', $this->passenger->issue_date,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('P. Expiry date*'), 'expiry_date', $this->passenger->expiry_date,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
                             </div>
                         </div>
                         <h3><?php echo JText::_("Contact detail") ?></h3>
                         <div class="row-fluid ">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Phone no'), 'phone_no', $this->passenger->phone_no); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Email address'), 'email_address', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Confirm email'), 'confirm_email', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Street address'), 'street_address', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Suburb/town'), 'suburb_town', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('State/province'), 'state_province', $this->passenger->hotel_name); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Phone no*'), 'phone_no', $this->passenger->phone_no,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Email address*'), 'email_address', $this->passenger->email_address,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Confirm email*'), 'confirm_email', $this->passenger->confirm_email,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Street address*'), 'street_address', $this->passenger->street_address,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Suburb/town*'), 'suburb_town', $this->passenger->suburb_town,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('State/province*'), 'state_province', $this->passenger->state_province,' required="required" '); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Postcode/Zip'), 'postcode_zip', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Res. country'), 'res_country', $this->passenger->hotel_name); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Postcode/Zip*'), 'postcode_zip', $this->passenger->postcode_zip,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Res. country*'), 'res_country', $this->passenger->res_country,' required="required" '); ?>
                                 <h4><?php echo JText::_("Emergency contact") ?></h4>
-                                <?php echo VmHTML::row_control('input',JText::_('Contact name'), 'emergency_contact_name', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Email address'), 'emergency_contact_email', $this->passenger->hotel_name); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Phone no'), 'emergency_contact_phone_no', $this->passenger->hotel_name); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Contact name*'), 'emergency_contact_name', $this->passenger->emergency_contact_name,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Email address*'), 'emergency_contact_email', $this->passenger->emergency_contact_email,' required="required" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Phone no*'), 'emergency_contact_phone_no', $this->passenger->emergency_contact_phone_no,' required="required" '); ?>
 
                             </div>
                         </div>
@@ -75,6 +75,7 @@ $i = 0;
                                 </div>
                             </div>
                         </div>
+                        <input  type="hidden" name="tsmart_passenger_id" value="">
                     </fieldset>
 
                 </div>

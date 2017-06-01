@@ -114,6 +114,19 @@ abstract class TSMHtmlJquery
         }
         return;
     }
+    public static function serializeobject($debug = null)
+    {
+        // Include jQuery
+        static::framework();
+        // If no debugging value is set, use the configuration setting
+        // Only attempt to load the component if it's supported in core and hasn't already been loaded
+        if (empty(static::$loaded[__METHOD__])) {
+            $doc = JFactory::getDocument();
+            $doc->addScript(JUri::root() . 'administrator/components/com_tsmart/assets/js/plugin/jquery.serializeobject-master/jquery.serializeObject.js');
+            static::$loaded[__METHOD__] = true;
+        }
+        return;
+    }
     public static function cookie($debug = null)
     {
         // Include jQuery

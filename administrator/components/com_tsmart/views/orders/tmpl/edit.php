@@ -20,6 +20,8 @@
 defined('_JEXEC') or die('Restricted access');
 $doc = JFactory::getDocument();
 TSMHtmlJquery::numeric();
+TSMHtmlJquery::serializeobject();
+TSMHtmlJquery::utility();
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_orders_edit.less');
 $doc->addScript(JUri::root().'/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
 $doc->addScript(JUri::root().'/administrator/components/com_tsmart/assets/js/view_orders_edit.js');

@@ -93,8 +93,8 @@ $i = 0;
                     ?>
                     <tr class="item-passenger" data-tsmart_passenger_id="<?php echo $row->tsmart_passenger_id ?>">
                         <td><?php echo $checked ?></td>
-                        <td><?php echo $row->first_name ?></td>
-                        <td class="middle_name"><?php echo $row->middle_name  ?></td>
+                        <td ><span class="first_name"><?php echo $row->first_name ?></span></td>
+                        <td ><span class="middle_name"><?php echo $row->middle_name  ?></span></td>
                         <td><span class=" last_name"><?php echo $row->last_name  ?></span></td>
                         <td><span class=" title"><?php echo $row->title  ?></span></td>
                         <td><span class=" gender"><?php echo $row->gender  ?></span></td>

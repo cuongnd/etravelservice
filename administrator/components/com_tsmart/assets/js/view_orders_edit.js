@@ -152,7 +152,75 @@
             //$('.edit-form-general').find('#terms_condition').val(terms_condition);
         };
         plugin.fill_data_passenger_detail = function (passenger_data) {
-
+            var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="title"]').val(passenger_data.title);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="first_name"]').val(passenger_data.first_name);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="middle_name"]').val(passenger_data.middle_name);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="last_name"]').val(passenger_data.last_name);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="date_of_birth"]').val(passenger_data.date_of_birth);
+            $view_orders_edit_form_add_and_remove_passenger.find('input#select_date_picker_date_of_birth').val(passenger_data.date_of_birth);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="nationality"]').val(passenger_data.nationality);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="passport_no"]').val(passenger_data.passport_no);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="issue_date"]').val(passenger_data.issue_date);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="expiry_date"]').val(passenger_data.expiry_date);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="phone_no"]').val(passenger_data.phone_no);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="email_address"]').val(passenger_data.email_address);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="confirm_email"]').val(passenger_data.email_address);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="street_address"]').val(passenger_data.street_address);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="suburb_town"]').val(passenger_data.suburb_town);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="postcode_zip"]').val(passenger_data.postcode_zip);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="state_province"]').val(passenger_data.state_province);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="res_country"]').val(passenger_data.res_country);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="emergency_contact_name"]').val(passenger_data.emergency_contact_name);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="emergency_contact_email"]').val(passenger_data.emergency_contact_email);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[name="emergency_contact_phone_no"]').val(passenger_data.emergency_contact_phone_no);
+            $view_orders_edit_form_add_and_remove_passenger.find('input[type="hidden"][name="tsmart_passenger_id"]').val(passenger_data.tsmart_passenger_id);
+        };
+        plugin.validate_input_passenger = function () {
+            var $form_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
+            var $email_address=$form_passenger.find('input[name="email_address"]');
+            var email_address=$email_address.val();
+            var $confirm_email=$form_passenger.find('input[name="confirm_email"]');
+            var confirm_email=$confirm_email.val();
+            for(var i=0;i<$form_passenger.find('input[required="required"]').length;i++){
+                var $input=$form_passenger.find('input[required="required"]:eq('+i+')');
+                if($input.val().trim()==""){
+                    alert("please input required filed");
+                    $input.focus();
+                    return false;
+                }
+            }
+            if(!$.is_email(email_address)){
+                alert("email address invaild");
+                $email_address.focus();
+                return false;
+            }else if(!$.is_email(confirm_email)) {
+                alert("email address confirm invaild");
+                $confirm_email.focus();
+                return false;
+            }else if(email_address!=confirm_email) {
+                alert("confirm email not same email address");
+                $confirm_email.focus();
+                return false;
+            }
+            return true;
+        };
+        plugin.fill_data_row_passenger_detail = function (passenger_data) {
+            var $tr_passenger=$(".view_orders_edit_passenger_manager").find('tr.item-passenger[data-tsmart_passenger_id="'+passenger_data.tsmart_passenger_id+'"]');
+            if($tr_passenger.length==0){
+                $tr_passenger=$(".view_orders_edit_passenger_manager").find('tr.item-passenger:first-child').getOuterHTML();
+                $tr_passenger.insertAfter($(".view_orders_edit_passenger_manager").find("tr.item-passenger:last-child"));
+            }
+            $tr_passenger.find('span.title').html(passenger_data.title);
+            $tr_passenger.find('span.first_name').html(passenger_data.first_name);
+            $tr_passenger.find('span.middle_name').html(passenger_data.middle_name);
+            $tr_passenger.find('span.last_name').html(passenger_data.last_name);
+            $tr_passenger.find('span.date_of_birth').html(passenger_data.date_of_birth);
+            $tr_passenger.find('input#select_date_picker_date_of_birth').html(passenger_data.date_of_birth);
+            $tr_passenger.find('span.nationality').html(passenger_data.nationality);
+            $tr_passenger.find('span.passport_no').html(passenger_data.passport_no);
+            $tr_passenger.find('span.issue_date').html(passenger_data.issue_date);
+            $tr_passenger.find('span.expiry_date').html(passenger_data.expiry_date);
         };
         plugin.init = function () {
 
@@ -472,7 +540,7 @@
                             option: 'com_tsmart',
                             controller: 'orders',
                             task: 'ajax_get_passenger_detail_by_passenger_id',
-                            tsmart_order_id:tsmart_passenger_id
+                            tsmart_passenger_id:tsmart_passenger_id
                         };
                         return dataPost;
                     })(),
@@ -504,6 +572,54 @@
             });
             $('.order_form_add_and_remove_passenger').find('button.cancel').click(function(){
                 $(".order_form_add_and_remove_passenger").dialog('close');
+            });
+            $('.order_form_add_and_remove_passenger').find('button.save').click(function(){
+                var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
+                var tsmart_passenger_id=$view_orders_edit_form_add_and_remove_passenger.find('input[type="hiden"][name="tsmart_passenger_id"]').val();
+                if(!plugin.validate_input_passenger()){
+                    return;
+                }
+                var json_post=$view_orders_edit_form_add_and_remove_passenger.find(":input").serializeObject();
+                console.log(json_post);
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_passenger_detail_by_passenger_id',
+                            tsmart_passenger_id:tsmart_passenger_id,
+                            json_post:json_post
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var passenger_data=response.passenger_data;
+                        plugin.fill_data_row_passenger_detail(passenger_data);
+                        if(response.error==0){
+                            alert('save data success');
+                        }
+                        $(".order_form_add_and_remove_passenger").dialog('close');
+
+                    }
+                });
+
+
             });
 
 

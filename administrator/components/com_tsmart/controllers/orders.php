@@ -250,6 +250,19 @@ class TsmartControllerorders extends TsmController {
 		echo json_encode($response);
 		die;
 	}
+
+	function ajax_save_passenger_detail_by_passenger_id(){
+		$app=JFactory::getApplication();
+		$data=(object)$app->input->getArray();
+		$json_post=$data->json_post;
+		$passenger_table=tsmTable::getInstance('passenger','Table');
+		$passenger_table->bindChecknStore($json_post);
+		$response=new stdClass();
+		$response->error=0;
+		$response->passenger_data=$passenger_table->getProperties();
+		echo json_encode($response);
+		die;
+	}
 	function ajax_save_order_info()
 	{
 		$app=JFactory::getApplication();
