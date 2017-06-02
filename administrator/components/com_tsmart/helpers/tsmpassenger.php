@@ -65,6 +65,18 @@ class tsmpassenger
             ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_list_passenger_not_in_room_by_order_id($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
+            ->where('room_type =""')
+
+            ;
+        return $db->setQuery($query)->loadObjectList();
+    }
     public static function get_list_passenger_of_night_hotel_by_order_id($type="pre",$tsmart_order_id)
     {
         $db=JFactory::getDbo();

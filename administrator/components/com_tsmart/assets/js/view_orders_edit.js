@@ -215,6 +215,13 @@
             $tr_passenger.find('span.issue_date').html(passenger_data.issue_date);
             $tr_passenger.find('span.expiry_date').html(passenger_data.expiry_date);
         };
+        plugin.lock_passenger = function () {
+            var list_passenger_selected=plugin.settings.list_passenger_selected;
+            $('.view_orders_edit_form_edit_passenger').find('select.list-passenger').each(function(){
+                
+            });
+            console.log(plugin.settings.list_passenger_selected);
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -434,7 +441,7 @@
                 dialogClass:'asian-dialog-form',
                 modal: true,
                 width: 900,
-                autoOpen: false,
+                autoOpen: true,
                 title: 'Add more passenger',
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
@@ -653,9 +660,54 @@
 
 
             });
+            var item_passenger={
+                tsmart_passenger_id:0,
+                passenger_type:"",
+                passenger_discount:0,
+                passenger_bed_type:"private_bed",
+                passenger_extra_fee:0
+            };
+            var item_passenger_clone= JSON.parse(JSON.stringify(item_passenger));
+            plugin.settings.passenger_template=$('.view_orders_edit_form_edit_passenger').find('.passenger-item').getOuterHTML();
+            plugin.settings.list_passenger_selected=[];
+            plugin.settings.list_passenger_selected.push(item_passenger_clone);
+            $('.view_orders_edit_form_edit_passenger').find('select.number-passenger').change(function(){
+                var total_passenger=$(this).val();
+                var current_total_passenger=$('.view_orders_edit_form_edit_passenger').find('.passenger-item').length;
+                if(total_passenger>current_total_passenger){
+                    //add new
+                    var total_add_new=total_passenger-current_total_passenger;
+
+                    for(var i=1;i<=total_add_new;i++) {
+                        var item_passenger_clone= JSON.parse(JSON.stringify(item_passenger));
+                        plugin.settings.list_passenger_selected.push(item_passenger_clone);
+                        $(plugin.settings.passenger_template).insertAfter($('.view_orders_edit_form_edit_passenger').find('.passenger-item:last-child'));
+                    }
+                }else if(total_passenger<current_total_passenger){
+                    //remove
+                    var total_remove=current_total_passenger-total_passenger;
+                    for(var i=1;i<=total_remove;i++) {
+                        var $passenger_item= $('.view_orders_edit_form_edit_passenger').find('.passenger-item:last-child');
+                        var tsmart_passenger_id=$passenger_item.find('select.list-passenger').val();
+                        plugin.settings.list_passenger_selected.pop();
+                        $passenger_item.remove();
+                    }
+                }
+                plugin.lock_passenger();
 
 
-        }
+            });
+            $( ".view_orders_edit_form_edit_passenger .wrapper-passenger" ).on( "change", "select.list-passenger", function() {
+                var $passenger_item= $(this).closest('.passenger-item');
+                var tsmart_passenger_id=$(this).val();
+                var index_passenger=$passenger_item.index();
+                var current_item_passenger=plugin.settings.list_passenger_selected[index_passenger];
+                current_item_passenger.tsmart_passenger_id=tsmart_passenger_id;
+                plugin.settings.list_passenger_selected[index_passenger]=current_item_passenger;
+                plugin.lock_passenger();
+            });
+
+        };
 
         plugin.init();
 
