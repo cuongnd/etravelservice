@@ -208,6 +208,8 @@ class tsmartModelhoteladdon extends tmsModel {
 			return false;
 		}
 		$db=JFactory::getDbo();
+		$data['vail_from']=JFactory::getDate($data['vail_from'])->toSql();
+		$data['vail_to']=JFactory::getDate($data['vail_to'])->toSql();
 		$tsmart_hotel_addon_id= parent::store($data);
 		if($tsmart_hotel_addon_id) {
 			//inser to excusionaddon

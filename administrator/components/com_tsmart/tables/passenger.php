@@ -38,6 +38,7 @@ class TablePassenger extends tsmTableData {
 	var $first_name = "";
 	/** @var int Vendor ID */
 	var $middle_name = "";
+	var $payment = 0;
 	var $title = "";
 	var $last_name = "";
 	var $gender = "";
@@ -60,6 +61,12 @@ class TablePassenger extends tsmTableData {
 	var $pre_existing_medical_condition = "";
 	var $special_meal_requirements = "";
 	var $room_type = "";
+	var $extra_fee = 0;
+	var $discount  = 0;
+	var $cancel_fee   = 0;
+	var $room_fee   = 0;
+	var $tour_cost   = 0;
+	var $tour_tsmart_passenger_state_id = null;
 
 
 	/**

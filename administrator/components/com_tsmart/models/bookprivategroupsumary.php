@@ -105,6 +105,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                 $passenger->date_of_birth=JFactory::getDate($passenger->date_of_birth)->toSql();
                 $passenger->passenger_index=$passenger_index;
                 $passenger->tsmart_order_id=$orderTable->tsmart_order_id;
+                $passenger->tour_tsmart_passenger_state_id=2;
                 $store_data_passenger = (array)$passenger;
                 $ok = $passengerTable->bindChecknStore($store_data_passenger);
                 if (!$ok) {

@@ -96,16 +96,15 @@ class tsmtransferaddon
             ->where('tour_id_transfer_addon_id.tsmart_product_id=' . (int)$tsmart_product_id);
         if ($transfer_type == 'pre_transfer') {
             $query
-                ->where('transfer_addon.vail_to >=' . $query->q($rule_date->toSql()))
-                ->where('transfer_addon.vail_from <=' . $query->q($before_date->toSql()));
-        } else {
-            $rule_date=$query->q($rule_date->toSql());
-            $after_date=$query->q($after_date->toSql());
+                ->where('transfer_addon.vail_to >=' . $query->q($rule_date->toSql()));
+                //->where('transfer_addon.vail_from <=' . $query->q($before_date->toSql()));
+        }else if ($transfer_type == 'post_transfer') {
             $query
-                ->where('transfer_addon.vail_from <=' .$after_date);
-        };
+                ->where('transfer_addon.vail_from <=' . $query->q($rule_date->toSql()));
+        }
 
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        //echo $query->dump();
         $list_transfer_addon = $db->setQuery($query)->loadObjectList();
         foreach ($list_transfer_addon as &$transfer_addon) {
             $transfer_addon->data_price = base64_decode($transfer_addon->data_price);

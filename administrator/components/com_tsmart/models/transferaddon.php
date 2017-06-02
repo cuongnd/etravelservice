@@ -106,6 +106,9 @@ class tsmartModeltransferaddon extends tmsModel
             vmWarn('Insufficient permissions to store transferaddon');
             return false;
         }
+        $data['vail_from']=JFactory::getDate($data['vail_from'])->toSql();
+        $data['vail_to']=JFactory::getDate($data['vail_to'])->toSql();
+
         $tsmart_transfer_addon_id = parent::store($data);
         if ($tsmart_transfer_addon_id) {
             //inser to excusionaddon

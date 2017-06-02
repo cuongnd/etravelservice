@@ -77,7 +77,7 @@ $i = 0;
                 <?php
                 $render_tr=function($row){
                     $i=0;
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
+                    $checked = JHtml::_('grid.id', $i, $row->id);
                     ob_start();
                     ?>
                     <tr class="<?php echo $row->is_main_tour?" main-tour ":"" ?>">
@@ -102,166 +102,127 @@ $i = 0;
                     $html=ob_get_clean();
                     return $html;
                 };
-                if($this->order_data->modified_by){
-                    $total_cost=0;
-                    foreach($this->list_passenger as $item_passenger){
-                        $total_cost+=(float)$item_passenger->tour_cost;
-                        $total_cost+=(float)$item_passenger->single_room_fee;
-                        $total_cost+=(float)$item_passenger->extra_fee;
-                        $total_cost-=(float)$item_passenger->discount_fee;
-
+                $row = new stdClass();
+                $row->id=$this->item->tsmart_order_id;
+                $row->service_name=$this->tour->product_name;
+                $row->type="Main Tour";
+                $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
+                $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
+                $total_passenger_confirm=0;
+                foreach($this->list_passenger as $passenger){
+                    if($this->passenger_helper->is_confirm($passenger)){
+                        $total_passenger_confirm++;
                     }
-                    $row = new stdClass();
-                    $row->service_name=$this->tour->product_name;
-                    $row->type="Main Tour";
-                    $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
-                    $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
+                }
+                $row->passengers=$total_passenger_confirm;
+                $row->supplier="avt";
+                $row->layout="order_edit";
+                $row->is_main_tour=true;
+                $row->resource="client";
+                $row->total_value=$this->item->order_total;
+                $row->payment=$this->item->receipt;
+                $row->refund="N/A";
+                $row->balance=$this->item->order_total-$this->item->receipt;
+                $row->status=$this->item->order_status_name;
+                echo $render_tr($row);
+                foreach($this->list_pre_night_hotel as $pre_night_hotel){
+                    $row->id=$pre_night_hotel->tsmart_order_hotel_addon_id;
+                    $row->service_name=$pre_night_hotel->hotel_name;
+                    $row->type="pre night";
+                    $row->service_start_date=JHtml::_('date', $pre_night_hotel->checkin_date, tsmConfig::$date_format);
+                    $row->service_end_date=JHtml::_('date', $pre_night_hotel->checkout_date, tsmConfig::$date_format);
                     $total_passenger_confirm=0;
                     foreach($this->list_passenger as $passenger){
                         if($this->passenger_helper->is_confirm($passenger)){
                             $total_passenger_confirm++;
                         }
                     }
-                    $row->passengers=$total_passenger_confirm;
+                    $row->passengers=$pre_night_hotel->total_confirm;
                     $row->supplier="avt";
                     $row->layout="order_edit";
-                    $row->is_main_tour=true;
+                    $row->is_main_tour=false;
                     $row->resource="client";
-                    $row->total_value=$total_cost;
+                    $row->total_value=$pre_night_hotel->total_cost;
                     $row->payment="N/A";
                     $row->refund="N/A";
                     $row->balance="N/A";
                     $row->status="CFM";
                     echo $render_tr($row);
-                }else{
-                    $total_cost=0;
-                    foreach($this->build_room as $item){
-                        $tour_cost_and_room_price=$item->tour_cost_and_room_price;
-                        foreach($tour_cost_and_room_price as $item_passenger){
-                            $total_cost+=(float)$item_passenger->tour_cost;
-                            $total_cost+=(float)$item_passenger->room_price;
-                            $total_cost+=(float)$item_passenger->extra_bed_price;
-                        }
-
-                    }
-                    $row = new stdClass();
-                    $row->service_name=$this->tour->product_name;
-                    $row->type="Main Tour";
-                    $row->service_start_date=JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
-                    $row->service_end_date=JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
+                }
+                foreach($this->list_post_night_hotel as $post_night_hotel){
+                    $row->id=$post_night_hotel->tsmart_order_hotel_addon_id;
+                    $row->service_name=$post_night_hotel->hotel_name;
+                    $row->type="post night";
+                    $row->service_start_date=JHtml::_('date', $post_night_hotel->checkin_date, tsmConfig::$date_format);
+                    $row->service_end_date=JHtml::_('date', $post_night_hotel->checkout_date, tsmConfig::$date_format);
                     $total_passenger_confirm=0;
-                    foreach($this->list_passenger as $passenger){
-                        if($this->passenger_helper->is_confirm($passenger)){
-                            $total_passenger_confirm++;
-                        }
-                    }
-                    $row->passengers=$total_passenger_confirm;
+                    $row->passengers=$post_night_hotel->total_confirm;
                     $row->supplier="avt";
                     $row->layout="order_edit";
-                    $row->is_main_tour=true;
+                    $row->is_main_tour=false;
                     $row->resource="client";
-                    $row->total_value=$total_cost;
+                    $row->total_value=$post_night_hotel->total_cost;
                     $row->payment="N/A";
                     $row->refund="N/A";
                     $row->balance="N/A";
                     $row->status="CFM";
                     echo $render_tr($row);
                 }
-                foreach($this->transfer as $key=>$list_transfer){
-                    foreach($list_transfer as $transfer){
-                        $list_passenger_price=$transfer->list_passenger_price;
-                        if(!count($list_passenger_price))
-                        {
-                            continue;
-                        }
-                        $total_cost_transfer=0;
-                        foreach($list_passenger_price as $passenger_price)
-                        {
-                            $total_cost_transfer+=$passenger_price->cost;
-                        }
-                        $tsmart_transfer_addon_id=$transfer->tsmart_transfer_addon_id;
-                        $transfer_addon=$this->transferaddon_helper->get_transfer_addon_by_transfer_addon_id($tsmart_transfer_addon_id);
-                        $item = new stdClass();
-                        $item->service_name=$transfer_addon->transfer_addon_name;
-                        $item->type="addon-$key";
-                        $item->service_start_date="N/A";
-                        $item->service_end_date="N/A";
-                        $item->passengers=count($list_passenger_price);
-                        $item->supplier="avt";
-                        $item->resource="client";
-                        $item->total_value=$total_cost_transfer;
-                        $item->payment="N/A";
-                        $item->refund="N/A";
-                        $item->balance="N/A";
-                        $item->status="CFM";
-
-
-                        echo $render_tr($item);
-                    }
+                foreach($this->list_pre_transfer as $pre_transfer){
+                    $row->id=$pre_transfer->tsmart_order_transfer_addon_id;
+                    $row->service_name=$pre_transfer->transfer_addon_name;
+                    $row->type="pre transfer";
+                    $row->service_start_date=JHtml::_('date', $pre_transfer->checkin_date, tsmConfig::$date_format);
+                    $row->service_end_date="N/A";
+                    $row->passengers=$pre_transfer->total_confirm;
+                    $row->supplier="avt";
+                    $row->layout="order_edit";
+                    $row->is_main_tour=false;
+                    $row->resource="client";
+                    $row->total_value=$pre_transfer->total_cost;
+                    $row->payment="N/A";
+                    $row->refund="N/A";
+                    $row->balance="N/A";
+                    $row->status="CFM";
+                    echo $render_tr($row);
+                }
+                foreach($this->list_post_transfer as $post_transfer){
+                    $row->id=$post_transfer->tsmart_order_transfer_addon_id;
+                    $row->service_name=$post_transfer->transfer_addon_name;
+                    $row->type="post transfer";
+                    $row->service_start_date=JHtml::_('date', $post_transfer->checkin_date, tsmConfig::$date_format);
+                    $row->service_end_date="N/A";
+                    $row->passengers=$post_transfer->total_confirm;
+                    $row->supplier="avt";
+                    $row->layout="order_edit";
+                    $row->is_main_tour=false;
+                    $row->resource="client";
+                    $row->total_value=$post_transfer->total_cost;
+                    $row->payment="N/A";
+                    $row->refund="N/A";
+                    $row->balance="N/A";
+                    $row->status="CFM";
+                    echo $render_tr($row);
+                }
+                foreach($this->list_excursion as $excursion){
+                    $row->id=$excursion->tsmart_order_excursion_addon_id;
+                    $row->service_name=$excursion->excursion_addon_name;
+                    $row->type="excursion";
+                    $row->service_start_date="N/A";
+                    $row->service_end_date="N/A";
+                    $row->passengers=$excursion->total_confirm;
+                    $row->supplier="avt";
+                    $row->layout="order_edit";
+                    $row->is_main_tour=false;
+                    $row->resource="client";
+                    $row->total_value=$excursion->total_cost;
+                    $row->payment="N/A";
+                    $row->refund="N/A";
+                    $row->balance="N/A";
+                    $row->status="CFM";
+                    echo $render_tr($row);
                 }
 
-                for ($i = 0, $n = count($this->list_excursion_addon); $i < $n; $i++) {
-                    $row = $this->list_excursion_addon[$i];
-                    $passengers=$row->passengers;
-                    $tsmart_excursion_addon_id=$row->tsmart_excursion_addon_id;
-                    $excursion_addon=$this->excursionaddon_helper->get_excursion_addon_by_excursion_addon_id($tsmart_excursion_addon_id);
-                    $list_passenger_price=$row->list_passenger_price;
-                    $total=0;
-                    foreach($list_passenger_price as  $item) {
-                        $total+= $item->cost;
-                    }
-                    $item = new stdClass();
-                    $item->service_name=$excursion_addon->excursion_addon_name;
-                    $item->type="addon";
-                    $item->service_start_date="N/A";
-                    $item->service_end_date="N/A";
-                    $item->passengers=count($passengers);
-                    $item->supplier="avt";
-                    $item->resource="client";
-                    $item->total_value=$total;
-                    $item->payment="N/A";
-                    $item->refund="N/A";
-                    $item->balance="N/A";
-                    $item->status="CFM";
-
-
-                    echo $render_tr($item);
-                }
-                for ($i = 0, $n = count($this->night_hotel); $i < $n; $i++) {
-                    $row = $this->night_hotel[$i];
-                    $list_room_type=$row->list_room_type;
-                    $tsmart_hotel_addon_id=$row->tsmart_hotel_addon_id;
-                    $hoteladdon=$this->hoteladdon_helper->get_hoteladdon_by_hotel_addon_id($tsmart_hotel_addon_id);
-                    $tsmart_hotel_id=$hoteladdon->tsmart_hotel_id;
-                    $hotel=$this->hoteladdon_helper->get_detail_hotel_by_hotel_id($tsmart_hotel_id);
-
-                    $list_passenger_price=$row->list_passenger_price;
-                    $total=0;
-                    foreach($list_passenger_price as  $item) {
-                        $total+= $item->cost;
-                    }
-                    foreach($list_room_type as  $room) {
-                        $list_passenger_per_room=reset($room->list_passenger_per_room);
-                        $item = new stdClass();
-                        $item->service_name=$hotel->hotel_name;
-                        $item->type="addon";
-                        $item->service_start_date=JHtml::_('date', $row->check_in_date, tsmConfig::$date_format);
-                        $item->service_end_date=JHtml::_('date', $row->check_out_date, tsmConfig::$date_format);
-                        $item->passengers=count($list_passenger_per_room);
-                        $item->supplier="avt";
-                        $item->resource="client";
-                        $item->total_value=$total;
-                        $item->payment="N/A";
-                        $item->refund="N/A";
-                        $item->balance="N/A";
-                        $item->status="CFM";
-
-
-
-
-                        echo $render_tr($item);
-                    }
-                }
                 ?>
             </table>
 

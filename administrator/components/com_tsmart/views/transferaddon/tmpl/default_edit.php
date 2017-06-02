@@ -34,7 +34,6 @@ ob_start();
 $js_content = ob_get_clean();
 $js_content = TSMUtility::remove_string_javascript($js_content);
 $doc->addScriptDeclaration($js_content);
-
 ?>
 <div class="view-transferaddon-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
@@ -62,7 +61,9 @@ $doc->addScriptDeclaration($js_content);
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?php echo VmHTML::row_control('range_of_date','Valid date (Date to Date)', 'vail_from', 'vail_to', $this->item->vail_from,$this->item->vail_to); ?>
+                    <?php echo VmHTML::row_control('select_date','Valid from date', 'vail_from', $this->item->vail_from); ?>
+                    <?php echo VmHTML::row_control('select_date','Valid to date', 'vail_to', $this->item->vail_to); ?>
+
                 </div>
                 <div class="span6">
                     <?php echo VmHTML::row_control('list_radio', 'Addon payment type','transfer_payment_type', $this->list_transfer_payment_type, $this->item->transfer_payment_type); ?>

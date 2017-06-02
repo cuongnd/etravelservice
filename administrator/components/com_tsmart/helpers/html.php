@@ -1246,6 +1246,7 @@ class VmHtml
         $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/js/controller/select_date/html_select_date.less');
         $input = JFactory::getApplication()->input;
         $select_date = 'select_date_' . $name;
+        $value_selected=JFactory::getDate($value_selected)->format('m/d/y');
         ob_start();
         ?>
         <script type="text/javascript">

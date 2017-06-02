@@ -92,7 +92,7 @@ $i = 0;
                     ob_start();
                     ?>
                     <tr class="item-passenger" data-tsmart_passenger_id="<?php echo $row->tsmart_passenger_id ?>">
-                        <td><?php echo $checked ?></td>
+                        <td><div class="tsmart_passenger_id"><?php echo $checked ?></div></td>
                         <td ><span class="first_name"><?php echo $row->first_name ?></span></td>
                         <td ><span class="middle_name"><?php echo $row->middle_name  ?></span></td>
                         <td><span class=" last_name"><?php echo $row->last_name  ?></span></td>

@@ -67,15 +67,15 @@ $i = 0;
                 </thead>
                 <tr>
 
-                    <td><?php echo $this->item->order_total ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
-                    <td><?php echo $this->item->total_price ?></td>
+                    <td><span class="cost"><?php echo $this->item->order_total ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost"><?php echo $this->item->payment ?></span></td>
+                    <td><span class="cost"><?php echo $this->item->order_total-$this->item->payment ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
                     <td>
                         <?php echo VmHTML::change_order_status(array(), 'tsmart_orderstate_id', $this->item->tsmart_orderstate_id, 'class="change_order_status "'); ?>
                     </td>

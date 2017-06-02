@@ -44,7 +44,21 @@ class tsmartModelorders extends tmsModel
      */
     function getItem($id = 0)
     {
-        return $this->getData($id);
+        $cid = vRequest::getInt('cid');
+        $cid = (int)$cid[0];
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('orders.*')
+            ->from('#__tsmart_orders AS orders')
+            ->leftJoin('#__tsmart_orderstates AS orderstates USING(tsmart_orderstate_id)')
+            ->leftJoin('#__tsmart_customs AS customs USING(tsmart_custom_id)')
+            ->select('customs.custom_name AS custom_name,orderstates.order_status_name')
+            ->leftJoin('#__users AS users ON users.id=orders.assign_user_id')
+            ->select('users.name AS asign_name')
+            ->select('orderstates.order_status_name AS order_status_name')
+            ->where('orders.tsmart_order_id='.(int)$cid)
+        ;
+        return $db->setQuery($query)->loadObject();
     }
     /**
      * Retireve a list of currencies from the database.

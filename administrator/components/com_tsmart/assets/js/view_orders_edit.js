@@ -9,6 +9,7 @@
             config_show_price: {
                 mDec: 1,
                 aSep: ' ',
+                vMin: -9999,
                 aSign: 'US$'
             },
         }
@@ -31,27 +32,19 @@
             var cancel_fee=$tr.find('input.cancel_fee').autoNumeric('get');
             var $total_cost=$tr.find('input.total_cost');
             var total_cost=parseFloat(tour_fee)+parseFloat(single_room_fee)+parseFloat(extra_fee)-parseFloat(discount_fee);
-            if(total_cost<0){
-                total_cost=0;
-            }
             $total_cost.autoNumeric('set',total_cost);
             var $balance=$tr.find('input.balance');
             var balance=parseFloat(total_cost)-parseFloat(payment);
-            if(balance<0){
-                balance=0;
-            }
             $balance.autoNumeric('set',balance);
             var $refund=$tr.find('input.refund');
             var refund=parseFloat(payment)-parseFloat(cancel_fee);
-            if(refund<0){
-                refund=0;
-            }
             $refund.autoNumeric('set',refund);
         };
         plugin.fill_data_passenger_cost = function (list_row) {
             for(var i=0;i<list_row.length;i++){
                 var row=list_row[i];
                 var $tr= $('table.edit_passenger_cost').find('tbody tr.passenger:eq('+i+')');
+                $tr.find('input.tsmart_passenger_id').val(row.tsmart_passenger_id);
                 $tr.find('input.tour_fee').autoNumeric('set',parseFloat(row.tour_fee));
                 $tr.find('input.single_room_fee').autoNumeric('set',parseFloat(row.single_room_fee));
                 $tr.find('input.extra_fee').autoNumeric('set',parseFloat(row.extra_fee));
@@ -68,15 +61,9 @@
             var cancel_fee=$tr.find('span.cancel_fee').autoNumeric('get');
             var $balance=$tr.find('span.balance');
             var balance=parseFloat(total_cost)-parseFloat(payment);
-            if(balance<0){
-                balance=0;
-            }
             $balance.autoNumeric('set',balance);
             var $refund=$tr.find('span.refund');
             var refund=parseFloat(payment)-parseFloat(cancel_fee);
-            if(refund<0){
-                refund=0;
-            }
             $refund.autoNumeric('set',refund);
         };
         plugin.fill_data_passenger_show = function (list_row) {
@@ -138,6 +125,7 @@
                 var row=list_row[i];
                 var $tr= $('table.orders_show_form_passenger').find('tbody tr.passenger:eq('+i+')');
                 $tr.find('select.passenger_status').val(row.passenger_status).trigger('change');
+                $tr.find('input[name="tsmart_passenger_id[]"]').val(row.tsmart_passenger_id);
             }
         };
         plugin.update_orders_show_form_general = function (response) {
@@ -208,10 +196,15 @@
         plugin.fill_data_row_passenger_detail = function (passenger_data) {
             var $tr_passenger=$(".view_orders_edit_passenger_manager").find('tr.item-passenger[data-tsmart_passenger_id="'+passenger_data.tsmart_passenger_id+'"]');
             if($tr_passenger.length==0){
-                $tr_passenger=$(".view_orders_edit_passenger_manager").find('tr.item-passenger:first-child').getOuterHTML();
+                var tr_passenger=$(".view_orders_edit_passenger_manager").find('tr.item-passenger:first-child').getOuterHTML();
+                $tr_passenger=$(tr_passenger);
                 $tr_passenger.insertAfter($(".view_orders_edit_passenger_manager").find("tr.item-passenger:last-child"));
             }
             $tr_passenger.find('span.title').html(passenger_data.title);
+            $tr_passenger.find('div.tsmart_passenger_id span.cid').html(passenger_data.tsmart_passenger_id);
+            $tr_passenger.find('div.tsmart_passenger_id input[name="cid[]"]').val(passenger_data.tsmart_passenger_id);
+            $tr_passenger.attr("data-tsmart_passenger_id",passenger_data.tsmart_passenger_id);
+            $tr_passenger.data("tsmart_passenger_id",passenger_data.tsmart_passenger_id);
             $tr_passenger.find('span.first_name').html(passenger_data.first_name);
             $tr_passenger.find('span.middle_name').html(passenger_data.middle_name);
             $tr_passenger.find('span.last_name').html(passenger_data.last_name);
@@ -242,6 +235,7 @@
             $element.find('.passenger_cost').autoNumeric('init', {
                 mDec: 1,
                 aSep: ' ',
+                vMin: '-999.00',
                 aSign: ''
             }).change(function(){
                 var $tr=$(this).closest('tr.passenger');
@@ -257,10 +251,11 @@
                 for(var i=0;i<$list_tr.length;i++){
                     var $tr= $('table.edit_passenger_cost').find('tbody tr.passenger:eq('+i+')');
                     var item={};
-                    item.tour_fee=$tr.find('input.tour_fee').autoNumeric('get');
-                    item.single_room_fee=$tr.find('input.single_room_fee').autoNumeric('get');
+                    item.tsmart_passenger_id=$tr.find('input.tsmart_passenger_id').val();
+                    item.tour_cost=$tr.find('input.tour_fee').autoNumeric('get');
+                    item.room_fee=$tr.find('input.single_room_fee').autoNumeric('get');
                     item.extra_fee=$tr.find('input.extra_fee').autoNumeric('get');
-                    item.discount_fee=$tr.find('input.discount_fee').autoNumeric('get');
+                    item.discount=$tr.find('input.discount_fee').autoNumeric('get');
                     item.cancel_fee=$tr.find('input.cancel_fee').autoNumeric('get');
                     item.payment=$tr.find('input.payment').autoNumeric('get');
                     list_row.push(item);
@@ -311,6 +306,7 @@
                 for(var i=0;i<$list_tr.length;i++){
                     var $tr= $('table.orders_show_form_passenger').find('tbody tr.passenger:eq('+i+')');
                     var item={};
+                    item.tsmart_passenger_id=$tr.find('input[name="tsmart_passenger_id[]"]').val();
                     item.passenger_status=$tr.find('select.passenger_status').val();
                     list_row.push(item);
                 }
@@ -527,7 +523,7 @@
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
             });
-            $('.view_orders_edit_passenger_manager').find("tr.item-passenger a.edit").click(function(){
+            $( ".view_orders_edit_passenger_manager" ).on( "click", "tr.item-passenger a.edit", function() {
                 var $tr=$(this).closest("tr.item-passenger");
                 var tsmart_passenger_id=$tr.data("tsmart_passenger_id");
                 $.ajax({
@@ -564,10 +560,44 @@
 
                     }
                 });
-
             });
             $element.find('.passenger-manager-control .add_passenger').click(function(){
-                $(".order_form_add_and_remove_passenger").dialog('open');
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_passenger_detail_by_passenger_id',
+                            tsmart_passenger_id:0
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var passenger_data=response.passenger_data;
+                        plugin.fill_data_passenger_detail(passenger_data);
+
+                        $(".order_form_add_and_remove_passenger").dialog('open');
+
+                    }
+                });
+
+
 
             });
             $('.order_form_add_and_remove_passenger').find('button.cancel').click(function(){
@@ -575,11 +605,13 @@
             });
             $('.order_form_add_and_remove_passenger').find('button.save').click(function(){
                 var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
-                var tsmart_passenger_id=$view_orders_edit_form_add_and_remove_passenger.find('input[type="hiden"][name="tsmart_passenger_id"]').val();
+                var tsmart_passenger_id=$view_orders_edit_form_add_and_remove_passenger.find('input[type="hidden"][name="tsmart_passenger_id"]').val();
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
                 if(!plugin.validate_input_passenger()){
                     return;
                 }
                 var json_post=$view_orders_edit_form_add_and_remove_passenger.find(":input").serializeObject();
+                json_post.tsmart_order_id=tsmart_order_id;
                 console.log(json_post);
                 $.ajax({
                     type: "POST",

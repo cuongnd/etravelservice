@@ -89,12 +89,14 @@ class tsmHotelAddon
             ->where('tour_id_hotel_addon_id.tsmart_product_id='.(int)$tsmart_product_id);
         if($extra_night_type=='pre_night'){
             $query
-                ->where('hotel_addon.vail_to <='.$query->q($rule_date->toSql()))
-                ->where('hotel_addon.vail_from >='.$query->q($before_date->toSql()));
+                ->where($query->q($rule_date->toSql()).'<=hotel_addon.vail_to')
+                //->where('hotel_addon.vail_from >='.$query->q($before_date->toSql()))
+            ;
         }else{
             $query
-                ->where('hotel_addon.vail_from <='.$query->q($rule_date->toSql()))
-                ->where('hotel_addon.vail_to >='.$query->q($after_date->toSql()));
+                ->where($query->q($rule_date->toSql()).'<=hotel_addon.vail_to')
+                //->where('hotel_addon.vail_to >='.$query->q($after_date->toSql()))
+            ;
         }
 
         ;

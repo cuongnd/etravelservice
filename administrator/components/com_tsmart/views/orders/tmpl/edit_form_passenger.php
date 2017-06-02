@@ -73,64 +73,34 @@ $i = 0;
                     ?>
                     <tr class="passenger">
                         <td><?php echo $checked ?></td>
-                        <td><?php echo TSMUtility::get_full_name($row) ?></td>
-                        <td class="book_date"><?php echo $row->book_date  ?></td>
+                        <td>
+                            <?php echo TSMUtility::get_full_name($row) ?>
+                            <input type="hidden" value="<?php echo $row->tsmart_passenger_id?>" name="tsmart_passenger_id[]">
+                        </td>
+                        <td class="book_date"><?php echo $row->created_on  ?></td>
                         <td><span class="cost total_cost"><?php echo $row->total_cost  ?></span></td>
                         <td><span class="cost payment"><?php echo $row->payment  ?></span></td>
                         <td><span class="cost balance"><?php echo $row->balance  ?></span></td>
                         <td><span class="cost cancel_fee"><?php echo $row->cancel_fee  ?></span></td>
                         <td><span class="cost refund"><?php echo $row->refund  ?></span></td>
                         <td>
-                            <?php echo VmHTML::change_passenger_status(array(), 'change_passenger_status_'.$index, $row->passenger_status, 'class="change_passenger_status "'); ?>
+                            <?php echo VmHTML::change_passenger_status(array(), 'change_passenger_status_'.$row->tsmart_passenger_id, $row->passenger_status, 'class="change_passenger_status "'); ?>
                         </td>
                     </tr>
                     <?php
                     $html=ob_get_clean();
                     return $html;
                 };
-                if($this->order_data->modified_by){
-                    for ($i = 0, $n = count($this->list_passenger); $i < $n; $i++) {
-                        $row = $this->list_passenger[$i];
-                        $passenger_index = $row->passenger_index;
-                        $row->booking = $this->item->tsmart_order_id;
-                        $row->service_name = $this->tour->product_name;
-                        $row->service_start_date = JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
-                        $row->service_end_date = JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
-                        $row->status = "CFM";
-                        echo $render_tr($row, $i);
-                    }
-                }else {
-                    $list_passenger_per_room_cost = array();
-                    foreach ($this->build_room as $item) {
-                        $tour_cost_and_room_price = $item->tour_cost_and_room_price;
-                        foreach ($tour_cost_and_room_price as $item_passenger) {
-                            $total_cost = 0;
-                            $passenger_index = $item_passenger->passenger_index;
-                            $total_cost += $item_passenger->tour_cost;
-                            $total_cost += $item_passenger->room_price;
-                            $total_cost += $item_passenger->extra_bed_price;
-                            $list_passenger_per_room_cost[$passenger_index] = $total_cost;
-                        }
+                for($i=0;$total=count($this->list_passenger_in_room),$i<$total;$i++){
+                    $passenger_in_room=$this->list_passenger_in_room[$i];
+                    $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
+                    $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
+                    $passenger_in_room->refund = $passenger_in_room->payment-$passenger_in_room->cancel_fee;
+                    $passenger_in_room->passenger_status =$passenger_in_room->tour_tsmart_passenger_state_id;
+                    echo $render_tr($passenger_in_room,$i);
 
-                    }
-                    for ($i = 0, $n = count($this->list_passenger); $i < $n; $i++) {
-                        $row = $this->list_passenger[$i];
-                        $passenger_index = $row->passenger_index;
-                        $row->booking = $this->item->tsmart_order_id;
-                        $row->service_name = $this->tour->product_name;
-                        $row->service_start_date = JHtml::_('date', $this->departure->departure_date, tsmConfig::$date_format);
-                        $row->service_end_date = JHtml::_('date', $this->departure->departure_date_end, tsmConfig::$date_format);
-                        $tour_cost = $row->tour_cost;
-                        $passenger_per_room_cost = (float)$list_passenger_per_room_cost[$i];
-                        $tour_cost += $passenger_per_room_cost;
-                        $row->total_cost = $tour_cost;
-                        $row->payment = "N/A";
-                        $row->balance = "N/A";
-                        $row->refund = "N/A";
-                        $row->status = "CFM";
-                        echo $render_tr($row, $i);
-                    }
                 }
+
                 ?>
                 </tbody>
             </table>

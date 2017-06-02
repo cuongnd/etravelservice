@@ -11,7 +11,8 @@
             min_date: new Date(),
             max_date: new Date(),
             from_date: new Date(),
-            to_date: new Date()
+            to_date: new Date(),
+            value_selected: ""
         };
 
         // current instance of the object
@@ -25,6 +26,7 @@
         // the "constructor" method that gets called when the object is created
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
+            var value_selected = plugin.settings.value_selected;
             var min_date = plugin.settings.min_date;
             var max_date = plugin.settings.max_date;
             var from_date = plugin.settings.from_date;
@@ -49,6 +51,8 @@
                 var date=$.format.date(date, format);
                 $element.find('input[name="'+input_name+'"]').val(date);
             });
+            $element.find('.select_date').datepicker('setDate', value_selected);
+            value_selected
 
         };
         plugin.set_date=function(startDate,endDate){
