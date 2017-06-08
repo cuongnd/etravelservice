@@ -396,6 +396,7 @@ class VmHtml
 
     static function row_control($func, $label)
     {
+        $str_function_name=$func;
         $VmHTML = "VmHtml";
         if (!is_array($func)) {
             $func = array($VmHTML, $func);
@@ -421,6 +422,11 @@ class VmHtml
         $html = ' <div id="control-group-'.$name.'" class="control-group ">' . $label;
         if ($func[1] == 'radioList') {
             $html .= '<fieldset class="checkboxes">';
+        }
+        $html_call_user_func_array='';
+        if (strpos($str_function_name, '.') !== false) {
+            array_unshift ( $args , $func[1]);
+            $func[1]='_';
         }
 
         $html .= '

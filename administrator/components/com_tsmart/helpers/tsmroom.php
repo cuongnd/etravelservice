@@ -53,6 +53,16 @@ class tsmroom
         ;
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_list_room_booking_by_order_id($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_room_order AS room_order')
+            ->where('room_order.tsmart_order_id='.(int)$tsmart_order_id)
+        ;
+        return $db->setQuery($query)->loadObjectList();
+    }
 
 
     public static function get_list_room_id_by_itinerary_id($tsmart_itinerary_id=0)

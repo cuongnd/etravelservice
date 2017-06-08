@@ -60,13 +60,28 @@ class TablePassenger extends tsmTableData {
 	var $emergency_contact_phone_no = "";
 	var $pre_existing_medical_condition = "";
 	var $special_meal_requirements = "";
-	var $room_type = "";
 	var $extra_fee = 0;
+	var $is_temporary = 0;
 	var $discount  = 0;
 	var $cancel_fee   = 0;
 	var $room_fee   = 0;
 	var $tour_cost   = 0;
+	var $tsmart_room_order_id   = null;
 	var $tour_tsmart_passenger_state_id = null;
+
+
+	var $pre_tsmart_order_hotel_addon_id = null;
+	var $pre_night_hotel_fee = 0;
+
+	var $post_tsmart_order_hotel_addon_id = null;
+	var $post_night_hotel_fee = 0;
+
+
+	var $pre_tsmart_order_transfer_addon_id = null;
+	var $pre_transfer_fee = 0;
+
+	var $post_tsmart_order_transfer_addon_id = null;
+	var $post_transfer_fee = 0;
 
 
 	/**

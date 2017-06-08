@@ -60,7 +60,7 @@ class tsmpassenger
         $query->select('*')
             ->from('#__tsmart_passenger')
             ->where('tsmart_order_id='.(int)$tsmart_order_id)
-            ->where('room_type !=""')
+            ->where('tsmart_room_order_id >0')
 
             ;
         return $db->setQuery($query)->loadObjectList();
@@ -72,10 +72,62 @@ class tsmpassenger
         $query->select('*')
             ->from('#__tsmart_passenger')
             ->where('tsmart_order_id='.(int)$tsmart_order_id)
-            ->where('room_type =""')
+            ->where('tsmart_room_order_id is null')
 
             ;
-        return $db->setQuery($query)->loadObjectList();
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_in_temporary_by_order_id($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
+            ->where('is_temporary =1')
+
+            ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_by_order_id($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
+            ->where('is_temporary =0')
+
+            ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_and_not_room($tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
+            ->where('is_temporary =0')
+            ->where('tsmart_room_order_id is null')
+
+            ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_by_room_oder_id($tsmart_room_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('tsmart_room_order_id='.(int)$tsmart_room_order_id)
+            ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
     }
     public static function get_list_passenger_of_night_hotel_by_order_id($type="pre",$tsmart_order_id)
     {

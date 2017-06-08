@@ -115,6 +115,20 @@
         }
         return age;
     };
+    $.get_title_passenger=function(birth_date){
+      var year_old= $.get_year_old_by_date(birth_date);
+        if(0<=year_old&&year_old<=5){
+            return "children2";
+        }else if(5<year_old&&year_old<11){
+            return "children1";
+        }else if(year_old>=11&&year_old<=17){
+            return "Teen";
+        }else if(year_old>=18&&year_old<75){
+            return "adult";
+        }else if(year_old>=75){
+            return "senior";
+        }
+    };
     $.get_year_old_by_date = function(dateString) {
         if(dateString=='')
         {

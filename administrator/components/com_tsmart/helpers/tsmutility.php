@@ -265,6 +265,17 @@ class TSMUtility
 
         return $makepass;
     }
+    function get_year_old_by_date($birthday)
+    {
+        $today = new DateTime();
+        $diff = $today->diff(new DateTime($birthday));
+
+        if ($diff->y)
+        {
+            return $diff->y ;
+        }
+    }
+
     function calculateAge($date,$space='-'){
         //d/m/Y
         list($day,$month,$year) = explode($space,$date);

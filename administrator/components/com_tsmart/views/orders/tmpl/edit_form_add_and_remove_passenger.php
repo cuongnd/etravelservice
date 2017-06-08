@@ -27,6 +27,13 @@ $i = 0;
 <div class="view_orders_edit_form_add_and_remove_passenger form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
+            <?php if($this->debug){ ?>
+            <div class="row-fluid">
+                <div class="span12">
+                    <button class="btn btn-primary pull-right auto-fill" type="button"><?php echo JText::_('auto fill')?></button>
+                </div>
+            </div>
+            <?php } ?>
             <div class="row-fluid">
                 <div class="span12">
                     <fieldset class="general">
@@ -38,12 +45,14 @@ $i = 0;
                                 <?php echo VmHTML::row_control('input',JText::_('Middle name*'), 'middle_name', $this->passenger->middle_name,' required="required" '); ?>
                                 <?php echo VmHTML::row_control('input',JText::_('Last name*'), 'last_name', $this->passenger->last_name,' required="required" '); ?>
                                 <?php echo VmHTML::row_control('list_checkbox',JText::_('Gender*'), 'gender',$this->list_gender, $this->passenger->gender,"","value","text",2); ?>
-                                <?php echo VmHTML::row_control('select_date',JText::_('Date of birth*'), 'date_of_birth', $this->passenger->date_of_birth,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
+                                <?php echo VmHtml::row_control('select_birth_day.birth_day_select',JText::_('Date of birth*'),'date_of_birth', $this->passenger->date_of_birth,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy"));?>
                             </div>
                             <div class="span6">
                                 <?php echo VmHTML::row_control('input',JText::_('Nationality*'), 'nationality', $this->passenger->nationality,' required="required" '); ?>
-                                <?php echo VmHTML::row_control('input',JText::_('Passport no*'), 'passport_no', $this->passenger->passport_no); ?>
-                                <?php echo VmHTML::row_control('select_date',JText::_('P. Issue date*'), 'issue_date', $this->passenger->issue_date,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Passport no*'), 'passport_no', $this->passenger->passport_no,' required="required" '); ?>
+
+                                <?php echo VmHtml::row_control('select_birth_day.birth_day_select',JText::_('P. Issue date*'),'issue_date', $this->passenger->issue_date,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy"));?>
+
                                 <?php echo VmHTML::row_control('select_date',JText::_('P. Expiry date*'), 'expiry_date', $this->passenger->expiry_date,"mm/dd/yy","mm/dd/yy","",$date->format("mm/dd/yy")); ?>
                             </div>
                         </div>

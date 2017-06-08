@@ -33,6 +33,7 @@ class TableRoom_order extends tsmTableData {
 	/** @var int Primary key */
 	var $tsmart_room_order_id= 0;
 	var $room_note= "";
+	var $room_type= "";
 	var $tsmart_order_id= null;
 
 	/**
@@ -44,7 +45,7 @@ class TableRoom_order extends tsmTableData {
 		parent::__construct('#__tsmart_room_order', 'tsmart_room_order_id', $db);
 
 
-		//$this->setLoggable();
+		$this->setLoggable();
 
 		//$this->setOrderable();
 	}

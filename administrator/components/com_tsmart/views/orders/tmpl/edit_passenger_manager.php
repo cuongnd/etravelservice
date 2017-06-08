@@ -105,7 +105,7 @@ $i = 0;
                         <td><span class=" expiry_date"><?php echo $row->expiry_date?$row->expiry_date:"N/A"  ?></span></td>
                         <td align="center">
                             <?php echo $edit; ?>
-                            <?php echo $delete; ?>
+                            <a class="delete" href="javascript:void(0)"><span class="icon-delete"></span></a>
 
                         </td>
                     </tr>

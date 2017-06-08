@@ -59,7 +59,7 @@ $i = 0;
                 <?php
                 $render_tr=function($row){
                     $i=0;
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_order_id);
+                    $checked = JHtml::_('grid.id', $i, $row->tsmart_room_order_id);
                     ob_start();
                     ?>
                     <tr>
@@ -74,33 +74,25 @@ $i = 0;
                     $html=ob_get_clean();
                     return $html;
                 };
-
-                foreach($this->build_room as $item){
-                    $row=new stdClass();
-                    $row->room_type=$item->list_room_type;
-                    $passengers=$item->passengers;
+                foreach($this->list_roomming as $item){
+                    $passengers=$this->passenger_helper->get_list_passenger_by_room_oder_id($item->tsmart_room_order_id);
                     $title=array();
                     $names=array();
-                    foreach($passengers as $passenger_index){
-                        $passenger=$this->list_passenger[$passenger_index];
+                    $room_notes=array();
+                    foreach($passengers as $passenger){
                         $title[]=TSMUtility::get_title_passenger($passenger->year_old);
-                        $names[]=TSMUtility::get_full_name($passenger);
+                        $names[]=TSMUtility::get_full_name($passenger)."($passenger->tsmart_passenger_id)";
+                        if($passenger->room_note)
+                            $room_notes[]=$passenger->room_note;
                     }
+                    $row->tsmart_room_order_id=$item->tsmart_room_order_id;
+                    $row->creation=$item->created_on;
+                    $row->room_type=$item->room_type;
                     $row->titles=implode("<br/>",$title);
                     $row->names=implode("<br/>",$names);
-                    $room_note=array();
-                    $tour_cost_and_room_price=$item->tour_cost_and_room_price;
-                    foreach($tour_cost_and_room_price as $item_passenger){
-                        if($item_passenger->msg!="")
-                        {
-                            $room_note[]=$item_passenger->msg;
-                        }
-                    }
-                    $row->room_note=count($room_note)?implode(",",$room_note):'';
+                    $row->room_note=count($room_notes)?implode(",",$room_notes):'';
                     echo $render_tr($row);
                 }
-
-
                 ?>
             </table>
             <div class="row">

@@ -20,9 +20,7 @@ $doc=JFactory::getDocument();
 $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_passenger.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
 // set row counter
-$i = 0;
 ?>
 <div class="view_orders_edit_form_edit_passenger form-horizontal">
     <div class="row-fluid ">
@@ -34,8 +32,8 @@ $i = 0;
                 </div>
                 <div class="span8">
                     <select class="number-passenger" disable_chosen="true">
-                        <?php for($i=1;$i<=10;$i++){ ?>
-                            <option value="<?php echo $i ?>"><?php echo JText::sprintf("%s pers",$i)?></option>
+                        <?php for($i=0;$i<count($this->list_passenger_not_in_room)-1;$i++){ ?>
+                            <option value="<?php echo $i+1 ?>"><?php echo JText::sprintf("%s pers",$i+1)?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -58,25 +56,47 @@ $i = 0;
                     <div class="span4">
                         <select class="list-passenger" disable_chosen="true">
                             <option value="0"><?php echo JText::_("Select passenger") ?></option>
-                            <?php for($i=1;$i<count($this->list_passenger_not_in_room);$i++){ ?>
+                            <?php for($i=0;$i<count($this->list_passenger_in_temporary);$i++){ ?>
                                 <?php
-                                $passenger=$this->list_passenger_not_in_room[$i];
+                                $passenger=$this->list_passenger_in_temporary[$i];
+
+                                $year_old=TSMUtility::get_year_old_by_date($passenger->date_of_birth);
                                 ?>
-                                <option value="<?php echo $passenger->tsmart_passenger_id ?>"><?php echo TSMUtility::get_full_name($passenger) ?></option>
+                                <option value="<?php echo $passenger->tsmart_passenger_id ?>"><?php echo TSMUtility::get_full_name($passenger) ?> (<?php echo JText::sprintf("%s years",$year_old) ?>)</option>
                             <?php } ?>
                         </select>
 
                     </div>
                     <div class="span8">
-                        <div class="span3"><input class="passenger-type" type="text" disabled value="Adult"></div>
-                        <div class="span3"><input class="discount" type="text"  value=""></div>
-                        <div class="span3">
-                            <select class="bed-type" disable_chosen="true">
-                                <option value="private_bed"><?php echo JText::_("Private beb") ?></option>
-                                <option value="sharing_bed"><?php echo JText::_("Sharing beb") ?></option>
-                            </select>
+                        <div class="row-fluid">
+                            <div class="span3"><input class="passenger-type" type="text" disabled value="Adult"></div>
+                            <div class="span3"><input class="discount cost" type="text"  value=""></div>
+                            <div class="span3">
+                                <select class="bed-type" disable_chosen="true">
+                                    <option value="private_bed"><?php echo JText::_("Private beb") ?></option>
+                                    <option value="sharing_bed"><?php echo JText::_("Sharing beb") ?></option>
+                                </select>
+                            </div>
+                            <div class="span3"><input class="extra-fee cost" type="text"  value=""></div>
                         </div>
-                        <div class="span3"><input class="extra-fee" type="text"  value=""></div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-calculator">
+                <div class="row-fluid ">
+                    <div class="span4">
+                        <h4><?php echo JText::_('calculator') ?></h4>
+                    </div>
+                    <div class="span8">
+                        <div class="row-fluid passenger-item-calculator">
+                            <div class="span5"><span class="person-name">N/A</span> : (<span class="cost tour-cost">N/A</span></div><div class=" span1 text-center">x</div><div class="span4">1 per)+ <span class="cost extra-fee">N/A</span> - <span class="cost discount">N/A</span></div><div class="span2">=<div class="pull-right"><span class="cost passenger-total-cost">N/A</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid ">
+                    <div class="span4"></div>
+                    <div class="span8">
+                        <div class="pull-right"><?php echo JText::_('Total') ?>: <span class="cost full-total">N/A</span></div>
                     </div>
                 </div>
             </div>

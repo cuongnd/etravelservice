@@ -22,6 +22,8 @@ $doc = JFactory::getDocument();
 TSMHtmlJquery::numeric();
 TSMHtmlJquery::serializeobject();
 TSMHtmlJquery::utility();
+TSMHtmlJquery::delorean();
+$this->debug=$this->tsmutility_helper->get_debug();
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_orders_edit.less');
 $doc->addScript(JUri::root().'/media/system/js/jquery-validation-1.14.0/dist/jquery.validate.js');
 $doc->addScript(JUri::root().'/administrator/components/com_tsmart/assets/js/view_orders_edit.js');
@@ -60,6 +62,8 @@ ob_start();
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('.view-orders-edit').view_orders_edit({
+            list_passenger_not_in_room:<?php echo json_encode($this->list_passenger_not_in_room) ?>,
+            departure:<?php echo json_encode($this->departure) ?>
         });
     });
 </script>

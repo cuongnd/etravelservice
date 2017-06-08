@@ -58,7 +58,7 @@ class TsmartControllerorders extends TsmController {
 		$app=JFactory::getApplication();
 		$order_table=tsmTable::getInstance('orders','Table');
 		$data=$app->input->getArray();
-		$order_table->load($data['tsmart_order_id']);
+		$order_table->jload($data['tsmart_order_id']);
 		$order_table->assign_user_id=$data['assign_user_id'];
 		$response=new stdClass();
 		$response->e=0;
@@ -81,7 +81,7 @@ class TsmartControllerorders extends TsmController {
 		$response->e=0;
 		$passenger_helper=TSMHelper::getHepler('passenger');
 
-		$list_row=$passenger_helper->get_list_passenger_in_room_by_order_id($tsmart_order_id);
+		$list_row=$passenger_helper->get_list_passenger_not_in_temporary_by_order_id($tsmart_order_id);
 		foreach($list_row as &$passenger_in_room){
 			$passenger_in_room->single_room_fee=$passenger_in_room->room_fee;
 			$passenger_in_room->tour_fee=$passenger_in_room->tour_cost;
@@ -94,7 +94,7 @@ class TsmartControllerorders extends TsmController {
 		}
 		$order_table=tsmTable::getInstance('orders','Table');
 
-		$order_table->load($tsmart_order_id);
+		$order_table->jload($tsmart_order_id);
 		$response=new stdClass();
 		$response->e=0;
 		$order_object=(object)$order_table->getproperties();
@@ -108,7 +108,7 @@ class TsmartControllerorders extends TsmController {
 		$app=JFactory::getApplication();
 		$passenger_table=tsmTable::getInstance('passenger','Table');
 		$data=$app->input->getArray();
-		$passenger_table->load($data['tsmart_passenger_id']);
+		$passenger_table->jload($data['tsmart_passenger_id']);
 		$response=new stdClass();
 		$response->e=0;
 		$response->passenger_data=(object)$passenger_table->getProperties();
@@ -124,14 +124,39 @@ class TsmartControllerorders extends TsmController {
 		$response=new stdClass();
 		$response->e=0;
 		foreach($list_row as $row){
-			$passenger_table->load($row['tsmart_passenger_id']);
+			$passenger_table->jload($row['tsmart_passenger_id']);
 			$passenger_table->bind($row);
 			if(!$passenger_table->store()){
 				throw new Exception('save error: ' . $passenger_table->getError());
 			}
 		}
 		$order_table=tsmTable::getInstance('orders','Table');
-		$order_table->load($data['tsmart_order_id']);
+		$order_table->jload($data['tsmart_order_id']);
+		$order_object=(object)$order_table->getproperties();
+		$response->r=$order_object;
+		echo json_encode($response);
+		die;
+	}
+	function ajax_add_passenger_to_room()
+	{
+		$app=JFactory::getApplication();
+		$passenger_table=tsmTable::getInstance('passenger','Table');
+		$data=$app->input->getArray();
+		$list_row=$data['list_row'];
+		$response=new stdClass();
+		$response->e=0;
+		foreach($list_row as $row){
+			$passenger_table->jload($row['tsmart_passenger_id']);
+			$passenger_table->bind($row);
+			$passenger_table->discount=$row['passenger_discount'];
+			$passenger_table->extra_fee=$row['passenger_extra_fee'];
+			$passenger_table->is_temporary=0;
+			if(!$passenger_table->store()){
+				throw new Exception('save error: ' . $passenger_table->getError());
+			}
+		}
+		$order_table=tsmTable::getInstance('orders','Table');
+		$order_table->jload($data['tsmart_order_id']);
 		$order_object=(object)$order_table->getproperties();
 		$response->r=$order_object;
 		echo json_encode($response);
@@ -142,11 +167,37 @@ class TsmartControllerorders extends TsmController {
 		$app=JFactory::getApplication();
 		$data=(object)$app->input->getArray();
 		$json_post=$data->json_post;
+		if(!$json_post['tsmart_passenger_id']){
+			$json_post['is_temporary']=1;
+		}
+		$date_of_birth=$json_post['date_of_birth'];
+		$date_of_birth=JFactory::getDate($date_of_birth)->toSql();
+		$json_post['date_of_birth']=$date_of_birth;
+
+		$issue_date=$json_post['issue_date'];
+		$issue_date=JFactory::getDate($issue_date)->toSql();
+		$json_post['issue_date']=$issue_date;
+
+		$expiry_date=$json_post['expiry_date'];
+		$expiry_date=JFactory::getDate($expiry_date)->toSql();
+		$json_post['expiry_date']=$expiry_date;
+
 		$passenger_table=tsmTable::getInstance('passenger','Table');
 		$passenger_table->bindChecknStore($json_post);
 		$response=new stdClass();
 		$response->error=0;
 		$response->passenger_data=$passenger_table->getProperties();
+		echo json_encode($response);
+		die;
+	}
+	function ajax_delete_passenger_by_passenger_id(){
+		$app=JFactory::getApplication();
+		$data=(object)$app->input->getArray();
+		$tsmart_passenger_id=$data->tsmart_passenger_id;
+		$passenger_table=tsmTable::getInstance('passenger','Table');
+		$passenger_table->delete($tsmart_passenger_id);
+		$response=new stdClass();
+		$response->error=0;
 		echo json_encode($response);
 		die;
 	}
@@ -156,7 +207,7 @@ class TsmartControllerorders extends TsmController {
 		$order_table=tsmTable::getInstance('orders','Table');
 		$data=$app->input->getArray();
 		$list_row=$data['list_row'];
-		$order_table->load($data['tsmart_order_id']);
+		$order_table->jload($data['tsmart_order_id']);
 		$order_table->assign_user_id=$data['assign_user_id'];
 		$order_table->terms_condition=$data['terms_condition'];
 		$order_table->reservation_notes=$data['reservation_notes'];
@@ -177,7 +228,7 @@ class TsmartControllerorders extends TsmController {
 		$tsmart_order_id=$order_object->tsmart_order_id;
 		foreach($list_row as $row){
 			$tsmart_passenger_id=$row['tsmart_passenger_id'];
-			$passenger_table->load($tsmart_passenger_id);
+			$passenger_table->jload($tsmart_passenger_id);
 			$passenger_table->tour_tsmart_passenger_state_id=$row['passenger_status'];
 			if(!$passenger_table->store()){
 				throw new Exception('save error: ' . $passenger_table->getError());

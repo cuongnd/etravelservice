@@ -91,8 +91,8 @@ $i = 0;
                     $html=ob_get_clean();
                     return $html;
                 };
-                for($i=0;$total=count($this->list_passenger_in_room),$i<$total;$i++){
-                    $passenger_in_room=$this->list_passenger_in_room[$i];
+                for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
+                    $passenger_in_room=$this->list_passenger_not_in_temporary[$i];
                     $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
                     $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
                     $passenger_in_room->refund = $passenger_in_room->payment-$passenger_in_room->cancel_fee;

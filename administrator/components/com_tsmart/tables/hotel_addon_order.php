@@ -36,6 +36,7 @@ class Tablehotel_addon_order extends tsmTableData {
 	var $tsmart_hotel_addon_id= "";
 	var $tsmart_order_id= null;
 	var $checkin_date= null;
+	var $room_type= null;
 	var $checkout_date= null;
 
 	/**
@@ -47,7 +48,7 @@ class Tablehotel_addon_order extends tsmTableData {
 		parent::__construct('#__tsmart_hotel_addon_order', 'tsmart_order_hotel_addon_id', $db);
 
 
-		//$this->setLoggable();
+		$this->setLoggable();
 
 		//$this->setOrderable();
 	}
