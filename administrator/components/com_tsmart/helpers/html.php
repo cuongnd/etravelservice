@@ -2923,9 +2923,9 @@ class VmHtml
         return $content;
     }
 
-    public static function text_view($value, $class, $more = '')
+    public static function text_view($value, $atrr, $more = '')
     {
-        return '<input type="text" disabled class="text-view"    value="' . ($value) . '" />' . $more;
+        return '<input type="text" '.$atrr.' disabled class="text-view"    value="' . ($value) . '" />' . $more;
     }
     public static function text_view_no_input($value, $class, $more = '')
     {

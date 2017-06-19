@@ -12,6 +12,12 @@
                 vMin: -9999,
                 aSign: 'US$'
             },
+            passenger_cost_config: {
+                mDec: 1,
+                aSep: ' ',
+                vMin: '-999.00',
+                aSign: ''
+            },
             list_passenger_not_in_room:[]
         }
 
@@ -53,6 +59,26 @@
                 $tr.find('input.payment').autoNumeric('set',parseFloat(row.payment));
                 $tr.find('input.cancel_fee').autoNumeric('set',parseFloat(row.cancel_fee));
                 plugin.calculator_price($tr);
+            }
+
+        };
+        plugin.fill_data_passenger_cost_edit_hotel_add = function (list_passenger) {
+            var $tbody=$(".order_edit_passenger_cost_edit_hotel_add_on").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody');
+            $tbody.empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var passenger=list_passenger[i];
+                var $tr= $( plugin.settings.row_passenger_cost_edit_hotel_addon);
+                $tr.appendTo($tbody);
+                $tr.find('.passenger_cost').autoNumeric('init', plugin.settings.passenger_cost_config);
+                $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
+                $tr.find('input.tsmart_passenger_id').val(passenger.tsmart_passenger_id);
+                $tr.find('input.tour_fee').autoNumeric('set',parseFloat(passenger.tour_fee));
+                $tr.find('input.single_room_fee').autoNumeric('set',parseFloat(passenger.single_room_fee));
+                $tr.find('input.extra_fee').autoNumeric('set',parseFloat(passenger.extra_fee));
+                $tr.find('input.discount_fee').autoNumeric('set',parseFloat(passenger.discount_fee));
+                $tr.find('input.payment').autoNumeric('set',parseFloat(passenger.payment));
+                $tr.find('input.cancel_fee').autoNumeric('set',parseFloat(passenger.cancel_fee));
+                //plugin.calculator_price($tr);
             }
 
         };
@@ -129,6 +155,16 @@
                 $tr.find('input[name="tsmart_passenger_id[]"]').val(row.tsmart_passenger_id);
             }
         };
+        plugin.update_orders_show_form_hotel_addon_passenger = function (list_passenger) {
+            var $tbody=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody');
+            $tbody.empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var $tr=$(plugin.setting_row_passenger_edit_hotel_addon);
+                $tr.appendTo($tbody);
+                var passenger=list_passenger[i];
+                $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
+            }
+        };
         plugin.update_orders_show_form_general = function (response) {
             var order=response.r;
             var terms_condition=order.terms_condition;
@@ -138,6 +174,18 @@
             $('.edit-form-general').find('#reservation_notes').val(reservation_notes);
             $('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order.tsmart_orderstate_id).trigger('change');
             tinymce.get("itinerary").setContent(itinerary);
+            //$('.edit-form-general').find('#terms_condition').val(terms_condition);
+        };
+        plugin.update_orders_show_form_general_edit_hotel_addon = function (response) {
+            var order_detail=response.order_detail;
+            var hotel_addon_detail=response.hotel_addon_detail;
+            var terms_condition=hotel_addon_detail.terms_condition;
+            var reservation_notes=hotel_addon_detail.reservation_notes;
+            $('.view_orders_edit_from_general_edit_hotel_addon').find('#terms_condition').val(terms_condition);
+            $('.view_orders_edit_from_general_edit_hotel_addon').find('#reservation_notes').val(reservation_notes);
+            $('.view_orders_edit_from_general_edit_hotel_addon').find('input.hotel_name').val(hotel_addon_detail.hotel_name);
+            $(".order_edit_night_hotel").find('input[name="tsmart_order_hotel_addon_id"]').val(hotel_addon_detail.tsmart_order_hotel_addon_id);
+            //$('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order.tsmart_orderstate_id).trigger('change');
             //$('.edit-form-general').find('#terms_condition').val(terms_condition);
         };
         plugin.fill_data_passenger_detail = function (passenger_data) {
@@ -530,6 +578,71 @@
                 });
 
             });
+            $('.edit_night_hotel').find('button.save').click(function(){
+                var $list_tr= $('table.orders_show_form_passenger').find('tbody tr.passenger');
+                var list_row=[];
+                for(var i=0;i<$list_tr.length;i++){
+                    var $tr= $('table.orders_show_form_passenger').find('tbody tr.passenger:eq('+i+')');
+                    var item={};
+                    item.tsmart_passenger_id=$tr.find('input[name="tsmart_passenger_id[]"]').val();
+                    item.passenger_status=$tr.find('select.passenger_status').val();
+                    list_row.push(item);
+                }
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                var departure_date=$(".order_edit_main_tour").find('input[name="departure_date"]').val();
+                var departure_date_end=$(".order_edit_main_tour").find('input[name="departure_date_end"]').val();
+                var assign_user_id=$(".order_edit_main_tour").find('#assign_user_id').val();
+                var terms_condition=$(".order_edit_main_tour").find('#terms_condition').val();
+                var reservation_notes=$(".order_edit_main_tour").find('#reservation_notes').val();
+                var tsmart_orderstate_id=$(".order_edit_main_tour").find('#tsmart_orderstate_id').val();
+                var itinerary_content=tinymce.get("jform_articletext").getContent();
+
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_order_info',
+                            list_row:list_row,
+                            tsmart_order_id:tsmart_order_id,
+                            departure_date:departure_date,
+                            departure_date_end:departure_date_end,
+                            terms_condition:terms_condition,
+                            reservation_notes:reservation_notes,
+                            itinerary:itinerary_content,
+                            tsmart_orderstate_id:tsmart_orderstate_id,
+                            assign_user_id:assign_user_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        $(".order_edit_main_tour").dialog('close');
+                        var list_row=response.list_row;
+                        plugin.update_booking_infomation(response);
+
+                    }
+                });
+
+            });
             $('.view_orders_edit_form_edit_passenger_cost').find('button.cancel').click(function(){
                 $(".order_edit_passenger_cost").dialog('close');
             });
@@ -538,6 +651,9 @@
             });
             $('.view_orders_edit_form_edit_passenger').find('button.cancel').click(function(){
                 $(".order_edit_passenger").dialog('close');
+            });
+            $('.order_edit_night_hotel').find('button.cancel').click(function(){
+                $(".order_edit_night_hotel").dialog('close');
             });
             $('.view_orders_edit_form_edit_room').find('button.cancel').click(function(){
                 $(".order_edit_room").dialog('close');
@@ -819,9 +935,13 @@
 
 
             });
-
+            var $row_passenger=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody tr.passenger');
+            plugin.setting_row_passenger_edit_hotel_addon=$row_passenger.getOuterHTML();
+            $row_passenger.remove();
             $element.find('.edit_form.night_hotel').click(function(){
                 var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                var tsmart_order_hotel_addon_id=$(this).data('object_id');
+                var type=$(this).data('object_type');
                 $.ajax({
                     type: "POST",
                     url: 'index.php',
@@ -831,8 +951,9 @@
                         dataPost = {
                             option: 'com_tsmart',
                             controller: 'orders',
-                            task: 'ajax_get_order_detail_by_order_id',
-                            tsmart_order_id:tsmart_order_id
+                            task: 'ajax_get_order_detail_and_night_hotel_detail_by_hotel_addon_id',
+                            type:type,
+                            tsmart_order_hotel_addon_id:tsmart_order_hotel_addon_id
                         };
                         return dataPost;
                     })(),
@@ -849,9 +970,9 @@
 
 
                         });
-                        var list_row=response.list_row;
-                        plugin.update_orders_show_form_passenger(list_row);
-                        plugin.update_orders_show_form_general(response);
+                        var list_passenger=response.list_passenger;
+                        plugin.update_orders_show_form_hotel_addon_passenger(list_passenger);
+                        plugin.update_orders_show_form_general_edit_hotel_addon(response);
                         $(".order_edit_night_hotel").dialog('open');
 
                     }
@@ -901,14 +1022,14 @@
 
             });
             $element.find(".tabbed-nav.book-add-on").zozoTabs({
-                theme: "silver",
+                theme: "orange",
                 orientation: "horizontal",
                 position: "top-left",
                 size: "medium",
                 animation: {
                     easing: "easeInOutExpo",
-                    duration: 400,
-                    effects: "slideH"
+                    duration: 200,
+                    effects: "slideLeft"
                 },
                 defaultTab: "tab1"
             });
@@ -922,10 +1043,35 @@
                 appendTo: 'body',
             });
             $element.find('.list-control-activity .btn-voucher-center').click(function(){
-                $(".order_voucher_center").dialog('open');
+                $(".form_order_voucher_center").dialog('open');
+            });
+            $element.find(".form_order_add_flight").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Add flight',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find('.list-control-activity .btn-add-flight').click(function(){
+                $(".form_order_add_flight").dialog('open');
             });
 
-            $element.find(".order_voucher_center").dialog({
+            $element.find(".form_order_add_hoc_item").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Add flight',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find('.list-control-activity .btn-add-hoc-item').click(function(){
+                $(".form_order_add_hoc_item").dialog('open');
+            });
+
+            $element.find(".form_order_voucher_center").dialog({
                 dialogClass:'asian-dialog-form',
                 modal: true,
                 width: 1000,
@@ -1075,6 +1221,19 @@
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
             });
+            var $row_passenger_cost=$(".order_edit_passenger_cost_edit_hotel_add_on").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody tr.passenger');
+            plugin.settings.row_passenger_cost_edit_hotel_addon=$row_passenger_cost.getOuterHTML();
+
+            $element.find(".order_edit_passenger_cost_edit_hotel_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                hide: 'explode',
+                width: 900,
+                autoOpen: false,
+                title: 'Edit passenger cost hotel addon',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
 
             $element.find(".order_edit_form_show_first_history_rooming").dialog({
                 dialogClass:'asian-dialog-form',
@@ -1152,6 +1311,48 @@
                         plugin.fill_data_passenger_cost(list_row);
 
                         $(".order_edit_passenger_cost").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+
+            $('.order_edit_night_hotel').find('.passenger-control .edit-hotel-add-cost').click(function(){
+                var tsmart_order_hotel_addon_id=$('.order_edit_night_hotel').find('input[name="tsmart_order_hotel_addon_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_night_hotel_detail_by_hotel_addon_id',
+                            tsmart_order_hotel_addon_id:tsmart_order_hotel_addon_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_passenger=response.list_passenger;
+                        plugin.fill_data_passenger_cost_edit_hotel_add(list_passenger);
+
+                        $(".order_edit_passenger_cost_edit_hotel_add_on").dialog('open');
 
                     }
                 });
@@ -1304,8 +1505,23 @@
 
 
             });
+            $('.form_order_voucher_center').find('button.cancel').click(function(){
+                $(".form_order_voucher_center").dialog('close');
+            });
+            $('.order_edit_passenger_cost_edit_hotel_add_on').find('button.cancel').click(function(){
+                $(".order_edit_passenger_cost_edit_hotel_add_on").dialog('close');
+            });
+            $('.form_order_add_hoc_item').find('button.cancel').click(function(){
+                $(".form_order_add_hoc_item").dialog('close');
+            });
+            $('.form_order_add_flight').find('button.cancel').click(function(){
+                $(".form_order_add_flight").dialog('close');
+            });
             $('.order_form_add_and_remove_passenger').find('button.cancel').click(function(){
                 $(".order_form_add_and_remove_passenger").dialog('close');
+            });
+            $('.order_book_add_on').find('button.cancel').click(function(){
+                $(".order_book_add_on").dialog('close');
             });
             $('.order_form_add_and_remove_passenger').find('button.save').click(function(){
                 var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
@@ -1568,6 +1784,48 @@
 
             });
             $('.view_orders_edit_form_edit_passenger').find('button.save').click(function(){
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                if(!plugin.validate_add_passenger_to_room()){
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_add_passenger_to_room',
+                            tsmart_order_id: 'tsmart_order_id',
+                            list_row:plugin.settings.list_passenger_selected
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var order_data=response.r;
+                        if(response.error==0){
+                            alert('save data success');
+                        }
+                        $(".order_edit_passenger").dialog('close');
+
+                    }
+                });
+            });
+            $('.order_edit_night_hotel').find('button.save').click(function(){
                 var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
                 if(!plugin.validate_add_passenger_to_room()){
                     return;

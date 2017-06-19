@@ -17,22 +17,23 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_edit_hotel_addon.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
-
 ?>
-<div class="view_orders_edit_order_edit_hotel_addon">
+<div class="passengerconfirmation form-horizontal">
+    <div class="row-fluid ">
+        <div class="span12">
+            <div class="vm-page-nav text-center ">
+                <h3 class="text-uppercase"><?php echo JText::_('Add flight') ?></h3>
 
-    <?php echo $this->loadTemplate('form_general_edit_hotel_addon') ?>
-    <?php echo $this->loadTemplate('form_booking_summary_edit_hotel_addon') ?>
-    <?php echo $this->loadTemplate('form_service_cost_edit_hotel_addon') ?>
-    <?php echo $this->loadTemplate('form_condition_edit_hotel_addon') ?>
-    <?php echo $this->loadTemplate('form_passenger_edit_hotel_addon') ?>
-    <?php echo $this->loadTemplate('form_rooming_edit_hotel_addon') ?>
+            </div>
+
+        </div>
+    </div>
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">
@@ -41,7 +42,8 @@ $i = 0;
             </div>
         </div>
     </div>
-    <input type="hidden" name="tsmart_order_hotel_addon_id" value="">
+
+
 </div>
 <!-- Product pricing -->
 

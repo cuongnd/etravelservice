@@ -135,14 +135,6 @@ $i = 0;
                     <?php echo VmHtml::_('buil_rooming_list.rooming_list',$this->list_passenger_not_in_temporary_and_not_in_room,'rooming_list','',$this->departure,$this->passenger_config,$this->debug);?>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
-                        <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>

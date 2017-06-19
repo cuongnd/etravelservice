@@ -118,8 +118,14 @@ $this->list_tab=array(
     <div class="order_book_add_on hide">
         <?php echo $this->loadTemplate('form_book_add_on') ?>
     </div>
-    <div class="order_voucher_center hide">
-        <?php echo $this->loadTemplate('order_voucher_center') ?>
+    <div class="form_order_add_hoc_item hide">
+        <?php echo $this->loadTemplate('form_order_add_hoc_item') ?>
+    </div>
+    <div class="form_order_voucher_center hide">
+        <?php echo $this->loadTemplate('form_order_voucher_center') ?>
+    </div>
+    <div class="form_order_add_flight hide">
+        <?php echo $this->loadTemplate('form_order_add_flight') ?>
     </div>
     <div class="order_edit_excursion hide">
 
@@ -140,6 +146,9 @@ $this->list_tab=array(
     </div>
     <div class="order_edit_passenger hide">
         <?php echo $this->loadTemplate('form_edit_passenger') ?>
+    </div>
+    <div class="order_edit_passenger_cost_edit_hotel_add_on hide">
+        <?php echo $this->loadTemplate('form_edit_passenger_cost_hotel_add_on') ?>
     </div>
     <div class="order_edit_passenger_cost hide">
         <?php echo $this->loadTemplate('form_edit_passenger_cost') ?>

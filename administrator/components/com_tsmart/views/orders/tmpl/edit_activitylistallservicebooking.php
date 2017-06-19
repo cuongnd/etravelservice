@@ -99,7 +99,7 @@ $i = 0;
                     ?>
                     <tr class="<?php echo $row->is_main_tour?" main-tour ":"" ?>">
                         <td><?php echo $checked ?></td>
-                        <td><a class="edit_form <?php echo $row->is_main_tour?" main-tour":$row->key ?>" data-layout="<?php echo $row->layout ?>" href="javascript:void(0)"><?php echo $row->service_name  ?></a></td>
+                        <td><a class="edit_form <?php echo $row->is_main_tour?" main-tour":$row->key ?>" data-object_type="<?php echo $row->object_type ?>" data-object_id="<?php echo $row->id ?>" data-layout="<?php echo $row->layout ?>" href="javascript:void(0)"><?php echo $row->service_name  ?></a></td>
                         <td><?php echo $row->type  ?></td>
                         <td class="service_date">
                             <?php echo $row->service_start_date  ?>
@@ -148,6 +148,7 @@ $i = 0;
                     $row->service_name=$pre_night_hotel->hotel_name;
                     $row->type="pre night";
                     $row->key="night_hotel";
+                    $row->object_type="pre";
                     $row->service_start_date=JHtml::_('date', $pre_night_hotel->checkin_date, tsmConfig::$date_format);
                     $row->service_end_date=JHtml::_('date', $pre_night_hotel->checkout_date, tsmConfig::$date_format);
                     $total_passenger_confirm=0;
@@ -173,7 +174,7 @@ $i = 0;
                     $row->service_name=$post_night_hotel->hotel_name;
                     $row->type="post night";
                     $row->key="night_hotel";
-                    $row->key="";
+                    $row->object_type="post";
                     $row->service_start_date=JHtml::_('date', $post_night_hotel->checkin_date, tsmConfig::$date_format);
                     $row->service_end_date=JHtml::_('date', $post_night_hotel->checkout_date, tsmConfig::$date_format);
                     $total_passenger_confirm=0;
@@ -194,6 +195,7 @@ $i = 0;
                     $row->service_name=$pre_transfer->transfer_addon_name;
                     $row->type="pre transfer";
                     $row->key="transfer";
+                    $row->object_type="pre";
                     $row->service_start_date=JHtml::_('date', $pre_transfer->checkin_date, tsmConfig::$date_format);
                     $row->service_end_date="N/A";
                     $row->passengers=$pre_transfer->total_confirm;
@@ -213,6 +215,7 @@ $i = 0;
                     $row->service_name=$post_transfer->transfer_addon_name;
                     $row->type="post transfer";
                     $row->key="transfer";
+                    $row->object_type="post";
                     $row->service_start_date=JHtml::_('date', $post_transfer->checkin_date, tsmConfig::$date_format);
                     $row->service_end_date="N/A";
                     $row->passengers=$post_transfer->total_confirm;

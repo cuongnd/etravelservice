@@ -109,6 +109,20 @@ class tsmpassenger
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
     }
+    public static function get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_order_hotel_addon_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_passenger')
+            ->where('(pre_tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id.' OR post_tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id.'  )')
+            ->where('is_temporary =0')
+            ->where('tsmart_parent_passenger_id is null')
+
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
     public static function get_list_passenger_not_in_temporary_and_not_in_room($tsmart_order_id)
     {
         $db=JFactory::getDbo();

@@ -32,7 +32,8 @@ class Tablehotel_addon_order extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_order_hotel_addon_id= 0;
-	var $note= "";
+	var $terms_condition= "";
+	var $reservation_notes= "";
 	var $tsmart_hotel_addon_id= "";
 	var $tsmart_order_id= null;
 	var $checkin_date= null;
