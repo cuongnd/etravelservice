@@ -7,6 +7,6 @@
 <div class="row-fluid">
     <div class="span12">
 
-        <?php echo $this->loadTemplate('vouchercenter') ?>
+        <?php echo $this->loadTemplate('passengerconfirmation') ?>
     </div>
 </div>

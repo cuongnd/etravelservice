@@ -17,99 +17,89 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_passenger_cost.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_passenger.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
 // set row counter
-$i = 0;
 ?>
-<div class="view_orders_edit_form_edit_passenger_cost form-horizontal">
+<div class="view_orders_edit_form_edit_passenger form-horizontal">
     <div class="row-fluid ">
+        <h3 class="text-uppercase"><span class="pull-right"><?php echo JText::sprintf('service name : %s',$this->tour->product_name) ?></span></h3>
         <div class="span12">
-            <div class="vm-page-nav text-center ">
-                <h3 class="text-uppercase"><?php echo JText::_('Passenger cost') ?></h3>
+            <div class="row-fluid">
+                <div class="span4">
+                    <?php echo JText::_('Select number of passenger') ?>
+                </div>
+                <div class="span8">
+                    <select class="number-passenger" disable_chosen="true">
+                        <?php for($i=0;$i<count($this->list_passenger_not_in_room)-1;$i++){ ?>
+                            <option value="<?php echo $i+1 ?>"><?php echo JText::sprintf("%s pers",$i+1)?></option>
+                        <?php } ?>
+                    </select>
+                </div>
             </div>
-            <table class="adminlist table table-striped edit_passenger_cost" cellspacing="0" cellpadding="0">
-                <thead>
-                <tr>
-                    <th width="20%">
-                        <?php echo $this->sort('passenger_name', 'Passenger name'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('tour_fee', 'Tour fee'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('supplement_fee', 'single room'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('extra_fee', 'Extra fee'); ?>
-                    </th>
+            <div class="row-fluid">
+                <div class="span4">
+                    <?php echo JText::_("select name") ?>
+                </div>
+                <div class="span8">
+                    <div class="row-fluid">
+                        <div class="span3"><?php echo JText::_('passenger type') ?></div>
+                        <div class="span3"><?php echo JText::_('Discount') ?></div>
+                        <div class="span3"><?php echo JText::_('Select room') ?></div>
+                        <div class="span3"><?php echo JText::_('Extra fee') ?></div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-passenger">
+                <div class="row-fluid passenger-item">
+                    <div class="span4">
+                        <select class="list-passenger" disable_chosen="true">
+                            <option value="0"><?php echo JText::_("Select passenger") ?></option>
+                            <?php for($i=0;$i<count($this->list_passenger_in_temporary);$i++){ ?>
+                                <?php
+                                $passenger=$this->list_passenger_in_temporary[$i];
 
-                    <th>
-                        <?php echo $this->sort('discount', 'Discount'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('total_cost', 'Total cost'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('payment', 'Payment'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('cancel', 'Cancel'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('refund', 'Refund'); ?>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $render_tr=function($row){
-                    $i=0;
-                    ob_start();
-                    ?>
-                    <tr class="passenger">
+                                $year_old=TSMUtility::get_year_old_by_date($passenger->date_of_birth);
+                                ?>
+                                <option value="<?php echo $passenger->tsmart_passenger_id ?>"><?php echo TSMUtility::get_full_name($passenger) ?> (<?php echo JText::sprintf("%s years",$year_old) ?>)</option>
+                            <?php } ?>
+                        </select>
 
-                        <td class="name">
-                            <?php echo TSMUtility::get_full_name($row) ?>
-                            <input type="hidden" class="tsmart_passenger_id" value=""/>
-                        </td>
-                        <td><input class="passenger_cost tour_fee"  type="text" value="<?php echo $row->tour_fee ?>"></td>
-                        <td><input class="passenger_cost single_room_fee" type="text" value="<?php echo $row->single_room_fee ?>"></td>
-                        <td><input class="passenger_cost extra_fee" type="text" value="<?php echo $row->extra_fee ?>"></td>
-                        <td><input class="passenger_cost discount_fee" type="text" value="<?php echo $row->discount_fee ?>"></td>
-                        <td><input class="passenger_cost total_cost" readonly type="text" value="<?php echo $row->total_cost?>"></td>
-                        <td><input class="passenger_cost payment"  type="text" value="<?php echo $row->payment ?>"></td>
-                        <td><input class="passenger_cost balance"  readonly type="text" value="<?php echo $row->balance ?>"></td>
-                        <td><input class="passenger_cost cancel_fee"  type="text" value="<?php echo $row->cancel_fee ?>"></td>
-                        <td><input class="passenger_cost refund"  readonly type="text" value="<?php echo $row->refund ?>"></td>
-                    </tr>
-                    <?php
-                    $html=ob_get_clean();
-                    return $html;
-                };
-
-                for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
-                    $passenger_in_room=$this->list_passenger_not_in_temporary[$i];
-                    $passenger_in_room->tour_fee = $passenger_in_room->tour_cost ;
-                    $passenger_in_room->single_room_fee = $passenger_in_room->room_fee ;
-                    $passenger_in_room->discount_fee = $passenger_in_room->discount ;
-                    $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
-
-                    $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
-                    $passenger_in_room->refund = $passenger_in_room->payment-$passenger_in_room->cancel_fee;
-                    $passenger_in_room->passenger_status =$passenger_in_room->tour_tsmart_passenger_state_id;
-                    echo $render_tr($passenger_in_room);
-
-                }
-
-                ?>
-                </tbody>
-            </table>
+                    </div>
+                    <div class="span8">
+                        <div class="row-fluid">
+                            <div class="span3"><input class="passenger-type" type="text" disabled value="Adult"></div>
+                            <div class="span3"><input class="discount cost" type="text"  value=""></div>
+                            <div class="span3">
+                                <select class="bed-type" disable_chosen="true">
+                                    <option value="private_bed"><?php echo JText::_("Private beb") ?></option>
+                                    <option value="sharing_bed"><?php echo JText::_("Sharing beb") ?></option>
+                                </select>
+                            </div>
+                            <div class="span3"><input class="extra-fee cost" type="text"  value=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-calculator">
+                <div class="row-fluid ">
+                    <div class="span4">
+                        <h4><?php echo JText::_('calculator') ?></h4>
+                    </div>
+                    <div class="span8">
+                        <div class="row-fluid passenger-item-calculator">
+                            <div class="span5"><span class="person-name">N/A</span> : (<span class="cost tour-cost">N/A</span></div><div class=" span1 text-center">x</div><div class="span4">1 per)+ <span class="cost extra-fee">N/A</span> - <span class="cost discount">N/A</span></div><div class="span2">=<div class="pull-right"><span class="cost passenger-total-cost">N/A</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid ">
+                    <div class="span4"></div>
+                    <div class="span8">
+                        <div class="pull-right"><?php echo JText::_('Total') ?>: <span class="cost full-total">N/A</span></div>
+                    </div>
+                </div>
+            </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pull-right">
@@ -118,6 +108,8 @@ $i = 0;
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 

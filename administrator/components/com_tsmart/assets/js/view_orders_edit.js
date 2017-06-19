@@ -921,6 +921,19 @@
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body',
             });
+            $element.find('.list-control-activity .btn-voucher-center').click(function(){
+                $(".order_voucher_center").dialog('open');
+            });
+
+            $element.find(".order_voucher_center").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Voucher center',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
             $element.find('.list-control-activity .btn-book-add-on').click(function(){
                 $(".order_book_add_on").dialog('open');
             });
