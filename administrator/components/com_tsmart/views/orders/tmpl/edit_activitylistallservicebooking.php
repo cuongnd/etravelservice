@@ -17,20 +17,37 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_edit_listallservicebooking.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_edit_activitylistallservicebooking.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="view_orders_edit_edit_listallservicebooking form-horizontal">
+<div class="view_orders_edit_edit_activitylistallservicebooking form-horizontal">
+    <div class="list-control-activity">
+        <div class="row-fluid ">
+            <div class="span12">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-primary btn-voucher-center"><span class="icon-plus"></span><?php echo JText::_('Voucher center') ?></button>
+                    <button type="button" class="btn btn-primary btn-edit-background"><span class="icon-plus"></span><?php echo JText::_('Edit background') ?></button>
+                    <button type="button" class="btn btn-primary btn-edit-service"><span class="icon-plus"></span><?php echo JText::_('Edit service') ?></button>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-book-tour"><span class="icon-plus"></span><?php echo JText::_('Book tour') ?></button>
+                    <button type="button" class="btn btn-primary btn-book-add-on"><span class="icon-plus"></span><?php echo JText::_('Book add on') ?></button>
+                    <button type="button" class="btn btn-primary btn-add-hoc-item"><span class="icon-plus"></span><?php echo JText::_('ad-hoc item') ?></button>
+                    <button type="button" class="btn btn-primary btn-add-flight"><span class="icon-plus"></span><?php echo JText::_('add flight') ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center text-uppercase">
-                <h3 class="text-uppercase"><?php echo JText::_('Booking information') ?></h3>
+                <h3 class="text-uppercase"><?php echo JText::_('Booking management') ?></h3>
             </div>
-            <table class="adminlist table table-striped listallservicebooking" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped activitylistallservicebooking" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">

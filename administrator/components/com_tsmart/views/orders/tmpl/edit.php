@@ -22,6 +22,7 @@ $doc = JFactory::getDocument();
 TSMHtmlJquery::numeric();
 TSMHtmlJquery::serializeobject();
 TSMHtmlJquery::utility();
+TSMHtmlJquery::zozo_tab();
 TSMHtmlJquery::delorean();
 $this->debug=$this->tsmutility_helper->get_debug();
 $doc->addLessStyleSheet(JUri::root() . '/administrator/components/com_tsmart/assets/less/view_orders_edit.less');
@@ -31,7 +32,7 @@ AdminUIHelper::startAdminArea($this);
 
 $order_data=json_decode($this->item->order_data);
 $this->order_data=$order_data;
-
+$this->passenger_config=$this->order_data->passenger_config;
 $list_passenger=$order_data->list_passenger;
 $this->build_room=(array)$order_data->build_room;
 //$this->list_passenger=array_merge($list_passenger->senior_adult_teen,$list_passenger->children_infant);
@@ -114,6 +115,23 @@ $this->list_tab=array(
         <?php echo JHtml::_('form.token'); ?>
 
     </form>
+    <div class="order_book_add_on hide">
+
+        <?php echo $this->loadTemplate('form_book_add_on') ?>
+    </div>
+    <div class="order_edit_excursion hide">
+
+        <?php echo $this->loadTemplate('form_excursion') ?>
+    </div>
+    <div class="order_edit_transfer hide">
+
+        <?php echo $this->loadTemplate('form_transfer') ?>
+    </div>
+    <div class="order_edit_night_hotel hide">
+
+        <?php echo $this->loadTemplate('form_night_hotel') ?>
+    </div>
+
     <div class="order_edit_main_tour hide">
 
         <?php echo $this->loadTemplate('form') ?>
@@ -129,6 +147,16 @@ $this->list_tab=array(
     </div>
     <div class="order_form_add_and_remove_passenger hide">
         <?php echo $this->loadTemplate('form_add_and_remove_passenger') ?>
+    </div>
+
+    <div class="order_edit_form_show_first_history_rooming hide">
+        <?php echo $this->loadTemplate('form_show_first_history_rooming') ?>
+    </div>
+    <div class="order_edit_form_show_near_last_history_rooming hide">
+        <?php echo $this->loadTemplate('form_show_near_last_history_rooming') ?>
+    </div>
+    <div class="order_edit_form_show_last_history_rooming hide">
+        <?php echo $this->loadTemplate('form_show_last_history_rooming') ?>
     </div>
 </div>
 

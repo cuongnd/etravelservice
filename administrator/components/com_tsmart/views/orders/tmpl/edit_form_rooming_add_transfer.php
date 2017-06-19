@@ -17,14 +17,14 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_room.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="view_orders_edit_form_edit_room form-horizontal">
+<div class="passengerconfirmation form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
@@ -54,9 +54,6 @@ $i = 0;
                     <th>
                         <?php echo $this->sort('creation', 'Creation'); ?>
                     </th>
-                    <th>
-                        <?php echo JText::_('Action') ?>
-                    </th>
                 </tr>
                 </thead>
                 <?php
@@ -65,14 +62,13 @@ $i = 0;
                     $checked = JHtml::_('grid.id', $i, $row->tsmart_room_order_id);
                     ob_start();
                     ?>
-                    <tr class="room_order_item" data-tsmart_room_order_id="<?php echo $row->tsmart_room_order_id ?>">
+                    <tr>
                         <td><?php echo $checked ?></td>
                         <td><?php echo $row->names ?></td>
                         <td><?php echo $row->titles  ?></td>
                         <td><?php echo $row->room_type  ?></td>
                         <td><?php echo $row->room_note  ?></td>
                         <td><?php echo $row->creation  ?></td>
-                        <td><a class="delete" href="javascript:void(0)"><span class="icon-delete"></span></a></td>
                     </tr>
                     <?php
                     $html=ob_get_clean();
@@ -80,8 +76,6 @@ $i = 0;
                 };
                 foreach($this->list_roomming as $item){
                     $passengers=$this->passenger_helper->get_list_passenger_by_room_oder_id($item->tsmart_room_order_id);
-                    if(!count($passengers))
-                        continue;
                     $title=array();
                     $names=array();
                     $room_notes=array();
@@ -99,48 +93,11 @@ $i = 0;
                     $row->room_note=count($room_notes)?implode(",",$room_notes):'';
                     echo $render_tr($row);
                 }
-
-
                 ?>
             </table>
-            <h4><?php echo JText::_('List passenger unset room') ?></h4>
             <div class="row">
                 <div class="span12">
-                    <ul class="list_passenger_not_in_temporary_and_not_in_room">
-                        <?php foreach($this->list_passenger_not_in_temporary_and_not_in_room as $passenger){
-                            $year_old=TSMUtility::get_year_old_by_date($passenger->date_of_birth);
-
-                            ?>
-                            <li class="tag passenger"><?php echo TSMUtility::get_full_name($passenger) ?>(<?php echo JText::sprintf("%s year",$year_old) ?>)</li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span12">
-                    <div class="pull-right">
-                    <button class="btn btn-primary show-first-history"><span class="icon-redo"></span><?php echo JText::_('Show first history') ?></button>
-                    <button class="btn btn-primary show-near-last-one-history"><span class="icon-redo"></span><?php echo JText::_('Show near the last one history') ?></button>
-                    <button class="btn btn-primary show-last-history"><span class="icon-redo"></span><?php echo JText::_('Show last history') ?></button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span12">
-                    <?php
-                    foreach($this->list_passenger_not_in_temporary_and_not_in_room as &$passenger){
-                        $passenger->year_old=TSMUtility::get_year_old_by_date($passenger->date_of_birth);
-                    }
-                    ?>
-                    <?php echo VmHtml::_('buil_rooming_list.rooming_list',$this->list_passenger_not_in_temporary_and_not_in_room,'rooming_list','',$this->departure,$this->passenger_config,$this->debug);?>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
-                        <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
-                    </div>
+                    <div class="pull-right room-control"><a class="edit-room" href="javascript:void(0)"><?php  echo JText::_('Edit room') ?></a></div>
                 </div>
             </div>
 

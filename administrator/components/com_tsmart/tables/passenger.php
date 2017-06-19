@@ -32,6 +32,7 @@ class TablePassenger extends tsmTableData {
 
 	/** @var int Primary key */
 	var $tsmart_passenger_id = 0;
+	var $tsmart_parent_passenger_id = null;
 	/** @var int User ID */
 	var $passenger_index = "";
 	var $tsmart_order_id = null;

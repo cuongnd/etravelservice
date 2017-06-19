@@ -284,6 +284,102 @@
                 $( ".view_orders_edit_form_edit_passenger .wrapper-calculator").find('span.cost.full-total').autoNumeric('set',full_total);
             }
         };
+        plugin.update_build_rooming_by_passenger = function (list_passenger_not_in_temporary_and_not_in_room) {
+            var  $html_build_rooming_hotel_rooming_list=$('#html_build_rooming_hotel_rooming_list').data('html_build_rooming_list');
+            $html_build_rooming_hotel_rooming_list.update_build_rooming_by_passenger(list_passenger_not_in_temporary_and_not_in_room);
+            var $ul_list_passenger_not_in_temporary_and_not_in_room=$( ".view_orders_edit_form_edit_room").find('ul.list_passenger_not_in_temporary_and_not_in_room');
+            $ul_list_passenger_not_in_temporary_and_not_in_room.empty();
+            for (var key in list_passenger_not_in_temporary_and_not_in_room) {
+                var item_passenger=list_passenger_not_in_temporary_and_not_in_room[key];
+                var full_name=plugin.get_passenger_full_name(item_passenger);
+                $(' <li class="tag passenger">'+full_name+'('+item_passenger.year_old+' year)'+'</li>').appendTo($ul_list_passenger_not_in_temporary_and_not_in_room);
+
+            }
+        };
+        plugin.fill_data_form_show_first_history_rooming = function (list_passenger) {
+            var $order_edit_form_show_first_history_rooming=$(".order_edit_form_show_first_history_rooming");
+            $order_edit_form_show_first_history_rooming.find('table.first_history_rooming tbody').empty();
+            for (var tsmart_room_order_id in list_passenger) {
+                var items=list_passenger[tsmart_room_order_id];
+                var room_type="";
+                var creation="";
+                var names=[];
+                var titles=[];
+                for(var i=0;i<items.length;i++) {
+                    var passenger=items[i];
+                    var full_name=plugin.get_passenger_full_name(passenger);
+                    names.push(full_name);
+                    titles.push(passenger.title);
+                    room_type=passenger.room_type;
+                    creation=passenger.created_on;
+                }
+                var $template_show_first_history_rooming = $(plugin.settings.template_show_first_history_rooming);
+                $template_show_first_history_rooming.find('span.tsmart_room_order_id').html(tsmart_room_order_id);
+                $template_show_first_history_rooming.find('span.names').html(names.join("<br/>"));
+                $template_show_first_history_rooming.find('span.titles').html(titles.join("<br/>"));
+                $template_show_first_history_rooming.find('span.room_type').html(room_type);
+                $template_show_first_history_rooming.find('span.creation').html(creation);
+                $template_show_first_history_rooming.appendTo($order_edit_form_show_first_history_rooming.find('table.first_history_rooming tbody'));
+            }
+
+
+        };
+        plugin.fill_data_form_show_near_last_history_rooming = function (list_passenger) {
+            var $order_edit_form_show_near_last_history_rooming=$(".order_edit_form_show_near_last_history_rooming");
+            $order_edit_form_show_near_last_history_rooming.find('table.near_last_history_rooming tbody').empty();
+            for (var tsmart_room_order_id in list_passenger) {
+                var items=list_passenger[tsmart_room_order_id];
+                var room_type="";
+                var creation="";
+                var names=[];
+                var titles=[];
+                for(var i=0;i<items.length;i++) {
+                    var passenger=items[i];
+                    var full_name=plugin.get_passenger_full_name(passenger);
+                    names.push(full_name);
+                    titles.push(passenger.title);
+                    room_type=passenger.room_type;
+                    creation=passenger.created_on;
+                }
+                var $template_form_show_near_last_history_rooming= $(plugin.settings.template_show_near_last_history_rooming);
+                $template_form_show_near_last_history_rooming.find('span.tsmart_room_order_id').html(tsmart_room_order_id);
+                $template_form_show_near_last_history_rooming.find('span.names').html(names.join("<br/>"));
+                $template_form_show_near_last_history_rooming.find('span.titles').html(titles.join("<br/>"));
+                $template_form_show_near_last_history_rooming.find('span.room_type').html(room_type);
+                $template_form_show_near_last_history_rooming.find('span.creation').html(creation);
+                $template_form_show_near_last_history_rooming.appendTo($order_edit_form_show_near_last_history_rooming.find('table.near_last_history_rooming tbody'));
+            }
+
+
+        };
+        plugin.fill_data_form_show_last_history_rooming = function (list_passenger) {
+            var $order_edit_form_show_last_history_rooming=$(".order_edit_form_show_last_history_rooming");
+            $order_edit_form_show_last_history_rooming.find('table.last_history_rooming tbody').empty();
+            for (var tsmart_room_order_id in list_passenger) {
+                var items=list_passenger[tsmart_room_order_id];
+                var room_type="";
+                var creation="";
+                var names=[];
+                var titles=[];
+                for(var i=0;i<items.length;i++) {
+                    var passenger=items[i];
+                    var full_name=plugin.get_passenger_full_name(passenger);
+                    names.push(full_name);
+                    titles.push(passenger.title);
+                    room_type=passenger.room_type;
+                    creation=passenger.created_on;
+                }
+                var $template_form_show_last_history_rooming= $(plugin.settings.template_show_last_history_rooming);
+                $template_form_show_last_history_rooming.find('span.tsmart_room_order_id').html(tsmart_room_order_id);
+                $template_form_show_last_history_rooming.find('span.names').html(names.join("<br/>"));
+                $template_form_show_last_history_rooming.find('span.titles').html(titles.join("<br/>"));
+                $template_form_show_last_history_rooming.find('span.room_type').html(room_type);
+                $template_form_show_last_history_rooming.find('span.creation').html(creation);
+                $template_form_show_last_history_rooming.appendTo($order_edit_form_show_last_history_rooming.find('table.last_history_rooming tbody'));
+            }
+
+
+        };
         plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -386,7 +482,7 @@
                 var terms_condition=$(".order_edit_main_tour").find('#terms_condition').val();
                 var reservation_notes=$(".order_edit_main_tour").find('#reservation_notes').val();
                 var tsmart_orderstate_id=$(".order_edit_main_tour").find('#tsmart_orderstate_id').val();
-                var itinerary_content=tinymce.get("itinerary").getContent();
+                var itinerary_content=tinymce.get("jform_articletext").getContent();
 
                 $.ajax({
                     type: "POST",
@@ -446,6 +542,239 @@
             $('.view_orders_edit_form_edit_room').find('button.cancel').click(function(){
                 $(".order_edit_room").dialog('close');
             });
+            $('.view_orders_edit_form_edit_room').find('button.save').click(function(){
+               var  $html_build_rooming_hotel_rooming_list=$('#html_build_rooming_hotel_rooming_list').data('html_build_rooming_list');
+                if(!$html_build_rooming_hotel_rooming_list.validate()){
+                    return;
+                }
+                $html_build_rooming_hotel_rooming_list.get_data();
+                var list_night_hotel=$html_build_rooming_hotel_rooming_list.settings.list_night_hotel;
+                var list_passenger=$html_build_rooming_hotel_rooming_list.settings.list_passenger;
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_rooming',
+                            tsmart_order_id:tsmart_order_id,
+                            list_night_hotel:list_night_hotel,
+                            list_passenger:list_passenger
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        //plugin.update_data_order();
+                        $(".order_edit_room").dialog('close');
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_orders_edit_form_edit_room').find('button.show-first-history').click(function(){
+              var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'get_first_history_rooming',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_passenger=response.list_passenger;
+                        plugin.fill_data_form_show_first_history_rooming(list_passenger);
+                        $(".order_edit_form_show_first_history_rooming").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+
+            $('.view_orders_edit_form_edit_room').find('button.show-near-last-one-history').click(function(){
+              var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'get_near_last_history_rooming',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_passenger=response.list_passenger;
+                        plugin.fill_data_form_show_near_last_history_rooming(list_passenger);
+                        $(".order_edit_form_show_near_last_history_rooming").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_orders_edit_form_edit_room').find('button.show-last-history').click(function(){
+              var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'get_last_history_rooming',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_passenger=response.list_passenger;
+                        plugin.fill_data_form_show_last_history_rooming(list_passenger);
+                        $(".order_edit_form_show_last_history_rooming").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+
+            $('.order_edit_form_show_first_history_rooming').find('button.cancel').click(function(){
+                $(".order_edit_form_show_first_history_rooming").dialog('close');
+            });
+            $('.order_edit_form_show_near_last_history_rooming').find('button.cancel').click(function(){
+                $(".order_edit_form_show_near_last_history_rooming").dialog('close');
+            });
+            $('.order_edit_form_show_last_history_rooming').find('button.cancel').click(function(){
+                $(".order_edit_form_show_last_history_rooming").dialog('close');
+            });
+            $('.view_orders_edit_form_edit_room').find('a.delete').click(function(){
+                if (!confirm('are you sure delete this room ?')) {
+                    return;
+                }
+                var $tr=$(this).closest('tr.room_order_item');
+                var tsmart_room_order_id=$tr.data('tsmart_room_order_id');
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_delete_rooming',
+                            tsmart_order_id:tsmart_order_id,
+                            tsmart_room_order_id:tsmart_room_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.error==0){
+                            alert('delete successful');
+                        }
+                        $( ".view_orders_edit_form_edit_room").find('tr.room_order_item[data-tsmart_room_order_id="'+tsmart_room_order_id+'"]').remove();
+                        var list_passenger_not_in_temporary_and_not_in_room=response.list_passenger_not_in_temporary_and_not_in_room;
+                        plugin.update_build_rooming_by_passenger(list_passenger_not_in_temporary_and_not_in_room);
+                        //plugin.update_data_order();
+                        //$(".order_edit_room").dialog('close');
+
+                    }
+                });
+
+
+
+
+            });
             $element.find("#adminForm").validate();
             $element.find('.toolbar .cancel').click(function(){
                 Joomla.submitform('cancel');
@@ -489,6 +818,178 @@
 
 
 
+            });
+
+            $element.find('.edit_form.night_hotel').click(function(){
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_by_order_id',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_row=response.list_row;
+                        plugin.update_orders_show_form_passenger(list_row);
+                        plugin.update_orders_show_form_general(response);
+                        $(".order_edit_night_hotel").dialog('open');
+
+                    }
+                });
+
+
+
+            });
+            $element.find('.edit_form.transfer').click(function(){
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_by_order_id',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_row=response.list_row;
+                        plugin.update_orders_show_form_passenger(list_row);
+                        plugin.update_orders_show_form_general(response);
+                        $(".order_edit_transfer").dialog('open');
+
+                    }
+                });
+
+
+
+            });
+            $element.find(".tabbed-nav.book-add-on").zozoTabs({
+                theme: "silver",
+                orientation: "horizontal",
+                position: "top-left",
+                size: "medium",
+                animation: {
+                    easing: "easeInOutExpo",
+                    duration: 400,
+                    effects: "slideH"
+                },
+                defaultTab: "tab1"
+            });
+            $element.find(".order_book_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'book add on',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find('.list-control-activity .btn-book-add-on').click(function(){
+                $(".order_book_add_on").dialog('open');
+            });
+            $element.find('.edit_form.excursion').click(function(){
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_by_order_id',
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_row=response.list_row;
+                        plugin.update_orders_show_form_passenger(list_row);
+                        plugin.update_orders_show_form_general(response);
+                        $(".order_edit_excursion").dialog('open');
+
+                    }
+                });
+
+
+
+            });
+            $element.find(".order_edit_excursion").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Edit excursion',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".order_edit_transfer").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Edit transfer',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".order_edit_night_hotel").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'Edit night hotel',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
             });
             $element.find(".order_edit_main_tour").dialog({
                 dialogClass:'asian-dialog-form',
@@ -561,6 +1062,48 @@
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
             });
+
+            $element.find(".order_edit_form_show_first_history_rooming").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: false,
+                hide: 'explode',
+                width: 900,
+                autoOpen: false,
+                title: 'Show first history rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+            var $first_history_rooming=$('.view_orders_edit_form_show_first_history_rooming').find('table.first_history_rooming tbody tr:first-child');
+            plugin.settings.template_show_first_history_rooming=$first_history_rooming.getOuterHTML();
+            $first_history_rooming.remove();
+            $element.find(".order_edit_form_show_near_last_history_rooming").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: false,
+                hide: 'explode',
+                width: 900,
+                autoOpen: false,
+                title: 'Show near last history rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+            var $near_last_history_rooming=$('.view_orders_edit_form_show_near_last_history_rooming').find('table.near_last_history_rooming tbody tr:first-child');
+            plugin.settings.template_show_near_last_history_rooming=$near_last_history_rooming.getOuterHTML();
+            $near_last_history_rooming.remove();
+
+
+            $element.find(".order_edit_form_show_last_history_rooming").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: false,
+                hide: 'explode',
+                width: 900,
+                autoOpen: false,
+                title: 'Show last history rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+            var $last_history_rooming=$('.view_orders_edit_form_show_last_history_rooming').find('table.last_history_rooming tbody tr:first-child');
+            plugin.settings.template_show_last_history_rooming=$last_history_rooming.getOuterHTML();
+            $last_history_rooming.remove();
 
             $('.order_edit_main_tour').find('.passenger-control .edit-booking-cost').click(function(){
                 var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();

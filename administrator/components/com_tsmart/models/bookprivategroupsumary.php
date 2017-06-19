@@ -300,7 +300,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                 }
             }
         }
-
+        die("reload");
         return $orderTable;
     }
     public function send_bookprivategroupsumary($booking_summary, $email_address, $new_member = true, $order, $user_token = '')

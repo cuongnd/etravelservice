@@ -27,7 +27,7 @@ abstract class TSMHtmlBuil_rooming_list
      *
      * @since   1.5
      */
-    public static function rooming_list($list_passenger = array(), $name = 'roomming_list', $default = '0', $departure, $passenger_config, $type, $extra_night_config, $debug = false)
+    public static function rooming_list($list_passenger = array(), $name = 'roomming_list', $default = '0', $departure, $passenger_config, $debug = false)
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
@@ -55,24 +55,34 @@ abstract class TSMHtmlBuil_rooming_list
         $lipsum = new joshtronic\LoremIpsum();
         $session = JFactory::getSession();
         $input = JFactory::getApplication()->input;
-        $id_element = 'html_build_extra_night_hotel_' . $name;
-        $type = $type ? $type : 'pre_night';
+        $id_element = 'html_build_rooming_hotel_' . $name;
         //$debug = true;
         $config = tsmConfig::get_config();
         $params = $config->params;
-        if ($type == 'pre_night') {
-            $hotel_night_booking_days_allow = $params->get('hotel_pre_night_booking_days_allow', 1);
-        } else {
-            $hotel_night_booking_days_allow = $params->get('hotel_post_night_booking_days_allow', 1);
-        }
         $hoteladdon_helper = tsmHelper::getHepler('hoteladdon');
-        $group_min_price = $hoteladdon_helper->get_group_min_price($departure->tsmart_product_id, $departure->departure_date, $type);
         $list_room_type = array(
             single => 1,
             double => 2,
             twin => 2,
             trip => 3
         );
+        $list_can_more_bed=new stdClass();
+        $single=new stdClass();
+        $single->min=0;
+        $single->max=0;
+        $list_can_more_bed->single=$single;
+        $double=new stdClass();
+        $double->min=0;
+        $double->max=1;
+        $list_can_more_bed->double=$double;
+        $twin=new stdClass();
+        $twin->min=0;
+        $twin->max=1;
+        $list_can_more_bed->twin=$twin;
+        $trip=new stdClass();
+        $trip->min=0;
+        $trip->max=10;
+        $list_can_more_bed->trip=$trip;
         ob_start();
         ?>
         <script type="text/javascript">
@@ -87,10 +97,8 @@ abstract class TSMHtmlBuil_rooming_list
                     debug:<?php echo json_encode($debug) ?>,
                     departure:<?php echo json_encode($departure) ?>,
                     passenger_config:<?php echo json_encode($passenger_config) ?>,
-                    extra_night_config:<?php echo json_encode($extra_night_config) ?>,
-                    type: '<?php echo $type ?>',
                     list_room_type:<?php echo json_encode($list_room_type) ?>,
-                    hotel_night_booking_days_allow:<?php echo (int)$hotel_night_booking_days_allow ?>,
+                    list_can_more_bed:<?php echo json_encode($list_can_more_bed) ?>,
                 });
             });
         </script>
@@ -212,6 +220,28 @@ abstract class TSMHtmlBuil_rooming_list
                                                         <option selected
                                                                 value="-1"><?php echo JText::_('Please select passenger') ?></option>
                                                     </select>
+                                                <?php } ?>
+                                                <?php
+
+                                                $extra_beb_item=$list_can_more_bed->{$room_type};
+                                                ?>
+                                                <?php if($extra_beb_item->max>0){ ?>
+                                                <div class="">
+                                                    <a href="javascript:void(0)" class="pull-right link add-more-room"><?php echo JText::_('Add extra bed') ?></a>
+                                                </div>
+                                                <div class="wrapper-add-more-bed">
+                                                    <div class="extra-beb-item-passenger">
+                                                        <div class="pull-left">
+                                                            <select  disable_chosen="true"  style="width: 100%" class="">
+                                                                <option selected
+                                                                        value="-1"><?php echo JText::_('Please select passenger') ?></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-primary btn-xs btn-remove-extra-beb"><span class="icon-delete"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <?php } ?>
                                             </div>
                                         </div>
