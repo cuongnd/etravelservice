@@ -42,6 +42,7 @@ $i = 0;
         </div>
     </div>
     <input type="hidden" name="tsmart_order_hotel_addon_id" value="">
+    <input type="hidden" name="type" value="">
 </div>
 <!-- Product pricing -->
 

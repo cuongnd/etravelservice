@@ -226,22 +226,23 @@ abstract class TSMHtmlBuil_rooming_list
                                                 $extra_beb_item=$list_can_more_bed->{$room_type};
                                                 ?>
                                                 <?php if($extra_beb_item->max>0){ ?>
-                                                <div class="">
-                                                    <a href="javascript:void(0)" class="pull-right link add-more-room"><?php echo JText::_('Add extra bed') ?></a>
-                                                </div>
                                                 <div class="wrapper-add-more-bed">
                                                     <div class="extra-beb-item-passenger">
-                                                        <div class="pull-left">
+                                                        <div class="pull-left>
+                                                            <button class="btn btn-primary btn-xs btn-remove-extra-beb"><span class="icon-delete"></span></button>
+                                                        </div>
+                                                        <div class="pull-right">
                                                             <select  disable_chosen="true"  style="width: 100%" class="">
                                                                 <option selected
                                                                         value="-1"><?php echo JText::_('Please select passenger') ?></option>
                                                             </select>
                                                         </div>
-                                                        <div class="pull-right">
-                                                            <button class="btn btn-primary btn-xs btn-remove-extra-beb"><span class="icon-delete"></span></button>
-                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="">
+                                                    <a href="javascript:void(0)" class="pull-right link add-more-room"><?php echo JText::_('Add extra bed') ?></a>
+                                                </div>
+
                                                 <?php } ?>
                                             </div>
                                         </div>

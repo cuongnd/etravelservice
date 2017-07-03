@@ -18,6 +18,12 @@
                 vMin: '-999.00',
                 aSign: ''
             },
+            numeric_tax_config: {
+                mDec: 1,
+                aSep: ' ',
+                vMin: '-999.00',
+                aSign: ''
+            },
             list_passenger_not_in_room:[]
         }
 
@@ -80,6 +86,24 @@
                 $tr.find('input.cancel_fee').autoNumeric('set',parseFloat(passenger.cancel_fee));
                 //plugin.calculator_price($tr);
             }
+
+        };
+        plugin.fill_data_service_cost_edit_hotel_add = function (data_price) {
+            var $tbody=$(".view_orders_edit_form_edit_service_cost_edit_hotel").find('table.service_cost_edit_hotel tbody');
+            $tbody.empty();
+            for(var key in data_price) {
+                var room=data_price[key];
+                var $tr= $( plugin.settings.row_service_cost_edit_hotel_addon);
+                $tr.appendTo($tbody);
+                $tr.find('.room_type').html(room.room_type);
+                $tr.find('.net_price').html(room.net_price);
+                $tr.find('.mark_up').html(room.mark_up_price);
+                $tr.find('.tax').html(room.tax);
+                $tr.find('.sale_price').html(room.sale_price);
+            }
+
+            $tbody.find('.service_cost').autoNumeric('init', plugin.settings.config_show_price);
+            $tbody.find('.tax').autoNumeric('init', plugin.settings.numeric_tax_config);
 
         };
         plugin.calculator_price_show = function ($tr) {
@@ -176,7 +200,7 @@
             tinymce.get("itinerary").setContent(itinerary);
             //$('.edit-form-general').find('#terms_condition').val(terms_condition);
         };
-        plugin.update_orders_show_form_general_edit_hotel_addon = function (response) {
+        plugin.update_orders_show_form_general_edit_hotel_addon = function (response,type) {
             var order_detail=response.order_detail;
             var hotel_addon_detail=response.hotel_addon_detail;
             var terms_condition=hotel_addon_detail.terms_condition;
@@ -185,8 +209,12 @@
             $('.view_orders_edit_from_general_edit_hotel_addon').find('#reservation_notes').val(reservation_notes);
             $('.view_orders_edit_from_general_edit_hotel_addon').find('input.hotel_name').val(hotel_addon_detail.hotel_name);
             $(".order_edit_night_hotel").find('input[name="tsmart_order_hotel_addon_id"]').val(hotel_addon_detail.tsmart_order_hotel_addon_id);
+            $(".order_edit_night_hotel").find('input[name="type"]').val(type);
             //$('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order.tsmart_orderstate_id).trigger('change');
             //$('.edit-form-general').find('#terms_condition').val(terms_condition);
+            var data_price=hotel_addon_detail.data_price;
+            plugin.fill_data_service_cost_edit_hotel_add(data_price);
+
         };
         plugin.fill_data_passenger_detail = function (passenger_data) {
             var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
@@ -426,6 +454,15 @@
                 $template_form_show_last_history_rooming.appendTo($order_edit_form_show_last_history_rooming.find('table.last_history_rooming tbody'));
             }
 
+
+        };
+        plugin.reset_build_rooming_hotel_add_form = function (response,type) {
+            console.log(response);
+            var $build_room_hotel_add_on = $('#html_build_room').data('build_room_hotel_add_on');
+            $build_room_hotel_add_on.settings.list_passenger=response.list_passenger;
+            $build_room_hotel_add_on.reset_build_hotel_add_on();
+
+            //$build_room_hotel_add_on.update_passengers(list_passenger,index_action,event_name);
 
         };
         plugin.init = function () {
@@ -709,6 +746,9 @@
 
 
             });
+            $('.order_form_add_and_remove_room_edit_hotel_addon').find('button.save-room').click(function(){
+               alert('hello order_form_add_and_remove_room_edit_hotel_addon');
+            });
             $('.view_orders_edit_form_edit_room').find('button.show-first-history').click(function(){
               var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
                 $.ajax({
@@ -972,7 +1012,7 @@
                         });
                         var list_passenger=response.list_passenger;
                         plugin.update_orders_show_form_hotel_addon_passenger(list_passenger);
-                        plugin.update_orders_show_form_general_edit_hotel_addon(response);
+                        plugin.update_orders_show_form_general_edit_hotel_addon(response,type);
                         $(".order_edit_night_hotel").dialog('open');
 
                     }
@@ -1224,6 +1264,9 @@
             var $row_passenger_cost=$(".order_edit_passenger_cost_edit_hotel_add_on").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody tr.passenger');
             plugin.settings.row_passenger_cost_edit_hotel_addon=$row_passenger_cost.getOuterHTML();
 
+            var $tr_service_cost_edit_hotel=$(".view_orders_edit_form_edit_service_cost_edit_hotel").find('table.service_cost_edit_hotel tbody tr.item-room');
+            plugin.settings.row_service_cost_edit_hotel_addon=$tr_service_cost_edit_hotel.getOuterHTML();
+            $tr_service_cost_edit_hotel.remove();
             $element.find(".order_edit_passenger_cost_edit_hotel_add_on").dialog({
                 dialogClass:'asian-dialog-form',
                 modal: true,
@@ -1361,7 +1404,58 @@
 
 
             });
+            $('.order_edit_night_hotel').find('.passenger-control .edit-hotel-add-room').click(function(){
+                var tsmart_order_hotel_addon_id=$('.order_edit_night_hotel').find('input[name="tsmart_order_hotel_addon_id"]').val();
+                var type=$('.order_edit_night_hotel').find('input[name="type"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
 
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_night_hotel_detail_and_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id',
+                            tsmart_order_hotel_addon_id:tsmart_order_hotel_addon_id,
+                            type:type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+
+                        plugin.reset_build_rooming_hotel_add_form(response,type);
+                        $(".order_form_add_and_remove_room_edit_hotel_addon").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+
+            $element.find(".order_form_add_and_remove_room_edit_hotel_addon").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'add rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
             $element.find(".order_edit_room").dialog({
                 dialogClass:'asian-dialog-form',
                 modal: true,
@@ -1504,6 +1598,9 @@
 
 
 
+            });
+            $('.order_form_add_and_remove_room_edit_hotel_addon').find('button.cancel').click(function(){
+                $(".order_form_add_and_remove_room_edit_hotel_addon").dialog('close');
             });
             $('.form_order_voucher_center').find('button.cancel').click(function(){
                 $(".form_order_voucher_center").dialog('close');

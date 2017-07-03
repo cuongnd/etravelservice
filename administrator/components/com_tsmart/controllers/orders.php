@@ -190,6 +190,7 @@ class TsmartControllerorders extends TsmController
         $query=$db->getQuery(true);
         $query->select(
             'hotel.hotel_name,
+            hotel_addon.tsmart_hotel_addon_id,
             hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
             ,tsmart_order_id
             ,reservation_notes
@@ -201,7 +202,62 @@ class TsmartControllerorders extends TsmController
             ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id=hotel_addon.tsmart_hotel_id')
             ->where('hotel_addon_order.tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id);
         $hotel_addon = $db->setQuery($query)->loadObject();
+        $holtel_add_on_helper=TSMhelper::getHepler('hoteladdon');
+        $data_price=$holtel_add_on_helper->get_data_price_by_hotel_add_on_id($hotel_addon->tsmart_hotel_addon_id); base64_decode($hotel_addon->data_price);
+        $hotel_addon->data_price = $data_price;
+        $order_table = tsmTable::getInstance('orders', 'Table');
+        $order_table->jload($hotel_addon->tsmart_order_id);
+        $response = new stdClass();
+        $response->e = 0;
+        $order_object = (object)$order_table->getproperties();
+        $response->order_detail = $order_object;
+        $response->hotel_addon_detail = $hotel_addon;
+        $response->list_passenger = $list_passenger;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_get_order_detail_and_night_hotel_detail_and_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id()
+    {
+        $app = JFactory::getApplication();
+        $order_table = tsmTable::getInstance('orders', 'Table');
+        $data = $app->input->getArray();
 
+        $tsmart_order_hotel_addon_id = $data['tsmart_order_hotel_addon_id'];
+        $type = $data['type'];
+        $response = new stdClass();
+        $response->e = 0;
+        $passenger_helper = TSMHelper::getHepler('passenger');
+
+        $list_passenger = $passenger_helper->get_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id($type);
+        foreach ($list_passenger as &$passenger_in_room) {
+            $passenger_in_room->single_room_fee = $passenger_in_room->room_fee;
+            $passenger_in_room->tour_fee = $passenger_in_room->tour_cost;
+            $passenger_in_room->discount_fee = $passenger_in_room->discount;
+            $passenger_in_room->total_cost = $passenger_in_room->tour_cost + $passenger_in_room->room_fee + $passenger_in_room->extra_fee - $passenger_in_room->discount;
+
+            $passenger_in_room->balance = $passenger_in_room->total_cost - $passenger_in_room->payment;
+            $passenger_in_room->refund = $passenger_in_room->payment - $passenger_in_room->cancel_fee;
+            $passenger_in_room->passenger_status = $passenger_in_room->tour_tsmart_passenger_state_id;
+        }
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select(
+            'hotel.hotel_name,
+            hotel_addon.tsmart_hotel_addon_id,
+            hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
+            ,tsmart_order_id
+            ,reservation_notes
+            ,checkin_date
+            ,checkout_date
+        ')
+            ->from('#__tsmart_hotel_addon AS hotel_addon')
+            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_hotel_addon_id=hotel_addon.tsmart_hotel_addon_id')
+            ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id=hotel_addon.tsmart_hotel_id')
+            ->where('hotel_addon_order.tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id);
+        $hotel_addon = $db->setQuery($query)->loadObject();
+        $holtel_add_on_helper=TSMhelper::getHepler('hoteladdon');
+        $data_price=$holtel_add_on_helper->get_data_price_by_hotel_add_on_id($hotel_addon->tsmart_hotel_addon_id); base64_decode($hotel_addon->data_price);
+        $hotel_addon->data_price = $data_price;
         $order_table = tsmTable::getInstance('orders', 'Table');
         $order_table->jload($hotel_addon->tsmart_order_id);
         $response = new stdClass();

@@ -175,6 +175,109 @@ class tsmHotelAddon
         $min_price->tpl_min_price=$tpl_min_price;
         return $min_price;
     }
+    public static function get_data_price_by_hotel_add_on_id($tsmart_hotel_addon_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_hotel_addon AS hotel_addon')
+            ->where('hotel_addon.tsmart_hotel_addon_id='.(int)$tsmart_hotel_addon_id);
+
+        ;
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $hotel_addon=$db->setQuery($query)->loadObject();
+        $hotel_addon->data_price=base64_decode($hotel_addon->data_price);
+        $data_price = up_json_decode($hotel_addon->data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        $data_price_for_room=new stdClass();
+        if ($data_price != null) {
+            $item_mark_up_type =$data_price->item_mark_up_type;
+            $items =$data_price->items;
+            $double_twin_room =$items->double_twin_room;
+            $single_room =$items->single_room;
+            $triple_room =$items->triple_room;
+            $double_twin_room_mark_up_amount =(float)$double_twin_room->mark_up_amount;
+            $double_twin_room_mark_up_percent =(float)$double_twin_room->mark_up_percent;
+            $double_twin_room_net_price =(float)$double_twin_room->net_price;
+            $double_twin_room_tax =(float)$double_twin_room->tax;
+            $single_room_mark_up_amount =(float)$single_room->mark_up_amount;
+            $single_room_mark_up_percent =(float)$single_room->mark_up_percent;
+            $single_room_net_price =(float)$single_room->net_price;
+            $single_room_tax =(float)$single_room->tax;
+            $triple_room_mark_up_amount =(float)$triple_room->mark_up_amount;
+            $triple_room_mark_up_percent =(float)$triple_room->mark_up_percent;
+            $triple_room_net_price =(float)$triple_room->net_price;
+            $triple_room_tax =(float)$triple_room->tax;
+
+            if ($item_mark_up_type =='percent') {
+
+                $current_double_twin_room_sale_price =$double_twin_room_net_price + ($double_twin_room_net_price * $double_twin_room_mark_up_percent) / 100;
+                $current_double_twin_room_sale_price =$current_double_twin_room_sale_price + ($current_double_twin_room_sale_price * $double_twin_room_tax) / 100;
+
+                $double_twin_room=new stdClass();
+                $double_twin_room->net_price=$double_twin_room_net_price;
+                $double_twin_room->mark_up_price=($double_twin_room_net_price * $double_twin_room_mark_up_percent) / 100;
+                $double_twin_room->tax=$double_twin_room_tax;
+                $double_twin_room->sale_price=$current_double_twin_room_sale_price;
+                $data_price_for_room->double_twin_room=$double_twin_room;
+
+                $single_room_sale_price =$single_room_net_price + ($single_room_net_price * $single_room_mark_up_percent) / 100;
+                $single_room_sale_price =$single_room_sale_price + ($single_room_sale_price * $single_room_tax) / 100;
+
+                $single_room=new stdClass();
+                $single_room->net_price=$single_room_net_price;
+                $single_room->mark_up_price=($single_room_net_price * $single_room_mark_up_percent) / 100;
+                $single_room->tax=$single_room_tax;
+                $single_room->sale_price=$single_room_sale_price;
+                $data_price_for_room->single_room=$single_room;
+
+                $current_triple_room_sale_price =$triple_room_net_price + ($triple_room_net_price * $triple_room_mark_up_percent) / 100;
+                $current_triple_room_sale_price =$current_triple_room_sale_price + ($current_triple_room_sale_price * $triple_room_tax) / 100;
+                $triple_room=new stdClass();
+                $triple_room->net_price=$triple_room_net_price;
+                $triple_room->mark_up_price=($triple_room_net_price * $triple_room_mark_up_percent) / 100;
+                $triple_room->tax=$triple_room_tax;
+                $triple_room->sale_price=$current_triple_room_sale_price;
+                $data_price_for_room->triple_room=$triple_room;
+
+
+            } else {
+                $current_double_twin_room_sale_price =$double_twin_room_net_price + $double_twin_room_mark_up_amount;
+                $current_double_twin_room_sale_price =$current_double_twin_room_sale_price + ($current_double_twin_room_sale_price * $double_twin_room_tax) / 100;
+
+                $double_twin_room=new stdClass();
+                $double_twin_room->net_price=$double_twin_room_net_price;
+                $double_twin_room->mark_up_price=$double_twin_room_mark_up_amount;
+                $double_twin_room->tax=$double_twin_room_tax;
+                $double_twin_room->sale_price=$current_double_twin_room_sale_price;
+                $data_price_for_room->double_twin_room=$double_twin_room;
+
+
+                $single_room_sale_price =$single_room_net_price + $single_room_mark_up_amount;
+                $single_room_sale_price =$single_room_sale_price + ($single_room_sale_price * $single_room_tax) / 100;
+                $single_room=new stdClass();
+                $single_room->net_price=$single_room_net_price;
+                $single_room->mark_up_price=$single_room_mark_up_amount;
+                $single_room->tax=$single_room_tax;
+                $single_room->sale_price=$single_room_sale_price;
+                $data_price_for_room->single_room=$single_room;
+
+                $current_triple_room_sale_price =$triple_room_net_price + $triple_room_mark_up_amount;
+                $current_triple_room_sale_price =$current_triple_room_sale_price + ($current_triple_room_sale_price * $triple_room_tax) / 100;
+
+                $triple_room=new stdClass();
+                $triple_room->net_price=$triple_room_net_price;
+                $triple_room->mark_up_price=$triple_room_mark_up_amount;
+                $triple_room->tax=$triple_room_tax;
+                $triple_room->sale_price=$current_triple_room_sale_price;
+                $data_price_for_room->triple_room=$triple_room;
+            }
+        }
+        $data_price_for_room->double_twin_room->room_type="double-twin room";
+        $data_price_for_room->single_room->room_type="Single room";
+        $data_price_for_room->triple_room->room_type="Triple room";
+        return $data_price_for_room;
+
+    }
 
     public static function get_detail_hotel_by_hotel_id($vituemart_hotel_id=0){
         $db=JFactory::getDbo();

@@ -119,6 +119,7 @@ $i = 0;
                     $html=ob_get_clean();
                     return $html;
                 };
+
                 $row = new stdClass();
                 $row->id=$this->item->tsmart_order_id;
                 $row->service_name=$this->tour->product_name;

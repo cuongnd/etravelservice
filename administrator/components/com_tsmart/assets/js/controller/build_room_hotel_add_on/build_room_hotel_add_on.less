@@ -1,116 +1,34 @@
-.html_build_rooming_list {
-  select{
-    margin: 0;
-    margin-top: 5px;
-    padding: 0;
-    height: 25px !important;
-    width: auto !important;
-    option[disabled]{
-      color: #00a000;
-      font-weight: bold;
-    }
-  }
-  textarea
-  {
-    resize: none;
-  }
-  .list_room_type
-  {
-    select{
-      width: 100% !important;
-    }
-  }
-  .title_room
-  {
-    padding: 5px 0px 0px 3px;
-  }
-  .passenger-item
-  {
-    .remove_room
-    {
-      border-radius: 0;
-      padding: 2px 6px;
-    }
-    .btn-remove-extra-beb
-    {
-      border-radius: 0;
-      padding: 1px 4px;
-    }
-  }
-  .check-in-date
-  {
-    background: url("images/calendar.gif") #fff;
-    background-repeat: no-repeat;
-    background-position: 95% 7px;
-    border: 1px solid #ccc;
-  }
-  .check-out-date
-  {
-    background: url("images/calendar.gif") #fff;
-    background-repeat: no-repeat;
-    background-position: 95% 7px;
-    border: 1px solid #ccc;
-  }
 
-  .list_room_type_passenger{
-    .passenger-item{
-      select{
-        margin: 0 0 2px;
-        padding: 0;
-        width: 100% !important;
-      }
-
-      select[disabled]{
-        color: #00a000;
-      }
-    }
-  }
-  .notify
-  {
-    margin-top: 20px;
-  }
-  .reservation
-  {
-
-  }
-
-  .title-select-room
-  {
-    text-transform: uppercase;
-  }
+.html_build_room {
   input, select {
     width: 80px;
-    height: auto;
-    border-radius: 0px;
+  }
+  .rooming-list
+  {
+    margin-top: 20px;
   }
   ul.list-passenger {
     columns: 2;
     -webkit-columns: 2;
     -moz-columns: 2;
   }
-
-  .item-night-hotel {
+  .item-room {
     padding: 10px;
-  }
-  .group_button
-  {
-    margin-top: 10px;
-    button:first-child{
-      margin-right: 10px;
+    textarea{
+      resize: none;
     }
   }
-
-  .item-night-hotel:nth-child(2n+1) {
-    background: #f4ecea url("images/node.jpg") repeat-y center;
+  .item-room:nth-child(2n+1) {
+    background: #f4ecea;
   }
-  .item-night-hotel:nth-child(2n) {
-    background: #f6fafb url("images/node.jpg") repeat-y center;
+  .item-room:nth-child(2n) {
+    background: #f6fafb;
   }
-  .item-night-hotel {
+  .item-room {
     position: relative;
-    margin-top: 10px;
+    margin-top: 20px;
   }
-  .item-night-hotel .move-room {
+  .item-room .move-room {
     position: absolute;
     right: 10px;
     cursor: pointer;
@@ -127,6 +45,14 @@
   {
     border: red solid 1px;
   }
+  .list-room
+  {
+    input {
+      width: auto;
+    }
+
+
+  }
   .list-room.error,.list-passenger.error
   {
     border: red solid 1px;
@@ -135,11 +61,17 @@
   }
   .list-passenger
   {
+    padding: 0px;
     list-style: none;
+    li{
+      input.passenger-item.change_passenger
+      {
+        width: auto;
+      }
+    }
   }
   .rooming-list
   {
-    display: none;
     .table-rooming-list{
       border-radius: 0;
       border-width:1px;
@@ -204,8 +136,5 @@
       }
     }
   }
-
-
-
 
 }

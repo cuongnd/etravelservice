@@ -156,6 +156,9 @@ $this->list_tab=array(
     <div class="order_edit_room hide">
         <?php echo $this->loadTemplate('form_edit_room') ?>
     </div>
+    <div class="order_form_add_and_remove_room_edit_hotel_addon hide">
+        <?php echo $this->loadTemplate('form_add_and_remove_room_edit_hotel_addon') ?>
+    </div>
     <div class="order_form_add_and_remove_passenger hide">
         <?php echo $this->loadTemplate('form_add_and_remove_passenger') ?>
     </div>

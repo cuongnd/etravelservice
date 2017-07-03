@@ -89,7 +89,10 @@ $i = 0;
             </table>
             <div class="row">
                 <div class="span12">
-                    <div class="pull-right passenger-control"><a class="edit-hotel-add-cost" href="javascript:void(0)"><?php  echo JText::_('Edit') ?></a></div>
+                    <div class="pull-right passenger-control">
+                        <a class="edit-hotel-add-room" href="javascript:void(0)"><?php  echo JText::_('Add room') ?></a> |
+                        <a class="edit-hotel-add-cost" href="javascript:void(0)"><?php  echo JText::_('Edit') ?></a>
+                    </div>
                 </div>
             </div>
 
