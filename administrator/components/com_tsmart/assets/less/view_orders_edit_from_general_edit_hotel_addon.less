@@ -1,4 +1,4 @@
-.view_orders_edit_from_general_edit_hotel_addon {
+.view_orders_edit_from_general_edit_hotel_addon,.view_orders_edit_from_general_edit_hotel_addon_child {
   @margin-left:100px;
   fieldset {
     border: 1px solid #3399ff;
@@ -18,7 +18,7 @@
       color: #024DFE;
       font-weight: bold;
     }
-    .input[disabled]{
+    .input[disabled],input[readonly]{
       background: #fff;
       border-radius: 0;
     }
@@ -38,6 +38,10 @@
       color: #4F699A;
       text-transform: uppercase;
 
+    }
+    .edit-night-hotel-add-on
+    {
+      padding: 10px 0px;
     }
     #product_name,#terms_condition,#reservation_notes{
       width: 100%;

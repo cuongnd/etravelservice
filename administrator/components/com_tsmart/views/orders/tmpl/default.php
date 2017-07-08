@@ -177,7 +177,7 @@ $format_date=tsmConfig::$date_format;// 'd-m-Y';
                             <?php echo $checked; ?>
                         </td>
                         <td align="left">
-                            <a href="<?php echo $editlink; ?>"><?php echo $row->custom_name; ?></a>
+                            <a href="<?php echo $editlink; ?>"><?php echo $row->customer_name; ?></a>
                         </td>
                         <td align="left">
                             <?php echo $row->product->product_name; ?>

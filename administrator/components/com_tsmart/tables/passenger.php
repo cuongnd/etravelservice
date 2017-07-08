@@ -63,6 +63,8 @@ class TablePassenger extends tsmTableData {
 	var $special_meal_requirements = "";
 	var $extra_fee = 0;
 	var $is_temporary = 0;
+	var $pre_night_status   = 0;
+	var $post_night_status   = 0;
 	var $discount  = 0;
 	var $cancel_fee   = 0;
 	var $room_fee   = 0;

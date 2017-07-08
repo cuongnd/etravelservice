@@ -144,8 +144,9 @@ $i = 0;
                 $row->balance=$this->item->order_total-$this->item->receipt;
                 $row->status=$this->item->order_status_name;
                 echo $render_tr($row);
+
                 foreach($this->list_pre_night_hotel as $pre_night_hotel){
-                    $row->id=$pre_night_hotel->tsmart_order_hotel_addon_id;
+                    $row->id=$pre_night_hotel->tsmart_group_hotel_addon_order_id;
                     $row->service_name=$pre_night_hotel->hotel_name;
                     $row->type="pre night";
                     $row->key="night_hotel";
@@ -171,7 +172,7 @@ $i = 0;
                     echo $render_tr($row);
                 }
                 foreach($this->list_post_night_hotel as $post_night_hotel){
-                    $row->id=$post_night_hotel->tsmart_order_hotel_addon_id;
+                    $row->id=$post_night_hotel->tsmart_group_hotel_addon_order_id;
                     $row->service_name=$post_night_hotel->hotel_name;
                     $row->type="post night";
                     $row->key="night_hotel";

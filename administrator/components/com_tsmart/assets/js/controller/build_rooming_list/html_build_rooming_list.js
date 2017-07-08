@@ -1906,6 +1906,9 @@
             var passenger = list_passenger[passenger_index];
             return passenger.year_old >= range_year_old_senior_adult_teen[0] && passenger.year_old <= range_year_old_senior_adult_teen[1];
         };
+        plugin.reset_build_rooming = function () {
+            $element.find('.list_room_type select').val("").trigger('change');
+        }
         plugin.is_teen = function (passenger_index) {
             var range_year_old_teen = plugin.settings.range_year_old_teen;
             var list_passenger = plugin.settings.list_passenger;

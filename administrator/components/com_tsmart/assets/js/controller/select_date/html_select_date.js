@@ -55,10 +55,8 @@
             value_selected
 
         };
-        plugin.set_date=function(startDate,endDate){
-            daterangepicker=$element.find('.range_of_date').data('daterangepicker');
-            daterangepicker.setStartDate(startDate);
-            daterangepicker.setEndDate(endDate);
+        plugin.set_date=function(queryDate){
+            $element.find('.select_date').datepicker('setDate', queryDate);
         }
         plugin.init();
 

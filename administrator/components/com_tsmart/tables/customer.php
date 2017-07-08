@@ -28,12 +28,12 @@ if(!class_exists('tsmTable'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtable.php'
  * @author Patrick Kohl
  * @package		tsmart
  */
-class TableCustoms extends tsmTable {
+class TableCustomer extends tsmTable {
 
 	/** @var int Primary key */
-	var $tsmart_custom_id		= 0;
+	var $tsmart_customer_id		= 0;
 	/** @var int parent */
-	var $custom_parent_id		= 0;
+	var $customer_parent_id		= 0;
 
 	var $tsmart_vendor_id		= 0;
 
@@ -50,7 +50,7 @@ class TableCustoms extends tsmTable {
 	var $custom_value	= '';
     /** @var string custom Meta or alt  */
 	var $custom_desc	= '';
-	var $custom_name 	= '';
+	var $customer_name 	= '';
 	var $phone	= '';
 	var $email	= '';
 	var $street	= '';
@@ -94,7 +94,7 @@ class TableCustoms extends tsmTable {
 	 * @param JDataBase $db
 	 */
 	function __construct(&$db) {
-		parent::__construct('#__tsmart_customs', 'tsmart_custom_id', $db);
+		parent::__construct('#__tsmart_customer', 'tsmart_customer_id', $db);
 
 	}
 

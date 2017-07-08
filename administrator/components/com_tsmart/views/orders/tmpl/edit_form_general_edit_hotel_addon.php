@@ -40,26 +40,21 @@ defined('_JEXEC') or die('Restricted access');
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
-                            <div class="span6">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Start city'), $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
-                            </div>
-                            <div class="span6">
-                                <?php echo VmHTML::row_control('text_view',JText::_('End city'),  $this->cities_helper->get_path_city_state_country_by_city_id($this->tour->start_city)->full_city); ?>
+                            <div class="span12">
+                                <?php echo VmHTML::row_control('text_view',JText::_('Location'), ''); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'departure_date', $this->departure->departure_date); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('Check in date'), ' ','class="text-view check_in_date "'); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_date_end', $this->departure->departure_date_end); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('Check out date'), ' ','class="text-view check_out_date "'); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_name', $this->item->hotel_name, ' placeholder="service name"  style="width: 100%;" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_code', $this->tour->product_code, ' placeholder="service name"  readonly style="width: 100%;" '); ?>
 
                             </div>
                             <div class="span6">
@@ -80,7 +75,9 @@ defined('_JEXEC') or die('Restricted access');
 
         </div>
     </div>
-
+    <div>
+        <div class="pull-right"><a href="javascript:void(0)" class="edit-night-hotel-add-on"><?php echo JText::_('Edit') ?></a></div>
+    </div>
 </div>
 <!-- Product pricing -->
 

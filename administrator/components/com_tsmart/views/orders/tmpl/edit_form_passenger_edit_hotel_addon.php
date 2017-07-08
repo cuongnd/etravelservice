@@ -79,9 +79,7 @@ $i = 0;
                     <td><span class="cost cancel_fee"></span></td>
                     <td><span class="cost refund"></span></td>
                     <td>
-                        <select>
-
-                        </select>
+                        <?php echo VmHTML::change_passenger_status(array(), 'change_passenger_status', "", ''); ?>
                     </td>
                 </tr>
 

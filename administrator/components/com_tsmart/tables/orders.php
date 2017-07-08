@@ -36,6 +36,7 @@ class TableOrders extends tsmTableData {
 	var $tsmart_user_id = 0;
 	/** @var int Vendor ID */
 	var $tsmart_vendor_id = 0;
+	var $tsmart_customer_id = 0;
 	var $object_id = 0;
 	var $product_type = 0;
 	var $assign_user_id = 0;

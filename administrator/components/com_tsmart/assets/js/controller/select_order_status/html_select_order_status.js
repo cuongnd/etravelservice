@@ -27,7 +27,6 @@
             plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
             });
-            plugin.select2.val(tsmart_orderstate_id).trigger("change")
         };
         plugin.init();
 

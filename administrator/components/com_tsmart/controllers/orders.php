@@ -129,6 +129,152 @@ class TsmartControllerorders extends TsmController
         echo json_encode($response);
         die;
     }
+    function change_status_passenger_in_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $passenger_table = tsmTable::getInstance('passenger', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_passenger_id=$data->tsmart_passenger_id;
+        $type=$data->type;
+        $status=$data->status;
+        $passenger_table->load($tsmart_passenger_id);
+        $key=$type."_night_status";
+        $response=new stdClass();
+        $passenger_table->{$key}=(int)$status;
+        if (!$passenger_table->store()) {
+            throw new Exception('save error: ' . $passenger_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function change_status_group_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $group_hotel_addon_order_table = tsmTable::getInstance('group_hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_group_hotel_addon_order_id=$data->tsmart_group_hotel_addon_order_id;
+        $status=$data->status;
+        $group_hotel_addon_order_table->load($tsmart_group_hotel_addon_order_id);
+        $response=new stdClass();
+        $group_hotel_addon_order_table->status=(int)$status;
+        if (!$group_hotel_addon_order_table->store()) {
+            throw new Exception('save error: ' . $group_hotel_addon_order_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_save_group_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $group_hotel_addon_order_table = tsmTable::getInstance('group_hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_group_hotel_addon_order_id=$data->tsmart_group_hotel_addon_order_id;
+        $checkin_date=$data->checkin_date;
+        $checkout_date=$data->checkout_date;
+        $group_hotel_addon_order_table->load($tsmart_group_hotel_addon_order_id);
+        $response=new stdClass();
+        $group_hotel_addon_order_table->checkin_date=JFactory::getDate($checkin_date)->toSql();
+        $group_hotel_addon_order_table->checkout_date=JFactory::getDate($checkout_date)->toSql();
+        if (!$group_hotel_addon_order_table->store()) {
+            throw new Exception('save error: ' . $group_hotel_addon_order_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_save_rooming_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $passenger_table = tsmTable::getInstance('passenger', 'Table');
+        $hotel_addon_order_table = tsmTable::getInstance('hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $list_night_hotel = $data->list_night_hotel;
+        $tsmart_group_hotel_addon_order_id = $data->tsmart_group_hotel_addon_order_id;
+        $list_passenger = $data->list_passenger;
+        $tsmart_order_id = $data->tsmart_order_id;
+        $tsmart_hotel_addon_id = $data->tsmart_hotel_addon_id;
+        $type = $data->type;
+        $response = new stdClass();
+        $list_night_hotel = JArrayHelper::toObject($list_night_hotel[0]);
+        foreach ($list_night_hotel->list_room_type as $room_type => $list_room) {
+            $list_passenger_per_room = $list_room->list_passenger_per_room;
+            foreach ($list_passenger_per_room as $passengers) {
+                if(count($passengers)){
+                    $hotel_addon_order_table->tsmart_order_hotel_addon_id=0;
+                    $hotel_addon_order_table->tsmart_group_hotel_addon_order_id=$tsmart_group_hotel_addon_order_id;
+                    $hotel_addon_order_table->tsmart_order_id=$tsmart_order_id;
+                    $hotel_addon_order_table->type=$type;
+                    $hotel_addon_order_table->room_type=$room_type;
+                    $hotel_addon_order_table->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
+                    if (!$hotel_addon_order_table->store()) {
+                        throw new Exception('save error: ' . $hotel_addon_order_table->getError());
+                    }
+                    $tsmart_order_hotel_addon_id=$hotel_addon_order_table->tsmart_order_hotel_addon_id;
+                }
+                foreach ($passengers as $passenger_index) {
+                    $passenger = (object)$list_passenger[$passenger_index];
+                    $tsmrt_passenger_id = $passenger->tsmart_passenger_id;
+                    $passenger_table->jload($tsmrt_passenger_id);
+                    $key=$type."_tsmart_order_hotel_addon_id";
+                    $passenger_table->{$key} = $tsmart_order_hotel_addon_id;
+                    if (!$passenger_table->store()) {
+                        throw new Exception('save error: ' . $passenger_table->getError());
+                    }
+
+
+                }
+            }
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function save_passenger_room_in_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $passenger_table = tsmTable::getInstance('passenger', 'Table');
+        $hotel_addon_order_table = tsmTable::getInstance('hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $type = $data->type;
+        $tsmart_order_id = $data->tsmart_order_id;
+        $tsmart_group_hotel_addon_order_id = $data->tsmart_group_hotel_addon_order_id;
+        $tsmart_hotel_addon_id = $data->tsmart_hotel_addon_id;
+        $group_passengers = $data->group_passengers;
+        $response = new stdClass();
+
+        foreach ($group_passengers as $group_passenger) {
+            $group_passenger=(object)$group_passenger;
+            $room_type=$group_passenger->room_type;
+            $hotel_addon_order_table->tsmart_order_hotel_addon_id=0;
+            $hotel_addon_order_table->tsmart_group_hotel_addon_order_id=$tsmart_group_hotel_addon_order_id;
+            $hotel_addon_order_table->tsmart_order_id=$tsmart_order_id;
+            $hotel_addon_order_table->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
+            $hotel_addon_order_table->room_type=$room_type;
+            if (!$hotel_addon_order_table->store()) {
+                throw new Exception('save error: ' . $hotel_addon_order_table->getError());
+            }
+            $tsmart_order_hotel_addon_id=$hotel_addon_order_table->tsmart_order_hotel_addon_id;
+            foreach($group_passenger->passengers as $passenger){
+                $passenger=(object)$passenger;
+                $tsmrt_passenger_id = $passenger->tsmart_passenger_id;
+                $passenger_table->jload($tsmrt_passenger_id);
+                $key=$type."_tsmart_order_hotel_addon_id";
+                $key_price=$type."_night_hotel_fee";
+                $passenger_table->{$key} = $tsmart_order_hotel_addon_id;
+                $passenger_table->{$key_price} = $passenger->room_price;
+                if (!$passenger_table->store()) {
+                    throw new Exception('save error: ' . $passenger_table->getError());
+                }
+            }
+
+
+        }
+
+        echo json_encode($response);
+        die;
+    }
 
     function ajax_get_order_detail_by_order_id()
     {
@@ -163,47 +309,138 @@ class TsmartControllerorders extends TsmController
         echo json_encode($response);
         die;
     }
+    function ajax_remove_passenger_from_rooming_list(){
+        $app = JFactory::getApplication();
+        $hotel_addon_order_table = tsmTable::getInstance('hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_order_hotel_addon_id=$data->tsmart_order_hotel_addon_id;
+        $tsmart_order_id=$data->tsmart_order_id;
+        $type=$data->type;
+        if (!$hotel_addon_order_table->delete($tsmart_order_hotel_addon_id)) {
+            throw new Exception('save error: ' . $hotel_addon_order_table->getError());
+        }
+        $utility_helper = TSMHelper::getHepler('utility');
+        $passenger_helper = TSMHelper::getHepler('passenger');
+        $list_passenger_not_in_room = $passenger_helper->get_list_passenger_not_in_temporary_and_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id);
+        foreach ($list_passenger_not_in_room as &$passenger_in_room) {
+            $passenger_in_room->year_old=$utility_helper->get_year_old_by_date($passenger_in_room->date_of_birth);
+        }
+        $response = new stdClass();
+        $response->list_passenger_not_in_room = $list_passenger_not_in_room;
+        echo json_encode($response);
+        die;
+    }
     function ajax_get_order_detail_and_night_hotel_detail_by_hotel_addon_id()
     {
         $app = JFactory::getApplication();
         $order_table = tsmTable::getInstance('orders', 'Table');
-        $data = $app->input->getArray();
+        $data = (object)$app->input->getArray();
 
-        $tsmart_order_hotel_addon_id = $data['tsmart_order_hotel_addon_id'];
-        $type = $data['type'];
+        $tsmart_group_hotel_addon_order_id = $data->tsmart_group_hotel_addon_order_id;
+        $tsmart_order_id = $data->tsmart_order_id;
+        $type = $data->type;
         $response = new stdClass();
         $response->e = 0;
         $passenger_helper = TSMHelper::getHepler('passenger');
+        $utility_helper = TSMHelper::getHepler('utility');
+        $list_passenger = $passenger_helper->get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_group_hotel_addon_order_id,$type);
+        $key=$type."_night_hotel_fee";
+        $list_rooming=array();
 
-        $list_passenger = $passenger_helper->get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_order_hotel_addon_id);
         foreach ($list_passenger as &$passenger_in_room) {
-            $passenger_in_room->single_room_fee = $passenger_in_room->room_fee;
-            $passenger_in_room->tour_fee = $passenger_in_room->tour_cost;
-            $passenger_in_room->discount_fee = $passenger_in_room->discount;
-            $passenger_in_room->total_cost = $passenger_in_room->tour_cost + $passenger_in_room->room_fee + $passenger_in_room->extra_fee - $passenger_in_room->discount;
+            $list_rooming[$passenger_in_room->tsmart_order_hotel_addon_id][]=$passenger_in_room;
 
-            $passenger_in_room->balance = $passenger_in_room->total_cost - $passenger_in_room->payment;
-            $passenger_in_room->refund = $passenger_in_room->payment - $passenger_in_room->cancel_fee;
-            $passenger_in_room->passenger_status = $passenger_in_room->tour_tsmart_passenger_state_id;
         }
+        $list_passenger_not_in_room = $passenger_helper->get_list_passenger_not_in_temporary_and_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id);
+        foreach ($list_passenger_not_in_room as &$passenger_in_room) {
+            $passenger_in_room->year_old=$utility_helper->get_year_old_by_date($passenger_in_room->date_of_birth);
+        }
+
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select(
             'hotel.hotel_name,
-            hotel_addon.tsmart_hotel_addon_id,
+            group_hotel_addon_order.tsmart_hotel_addon_id,
+            group_hotel_addon_order.status AS group_status,
             hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
-            ,tsmart_order_id
+            ,group_hotel_addon_order.tsmart_order_id
+            ,group_hotel_addon_order.tsmart_group_hotel_addon_order_id
             ,reservation_notes
             ,checkin_date
             ,checkout_date
         ')
             ->from('#__tsmart_hotel_addon AS hotel_addon')
-            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_hotel_addon_id=hotel_addon.tsmart_hotel_addon_id')
+            ->leftJoin('#__tsmart_group_hotel_addon_order AS group_hotel_addon_order ON group_hotel_addon_order.tsmart_hotel_addon_id=hotel_addon.tsmart_hotel_addon_id')
+            ->where('group_hotel_addon_order.tsmart_group_hotel_addon_order_id='.(int)$tsmart_group_hotel_addon_order_id)
+            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_group_hotel_addon_order_id=group_hotel_addon_order.tsmart_group_hotel_addon_order_id')
             ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id=hotel_addon.tsmart_hotel_id')
-            ->where('hotel_addon_order.tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id);
+            ->where('hotel_addon_order.tsmart_group_hotel_addon_order_id=group_hotel_addon_order.tsmart_group_hotel_addon_order_id');
         $hotel_addon = $db->setQuery($query)->loadObject();
+
+
+        $date1=date_create($hotel_addon->checkout_date);
+        $date2=date_create($hotel_addon->checkin_date);
+        $total_night=date_diff($date1,$date2);
+        $total_night=$total_night->days;
+        $hotel_addon->total_night=$total_night;
+        $hotel_addon->show_checkin_date=JHtml::_('date', $hotel_addon->checkin_date, tsmConfig::$date_format);
+        $hotel_addon->show_checkout_date=JHtml::_('date', $hotel_addon->checkout_date, tsmConfig::$date_format);
+        $hotel_addon->checkin_date=JFactory::getDate($hotel_addon->checkin_date)->format('d/M/y');
+        $hotel_addon->checkout_date=JFactory::getDate($hotel_addon->checkout_date)->format('d/M/y');
         $holtel_add_on_helper=TSMhelper::getHepler('hoteladdon');
         $data_price=$holtel_add_on_helper->get_data_price_by_hotel_add_on_id($hotel_addon->tsmart_hotel_addon_id); base64_decode($hotel_addon->data_price);
+        $pre_total_cost=0;
+        $pre_total_balance=0;
+        $pre_total_payment=0;
+        $pre_total_refund=0;
+        $pre_total_cancel=0;
+
+        $post_total_cost=0;
+        $post_total_balance=0;
+        $post_total_payment=0;
+        $post_total_refund=0;
+        $post_total_cancel=0;
+        foreach ($list_passenger as &$passenger_in_room) {
+
+            $passenger_in_room->unit_price_per_night=$passenger_helper->get_unit_price_per_night($passenger_in_room->tsmart_passenger_id,$data_price,$type);
+            if($type=='pre') {
+                $passenger_in_room->pre_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night - $passenger_in_room->pre_night_discount;
+                $passenger_in_room->pre_night_balance = $passenger_in_room->pre_night_total_cost - $passenger_in_room->pre_night_payment;
+                $passenger_in_room->pre_night_refund = $passenger_in_room->pre_night_payment - $passenger_in_room->pre_night_cancel_fee;
+
+                $pre_total_balance += $passenger_in_room->pre_night_balance;
+                $pre_total_payment += $passenger_in_room->pre_night_payment;
+                $pre_total_refund += $passenger_in_room->pre_night_refund;
+                $pre_total_cancel += $passenger_in_room->pre_night_cancel_fee;
+                $pre_total_cost += $passenger_in_room->pre_night_total_cost;
+            }else {
+                $passenger_in_room->post_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night - $passenger_in_room->post_night_discount;
+                $passenger_in_room->post_night_balance = $passenger_in_room->post_night_total_cost - $passenger_in_room->post_night_payment;
+                $passenger_in_room->post_night_refund = $passenger_in_room->post_night_payment - $passenger_in_room->post_night_cancel_fee;
+
+                $post_total_balance += $passenger_in_room->post_night_balance;
+                $post_total_payment += $passenger_in_room->post_night_payment;
+                $post_total_refund += $passenger_in_room->post_night_refund;
+                $post_total_cancel += $passenger_in_room->post_night_cancel_fee;
+                $post_total_cost += $passenger_in_room->post_night_total_cost;
+            }
+
+
+        }
+        if($type=='pre') {
+            $hotel_addon->pre_total_cost = $pre_total_cost;
+            $hotel_addon->pre_total_balance = $pre_total_balance;
+            $hotel_addon->pre_total_payment = $pre_total_payment;
+            $hotel_addon->pre_total_refund = $pre_total_refund;
+            $hotel_addon->pre_total_cancel = $pre_total_cancel;
+        }else {
+            $hotel_addon->post_total_cost = $post_total_cost;
+            $hotel_addon->post_total_balance = $post_total_balance;
+            $hotel_addon->post_total_payment = $post_total_payment;
+            $hotel_addon->post_total_refund = $post_total_refund;
+            $hotel_addon->post_total_cancel = $post_total_cancel;
+        }
+
         $hotel_addon->data_price = $data_price;
         $order_table = tsmTable::getInstance('orders', 'Table');
         $order_table->jload($hotel_addon->tsmart_order_id);
@@ -211,6 +448,8 @@ class TsmartControllerorders extends TsmController
         $response->e = 0;
         $order_object = (object)$order_table->getproperties();
         $response->order_detail = $order_object;
+        $response->list_passenger_not_in_room = $list_passenger_not_in_room;
+        $response->list_rooming = $list_rooming;
         $response->hotel_addon_detail = $hotel_addon;
         $response->list_passenger = $list_passenger;
         echo json_encode($response);
@@ -220,15 +459,24 @@ class TsmartControllerorders extends TsmController
     {
         $app = JFactory::getApplication();
         $order_table = tsmTable::getInstance('orders', 'Table');
-        $data = $app->input->getArray();
+        $data = (object)$app->input->getArray();
 
-        $tsmart_order_hotel_addon_id = $data['tsmart_order_hotel_addon_id'];
-        $type = $data['type'];
+        $tsmart_group_hotel_addon_order_id = $data->tsmart_group_hotel_addon_order_id;
+        $type = $data->type;
+        $tsmart_order_id = $data->tsmart_order_id;
         $response = new stdClass();
         $response->e = 0;
         $passenger_helper = TSMHelper::getHepler('passenger');
+        $utility_helper = TSMHelper::getHepler('utility');
+        $list_passenger_not_in_room = $passenger_helper->get_list_passenger_not_in_temporary_and_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id);
+        foreach ($list_passenger_not_in_room as &$passenger_in_room) {
+            $passenger_in_room->year_old=$utility_helper->get_year_old_by_date($passenger_in_room->date_of_birth);
+        }
 
-        $list_passenger = $passenger_helper->get_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id($type);
+
+
+        $list_rooming=array();
+        $list_passenger = $passenger_helper->get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_group_hotel_addon_order_id,$type);
         foreach ($list_passenger as &$passenger_in_room) {
             $passenger_in_room->single_room_fee = $passenger_in_room->room_fee;
             $passenger_in_room->tour_fee = $passenger_in_room->tour_cost;
@@ -238,6 +486,8 @@ class TsmartControllerorders extends TsmController
             $passenger_in_room->balance = $passenger_in_room->total_cost - $passenger_in_room->payment;
             $passenger_in_room->refund = $passenger_in_room->payment - $passenger_in_room->cancel_fee;
             $passenger_in_room->passenger_status = $passenger_in_room->tour_tsmart_passenger_state_id;
+            $passenger_in_room->year_old=$utility_helper->get_year_old_by_date($passenger_in_room->date_of_birth);
+            $list_rooming[$passenger_in_room->tsmart_order_hotel_addon_id][]=$passenger_in_room;
         }
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
@@ -245,7 +495,7 @@ class TsmartControllerorders extends TsmController
             'hotel.hotel_name,
             hotel_addon.tsmart_hotel_addon_id,
             hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
-            ,tsmart_order_id
+            ,group_hotel_addon_order.tsmart_order_id
             ,reservation_notes
             ,checkin_date
             ,checkout_date
@@ -253,8 +503,12 @@ class TsmartControllerorders extends TsmController
             ->from('#__tsmart_hotel_addon AS hotel_addon')
             ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_hotel_addon_id=hotel_addon.tsmart_hotel_addon_id')
             ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id=hotel_addon.tsmart_hotel_id')
-            ->where('hotel_addon_order.tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id);
+            ->leftJoin('#__tsmart_group_hotel_addon_order AS group_hotel_addon_order ON group_hotel_addon_order.tsmart_group_hotel_addon_order_id=hotel_addon_order.tsmart_group_hotel_addon_order_id')
+            ->where('group_hotel_addon_order.tsmart_group_hotel_addon_order_id='.(int)$tsmart_group_hotel_addon_order_id);
         $hotel_addon = $db->setQuery($query)->loadObject();
+        $date1=date_create($hotel_addon->checkout_date);
+        $date2=date_create($hotel_addon->checkin_date);
+        $hotel_addon->total_night=date_diff($date1,$date2);
         $holtel_add_on_helper=TSMhelper::getHepler('hoteladdon');
         $data_price=$holtel_add_on_helper->get_data_price_by_hotel_add_on_id($hotel_addon->tsmart_hotel_addon_id); base64_decode($hotel_addon->data_price);
         $hotel_addon->data_price = $data_price;
@@ -264,8 +518,10 @@ class TsmartControllerorders extends TsmController
         $response->e = 0;
         $order_object = (object)$order_table->getproperties();
         $response->order_detail = $order_object;
+        $response->list_passenger_not_in_room = $list_passenger_not_in_room;
         $response->hotel_addon_detail = $hotel_addon;
         $response->list_passenger = $list_passenger;
+        $response->list_rooming = $list_rooming;
         echo json_encode($response);
         die;
     }
@@ -386,6 +642,28 @@ class TsmartControllerorders extends TsmController
         $order_table->jload($data['tsmart_order_id']);
         $order_object = (object)$order_table->getproperties();
         $response->r = $order_object;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_save_passenger_cost_hotel_add_on()
+    {
+        $app = JFactory::getApplication();
+        $passenger_table = tsmTable::getInstance('passenger', 'Table');
+        $data = (object)$app->input->getArray();
+        $list_row = $data->list_row;
+        $type = $data->type;
+        $response = new stdClass();
+        foreach ($list_row as $row) {
+            $row=(object)$row;
+            $passenger_table->jload($row->tsmart_passenger_id);
+            $passenger_table->{$type."_night_discount"}=$row->discount;
+            $passenger_table->{$type."_night_payment"}=$row->payment;
+            $passenger_table->{$type."_night_cancel_fee"}=$row->cancel_fee;
+            if (!$passenger_table->store()) {
+                throw new Exception('save error: ' . $passenger_table->getError());
+            }
+        }
+        $response->e =0 ;
         echo json_encode($response);
         die;
     }

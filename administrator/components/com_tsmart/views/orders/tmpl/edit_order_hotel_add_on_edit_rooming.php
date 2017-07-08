@@ -17,20 +17,20 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation_hotel_addon.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_room_in_hotel_add_on.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="view_orders_edit_order_bookinginfomation_hotel_addon form-horizontal">
+<div class="view_orders_edit_form_edit_room_in_hotel_add_on form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
                 <h3 class="text-uppercase"><?php echo JText::_('Rooming') ?></h3>
             </div>
-            <table class="adminlist table table-striped rooming-list" cellspacing="0" cellpadding="0">
+            <table class="adminlist table table-striped rooming_hotel_add_on" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th class="admin-checkbox">
@@ -54,16 +54,20 @@ $i = 0;
                     <th>
                         <?php echo $this->sort('creation', 'Creation'); ?>
                     </th>
+                    <th>
+                        <?php echo JText::_('Action') ?>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class="item-rooming">
+                    <tr class="item-rooming" >
                         <td><span class="order"></span></td>
                         <td><span class="full-name"></span></td>
                         <td><span class="title"></span></td>
                         <td><span class="room-type"></span></td>
                         <td><span class="room-note"></span></td>
                         <td><span class="room-created-on"></span></td>
+                        <td><a class="remove-passenger-from-rooming-list" href="javascript:void(0)"><span class="icon-remove"></span></a></td>
                     </tr>
 
                 </tbody>
@@ -77,7 +81,15 @@ $i = 0;
             </div>
             <div class="row">
                 <div class="span12">
-                    <div class="pull-right room-control"><a class="edit-room" href="javascript:void(0)"><?php  echo JText::_('Edit room') ?></a></div>
+                    <?php echo VmHtml::_('buil_rooming_list.rooming_list',array(),'rooming_list_hotel_add_on','',$this->departure,$this->passenger_config,$this->debug);?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                        <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+                    </div>
                 </div>
             </div>
 

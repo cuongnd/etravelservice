@@ -17,14 +17,14 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_booking_summary.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_hotel_add_on_summary.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="edit_form_booking_summary form-horizontal">
+<div class="view_orders_edit_form_hotel_add_on_summary form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
@@ -67,17 +67,17 @@ $i = 0;
                 </thead>
                 <tr>
 
-                    <td><span class="cost"><?php echo $this->item->order_total ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo $this->item->payment ?></span></td>
-                    <td><span class="cost"><?php echo $this->item->order_total-$this->item->payment ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost total_cost"></span></td>
+                    <td><span class="cost net_price"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost discount"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost commission"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost payment"></span></td>
+                    <td><span class="cost balance"></span></td>
+                    <td><span class="cost cancel"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost refund"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost profit"><?php echo JText::_("N/A") ?></span></td>
                     <td>
-                        <?php echo VmHTML::change_order_status(array(), 'tsmart_orderstate_id', $this->item->tsmart_orderstate_id, 'class="change_order_status "'); ?>
+                        <?php echo VmHTML::change_order_status(array(), 'hotel_add_on_status', 0, ''); ?>
                     </td>
 
                 </tr>

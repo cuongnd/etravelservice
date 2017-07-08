@@ -36,12 +36,12 @@ $i = 0;
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">
-                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
-                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Close') ?></button>
             </div>
         </div>
     </div>
-    <input type="hidden" name="tsmart_order_hotel_addon_id" value="">
+    <input type="hidden" name="tsmart_group_hotel_addon_order_id" value="">
+    <input type="hidden" name="tsmart_hotel_addon_id" value="">
     <input type="hidden" name="type" value="">
 </div>
 <!-- Product pricing -->

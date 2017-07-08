@@ -31,9 +31,9 @@ class tsmartModelbookprivategroupsumary extends tmsModel
     {
         $contact_data = $booking_summary->contact_data;
         $contact_data = json_decode($contact_data);
-        $customsTable = $this->getTable('customs');
+        $customerTable = $this->getTable('customer');
         $store_data_contact = new stdClass();
-        $store_data_contact->custom_name = $contact_data->contact_name;
+        $store_data_contact->customer_name = $contact_data->contact_name;
         $store_data_contact->phone = $contact_data->phone_number;
         $store_data_contact->email = $contact_data->email_address;
         $store_data_contact->street = $contact_data->street_address;
@@ -45,10 +45,10 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $store_data_contact->emergency_contact_address = $contact_data->emergency_email_address;
         $store_data_contact->emergency_contact_phone = $contact_data->emergency_phone_number;
         $store_data_contact = (array)$store_data_contact;
-        $ok = $customsTable->bindChecknStore($store_data_contact);
+        $ok = $customerTable->bindChecknStore($store_data_contact);
         if (!$ok) {
             echo "<pre>";
-            print_r($customsTable->getErrors(), false);
+            print_r($customerTable->getErrors(), false);
             echo "</pre>";
             die;
             die;
@@ -86,7 +86,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $_orderData['receipt'] = $receipt;
         $_orderData['product_type'] = $product->price_type;
         $_orderData['object_id'] = $tsmart_price_id;
-        $_orderData['tsmart_custom_id'] = $customsTable->tsmart_custom_id;
+        $_orderData['tsmart_customer_id'] = $customerTable->tsmart_customer_id;
         $_orderData['order_data']=json_encode($booking_summary);
         $ok = $orderTable->bindChecknStore($_orderData);
         if (!$ok) {
@@ -162,21 +162,32 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 
         //save night hotel
         $save_data_night_hotel=function($type="pre",$extra_night_hotel,$orderTable,$list_passenger_by_order,$hotel_addon_orderTable,$passengerTable){
+
+            $group_hotel_addon_order_orderTable = $this->getTable('group_hotel_addon_order');
             for ($i = 0, $n = count($extra_night_hotel); $i < $n; $i++) {
                 $row = $extra_night_hotel[$i];
+                $tsmart_hotel_addon_id = $row->tsmart_hotel_addon_id;
+                $group_hotel_addon_order_orderTable->tsmart_group_hotel_addon_order_id=0;
+                $group_hotel_addon_order_orderTable->checkin_date=JFactory::getDate($row->check_in_date)->toSql();
+                $group_hotel_addon_order_orderTable->checkout_date=JFactory::getDate($row->check_out_date)->toSql();
+                $group_hotel_addon_order_orderTable->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
+                $group_hotel_addon_order_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+                $group_hotel_addon_order_orderTable->type=$type;
+                $group_hotel_addon_order_orderTable->store();
+                $tsmart_group_hotel_addon_order_id=$group_hotel_addon_order_orderTable->tsmart_group_hotel_addon_order_id;
                 $list_room_type = $row->list_room_type;
                 $list_passenger_price = $row->list_passenger_price;
-                $tsmart_hotel_addon_id = $row->tsmart_hotel_addon_id;
+
                 foreach ($list_room_type as $room_type=> $room) {
                     $list_passenger_per_room = $room->list_passenger_per_room;
                     foreach ($list_passenger_per_room as $list_passenger_in_room) {
                         $hotel_addon_orderTable->tsmart_order_hotel_addon_id=0;
-                        $hotel_addon_orderTable->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
-                        $hotel_addon_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
+                        $hotel_addon_orderTable->tsmart_group_hotel_addon_order_id=$tsmart_group_hotel_addon_order_id;
                         $hotel_addon_orderTable->note=$row->room_note;
+                        $hotel_addon_orderTable->type=$type;
+                        $hotel_addon_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
                         $hotel_addon_orderTable->room_type=$room_type;
-                        $hotel_addon_orderTable->checkin_date=JFactory::getDate($row->check_in_date)->toSql();
-                        $hotel_addon_orderTable->checkout_date=JFactory::getDate($row->check_out_date)->toSql();
+                        $hotel_addon_orderTable->tsmart_hotel_addon_id=$tsmart_hotel_addon_id;
                         $hotel_addon_orderTable->store();
                         $tsmart_order_hotel_addon_id=$hotel_addon_orderTable->tsmart_order_hotel_addon_id;
                         foreach ($list_passenger_in_room as $passenger_index) {

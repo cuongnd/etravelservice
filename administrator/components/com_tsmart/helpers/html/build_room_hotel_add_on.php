@@ -31,6 +31,8 @@ abstract class TSMHtmlBuild_room_hotel_add_on
     {
         $doc = JFactory::getDocument();
         JHtml::_('jquery.ui');
+        JHtml::_('jquery.ui');
+        TSMHtmlJquery::numeric();
         JHtml::_('jquery.ui', array('sortable'));
         $doc->addScript('/media/system/js/jquery.utility.js');
         $doc->addScript('/media/system/js/select2-master/dist/js/select2.full.js');
@@ -113,7 +115,22 @@ abstract class TSMHtmlBuild_room_hotel_add_on
                             </div>
                             <div class="row note ">
                                 <div class="span12">
-                                    <div class="mobile-note"><?php echo JText::_('note') ?></div>
+                                    <div class="price-note">
+                                        <div class="row-fluid">
+                                            <div class="span12">
+                                                <table class="passenger-price-summary">
+                                                    <tr class="passenger-price">
+                                                        <td><span class="order"></span></td>
+                                                        <td><span class="full-name"></span></td>
+                                                        <td><span class="price"></span></td>
+                                                        <td><span class="">x</span></td>
+                                                        <td><span class="night"></span> nites</td>
+                                                        <td><span class="total"></span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row note">
@@ -147,7 +164,7 @@ abstract class TSMHtmlBuild_room_hotel_add_on
                     </div>
                 </div>
             </div>
-            <div class="rooming-list">
+            <div class="rooming-list hide">
                 <div class="row-fluid">
                     <div class="span12">
                         <h4 style="text-align: center"><?php echo JText::_('Rooming list') ?></h4>

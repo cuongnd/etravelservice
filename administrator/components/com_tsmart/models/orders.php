@@ -51,8 +51,8 @@ class tsmartModelorders extends tmsModel
         $query->select('orders.*')
             ->from('#__tsmart_orders AS orders')
             ->leftJoin('#__tsmart_orderstates AS orderstates USING(tsmart_orderstate_id)')
-            ->leftJoin('#__tsmart_customs AS customs USING(tsmart_custom_id)')
-            ->select('customs.custom_name AS custom_name,orderstates.order_status_name')
+            ->leftJoin('#__tsmart_customer AS customer USING(tsmart_customer_id)')
+            ->select('customer.customer_name AS customer_name,orderstates.order_status_name')
             ->leftJoin('#__users AS users ON users.id=orders.assign_user_id')
             ->select('users.name AS asign_name')
             ->select('orderstates.order_status_name AS order_status_name')
@@ -94,8 +94,8 @@ class tsmartModelorders extends tmsModel
         $query->select('orders.*')
             ->from('#__tsmart_orders AS orders')
             ->leftJoin('#__tsmart_orderstates AS orderstates USING(tsmart_orderstate_id)')
-            ->leftJoin('#__tsmart_customs AS customs USING(tsmart_custom_id)')
-            ->select('customs.custom_name AS custom_name,orderstates.order_status_name')
+            ->leftJoin('#__tsmart_customer AS customer USING(tsmart_customer_id)')
+            ->select('customer.customer_name AS customer_name,orderstates.order_status_name')
             ->leftJoin('#__users AS users ON users.id=orders.assign_user_id')
             ->select('users.name AS asign_name')
         ;
@@ -114,6 +114,7 @@ class tsmartModelorders extends tmsModel
         if (empty($this->_selectedOrdering)) vmTrace('empty _getOrdering');
         if (empty($this->_selectedOrderingDir)) vmTrace('empty _selectedOrderingDir');
         $query->order($this->_selectedOrdering . ' ' . $this->_selectedOrderingDir);
+        echo $query->dump();
         return $query;
     }
     /**

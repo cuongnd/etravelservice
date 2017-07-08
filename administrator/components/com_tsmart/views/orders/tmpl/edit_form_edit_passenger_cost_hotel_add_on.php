@@ -33,17 +33,17 @@ $i = 0;
             <table class="adminlist table table-striped edit_passenger_cost_hotel_addon_edit_passenger" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
+                    <th width="1%">
+
+                    </th>
                     <th width="20%">
                         <?php echo $this->sort('passenger_name', 'Passenger name'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('tour_fee', 'Tour fee'); ?>
+                        <?php echo $this->sort('room_fee', 'Room fee'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('supplement_fee', 'single room'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('extra_fee', 'Extra fee'); ?>
+                        <?php echo $this->sort('total_night', 'night'); ?>
                     </th>
 
                     <th>
@@ -68,19 +68,19 @@ $i = 0;
                 </thead>
                 <tbody>
                     <tr class="passenger">
+                        <td><span class="order"></span></td>
                         <td class="name">
                             <span class="full-name"></span>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost tour_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost single_room_fee" type="text" value=""></td>
-                        <td><input class="passenger_cost extra_fee" type="text" value=""></td>
-                        <td><input class="passenger_cost discount_fee" type="text" value=""></td>
+                        <td><input class="passenger_cost night_hotel_fee" readonly  type="text" value=""></td>
+                        <td><input class="total_night" readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_discount" type="text" value=""></td>
                         <td><input class="passenger_cost total_cost" readonly type="text" value=""></td>
-                        <td><input class="passenger_cost payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost balance"  readonly type="text" value=""></td>
-                        <td><input class="passenger_cost cancel_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost refund"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_payment"  type="text" value=""></td>
+                        <td><input class="passenger_cost night_balance"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_cancel_fee"  type="text" value=""></td>
+                        <td><input class="passenger_cost night_refund"  readonly type="text" value=""></td>
                     </tr>
 
                 </tbody>

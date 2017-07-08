@@ -28,17 +28,17 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class Tablehotel_addon_order extends tsmTableData {
+class Tablegroup_hotel_addon_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_order_hotel_addon_id= 0;
 	var $tsmart_group_hotel_addon_order_id= 0;
-	var $terms_condition= "";
-	var $reservation_notes= "";
-	var $tsmart_order_id= null;
+	var $title= '';
 	var $type= 'pre';
-	var $tsmart_hotel_addon_id= null;
-	var $room_type= null;
+	var $checkin_date= null;
+	var $checkout_date= null;
+	var $tsmart_hotel_addon_id= 0;
+	var $tsmart_order_id= null;
+	var $status= 0;
 
 	/**
 	 * @author Max Milbers
@@ -46,10 +46,9 @@ class Tablehotel_addon_order extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_hotel_addon_order', 'tsmart_order_hotel_addon_id', $db);
+		parent::__construct('#__tsmart_group_hotel_addon_order', 'tsmart_group_hotel_addon_order_id', $db);
 
 
-		$this->setLoggable();
 
 		//$this->setOrderable();
 	}

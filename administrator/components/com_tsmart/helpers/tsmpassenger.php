@@ -109,21 +109,36 @@ class tsmpassenger
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
     }
-    public static function get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_order_hotel_addon_id)
+    public static function get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_group_hotel_addon_order_id,$type)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('*')
-            ->from('#__tsmart_passenger')
-            ->where('(pre_tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id.' OR post_tsmart_order_hotel_addon_id='.(int)$tsmart_order_hotel_addon_id.'  )')
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_order_hotel_addon_id=passenger.'.$type.'_tsmart_order_hotel_addon_id')
+            ->where('hotel_addon_order.tsmart_group_hotel_addon_order_id='.(int)$tsmart_group_hotel_addon_order_id)
+            ->select('hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.room_type,hotel_addon_order.note as room_note,hotel_addon_order.created_on AS room_created_on')
             ->where('is_temporary =0')
             ->where('tsmart_parent_passenger_id is null')
-
         ;
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
     }
-    public static function get_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id($type)
+    public static function get_list_passenger_not_in_temporary_and_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->where('passenger.'.$type.'_tsmart_order_hotel_addon_id is null')
+            ->where('is_temporary =0')
+            ->where('tsmart_order_id ='.(int)$tsmart_order_id)
+            ->where('tsmart_parent_passenger_id is null')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_in_temporary_and_passenger_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id)
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
@@ -131,9 +146,42 @@ class tsmpassenger
             ->from('#__tsmart_passenger')
             ->where($type.'_tsmart_order_hotel_addon_id is null')
             ->where('tsmart_parent_passenger_id is null')
+            ->where('tsmart_order_id='.(int)$tsmart_order_id)
         ;
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
+    }
+    public static function get_unit_price_per_night($tsmart_passenger_id,$data_price,$type)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_order_hotel_addon_id=passenger.'.$type.'_tsmart_order_hotel_addon_id')
+            ->where('passenger.tsmart_passenger_id='.(int)$tsmart_passenger_id)
+            ->select('hotel_addon_order.room_type,hotel_addon_order.tsmart_order_hotel_addon_id')
+        ;
+        $passenger=$db->setQuery($query)->loadObject();
+
+        $query->clear();
+        $query->select('COUNT(passenger.tsmart_passenger_id)')
+            ->from('#__tsmart_passenger AS passenger')
+            ->where('passenger.'.$type.'_tsmart_order_hotel_addon_id='.(int)$passenger->tsmart_order_hotel_addon_id)
+        ;
+        $total_passenger=$db->setQuery($query)->loadResult();
+        switch ($passenger->room_type) {
+            case 'trip':
+                return $data_price->triple_room->sale_price/$total_passenger;
+                break;
+            case 'twin':
+            case 'double':
+                return $data_price->double_twin_room->sale_price/$total_passenger;
+                break;
+        break;
+            default:
+                return $data_price->single_room->sale_price/$total_passenger;
+        }
+        return 0;
     }
     public static function get_list_passenger_not_in_temporary_and_not_in_room($tsmart_order_id)
     {
@@ -169,11 +217,12 @@ class tsmpassenger
         $query->select('passenger.*')
             ->from('#__tsmart_passenger AS passenger')
             ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_order_hotel_addon_id= passenger.'.$type.'_tsmart_order_hotel_addon_id')
+            ->leftJoin('#__tsmart_group_hotel_addon_order AS group_hotel_addon_order ON group_hotel_addon_order.tsmart_group_hotel_addon_order_id=hotel_addon_order.tsmart_group_hotel_addon_order_id')
             ->leftJoin('#__tsmart_hotel_addon AS hotel_addon ON hotel_addon.tsmart_hotel_addon_id= hotel_addon_order.tsmart_hotel_addon_id')
             ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id= hotel_addon.tsmart_hotel_id')
             ->select("hotel.hotel_name")
-            ->select("hotel_addon_order.checkin_date")
-            ->select("hotel_addon_order.checkout_date")
+            ->select("group_hotel_addon_order.checkin_date")
+            ->select("group_hotel_addon_order.checkout_date")
             ->where('tsmart_parent_passenger_id is null')
             ->select("hotel_addon_order.tsmart_order_hotel_addon_id")
             ->where('passenger.tsmart_order_id='.(int)$tsmart_order_id)
@@ -187,23 +236,33 @@ class tsmpassenger
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
         $query->select('hotel_addon_order.*')
-            ->from('#__tsmart_hotel_addon_order AS hotel_addon_order')
+            ->from('#__tsmart_group_hotel_addon_order AS group_hotel_addon_order')
+            ->leftJoin('#__tsmart_hotel_addon_order AS hotel_addon_order ON hotel_addon_order.tsmart_group_hotel_addon_order_id=group_hotel_addon_order.tsmart_group_hotel_addon_order_id')
             ->leftJoin('#__tsmart_passenger  AS passenger ON passenger.'.$type.'_tsmart_order_hotel_addon_id=hotel_addon_order.tsmart_order_hotel_addon_id')
-            ->leftJoin('#__tsmart_hotel_addon AS hotel_addon ON hotel_addon.tsmart_hotel_addon_id= hotel_addon_order.tsmart_hotel_addon_id')
+            ->leftJoin('#__tsmart_hotel_addon AS hotel_addon ON hotel_addon.tsmart_hotel_addon_id= group_hotel_addon_order.tsmart_hotel_addon_id')
             ->leftJoin('#__tsmart_hotel AS hotel ON hotel.tsmart_hotel_id= hotel_addon.tsmart_hotel_id')
+
+            ->leftJoin('#__tsmart_customer AS customer ON customer.tsmart_customer_id= hotel_addon_order.tsmart_customer_id')
+            ->select('customer.customer_name')
+
+            ->leftJoin('#__tsmart_supplier AS supplier ON supplier.tsmart_supplier_id= hotel_addon_order.tsmart_supplier_id')
+            ->select('supplier.supplier_name')
+
+            ->select("group_hotel_addon_order.tsmart_group_hotel_addon_order_id")
             ->select("hotel.hotel_name")
-            ->select("hotel_addon_order.checkin_date")
-            ->select("hotel_addon_order.checkout_date")
+            ->select("group_hotel_addon_order.checkin_date")
+            ->select("group_hotel_addon_order.checkout_date")
             ->select("COUNT(passenger.tsmart_passenger_id) AS total_confirm")
             ->select("SUM(passenger.".$type."_night_hotel_fee) AS total_cost")
             ->select("hotel_addon_order.tsmart_order_hotel_addon_id")
             ->where('passenger.tsmart_order_id='.(int)$tsmart_order_id)
             ->where('passenger.'.$type.'_tsmart_order_hotel_addon_id!=0')
             ->where('passenger.tsmart_parent_passenger_id is null')
-            ->group("hotel_addon_order.tsmart_order_hotel_addon_id")
+            ->group("group_hotel_addon_order.tsmart_group_hotel_addon_order_id")
 
             ;
-        return $db->setQuery($query)->loadObjectList();
+        $list= $db->setQuery($query)->loadObjectList();
+        return $list;
     }
     public static function get_list_transfer_by_order_id($type="pre",$tsmart_order_id)
     {
