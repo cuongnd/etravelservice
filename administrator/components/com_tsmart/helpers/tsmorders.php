@@ -25,6 +25,8 @@
  */
 class tsmorders
 {
+    const TYPE_GROUP_HOTEL_ADD_ON_ORDER ='group_hotel_add_on_order' ;
+    const TYPE_GROUP_TRANSFER_ADD_ON_ORDER = 'group_transfer_add_on_order';
     /**
      * javascript strings
      *
@@ -54,6 +56,37 @@ class tsmorders
         $query->select('*')
             ->from('#__tsmart_activity');
         return $db->setQuery($query)->loadObjectList();
+    }
+    public static function get_list_assign_user_id_manager_hotel_add_on($tsmart_group_hotel_addon_order_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('user_id')
+            ->from('#__tsmart_order_user_manager')
+            ->where('object_id='.(int)$tsmart_group_hotel_addon_order_id)
+            ->where('type='.$query->q(self::TYPE_GROUP_HOTEL_ADD_ON_ORDER))
+        ;
+        $list= $db->setQuery($query)->loadColumn();
+        foreach($list as &$item){
+            $item=(int)$item;
+        }
+        return $list;
+    }
+
+    public static function get_list_assign_user_id_manager_transfer_add_on_id($tsmart_order_transfer_addon_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('user_id')
+            ->from('#__tsmart_order_user_manager')
+            ->where('object_id='.(int)$tsmart_order_transfer_addon_id)
+            ->where('type='.$query->q(self::TYPE_GROUP_TRANSFER_ADD_ON_ORDER))
+        ;
+        $list= $db->setQuery($query)->loadColumn();
+        foreach($list as &$item){
+            $item=(int)$item;
+        }
+        return $list;
     }
     public static function get_list_tour_id_by_transfer_addon_id($tsmart_transfer_addon_id = 0)
     {

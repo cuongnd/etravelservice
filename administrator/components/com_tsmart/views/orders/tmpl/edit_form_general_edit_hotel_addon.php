@@ -22,7 +22,7 @@ $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets
 defined('_JEXEC') or die('Restricted access');
 // set row counter
 ?>
-
+<!--edit_form_general_edit_hotel_addon-->
 <div class="view_orders_edit_from_general_edit_hotel_addon form-vertical">
     <div class="row-fluid ">
         <div class="span12">
@@ -30,7 +30,7 @@ defined('_JEXEC') or die('Restricted access');
                 <legend><?php echo JText::_('General') ?></legend>
                 <div class="row-fluid ">
                     <div class="span12">
-                        <div class="pull-right"><?php echo JText::sprintf('ID: %s',$this->item->order_number) ?></div>
+                        <div class="pull-right"><?php echo JText::sprintf('ID: <span class="group_hotel_addon_order">%s</span>','') ?></div>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -41,7 +41,7 @@ defined('_JEXEC') or die('Restricted access');
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
                             <div class="span12">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Location'), ''); ?>
+                                <?php echo VmHTML::row_control('text_view',JText::_('Location'),'', ' class="text-view hotel_location " '); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -58,14 +58,13 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_user_name', 'Assign to',array(),'assign_user_id',$this->item->assign_user_id,''); ?>
-
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_hotel_add_on',array(),' disabled '); ?>
                             </div>
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', "",'',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', "",'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', "",' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', "",' readonly ',100,4); ?>
 
                     </div>
                 </div>

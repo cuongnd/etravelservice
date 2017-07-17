@@ -132,7 +132,7 @@ $i = 0;
                         $passenger->year_old=TSMUtility::get_year_old_by_date($passenger->date_of_birth);
                     }
                     ?>
-                    <?php echo VmHtml::_('buil_rooming_list.rooming_list',$this->list_passenger_not_in_temporary_and_not_in_room,'rooming_list','',$this->departure,$this->passenger_config,$this->debug);?>
+                    <?php echo VmHtml::_('buil_rooming_list.rooming_list',$this->list_passenger_not_in_temporary_and_not_in_room,'add_hotel_add_on_rooming_list','',$this->departure,$this->passenger_config,$this->debug);?>
                 </div>
             </div>
 

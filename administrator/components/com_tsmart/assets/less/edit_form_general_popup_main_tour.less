@@ -1,4 +1,4 @@
-.view_orders_edit_from_general_edit_hotel_addon,.view_orders_edit_from_general_edit_hotel_addon_child {
+.edit-form-general-popup-main-tour {
   @margin-left:100px;
   fieldset {
     border: 1px solid #3399ff;
@@ -18,7 +18,7 @@
       color: #024DFE;
       font-weight: bold;
     }
-    .input[disabled],input[readonly]{
+    .input[disabled]{
       background: #fff;
       border-radius: 0;
     }
@@ -38,10 +38,6 @@
       color: #4F699A;
       text-transform: uppercase;
 
-    }
-    .edit-night-hotel-add-on
-    {
-      padding: 10px 0px;
     }
     #product_name,#terms_condition,#reservation_notes{
       width: 100%;
@@ -71,35 +67,40 @@
     text-align: center;
     text-transform: uppercase;
   }
-  #terms_condition,#reservation_notes
+  #terms_condition
   {
-    border-radius: 0;
+    height: 200px;
     resize: none;
+    border-radius: 0px;
   }
-  textarea[readonly]{
+  #reservation_notes
+  {
+    height: 196px;
+    resize: none;
+    border-radius: 0px;
+  }
+  #product_code
+  {
+    border-radius: 0px;
+  }
+  input[readonly]{
     background: #fff;
   }
-  .select2-container
+  #supplier_html_select_supplier_main_tour_tsmart_supplier_id
   {
-    width: 100%!important;
+    .select2-container {
+      width: 100% !important;
+    }
   }
-  #user_html_select_user_read_only_list_assign_user_id_manager_hotel_add_on
-  {
-    &.hide_more{
-       height: 28px;
+  #user_html_select_user_assign_user_id_manager_main_tour {
+    .select2-container {
+      width: 100% !important;
+      height: 28px;
       overflow: hidden;
     }
-    .select2-container
-    {
-      width: 100% !important;
-      .select2-selection.user_html_select_user
-      {
-        background: #fff;
-        border-radius: 0;
-        border: 1px solid #cccccc;
-      }
+    .select2-selection.user_html_select_user {
+      background: #fff !important;
+      border-radius: 0px;
     }
-
   }
-
 }

@@ -27,13 +27,13 @@ $i = 0;
 ?>
 <div class="view_orders_edit_order_edit_main_tour">
 
-    <?php echo $this->loadTemplate('form_general') ?>
+    <?php //echo $this->loadTemplate('form_general') ?>
     <?php echo $this->loadTemplate('form_booking_summary') ?>
     <?php echo $this->loadTemplate('form_service_cost') ?>
     <?php echo $this->loadTemplate('form_condition') ?>
     <?php echo $this->loadTemplate('form_passenger') ?>
     <?php echo $this->loadTemplate('form_rooming') ?>
-    <?php echo $this->loadTemplate('form_itinerary') ?>
+    <?php //echo $this->loadTemplate('form_itinerary') ?>
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">

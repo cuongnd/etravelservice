@@ -48,11 +48,11 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'departure_date', $this->departure->departure_date); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'transfer_date', $this->departure->departure_date); ?>
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_date_end', $this->departure->departure_date_end); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'transfer_date_end', $this->departure->departure_date_end); ?>
 
                             </div>
                         </div>

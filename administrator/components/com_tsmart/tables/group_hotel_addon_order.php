@@ -38,6 +38,8 @@ class Tablegroup_hotel_addon_order extends tsmTableData {
 	var $checkout_date= null;
 	var $tsmart_hotel_addon_id= 0;
 	var $tsmart_order_id= null;
+	var $terms_condition= null;
+	var $reservation_notes= null;
 	var $status= 0;
 
 	/**

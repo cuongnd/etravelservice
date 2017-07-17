@@ -105,7 +105,6 @@ class TSMUtility
         return $estimates[1][0];
 
     }
-
     /**
      * Truncates text.
      *

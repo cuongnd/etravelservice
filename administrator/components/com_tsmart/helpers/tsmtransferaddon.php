@@ -55,6 +55,23 @@ class tsmtransferaddon
             ->from('#__tsmart_activity');
         return $db->setQuery($query)->loadObjectList();
     }
+    public static function get_data_price_by_tsmart_transfer_addon_id($tsmart_transfer_addon_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_transfer_addon AS transfer_addon')
+            ->where('transfer_addon.tsmart_transfer_addon_id='.(int)$tsmart_transfer_addon_id);
+
+        ;
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $transfer_addon=$db->setQuery($query)->loadObject();
+        $transfer_addon->data_price=base64_decode($transfer_addon->data_price);
+        $data_price = up_json_decode($transfer_addon->data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        return $data_price;
+    }
+
+
     public static function get_list_tour_id_by_transfer_addon_id($tsmart_transfer_addon_id = 0)
     {
         $db = JFactory::getDbo();

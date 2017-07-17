@@ -27,7 +27,7 @@ $i = 0;
 <div class="booking-information form-vertical">
     <div class="row-fluid ">
         <div class="span12">
-            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary', $this->item->itinerary, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'excursion_itinerary', $this->item->itinerary, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
         </div>
     </div>
 

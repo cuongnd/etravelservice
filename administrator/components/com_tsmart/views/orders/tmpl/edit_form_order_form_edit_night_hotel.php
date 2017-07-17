@@ -35,12 +35,12 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="row-fluid">
                     <div class="span6">
                         <?php echo VmHTML::row_control('text_view',JText::_('Service name'), "",'class="text-view hotel_name "'); ?>
-                        <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
+                        <?php echo VmHTML::row_control('supplier.select_supplier', 'Supplier',array(),'tsmart_Supplier_id','',''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
                             <div class="span12">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Location'), ''); ?>
+                                <?php echo VmHTML::row_control('text_view',JText::_('Location'), '', ' class="text-view hotel_location " '); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -59,7 +59,7 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_user_name', 'Assign to',array(),'assign_user_id',$this->item->assign_user_id,''); ?>
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'list_assign_user_id_manager_hotel_add_on',array(),''); ?>
 
                             </div>
                         </div>

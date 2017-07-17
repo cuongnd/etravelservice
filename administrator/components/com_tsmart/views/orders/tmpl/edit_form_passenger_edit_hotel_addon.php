@@ -24,6 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 // set row counter
 $i = 0;
 ?>
+<!--edit_form_passenger_edit_hotel_addon-->
 <div class="view_orders_edit_form_passenger form-horizontal">
     <div class="row-fluid ">
         <div class="span12">

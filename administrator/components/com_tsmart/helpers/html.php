@@ -3375,8 +3375,11 @@ XML;
         if (empty($list_user)) {
             require_once JPATH_ROOT . '/administrator/components/com_tsmart/helpers/tsmuser.php';
             $list_user = tsmuser::get_list_user();
-        }
+            foreach($list_user as &$user){
+                $user=(object)array_intersect_key((array)$user, array(id=>0,name=>""));
+            }
 
+        }
         $id_element = 'html_select_user_' . $name;
         ob_start();
         ?>
@@ -3384,7 +3387,7 @@ XML;
             jQuery(document).ready(function ($) {
                 $('#<?php  echo $id_element ?>').html_select_user({
                     list_user:<?php echo json_encode($list_user) ?>,
-                    select_name: "<?php echo $name ?>",
+                    name: "<?php echo $name ?>",
                     user_id:<?php echo $default ? $default : 0 ?>
                 });
             });
@@ -3393,14 +3396,22 @@ XML;
         $script_content = ob_get_clean();
         $script_content = TSMUtility::remove_string_javascript($script_content);
         $doc->addScriptDeclaration($script_content);
-
+        $function_check_user_selected=function($user_id,$default){
+            if(is_numeric($default)){
+                return  $user_id == $default;
+            }else if(is_array($default)){
+                return in_array($user_id,$default);
+            }else{
+                return false;
+            }
+        };
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>" <?php echo $attrib ?> >
-            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="user">
+            <select  disable_chosen="true" <?php echo is_array($default)?' multiple ':'' ?>   id="<?php echo $name ?>" name="<?php echo $name ?>" class="user">
                 <option value=""><?php echo JText::_('please select user') ?></option>
                 <?php foreach ($list_user as $user) { ?>
-                    <option <?php echo $user->id == $default ? ' selected ' : '' ?>
+                    <option <?php echo $function_check_user_selected($user->id,$default)? ' selected ' : '' ?>
                         value="<?php echo $user->id ?>"><?php echo $user->name ?></option>
                 <?php } ?>
             </select>

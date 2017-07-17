@@ -17,7 +17,7 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_edit_main_tour.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_edit_transfer_add_on.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
@@ -25,15 +25,18 @@ defined('_JEXEC') or die('Restricted access');
 $i = 0;
 
 ?>
-<div class="view_orders_edit_order_edit_main_tour">
+<div class="view_orders_edit_order_edit_transfer_add_on">
 
-    <?php echo $this->loadTemplate('form_general') ?>
-    <?php echo $this->loadTemplate('form_booking_summary') ?>
-    <?php echo $this->loadTemplate('form_service_cost') ?>
-    <?php echo $this->loadTemplate('form_condition') ?>
+    <?php echo $this->loadTemplate('form_edit_general_transfer') ?>
+    <?php echo $this->loadTemplate('form_booking_summary_edit_transfer_addon') ?>
+    <?php echo $this->loadTemplate('form_service_cost_edit_transfer_addon') ?>
+    <?php echo $this->loadTemplate('form_condition_transfer') ?>
     <?php echo $this->loadTemplate('form_passenger') ?>
     <?php echo $this->loadTemplate('form_rooming') ?>
-    <?php echo $this->loadTemplate('form_itinerary') ?>
+    <?php //echo $this->loadTemplate('form_itinerary') ?>
+    <input type="hidden" name="tsmart_transfer_addon_id" value="">
+    <input type="hidden" name="type" value="">
+
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">

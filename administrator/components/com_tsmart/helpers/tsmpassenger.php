@@ -124,6 +124,21 @@ class tsmpassenger
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
     }
+    public static function get_list_passenger_not_in_temporary_and_joint_transfer_add_on_by_tsmart_order_transfer_addon_id($tsmart_order_transfer_addon_id,$type)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->leftJoin('#__tsmart_transfer_addon_order AS transfer_addon_order ON transfer_addon_order.tsmart_order_transfer_addon_id=passenger.'.$type.'_tsmart_order_transfer_addon_id')
+            ->where('transfer_addon_order.tsmart_order_transfer_addon_id='.(int)$tsmart_order_transfer_addon_id)
+            ->select('transfer_addon_order.tsmart_order_transfer_addon_id,transfer_addon_order.note as transfer_note,transfer_addon_order.created_on AS transfer_created_on')
+            ->where('is_temporary =0')
+            ->where('tsmart_parent_passenger_id is null')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
     public static function get_list_passenger_not_in_temporary_and_not_joint_hotel_addon_by_hotel_addon_id($type,$tsmart_order_id)
     {
         $db=JFactory::getDbo();
@@ -131,6 +146,20 @@ class tsmpassenger
         $query->select('passenger.*')
             ->from('#__tsmart_passenger AS passenger')
             ->where('passenger.'.$type.'_tsmart_order_hotel_addon_id is null')
+            ->where('is_temporary =0')
+            ->where('tsmart_order_id ='.(int)$tsmart_order_id)
+            ->where('tsmart_parent_passenger_id is null')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_and_not_joint_transfer_by_tsmart_order_id($type,$tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->where('passenger.'.$type.'_tsmart_order_transfer_addon_id is null')
             ->where('is_temporary =0')
             ->where('tsmart_order_id ='.(int)$tsmart_order_id)
             ->where('tsmart_parent_passenger_id is null')

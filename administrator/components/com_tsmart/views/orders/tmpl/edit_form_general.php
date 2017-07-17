@@ -22,7 +22,7 @@ $doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets
 defined('_JEXEC') or die('Restricted access');
 // set row counter
 ?>
-<div class="edit-form-general form-vertical">
+<div class="edit-form-general view_orders_edit_from_general_main_tour form-vertical">
     <div class="row-fluid ">
         <div class="span12">
             <fieldset class="general">
@@ -48,12 +48,10 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'departure_date', $this->departure->departure_date); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('Check in date'), $this->departure->departure_date,'class="text-view check_in_date "'); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'departure_date_end', $this->departure->departure_date_end); ?>
-
+                                <?php echo VmHTML::row_control('text_view',JText::_('Check out date'), $this->departure->departure_date_end,'class="text-view check_out_date "'); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -62,21 +60,27 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_user_name', 'Assign to',array(),'assign_user_id',$this->item->assign_user_id,''); ?>
-
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_main_tour',array(),' disabled '); ?>
                             </div>
+
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,'',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,' readonly ',100,4); ?>
 
                     </div>
                 </div>
 
-
             </fieldset>
 
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <a class="edit-general-main-tour" href="javascript:void(0)"><?php echo JText::_('Edit') ?></a>
+            </div>
         </div>
     </div>
 

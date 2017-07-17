@@ -52,12 +52,33 @@
                 $element.find('input[name="'+input_name+'"]').val(date);
             });
             $element.find('.select_date').datepicker('setDate', value_selected);
-            value_selected
 
+        };
+        plugin.get_date=function(){
+            var input_name = plugin.settings.input_name;
+            return $element.find('input[name="'+input_name+'"]').val();
+        };
+        plugin.set_max_date=function(date){
+            console.log(date);
+            $element.find('.select_date').datepicker('option','maxDate',new Date(date));
+        };
+        plugin.on_select=function(fuc){
+            var format = plugin.settings.format;
+            var input_name = plugin.settings.input_name;
+
+            $element.find('.select_date').datepicker('option','onSelect',function(dateText, inst ){
+                dateText=$.format.date(dateText, format);
+                $element.find('input[name="'+input_name+'"]').val(dateText);
+                fuc.call();
+
+            });
+        };
+        plugin.set_min_date=function(date){
+            $element.find('.select_date').datepicker('option','minDate',new Date(date));
         };
         plugin.set_date=function(queryDate){
             $element.find('.select_date').datepicker('setDate', queryDate);
-        }
+        };
         plugin.init();
 
     };

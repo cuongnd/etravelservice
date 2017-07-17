@@ -1,7 +1,7 @@
 (function ($) {
 
     // here we go!
-    $.html_select_user = function (element, options) {
+    $.user_html_select_user = function (element, options) {
 
         // plugin's default options
         var defaults = {
@@ -19,29 +19,34 @@
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
         // the "constructor" method that gets called when the object is created
+        plugin.options = function (options) {
+
+        }
+        plugin.set_value = function (values) {
+            var name=plugin.settings.name;
+            $element.find('select[name="'+name+'"]').val(values).trigger('change');
+        }
         plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
-            var list_service_class=plugin.settings.list_user;
             var name=plugin.settings.name;
-            var tsmart_language_id=plugin.settings.user_id;
-            plugin.select2=$element.find('select[name="'+name+'"]').select2({
-
+            $element.find('select[name="'+name+'"]').select2({
+                placeholder: 'Select an option',
+                containerCssClass: "user_html_select_user"
             });
-            plugin.select2.val(tsmart_language_id).trigger("change")
         };
         plugin.init();
 
     }
 
     // add the plugin to the jQuery.fn object
-    $.fn.html_select_user = function (options) {
+    $.fn.user_html_select_user = function (options) {
 
         // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('html_select_user')) {
-                var plugin = new $.html_select_user(this, options);
-                $(this).data('html_select_user', plugin);
+            if (undefined == $(this).data('user_html_select_user')) {
+                var plugin = new $.user_html_select_user(this, options);
+                $(this).data('user_html_select_user', plugin);
 
             }
 

@@ -24,7 +24,7 @@
  * @subpackage  Language
  * @since       11.1
  */
-class vmsupplier
+class tsmsupplier
 {
     /**
      * javascript strings
@@ -93,6 +93,17 @@ class vmsupplier
         $query=$db->getQuery(true);
         $query->select('*')
             ->from('#__tsmart_cityarea')
+        ;
+        $db->setQuery($query);
+        $list= $db->loadObjectList();
+        return $list;
+    }
+    public static function get_list_supplier()
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_supplier')
         ;
         $db->setQuery($query);
         $list= $db->loadObjectList();

@@ -58,21 +58,6 @@ $extra_post_night_hotel=(array)$order_data->extra_post_night_hotel;
 $this->night_hotel=array_merge($extra_pre_night_hotel,$extra_post_night_hotel);
 $this->list_excursion_addon=(array)$order_data->build_excursion_addon;
 $this->payment_rule=$order_data->payment_rule;
-ob_start();
-?>
-<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $('.view-orders-edit').view_orders_edit({
-            list_passenger_not_in_room:<?php echo json_encode($this->list_passenger_not_in_room) ?>,
-            departure:<?php echo json_encode($this->departure) ?>
-        });
-    });
-</script>
-<?php
-$utility=tsmHelper::getHepler('utility');
-$js_content = ob_get_clean();
-$js_content = $utility->remove_string_javascript($js_content);
-$doc->addScriptDeclaration($js_content);
 
 $input=JFactory::getApplication()->input;
 $this->tab_selected=$input->getString('tab','general');
@@ -83,6 +68,7 @@ $this->list_tab=array(
     finance=>"Finance",
     conversation=>"Conversation",
 );
+$this->debug=TSMUtility::get_debug();
 ?>
 <div class="view-orders-edit">
     <form action="index.php" method="post" class="form-vertical" name="adminForm" id="adminForm">
@@ -159,6 +145,9 @@ $this->list_tab=array(
     <div class="order_hotel_add_on_edit_rooming hide">
         <?php echo $this->loadTemplate('order_hotel_add_on_edit_rooming') ?>
     </div>
+    <div class="edit_form_general_main_tour_popup hide">
+        <?php echo $this->loadTemplate('form_general_popup_main_tour') ?>
+    </div>
     <div class="order_form_add_and_remove_room_edit_hotel_addon hide">
         <?php echo $this->loadTemplate('form_add_and_remove_room_edit_hotel_addon') ?>
     </div>
@@ -181,4 +170,20 @@ $this->list_tab=array(
 </div>
 
 <?php AdminUIHelper::endAdminArea(); ?>
-
+<?php
+    ob_start();
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.view-orders-edit').view_orders_edit({
+                list_passenger_not_in_room:<?php echo json_encode($this->list_passenger_not_in_room) ?>,
+                departure:<?php echo json_encode($this->departure) ?>,
+                debug:<?php echo json_encode($this->debug) ?>
+            });
+        });
+    </script>
+<?php
+$utility=tsmHelper::getHepler('utility');
+$js_content = ob_get_clean();
+$js_content = $utility->remove_string_javascript($js_content);
+$doc->addScriptDeclaration($js_content);

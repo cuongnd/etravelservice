@@ -17,17 +17,24 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_bookinginfomation.less');
+//$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_booking_information_itinerary.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="booking-information form-vertical">
+<div class="booking-information view_orders_edit_order_booking_information_itinerary form-vertical">
     <div class="row-fluid ">
         <div class="span12">
-            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary', $this->item->itinerary, '100%',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary_readonly', $this->item->itinerary, '100% ',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <a class="edit-general-main-tour" href="javascript:void(0)"><?php echo JText::_('Edit') ?></a>
+            </div>
         </div>
     </div>
 

@@ -17,12 +17,12 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_from_general.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/edit_form_general_popup_main_tour.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 // set row counter
 ?>
-<div class="edit-form-general form-vertical">
+<div class="edit-form-general-popup-main-tour edit_form_general_popup_main_tour form-vertical">
     <div class="row-fluid ">
         <div class="span12">
             <fieldset class="general">
@@ -35,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="row-fluid">
                     <div class="span6">
                         <?php echo VmHTML::row_control('text_view',JText::_('Service name'), $this->tour->product_name); ?>
-                        <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
+                        <?php echo VmHTML::row_control('supplier.select_supplier', 'Supplier',array(),'main_tour_tsmart_supplier_id','',''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
@@ -48,11 +48,11 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('Start date'), 'excursion_date', $this->departure->departure_date); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Check in date'), 'departure_date', ''); ?>
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_date',JText::_('End Date'), 'excursion_date_end', $this->departure->departure_date_end); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Check out date'), 'departure_date_end',''); ?>
 
                             </div>
                         </div>
@@ -62,21 +62,33 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('select_user_name', 'Assign to',array(),'assign_user_id',$this->item->assign_user_id,''); ?>
-
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'assign_user_id_manager_main_tour',array(),'  '); ?>
                             </div>
+
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,' ',100,4); ?>
                         <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,'',100,4); ?>
 
                     </div>
                 </div>
 
-
             </fieldset>
+            <div class="row-fluid ">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary', $this->item->itinerary, '100% ',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                </div>
+            </div>
 
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+            </div>
         </div>
     </div>
 

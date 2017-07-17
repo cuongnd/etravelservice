@@ -24,6 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 // set row counter
 $i = 0;
 ?>
+<!--edit_form_rooming_edit_hotel_addon-->
 <div class="view_orders_edit_order_bookinginfomation_hotel_addon form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
@@ -33,7 +34,7 @@ $i = 0;
             <table class="adminlist table table-striped rooming-list" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
-                    <th class="admin-checkbox">
+                    <th width="5%" class="admin-checkbox">
                         <label class="checkbox"><input type="checkbox" name="toggle" value=""
                                                        onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_order_id', 'Id'); ?>
                         </label>
