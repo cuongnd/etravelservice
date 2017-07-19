@@ -85,6 +85,8 @@ class TablePassenger extends tsmTableData {
 
 	var $post_tsmart_order_transfer_addon_id = null;
 	var $post_transfer_fee = 0;
+	var $post_transfer_status = 0;
+	var $pre_transfer_status = 0;
 
 
 	/**

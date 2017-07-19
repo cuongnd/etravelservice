@@ -305,7 +305,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                     $excursion_addon_passenger_price_order_orderTable->id=0;
                     $excursion_addon_passenger_price_order_orderTable->tsmart_order_excursion_addon_id=$tsmart_order_excursion_addon_id;
                     $excursion_addon_passenger_price_order_orderTable->tsmart_passenger_id=$tsmart_passenger_id;
-                    $excursion_addon_passenger_price_order_orderTable->excusion_fee=$passenger_cost->cost;
+                    $excursion_addon_passenger_price_order_orderTable->excursion_fee=$passenger_cost->cost;
                     $excursion_addon_passenger_price_order_orderTable->store();
 
                 }

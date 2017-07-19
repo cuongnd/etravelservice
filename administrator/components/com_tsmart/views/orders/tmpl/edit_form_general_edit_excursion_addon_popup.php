@@ -17,36 +17,39 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_from_general_edit_transfer.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_from_general_edit_excursion_addon.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 // set row counter
 ?>
-<!--edit_form_general_edit_hotel_addon-->
-<div class="view_orders_edit_from_general_edit_transfer form-vertical">
+<!--edit_form_general_edit_excursion_addon-->
+<div class="view_orders_edit_from_general_edit_excursion_addon_popup form-vertical">
     <div class="row-fluid ">
         <div class="span12">
             <fieldset class="general">
                 <legend><?php echo JText::_('General') ?></legend>
                 <div class="row-fluid ">
                     <div class="span12">
-                        <div class="pull-right"><?php echo JText::sprintf('ID: <span class="tsmart_order_transfer_addon_id">%s</span>','') ?></div>
+                        <div class="pull-right"><?php echo JText::sprintf('ID: <span class="group_excursion_addon_order">%s</span>','') ?></div>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span6">
-                        <?php echo VmHTML::row_control('text_view',JText::_('Service name'), "",'class="text-view transfer_addon_name "'); ?>
+                        <?php echo VmHTML::row_control('text_view',JText::_('Service name'), "",'class="text-view excursion_addon_name "'); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
                             <div class="span12">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Location'),'', ' class="text-view transfer_location " '); ?>
+                                <?php echo VmHTML::row_control('text_view',JText::_('Location'),'', ' class="text-view excursion_location " '); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span12">
+                            <div class="span6">
                                 <?php echo VmHTML::row_control('text_view',JText::_('Check in date'), ' ','class="text-view check_in_date "'); ?>
+                            </div>
+                            <div class="span6">
+                                <?php echo VmHTML::row_control('text_view',JText::_('Check out date'), ' ','class="text-view check_out_date "'); ?>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -55,7 +58,7 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_transfer',array(),' disabled '); ?>
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_excursion_add_on',array(),' disabled '); ?>
                             </div>
                         </div>
                     </div>
@@ -68,11 +71,21 @@ defined('_JEXEC') or die('Restricted access');
 
 
             </fieldset>
+            <div class="row-fluid ">
+                <div class="span12">
+                    <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary_excursion', $this->item->itinerary, '100% ',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+                </div>
+            </div>
 
         </div>
     </div>
-    <div>
-        <div class="pull-right"><a href="javascript:void(0)" class="edit-transfer-add-on"><?php echo JText::_('Edit') ?></a></div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Product pricing -->

@@ -17,13 +17,12 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_from_general_edit_transfer.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 // set row counter
 ?>
 <!--edit_form_general_edit_hotel_addon-->
-<div class="view_orders_edit_from_general_edit_transfer form-vertical">
+<div class="view_orders_edit_from_general_edit_transfer_popup form-vertical">
     <div class="row-fluid ">
         <div class="span12">
             <fieldset class="general">
@@ -36,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="row-fluid">
                     <div class="span6">
                         <?php echo VmHTML::row_control('text_view',JText::_('Service name'), "",'class="text-view transfer_addon_name "'); ?>
-                        <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
+                        <?php echo VmHTML::row_control('supplier.select_supplier', 'Supplier',array(),'transfer_add_on_tsmart_supplier_id','',''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
@@ -46,7 +45,8 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span12">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Check in date'), ' ','class="text-view check_in_date "'); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Check in date'), 'transfer_check_in_date', ''); ?>
+
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -55,13 +55,13 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_transfer',array(),' disabled '); ?>
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'list_assign_user_id_manager_transfer_add_on',array(),' '); ?>
                             </div>
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', "",' readonly ',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', "",' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', "",'  ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', "",' ',100,4); ?>
 
                     </div>
                 </div>
@@ -71,9 +71,15 @@ defined('_JEXEC') or die('Restricted access');
 
         </div>
     </div>
-    <div>
-        <div class="pull-right"><a href="javascript:void(0)" class="edit-transfer-add-on"><?php echo JText::_('Edit') ?></a></div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+            </div>
+        </div>
     </div>
+
 </div>
 <!-- Product pricing -->
 

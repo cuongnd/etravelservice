@@ -167,6 +167,25 @@ $this->debug=TSMUtility::get_debug();
     <div class="order_form_edit_night_hotel hide">
         <?php echo $this->loadTemplate('form_order_form_edit_night_hotel') ?>
     </div>
+
+    <div class="form_edit_general_transfer_popup hide">
+        <?php echo $this->loadTemplate('form_edit_general_transfer_popup') ?>
+    </div>
+    <div class="form_and_passenger_to_transfer_add_on hide">
+        <?php echo $this->loadTemplate('form_add_passenger_to_transfer_add_on') ?>
+    </div>
+    <div class="form_edit_passenger_cost_transfer_add_on hide">
+        <?php echo $this->loadTemplate('form_edit_passenger_cost_transfer_add_on') ?>
+    </div>
+    <div class="form_edit_general_excursion_popup hide">
+        <?php echo $this->loadTemplate('form_general_edit_excursion_addon_popup') ?>
+    </div>
+    <div class="order_edit_passenger_cost_edit_excursion_add_on hide">
+        <?php echo $this->loadTemplate('form_edit_passenger_cost_excursion_add_on') ?>
+    </div>
+    <div class="form_add_and_passenger_to_excurson_add_on hide">
+        <?php echo $this->loadTemplate('form_add_passenger_to_excursion_add_on') ?>
+    </div>
 </div>
 
 <?php AdminUIHelper::endAdminArea(); ?>

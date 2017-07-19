@@ -24,10 +24,7 @@
             var list_passenger_status=plugin.settings.list_passenger_status;
             var select_name=plugin.settings.select_name;
             var tsmart_passenger_state_id=plugin.settings.tsmart_passenger_state_id;
-            plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
-            });
-            plugin.select2.val(tsmart_passenger_state_id).trigger("change")
         };
         plugin.init();
 

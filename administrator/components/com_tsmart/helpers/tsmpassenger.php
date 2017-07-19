@@ -109,6 +109,7 @@ class tsmpassenger
         $list=$db->setQuery($query)->loadObjectList();
         return $list;
     }
+
     public static function get_list_passenger_not_in_temporary_and_joint_hotel_addon_by_hotel_addon_id($tsmart_group_hotel_addon_order_id,$type)
     {
         $db=JFactory::getDbo();
@@ -131,9 +132,53 @@ class tsmpassenger
         $query->select('passenger.*')
             ->from('#__tsmart_passenger AS passenger')
             ->leftJoin('#__tsmart_transfer_addon_order AS transfer_addon_order ON transfer_addon_order.tsmart_order_transfer_addon_id=passenger.'.$type.'_tsmart_order_transfer_addon_id')
-            ->where('transfer_addon_order.tsmart_order_transfer_addon_id='.(int)$tsmart_order_transfer_addon_id)
             ->select('transfer_addon_order.tsmart_order_transfer_addon_id,transfer_addon_order.note as transfer_note,transfer_addon_order.created_on AS transfer_created_on')
+            ->where('transfer_addon_order.tsmart_order_transfer_addon_id='.(int)$tsmart_order_transfer_addon_id)
             ->where('is_temporary =0')
+            ->group('passenger.tsmart_passenger_id')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_and_not_joint_transfer_by_tsmart_order_id($tsmart_order_id,$type)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->where('passenger.tsmart_order_id='.(int)$tsmart_order_id)
+            ->where('is_temporary =0')
+            ->where('passenger.'.$type.'_tsmart_order_transfer_addon_id is null')
+            ->group('passenger.tsmart_passenger_id')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_and_not_joint_excursion_by_tsmart_order_id($tsmart_order_excursion_addon_id,$tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->leftJoin('#__tsmart_excursion_addon_passenger_price_order AS excursion_addon_passenger_price_order ON excursion_addon_passenger_price_order.tsmart_passenger_id=passenger.tsmart_passenger_id AND excursion_addon_passenger_price_order.tsmart_order_excursion_addon_id='.(int)$tsmart_order_excursion_addon_id)
+            ->where('passenger.is_temporary =0')
+            ->where('passenger.tsmart_order_id ='.(int)$tsmart_order_id)
+            ->where('excursion_addon_passenger_price_order.tsmart_passenger_id is null')
+            ->where('tsmart_parent_passenger_id is null')
+        ;
+        $list=$db->setQuery($query)->loadObjectList();
+        return $list;
+    }
+    public static function get_list_passenger_not_in_temporary_and_joint_excursion_add_on_by_tsmart_order_excursion_addon_id($tsmart_order_excursion_addon_id,$tsmart_order_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('passenger.*,excursion_addon_passenger_price_order.*')
+            ->from('#__tsmart_passenger AS passenger')
+            ->innerJoin('#__tsmart_excursion_addon_passenger_price_order AS excursion_addon_passenger_price_order ON excursion_addon_passenger_price_order.tsmart_passenger_id=passenger.tsmart_passenger_id')
+            ->where('excursion_addon_passenger_price_order.tsmart_order_excursion_addon_id='.(int)$tsmart_order_excursion_addon_id)
+            ->where('passenger.is_temporary =0')
+            ->where('passenger.tsmart_order_id ='.(int)$tsmart_order_id)
             ->where('tsmart_parent_passenger_id is null')
         ;
         $list=$db->setQuery($query)->loadObjectList();
@@ -146,20 +191,6 @@ class tsmpassenger
         $query->select('passenger.*')
             ->from('#__tsmart_passenger AS passenger')
             ->where('passenger.'.$type.'_tsmart_order_hotel_addon_id is null')
-            ->where('is_temporary =0')
-            ->where('tsmart_order_id ='.(int)$tsmart_order_id)
-            ->where('tsmart_parent_passenger_id is null')
-        ;
-        $list=$db->setQuery($query)->loadObjectList();
-        return $list;
-    }
-    public static function get_list_passenger_not_in_temporary_and_not_joint_transfer_by_tsmart_order_id($type,$tsmart_order_id)
-    {
-        $db=JFactory::getDbo();
-        $query=$db->getQuery(true);
-        $query->select('passenger.*')
-            ->from('#__tsmart_passenger AS passenger')
-            ->where('passenger.'.$type.'_tsmart_order_transfer_addon_id is null')
             ->where('is_temporary =0')
             ->where('tsmart_order_id ='.(int)$tsmart_order_id)
             ->where('tsmart_parent_passenger_id is null')
@@ -343,7 +374,7 @@ class tsmpassenger
             ->leftJoin('#__tsmart_excursion_addon AS excursion_addon ON excursion_addon.tsmart_excursion_addon_id= excursion_addon_order.tsmart_excursion_addon_id')
             ->select("excursion_addon.excursion_addon_name")
             ->select("excursion_addon_order.tsmart_order_excursion_addon_id")
-            ->select("excursion_addon_passenger_price_order.excusion_fee")
+            ->select("excursion_addon_passenger_price_order.excursion_fee")
             ->where('passenger.tsmart_order_id='.(int)$tsmart_order_id)
             ->where('passenger.tsmart_parent_passenger_id is null')
 
@@ -361,9 +392,9 @@ class tsmpassenger
             ->leftJoin('#__tsmart_excursion_addon AS excursion_addon ON excursion_addon.tsmart_excursion_addon_id= excursion_addon_order.tsmart_excursion_addon_id')
             ->select("excursion_addon.excursion_addon_name")
             ->select("excursion_addon_order.tsmart_order_excursion_addon_id")
-            ->select("SUM(excursion_addon_passenger_price_order.excusion_fee) AS total_cost")
+            ->select("SUM(excursion_addon_passenger_price_order.excursion_fee) AS total_cost")
             ->select("COUNT(excursion_addon_passenger_price_order.tsmart_passenger_id) AS total_confirm")
-            ->select("excursion_addon_passenger_price_order.excusion_fee")
+            ->select("excursion_addon_passenger_price_order.excursion_fee")
             ->where('passenger.tsmart_parent_passenger_id is null')
             ->where('excursion_addon_order.tsmart_order_id='.(int)$tsmart_order_id)
             ->group("excursion_addon_order.tsmart_order_excursion_addon_id")

@@ -24,9 +24,7 @@
             var list_order_status=plugin.settings.list_order_status;
             var select_name=plugin.settings.select_name;
             var tsmart_orderstate_id=plugin.settings.tsmart_orderstate_id;
-            plugin.select2=$element.find('select[name="'+select_name+'"]').select2({
 
-            });
         };
         plugin.init();
 

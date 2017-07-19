@@ -17,14 +17,14 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_transfer_add_on_summary.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_excursion_add_on_summary.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
 ?>
-<div class="view_orders_edit_form_transfer_add_on_summary form-horizontal">
+<div class="view_orders_edit_form_excursion_add_on_summary form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
@@ -77,7 +77,7 @@ $i = 0;
                     <td><span class="cost refund"><?php echo JText::_("N/A") ?></span></td>
                     <td><span class="cost profit"><?php echo JText::_("N/A") ?></span></td>
                     <td>
-                        <?php echo VmHTML::change_order_status(array(), 'transfer_add_on_status', 0, ''); ?>
+                        <?php echo VmHTML::change_order_status(array(), 'hotel_add_on_status', 0, ''); ?>
                     </td>
 
                 </tr>

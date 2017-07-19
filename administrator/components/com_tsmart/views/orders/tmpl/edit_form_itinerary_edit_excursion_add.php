@@ -17,33 +17,27 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_edit_transfer_add_on.less');
+//$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_order_booking_information_itinerary.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
-
 ?>
-<div class="view_orders_edit_order_edit_transfer_add_on">
-
-    <?php echo $this->loadTemplate('form_edit_general_transfer') ?>
-    <?php echo $this->loadTemplate('form_booking_summary_edit_transfer_addon') ?>
-    <?php echo $this->loadTemplate('form_service_cost_edit_transfer_addon') ?>
-    <?php echo $this->loadTemplate('form_condition_transfer') ?>
-    <?php echo $this->loadTemplate('form_passenger_edit_transfer_addon') ?>
-    <?php echo $this->loadTemplate('form_list_passenger_not_in_transfer') ?>
-    <?php //echo $this->loadTemplate('form_itinerary') ?>
-    <input type="hidden" name="tsmart_order_transfer_addon_id" value="">
-    <input type="hidden" name="type" value="">
-
+<div class="booking-information view_orders_edit_order_booking_information_itinerary form-vertical">
+    <div class="row-fluid ">
+        <div class="span12">
+            <?php echo VmHTML::row_control('editor', JText::_('itinerary'), 'itinerary_readonly', $this->item->itinerary, '100% ',  20, 10, 20, tsmConfig::$list_editor_plugin_disable); ?>
+        </div>
+    </div>
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">
-                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('close') ?></button>
+                <a class="edit-general-main-tour" href="javascript:void(0)"><?php echo JText::_('Edit') ?></a>
             </div>
         </div>
     </div>
+
 </div>
 <!-- Product pricing -->
 

@@ -10,19 +10,19 @@
             config_show_price: {
                 mDec: 1,
                 aSep: ' ',
-                vMin: -9999,
+                vMin: '-999999.00',
                 aSign: 'US$'
             },
             passenger_cost_config: {
                 mDec: 1,
                 aSep: ' ',
-                vMin: '-999.00',
+                vMin: '-999999.00',
                 aSign: ''
             },
             numeric_tax_config: {
                 mDec: 1,
                 aSep: ' ',
-                vMin: '-999.00',
+                vMin: '-999999.00',
                 aSign: ''
             },
             list_passenger_not_in_room:[]
@@ -70,6 +70,36 @@
             var refund=parseFloat(payment)-parseFloat(cancel_fee);
             $refund.autoNumeric('set',refund);
         };
+        plugin.transfer_add_on_calculator_price = function ($tr) {
+            var night_hotel_fee=$tr.find('input.transfer_fee').autoNumeric('get');
+            var discount=$tr.find('input.transfer_discount').autoNumeric('get');
+            var payment=$tr.find('input.transfer_payment').autoNumeric('get');
+            var cancel_fee=$tr.find('input.transfer_cancel_fee').autoNumeric('get');
+            var $total_cost=$tr.find('input.total_cost');
+            var total_cost=parseFloat(night_hotel_fee)-parseFloat(discount);
+            $total_cost.autoNumeric('set',total_cost);
+            var $balance=$tr.find('input.transfer_balance');
+            var balance=parseFloat(total_cost)-parseFloat(payment);
+            $balance.autoNumeric('set',balance);
+            var $refund=$tr.find('input.transfer_refund');
+            var refund=parseFloat(payment)-parseFloat(cancel_fee);
+            $refund.autoNumeric('set',refund);
+        };
+        plugin.excursion_add_on_calculator_price = function ($tr) {
+            var night_hotel_fee=$tr.find('input.excursion_fee').autoNumeric('get');
+            var discount=$tr.find('input.excursion_discount').autoNumeric('get');
+            var payment=$tr.find('input.excursion_payment').autoNumeric('get');
+            var cancel_fee=$tr.find('input.excursion_cancel_fee').autoNumeric('get');
+            var $total_cost=$tr.find('input.total_cost');
+            var total_cost=parseFloat(night_hotel_fee)-parseFloat(discount);
+            $total_cost.autoNumeric('set',total_cost);
+            var $balance=$tr.find('input.excursion_balance');
+            var balance=parseFloat(total_cost)-parseFloat(payment);
+            $balance.autoNumeric('set',balance);
+            var $refund=$tr.find('input.excursion_refund');
+            var refund=parseFloat(payment)-parseFloat(cancel_fee);
+            $refund.autoNumeric('set',refund);
+        };
         plugin.fill_data_passenger_cost = function (list_row) {
             for(var i=0;i<list_row.length;i++){
                 var row=list_row[i];
@@ -112,6 +142,36 @@
             $tbody.find('.passenger_cost').autoNumeric('init',plugin.settings.config_show_price).change(function(){
                 var $tr=$(this).closest('tr.passenger');
                 plugin.hotel_add_on_calculator_price($tr);
+            });
+
+        }
+        plugin.fill_data_passenger_cost_edit_excursion_add_on = function (list_passenger,hotel_addon_detail) {
+
+            var $tbody=$(".view_orders_edit_form_edit_passenger_cost_edit_excursion_addon").find('table.edit_passenger_cost_excursion_addon_edit_passenger tbody');
+            $tbody.empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var passenger=list_passenger[i];
+                var $tr= $( plugin.settings.row_passenger_cost_edit_excursion_addon);
+                $tr.appendTo($tbody);
+                $tr.find('.tsmart_passenger_id').html(passenger.tsmart_passenger_id);
+                $tr.find('.passenger_cost').autoNumeric('init', plugin.settings.passenger_cost_config);
+                $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
+                $tr.find('input.tsmart_passenger_id').val(passenger.tsmart_passenger_id);
+                $tr.find('input.excursion_fee').autoNumeric('set',parseFloat(passenger.excursion_fee));
+                $tr.find('input.excursion_discount').autoNumeric('set',parseFloat(passenger.excursion_discount));
+                var excursion_payment=passenger.excursion_payment;
+                if(excursion_payment!=null)
+                {
+                    $tr.find('input.excursion_payment').autoNumeric('set',parseFloat(excursion_payment));
+                }else{
+                    $tr.find('input.excursion_payment').val('N/A');
+                }
+                $tr.find('input.excursion_cancel_fee').autoNumeric('set',parseFloat(passenger.excursion_cancel_fee));
+                plugin.excursion_add_on_calculator_price($tr);
+            }
+            $tbody.find('.passenger_cost').autoNumeric('init',plugin.settings.config_show_price).change(function(){
+                var $tr=$(this).closest('tr.passenger');
+                plugin.excursion_add_on_calculator_price($tr);
             });;
 
         };
@@ -287,10 +347,22 @@
 
         };
         plugin.fill_data_passenger_not_in_transfer_add_on = function (list_passenger_not_in_transfer) {
-            var $ul=$(".view_orders_edit_order_bookinginfomation_hotel_addon").find('ul.list_passenger_not_in_temporary_and_not_in_room');
+            var $ul=$(".view_edit_form_list_passenger_not_in_transfer").find('ul.list_passenger_not_in_temporary_and_not_in_transfer');
             $ul.empty();
             for(var key in list_passenger_not_in_transfer) {
                 var passenger=list_passenger_not_in_transfer[key];
+                var full_name=plugin.get_passenger_full_name(passenger);
+                var $li= $('<li class="tags"><a href="javascript:void(0)">'+full_name+'</a></li>');
+                $li.appendTo($ul);
+            }
+
+
+        };
+        plugin.fill_data_passenger_not_in_excursion_add_on = function (list_passenger_not_in_excursion) {
+            var $ul=$(".view_edit_form_list_passenger_not_in_excursion").find('ul.list_passenger_not_in_temporary_and_not_in_excursion');
+            $ul.empty();
+            for(var key in list_passenger_not_in_excursion) {
+                var passenger=list_passenger_not_in_excursion[key];
                 var full_name=plugin.get_passenger_full_name(passenger);
                 var $li= $('<li class="tags"><a href="javascript:void(0)">'+full_name+'</a></li>');
                 $li.appendTo($ul);
@@ -407,6 +479,84 @@
             });
 
         };
+        plugin.change_status_passenger_in_transfer_add_on = function (passenger,status) {
+            var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+            var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+            var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: 'index.php',
+                dataType: "json",
+                data: (function () {
+
+                    dataPost = {
+                        option: 'com_tsmart',
+                        controller: 'orders',
+                        task: 'change_status_passenger_in_transfer_add_on',
+                        status:status,
+                        type:type,
+                        tsmart_passenger_id:passenger.tsmart_passenger_id
+                    };
+                    return dataPost;
+                })(),
+                beforeSend: function () {
+
+                    $('.div-loading').css({
+                        display: "block"
+                    });
+                },
+                success: function (response) {
+
+                    $('.div-loading').css({
+                        display: "none"
+                    });
+                    if(response.e==0){
+                        alert('change status passenger successful');
+                    }
+                }
+            });
+
+        };
+        plugin.change_status_passenger_in_excursion_add_on = function (passenger,status) {
+            var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+            var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+            var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: 'index.php',
+                dataType: "json",
+                data: (function () {
+
+                    dataPost = {
+                        option: 'com_tsmart',
+                        controller: 'orders',
+                        task: 'change_status_passenger_in_transfer_add_on',
+                        status:status,
+                        type:type,
+                        tsmart_passenger_id:passenger.tsmart_passenger_id
+                    };
+                    return dataPost;
+                })(),
+                beforeSend: function () {
+
+                    $('.div-loading').css({
+                        display: "block"
+                    });
+                },
+                success: function (response) {
+
+                    $('.div-loading').css({
+                        display: "none"
+                    });
+                    if(response.e==0){
+                        alert('change status passenger successful');
+                    }
+                }
+            });
+
+        };
         plugin.update_orders_show_form_hotel_addon_passenger = function (list_passenger,type) {
             var $tbody=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody');
             $tbody.empty();
@@ -444,21 +594,21 @@
             });
         };
         plugin.update_orders_show_form_transfer_addon_passenger = function (list_passenger,type) {
-            var $tbody=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody');
+            var $tbody=$(".view_edit_form_passenger_edit_transfer_addon").find('table.orders_show_form_passenger_edit_transfer_addon tbody');
             $tbody.empty();
             for(var i=0;i<list_passenger.length;i++){
                 var passenger=list_passenger[i];
-                var $tr=$(plugin.setting_row_passenger_edit_hotel_addon);
+                var $tr=$(plugin.settings.row_passenger_edit_hotel_addon);
                 $tr.data('passenger',passenger);
                 $tr.find('.tsmart_passenger_id').html(passenger.tsmart_passenger_id);
-                $tr.find('select.passenger_status').val(passenger[type+'_night_status']);
+                $tr.find('select.passenger_status').val(passenger[type+'_transfer_status']);
                 $tr.find('.book_date').html(passenger.created_on);
-                $tr.find('.total_cost').html(passenger[type+'_night_total_cost']);
-                var night_payment=passenger[type+'_night_payment'];
+                $tr.find('.total_cost').html(passenger[type+'_transfer_total_cost']);
+                var night_payment=passenger[type+'_transfer_payment'];
 
-                $tr.find('.balance').html(passenger[type+'_night_balance']);
-                $tr.find('.cancel_fee').html(passenger[type+'_night_cancel_fee']);
-                $tr.find('.refund').html(passenger[type+'_night_refund']);
+                $tr.find('.balance').html(passenger[type+'_transfer_balance']);
+                $tr.find('.cancel_fee').html(passenger[type+'_transfer_cancel_fee']);
+                $tr.find('.refund').html(passenger[type+'_transfer_refund']);
                 if(night_payment==null)
                 {
                     $tr.find('.payment').html("N/A");
@@ -476,17 +626,53 @@
             $tbody.find('select.passenger_status').change(function(){
                 var passenger=$(this).closest('tr.passenger').data('passenger');
                 var status=$(this).val();
-                plugin.change_status_passenger_in_hotel_add_on(passenger,status);
+                plugin.change_status_passenger_in_transfer_add_on(passenger,status);
+            });
+        };
+        plugin.update_orders_show_form_passenger_edit_excursion_add_on = function (response) {
+            var list_passenger=response.list_passenger;
+            var $tbody=$(".view_orders_edit_form_passenger_edit_excursion").find('table.orders_show_form_passenger_edit_excursion_addon tbody');
+            $tbody.empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var passenger=list_passenger[i];
+                var $tr=$(plugin.settings.row_passenger_edit_excursion_addon);
+                $tr.data('passenger',passenger);
+                $tr.find('.tsmart_passenger_id').html(passenger.tsmart_passenger_id);
+                $tr.find('.book_date').html(passenger.created_on);
+                $tr.find('.total_cost').html(passenger.excursion_total_cost);
+                var excursion_payment=passenger.excursion_payment;
+
+                $tr.find('.balance').html(passenger.excursion_balance);
+                $tr.find('.cancel_fee').html(passenger.excursion_cancel_fee);
+                $tr.find('.refund').html(passenger.excursion_refund);
+                if(excursion_payment==null)
+                {
+                    $tr.find('.payment').html("N/A");
+                    $tr.find('.balance').html("N/A");
+                    $tr.find('.cancel_fee').html("N/A");
+                    $tr.find('.refund').html("N/A");
+                }else{
+                    $tr.find('.payment').html(excursion_payment);
+                }
+                $tr.find('.cost').autoNumeric('init', plugin.settings.config_show_price);
+                $tr.appendTo($tbody);
+
+                $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
+            }
+            $tbody.find('select.passenger_status').change(function(){
+                var passenger=$(this).closest('tr.passenger').data('passenger');
+                var status=$(this).val();
+                plugin.change_status_passenger_in_excursion_add_on(passenger,status);
             });
         };
         plugin.update_orders_show_form_general = function (response) {
-            var order=response.r;
-            var terms_condition=order.terms_condition;
-            var reservation_notes=order.reservation_notes;
-            var itinerary=order.itinerary;
+            var order_detail=response.order_detail;
+            var terms_condition=order_detail.terms_condition;
+            var reservation_notes=order_detail.reservation_notes;
+            var itinerary=order_detail.itinerary;
             $('.edit-form-general').find('#terms_condition').val(terms_condition);
             $('.edit-form-general').find('#reservation_notes').val(reservation_notes);
-            $('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order.tsmart_orderstate_id).trigger('change');
+            $('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order_detail.tsmart_orderstate_id).trigger('change');
             tinymce.get("itinerary").setContent(itinerary);
             //$('.edit-form-general').find('#terms_condition').val(terms_condition);
         };
@@ -528,33 +714,78 @@
 
 
         };
+
+        plugin.update_orders_show_form_general_edit_excursion_addon = function (response,type) {
+            var order_detail=response.order_detail;
+            var excursion_addon_detail=response.excursion_addon;
+            var terms_condition=excursion_addon_detail.terms_condition;
+            var reservation_notes=excursion_addon_detail.reservation_notes;
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('#terms_condition').val(terms_condition);
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('#reservation_notes').val(reservation_notes);
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('input.excursion_addon_name').val(excursion_addon_detail.excursion_addon_name);
+            var excursion_location=excursion_addon_detail.excursion_location;
+            if(typeof excursion_location!="undefined" && excursion_location!=null) {
+                $('.view_orders_edit_from_general_edit_excursion_addon').find('input.excursion_location').val(excursion_addon_detail.excursion_location.full_city);
+            }
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('input.check_in_date').val(excursion_addon_detail.show_checkin_date);
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('span.group_excursion_addon_order').html(excursion_addon_detail.tsmart_order_excursion_addon_id);
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('input.check_out_date').val(excursion_addon_detail.show_checkout_date);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('input[name="tsmart_order_excursion_addon_id"]').val(excursion_addon_detail.tsmart_order_excursion_addon_id);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.total_cost').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.net_price').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.discount').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.commission').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.payment').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.balance').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.cancel').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.balance').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.refund').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary span.profit').html(excursion_addon_detail.excursion_total_cost);
+            $(".view_orders_edit_order_edit_excursion_add_on").find('.view_orders_edit_form_excursion_add_on_summary select[name="excursion_add_on_status"]').val(excursion_addon_detail.group_status).trigger('change.select2');;
+            var $user_html_select_user=$('#user_html_select_user_read_only_list_assign_user_id_manager_excursion_add_on').data('user_html_select_user');
+            $user_html_select_user.set_value(response.list_assign_user_id_manager_excursion_add_on);
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('#user_html_select_user_read_only_list_assign_user_id_manager_excursion_add_on').addClass('hide_more');
+
+            //$('.edit_form_booking_summary').find('select#tsmart_orderstate_id').val(order.tsmart_orderstate_id).trigger('change');
+            //$('.edit-form-general').find('#terms_condition').val(terms_condition);
+            var data_price=excursion_addon_detail.data_price;
+            //plugin.fill_data_service_cost_edit_excursion_add(data_price);
+            //plugin.fill_data_rooming_excursion_add_on(response.list_rooming);
+
+
+        };
         plugin.update_orders_show_form_general_edit_transfer_addon = function (response,type) {
             var order_detail=response.order_detail;
             var transfer_addon=response.transfer_addon;
             var terms_condition=transfer_addon.terms_condition;
             var reservation_notes=transfer_addon.reservation_notes;
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('#terms_condition').val(terms_condition);
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('#reservation_notes').val(reservation_notes);
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('input.transfer_addon_name').val(transfer_addon.transfer_addon_name);
+            $('.view_orders_edit_from_general_edit_transfer').find('#terms_condition').val(terms_condition);
+            $('.view_orders_edit_from_general_edit_transfer').find('#reservation_notes').val(reservation_notes);
+            $('.view_orders_edit_from_general_edit_transfer').find('input.transfer_addon_name').val(transfer_addon.transfer_addon_name);
             var transfer_location=transfer_addon.transfer_location;
             if(typeof transfer_location!="undefined" && transfer_location!=null) {
-                $('.view_orders_edit_from_general_edit_hotel_addon').find('input.transfer_location').val(transfer_location.full_city);
+                $('.view_orders_edit_from_general_edit_transfer').find('input.transfer_location').val(transfer_location.full_city);
             }
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('input.check_in_date').val(transfer_addon.show_checkin_date);
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('span.group_hotel_addon_order').html(transfer_addon.tsmart_group_hotel_addon_order_id);
-            $('.view_orders_edit_from_general_edit_hotel_addon').find('input.check_out_date').val(transfer_addon.show_checkout_date);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('input[name="tsmart_transfer_addon_id"]').val(transfer_addon.tsmart_transfer_addon_id);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.total_cost').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.net_price').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.discount').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.commission').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.payment').html(transfer_addon[type+"_total_payment"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.balance').html(transfer_addon[type+"_total_balance"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.cancel').html(transfer_addon[type+"_total_cancel"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.balance').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.refund').html(transfer_addon[type+"_total_refund"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.profit').html(transfer_addon[type+"_total_cost"]);
-            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary select[name="hotel_add_on_status"]').val(transfer_addon.group_status).trigger('change.select2');;
+            $('.view_orders_edit_from_general_edit_transfer').find('input.check_in_date').val(transfer_addon.show_checkin_date);
+            $('.view_orders_edit_from_general_edit_transfer').find('span.group_hotel_addon_order').html(transfer_addon.tsmart_group_hotel_addon_order_id);
+            $('.view_orders_edit_from_general_edit_transfer').find('input.check_out_date').val(transfer_addon.show_checkout_date);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('input[name="tsmart_order_transfer_addon_id"]').val(transfer_addon.tsmart_order_transfer_addon_id);
+            $(".view_orders_edit_from_general_edit_transfer").find('span.tsmart_order_transfer_addon_id').html(transfer_addon.tsmart_order_transfer_addon_id);
+
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.total_cost').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.net_price').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.discount').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.commission').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.payment').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.balance').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.cancel').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.balance').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.refund').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary span.profit').autoNumeric('set',transfer_addon[type+"_total_cost"]);
+
+
+
+            $(".view_orders_edit_order_edit_transfer_add_on").find('.view_orders_edit_form_transfer_add_on_summary select[name="transfer_add_on_status"]').val(transfer_addon.group_status).trigger('change.select2');
             $(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val(type);
             var $user_html_select_user=$('#user_html_select_user_read_only_list_assign_user_id_manager_hotel_add_on').data('user_html_select_user');
             $user_html_select_user.set_value(response.list_assign_user_id_manager_hotel_add_on);
@@ -592,6 +823,25 @@
                 $select_date_night_hotel_checkout_date.set_min_date(date);
             });
             //$select_date_night_hotel_checkout_date.set_min_date($select_date_night_hotel_checkin_date);
+        };
+
+        plugin.update_orders_show_form_general_edit_transfer_addon_popup = function (response,type) {
+            var order_detail=response.order_detail;
+            var transfer_addon=response.transfer_addon;
+            var terms_condition=transfer_addon.terms_condition;
+            var reservation_notes=transfer_addon.reservation_notes;
+            $('.view_orders_edit_from_general_edit_transfer_popup').find('#terms_condition').val(terms_condition);
+            $('.view_orders_edit_from_general_edit_transfer_popup').find('#reservation_notes').val(reservation_notes);
+            $('.view_orders_edit_from_general_edit_transfer_popup').find('input.transfer_addon_name').val(transfer_addon.transfer_addon_name);
+            var transfer_location=transfer_addon.transfer_location;
+            if(typeof transfer_location!="undefined" && transfer_location!=null){
+                $('.view_orders_edit_from_general_edit_transfer_popup').find('input.hotel_location').val(transfer_addon.hotel_location.full_city);
+            }
+            var $user_html_select_user_list_assign_user_id_manager_hotel_add_on=$('#user_html_select_user_list_assign_user_id_manager_transfer_add_on').data('user_html_select_user');
+            $user_html_select_user_list_assign_user_id_manager_hotel_add_on.set_value(response.list_assign_user_id_manager_transfer_add_on);
+
+            var $select_date_transfer_check_in_date=$('#select_date_transfer_check_in_date').data('html_select_date');
+            $select_date_transfer_check_in_date.set_date(transfer_addon.checkin_date);
         };
         plugin.fill_data_passenger_detail = function (passenger_data) {
             var $view_orders_edit_form_add_and_remove_passenger=$(".view_orders_edit_form_add_and_remove_passenger");
@@ -954,8 +1204,8 @@
 
                     });
                     var list_passenger=response.list_passenger;
-                    plugin.update_orders_show_form_transfer_addon_passenger(list_passenger,type);
                     plugin.update_orders_show_form_general_edit_transfer_addon(response,type);
+                    plugin.update_orders_show_form_transfer_addon_passenger(list_passenger,type);
                     plugin.fill_data_passenger_not_in_transfer_add_on(response.list_passenger_not_in_transfer);
                     $(".order_edit_transfer").dialog('open');
 
@@ -1037,6 +1287,186 @@
 
                 }
             });
+
+        };
+        plugin.build_form_add_passenger_to_transfer = function (response, type) {
+            plugin.settings.list_passenger_not_in_transfer=response.list_passenger_not_in_transfer;
+            var $select_total_passenger=$('.view_edit_form_add_passenger_to_transfer_add_on').find('select.total_passenger');
+            $select_total_passenger.empty();
+            var $option=$('<option value="0">select number passenger</option>');
+            $option.appendTo($select_total_passenger);
+            for(var i=1;i<=plugin.settings.list_passenger_not_in_transfer.length;i++){
+                var $option=$('<option value="'+i+'">'+i+'</option>');
+                $option.appendTo($select_total_passenger);
+            }
+            $('.view_edit_form_and_passenger_to_transfer_add_on').find('select.total_passenger').val(0).trigger('change');
+            var $body_table_add_passenger_to_transfer= $('.view_edit_form_add_passenger_to_transfer_add_on').find('.body-table-add-passenger-to-transfer');
+            $body_table_add_passenger_to_transfer.empty();
+
+
+
+
+        };
+        plugin.get_cost_transfer_by_tsmart_passenger_id = function (tsmart_passenger_id) {
+            return 10;
+        };
+        plugin.get_cost_excursion_by_tsmart_passenger_id = function (tsmart_passenger_id) {
+            return 10;
+        };
+        plugin.calculator_transfer_cost = function () {
+            var $list_transfer_passenger_item=$('.view_edit_form_add_passenger_to_transfer_add_on').find('.body-table-add-passenger-to-transfer .passenger-item');
+            var total=0;
+            var total_cost_invail=true;
+            for(var i=0;i<$list_transfer_passenger_item.length;i++){
+                var $item_passenger_cost=$($list_transfer_passenger_item.get(i));
+                var $select_passenger_item=$item_passenger_cost.find('select.select-passenger-item');
+                var tsmart_passenger_id=$select_passenger_item.val();
+                var discount=$item_passenger_cost.find('input.discount').autoNumeric('get');
+
+                if(tsmart_passenger_id==0){
+                    $item_passenger_cost.find('span.cost').autoNumeric('set','N/A');
+                    $item_passenger_cost.find('span.total_cost_per_persion').autoNumeric('set', 'N/A');
+                    total_cost_invail=false;
+                }else{
+                    var cost=plugin.get_cost_transfer_by_tsmart_passenger_id(tsmart_passenger_id);
+                    $item_passenger_cost.find('span.cost').autoNumeric('set',cost);
+                    var total_cost_per_persion=cost-discount;
+                    $item_passenger_cost.find('span.total_cost_per_persion').autoNumeric('set', total_cost_per_persion);
+                    total+=total_cost_per_persion;
+                }
+            }
+            $('.view_edit_form_and_passenger_to_transfer_add_on').find('.total-for-all-passenger').autoNumeric('set', total_cost_invail?total:'N/A');
+        };
+        plugin.calculator_excursion_cost = function () {
+            var $list_excursion_passenger_item=$('.view_edit_form_add_passenger_to_excursion_add_on').find('.body-table-add-passenger-to-excursion .passenger-item');
+            var total=0;
+            var total_cost_invail=true;
+            for(var i=0;i<$list_excursion_passenger_item.length;i++){
+                var $item_passenger_cost=$($list_excursion_passenger_item.get(i));
+                var $select_passenger_item=$item_passenger_cost.find('select.select-passenger-item');
+                var tsmart_passenger_id=$select_passenger_item.val();
+                var discount=$item_passenger_cost.find('input.discount').autoNumeric('get');
+
+                if(tsmart_passenger_id==0){
+                    $item_passenger_cost.find('span.cost').autoNumeric('set','N/A');
+                    $item_passenger_cost.find('span.total_cost_per_persion').autoNumeric('set', 'N/A');
+                    total_cost_invail=false;
+                }else{
+                    var cost=plugin.get_cost_excursion_by_tsmart_passenger_id(tsmart_passenger_id);
+                    $item_passenger_cost.find('span.cost').autoNumeric('set',cost);
+                    var total_cost_per_persion=cost-discount;
+                    $item_passenger_cost.find('span.total_cost_per_persion').autoNumeric('set', total_cost_per_persion);
+                    total+=total_cost_per_persion;
+                }
+            }
+            $('.view_edit_form_and_passenger_to_excursion_add_on').find('.total-for-all-passenger').autoNumeric('set', total_cost_invail?total:'N/A');
+        };
+        plugin.build_form_transfer_cost_per_passenger = function (response, type) {
+            var list_passenger=response.list_passenger;
+            var $tbody=$(".view_edit_form_edit_passenger_cost_transfer_add_on").find('table.edit_passenger_cost_transfer_addon_edit_passenger tbody');
+            $tbody.empty();
+            for(var i=0;i<list_passenger.length;i++){
+                var passenger=list_passenger[i];
+                var $tr= $( plugin.settings.row_transfer_passenger_cost);
+                $tr.appendTo($tbody);
+                $tr.find('.tsmart_passenger_id').html(passenger.tsmart_passenger_id);
+                $tr.find('.passenger_cost').autoNumeric('init', plugin.settings.passenger_cost_config);
+                $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
+                $tr.find('input.tsmart_passenger_id').val(passenger.tsmart_passenger_id);
+                $tr.find('input.transfer_fee').autoNumeric('set',parseFloat(passenger[type+'_transfer_fee']));
+                $tr.find('input.transfer_discount').autoNumeric('set',parseFloat(passenger[type+'_transfer_discount']));
+                var transfer_payment=passenger[type+'_transfer_payment'];
+                if(transfer_payment!=null)
+                {
+                    $tr.find('input.transfer_payment').autoNumeric('set',parseFloat(transfer_payment));
+                }else{
+                    $tr.find('input.transfer_payment').val('N/A');
+                }
+                $tr.find('input.transfer_cancel_fee').autoNumeric('set',parseFloat(passenger[type+'_transfer_cancel_fee']));
+                plugin.transfer_add_on_calculator_price($tr);
+            }
+            $tbody.find('.passenger_cost').autoNumeric('init',plugin.settings.config_show_price).change(function(){
+                var $tr=$(this).closest('tr.passenger');
+                plugin.transfer_add_on_calculator_price($tr);
+            });;
+
+        };
+        plugin.load_excursion_add_on_by_tsmart_excusion_addon_id = function (tsmart_order_excursion_addon_id) {
+            var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+            $.ajax({
+                type: "POST",
+                url: 'index.php',
+                dataType: "json",
+                data: (function () {
+
+                    dataPost = {
+                        option: 'com_tsmart',
+                        controller: 'orders',
+                        task: 'ajax_get_order_detail_and_excurstion_add_on_detail_by_tsmart_order_excurstion_addon_id',
+                        tsmart_order_id:tsmart_order_id,
+                        tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+
+                    };
+                    return dataPost;
+                })(),
+                beforeSend: function () {
+
+                    $('.div-loading').css({
+                        display: "block"
+                    });
+                },
+                success: function (response) {
+
+                    $('.div-loading').css({
+                        display: "none"
+
+
+                    });
+                    var list_row=response.list_row;
+                    plugin.update_orders_show_form_general_edit_excursion_addon(response);
+                    plugin.update_orders_show_form_passenger_edit_excursion_add_on(response);
+                    plugin.fill_data_passenger_not_in_excursion_add_on(response.list_passenger_not_in_excursion);
+                    $(".order_edit_excursion").dialog('open');
+
+                }
+            });
+        };
+        plugin.update_orders_show_form_general_edit_excursion_addon_popup = function (response) {
+            var order_detail=response.order_detail;
+            var excursion_addon=response.excursion_addon;
+            var terms_condition=excursion_addon.terms_condition;
+            var reservation_notes=excursion_addon.reservation_notes;
+            $('.view_orders_edit_from_general_edit_excursion_addon_popup').find('#terms_condition').val(terms_condition);
+            $('.view_orders_edit_from_general_edit_excursion_addon_popup').find('#reservation_notes').val(reservation_notes);
+            $('.view_orders_edit_from_general_edit_excursion_addon_popup').find('input.excursion_addon_name').val(excursion_addon.excursion_addon_name);
+            var excursion_location=excursion_addon.excursion_location;
+            if(typeof excursion_location!="undefined" && excursion_location!=null){
+                $('.view_orders_edit_from_general_edit_excursion_addon_popup').find('input.excursion_location').val(excursion_addon.hotel_location.full_city);
+            }
+            var $user_html_select_user_list_assign_user_id_manager_hotel_add_on=$('#user_html_select_user_list_assign_user_id_manager_excursion_add_on').data('user_html_select_user');
+            $user_html_select_user_list_assign_user_id_manager_hotel_add_on.set_value(response.list_assign_user_id_manager_excursion_add_on);
+
+            var $select_date_excursion_check_in_date=$('#select_date_excursion_check_in_date').data('html_select_date');
+            $select_date_excursion_check_in_date.set_date(excursion_addon.checkin_date);
+        };
+
+
+        plugin.build_form_add_passenger_to_excursion = function (response) {
+            plugin.settings.list_passenger_not_in_excursion=response.list_passenger_not_in_excursion;
+            var $select_total_passenger=$('.view_edit_form_add_passenger_to_excursion_add_on').find('select.total_passenger');
+            $select_total_passenger.empty();
+            var $option=$('<option value="0">select number passenger</option>');
+            $option.appendTo($select_total_passenger);
+            for(var i=1;i<=plugin.settings.list_passenger_not_in_excursion.length;i++){
+                var $option=$('<option value="'+i+'">'+i+'</option>');
+                $option.appendTo($select_total_passenger);
+            }
+            $('.view_edit_form_add_passenger_to_excursion_add_on').find('select.total_passenger').val(0).trigger('change');
+            var $body_table_add_passenger_to_excurrsion= $('.view_edit_form_add_passenger_to_excursion_add_on').find('.body-table-add-passenger-to-excursion');
+            $body_table_add_passenger_to_excurrsion.empty();
+
+
+
 
         };
         plugin.init = function () {
@@ -1122,6 +1552,71 @@
                     }
                 });
 
+            });
+            $('.view_orders_edit_form_transfer_add_on_summary').find('span.cost').autoNumeric('init', plugin.settings.passenger_cost_config);
+            $('.view_edit_form_add_passenger_to_transfer_add_on').find('.total-for-all-passenger').autoNumeric('init', plugin.settings.config_show_price);
+            $('.view_edit_form_add_passenger_to_transfer_add_on').find('select.total_passenger').change(function(){
+                var total_passenger=$(this).val();
+                var $body_table_add_passenger_to_transfer= $('.view_edit_form_add_passenger_to_transfer_add_on').find('.body-table-add-passenger-to-transfer');
+                $body_table_add_passenger_to_transfer.empty();
+                var list_passenger_not_in_transfer=plugin.settings.list_passenger_not_in_transfer;
+                for(var i=0;i<total_passenger;i++){
+                    var $item_row_passenger_cost_in_transfer_add_on=$(plugin.settings.item_row_passenger_cost_in_transfer_add_on);
+                    var list_passenger_not_in_transfer=plugin.settings.list_passenger_not_in_transfer;
+                    var $select_passenger=$item_row_passenger_cost_in_transfer_add_on.find('select.select-passenger-item');
+                    var $option=$('<option value="0">select passenger</option>');
+                    $option.appendTo($select_passenger);
+                    for (var index in list_passenger_not_in_transfer) {
+                        var passenger = list_passenger_not_in_transfer[index];
+                        var full_name=plugin.get_passenger_full_name(passenger);
+                        var $option=$('<option value="'+passenger.tsmart_passenger_id+'">'+full_name+'</option>');
+                        $option.appendTo($select_passenger);
+                    }
+                    $item_row_passenger_cost_in_transfer_add_on.find('input.discount').autoNumeric('init', plugin.settings.config_show_price);
+                    $select_passenger.change(function(){
+                        plugin.calculator_transfer_cost();
+                    });
+                    $item_row_passenger_cost_in_transfer_add_on.find('input.discount').change(function(){
+                        plugin.calculator_transfer_cost();
+                    });
+                    $item_row_passenger_cost_in_transfer_add_on.find('span.cost').autoNumeric('init', plugin.settings.config_show_price);
+                    $item_row_passenger_cost_in_transfer_add_on.find('span.total_cost_per_persion').autoNumeric('init', plugin.settings.config_show_price);
+
+
+                    $item_row_passenger_cost_in_transfer_add_on.appendTo($body_table_add_passenger_to_transfer);
+                }
+            });
+
+            $('.view_edit_form_add_passenger_to_excursion_add_on').find('select.total_passenger').change(function(){
+                var total_passenger=$(this).val();
+                var $body_table_add_passenger_to_excursion= $('.view_edit_form_add_passenger_to_excursion_add_on').find('.body-table-add-passenger-to-excursion');
+                $body_table_add_passenger_to_excursion.empty();
+                var list_passenger_not_in_excursion=plugin.settings.list_passenger_not_in_excursion;
+                for(var i=0;i<total_passenger;i++){
+                    var $item_row_passenger_cost_in_excursion_add_on=$(plugin.settings.item_row_passenger_cost_in_excursion_add_on);
+                    var list_passenger_not_in_excursion=plugin.settings.list_passenger_not_in_excursion;
+                    var $select_passenger=$item_row_passenger_cost_in_excursion_add_on.find('select.select-passenger-item');
+                    var $option=$('<option value="0">select passenger</option>');
+                    $option.appendTo($select_passenger);
+                    for (var index in list_passenger_not_in_excursion) {
+                        var passenger = list_passenger_not_in_excursion[index];
+                        var full_name=plugin.get_passenger_full_name(passenger);
+                        var $option=$('<option value="'+passenger.tsmart_passenger_id+'">'+full_name+'</option>');
+                        $option.appendTo($select_passenger);
+                    }
+                    $item_row_passenger_cost_in_excursion_add_on.find('input.discount').autoNumeric('init', plugin.settings.config_show_price);
+                    $select_passenger.change(function(){
+                        plugin.calculator_excursion_cost();
+                    });
+                    $item_row_passenger_cost_in_excursion_add_on.find('input.discount').change(function(){
+                        plugin.calculator_excursion_cost();
+                    });
+                    $item_row_passenger_cost_in_excursion_add_on.find('span.cost').autoNumeric('init', plugin.settings.config_show_price);
+                    $item_row_passenger_cost_in_excursion_add_on.find('span.total_cost_per_persion').autoNumeric('init', plugin.settings.config_show_price);
+
+
+                    $item_row_passenger_cost_in_excursion_add_on.appendTo($body_table_add_passenger_to_excursion);
+                }
             });
             $(".order_edit_night_hotel").find('.view_orders_edit_form_hotel_add_on_summary select[name="hotel_add_on_status"]').change(function(){
                 var status=$(this).val();
@@ -1312,8 +1807,92 @@
 
 
             });
+
+            $('.view_orders_edit_from_general_edit_transfer').find('.edit-transfer-add-on').click(function(){
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_transfer_add_on_detail_by_tsmart_order_transfer_addon_id',
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                            type:type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        plugin.update_orders_show_form_general_edit_transfer_addon_popup(response,type);
+                        $(".form_edit_general_transfer_popup").dialog('open');
+
+                    }
+                });
+
+
+            });
+            $('.view_orders_edit_from_general_edit_excursion_addon').find('.edit-excursion-add-on').click(function(){
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_excursion_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_excurstion_add_on_detail_by_tsmart_order_excurstion_addon_id',
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        plugin.update_orders_show_form_general_edit_excursion_addon_popup(response);
+                        $(".form_edit_general_excursion_popup").dialog('open');
+
+                    }
+                });
+
+
+            });
             $('.view_orders_edit_form_edit_room').find('button.cancel').click(function(){
                 $(".order_edit_room").dialog('close');
+            });
+            $('.form_edit_general_excursion_popup').find('button.cancel').click(function(){
+                $(".form_edit_general_excursion_popup").dialog('close');
             });
             $('.view_orders_edit_form_edit_room').find('button.save').click(function(){
                var  $html_build_rooming_hotel_rooming_list=$('#html_build_rooming_hotel_rooming_list').data('html_build_rooming_list');
@@ -1359,6 +1938,157 @@
                         //plugin.update_data_order();
                         $(".order_edit_room").dialog('close');
                         plugin.re_load_main_booking_info(tsmart_order_id);
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_edit_form_add_passenger_to_transfer_add_on').find('button.save').click(function(){
+                var $list_transfer_passenger_item=$('.view_edit_form_add_passenger_to_transfer_add_on').find('.body-table-add-passenger-to-transfer .passenger-item');
+                var list_transfer_cost_per_passenger=[];
+                var total_cost_invail=true;
+                for(var i=0;i<$list_transfer_passenger_item.length;i++){
+                    var $item_passenger_cost=$($list_transfer_passenger_item.get(i));
+                    var $select_passenger_item=$item_passenger_cost.find('select.select-passenger-item');
+                    var tsmart_passenger_id=$select_passenger_item.val();
+                    var discount=$item_passenger_cost.find('input.discount').autoNumeric('get');
+
+                    if(tsmart_passenger_id==0){
+                        total_cost_invail=false;
+                        alert('please select passenger');
+                        $select_passenger_item.focus();
+                        break;
+                    }else{
+                        var item={};
+                        item.tsmart_passenger_id=tsmart_passenger_id;
+                        item.discount=discount;
+                        var cost=plugin.get_cost_transfer_by_tsmart_passenger_id(tsmart_passenger_id);
+                        var total_cost_per_persion=cost-discount;
+                        item.cost=total_cost_per_persion;
+                        list_transfer_cost_per_passenger.push(item);
+                    }
+                }
+                if(!total_cost_invail){
+                    return false;
+                }
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_passenger_cost_to_transfer',
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            type:type,
+                            tsmart_order_id:tsmart_order_id,
+                            list_transfer_cost_per_passenger:list_transfer_cost_per_passenger,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        //plugin.update_data_order();
+                        $(".form_and_passenger_to_transfer_add_on").dialog('close');
+                        plugin.load_transfer_add_on_by_tsmart_transfer_addon_id (tsmart_order_transfer_addon_id,type);
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_edit_form_add_passenger_to_excursion_add_on').find('button.cancel').click(function(){
+                $(".form_add_and_passenger_to_excurson_add_on").dialog('close');
+            });
+            $('.view_edit_form_add_passenger_to_excursion_add_on').find('button.save').click(function(){
+                var $list_transfer_passenger_item=$('.view_edit_form_add_passenger_to_excursion_add_on').find('.body-table-add-passenger-to-excursion .passenger-item');
+                var list_excursion_cost_per_passenger=[];
+                var total_cost_invail=true;
+                for(var i=0;i<$list_transfer_passenger_item.length;i++){
+                    var $item_passenger_cost=$($list_transfer_passenger_item.get(i));
+                    var $select_passenger_item=$item_passenger_cost.find('select.select-passenger-item');
+                    var tsmart_passenger_id=$select_passenger_item.val();
+                    var discount=$item_passenger_cost.find('input.discount').autoNumeric('get');
+
+                    if(tsmart_passenger_id==0){
+                        total_cost_invail=false;
+                        alert('please select passenger');
+                        $select_passenger_item.focus();
+                        break;
+                    }else{
+                        var item={};
+                        item.tsmart_passenger_id=tsmart_passenger_id;
+                        item.discount=discount;
+                        var cost=plugin.get_cost_transfer_by_tsmart_passenger_id(tsmart_passenger_id);
+                        var total_cost_per_persion=cost-discount;
+                        item.cost=total_cost_per_persion;
+                        list_excursion_cost_per_passenger.push(item);
+                    }
+                }
+                if(!total_cost_invail){
+                    return false;
+                }
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_excursion_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_passenger_cost_to_excursion',
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                            list_excursion_cost_per_passenger:list_excursion_cost_per_passenger,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        //plugin.update_data_order();
+                        $(".form_add_and_passenger_to_excurson_add_on").dialog('close');
+                        plugin.load_excursion_add_on_by_tsmart_excusion_addon_id(tsmart_order_excursion_addon_id);
 
                     }
                 });
@@ -1690,8 +2420,17 @@
 
             });
             var $row_passenger=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody tr.passenger');
-            plugin.setting_row_passenger_edit_hotel_addon=$row_passenger.getOuterHTML();
+            plugin.settings.row_passenger_edit_hotel_addon=$row_passenger.getOuterHTML();
             $row_passenger.remove();
+
+            var $row_passenger_excursion=$(".view_orders_edit_form_passenger_edit_excursion").find('table.orders_show_form_passenger_edit_excursion_addon tbody tr.passenger');
+            plugin.settings.row_passenger_edit_excursion_addon=$row_passenger_excursion.getOuterHTML();
+            $row_passenger_excursion.remove();
+
+            var $row_passenger_transfer=$(".view_edit_form_passenger_edit_transfer_addon").find('table.orders_show_form_passenger_edit_transfer_addon tbody tr.passenger');
+            plugin.setting_row_passenger_edit_transfer_addon=$row_passenger_transfer.getOuterHTML();
+            $row_passenger_transfer.remove();
+
             $element.find('.edit_form.night_hotel').click(function(){
                 var tsmart_group_hotel_addon_order_id=$(this).data('object_id');
                 var type=$(this).data('object_type');
@@ -1727,6 +2466,33 @@
                 width: 1000,
                 autoOpen: false,
                 title: 'book add on',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".form_add_and_passenger_to_excurson_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'add passenger to excursion',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".form_edit_general_excursion_popup").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'excursion edit genare info',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body',
+            });
+            $element.find(".form_edit_general_transfer_popup").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 1000,
+                autoOpen: false,
+                title: 'edit general transfer info',
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body',
             });
@@ -1788,6 +2554,118 @@
                 });
 
             });
+            $('.form_edit_general_excursion_popup').find('button.save').click(function(){
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_excursion_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+                var terms_condition=$(".view_orders_edit_from_general_edit_excursion_addon_popup").find('textarea[name="terms_condition"]').val();
+                var reservation_notes=$(".view_orders_edit_from_general_edit_excursion_addon_popup").find('textarea[name="reservation_notes"]').val();
+                var checkin_date=$(".view_orders_edit_from_general_edit_excursion_addon_popup").find('input[name="excursion_checkin_date"]').val();
+                var checkout_date=$(".view_orders_edit_from_general_edit_excursion_addon_popup").find('input[name="excursion_checkout_date"]').val();
+                var list_assign_user_id_manager_excursion_add_on=$(".view_orders_edit_from_general_edit_excursion_addon_popup").find('select[name="list_assign_user_id_manager_excursion_add_on"]').val();
+
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_group_hotel_add_on',
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            checkin_date:checkin_date,
+                            checkout_date:checkout_date,
+                            terms_condition:terms_condition,
+                            reservation_notes:reservation_notes,
+                            list_assign_user_id_manager_hotel_add_on:list_assign_user_id_manager_excursion_add_on,
+                            tsmart_order_id:tsmart_order_id,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        alert('save information success');
+                        $(".form_edit_general_excursion_popup").dialog('close');
+                        plugin.load_excursion_add_on_by_tsmart_excusion_addon_id(tsmart_order_excursion_addon_id);
+
+                    }
+                });
+
+            });
+            $('.view_orders_edit_from_general_edit_transfer_popup').find('button.cancel').click(function(){
+                $(".form_edit_general_transfer_popup").dialog('close');
+            });
+            $('.order_edit_excursion').find('button.cancel').click(function(){
+                $(".order_edit_excursion").dialog('close');
+            });
+            $('.view_orders_edit_from_general_edit_transfer_popup').find('button.save').click(function(){
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+                var terms_condition=$(".view_orders_edit_from_general_edit_transfer_popup").find('textarea[name="terms_condition"]').val();
+                var reservation_notes=$(".view_orders_edit_from_general_edit_transfer_popup").find('textarea[name="reservation_notes"]').val();
+                var checkin_date=$(".view_orders_edit_from_general_edit_transfer_popup").find('input[name="night_hotel_checkin_date"]').val();
+                var list_assign_user_id_manager_hotel_add_on=$(".view_orders_edit_from_general_edit_transfer_popup").find('select[name="list_assign_user_id_manager_transfer_add_on"]').val();
+
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_transfer_add_on',
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            checkin_date:checkin_date,
+                            terms_condition:terms_condition,
+                            reservation_notes:reservation_notes,
+                            list_assign_user_id_manager_hotel_add_on:list_assign_user_id_manager_hotel_add_on,
+                            tsmart_order_id:tsmart_order_id,
+                            type:type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        alert('save information success');
+                        $(".form_edit_general_transfer_popup").dialog('close');
+                        plugin.load_transfer_add_on_by_tsmart_transfer_addon_id(tsmart_order_transfer_addon_id,type);
+
+                    }
+                });
+
+            });
             $('.view_orders_edit_from_general_edit_hotel_addon_child').find('button.cancel').click(function(){
                 $(".order_form_edit_night_hotel").dialog('close');
 
@@ -1840,41 +2718,11 @@
                 $(".order_book_add_on").dialog('open');
             });
             $element.find('.edit_form.excursion').click(function(){
-                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
-                $.ajax({
-                    type: "POST",
-                    url: 'index.php',
-                    dataType: "json",
-                    data: (function () {
-
-                        dataPost = {
-                            option: 'com_tsmart',
-                            controller: 'orders',
-                            task: 'ajax_get_order_detail_by_order_id',
-                            tsmart_order_id:tsmart_order_id
-                        };
-                        return dataPost;
-                    })(),
-                    beforeSend: function () {
-
-                        $('.div-loading').css({
-                            display: "block"
-                        });
-                    },
-                    success: function (response) {
-
-                        $('.div-loading').css({
-                            display: "none"
+                var tsmart_order_excursion_addon_id=$(this).data('object_id');
+                plugin.load_excursion_add_on_by_tsmart_excusion_addon_id(tsmart_order_excursion_addon_id);
 
 
-                        });
-                        var list_row=response.list_row;
-                        plugin.update_orders_show_form_passenger(list_row);
-                        plugin.update_orders_show_form_general(response);
-                        $(".order_edit_excursion").dialog('open');
 
-                    }
-                });
 
 
 
@@ -1979,7 +2827,17 @@
             });
             var $row_passenger_cost=$(".order_edit_passenger_cost_edit_hotel_add_on").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody tr.passenger');
             plugin.settings.row_passenger_cost_edit_hotel_addon=$row_passenger_cost.getOuterHTML();
+            $row_passenger_cost.remove();
 
+            var $row_passenger_cost_edit_excursion_addon=$(".view_orders_edit_form_edit_passenger_cost_edit_excursion_addon").find('table.edit_passenger_cost_excursion_addon_edit_passenger tbody tr.passenger');
+            plugin.settings.row_passenger_cost_edit_excursion_addon=$row_passenger_cost_edit_excursion_addon.getOuterHTML();
+            $row_passenger_cost_edit_excursion_addon.remove();
+
+
+
+            var $row_transfer_passenger_cost=$(".view_edit_form_edit_passenger_cost_transfer_add_on").find('table.edit_passenger_cost_transfer_addon_edit_passenger tbody tr.passenger');
+            plugin.settings.row_transfer_passenger_cost=$row_transfer_passenger_cost.getOuterHTML();
+            $row_transfer_passenger_cost.remove();
             var $tr_service_cost_edit_hotel=$(".view_orders_edit_form_edit_service_cost_edit_hotel").find('table.service_cost_edit_hotel tbody tr.item-room');
             plugin.settings.row_service_cost_edit_hotel_addon=$tr_service_cost_edit_hotel.getOuterHTML();
 
@@ -1988,8 +2846,17 @@
 
             var $tr_rooming_edit_hotel_add_on=$(".view_orders_edit_form_edit_room_in_hotel_add_on").find('table.rooming_hotel_add_on tbody tr.item-rooming');
             plugin.settings.tr_rooming_edit_hotel_add_on=$tr_rooming_edit_hotel_add_on.getOuterHTML();
-
             $tr_rooming_edit_hotel_add_on.remove();
+
+            var $item_row_passenger_cost_in_transfer_add_on=$(".view_edit_form_add_passenger_to_transfer_add_on").find('.body-table-add-passenger-to-transfer .passenger-item');
+            plugin.settings.item_row_passenger_cost_in_transfer_add_on=$item_row_passenger_cost_in_transfer_add_on.getOuterHTML();
+            $item_row_passenger_cost_in_transfer_add_on.remove();
+
+            var $item_row_passenger_cost_in_excursion_add_on=$(".view_edit_form_add_passenger_to_excursion_add_on").find('.body-table-add-passenger-to-excursion .passenger-item');
+            plugin.settings.item_row_passenger_cost_in_excursion_add_on=$item_row_passenger_cost_in_excursion_add_on.getOuterHTML();
+            $item_row_passenger_cost_in_excursion_add_on.remove();
+
+
             $element.find(".order_edit_passenger_cost_edit_hotel_add_on").dialog({
                 dialogClass:'asian-dialog-form',
                 modal: true,
@@ -2132,6 +2999,51 @@
 
 
             });
+
+            $('.view_orders_edit_form_passenger_edit_excursion').find('.passenger-control .edit-passenger-cost').click(function(){
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_excursion_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_excurstion_add_on_detail_by_tsmart_order_excurstion_addon_id',
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        var list_passenger=response.list_passenger;
+                        var excursion_addon=response.excursion_addon;
+                        plugin.fill_data_passenger_cost_edit_excursion_add_on(list_passenger,excursion_addon);
+
+                        $(".order_edit_passenger_cost_edit_excursion_add_on").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
             $('.order_edit_night_hotel').find('.passenger-control .edit-hotel-add-room').click(function(){
                 var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
                 var tsmart_group_hotel_addon_order_id=$('.order_edit_night_hotel').find('input[name="tsmart_group_hotel_addon_order_id"]').val();
@@ -2176,6 +3088,136 @@
 
 
             });
+            $('.view_edit_form_passenger_edit_transfer_addon').find('.passenger-control .add-passenger-to-transfer').click(function(){
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="type"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_transfer_add_on_detail_by_tsmart_order_transfer_addon_id',
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                            type:type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+
+                        plugin.build_form_add_passenger_to_transfer(response,type);
+                        $(".form_and_passenger_to_transfer_add_on").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_orders_edit_form_passenger_edit_excursion').find('.passenger-control .edit-excursion-add-passenger').click(function(){
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_excurstion_add_on_detail_by_tsmart_order_excurstion_addon_id',
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+
+                        plugin.build_form_add_passenger_to_excursion(response);
+                        $(".form_add_and_passenger_to_excurson_add_on").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
+            $('.view_edit_form_passenger_edit_transfer_addon').find('.passenger-control .edit-transfer-cost').click(function(){
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="type"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_get_order_detail_and_transfer_add_on_detail_by_tsmart_order_transfer_addon_id',
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            tsmart_order_id:tsmart_order_id,
+                            type:type
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+
+                        plugin.build_form_transfer_cost_per_passenger(response,type);
+                        $(".form_edit_passenger_cost_transfer_add_on").dialog('open');
+
+                    }
+                });
+
+
+
+
+            });
 
             $element.find(".order_form_add_and_remove_room_edit_hotel_addon").dialog({
                 dialogClass:'asian-dialog-form',
@@ -2186,12 +3228,39 @@
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
             });
+            $element.find(".form_and_passenger_to_transfer_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'add passenger to transfer',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
             $element.find(".order_edit_room").dialog({
                 dialogClass:'asian-dialog-form',
                 modal: true,
                 width: 900,
                 autoOpen: false,
                 title: 'Edit rooming',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+            $element.find(".form_edit_passenger_cost_transfer_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Edit passenger cost transfer',
+                show: {effect: "blind", duration: 800},
+                appendTo: 'body'
+            });
+            $element.find(".order_edit_passenger_cost_edit_excursion_add_on").dialog({
+                dialogClass:'asian-dialog-form',
+                modal: true,
+                width: 900,
+                autoOpen: false,
+                title: 'Edit passenger cost excursion',
                 show: {effect: "blind", duration: 800},
                 appendTo: 'body'
             });
@@ -2472,6 +3541,15 @@
             $('.order_form_add_and_remove_room_edit_hotel_addon').find('button.cancel').click(function(){
                 $(".order_form_add_and_remove_room_edit_hotel_addon").dialog('close');
             });
+            $('.view_orders_edit_form_edit_passenger_cost_edit_excursion_addon').find('button.cancel').click(function(){
+                $(".order_edit_passenger_cost_edit_excursion_add_on").dialog('close');
+            });
+            $('.view_orders_edit_order_edit_transfer_add_on').find('button.cancel').click(function(){
+                $(".order_edit_transfer").dialog('close');
+            });
+            $('.view_edit_form_add_passenger_to_transfer_add_on').find('button.cancel').click(function(){
+                $(".form_and_passenger_to_transfer_add_on").dialog('close');
+            });
             $('.form_order_voucher_center').find('button.cancel').click(function(){
                 $(".form_order_voucher_center").dialog('close');
             });
@@ -2528,6 +3606,132 @@
                         $(".order_edit_passenger_cost_edit_hotel_add_on").dialog('close');
                         var tsmart_group_hotel_addon_order_id=$('.order_edit_night_hotel').find('input[name="tsmart_group_hotel_addon_order_id"]').val();
                         plugin.load_hotel_add_on_by_group_hotel_addon_order_id(tsmart_group_hotel_addon_order_id,type);
+
+
+                    }
+                });
+
+
+            });
+
+            $('.view_orders_edit_form_edit_passenger_cost_edit_excursion_addon').find('button.cancel').click(function(){
+                $(".order_edit_passenger_cost_edit_excursion_add_on").dialog('close');
+            });
+            $('.view_orders_edit_form_edit_passenger_cost_edit_excursion_addon').find('button.save').click(function(){
+                //save hotel add on cost passenger
+                var $list_tr= $('.view_orders_edit_form_edit_passenger_cost_edit_excursion_addon table.edit_passenger_cost_excursion_addon_edit_passenger').find('tbody tr.passenger');
+                var list_row=[];
+                for(var i=0;i<$list_tr.length;i++){
+                    var $tr= $('.view_orders_edit_form_edit_passenger_cost_edit_excursion_addon table.edit_passenger_cost_excursion_addon_edit_passenger').find('tbody tr.passenger:eq('+i+')');
+                    var item={};
+                    item.tsmart_passenger_id=$tr.find('input.tsmart_passenger_id').val();
+                    item.excursion_fee=$tr.find('input.excursion_fee').autoNumeric('get');
+                    item.excursion_discount=$tr.find('input.excursion_discount').autoNumeric('get');
+                    item.excursion_cancel_fee=$tr.find('input.excursion_cancel_fee').autoNumeric('get');
+                    item.excursion_payment=$tr.find('input.excursion_payment').autoNumeric('get');
+                    list_row.push(item);
+                }
+                var tsmart_order_excursion_addon_id=$('.view_orders_edit_order_edit_excursion_add_on').find('input[name="tsmart_order_excursion_addon_id"]').val();
+
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_passenger_cost_excursion_add_on',
+                            list_row:list_row,
+                            tsmart_order_excursion_addon_id:tsmart_order_excursion_addon_id,
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        $(".order_edit_passenger_cost_edit_excursion_add_on").dialog('close');
+                        plugin.load_excursion_add_on_by_tsmart_excusion_addon_id(tsmart_order_excursion_addon_id);
+
+
+                    }
+                });
+
+
+            });
+            $('.view_edit_form_edit_passenger_cost_transfer_add_on').find('button.cancel').click(function(){
+                $(".form_edit_passenger_cost_transfer_add_on").dialog('close');
+            });
+            $('.view_edit_form_edit_passenger_cost_transfer_add_on').find('button.save').click(function(){
+                //save hotel add on cost passenger
+                var tsmart_order_transfer_addon_id=$('.view_orders_edit_order_edit_transfer_add_on').find('input[name="tsmart_order_transfer_addon_id"]').val();
+                var type=$(".view_orders_edit_order_edit_transfer_add_on").find('input[name="type"]').val();
+                var tsmart_order_id=$element.find('input[type="hidden"][name="tsmart_order_id"]').val();
+
+
+                var $list_tr= $('.view_edit_form_edit_passenger_cost_transfer_add_on table.edit_passenger_cost_transfer_addon_edit_passenger').find('tbody tr.passenger');
+                var list_row=[];
+                for(var i=0;i<$list_tr.length;i++){
+                    var $tr= $('.view_edit_form_edit_passenger_cost_transfer_add_on table.edit_passenger_cost_transfer_addon_edit_passenger').find('tbody tr.passenger:eq('+i+')');
+                    var item={};
+                    item.tsmart_passenger_id=$tr.find('input.tsmart_passenger_id').val();
+                    item.discount=$tr.find('input.transfer_discount').autoNumeric('get');
+                    item.cancel_fee=$tr.find('input.transfer_cancel_fee').autoNumeric('get');
+                    item.payment=$tr.find('input.transfer_payment').autoNumeric('get');
+                    list_row.push(item);
+                }
+                var tsmart_order_id=$element.find('input[name="tsmart_order_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    dataType: "json",
+                    data: (function () {
+
+                        dataPost = {
+                            option: 'com_tsmart',
+                            controller: 'orders',
+                            task: 'ajax_save_passenger_cost_transfer_add_on',
+                            type:type,
+                            list_row:list_row,
+                            tsmart_order_transfer_addon_id:tsmart_order_transfer_addon_id,
+                            tsmart_order_id:tsmart_order_id
+                        };
+                        return dataPost;
+                    })(),
+                    beforeSend: function () {
+
+                        $('.div-loading').css({
+                            display: "block"
+                        });
+                    },
+                    success: function (response) {
+
+                        $('.div-loading').css({
+                            display: "none"
+
+
+                        });
+                        if(response.e==0){
+                            alert('save successful');
+                        }
+                        $(".form_edit_passenger_cost_transfer_add_on").dialog('close');
+                        plugin.load_transfer_add_on_by_tsmart_transfer_addon_id(tsmart_order_transfer_addon_id,type);
 
 
                     }

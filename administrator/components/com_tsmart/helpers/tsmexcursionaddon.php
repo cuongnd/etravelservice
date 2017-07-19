@@ -44,6 +44,23 @@ class tsmexcursionaddon
         ;
         return $db->setQuery($query)->loadColumn();
     }
+    public static function get_data_price_by_tsmart_excursion_addon_id($tsmart_excursion_addon_id)
+    {
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_excursion_addon AS excursion_addon')
+            ->where('excursion_addon.tsmart_excursion_addon_id='.(int)$tsmart_excursion_addon_id);
+
+        ;
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        $excursion_addon=$db->setQuery($query)->loadObject();
+        $excursion_addon->data_price=base64_decode($excursion_addon->data_price);
+        $data_price = up_json_decode($excursion_addon->data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        return $data_price;
+    }
+
+
     public static function  get_min_price($excursion_addon){
         $date_price=$excursion_addon->data_price;
         $item_mark_up_type=$date_price->item_mark_up_type;
