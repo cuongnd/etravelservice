@@ -17,7 +17,7 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_passenger.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_passenger_edit_hotel_add_on.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
@@ -25,7 +25,8 @@ defined('_JEXEC') or die('Restricted access');
 $i = 0;
 ?>
 <!--edit_form_passenger_edit_hotel_addon-->
-<div class="view_orders_edit_form_passenger form-horizontal">
+
+<div class="view_orders_edit_form_passenger_edit_hotel_add_on form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">

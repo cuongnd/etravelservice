@@ -54,21 +54,61 @@
             var refund=parseFloat(payment)-parseFloat(cancel_fee);
             $refund.autoNumeric('set',refund);
         };
-        plugin.hotel_add_on_calculator_price = function ($tr) {
+        plugin.hotel_add_on_calculator_price = function ($tr,$self) {
             var night_hotel_fee=$tr.find('input.night_hotel_fee').autoNumeric('get');
             var discount=$tr.find('input.night_discount').autoNumeric('get');
             var total_night=$tr.find('input.total_night').val();
-            var payment=$tr.find('input.night_payment').autoNumeric('get');
             var cancel_fee=$tr.find('input.night_cancel_fee').autoNumeric('get');
+            var $payment=$tr.find('input.night_payment');
+            var payment=$payment.autoNumeric('get');
             var $total_cost=$tr.find('input.total_cost');
-            var total_cost=parseFloat(night_hotel_fee)*total_night-parseFloat(discount);
-            $total_cost.autoNumeric('set',total_cost);
-            var $balance=$tr.find('input.night_balance');
-            var balance=parseFloat(total_cost)-parseFloat(payment);
-            $balance.autoNumeric('set',balance);
             var $refund=$tr.find('input.night_refund');
-            var refund=parseFloat(payment)-parseFloat(cancel_fee);
-            $refund.autoNumeric('set',refund);
+            var $balance=$tr.find('input.night_balance');
+            if($self.hasClass('night_discount')){
+                if(discount){
+
+                    var total_cost=parseFloat(night_hotel_fee)*total_night-parseFloat(discount);
+                    $total_cost.autoNumeric('set',total_cost);
+                }else{
+                    $tr.find('input.night_discount').val('N/A');
+                    var total_cost=parseFloat(night_hotel_fee)*total_night;
+                    $total_cost.autoNumeric('set',total_cost);
+                }
+            }else if($self.hasClass('night_cancel_fee')){
+                if(cancel_fee)
+                {
+                    if(payment){
+                        var refund=parseFloat(payment)-parseFloat(cancel_fee);
+                        $refund.autoNumeric('set',refund);
+                    }else {
+                        $refund.val('N/A');
+                    }
+                }else{
+                    if(payment){
+                        $refund.autoNumeric('set',parseFloat(payment));
+                    }else {
+                        $refund.val('N/A');
+                    }
+
+                    $tr.find('input.night_cancel_fee').val('N/A');
+                }
+            }if($self.hasClass('night_payment')){
+                if(payment)
+                {
+                    if(cancel_fee){
+                        var refund=parseFloat(payment)-parseFloat(cancel_fee);
+                        $refund.autoNumeric('set',refund);
+                    }else {
+                        $refund.autoNumeric('set',payment);
+                    }
+                    var total_cost=$total_cost.autoNumeric('get');
+                    var balance=parseFloat(total_cost)-parseFloat(payment);
+                    $balance.autoNumeric('set',balance);
+                }else{
+                    $tr.find('input.night_payment').val('N/A');
+                    $balance.val('N/A');
+                }
+            }
         };
         plugin.transfer_add_on_calculator_price = function ($tr) {
             var night_hotel_fee=$tr.find('input.transfer_fee').autoNumeric('get');
@@ -86,19 +126,35 @@
             $refund.autoNumeric('set',refund);
         };
         plugin.excursion_add_on_calculator_price = function ($tr) {
-            var night_hotel_fee=$tr.find('input.excursion_fee').autoNumeric('get');
+            var excursion_fee=$tr.find('input.excursion_fee').autoNumeric('get');
             var discount=$tr.find('input.excursion_discount').autoNumeric('get');
             var payment=$tr.find('input.excursion_payment').autoNumeric('get');
-            var cancel_fee=$tr.find('input.excursion_cancel_fee').autoNumeric('get');
-            var $total_cost=$tr.find('input.total_cost');
-            var total_cost=parseFloat(night_hotel_fee)-parseFloat(discount);
-            $total_cost.autoNumeric('set',total_cost);
-            var $balance=$tr.find('input.excursion_balance');
-            var balance=parseFloat(total_cost)-parseFloat(payment);
-            $balance.autoNumeric('set',balance);
-            var $refund=$tr.find('input.excursion_refund');
-            var refund=parseFloat(payment)-parseFloat(cancel_fee);
-            $refund.autoNumeric('set',refund);
+            if(payment){
+                var cancel_fee=$tr.find('input.excursion_cancel_fee').autoNumeric('get');
+                var $total_cost=$tr.find('input.total_cost');
+                var total_cost=parseFloat(excursion_fee)-parseFloat(discount);
+                $total_cost.autoNumeric('set',total_cost);
+                var $balance=$tr.find('input.excursion_balance');
+                var balance=parseFloat(total_cost)-parseFloat(payment);
+                $balance.autoNumeric('set',balance);
+                var $refund=$tr.find('input.excursion_refund');
+                var refund=parseFloat(payment)-parseFloat(cancel_fee);
+                $refund.autoNumeric('set',refund);
+
+            }else{
+                $tr.find('input.excursion_payment').val("N/A");
+                $tr.find('input.excursion_balance').val("N/A");
+                $tr.find('input.excursion_cancel_fee').val("N/A");
+                $tr.find('input.excursion_refund').val("N/A");
+
+
+            }
+
+            var excursion_cancel_fee=$tr.find('input.excursion_cancel_fee').autoNumeric('get');
+            if(!excursion_cancel_fee){
+                $tr.find('input.excursion_cancel_fee').val("N/A");
+            }
+
         };
         plugin.fill_data_passenger_cost = function (list_row) {
             for(var i=0;i<list_row.length;i++){
@@ -116,7 +172,7 @@
 
         };
         plugin.fill_data_passenger_cost_edit_hotel_add = function (list_passenger,type,hotel_addon_detail) {
-            var $tbody=$(".order_edit_passenger_cost_edit_hotel_add_on").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody');
+            var $tbody=$(".view_orders_edit_form_edit_passenger_cost_edit_hotel_addon").find('table.edit_passenger_cost_hotel_addon_edit_passenger tbody');
             $tbody.empty();
             for(var i=0;i<list_passenger.length;i++){
                 var passenger=list_passenger[i];
@@ -127,21 +183,37 @@
                 $tr.find('span.full-name').html(plugin.get_passenger_full_name(passenger));
                 $tr.find('input.tsmart_passenger_id').val(passenger.tsmart_passenger_id);
                 $tr.find('input.total_night').val(hotel_addon_detail.total_night);
+                var total_night=hotel_addon_detail.total_night;
                 $tr.find('input.night_hotel_fee').autoNumeric('set',parseFloat(passenger.unit_price_per_night));
-                $tr.find('input.night_discount').autoNumeric('set',parseFloat(passenger[type+'_night_discount']));
+                var night_cancel_fee=passenger[type+'_night_cancel_fee'];
+                if(night_cancel_fee==null){
+                    $tr.find('input.night_cancel_fee').val('N/A');
+                }else{
+                    $tr.find('input.night_cancel_fee').autoNumeric('set',parseFloat(night_cancel_fee));
+                }
+
+                var night_discount=passenger[type+'_night_discount'];
+                if(night_discount==null){
+                    $tr.find('input.night_discount').val('N/A');
+                }else{
+                    $tr.find('input.night_discount').autoNumeric('set',parseFloat(night_discount));
+                }
                 var night_payment=passenger[type+'_night_payment'];
                 if(night_payment!=null)
                 {
                     $tr.find('input.night_payment').autoNumeric('set',parseFloat(night_payment));
                 }else{
                     $tr.find('input.night_payment').val('N/A');
+                    $tr.find('input.night_balance').val('N/A');
+                    $tr.find('input.night_refund').val('N/A');
                 }
+                $tr.find('input.total_cost').autoNumeric('set',parseFloat(passenger.unit_price_per_night)*total_night);
                 $tr.find('input.night_cancel_fee').autoNumeric('set',parseFloat(passenger[type+'_night_cancel_fee']));
-                plugin.hotel_add_on_calculator_price($tr);
             }
-            $tbody.find('.passenger_cost').autoNumeric('init',plugin.settings.config_show_price).change(function(){
+            $tbody.find('.passenger_cost:not(:disabled):not([readonly])').change(function(){
                 var $tr=$(this).closest('tr.passenger');
-                plugin.hotel_add_on_calculator_price($tr);
+                var $self=$(this);
+                plugin.hotel_add_on_calculator_price($tr,$self);
             });
 
         }
@@ -159,20 +231,27 @@
                 $tr.find('input.tsmart_passenger_id').val(passenger.tsmart_passenger_id);
                 $tr.find('input.excursion_fee').autoNumeric('set',parseFloat(passenger.excursion_fee));
                 $tr.find('input.excursion_discount').autoNumeric('set',parseFloat(passenger.excursion_discount));
-                var excursion_payment=passenger.excursion_payment;
-                if(excursion_payment!=null)
-                {
-                    $tr.find('input.excursion_payment').autoNumeric('set',parseFloat(excursion_payment));
-                }else{
-                    $tr.find('input.excursion_payment').val('N/A');
-                }
                 $tr.find('input.excursion_cancel_fee').autoNumeric('set',parseFloat(passenger.excursion_cancel_fee));
-                plugin.excursion_add_on_calculator_price($tr);
+                var total_cost=parseFloat(passenger.excursion_fee)-parseFloat(passenger.excursion_discount);
+                $tr.find('input.total_cost').autoNumeric('set',parseFloat(total_cost));
+                var excursion_payment=passenger.excursion_payment;
+                if(excursion_payment ==null)
+                {
+                    $tr.find('input.excursion_payment').val('N/A');
+                    $tr.find('input.excursion_balance').val("N/A");
+                    $tr.find('input.excursion_cancel_fee').val("N/A");
+                    $tr.find('input.excursion_refund').val("N/A");
+
+
+                }else{
+                    $tr.find('input.excursion_payment').autoNumeric('set',parseFloat(excursion_payment));
+                    $tr.find('input.excursion_cancel_fee').autoNumeric('set',parseFloat(passenger.excursion_cancel_fee));
+                }
             }
-            $tbody.find('.passenger_cost').autoNumeric('init',plugin.settings.config_show_price).change(function(){
+            $tbody.find('.passenger_cost:not([disabled])').change(function(){
                 var $tr=$(this).closest('tr.passenger');
                 plugin.excursion_add_on_calculator_price($tr);
-            });;
+            });
 
         };
         plugin.fill_data_service_cost_edit_hotel_add = function (data_price) {
@@ -558,11 +637,11 @@
 
         };
         plugin.update_orders_show_form_hotel_addon_passenger = function (list_passenger,type) {
-            var $tbody=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody');
+            var $tbody=$(".view_orders_edit_form_passenger_edit_hotel_add_on").find('table.orders_show_form_passenger_edit_hotel_addon tbody');
             $tbody.empty();
             for(var i=0;i<list_passenger.length;i++){
                 var passenger=list_passenger[i];
-                var $tr=$(plugin.setting_row_passenger_edit_hotel_addon);
+                var $tr=$(plugin.settings.row_passenger_edit_hotel_addon);
                 $tr.data('passenger',passenger);
                 $tr.find('.tsmart_passenger_id').html(passenger.tsmart_passenger_id);
                 $tr.find('select.passenger_status').val(passenger[type+'_night_status']);
@@ -666,7 +745,7 @@
             });
         };
         plugin.update_orders_show_form_general = function (response) {
-            var order_detail=response.order_detail;
+            var order_detail=response.r;
             var terms_condition=order_detail.terms_condition;
             var reservation_notes=order_detail.reservation_notes;
             var itinerary=order_detail.itinerary;
@@ -1486,7 +1565,7 @@
                 });
             }
             $element.find('.cost').autoNumeric('init', plugin.settings.config_show_price);
-            $element.find('.passenger_cost').autoNumeric('init', {
+            $('.view_orders_edit_form_edit_passenger_cost').find('.passenger_cost').autoNumeric('init', {
                 mDec: 1,
                 aSep: ' ',
                 vMin: '-999.00',
@@ -2419,7 +2498,7 @@
 
 
             });
-            var $row_passenger=$(".order_edit_night_hotel").find('table.orders_show_form_passenger_edit_hotel_addon tbody tr.passenger');
+            var $row_passenger=$(".view_orders_edit_form_passenger_edit_hotel_add_on").find('table.orders_show_form_passenger_edit_hotel_addon tbody tr.passenger');
             plugin.settings.row_passenger_edit_hotel_addon=$row_passenger.getOuterHTML();
             $row_passenger.remove();
 

@@ -67,13 +67,13 @@ $i = 0;
                             <span class="full-name"></span>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost excursion_fee" readonly  type="text" value=""></td>
+                        <td><input class="passenger_cost excursion_fee" disabled  type="text" value=""></td>
                         <td><input class="passenger_cost excursion_discount" type="text" value=""></td>
-                        <td><input class="passenger_cost total_cost" readonly type="text" value=""></td>
+                        <td><input class="passenger_cost total_cost" disabled type="text" value=""></td>
                         <td><input class="passenger_cost excursion_payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_balance"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost excursion_balance"  disabled type="text" value=""></td>
                         <td><input class="passenger_cost excursion_cancel_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_refund"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost excursion_refund"  disabled type="text" value=""></td>
                     </tr>
 
                 </tbody>

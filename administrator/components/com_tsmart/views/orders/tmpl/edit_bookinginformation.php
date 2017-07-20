@@ -54,7 +54,7 @@ $i = 0;
         </div>
         <div class="span3">
             <fieldset class="note" >
-                <legend><?php echo JText::_('Note') ?><button type="button" class="btn btn-link add_note"><span class="icon-plus"></span></button></legend>
+                <legend><?php echo JText::_('Note') ?><button type="button"  class="btn btn-link add_note"><span class="icon-plus"></span></button></legend>
                 <?php echo VmHTML::add_text('add_text_note', "tour name"); ?>
             </fieldset>
         </div>

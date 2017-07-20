@@ -2933,7 +2933,7 @@ class VmHtml
     }
     public static function quick_task($value, $class, $more = '')
     {
-        return '<button class="btn btn-link"><span class="icon-edit"></span></button>';
+        return '<button type="button" class="btn btn-link"><span class="icon-edit"></span></button>';
     }
     public static function add_text($name,$default, $class, $more = '')
     {

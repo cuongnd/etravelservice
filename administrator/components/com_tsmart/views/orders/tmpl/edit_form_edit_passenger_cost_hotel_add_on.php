@@ -73,14 +73,14 @@ $i = 0;
                             <span class="full-name"></span>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost night_hotel_fee" readonly  type="text" value=""></td>
+                        <td><input class="passenger_cost night_hotel_fee" disabled  type="text" value=""></td>
                         <td><input class="total_night" readonly type="text" value=""></td>
                         <td><input class="passenger_cost night_discount" type="text" value=""></td>
-                        <td><input class="passenger_cost total_cost" readonly type="text" value=""></td>
+                        <td><input class="passenger_cost total_cost" disabled type="text" value=""></td>
                         <td><input class="passenger_cost night_payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost night_balance"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_balance"  disabled type="text" value=""></td>
                         <td><input class="passenger_cost night_cancel_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost night_refund"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_refund"  disabled type="text" value=""></td>
                     </tr>
 
                 </tbody>
