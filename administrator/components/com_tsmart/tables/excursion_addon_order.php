@@ -33,7 +33,15 @@ class TableExcursion_addon_order extends tsmTableData {
 	/** @var int Primary key */
 	var $tsmart_order_excursion_addon_id= 0;
 	var $note= "";
+	var $excursion_addon_data= null;
+	var $adult_cost= 0;
+	var $children_cost = 0;
+	var $net_price = 0;
+	var $group_excursion_payment = 0;
+	var $mark_up = 0;
+	var $tax = 0;
 	var $tsmart_excursion_addon_id= null;
+	var $children_under_year= 0;
 	var $tsmart_order_id= null;
 
 	/**

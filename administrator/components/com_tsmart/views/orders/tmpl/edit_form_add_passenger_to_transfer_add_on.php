@@ -30,7 +30,7 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
                 <div class="row-fluid">
                     <div class="span8"><?php echo JText::_('Select number passenger') ?></div>
                     <div class="span4">
-                        <select disable_chosen="true" class="total_passenger">
+                        <select disable_chosen="true" class="total_passenger_transfer">
 
                         </select>
                     </div>
@@ -39,50 +39,57 @@ $doc->addLessStyleSheet(JUri::root().'/administrator/components/com_tsmart/asset
             <div class="span6">
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span6">
-                <div class="row-fluid">
-                    <div class="span8">
-                        <?php echo JText::_('Select name') ?>
-                    </div>
-                    <div class="span4"><?php echo JText::_('Add discount') ?></div>
-                </div>
-            </div>
-            <div class="span6">
-                <div class="row-fluid">
-                    <div class="span3"><?php echo JText::_('Calculation') ?></div>
-                    <div class="span9"></div>
-                </div>
-            </div>
-        </div>
-        <div class="body-table-add-passenger-to-transfer">
-            <div class="passenger-item">
+        <div class="table-add-passenger-to-transfer">
+            <div class="head-table">
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="row-fluid">
-                            <div class="span8">
-                                <select disable_chosen="true" class="select-passenger-item"></select>
+                            <div class="span6">
+                                <span class="select-name"><?php echo JText::_('Select name') ?></span>
                             </div>
-                            <div class="span4">
-                                <input type="text" class="discount">
-                            </div>
+                            <div class="span3"><?php echo JText::_('Surcharge') ?></div>
+                            <div class="span3"><?php echo JText::_('Discount') ?></div>
                         </div>
-
                     </div>
                     <div class="span6">
                         <div class="row-fluid">
-                            <div class="span3"><span class="cost">N/A</span></div>
-                            <div class="span1"></div>
-                            <div class="span1">X</div>
-                            <div class="span1"></div>
-                            <div class="span2"><?php echo JText::_('1 pers') ?></div>
-                            <div class="span1">=</div>
-                            <div class="span3"><span class="pull-right total_cost_per_persion">N/A</span></div>
+                            <div class="span3"><?php echo JText::_('Calculation') ?></div>
+                            <div class="span9"></div>
                         </div>
                     </div>
                 </div>
-
             </div>
+            <div class="body-table-add-passenger-to-transfer">
+                <div class="passenger-item">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="wrapper-select-passenger-item"><select disable_chosen="true" class="select-passenger-item"></select></div>
+                                </div>
+                                <div class="span3">
+                                    <input type="text" class="surcharge">
+                                </div>
+                                <div class="span3">
+                                    <input type="text" class="discount">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="span6">
+                            <div class="row-fluid">
+                                <div class="span5"><span class="cost">N/A</span></div>
+                                <div class="span1">X</div>
+                                <div class="span2"><?php echo JText::_('1 pers') ?></div>
+                                <div class="span1">=</div>
+                                <div class="span3"><span class="pull-right total_cost_per_persion">N/A</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="row-fluid">
             <div class="span12">

@@ -181,6 +181,112 @@ class tsmtransferaddon
             }
         }
     }
+    public static function get_adult_price_by_total_passenger_and_tsmart_transfer_addon_id($total_passenger = 1, $tsmart_transfer_addon_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_transfer_addon AS transfer_addon')
+            ->where('transfer_addon.tsmart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        //echo $query->dump();
+        $transfer_addon = $db->setQuery($query)->loadObject();
+        $transfer_addon->data_price = base64_decode($transfer_addon->data_price);
+        $transfer_addon->data_price = up_json_decode($transfer_addon->data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        $data_price = $transfer_addon->data_price;
+        $adult_price=new stdClass();
+        if ($data_price != null) {
+            $data_price = $transfer_addon->data_price;
+            $item_flat = $data_price->item_flat;
+            $net_price = (float)($item_flat->net_price);
+            $mark_up_amount = (float)($item_flat->mark_up_amount);
+            $mark_up_percent = (float)($item_flat->mark_up_percent);
+            $tax = $item_flat->tax;
+            if ((float)($net_price) > 0) {
+                $item_flat_mark_up_type = $data_price->item_flat_mark_up_type;
+                $current_price = 0;
+                if ($item_flat_mark_up_type == 'percent') {
+                    $current_price = $net_price + ($net_price * $mark_up_percent) / 100;
+                    $adult_price->net_price=$net_price;
+                    $adult_price->mark_up=($net_price * $mark_up_percent) / 100;
+                    $adult_price->tax=($current_price * $tax) / 100;
+                    $adult_price->sale_price = $current_price + ($current_price * $tax) / 100;
+                    return $adult_price;
+                } else {
+                    $current_price = $net_price + $mark_up_amount;
+                    $adult_price->net_price=$net_price;
+                    $adult_price->mark_up=$mark_up_amount;
+                    $adult_price->tax=($current_price * $tax) / 100;
+                    $adult_price->sale_price = $current_price + ($current_price * $tax) / 100;
+                    return $adult_price;
+                }
+            } else {
+                $items = $data_price->items;
+                $item_mark_up_type = $data_price->item_mark_up_type;
+                $item_cost=new stdClass();
+                if($total_passenger<count($items)){
+                    $item_cost=$items[$total_passenger-1];
+                }else{
+                    $item_cost=end($items);
+                }
+
+                $mark_up_amount = (float)($item_cost->mark_up_amount);
+                $mark_up_percent = (float)($item_cost->mark_up_percent);
+                $net_price = (float)($item_cost->net_price);
+                $tax = (float)($item_cost->tax);
+                if ($item_mark_up_type == 'percent') {
+                    $item_sale_price = $net_price + ($net_price * $mark_up_percent) / 100;
+                    $adult_price->net_price=$net_price;
+                    $adult_price->mark_up=($net_price * $mark_up_percent) / 100;
+                    $adult_price->tax=($item_sale_price * $tax) / 100;
+                    $adult_price->sale_price = $item_sale_price + ($item_sale_price * $tax) / 100;
+                    return $adult_price;
+                } else {
+                    $item_sale_price = $net_price + $mark_up_amount;
+                    $adult_price->net_price=$net_price;
+                    $adult_price->mark_up=$mark_up_amount;
+                    $adult_price->tax=($item_sale_price * $tax) / 100;
+                    $adult_price->sale_price = $item_sale_price + ($item_sale_price * $tax) / 100;
+                    return $adult_price;
+                }
+
+            }
+        }
+    }
+    public static function get_children_price_by_total_passenger_and_tsmart_transfer_addon_id($total_passenger = 1, $tsmart_transfer_addon_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_transfer_addon AS transfer_addon')
+            ->where('transfer_addon.tsmart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id);
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        //echo $query->dump();
+        $transfer_addon = $db->setQuery($query)->loadObject();
+        require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
+        //echo $query->dump();
+        $data_price = base64_decode($transfer_addon->data_price);
+        $data_price = up_json_decode($data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        $children_under_year=$data_price->children_under_year;
+
+
+        $adult_price=self::get_adult_price_by_total_passenger_and_tsmart_transfer_addon_id($total_passenger,$tsmart_transfer_addon_id);
+        $children_discount_amount=$data_price->children_discount_amount;
+        $children_discount_percent=$data_price->children_discount_percent;
+
+        $children_price=0;
+        if(!empty($children_discount_amount) && is_numeric($children_discount_amount) ){
+            $children_price=$adult_price->sale_price-$children_discount_amount;
+        }else{
+
+            $children_price=$adult_price-$adult_price->sale_price*$children_discount_percent/100;
+        }
+        $object_return=new stdClass();
+        $object_return->children_under_year=$children_under_year;
+        $object_return->children_price=$children_price;
+        return  $object_return;
+
+    }
     public static function get_transfer_addon($tsmart_product_id = 0, $booking_date, $pickup_transfer_type = 'pre_transfer')
     {
         $booking_date = JFactory::getDate($booking_date);
@@ -198,6 +304,17 @@ class tsmtransferaddon
         $transfer->data_price = base64_decode($transfer->data_price);
         require_once JPATH_ROOT . '/libraries/upgradephp-19/upgrade.php';
         $transfer->data_price = up_json_decode($transfer->data_price, false, 512, JSON_PARSE_JAVASCRIPT);
+        return $transfer;
+    }
+    public static function get_transfer_addon_by_tsmart_transfer_addon_id($tsmart_transfer_addon_id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__tsmart_transfer_addon AS transfer_addon')
+            ->where('transfer_addon.tsmart_transfer_addon_id=' . (int)$tsmart_transfer_addon_id)
+        ;
+        $transfer = $db->setQuery($query)->loadObject();
         return $transfer;
     }
     public static function get_list_transfer_payment_type()

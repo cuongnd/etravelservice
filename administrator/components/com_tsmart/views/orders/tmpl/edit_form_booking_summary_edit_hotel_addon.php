@@ -34,31 +34,28 @@ $i = 0;
                 <thead>
                 <tr>
                     <th>
-                        <?php echo $this->sort('sale_price', 'Sale price'); ?>
+                        <?php echo JText::_('Gross total'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('net_price', 'Net price'); ?>
+                        <?php echo JText::_('Discount'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('discount', 'Discount'); ?>
+                        <?php echo JText::_('Commission'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('commission', 'Commission'); ?>
+                        <?php echo JText::_('Net total'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('payment', 'Payment'); ?>
+                        <?php echo JText::_('Payment'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
+                        <?php echo JText::_('Balance'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('cancel', 'Cancel'); ?>
+                        <?php echo JText::_('Cancel'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('refund', 'Refund'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('profit', 'Profit'); ?>
+                        <?php echo JText::_('Refund'); ?>
                     </th>
                     <th>
                         <?php echo JText::_('Status') ?>
@@ -67,15 +64,14 @@ $i = 0;
                 </thead>
                 <tr>
 
-                    <td><span class="cost total_cost"></span></td>
-                    <td><span class="cost net_price"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost discount"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost commission"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost payment"></span></td>
-                    <td><span class="cost balance"></span></td>
-                    <td><span class="cost cancel"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost refund"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost profit"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="gross_total"></span></td>
+                    <td><span class="group_hotel_current_discount"></span></td>
+                    <td><span class="group_hotel_current_commission"></span></td>
+                    <td><span class="net_total"></span></td>
+                    <td><input type="text" class="group_hotel_current_payment"></td>
+                    <td><span class="balance"></span></td>
+                    <td><span class="cancel"></span></td>
+                    <td><span class="refund"></span></td>
                     <td>
                         <?php echo VmHTML::change_order_status(array(), 'hotel_add_on_status', 0, ''); ?>
                     </td>

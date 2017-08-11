@@ -47,6 +47,9 @@ $i = 0;
                     </th>
 
                     <th>
+                        <?php echo JText::_('Surcharge') ?>
+                    </th>
+                    <th>
                         <?php echo $this->sort('discount', 'Discount'); ?>
                     </th>
                     <th>
@@ -54,9 +57,6 @@ $i = 0;
                     </th>
                     <th>
                         <?php echo $this->sort('payment', 'Payment'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
@@ -75,16 +75,23 @@ $i = 0;
                         </td>
                         <td><input class="passenger_cost night_hotel_fee" disabled  type="text" value=""></td>
                         <td><input class="total_night" readonly type="text" value=""></td>
+                        <td><input class="passenger_cost night_surcharge" type="text" value=""></td>
                         <td><input class="passenger_cost night_discount" type="text" value=""></td>
                         <td><input class="passenger_cost total_cost" disabled type="text" value=""></td>
-                        <td><input class="passenger_cost night_payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost night_balance"  disabled type="text" value=""></td>
+                        <td><input placeholder="N/A" class="passenger_cost night_payment"  type="text" value=""></td>
                         <td><input class="passenger_cost night_cancel_fee"  type="text" value=""></td>
                         <td><input class="passenger_cost night_refund"  disabled type="text" value=""></td>
                     </tr>
 
                 </tbody>
             </table>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="text-center">
+                        <?php echo JText::sprintf('Grand total cost: <span class="total-cost-for-all">%s</span>,Total cancel:<span class="total-cancel">%s</span>, Total refund:<span class="total-refund">%s</span>',0,0,0)?>
+                    </div>
+                </div>
+            </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pull-right">

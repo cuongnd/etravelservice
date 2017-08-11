@@ -173,7 +173,7 @@ class tsmpassenger
     {
         $db=JFactory::getDbo();
         $query=$db->getQuery(true);
-        $query->select('passenger.*,excursion_addon_passenger_price_order.*')
+        $query->select('passenger.*,excursion_addon_passenger_price_order.*,excursion_addon_passenger_price_order.status AS excursion_group_state')
             ->from('#__tsmart_passenger AS passenger')
             ->innerJoin('#__tsmart_excursion_addon_passenger_price_order AS excursion_addon_passenger_price_order ON excursion_addon_passenger_price_order.tsmart_passenger_id=passenger.tsmart_passenger_id')
             ->where('excursion_addon_passenger_price_order.tsmart_order_excursion_addon_id='.(int)$tsmart_order_excursion_addon_id)

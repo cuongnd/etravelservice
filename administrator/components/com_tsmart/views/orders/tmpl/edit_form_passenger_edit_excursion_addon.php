@@ -48,9 +48,6 @@ $i = 0;
                         <?php echo $this->sort('payment', 'Payment'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
-                    </th>
-                    <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
                     </th>
                     <th>
@@ -63,15 +60,14 @@ $i = 0;
                 </thead>
                 <tbody>
                 <tr class="passenger">
-                    <td><label><input class="tsmart_passenger_id" type="checkbox"><span class="tsmart_passenger_id"></span></label></td>
+                    <td><span class="tsmart_passenger_id"></span></td>
                     <td>
                         <span class="full-name"></span>
                         <input type="hidden" value="" class="tsmart_passenger_id">
                     </td>
                     <td class="book_date"></td>
                     <td><span class="cost total_cost"></span></td>
-                    <td><span class="cost payment"></span></td>
-                    <td><span class="cost balance"></span></td>
+                    <td><span class="cost payment">N/A</span></td>
                     <td><span class="cost cancel_fee"></span></td>
                     <td><span class="cost refund"></span></td>
                     <td>

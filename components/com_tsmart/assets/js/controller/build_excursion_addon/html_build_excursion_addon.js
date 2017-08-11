@@ -2902,7 +2902,7 @@
                 var item_mark_up_type=data_price.item_mark_up_type;
                 if(total_passenger<items.length)
                 {
-                    var item=items[total_passenger];
+                    var item=items[total_passenger-1];
                 }else{
                     var item=items[items.length-1];
                 }

@@ -41,6 +41,9 @@ $i = 0;
                         <?php echo $this->sort('excursion_fee', 'Excursion fee'); ?>
                     </th>
                     <th>
+                        <?php echo $this->sort('surcharge', 'Surcharge'); ?>
+                    </th>
+                    <th>
                         <?php echo $this->sort('discount', 'Discount'); ?>
                     </th>
                     <th>
@@ -48,9 +51,6 @@ $i = 0;
                     </th>
                     <th>
                         <?php echo $this->sort('payment', 'Payment'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
@@ -67,17 +67,24 @@ $i = 0;
                             <span class="full-name"></span>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost excursion_fee" disabled  type="text" value=""></td>
+                        <td><input  class="passenger_cost excursion_fee" disabled  type="text" value=""></td>
+                        <td><input class="passenger_cost excursion_surcharge" type="text" value=""></td>
                         <td><input class="passenger_cost excursion_discount" type="text" value=""></td>
                         <td><input class="passenger_cost total_cost" disabled type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_balance"  disabled type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_cancel_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost excursion_refund"  disabled type="text" value=""></td>
+                        <td><input placeholder="N/A" class="passenger_cost excursion_payment"  type="text" value=""></td>
+                        <td><input  class="passenger_cost excursion_cancel_fee"  type="text" value="0"></td>
+                        <td><input  class="passenger_cost excursion_refund"  disabled type="text" value=""></td>
                     </tr>
 
                 </tbody>
             </table>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="text-center">
+                        <?php echo JText::sprintf('Grand total cost: <span class="total-cost-for-all">%s</span>,Total cancel:<span class="total-cancel">%s</span>, Total refund:<span class="total-refund">%s</span>',0,0,0)?>
+                    </div>
+                </div>
+            </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pull-right">

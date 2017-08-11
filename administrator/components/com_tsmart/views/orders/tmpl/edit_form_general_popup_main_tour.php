@@ -58,7 +58,7 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_code', $this->tour->product_code, ' placeholder="service name" readonly  style="width: 100%;" '); ?>
+                                <?php echo VmHTML::row_control('input',JText::_('Reference'), 'main_product_code', $this->tour->product_code, ' placeholder="service name"   style="width: 100%;" '); ?>
 
                             </div>
                             <div class="span6">
@@ -68,7 +68,7 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,' ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','main_tour_terms_condition', $this->item->terms_condition,' ',100,4); ?>
                         <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,'',100,4); ?>
 
                     </div>

@@ -78,21 +78,21 @@ $i = 0;
                             <?php echo TSMUtility::get_full_name($row) ?>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost tour_fee"  type="text" value="<?php echo $row->tour_fee ?>"></td>
-                        <td><input class="passenger_cost single_room_fee" type="text" value="<?php echo $row->single_room_fee ?>"></td>
-                        <td><input class="passenger_cost extra_fee" type="text" value="<?php echo $row->extra_fee ?>"></td>
+                        <td><input class="passenger_cost tour_fee"  type="text" disabled value="<?php echo $row->tour_fee ?>"></td>
+                        <td><input class="passenger_cost single_room_fee" type="text" disabled value="<?php echo $row->single_room_fee ?>"></td>
+                        <td><input class="passenger_cost extra_fee" type="text" disabled value="<?php echo $row->extra_fee ?>"></td>
                         <td><input class="passenger_cost discount_fee" type="text" value="<?php echo $row->discount_fee ?>"></td>
-                        <td><input class="passenger_cost total_cost" readonly type="text" value="<?php echo $row->total_cost?>"></td>
+                        <td><input class="passenger_cost total_cost" disabled type="text" value="<?php echo $row->total_cost?>"></td>
                         <td><input class="passenger_cost payment"  type="text" value="<?php echo $row->payment ?>"></td>
-                        <td><input class="passenger_cost balance"  readonly type="text" value="<?php echo $row->balance ?>"></td>
+                        <td><input class="passenger_cost balance"  disabled type="text" value="<?php echo $row->balance ?>"></td>
                         <td><input class="passenger_cost cancel_fee"  type="text" value="<?php echo $row->cancel_fee ?>"></td>
-                        <td><input class="passenger_cost refund"  readonly type="text" value="<?php echo $row->refund ?>"></td>
+                        <td><input class="passenger_cost refund"  disabled type="text" value="<?php echo $row->refund ?>"></td>
                     </tr>
                     <?php
                     $html=ob_get_clean();
                     return $html;
                 };
-
+                $total_tour_fee=0;
                 for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
                     $passenger_in_room=$this->list_passenger_not_in_temporary[$i];
                     $passenger_in_room->tour_fee = $passenger_in_room->tour_cost ;

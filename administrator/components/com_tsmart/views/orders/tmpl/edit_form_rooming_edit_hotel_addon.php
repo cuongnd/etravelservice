@@ -69,11 +69,13 @@ $i = 0;
 
                 </tbody>
             </table>
-            <h4><?php echo JText::_('List passenger unset room') ?></h4>
-            <div class="row">
-                <div class="span12">
-                    <ul class="list_passenger_not_in_temporary_and_not_in_room">
-                    </ul>
+            <div class="area-list-passenger-not-in-temporary-and-not-in-room">
+                <h4><?php echo JText::_('List passenger unset room') ?></h4>
+                <div class="row">
+                    <div class="span12">
+                        <ul class="list_passenger_not_in_temporary_and_not_in_room">
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="row">

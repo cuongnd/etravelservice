@@ -35,28 +35,28 @@ $i = 0;
                 <tr>
                     <th width="2%"><?php echo JText::_('ID') ?></th>
                     <th width="20%">
-                        <?php echo $this->sort('passenger_name', 'Passenger name'); ?>
+                        <?php echo JText::_('Passenger name') ?>
+                    </th>
+                    <th width="10%">
+                        <?php echo JText::_('Transfer cost') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('room_fee', 'transfer fee'); ?>
+                        <?php echo JText::_('Surcharge') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('discount', 'Discount'); ?>
+                        <?php echo JText::_('Discount') ?>
+                    </th>
+                    <th width="10%">
+                        <?php echo JText::_('Total cost') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('total_cost', 'Total cost'); ?>
+                        <?php echo JText::_('Payment') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('payment', 'Payment'); ?>
+                        <?php echo JText::_('Cancel') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('cancel', 'Cancel'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('refund', 'Refund'); ?>
+                        <?php echo JText::_('Refund') ?>
                     </th>
                 </tr>
                 </thead>
@@ -67,17 +67,25 @@ $i = 0;
                             <span class="full-name"></span>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
-                        <td><input class="passenger_cost transfer_fee" readonly  type="text" value=""></td>
+                        <td><input class="passenger_cost transfer_fee" disabled  type="text" value=""></td>
+                        <td><input class="passenger_cost transfer_surcharge" type="text" value=""></td>
                         <td><input class="passenger_cost transfer_discount" type="text" value=""></td>
-                        <td><input class="passenger_cost total_cost" readonly type="text" value=""></td>
-                        <td><input class="passenger_cost transfer_payment"  type="text" value=""></td>
-                        <td><input class="passenger_cost transfer_balance"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost total_cost" disabled type="text" value=""></td>
+                        <td><input  placeholder="N/A"  class="passenger_cost transfer_payment"  type="text" value=""></td>
                         <td><input class="passenger_cost transfer_cancel_fee"  type="text" value=""></td>
-                        <td><input class="passenger_cost transfer_refund"  readonly type="text" value=""></td>
+                        <td><input class="passenger_cost transfer_refund"  disabled type="text" value=""></td>
                     </tr>
 
                 </tbody>
             </table>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="text-center">
+                        <?php echo JText::sprintf('Grand total cost: <span class="total-cost-for-all">%s</span>,Total cancel:<span class="total-cancel">%s</span>, Total refund:<span class="total-refund">%s</span>',0,0,0)?>
+                    </div>
+                </div>
+            </div>
+
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pull-right">

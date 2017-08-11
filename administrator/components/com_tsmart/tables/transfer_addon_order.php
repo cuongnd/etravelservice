@@ -35,6 +35,13 @@ class TableTransfer_addon_order extends tsmTableData {
 	var $note= "";
 	var $tsmart_transfer_addon_id= null;
 	var $tsmart_order_id= null;
+	var $transfer_addon_data= null;
+	var $group_transfer_payment= null;
+	var $adult_cost= 0;
+	var $children_cost = 0;
+	var $net_price= 0;
+	var $mark_up= 0;
+	var $tax= 0;
 	var $checkin_date= null;
 	var $checkout_date= null;
 

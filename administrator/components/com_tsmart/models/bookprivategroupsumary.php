@@ -233,13 +233,28 @@ class tsmartModelbookprivategroupsumary extends tmsModel
 
         //save transfer
         $save_data_transfer=function($type="pre",$extra_transfer,$orderTable,$list_passenger_by_order,$transfer_addon_orderTable,$passengerTable){
+            $tsm_transferaddon_helper=tsmHelper::getHepler('transferaddon');
             for ($i = 0, $n = count($extra_transfer); $i < $n; $i++) {
                 $row = $extra_transfer[$i];
                 $tsmart_transfer_addon_id = $row->tsmart_transfer_addon_id;
+                if(!$tsmart_transfer_addon_id){
+                   continue;
+                }
                 $list_passenger_price=$row->list_passenger_price;
-
+                $passengers=$row->passengers;
                 $transfer_addon_orderTable->tsmart_order_transfer_addon_id=0;
                 $transfer_addon_orderTable->tsmart_transfer_addon_id=$tsmart_transfer_addon_id;
+                $transfer_addon_orderTable->transfer_addon_data=json_encode($tsm_transferaddon_helper->get_transfer_addon_by_tsmart_transfer_addon_id($tsmart_transfer_addon_id));
+                $adult_price=$tsm_transferaddon_helper->get_adult_price_by_total_passenger_and_tsmart_transfer_addon_id(count($passengers), $tsmart_transfer_addon_id);
+                $transfer_addon_orderTable->adult_cost=$adult_price->sale_price;
+                $transfer_addon_orderTable->net_price=$adult_price->net_price;
+                $transfer_addon_orderTable->mark_up=$adult_price->mark_up;
+                $transfer_addon_orderTable->tax=$adult_price->tax;
+
+                $children_cost=$tsm_transferaddon_helper->get_children_price_by_total_passenger_and_tsmart_transfer_addon_id(count($passengers), $tsmart_transfer_addon_id);
+                $transfer_addon_orderTable->children_cost=$children_cost->children_price;
+
+                $transfer_addon_orderTable->children_under_year=$children_cost->children_under_year;
                 $transfer_addon_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
                 $transfer_addon_orderTable->note=$row->transfer_note;
                 $transfer_addon_orderTable->checkin_date=JFactory::getDate($row->check_in_date)->toSql();
@@ -254,8 +269,8 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                     $passengerTable->jload($tsmart_passenger_id);
                     $key_transfer=$type."_tsmart_order_transfer_addon_id";
                     $key_transfer_fee=$type."_transfer_fee";
-                    $passengerTable->$key_transfer=$tsmart_order_transfer_addon_id;
-                    $passengerTable->$key_transfer_fee=$passenger_cost->cost;
+                    $passengerTable->{$key_transfer}=$tsmart_order_transfer_addon_id;
+                    $passengerTable->{$key_transfer_fee}=$passenger_cost->cost;
                     $passengerTable->store();
 
                 }
@@ -275,6 +290,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
         $excursion_addon_order_orderTable = $this->getTable('excursion_addon_order');
         $excursion_addon_passenger_price_order_orderTable = $this->getTable('excursion_addon_passenger_price_order');
         $build_excursion_addon=(array)$booking_summary->build_excursion_addon;
+        $tsm_excursionaddon_helper=tsmHelper::getHepler('excursionaddon');
         if(count($build_excursion_addon))
         {
             for ($i = 0, $n = count($build_excursion_addon); $i < $n; $i++) {
@@ -284,12 +300,23 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                 {
                     continue;
                 }
+                $passengers=$row->passengers;
                 $tsmart_excursion_addon_id = $row->tsmart_excursion_addon_id;
                 $list_passenger_price=$row->list_passenger_price;
 
                 $excursion_addon_order_orderTable->tsmart_order_excursion_addon_id=0;
                 $excursion_addon_order_orderTable->tsmart_excursion_addon_id=$tsmart_excursion_addon_id;
 
+
+                $excursion_addon_order_orderTable->excursion_addon_data=json_encode($tsm_excursionaddon_helper->get_excursion_addon_by_tsmart_excursion_addon_id($tsmart_excursion_addon_id));
+                $adult_price=$tsm_excursionaddon_helper->get_adult_price_by_total_passenger_and_tsmart_excursion_addon_id(count($passengers), $tsmart_excursion_addon_id);
+                $excursion_addon_order_orderTable->adult_cost=$adult_price->sale_price;
+                $excursion_addon_order_orderTable->net_price=$adult_price->net_price;
+                $excursion_addon_order_orderTable->mark_up=$adult_price->mark_up;
+                $excursion_addon_order_orderTable->tax=$adult_price->tax;
+                $children_cost=$tsm_excursionaddon_helper->get_children_price_by_total_passenger_and_tsmart_excursion_addon_id(count($passengers), $tsmart_excursion_addon_id);
+                $excursion_addon_order_orderTable->children_cost=$children_cost->children_price;
+                $excursion_addon_order_orderTable->children_under_year=$children_cost->children_under_year;
                 $excursion_addon_order_orderTable->tsmart_order_id=$orderTable->tsmart_order_id;
                 $excursion_addon_order_orderTable->note=$row->excursion_note;
                 $excursion_addon_order_orderTable->store();

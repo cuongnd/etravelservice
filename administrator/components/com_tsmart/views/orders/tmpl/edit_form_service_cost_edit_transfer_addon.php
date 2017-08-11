@@ -17,7 +17,7 @@
  * @version $Id: product_edit_information.php 8982 2015-09-14 09:45:02Z Milbo $
  */
 $doc=JFactory::getDocument();
-$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_service_cost_edit_transfer.less');
+$doc->addLessStyleSheet(JUri::root().'administrator/components/com_tsmart/assets/less/view_orders_edit_form_edit_service_cost_edit_transfer_add_on.less');
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
@@ -25,39 +25,39 @@ defined('_JEXEC') or die('Restricted access');
 $i = 0;
 ?>
 
-<div class="view_orders_edit_form_edit_service_cost_edit_transfer form-horizontal">
+<div class="view_orders_edit_form_edit_service_cost_edit_transfer_add_on form-horizontal">
     <div class="row-fluid ">
         <div class="span12">
             <div class="vm-page-nav text-center ">
                 <h3 class="text-uppercase"><?php echo JText::_('Service cost') ?></h3>
             </div>
-            <table class="adminlist table service_cost_edit_hotel table-striped" cellspacing="0" cellpadding="0">
+            <table class="adminlist table service_cost_edit_transfer_add_on table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
                     <th>
-                        <?php echo $this->sort('customer_name', 'Service type'); ?>
+                        <?php echo $this->sort('service_type', 'Service type'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('created_on', 'Net  price'); ?>
+                        <?php echo $this->sort('net_price', 'Net  price'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('location', 'Mark up'); ?>
+                        <?php echo $this->sort('mark_up', 'Mark up'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('creation', 'Tax'); ?>
+                        <?php echo $this->sort('tax', 'Tax'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('price', 'Sale price'); ?>
+                        <?php echo $this->sort('sale_price', 'Sale price'); ?>
                     </th>
 
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class="item-room">
+                    <tr class="item-service-cost">
                         <td><span class="room_type"></span></td>
                         <td><span class="service_cost net_price"></span></td>
                         <td><span class="service_cost mark_up"></span></td>
-                        <td><span class="tax"></span></td>
+                        <td><span class="service_cost tax"></span></td>
                         <td><span class="service_cost sale_price"></span></td>
                     </tr>
                 </tbody>

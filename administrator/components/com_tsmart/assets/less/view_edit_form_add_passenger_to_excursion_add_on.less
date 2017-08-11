@@ -1,6 +1,6 @@
 .view_edit_form_add_passenger_to_excursion_add_on
 {
-  input.discount{
+  input.discount,input.surcharge{
     width: 100%;
     border-radius: 0;
   }
@@ -10,5 +10,45 @@
   .passenger-item
   {
     padding: 5px 0px;
+  }
+  .table-add-passenger-to-excursion{
+    border: 1px solid #d5d5d5;
+  }
+  .select-passenger-item,.total_passenger
+  {
+    width: 100%;
+    border-radius: 0;
+  }
+  .body-table-add-passenger-to-excursion
+  {
+    .passenger-item:nth-of-type(2n+1) {
+      background-color: #f9f9f9;
+    }
+    line-height: 30px;
+    .passenger-item{
+      .total_cost_per_persion{
+        padding-right: 10px;
+      }
+      .wrapper-select-passenger-item{
+        padding-left: 10px;
+      }
+      .select-passenger-item
+      {
+
+        box-sizing: border-box;
+      }
+    }
+
+
+  }
+  .head-table
+  {
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    line-height: 30px;
+    .select-name
+    {
+      padding-left: 10px;
+    }
   }
 }

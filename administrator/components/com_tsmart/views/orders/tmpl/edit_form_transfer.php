@@ -32,7 +32,7 @@ $i = 0;
     <?php echo $this->loadTemplate('form_service_cost_edit_transfer_addon') ?>
     <?php echo $this->loadTemplate('form_condition_transfer') ?>
     <?php echo $this->loadTemplate('form_passenger_edit_transfer_addon') ?>
-    <?php echo $this->loadTemplate('form_list_passenger_not_in_transfer') ?>
+    <?php //echo $this->loadTemplate('form_list_passenger_not_in_transfer') ?>
     <?php //echo $this->loadTemplate('form_itinerary') ?>
     <input type="hidden" name="tsmart_order_transfer_addon_id" value="">
     <input type="hidden" name="type" value="">

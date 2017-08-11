@@ -34,27 +34,24 @@ $i = 0;
             <table class="adminlist table table-striped orders_show_form_passenger_edit_transfer_addon" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
-                    <th class="admin-checkbox">
+                    <th >
                        <?php echo JText::_('Id') ?>
 
                     </th>
                     <th>
-                        <?php echo $this->sort('customer_name', 'Passenger name'); ?>
+                        <?php echo JText::_('Passenger name') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('created_on', 'Book date'); ?>
+                        <?php echo JText::_('Book date') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('price', 'Total cost'); ?>
+                        <?php echo JText::_('Total cost') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('payment', 'Payment'); ?>
+                        <?php echo JText::_('payment') ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('cancel', 'Cancel'); ?>
+                        <?php echo JText::_('Cancel') ?>
                     </th>
                     <th>
                         <?php echo JText::_('Refund') ?>
@@ -74,7 +71,6 @@ $i = 0;
                     <td class="book_date"></td>
                     <td><span class="cost total_cost"></span></td>
                     <td><span class="cost payment"></span></td>
-                    <td><span class="cost balance"></span></td>
                     <td><span class="cost cancel_fee"></span></td>
                     <td><span class="cost refund"></span></td>
                     <td>

@@ -39,7 +39,7 @@ class TablePassenger extends tsmTableData {
 	var $first_name = "";
 	/** @var int Vendor ID */
 	var $middle_name = "";
-	var $payment = 0;
+	var $payment = nul;
 	var $title = "";
 	var $last_name = "";
 	var $gender = "";
@@ -65,8 +65,8 @@ class TablePassenger extends tsmTableData {
 	var $is_temporary = 0;
 	var $pre_night_status   = 0;
 	var $post_night_status   = 0;
-	var $discount  = 0;
-	var $cancel_fee   = 0;
+	var $discount  = null;
+	var $cancel_fee   = null;
 	var $room_fee   = 0;
 	var $tour_cost   = 0;
 	var $tsmart_room_order_id   = null;

@@ -2193,11 +2193,10 @@
                 var item_mark_up_type=data_price.item_mark_up_type;
                 if(total_passenger<items.length)
                 {
-                    var item=items[total_passenger];
+                    var item=items[total_passenger-1];
                 }else{
                     var item=items[items.length-1];
                 }
-
                 var mark_up_amount=parseFloat(item.mark_up_amount);
                 var mark_up_percent=parseFloat(item.mark_up_percent);
                 var net_price=parseFloat(item.net_price);

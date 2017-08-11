@@ -34,6 +34,11 @@ class TableExcursion_addon_passenger_price_order extends tsmTableData {
 	var $tsmart_order_excursion_addon_id= null;
 	var $tsmart_passenger_id= null;
 	var $excursion_fee= 0;
+	var $excursion_discount= null;
+	var $surcharge= null;
+	var $status= 0;
+	var $excursion_payment= null;
+	var $excursion_cancel_fee= null;
 	/**
 	 * @author Max Milbers
 	 * @param JDataBase $db
