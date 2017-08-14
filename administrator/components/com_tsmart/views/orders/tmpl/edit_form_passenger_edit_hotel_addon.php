@@ -54,9 +54,6 @@ $i = 0;
                         <?php echo $this->sort('payment', 'Payment'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
-                    </th>
-                    <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
                     </th>
                     <th>
@@ -77,7 +74,6 @@ $i = 0;
                     <td class="book_date"></td>
                     <td><span class="cost total_cost"></span></td>
                     <td><span class="cost payment"></span></td>
-                    <td><span class="cost balance"></span></td>
                     <td><span class="cost cancel_fee"></span></td>
                     <td><span class="cost refund"></span></td>
                     <td>

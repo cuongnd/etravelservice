@@ -23,6 +23,31 @@ defined('_JEXEC') or die('Restricted access');
 
 // set row counter
 $i = 0;
+
+
+$main_tour_current_discount=0;
+$main_tour_current_commission=0;
+$total_cost_for_all=0;
+$total_cancel=0;
+$total_refund=0;
+for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
+    $passenger_in_room=$this->list_passenger_not_in_temporary[$i];
+    $passenger_in_room->tour_fee = $passenger_in_room->tour_cost ;
+    $passenger_in_room->single_room_fee = $passenger_in_room->room_fee ;
+    $passenger_in_room->discount_fee = $passenger_in_room->discount ;
+    $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
+    $total_cost_for_all+=(float)$passenger_in_room->total_cost;
+    $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
+    $total_cancel+=(float)$passenger_in_room->cancel_fee;
+    $passenger_in_room->refund = $passenger_in_room->payment-$passenger_in_room->cancel_fee;
+    $total_refund+=$passenger_in_room->refund;
+    $passenger_in_room->passenger_status =$passenger_in_room->tour_tsmart_passenger_state_id;
+
+}
+$payment=$this->main_tour_order->main_tour_payment;
+$payment=$payment?$payment:0;
+$main_tour_net_total=$total_cost_for_all-((float)$main_tour_current_discount+(float)$main_tour_current_commission+(float)$total_cancel);
+$balance=$main_tour_net_total-$payment;
 ?>
 <div class="edit_form_booking_summary form-horizontal">
     <div class="row-fluid ">
@@ -34,31 +59,28 @@ $i = 0;
                 <thead>
                 <tr>
                     <th>
-                        <?php echo $this->sort('sale_price', 'Sale price'); ?>
+                        <?php echo JText::_('Gross total'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('net_price', 'Net price'); ?>
+                        <?php echo JText::_('Discount'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('discount', 'Discount'); ?>
+                        <?php echo JText::_('Commission'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('commission', 'Commission'); ?>
+                        <?php echo JText::_('Net total'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('payment', 'Payment'); ?>
+                        <?php echo JText::_('Payment'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
+                        <?php echo JText::_('Balance'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('cancel', 'Cancel'); ?>
+                        <?php echo JText::_('Cancel'); ?>
                     </th>
                     <th>
-                        <?php echo $this->sort('refund', 'Refund'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('profit', 'Profit'); ?>
+                        <?php echo JText::_('Refund'); ?>
                     </th>
                     <th>
                         <?php echo JText::_('Status') ?>
@@ -66,18 +88,16 @@ $i = 0;
                 </tr>
                 </thead>
                 <tr>
-
-                    <td><span class="cost"><?php echo $this->item->order_total ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo $this->item->payment ?></span></td>
-                    <td><span class="cost"><?php echo $this->item->order_total-$this->item->payment ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
-                    <td><span class="cost"><?php echo JText::_("N/A") ?></span></td>
+                    <td><span class="cost gross_total"><?php echo $total_cost_for_all ?></span></td>
+                    <td><span class="cost main_tour_current_discount"><?php echo $main_tour_current_discount ?></span></td>
+                    <td><span class="cost main_tour_current_commission"><?php echo $main_tour_current_commission ?></span></td>
+                    <td><span class="cost main_tour_net_total"><?php echo $main_tour_net_total ?></span></td>
+                    <td><input type="text" class="cost main_tour_current_payment" value="<?php echo $payment ?>"></td>
+                    <td><span class="cost balance"><?php echo $balance ?></span></td>
+                    <td><span class="cost cancel"><?php echo $total_cancel ?></span></td>
+                    <td><span class="cost refund"><?php echo $total_refund ?></span></td>
                     <td>
-                        <?php echo VmHTML::change_order_status(array(), 'tsmart_orderstate_id', $this->item->tsmart_orderstate_id, 'class="change_order_status "'); ?>
+                        <?php echo VmHTML::change_order_status(array(), 'tsmart_main_tour_order_state_id',$this->main_tour_order->tsmart_main_tour_order_state_id, 'class="change_main_tour_order_status "'); ?>
                     </td>
 
                 </tr>
@@ -85,6 +105,9 @@ $i = 0;
 
         </div>
     </div>
+
+
+
 
 </div>
 <!-- Product pricing -->

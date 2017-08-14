@@ -28,22 +28,24 @@ if(!class_exists('tsmTableData'))require(VMPATH_ADMIN.DS.'helpers'.DS.'tsmtabled
  * @package		tsmart
  * @author RickG, Max Milbers
  */
-class TableExcursion_addon_order extends tsmTableData {
+class TableMain_tour_order extends tsmTableData {
 
 	/** @var int Primary key */
-	var $tsmart_order_excursion_addon_id= 0;
+	var $tsmart_order_main_tour_id= 0;
 	var $note= "";
-	var $excursion_addon_data= null;
+	var $main_tour_data= null;
 	var $adult_cost= 0;
+	var $tsmart_product_id= 0;
 	var $children_cost = 0;
 	var $net_price = 0;
-	var $group_excursion_payment = 0;
+	var $main_tour_payment  = 0;
 	var $mark_up = 0;
 	var $tax = 0;
 	var $tsmart_excursion_addon_id= null;
 	var $children_under_year= 0;
 	var $tsmart_order_id= null;
 	var $reservation_notes= null;
+	var $tsmart_main_tour_order_state_id= null;
 	var $terms_condition= null;
 
 	/**
@@ -52,7 +54,7 @@ class TableExcursion_addon_order extends tsmTableData {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__tsmart_excursion_addon_order', 'tsmart_order_excursion_addon_id', $db);
+		parent::__construct('#__tsmart_main_tour_order', 'tsmart_order_main_tour_id', $db);
 
 
 		//$this->setLoggable();

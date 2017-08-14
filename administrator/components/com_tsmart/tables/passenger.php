@@ -43,6 +43,7 @@ class TablePassenger extends tsmTableData {
 	var $title = "";
 	var $last_name = "";
 	var $gender = "";
+	var $joint_main_tour = 0;
 
 	var $date_of_birth  = "";
 	var $nationality = "";

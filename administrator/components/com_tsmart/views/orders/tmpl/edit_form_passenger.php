@@ -33,11 +33,8 @@ $i = 0;
             <table class="adminlist table table-striped orders_show_form_passenger" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
-                    <th class="admin-checkbox">
-                        <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_order_id', 'Id'); ?>
-                        </label>
-
+                    <th >
+                        <?php echo $this->sort('id', 'Id'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('customer_name', 'Passenger name'); ?>
@@ -50,9 +47,6 @@ $i = 0;
                     </th>
                     <th>
                         <?php echo $this->sort('payment', 'Payment'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
@@ -68,20 +62,18 @@ $i = 0;
                 <tbody>
                 <?php
                 $render_tr=function($row,$index){
-                    $checked = JHtml::_('grid.id', $index, $row->tsmart_passenger_id);
                     ob_start();
                     ?>
-                    <tr class="passenger">
-                        <td><?php echo $checked ?></td>
+                    <tr class="passenger" data-tsmart_passenger_id="<?php echo $row->tsmart_passenger_id  ?>">
+                        <td><?php echo $row->tsmart_passenger_id  ?></td>
                         <td>
                             <?php echo TSMUtility::get_full_name($row) ?>
                             <input type="hidden" value="<?php echo $row->tsmart_passenger_id?>" name="tsmart_passenger_id[]">
                         </td>
                         <td class="book_date"><?php echo $row->created_on  ?></td>
                         <td><span class="cost total_cost"><?php echo $row->total_cost  ?></span></td>
-                        <td><span class="cost payment"><?php echo $row->payment  ?></span></td>
-                        <td><span class="cost balance"><?php echo $row->balance  ?></span></td>
-                        <td><span class="cost cancel_fee"><?php echo $row->cancel_fee  ?></span></td>
+                        <td><span class="cost payment"><?php echo ($payment=$row->payment)?$payment:0  ?></span></td>
+                        <td><span class="cost cancel_fee"><?php echo ($cancel_fee=$row->cancel_fee)?$cancel_fee:0  ?></span></td>
                         <td><span class="cost refund"><?php echo $row->refund  ?></span></td>
                         <td>
                             <?php echo VmHTML::change_passenger_status(array(), 'change_passenger_status_'.$row->tsmart_passenger_id, $row->passenger_status, 'class="change_passenger_status "'); ?>

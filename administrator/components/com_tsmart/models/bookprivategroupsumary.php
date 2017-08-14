@@ -96,6 +96,14 @@ class tsmartModelbookprivategroupsumary extends tmsModel
             die;
             die;
         }
+        $main_tour_Table = $this->getTable('main_tour_order');
+        $main_tour_Table->tsmart_order_main_tour_id=0;
+        $main_tour_Table->tsmart_order_id =$orderTable->tsmart_order_id;
+        $main_tour_Table->tsmart_product_id =$tsmart_product_id;
+        if(!$main_tour_Table->jstore()){
+            throw new Exception("can not save  main tour order");
+        }
+
         $passengerTable = $this->getTable('passenger');
         $list_passenger=$booking_summary->list_passenger;
         $passenger_index=0;
@@ -104,6 +112,7 @@ class tsmartModelbookprivategroupsumary extends tmsModel
                 $passengerTable->tsmart_passenger_id=0;
                 $passenger->date_of_birth=JFactory::getDate($passenger->date_of_birth)->toSql();
                 $passenger->passenger_index=$passenger_index;
+                $passenger->joint_main_tour=1;
                 $passenger->tsmart_order_id=$orderTable->tsmart_order_id;
                 $passenger->tour_tsmart_passenger_state_id=2;
                 $store_data_passenger = (array)$passenger;

@@ -3492,7 +3492,7 @@ XML;
             $list_order_status = tsmorderstates::get_list_orders_states();
         }
 
-        $id_element = 'html_passenger_status_' . $name;
+        $id_element = 'html_orders_status_' . $name;
         ob_start();
         ?>
         <script type="text/javascript">
@@ -3512,7 +3512,7 @@ XML;
         ob_start();
         ?>
         <div id="<?php echo $id_element ?>" <?php echo $attrib ?> >
-            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="passenger_status">
+            <select  disable_chosen="true"  id="<?php echo $name ?>" name="<?php echo $name ?>" class="order_status">
                 <option value=""><?php echo JText::_('Change status') ?></option>
                 <?php foreach ($list_order_status as $order_status) { ?>
                     <option <?php echo $order_status->tsmart_orderstate_id == $default ? ' selected ' : '' ?>

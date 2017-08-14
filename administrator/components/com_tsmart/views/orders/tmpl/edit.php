@@ -130,8 +130,8 @@ $this->debug=TSMUtility::get_debug();
 
         <?php echo $this->loadTemplate('form') ?>
     </div>
-    <div class="order_edit_passenger hide">
-        <?php echo $this->loadTemplate('form_edit_passenger') ?>
+    <div class="order_add_more_passenger hide">
+        <?php echo $this->loadTemplate('form_main_tour_edit_passenger') ?>
     </div>
     <div class="order_edit_passenger_cost_edit_hotel_add_on hide">
         <?php echo $this->loadTemplate('form_edit_passenger_cost_hotel_add_on') ?>

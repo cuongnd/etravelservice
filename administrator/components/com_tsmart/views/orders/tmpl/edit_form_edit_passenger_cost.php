@@ -33,6 +33,9 @@ $i = 0;
             <table class="adminlist table table-striped edit_passenger_cost" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
+                    <th>
+                        <?php echo $this->sort('id', 'Id'); ?>
+                    </th>
                     <th width="20%">
                         <?php echo $this->sort('passenger_name', 'Passenger name'); ?>
                     </th>
@@ -47,6 +50,9 @@ $i = 0;
                     </th>
 
                     <th>
+                        <?php echo $this->sort('surcharge', 'Surcharge'); ?>
+                    </th>
+                    <th>
                         <?php echo $this->sort('discount', 'Discount'); ?>
                     </th>
                     <th>
@@ -54,9 +60,6 @@ $i = 0;
                     </th>
                     <th>
                         <?php echo $this->sort('payment', 'Payment'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->sort('balance', 'Balance'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('cancel', 'Cancel'); ?>
@@ -73,18 +76,20 @@ $i = 0;
                     ob_start();
                     ?>
                     <tr class="passenger">
-
+                        <td class="id">
+                            <?php echo $row->tsmart_passenger_id ?>
+                        </td>
                         <td class="name">
                             <?php echo TSMUtility::get_full_name($row) ?>
                             <input type="hidden" class="tsmart_passenger_id" value=""/>
                         </td>
                         <td><input class="passenger_cost tour_fee"  type="text" disabled value="<?php echo $row->tour_fee ?>"></td>
-                        <td><input class="passenger_cost single_room_fee" type="text" disabled value="<?php echo $row->single_room_fee ?>"></td>
-                        <td><input class="passenger_cost extra_fee" type="text" disabled value="<?php echo $row->extra_fee ?>"></td>
+                        <td><input class="passenger_cost single_room_fee" type="text"  value="<?php echo $row->single_room_fee ?>"></td>
+                        <td><input class="passenger_cost extra_fee" type="text"  value="<?php echo $row->extra_fee ?>"></td>
+                        <td><input class="passenger_cost surcharge" type="text" value="<?php echo $row->surcharge ?>"></td>
                         <td><input class="passenger_cost discount_fee" type="text" value="<?php echo $row->discount_fee ?>"></td>
                         <td><input class="passenger_cost total_cost" disabled type="text" value="<?php echo $row->total_cost?>"></td>
                         <td><input class="passenger_cost payment"  type="text" value="<?php echo $row->payment ?>"></td>
-                        <td><input class="passenger_cost balance"  disabled type="text" value="<?php echo $row->balance ?>"></td>
                         <td><input class="passenger_cost cancel_fee"  type="text" value="<?php echo $row->cancel_fee ?>"></td>
                         <td><input class="passenger_cost refund"  disabled type="text" value="<?php echo $row->refund ?>"></td>
                     </tr>
@@ -93,15 +98,20 @@ $i = 0;
                     return $html;
                 };
                 $total_tour_fee=0;
+                $total_cost_for_all=0;
+                $total_cancel=0;
+                $total_refund=0;
                 for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
                     $passenger_in_room=$this->list_passenger_not_in_temporary[$i];
                     $passenger_in_room->tour_fee = $passenger_in_room->tour_cost ;
                     $passenger_in_room->single_room_fee = $passenger_in_room->room_fee ;
                     $passenger_in_room->discount_fee = $passenger_in_room->discount ;
                     $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
-
+                    $total_cost_for_all+=$passenger_in_room->total_cost;
                     $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
+                    $total_cancel+=$passenger_in_room->cancel_fee;
                     $passenger_in_room->refund = $passenger_in_room->payment-$passenger_in_room->cancel_fee;
+                    $total_refund+=$passenger_in_room->refund;
                     $passenger_in_room->passenger_status =$passenger_in_room->tour_tsmart_passenger_state_id;
                     echo $render_tr($passenger_in_room);
 
@@ -110,6 +120,13 @@ $i = 0;
                 ?>
                 </tbody>
             </table>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="text-center">
+                        <?php echo JText::sprintf('Grand total cost: <span class="total-cost-for-all">%s</span>,Total cancel:<span class="total-cancel">%s</span>, Total refund:<span class="total-refund">%s</span>',$total_cost_for_all,$total_cancel,$total_refund)?>
+                    </div>
+                </div>
+            </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pull-right">

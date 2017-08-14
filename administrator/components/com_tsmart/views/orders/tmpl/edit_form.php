@@ -34,11 +34,11 @@ $i = 0;
     <?php echo $this->loadTemplate('form_passenger') ?>
     <?php echo $this->loadTemplate('form_rooming') ?>
     <?php echo $this->loadTemplate('form_itinerary') ?>
+    <input type="hidden" name="tsmart_order_main_tour_id" value="<?php echo $this->main_tour_order->tsmart_order_main_tour_id ?>">
     <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">
-                <button type="button" class="btn btn-primary save"><?php echo JText::_('Save') ?></button>
-                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Cancel') ?></button>
+                <button type="button" class="btn btn-primary cancel"><?php echo JText::_('Close') ?></button>
             </div>
         </div>
     </div>

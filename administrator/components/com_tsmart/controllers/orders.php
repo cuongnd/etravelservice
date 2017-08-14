@@ -208,6 +208,23 @@ class TsmartControllerorders extends TsmController
         echo json_encode($response);
         die;
     }
+    function change_status_passenger_in_main_tour()
+    {
+        $app = JFactory::getApplication();
+        $passenger_table = tsmTable::getInstance('passenger', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_passenger_id=$data->tsmart_passenger_id;
+        $status=$data->status;
+        $passenger_table->load($tsmart_passenger_id);
+        $response=new stdClass();
+        $passenger_table->tour_tsmart_passenger_state_id=(int)$status;
+        if (!$passenger_table->store()) {
+            throw new Exception('save error: ' . $passenger_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
     function ajax_save_group_excursion_current_payment()
     {
         $app = JFactory::getApplication();
@@ -220,6 +237,41 @@ class TsmartControllerorders extends TsmController
         $excursion_addon_order_table->group_excursion_payment=(float)$group_excursion_payment;
         if (!$excursion_addon_order_table->jstore()) {
             throw new Exception('save error: ' . $excursion_addon_order_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_save_group_hotel_current_payment()
+    {
+        $app = JFactory::getApplication();
+        $group_hotel_addon_order_table = tsmTable::getInstance('group_hotel_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $group_hotel_payment=$data->group_hotel_payment;
+        $tsmart_group_hotel_addon_order_id=$data->tsmart_group_hotel_addon_order_id;
+        $group_hotel_addon_order_table->jload($tsmart_group_hotel_addon_order_id);
+        $response=new stdClass();
+        $group_hotel_addon_order_table->group_hotel_payment=(float)$group_hotel_payment;
+        if (!$group_hotel_addon_order_table->jstore()) {
+            throw new Exception('save error: ' . $group_hotel_addon_order_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function ajax_save_main_tour_current_payment()
+    {
+        $app = JFactory::getApplication();
+        $main_tour_order_table = tsmTable::getInstance('main_tour_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $main_tour_current_payment=$data->main_tour_current_payment;
+        $tsmart_order_id=$data->tsmart_order_id;
+        $tsmart_order_main_tour_id=$data->tsmart_order_main_tour_id;
+        $main_tour_order_table->jload($tsmart_order_main_tour_id);
+        $response=new stdClass();
+        $main_tour_order_table->main_tour_payment=(float)$main_tour_current_payment;
+        if (!$main_tour_order_table->jstore()) {
+            throw new Exception('save error: ' . $main_tour_order_table->getError());
         }
         $response->e = 0;
         echo json_encode($response);
@@ -293,6 +345,24 @@ class TsmartControllerorders extends TsmController
         $group_hotel_addon_order_table->status=(int)$status;
         if (!$group_hotel_addon_order_table->store()) {
             throw new Exception('save error: ' . $group_hotel_addon_order_table->getError());
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
+    function change_status_main_tour()
+    {
+        $app = JFactory::getApplication();
+        $main_tour_order_table = tsmTable::getInstance('main_tour_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $tsmart_order_id=$data->tsmart_order_id;
+        $tsmart_main_tour_order_state_id=$data->tsmart_main_tour_order_state_id;
+        $tsmart_order_main_tour_id=$data->tsmart_order_main_tour_id;
+        $main_tour_order_table->jload($tsmart_order_main_tour_id);
+        $response=new stdClass();
+        $main_tour_order_table->tsmart_main_tour_order_state_id=(int)$tsmart_main_tour_order_state_id;
+        if (!$main_tour_order_table->jstore()) {
+            throw new Exception('save error: ' . $main_tour_order_table->getError());
         }
         $response->e = 0;
         echo json_encode($response);
@@ -566,6 +636,29 @@ class TsmartControllerorders extends TsmController
         echo json_encode($response);
         die;
     }
+    function ajax_get_list_passenger_in_temporary_by_order_id()
+    {
+        $app = JFactory::getApplication();
+        $order_table = tsmTable::getInstance('orders', 'Table');
+        $data = $app->input->getArray();
+
+        $tsmart_order_id = $data['tsmart_order_id'];
+        $response = new stdClass();
+        $response->e = 0;
+        $passenger_helper = TSMHelper::getHepler('passenger');
+
+        $list_passenger_in_temporary_by_order_id = $passenger_helper->get_list_passenger_in_temporary_by_order_id($tsmart_order_id);
+        $order_table = tsmTable::getInstance('orders', 'Table');
+
+        $order_table->jload($tsmart_order_id);
+        $response = new stdClass();
+        $response->e = 0;
+        $order_object = (object)$order_table->getproperties();
+        $response->r = $order_object;
+        $response->list_passenger_in_temporary_by_order_id = $list_passenger_in_temporary_by_order_id;
+        echo json_encode($response);
+        die;
+    }
     function ajax_remove_passenger_from_rooming_list(){
         $app = JFactory::getApplication();
         $hotel_addon_order_table = tsmTable::getInstance('hotel_addon_order', 'Table');
@@ -639,6 +732,7 @@ class TsmartControllerorders extends TsmController
             'hotel.hotel_name,
             hotel.tsmart_cityarea_id,
             group_hotel_addon_order.tsmart_hotel_addon_id,
+            group_hotel_addon_order.group_hotel_payment,
             group_hotel_addon_order.status AS group_status,
             hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
             ,group_hotel_addon_order.tsmart_order_id
@@ -684,7 +778,7 @@ class TsmartControllerorders extends TsmController
 
             $passenger_in_room->unit_price_per_night=$passenger_helper->get_unit_price_per_night($passenger_in_room->tsmart_passenger_id,$data_price,$type);
             if($type=='pre') {
-                $passenger_in_room->pre_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night - $passenger_in_room->pre_night_discount;
+                $passenger_in_room->pre_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night +$passenger_in_room->pre_night_surcharge - $passenger_in_room->pre_night_discount;
                 $passenger_in_room->pre_night_balance = $passenger_in_room->pre_night_total_cost - $passenger_in_room->pre_night_payment;
                 $passenger_in_room->pre_night_refund = $passenger_in_room->pre_night_payment - $passenger_in_room->pre_night_cancel_fee;
 
@@ -694,7 +788,7 @@ class TsmartControllerorders extends TsmController
                 $pre_total_cancel += $passenger_in_room->pre_night_cancel_fee;
                 $pre_total_cost += $passenger_in_room->pre_night_total_cost;
             }else {
-                $passenger_in_room->post_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night - $passenger_in_room->post_night_discount;
+                $passenger_in_room->post_night_total_cost = $passenger_in_room->unit_price_per_night * $total_night+$passenger_in_room->pre_night_surcharge - $passenger_in_room->post_night_discount;
                 $passenger_in_room->post_night_balance = $passenger_in_room->post_night_total_cost - $passenger_in_room->post_night_payment;
                 $passenger_in_room->post_night_refund = $passenger_in_room->post_night_payment - $passenger_in_room->post_night_cancel_fee;
 
@@ -1146,6 +1240,8 @@ class TsmartControllerorders extends TsmController
             $passenger_table->jload($row->tsmart_passenger_id);
             $passenger_table->payment=$row->payment!=''?$row->payment:null;
             $passenger_table->cancel_fee=$row->cancel_fee!=''?$row->cancel_fee:null;
+            $passenger_table->room_fee=$row->room_fee!=''?$row->room_fee:0;
+            $passenger_table->extra_fee=$row->extra_fee!=''?$row->extra_fee:0;
             $passenger_table->discount=$row->discount!=''?$row->discount:null;
             if (!$passenger_table->jstore(true)) {
                 throw new Exception('save error: ' . $passenger_table->getError());
@@ -1242,6 +1338,7 @@ class TsmartControllerorders extends TsmController
             $passenger_table->jload($row['tsmart_passenger_id']);
             $passenger_table->bind($row);
             $passenger_table->discount = $row['passenger_discount'];
+            $passenger_table->surcharge = $row['passenger_surcharge'];
             $passenger_table->extra_fee = $row['passenger_extra_fee'];
             $passenger_table->is_temporary = 0;
             if (!$passenger_table->store()) {

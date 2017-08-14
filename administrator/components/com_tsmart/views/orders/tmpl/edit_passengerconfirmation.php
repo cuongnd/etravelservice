@@ -33,11 +33,8 @@ $i = 0;
             <table class="adminlist table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr>
-                    <th class="admin-checkbox">
-                        <label class="checkbox"><input type="checkbox" name="toggle" value=""
-                                                       onclick="Joomla.checkAll(this)"/><?php echo $this->sort('tsmart_order_id', 'Id'); ?>
-                        </label>
-
+                    <th >
+                        <?php echo $this->sort('id', 'Id'); ?>
                     </th>
                     <th>
                         <?php echo $this->sort('customer_name', 'Passenger name'); ?>
@@ -71,11 +68,10 @@ $i = 0;
                 <?php
                 $render_tr=function($row){
                     $i=0;
-                    $checked = JHtml::_('grid.id', $i, $row->tsmart_passenger_id);
                     ob_start();
                     ?>
                     <tr>
-                        <td><?php echo $checked ?></td>
+                        <td><?php echo $row->tsmart_passenger_id  ?></td>
                         <td><?php echo TSMUtility::get_full_name($row) ?></td>
                         <td><?php echo $row->booking  ?></td>
                         <td><?php echo $row->service_name  ?></td>
