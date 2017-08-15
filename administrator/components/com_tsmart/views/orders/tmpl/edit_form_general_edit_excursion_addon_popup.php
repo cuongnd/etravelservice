@@ -36,7 +36,8 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="row-fluid">
                     <div class="span6">
                         <?php echo VmHTML::row_control('text_view',JText::_('Service name'), "",'class="text-view excursion_addon_name "'); ?>
-                        <?php echo VmHTML::row_control('text_view',JText::_('Supplier'), ''); ?>
+                        <?php echo VmHTML::row_control('supplier.select_supplier', 'Supplier',array(),'excursion_add_on_tsmart_supplier_id','',''); ?>
+
                         <?php echo VmHTML::row_control('text_view',JText::_('Customer'), ''); ?>
                         <?php echo VmHTML::row_control('text_view',JText::_('Booker by'), ''); ?>
                         <div class="row-fluid">
@@ -46,25 +47,25 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Check in date'), ' ','class="text-view check_in_date "'); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Check in date'), 'excursion_check_in_date', ''); ?>
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('text_view',JText::_('Check out date'), ' ','class="text-view check_out_date "'); ?>
+                                <?php echo VmHTML::row_control('select_date',JText::_('Check in date'), 'excursion_check_out_date', ''); ?>
                             </div>
                         </div>
+
                         <div class="row-fluid">
                             <div class="span6">
                                 <?php echo VmHTML::row_control('input',JText::_('Reference'), 'product_code', $this->tour->product_code, ' placeholder="service name"  readonly style="width: 100%;" '); ?>
-
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'read_only_list_assign_user_id_manager_excursion_add_on',array(),' disabled '); ?>
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'list_assign_user_id_manager_excursion_add_on',array(),' '); ?>
                             </div>
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', "",' readonly ',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', "",' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','excursion_terms_condition', "",'  ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','excursion_reservation_notes', "",'  ',100,4); ?>
 
                     </div>
                 </div>

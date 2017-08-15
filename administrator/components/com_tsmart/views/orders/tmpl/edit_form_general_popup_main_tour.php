@@ -62,14 +62,14 @@ defined('_JEXEC') or die('Restricted access');
 
                             </div>
                             <div class="span6">
-                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'assign_user_id_manager_main_tour',array(),'  '); ?>
+                                <?php echo VmHTML::row_control('user.select_user_name', 'Assign to',array(),'list_assign_user_id_manager_main_tour',array(),'  '); ?>
                             </div>
 
                         </div>
                     </div>
                     <div class="span6">
                         <?php echo VmHTML::row_control('textarea', 'Terms & condition','main_tour_terms_condition', $this->item->terms_condition,' ',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,'',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','main_tour_reservation_notes', $this->item->terms_condition,'',100,4); ?>
 
                     </div>
                 </div>

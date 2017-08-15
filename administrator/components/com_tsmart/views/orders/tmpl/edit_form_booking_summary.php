@@ -35,7 +35,7 @@ for($i=0;$total=count($this->list_passenger_not_in_temporary),$i<$total;$i++){
     $passenger_in_room->tour_fee = $passenger_in_room->tour_cost ;
     $passenger_in_room->single_room_fee = $passenger_in_room->room_fee ;
     $passenger_in_room->discount_fee = $passenger_in_room->discount ;
-    $passenger_in_room->total_cost = $passenger_in_room->tour_cost+$passenger_in_room->room_fee+$passenger_in_room->extra_fee-$passenger_in_room->discount;
+    $passenger_in_room->total_cost = (float)$passenger_in_room->tour_cost+(float)$passenger_in_room->room_fee+(float)$passenger_in_room->extra_fee+(float)$passenger_in_room->surcharge-(float)$passenger_in_room->discount;
     $total_cost_for_all+=(float)$passenger_in_room->total_cost;
     $passenger_in_room->balance = $passenger_in_room->total_cost-$passenger_in_room->payment;
     $total_cancel+=(float)$passenger_in_room->cancel_fee;

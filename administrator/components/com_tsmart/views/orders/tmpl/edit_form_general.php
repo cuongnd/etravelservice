@@ -66,8 +66,8 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                     </div>
                     <div class="span6">
-                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition', $this->item->terms_condition,' readonly ',100,4); ?>
-                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes', $this->item->terms_condition,' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Terms & condition','terms_condition_readonly', $this->item->terms_condition,' readonly ',100,4); ?>
+                        <?php echo VmHTML::row_control('textarea', 'Reservation notes','reservation_notes_readonly', $this->item->reservation_notes,' readonly ',100,4); ?>
 
                     </div>
                 </div>

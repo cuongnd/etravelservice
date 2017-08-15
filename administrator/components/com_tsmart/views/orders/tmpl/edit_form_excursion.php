@@ -30,10 +30,10 @@ $i = 0;
     <?php echo $this->loadTemplate('form_general_edit_excursion_addon') ?>
     <?php echo $this->loadTemplate('form_booking_summary_edit_excursion_addon') ?>
     <?php echo $this->loadTemplate('form_service_cost_edit_excursion_addon') ?>
-    <?php //echo $this->loadTemplate('form_condition_edit_excursion_addon') ?>
+    <?php echo $this->loadTemplate('form_condition_edit_excursion_addon') ?>
     <?php echo $this->loadTemplate('form_passenger_edit_excursion_addon') ?>
     <?php //echo $this->loadTemplate('form_list_passenger_not_in_excursion') ?>
-    <?php //echo $this->loadTemplate('form_itinerary_edit_excursion_add') ?>
+    <?php echo $this->loadTemplate('form_itinerary_edit_excursion_add') ?>
     <input type="hidden" value="" name="tsmart_order_excursion_addon_id">
     <div class="row-fluid">
         <div class="span12">

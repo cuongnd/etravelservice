@@ -40,6 +40,8 @@ class Tablegroup_hotel_addon_order extends tsmTableData {
 	var $tsmart_order_id= null;
 	var $terms_condition= null;
 	var $reservation_notes= null;
+	var $group_hotel_current_discount= 0;
+	var $group_hotel_current_commission= 0;
 	var $status= 0;
 
 	/**

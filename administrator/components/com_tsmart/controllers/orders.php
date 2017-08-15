@@ -451,6 +451,56 @@ class TsmartControllerorders extends TsmController
         echo json_encode($response);
         die;
     }
+
+    function ajax_save_group_excursion_in_for()
+    {
+        $app = JFactory::getApplication();
+        $group_excursion_addon_order_table = tsmTable::getInstance('excursion_addon_order', 'Table');
+        $data = (object)$app->input->getArray();
+
+        $tsmart_order_excursion_addon_id=$data->tsmart_order_excursion_addon_id;
+        $terms_condition=$data->terms_condition;
+        $reservation_notes=$data->reservation_notes;
+        $checkin_date=$data->checkin_date;
+        $checkout_date=$data->checkout_date;
+        $group_excursion_addon_order_table->load($tsmart_order_excursion_addon_id);
+        $response=new stdClass();
+        $group_excursion_addon_order_table->checkin_date=JFactory::getDate($checkin_date)->toSql();
+        $group_excursion_addon_order_table->checkout_date=JFactory::getDate($checkout_date)->toSql();
+        $group_excursion_addon_order_table->terms_condition=$terms_condition;
+        $group_excursion_addon_order_table->reservation_notes=$reservation_notes;
+        if (!$group_excursion_addon_order_table->store()) {
+            throw new Exception('save error: ' . $group_excursion_addon_order_table->getError());
+        }
+        $list_assign_user_id_manager_hotel_add_on=$data->list_assign_user_id_manager_hotel_add_on;
+        $db=JFactory::getDbo();
+        $order_helper = TSMHelper::getHepler('orders');
+        $query=$db->getQuery(true);
+        $query->delete('#__tsmart_order_user_manager')
+            ->where('object_id='.(int)$tsmart_order_excursion_addon_id)
+            ->where('type='.$query->q($order_helper::TYPE_GROUP_EXCURSION_ADD_ON_ORDER))
+            ;
+        $db->setQuery($query);
+        if (!$db->execute()) {
+            throw new Exception('save error: ' . $db->getError());
+        }
+
+        foreach($list_assign_user_id_manager_hotel_add_on as $user_id){
+            $query->clear();
+            $query->insert('#__tsmart_order_user_manager')
+                ->set('type ='.$query->q($order_helper::TYPE_GROUP_EXCURSION_ADD_ON_ORDER))
+                ->set('user_id='.(int)$user_id)
+                ->set('object_id='.(int)$tsmart_order_excursion_addon_id)
+            ;
+            $db->setQuery($query);
+            if (!$db->execute()) {
+                throw new Exception('save error: ' . $db->getError());
+            }
+        }
+        $response->e = 0;
+        echo json_encode($response);
+        die;
+    }
     function ajax_save_transfer_add_on()
     {
         $app = JFactory::getApplication();
@@ -603,13 +653,14 @@ class TsmartControllerorders extends TsmController
         die;
     }
 
-    function ajax_get_order_detail_by_order_id()
+    function ajax_get_main_tour_order_detail_by_order_id()
     {
         $app = JFactory::getApplication();
         $order_table = tsmTable::getInstance('orders', 'Table');
-        $data = $app->input->getArray();
-
-        $tsmart_order_id = $data['tsmart_order_id'];
+        $data = (object)$app->input->getArray();
+        $orders_helper = TSMHelper::getHepler('orders');
+        $tsmart_order_id = $data->tsmart_order_id;
+        $tsmart_order_main_tour_id = $data->tsmart_order_main_tour_id;
         $response = new stdClass();
         $response->e = 0;
         $passenger_helper = TSMHelper::getHepler('passenger');
@@ -633,6 +684,16 @@ class TsmartControllerorders extends TsmController
         $order_object = (object)$order_table->getproperties();
         $response->r = $order_object;
         $response->list_row = $list_row;
+        $db=JFactory::getDbo();
+        $query=$db->getQuery(true);
+        $query->select('main_tour_order.*')
+            ->from('#__tsmart_main_tour_order AS main_tour_order')
+            ->where('tsmart_order_main_tour_id='.(int)$tsmart_order_main_tour_id)
+            ;
+        $main_tour_order=$db->setQuery($query)->loadObject();
+        $response->main_tour_order=$main_tour_order;
+        $response->list_assign_user_id_manager_main_tour=$orders_helper->get_list_assign_user_id_manager_main_tour($tsmart_order_main_tour_id);
+
         echo json_encode($response);
         die;
     }
@@ -733,6 +794,8 @@ class TsmartControllerorders extends TsmController
             hotel.tsmart_cityarea_id,
             group_hotel_addon_order.tsmart_hotel_addon_id,
             group_hotel_addon_order.group_hotel_payment,
+            group_hotel_addon_order.group_hotel_current_discount,
+            group_hotel_addon_order.group_hotel_current_commission,
             group_hotel_addon_order.status AS group_status,
             hotel_addon_order.tsmart_order_hotel_addon_id,hotel_addon_order.terms_condition
             ,group_hotel_addon_order.tsmart_order_id
@@ -896,9 +959,9 @@ class TsmartControllerorders extends TsmController
         foreach ($list_passenger as &$passenger_in_transfer) {
 
             if($type=='pre') {
-                $passenger_in_transfer->pre_transfer_total_cost = $passenger_in_transfer->pre_transfer_fee -$passenger_in_transfer->pre_transfer_surchage+ $passenger_in_transfer->pre_transfer_discount;
-                $passenger_in_transfer->pre_transfer_balance = $passenger_in_transfer->pre_transfer_total_cost - $passenger_in_transfer->pre_transfer_payment;
-                $passenger_in_transfer->pre_transfer_refund = $passenger_in_transfer->pre_transfer_payment - $passenger_in_transfer->pre_transfer_cancel_fee;
+                $passenger_in_transfer->pre_transfer_total_cost = (float)$passenger_in_transfer->pre_transfer_fee +(float)$passenger_in_transfer->pre_transfer_surcharge- (float)$passenger_in_transfer->pre_transfer_discount;
+                $passenger_in_transfer->pre_transfer_balance = (float)$passenger_in_transfer->pre_transfer_total_cost - (float)$passenger_in_transfer->pre_transfer_payment;
+                $passenger_in_transfer->pre_transfer_refund = (float)$passenger_in_transfer->pre_transfer_payment -(float) $passenger_in_transfer->pre_transfer_cancel_fee;
 
                 $pre_total_balance += $passenger_in_transfer->pre_transfer_balance;
                 $pre_total_payment += $passenger_in_transfer->pre_transfer_payment;
@@ -906,9 +969,9 @@ class TsmartControllerorders extends TsmController
                 $pre_total_cancel += $passenger_in_transfer->pre_transfer_cancel_fee;
                 $pre_total_cost += $passenger_in_transfer->pre_transfer_total_cost;
             }else {
-                $passenger_in_transfer->post_transfer_total_cost = $passenger_in_transfer->post_transfer_fee +$passenger_in_transfer->post_transfer_surchage - $passenger_in_transfer->post_transfer_discount;
-                $passenger_in_transfer->post_transfer_balance = $passenger_in_transfer->post_transfer_total_cost - $passenger_in_transfer->post_transfer_payment;
-                $passenger_in_transfer->post_transfer_refund = $passenger_in_transfer->post_transfer_payment - $passenger_in_transfer->post_transfer_cancel_fee;
+                $passenger_in_transfer->post_transfer_total_cost = (float)$passenger_in_transfer->post_transfer_fee +(float)$passenger_in_transfer->post_transfer_surcharge - (float)$passenger_in_transfer->post_transfer_discount;
+                $passenger_in_transfer->post_transfer_balance = (float)$passenger_in_transfer->post_transfer_total_cost - (float)$passenger_in_transfer->post_transfer_payment;
+                $passenger_in_transfer->post_transfer_refund = (float)$passenger_in_transfer->post_transfer_payment - (float)$passenger_in_transfer->post_transfer_cancel_fee;
 
                 $post_total_balance += $passenger_in_transfer->post_transfer_balance;
                 $post_total_payment += $passenger_in_transfer->post_transfer_payment;
@@ -1242,6 +1305,7 @@ class TsmartControllerorders extends TsmController
             $passenger_table->cancel_fee=$row->cancel_fee!=''?$row->cancel_fee:null;
             $passenger_table->room_fee=$row->room_fee!=''?$row->room_fee:0;
             $passenger_table->extra_fee=$row->extra_fee!=''?$row->extra_fee:0;
+            $passenger_table->surcharge=$row->surcharge!=''?$row->surcharge:0;
             $passenger_table->discount=$row->discount!=''?$row->discount:null;
             if (!$passenger_table->jstore(true)) {
                 throw new Exception('save error: ' . $passenger_table->getError());
@@ -1434,20 +1498,36 @@ class TsmartControllerorders extends TsmController
         die;
     }
 
-    function ajax_save_order_info()
+    function ajax_save_main_tour_order_info()
     {
         $app = JFactory::getApplication();
-        $order_table = tsmTable::getInstance('orders', 'Table');
-        $data = $app->input->getArray();
-        $list_row = $data['list_row'];
-        $order_table->jload($data['tsmart_order_id']);
-        $order_table->assign_user_id = $data['assign_user_id'];
-        $order_table->terms_condition = $data['terms_condition'];
-        $order_table->reservation_notes = $data['reservation_notes'];
-        $order_table->itinerary = $data['itinerary'];
-        $tsmart_orderstate_id = $data['tsmart_orderstate_id'];
-        $order_table->tsmart_orderstate_id = $tsmart_orderstate_id > 0 ? $tsmart_orderstate_id : null;
+        $main_tour_order_table = tsmTable::getInstance('main_tour_order', 'Table');
+        $data = (object)$app->input->getArray();
+        $list_row = $data->list_row;
         $response = new stdClass();
+        $tsmart_order_id=$data->tsmart_order_id;
+        $terms_condition=$data->terms_condition;
+        $reservation_notes=$data->reservation_notes;
+        $itinerary=$data->itinerary;
+        $tsmart_orderstate_id=$data->tsmart_orderstate_id;
+        $tsmart_order_main_tour_id=$data->tsmart_order_main_tour_id;
+        $main_tour_order_table->jload($tsmart_order_main_tour_id);
+        $main_tour_order_table->terms_condition = $terms_condition;
+        $main_tour_order_table->reservation_notes = $reservation_notes;
+        $main_tour_order_table->itinerary = $itinerary;
+
+        if (!$main_tour_order_table->store()) {
+            $response->e = 1;
+            $response->m = $main_tour_order_table->getError();
+            echo json_encode($response);
+            die;
+        }
+        $order_table = tsmTable::getInstance('orders', 'Table');
+
+        $order_table->jload($tsmart_order_id);
+
+        $order_table->tsmart_orderstate_id = $tsmart_orderstate_id > 0 ? $tsmart_orderstate_id : null;
+
         $response->e = 0;
         if (!$order_table->store()) {
             $response->e = 1;
@@ -1471,8 +1551,8 @@ class TsmartControllerorders extends TsmController
         $order_data = json_decode($order_object->order_data);
         $list_passenger = $order_data->list_passenger;
         $user = JFactory::getUser();
-        $departure_date = JFactory::getDate($data['departure_date']);
-        $departure_date_end = JFactory::getDate($data['departure_date_end']);
+        $departure_date = JFactory::getDate($data->departure_date);
+        $departure_date_end = JFactory::getDate($data->departure_date_end);
         $order_data->departure->departure_date = $departure_date->toSql();
         $order_data->departure->departure_date_end = $departure_date_end->toSql();
         $order_data = json_encode($order_data);
@@ -1487,6 +1567,35 @@ class TsmartControllerorders extends TsmController
         $response->service_date = JHtml::_('date', $departure_date, tsmConfig::$date_format) . "<br/>" . JHtml::_('date', $departure_date_end, tsmConfig::$date_format);
         $response->departure_date = JHtml::_('date', $departure_date, tsmConfig::$date_format);
         $response->assign_name = JFactory::getUser($order_table->assign_user_id)->name;
+
+
+
+
+        $list_assign_user_id_manager_main_tour=$data->list_assign_user_id_manager_main_tour;
+        $db=JFactory::getDbo();
+        $order_helper = TSMHelper::getHepler('orders');
+        $query=$db->getQuery(true);
+        $query->delete('#__tsmart_order_user_manager')
+            ->where('object_id='.(int)$tsmart_order_main_tour_id)
+            ->where('type='.$query->q($order_helper::TYPE_GROUP_MAIN_TOUR_ORDER))
+        ;
+        $db->setQuery($query);
+        if (!$db->execute()) {
+            throw new Exception('save error: ' . $db->getError());
+        }
+
+        foreach($list_assign_user_id_manager_main_tour as $user_id){
+            $query->clear();
+            $query->insert('#__tsmart_order_user_manager')
+                ->set('type ='.$query->q($order_helper::TYPE_GROUP_MAIN_TOUR_ORDER))
+                ->set('user_id='.(int)$user_id)
+                ->set('object_id='.(int)$tsmart_order_main_tour_id)
+            ;
+            $db->setQuery($query);
+            if (!$db->execute()) {
+                throw new Exception('save error: ' . $db->getError());
+            }
+        }
         echo json_encode($response);
         die;
     }

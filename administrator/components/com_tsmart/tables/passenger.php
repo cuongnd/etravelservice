@@ -70,6 +70,7 @@ class TablePassenger extends tsmTableData {
 	var $cancel_fee   = null;
 	var $room_fee   = 0;
 	var $tour_cost   = 0;
+	var $surcharge   = 0;
 	var $tsmart_room_order_id   = null;
 	var $tour_tsmart_passenger_state_id = null;
 
